@@ -30,17 +30,12 @@ import java.util.Map;
 )
 public class CredsDataSourceConfig {
 
-    @Bean(name = "credsDataSource")
-    @ConfigurationProperties(prefix = "spring.datasource.creds")
-    public DataSource dataSource() {
-        return DataSourceBuilder.create().build();
-    }
 
     @Bean(name = "credsEntityManagerFactory")
     @ConfigurationProperties(prefix = "spring.datasource.creds.jpa")
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(
             EntityManagerFactoryBuilder builder,
-            @Qualifier("credsDataSource") DataSource dataSource,
+            DataSource dataSource,
             @Value("${spring.datasource.creds.hbm2ddl.auto}") String ddlAuto) {
 
         Map<String, Object> properties = new HashMap<>();
