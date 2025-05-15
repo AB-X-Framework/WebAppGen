@@ -8,8 +8,14 @@
     <script src="/web/jquery/jquery-3.6.0.min.js"></script>
     <script src="/web/materialize/js/materialize.min.js"></script>
     <script src="/web/content.js"></script>
+    <script>
+
+        $(document).ready(function()\{
+            PageContent.renderPage("{pagename}");
+        \})
+    </script>
 </head>
 <body>
-    Hello {pagename}
+    <div id="body-content"></div>
 </body>
 </html>

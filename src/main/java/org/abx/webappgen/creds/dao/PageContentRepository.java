@@ -6,7 +6,7 @@ import org.abx.webappgen.creds.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PageContentRepository extends JpaRepository<Page, Long> {
-    Page findByPagename(String pagename);
+    Page findByPageId(long pageId);
 
     @Override
     void delete(Page user);

@@ -1,7 +1,9 @@
 package org.abx.webappgen.controller;
 
 import org.abx.util.StreamUtils;
+import org.abx.webappgen.creds.UserPageModel;
 import org.abx.webappgen.creds.model.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +20,8 @@ public class UserPageController {
 
     private  ST pageTemplate ;
 
+    @Autowired
+    public UserPageModel userPageModel;
     public UserPageController(){
         try {
             String data = StreamUtils.readResource("org/abx/webappgen/page.html");
@@ -30,9 +34,14 @@ public class UserPageController {
     @GetMapping(value = "/{pagename}", produces = MediaType.TEXT_HTML_VALUE)
     @PreAuthorize("permitAll()")
     public String page(@PathVariable String pagename) {
-        String output = pageTemplate.add("pagename",pagename).render();
+        ST st1 = new ST(pageTemplate);
+        String output = st1.add("pagename",pagename).render();
         return output;
     }
 
-
+    @GetMapping(value = "/specs/{pagename}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("permitAll()")
+    public String pageSpecs(@PathVariable String pagename) {
+        return userPageModel.getPageByPageId(userPageModel.pageHashCode(pagename)).toString(1);
+    }
 }
