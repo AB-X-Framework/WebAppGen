@@ -36,7 +36,7 @@ public class CredsDataSourceConfig {
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(
             EntityManagerFactoryBuilder builder,
             DataSource dataSource,
-            @Value("${spring.datasource.creds.hbm2ddl.auto}") String ddlAuto) {
+            @Value("${spring.datasource.hbm2ddl.auto}") String ddlAuto) {
 
         Map<String, Object> properties = new HashMap<>();
         properties.put("hibernate.hbm2ddl.auto", ddlAuto); // Ensures schema update
