@@ -8,7 +8,7 @@
 		<version>3.2.4</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.abx.app</groupId>
+	<groupId>org.abx.app</groupId>
 	<artifactId>webappgen</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<name>ABX WebApp Gen</name>

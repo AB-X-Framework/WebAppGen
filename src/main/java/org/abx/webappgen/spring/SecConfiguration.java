@@ -1,4 +1,4 @@
-package com.abx.webappgen.spring;
+package org.abx.webappgen.spring;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

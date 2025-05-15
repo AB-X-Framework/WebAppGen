@@ -1,4 +1,4 @@
-package com.abx.webappgen.controller;
+package org.abx.webappgen.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.MediaType;

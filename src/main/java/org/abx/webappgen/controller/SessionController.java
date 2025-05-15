@@ -1,4 +1,4 @@
-package com.abx.webappgen.controller;
+package org.abx.webappgen.controller;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

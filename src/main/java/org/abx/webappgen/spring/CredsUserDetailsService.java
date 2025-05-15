@@ -1,8 +1,8 @@
-package com.abx.webappgen.spring;
+package org.abx.webappgen.spring;
 
 
-import com.abx.webappgen.creds.dao.UserRepository;
-import com.abx.webappgen.creds.model.User;
+import org.abx.webappgen.creds.dao.UserRepository;
+import org.abx.webappgen.creds.model.User;
 import org.abx.util.StreamUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -66,7 +66,7 @@ public class CredsUserDetailsService implements UserDetailsService {
     private void processAuthorities() throws Exception {
         JSONObject obj = new JSONObject(StreamUtils.readStream
                 (CredsUserDetailsService.class.getClassLoader().getResourceAsStream
-                ("com/abx/webappgen/Permission.json")));
+                ("org/abx/webappgen/Permission.json")));
         authoritiesPerRole = new HashMap<>();
         for (String role : obj.keySet()) {
             JSONArray permissions = obj.getJSONArray(role);

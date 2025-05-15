@@ -1,13 +1,13 @@
-package com.abx.webappgen.spring;
+package org.abx.webappgen.spring;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication(scanBasePackages = {
-        "com.abx.webappgen.spring",
-        "com.abx.webappgen.creds",
+        "org.abx.webappgen.creds",
+        "org.abx.webappgen.spring",
         "org.abx.services",
-        "com.abx.webappgen.controller"})
+        "org.abx.webappgen.controller"})
 public class ABXWebAppGen {
 
     public static void main(String[] args) {

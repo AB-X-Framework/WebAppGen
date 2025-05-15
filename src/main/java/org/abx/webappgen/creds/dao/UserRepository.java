@@ -1,7 +1,7 @@
-package com.abx.webappgen.creds.dao;
+package org.abx.webappgen.creds.dao;
 
 
-import com.abx.webappgen.creds.model.User;
+import org.abx.webappgen.creds.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<User, Long> {
