@@ -40,7 +40,7 @@ public class CredsDataSourceConfig {
     @Bean(name = "credsEntityManagerFactory")
     @ConfigurationProperties(prefix = "spring.datasource.creds.jpa")
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(
-            @Qualifier("credsEntityManagerFactoryBuilder") EntityManagerFactoryBuilder builder,
+            EntityManagerFactoryBuilder builder,
             @Qualifier("credsDataSource") DataSource dataSource,
             @Value("${spring.datasource.creds.hbm2ddl.auto}") String ddlAuto) {
 
@@ -61,8 +61,4 @@ public class CredsDataSourceConfig {
     }
 
 
-    @Bean(name = "credsEntityManagerFactoryBuilder")
-    public EntityManagerFactoryBuilder entityManagerFactoryBuilder() {
-        return new EntityManagerFactoryBuilder(new HibernateJpaVendorAdapter(), new HashMap<>(), null);
-    }
 }
