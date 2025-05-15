@@ -30,8 +30,6 @@ public class SecConfiguration {
                             .permitAll()
                             .requestMatchers("page/**")
                             .permitAll()
-                            .requestMatchers("gateway/**")
-                            .permitAll()
                             .requestMatchers("error").permitAll()
                             .anyRequest()
                             .authenticated();
