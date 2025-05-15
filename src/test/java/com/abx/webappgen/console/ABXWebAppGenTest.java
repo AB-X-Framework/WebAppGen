@@ -13,7 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ConfigurableApplicationContext;
 
 @SpringBootTest(classes = com.abx.webappgen.spring.ABXWebAppGen.class)
-class ABXWebAppGen {
+class ABXWebAppGenTest {
 
 	private static ConfigurableApplicationContext context;
 	@Autowired
