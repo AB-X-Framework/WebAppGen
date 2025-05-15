@@ -26,8 +26,7 @@ import java.util.Map;
 @EnableTransactionManagement
 @EnableJpaRepositories(
         basePackages = "org.abx.webappgen.creds.dao",
-        entityManagerFactoryRef = "credsEntityManagerFactory",
-        transactionManagerRef = "credsTransactionManager"
+        entityManagerFactoryRef = "credsEntityManagerFactory"
 )
 public class CredsDataSourceConfig {
 
@@ -54,11 +53,6 @@ public class CredsDataSourceConfig {
                 .build();
     }
 
-    @Bean(name = "credsTransactionManager")
-    public PlatformTransactionManager transactionManager(
-            @Qualifier("credsEntityManagerFactory") EntityManagerFactory entityManagerFactory) {
-        return new JpaTransactionManager(entityManagerFactory);
-    }
 
 
 }
