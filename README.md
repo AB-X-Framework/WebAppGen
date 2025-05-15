@@ -1,2 +1,0 @@
-# WebAppGen
-WebAppGen

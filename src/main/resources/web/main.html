@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>ABX WebApp Gen | Alquiler Profesional y Acogedor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <!-- Materialize CSS -->
+    <link href="/web/materialize/css/materialize.min.css" rel="stylesheet">
+    <!-- Google Fonts & Icons -->
+    <script src="/web/jquery/jquery-3.6.0.min.js"></script>
+    <script src="/web/materialize/js/materialize.min.js"></script>
+    <style>
+        body {
+            font-family: 'Raleway', sans-serif;
+        }
+        .hero {
+            background: url('https://scontent.fsyq1-1.fna.fbcdn.net/v/t39.30808-6/472867247_1128825292580435_2907235989597159316_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=wPt-1XzNXu4Q7kNvwEsBofj&_nc_oc=AdnGODG9N2CQCsml4ibKPc8zVnLs1jDK49cT92KiWK0Jg5WV4gPR5fS79RoP4rqRffs&_nc_zt=23&_nc_ht=scontent.fsyq1-1.fna&_nc_gid=vrWJg6X8zk-j_sd4nLFtuA&oh=00_AfKQQ2X7cIRqVFtdzeCwoW9i-iQpv2ksHe_tdVy9cBgo-w&oe=68275803') center center / cover no-repeat;
+            height: 80vh;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-shadow: 0px 1px 6px rgba(0,0,0,0.8);
+        }
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: bold;
+        }
+        .section-content {
+            padding: 4rem 2rem;
+        }
+        .brand-color {
+            background-color: #ff7043 !important;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="brand-color">
+    <div class="nav-wrapper container">
+        <a href="#!" class="brand-logo">ABX WebApp Gen</a>
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        <ul class="right hide-on-med-and-down">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#oficinas">Nuestras Oficinas</a></li>
+            <li><a href="#contacto">Contáctenos</a></li>
+            <li><a href="#acerca">Acerca de</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Mobile Nav -->
+<ul class="sidenav" id="mobile-demo">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#oficinas">Nuestras Oficinas</a></li>
+    <li><a href="#contacto">Contáctenos</a></li>
+    <li><a href="#acerca">Acerca de</a></li>
+</ul>
+
+<!-- Hero Section -->
+<div class="hero" id="home">
+    <div class="container center-align">
+        <h1>Bienvenido a ABX Web</h1>
+        <h5>Tu lugar ideal para alquilar con confianza y comodidad</h5>
+    </div>
+</div>
+
+<!-- About Section -->
+<div class="section white section-content" id="acerca">
+    <div class="row container">
+        <h4 class="header">¿Por qué elegir ABX Web?</h4>
+        <p class="grey-text text-darken-3 lighten-3">
+            En <strong> ABX Web</strong>, nos enorgullece ofrecer espacios de alquiler modernos, seguros y acogedores.
+            Nuestro compromiso es brindar una experiencia cálida y profesional para que te sientas en casa desde el primer momento.
+            Nos destacamos por nuestra atención personalizada, ubicaciones estratégicas y ambientes diseñados pensando en ti.
+        </p>
+    </div>
+</div>
+
+<!-- Oficinas Section -->
+<div class="section grey lighten-4 section-content" id="oficinas">
+    <div class="row container">
+        <h4 class="header">Nuestras Oficinas</h4>
+        <p class="grey-text text-darken-3">
+            Contamos con varias oficinas en zonas clave de la ciudad, todas equipadas para brindarte el mejor servicio.
+            Ven y visítanos, ¡estaremos encantados de ayudarte a encontrar el espacio perfecto para ti!
+        </p>
+    </div>
+</div>
+
+<!-- Contact Section -->
+<div class="section white section-content" id="contacto">
+    <div class="row container">
+        <h4 class="header">Contáctenos</h4>
+        <p class="grey-text text-darken-3">
+            ¿Interesado en alquilar con nosotros? No dudes en llamarnos o enviarnos un mensaje.
+            Nuestro equipo está listo para ayudarte.
+        </p>
+        <form>
+            <div class="input-field">
+                <input id="name" type="text" class="validate" required>
+                <label for="name">Nombre</label>
+            </div>
+            <div class="input-field">
+                <input id="email" type="email" class="validate" required>
+                <label for="email">Correo Electrónico</label>
+            </div>
+            <div class="input-field">
+                <textarea id="message" class="materialize-textarea" required></textarea>
+                <label for="message">Mensaje</label>
+            </div>
+            <button class="btn brand-color waves-effect waves-light" type="submit">Enviar</button>
+        </form>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="page-footer brand-color">
+    <div class="container">
+        <div class="center-align">
+            © 2025 ABX | Todos los derechos reservados
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery + Materialize JS -->
+
+
+<script>
+    $(document).ready(function(){
+        $('.sidenav').sidenav();
+    });
+</script>
+
+</body>
+</html>

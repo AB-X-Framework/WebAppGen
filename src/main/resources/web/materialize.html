@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Materialize jQuery Form</title>
+    <!-- Materialize CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+    <!-- Google Icons (Optional) -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+<body class="container center-align" style="margin-top: 100px;">
+
+<button id="showFormBtn" class="btn waves-effect waves-light">
+    Show Form
+    <i class="material-icons right">add</i>
+</button>
+
+<div id="formContainer" class="section"></div>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Materialize JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+<script>
+    $('#showFormBtn').click(function () {
+        if (!$('#formContainer').children().length) {
+            $('#formContainer').html(`
+          <form id="userForm">
+            <div class="input-field">
+              <input id="username" type="text" required>
+              <label for="username">Username</label>
+            </div>
+            <button type="submit" class="btn waves-effect waves-light">
+              Submit
+              <i class="material-icons right">check</i>
+            </button>
+          </form>
+        `);
+            M.updateTextFields();
+        }
+    });
+</script>
+
+</body>
+</html>
