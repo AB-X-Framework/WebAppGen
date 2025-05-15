@@ -1,4 +1,4 @@
-package com.abx.app.console;
+package com.abx.webappgen.console;
 
 import org.abx.services.ServiceRequest;
 import org.abx.services.ServiceResponse;
@@ -12,7 +12,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ConfigurableApplicationContext;
 
-@SpringBootTest(classes = com.abx.app.spring.ABXWebAppGen.class)
+@SpringBootTest(classes = com.abx.webappgen.spring.ABXWebAppGen.class)
 class ABXWebAppGen {
 
 	private static ConfigurableApplicationContext context;
@@ -22,7 +22,7 @@ class ABXWebAppGen {
 
 	@BeforeAll
 	public static void setup() {
-		context= SpringApplication.run(com.abx.app.spring.ABXWebAppGen.class);
+		context= SpringApplication.run(com.abx.webappgen.spring.ABXWebAppGen.class);
 	}
 
 	@Test

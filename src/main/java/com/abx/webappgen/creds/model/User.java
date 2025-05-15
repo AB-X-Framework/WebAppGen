@@ -1,4 +1,4 @@
-package com.abx.app.creds.model;
+package com.abx.webappgen.creds.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

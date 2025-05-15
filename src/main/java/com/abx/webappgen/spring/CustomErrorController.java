@@ -1,4 +1,4 @@
-package com.abx.app.spring;
+package com.abx.webappgen.spring;
 
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.boot.web.servlet.error.ErrorController;

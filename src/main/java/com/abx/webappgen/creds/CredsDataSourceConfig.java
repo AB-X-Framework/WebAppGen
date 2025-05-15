@@ -1,4 +1,4 @@
-package com.abx.app.creds;
+package com.abx.webappgen.creds;
 
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -14,7 +14,7 @@ import javax.sql.DataSource;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(
-        basePackages = "com.abx.app.creds.dao",
+        basePackages = "com.abx.webappgen.creds.dao",
         entityManagerFactoryRef = "credsEntityManagerFactory"
 )
 public class CredsDataSourceConfig {
@@ -28,7 +28,7 @@ public class CredsDataSourceConfig {
 
         return builder
                 .dataSource(dataSource)
-                .packages("com.web.app.creds.model") // Your entity package
+                .packages("com.abx.webappgen.creds.model") // Your entity package
                 .build();
     }
 
