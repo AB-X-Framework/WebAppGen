@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication(scanBasePackages = {
         "org.abx.webappgen.creds",
         "org.abx.webappgen.spring",
+        "org.abx.webappgen.utils",
         "org.abx.services",
         "org.abx.webappgen.controller"})
 public class ABXWebAppGen {
