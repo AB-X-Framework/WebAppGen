@@ -1,5 +1,8 @@
 {
   "pages": [
-
+    {
+      "name": "main",
+      "title": "Main Page"
+    }
   ]
 }

@@ -4,6 +4,8 @@ package org.abx.webappgen.utils;
 import jakarta.annotation.PostConstruct;
 import org.abx.util.StreamUtils;
 import org.abx.webappgen.controller.UserPageController;
+import org.abx.webappgen.creds.UserPageModel;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,7 +16,7 @@ import java.io.FileInputStream;
 @Component
 public class PageImporter {
     @Autowired
-    private UserPageController userPageController;
+    private UserPageModel userPageModel;
 
     @Value("${load.pages}")
     public boolean loadPages;
@@ -30,7 +32,16 @@ public class PageImporter {
 
             String data = StreamUtils.readStream(new FileInputStream(pageSpecsPath));
             JSONObject obj = new JSONObject(data);
-            System.out.println(obj.toString(1));
+            JSONArray pages = obj.getJSONArray("pages");
+            for (int i = 0; i < pages.length(); i++) {
+                JSONObject page = pages.getJSONObject(i);
+                processPage(page);
+            }
         }
+    }
+
+    private void processPage(JSONObject page){
+        long id = userPageModel.createPageWithPagename(page.getString("name"),
+                page.getString("title"));
     }
 }

@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Component
 public class UserPageModel {
 
+    public static final String Name = "name";
     public static final String Title = "title";
     public static final String Sections = "sections";
     @Autowired
@@ -25,7 +26,8 @@ public class UserPageModel {
             jsonPage.put(Title,"Not found");
             return jsonPage;
         }
-        jsonPage.put(Title,page.pageId);
+        jsonPage.put(Title,page.pageTitle);
+        jsonPage.put(Name,page.pagename);
         return jsonPage;
     }
 
