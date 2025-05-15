@@ -28,7 +28,7 @@ public class SecConfiguration {
                     authz
                             .requestMatchers("web/**")
                             .permitAll()
-                            .requestMatchers("session/**")
+                            .requestMatchers("page/**")
                             .permitAll()
                             .requestMatchers("gateway/**")
                             .permitAll()
@@ -38,7 +38,7 @@ public class SecConfiguration {
                 }).exceptionHandling(security -> {
                     security.authenticationEntryPoint(
                             (request, response, authException) -> {
-                                response.sendRedirect("/web/Welcome.html");
+                                response.sendRedirect("/page/main");
                             }
                     );
 
