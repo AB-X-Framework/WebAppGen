@@ -1,0 +1,43 @@
+name: GraalVM Workflow
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  packages: write   # Allows write access to GitHub Packages
+
+jobs:
+  build:
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: test_db
+          MYSQL_USER: test_user
+          MYSQL_PASSWORD: test_password
+
+    runs-on: ubuntu-latest
+
+    steps:
+      -
+      # Step 1: Checkout the code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Graalvm
+        uses: graalvm/setup-graalvm@v1.2.6
+        with:
+          java-version:  '21.0.5'
+
+      - name: Settings
+        uses: s4u/maven-settings-action@v2.5.0
+        with:
+          servers: '[{"id": "github","configuration": {"httpHeaders": {"property": {"name": "Authorization","value": "Bearer ${{ secrets.GITHUB_TOKEN }}"}}}}]'
+
+
+      # Step 3: Compile and deploy ABX WebApp Gen
+      - name: Compile and deploy ABX WebApp Gen
+        run: |
+          mvn package

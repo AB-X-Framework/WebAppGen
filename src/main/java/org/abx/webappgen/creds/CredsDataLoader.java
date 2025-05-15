@@ -33,7 +33,7 @@ public class CredsDataLoader implements ApplicationListener<ContextRefreshedEven
             return;
         }
         // == create initial user
-        createUserIfNotFound("abx@webappgen.com", "12345", "Admin");
+        createUserIfNotFound("root@abxwebappgen.org", "12345", "Admin");
         alreadySetup = true;
     }
 
