@@ -76,8 +76,7 @@ public class PageImporter {
         } else {
             JSONArray specs = component.getJSONArray("specs");
             String type = component.getString("type");
-            if ("image".equals(type)) {
-
+            if ("img".equals(type)) {
                 processImgComponent(scriptPath, specs);
             }
             pageModel.createElement(name,
@@ -87,13 +86,13 @@ public class PageImporter {
         }
     }
 
-    private void processImgComponent(String scriptPath, JSONArray component) throws Exception {
-        for (int i = 0; i < component.length(); i++) {
-            JSONObject jsonComponent = component.getJSONObject(i);
-            String name = jsonComponent.getString("name");
-            String file = jsonComponent.getString("src").replace("{folder}", scriptPath);
+    private void processImgComponent(String scriptPath, JSONArray specs) throws Exception {
+        for (int i = 0; i < specs.length(); i++) {
+            JSONObject jsonComponent = specs.getJSONObject(i).getJSONObject("value");
+            String src = jsonComponent.getString("src");
+            String file = scriptPath+"/"+src;
             byte[] data = StreamUtils.readByteArrayStream(new FileInputStream(file));
-            resourceModel.saveBinaryResource(name, detectMimeType(data), data);
+            resourceModel.saveBinaryResource(src, detectMimeType(data), data);
         }
     }
 

@@ -16,7 +16,7 @@
         {
           "env": "",
           "value": {
-            "src": "{folder}/abx.png"
+            "src": "abx.png"
           }
         }
       ]
