@@ -1,9 +1,6 @@
 package org.abx.webappgen.persistence;
 
-import org.abx.webappgen.persistence.dao.ContainerRepository;
-import org.abx.webappgen.persistence.dao.PageContentRepository;
-import org.abx.webappgen.persistence.dao.ComponentRepository;
-import org.abx.webappgen.persistence.dao.ElementRepository;
+import org.abx.webappgen.persistence.dao.*;
 import org.abx.webappgen.persistence.model.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -15,6 +12,11 @@ public class UserPageModel {
 
     public static final String Name = "name";
     public static final String Title = "title";
+    public static final String JS = "js";
+    public static final String Component = "component";
+    public static final String Layout = "layout";
+    public static final String Type = "type";
+    public static final String Specs = "specs";
     public static final String Components = "components";
     public static final String IsContainer = "isContainer";
     @Autowired
@@ -28,6 +30,9 @@ public class UserPageModel {
 
     @Autowired
     public ElementRepository specsComponentRepository;
+
+    @Autowired
+    public InnerComponentRepository innerComponentRepository;
 
     @Transactional
     public JSONObject getPageByPageId(long id) {
@@ -75,15 +80,40 @@ public class UserPageModel {
     }
 
     private JSONObject getComponentSpecsByComponent(Component component) {
-        JSONObject jsonSection = new JSONObject();
-        jsonSection.put(Name, component.componentName);
-        jsonSection.put(IsContainer, component.container);
-        return jsonSection;
+        JSONObject jsonComponent = new JSONObject();
+        jsonComponent.put(Name, component.componentName);
+        jsonComponent.put(JS, component.js);
+        boolean isContainer = component.isContainer;
+        jsonComponent.put(IsContainer, isContainer);
+        if (isContainer) {
+            addContainer(jsonComponent, component);
+        } else {
+            addElement(jsonComponent, component);
+        }
+        return jsonComponent;
+    }
+
+    private void addContainer(JSONObject jsonComponent, Component component) {
+        Container container = component.container;
+        jsonComponent.put(Layout, container.layout);
+        JSONArray children = new JSONArray();
+        jsonComponent.put(Components, children);
+        for (InnerComponent inner : container.innerComponent) {
+            JSONObject innerComponent = new JSONObject();
+            innerComponent.put(Name, inner.name);
+            innerComponent.put(Component, getComponentSpecsByComponent(inner.child));
+        }
+    }
+
+    private void addElement(JSONObject jsonComponent, Component component) {
+        Element element = component.element;
+        jsonComponent.put(Specs, element.specs);
+        jsonComponent.put(Specs, element.type);
+
     }
 
     @Transactional
-    public void createContainer(String name, String js,
-                                String layout, JSONArray children) {
+    public void createContainer(String name, String js, String layout, JSONArray children) {
         long id = elementHashCode(name);
         Component component = new Component();
         component.componentId = id;
@@ -95,12 +125,24 @@ public class UserPageModel {
         container.containerId = id;
         container.layout = layout;
         containerRepository.save(container);
+        containerRepository.flush();
+        for (int i = 0; i < children.length(); i++) {
+            JSONObject jsonChild = children.getJSONObject(i);
+            String childName = jsonChild.getString(Name);
+            long childId = elementHashCode(childName);
+            Component child = componentRepository.findBycomponentId(childId);
+            InnerComponent inner = new InnerComponent();
+
+            inner.child = child;
+            inner.parent = container;
+            inner.name = childName;
+            innerComponentRepository.save(inner);
+        }
 
     }
 
     @Transactional
-    public void createElement(String name,  String js,
-                              String type, String specs) {
+    public void createElement(String name, String js, String type, String specs) {
         long id = elementHashCode(name);
         Component component = new Component();
         component.componentId = id;

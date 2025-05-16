@@ -5,7 +5,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
-@Table(name = "SpecsComponent")
+@Table(name = "Element")
 public class Element {
     @Id
     @Column(unique = true, nullable = false)
@@ -13,7 +13,6 @@ public class Element {
 
     @OneToOne
     @JoinColumn(name = "componentId", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
     public Component component;
 
     @Column

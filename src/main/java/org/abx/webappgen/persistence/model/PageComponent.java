@@ -14,12 +14,10 @@ public class PageComponent {
 
     @ManyToOne
     @JoinColumn(name = "pageId", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
     public Page page;
 
 
     @ManyToOne
     @JoinColumn(name = "componentId", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
     public Component component;
 }

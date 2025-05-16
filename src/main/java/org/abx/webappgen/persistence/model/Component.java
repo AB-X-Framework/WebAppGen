@@ -20,6 +20,9 @@ public class Component {
     @OneToOne(mappedBy = "component")
     public Container container;
 
+    @OneToOne(mappedBy = "component")
+    public Element element;
+
     @Column
     public boolean isContainer;
 

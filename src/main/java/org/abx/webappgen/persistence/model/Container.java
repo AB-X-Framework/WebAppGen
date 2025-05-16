@@ -15,12 +15,10 @@ public class Container {
 
     @OneToOne
     @JoinColumn(name = "componentId", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
     public Component component;
 
     @OneToMany
-    @JoinColumn(name = "container", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "container")
     public Collection<InnerComponent> innerComponent;
 
     @Column

@@ -7,7 +7,7 @@
       "footer": true
     }
   ],
-  "components":[
+  "components": [
     {
       "name": "login",
       "js": "",
@@ -22,7 +22,12 @@
       "isContainer": true,
       "layout": "horizontal",
       "js": "",
-      "children": []
+      "children": [
+        {
+          "name": "login",
+          "component": "login"
+        }
+      ]
     },
     {
       "name": "footer",
@@ -32,5 +37,4 @@
       "children": []
     }
   ]
-
 }

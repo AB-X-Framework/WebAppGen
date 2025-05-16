@@ -15,12 +15,10 @@ public class InnerComponent {
 
     @ManyToOne
     @JoinColumn(name = "containerId", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
     public Container parent;
 
     @ManyToOne
     @JoinColumn(name = "componentId", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
     public Component child;
 
     public String name;
