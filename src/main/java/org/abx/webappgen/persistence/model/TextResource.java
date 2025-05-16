@@ -12,7 +12,7 @@ public class TextResource {
     @Column
     public String resourceName;
 
-    @Column
-    public char resourceValue;
+    @Column(columnDefinition = "MEDIUMTEXT")
+    public String resourceValue;
 
 }
