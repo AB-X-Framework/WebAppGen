@@ -47,7 +47,7 @@ public class PageImporter {
         }
     }
 
-    private void processPage(JSONObject page){
+    private void processPage(JSONObject page) {
         long id = userPageModel.createPageWithPageName(
                 page.getString("name"),
                 page.getString("title"),
@@ -56,7 +56,10 @@ public class PageImporter {
     }
 
 
-    private void processComponents(JSONObject section){
-        long id = userPageModel.createSectionBySectionName(section.getString("name"));
+    private void processComponents(JSONObject component) {
+        boolean container = component.getBoolean("container");
+        long id = userPageModel.createComponentByComponentName(
+                component.getString("name"),
+                container);
     }
 }

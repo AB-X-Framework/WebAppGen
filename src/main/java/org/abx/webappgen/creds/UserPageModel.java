@@ -64,10 +64,11 @@ public class UserPageModel {
 
 
     @Transactional
-    public long createSectionBySectionName(String sectionName){
+    public long createComponentByComponentName(String componentName, boolean container){
         Component component = new Component();
-        component.componentId = elementHashCode(sectionName);
-        component.componentName = sectionName;
+        component.componentId = elementHashCode(componentName);
+        component.componentName = componentName;
+        component.container = container;
         sectionContentRepository.save(component);
         return component.componentId;
     }

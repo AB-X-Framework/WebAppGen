@@ -10,12 +10,11 @@
   "components":[
     {
       "name": "header",
-      "type": "section",
-      "inner": true,
-      "specs": ""
+      "container": true
     },
     {
-      "name": "footer"
+      "name": "footer",
+      "container": true
     }
   ]
 
