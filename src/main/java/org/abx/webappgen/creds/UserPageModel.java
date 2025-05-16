@@ -3,7 +3,7 @@ package org.abx.webappgen.creds;
 import org.abx.webappgen.creds.dao.ContainerRepository;
 import org.abx.webappgen.creds.dao.PageContentRepository;
 import org.abx.webappgen.creds.dao.ComponentRepository;
-import org.abx.webappgen.creds.dao.SpecsComponentRepository;
+import org.abx.webappgen.creds.dao.ElementRepository;
 import org.abx.webappgen.creds.model.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -27,7 +27,7 @@ public class UserPageModel {
     public ContainerRepository containerRepository;
 
     @Autowired
-    public SpecsComponentRepository specsComponentRepository;
+    public ElementRepository specsComponentRepository;
 
     @Transactional
     public JSONObject getPageByPageId(long id) {
@@ -103,13 +103,13 @@ public class UserPageModel {
     }
 
     @Transactional
-    public void createSpecComponent(long id, String type, String specs) {
-        SpecsComponent specsComponent = new SpecsComponent();
-        specsComponent.component = componentRepository.findBycomponentId(id);
-        specsComponent.specComponentId = id;
-        specsComponent.type = type;
-        specsComponent.specs = specs;
-        specsComponentRepository.save(specsComponent);
+    public void createElement(long id, String type, String specs) {
+        Element element = new Element();
+        element.component = componentRepository.findBycomponentId(id);
+        element.elementId = id;
+        element.type = type;
+        element.specs = specs;
+        specsComponentRepository.save(element);
 
     }
 }
