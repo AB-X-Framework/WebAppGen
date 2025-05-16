@@ -5,21 +5,21 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
-@Table(name = "PageSections")
-public class PageSections {
+@Table(name = "PageSection")
+public class PageSection {
     @Id
     @Column(unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long pageSectionId;
+    public Long pageSectionId;
 
     @ManyToOne
     @JoinColumn(name = "pageId", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private Page page;
+    public Page page;
 
 
     @ManyToOne
     @JoinColumn(name = "sectionId", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private Section section;
+    public Section section;
 }

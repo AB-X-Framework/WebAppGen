@@ -3,6 +3,7 @@ package org.abx.webappgen.creds;
 import org.abx.webappgen.creds.dao.PageContentRepository;
 import org.abx.webappgen.creds.dao.SectionContentRepository;
 import org.abx.webappgen.creds.model.Page;
+import org.abx.webappgen.creds.model.PageSection;
 import org.abx.webappgen.creds.model.Section;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -26,13 +27,17 @@ public class UserPageModel {
     public JSONObject getPageByPageId(long id) {
         Page page = pageContentRepository.findByPageId(id);
         JSONObject jsonPage = new JSONObject();
-        JSONArray sections = new JSONArray();
         if (page == null){
             jsonPage.put(Title,"Not found");
             return jsonPage;
         }
         jsonPage.put(Title,page.pageTitle);
         jsonPage.put(Name,page.pageName);
+        JSONArray sections = new JSONArray();
+        for (PageSection pageSection:page.pageSections){
+            sections.put(getSectionSpecsBySection(pageSection.section));
+        }
+        jsonPage.put(Sections,sections);
         return jsonPage;
     }
 
@@ -60,7 +65,9 @@ public class UserPageModel {
         return section.sectionId;
     }
 
-   /* private JSONObject getSectionBySectionId(long sectionId){
-
-    }*/
+   private JSONObject getSectionSpecsBySection(Section section){
+        JSONObject jsonSection = new JSONObject();
+        jsonSection.put(Name,section.sectionName);
+        return jsonSection;
+    }
 }

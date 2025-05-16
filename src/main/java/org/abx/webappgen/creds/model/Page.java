@@ -24,5 +24,5 @@ public class Page {
 
 
     @OneToMany(mappedBy = "page")
-    private Collection<PageSections> pageSections;
+    public Collection<PageSection> pageSections;
 }
