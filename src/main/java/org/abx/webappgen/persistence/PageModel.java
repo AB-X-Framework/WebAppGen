@@ -38,10 +38,11 @@ public class PageModel {
     @Autowired
     public InnerComponentRepository innerComponentRepository;
 
-
-
     @Autowired
     public EnvValueRepository envValueRepository;
+
+    @Autowired
+    public ResourceModel resourceModel;
 
     @Transactional
     public void clean(){
@@ -190,6 +191,7 @@ public class PageModel {
         for (int i = 0; i < specs.length(); i++) {
             JSONObject specsEnvValue = specs.getJSONObject(i);
             element.specs.add(createEnvValue(specsEnvValue));
+
         }
         elementRepository.save(element);
 

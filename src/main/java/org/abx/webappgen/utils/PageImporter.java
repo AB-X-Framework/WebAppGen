@@ -4,18 +4,22 @@ package org.abx.webappgen.utils;
 import jakarta.annotation.PostConstruct;
 import org.abx.util.StreamUtils;
 import org.abx.webappgen.persistence.PageModel;
+import org.abx.webappgen.persistence.ResourceModel;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.io.File;
 import java.io.FileInputStream;
 
 @Component
 public class PageImporter {
     @Autowired
     private PageModel pageModel;
+    @Autowired
+    private ResourceModel resourceModel;
 
     @Value("${load.pages}")
     public boolean loadPages;
@@ -32,14 +36,15 @@ public class PageImporter {
             pageModel.clean();
         }
         if (loadPages) {
-
-            String data = StreamUtils.readStream(new FileInputStream(pageSpecsPath));
+            File resourceFile = new File(pageSpecsPath);
+            String resourceFolder = resourceFile.getParent();
+            String data = StreamUtils.readStream(new FileInputStream(resourceFile));
             JSONObject obj = new JSONObject(data);
 
             JSONArray components = obj.getJSONArray("components");
             for (int i = 0; i < components.length(); i++) {
                 JSONObject page = components.getJSONObject(i);
-                processComponents(page);
+                processComponents(resourceFolder, page);
             }
 
             JSONArray pages = obj.getJSONArray("pages");
@@ -60,19 +65,56 @@ public class PageImporter {
     }
 
 
-    private void processComponents(JSONObject component) {
+    private void processComponents(String scriptPath, JSONObject component) throws Exception {
         boolean isContainer = component.getBoolean("isContainer");
         String name = component.getString("name");
-        if (isContainer){
+        if (isContainer) {
             pageModel.createContainer(name,
                     component.getJSONArray("js"),
                     component.getString("layout"),
                     component.getJSONArray("components"));
-        }else {
+        } else {
+            JSONArray specs = component.getJSONArray("specs");
+            String type = component.getString("type");
+            if ("image".equals(type)) {
+
+                processImgComponent(scriptPath, specs);
+            }
             pageModel.createElement(name,
                     component.getJSONArray("js"),
                     component.getString("type"),
-                    component.getJSONArray("specs"));
+                    specs);
         }
+    }
+
+    private void processImgComponent(String scriptPath, JSONArray component) throws Exception {
+        for (int i = 0; i < component.length(); i++) {
+            JSONObject jsonComponent = component.getJSONObject(i);
+            String name = jsonComponent.getString("name");
+            String file = jsonComponent.getString("src").replace("{folder}", scriptPath);
+            byte[] data = StreamUtils.readByteArrayStream(new FileInputStream(file));
+            resourceModel.saveBinaryResource(name, detectMimeType(data), data);
+        }
+    }
+
+    public static String detectMimeType(byte[] bytes) {
+        if (bytes == null || bytes.length < 8) {
+            return "application/octet-stream";
+        }
+
+        // Check PNG
+        if (bytes[0] == (byte) 0x89 && bytes[1] == (byte) 0x50 &&
+                bytes[2] == (byte) 0x4E && bytes[3] == (byte) 0x47 &&
+                bytes[4] == (byte) 0x0D && bytes[5] == (byte) 0x0A &&
+                bytes[6] == (byte) 0x1A && bytes[7] == (byte) 0x0A) {
+            return "image/png";
+        }
+
+        // Check JPEG
+        if (bytes[0] == (byte) 0xFF && bytes[1] == (byte) 0xD8) {
+            return "image/jpeg";
+        }
+
+        return "application/octet-stream";
     }
 }

@@ -8,6 +8,20 @@
   ],
   "components": [
     {
+      "name": "abxImg",
+      "isContainer": false,
+      "type": "img",
+      "js": [],
+      "specs": [
+        {
+          "env": "",
+          "value": {
+            "src": "{folder}/abx.png"
+          }
+        }
+      ]
+    },
+    {
       "name": "login",
       "isContainer": false,
       "type": "button",
@@ -36,6 +50,12 @@
         {
           "innerId": "login",
           "component": "login",
+          "env": "",
+          "size": 1
+        },
+        {
+          "innerId": "abxImg",
+          "component": "abxImg",
           "env": "",
           "size": 1
         }

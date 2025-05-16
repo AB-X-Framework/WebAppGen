@@ -2,7 +2,7 @@ package org.abx.webappgen.controller;
 
 import org.abx.util.Pair;
 import org.abx.webappgen.persistence.PageModel;
-import org.abx.webappgen.persistence.model.ResourceModel;
+import org.abx.webappgen.persistence.ResourceModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -24,12 +24,12 @@ public class ResourceController {
     @GetMapping(value = "/text/{resource}", produces = MediaType.TEXT_PLAIN_VALUE)
     @PreAuthorize("permitAll()")
     public String page(@PathVariable String resource) {
-        return resourceModel.getTextResource(PageModel.elementHashCode(resource));
+        return resourceModel.getTextResource(resource);
     }
 
     @GetMapping("/binary/{resource}")
     public ResponseEntity<byte[]> downloadFile(@PathVariable String resource) {
-        Pair<String, byte[]> fileContent = resourceModel.getBinary(PageModel.elementHashCode(resource));
+        Pair<String, byte[]> fileContent = resourceModel.getBinaryResource(resource);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_PDF); // Or your custom type
         headers.setContentDispositionFormData("attachment", resource);
