@@ -6,9 +6,9 @@ import org.abx.webappgen.persistence.model.TextResource;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface TextResourceRepository extends JpaRepository<TextResource, Long> {
-TextResourceRepository findByTextResourceId(long componentId);
+    TextResource findByTextResourceId(long textResourceId);
 
     @Override
-    void delete(TextResource user);
+    void delete(TextResource textResource);
 
 }

@@ -69,7 +69,7 @@ public class PageModel {
         return currEnv.contains(targetEnv);
     }
 
-    public long elementHashCode(String element) {
+    public static long elementHashCode(String element) {
         return element.hashCode();
     }
 
