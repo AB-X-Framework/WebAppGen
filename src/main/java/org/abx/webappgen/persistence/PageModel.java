@@ -37,8 +37,10 @@ public class PageModel {
 
     @Autowired
     public InnerComponentRepository innerComponentRepository;
+
     @Autowired
     public PageComponentRepository pageComponentRepository;
+
     @Autowired
     public EnvValueRepository envValueRepository;
 
