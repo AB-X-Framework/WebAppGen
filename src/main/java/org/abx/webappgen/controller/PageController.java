@@ -1,5 +1,6 @@
 package org.abx.webappgen.controller;
 
+import jakarta.servlet.http.HttpSession;
 import org.abx.util.StreamUtils;
 import org.abx.webappgen.persistence.PageModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,15 +17,17 @@ import java.io.IOException;
 @RestController
 @RequestMapping("/page")
 public class PageController {
+    public final static String LANG = "lang";
 
-    private  ST pageTemplate ;
+    private ST pageTemplate;
 
     @Autowired
     public PageModel pageModel;
-    public PageController(){
+
+    public PageController() {
         try {
             String data = StreamUtils.readResource("org/abx/webappgen/page.html");
-            pageTemplate = new ST(data,'{', '}');
+            pageTemplate = new ST(data, '{', '}');
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -34,14 +37,24 @@ public class PageController {
     @PreAuthorize("permitAll()")
     public String page(@PathVariable String pagename) {
         ST st1 = new ST(pageTemplate);
-        String output = st1.add("pagename",pagename).render();
+        String output = st1.add("pagename", pagename).render();
         return output;
     }
 
 
     @GetMapping(value = "/specs/{pagename}", produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("permitAll()")
-    public String pageSpecs(@PathVariable String pagename) {
-        return pageModel.getPageByPageId(pageModel.elementHashCode(pagename)).toString(1);
+    public String pageSpecs(@PathVariable String pagename, HttpSession session) {
+        return pageModel.getPageByPageId(env(session),
+                pageModel.elementHashCode(pagename)).toString(1);
+    }
+
+
+    private String env(HttpSession session) {
+        String env = "";
+        if (session.getAttribute(LANG) != null) {
+            env += (String) session.getAttribute(LANG);
+        }
+        return env;
     }
 }

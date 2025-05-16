@@ -40,7 +40,7 @@ public class PageModel {
     public PageComponentRepository pageComponentRepository;
 
     @Transactional
-    public JSONObject getPageByPageId(long id) {
+    public JSONObject getPageByPageId(String env, long id) {
         Page page = pageRepository.findByPageId(id);
         JSONObject jsonPage = new JSONObject();
         if (page == null) {
