@@ -61,10 +61,12 @@ public class PageImporter {
         String name = component.getString("name");
         if (isContainer){
             userPageModel.createContainer(name,
+                    component.getString("js"),
                     component.getString("layout"),
                     component.getJSONArray("children"));
         }else {
             userPageModel.createElement(name,
+                    component.getString("js"),
                     component.getString("type"),
                     component.get("specs").toString());
         }

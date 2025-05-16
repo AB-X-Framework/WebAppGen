@@ -22,4 +22,6 @@ public class InnerComponent {
     @JoinColumn(name = "componentId", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     public Component child;
+
+    public String name;
 }

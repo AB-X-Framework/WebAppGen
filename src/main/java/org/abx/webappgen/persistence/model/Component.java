@@ -23,5 +23,7 @@ public class Component {
     @Column
     public boolean isContainer;
 
+    @Column
+    public String js;
 
 }

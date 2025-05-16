@@ -22,6 +22,4 @@ public class Element {
     @Column
     public String specs;
 
-    @Column
-    public String js;
 }

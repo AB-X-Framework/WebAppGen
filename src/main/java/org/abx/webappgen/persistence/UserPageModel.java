@@ -82,7 +82,8 @@ public class UserPageModel {
     }
 
     @Transactional
-    public void createContainer(String name, String layout, JSONArray children) {
+    public void createContainer(String name, String js,
+                                String layout, JSONArray children) {
         long id = elementHashCode(name);
         Component component = new Component();
         component.componentId = id;
@@ -98,7 +99,8 @@ public class UserPageModel {
     }
 
     @Transactional
-    public void createElement(String name, String type, String specs) {
+    public void createElement(String name,  String js,
+                              String type, String specs) {
         long id = elementHashCode(name);
         Component component = new Component();
         component.componentId = id;

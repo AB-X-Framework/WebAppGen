@@ -10,6 +10,7 @@
   "components":[
     {
       "name": "login",
+      "js": "",
       "isContainer": false,
       "type": "button",
       "specs": {
@@ -20,12 +21,14 @@
       "name": "header",
       "isContainer": true,
       "layout": "horizontal",
+      "js": "",
       "children": []
     },
     {
       "name": "footer",
       "isContainer": true,
       "layout": "horizontal",
+      "js": "",
       "children": []
     }
   ]
