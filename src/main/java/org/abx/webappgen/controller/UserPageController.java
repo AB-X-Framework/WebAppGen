@@ -1,7 +1,7 @@
 package org.abx.webappgen.controller;
 
 import org.abx.util.StreamUtils;
-import org.abx.webappgen.creds.UserPageModel;
+import org.abx.webappgen.persistence.UserPageModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;

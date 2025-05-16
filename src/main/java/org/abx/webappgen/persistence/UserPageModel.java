@@ -1,10 +1,10 @@
-package org.abx.webappgen.creds;
+package org.abx.webappgen.persistence;
 
-import org.abx.webappgen.creds.dao.ContainerRepository;
-import org.abx.webappgen.creds.dao.PageContentRepository;
-import org.abx.webappgen.creds.dao.ComponentRepository;
-import org.abx.webappgen.creds.dao.ElementRepository;
-import org.abx.webappgen.creds.model.*;
+import org.abx.webappgen.persistence.dao.ContainerRepository;
+import org.abx.webappgen.persistence.dao.PageContentRepository;
+import org.abx.webappgen.persistence.dao.ComponentRepository;
+import org.abx.webappgen.persistence.dao.ElementRepository;
+import org.abx.webappgen.persistence.model.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;

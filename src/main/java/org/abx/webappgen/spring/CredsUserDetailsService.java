@@ -1,8 +1,8 @@
 package org.abx.webappgen.spring;
 
 
-import org.abx.webappgen.creds.dao.UserRepository;
-import org.abx.webappgen.creds.model.User;
+import org.abx.webappgen.persistence.dao.UserRepository;
+import org.abx.webappgen.persistence.model.User;
 import org.abx.util.StreamUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;

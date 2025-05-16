@@ -1,25 +1,25 @@
-package org.abx.webappgen.creds.model;
+package org.abx.webappgen.persistence.model;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
-@Table(name = "PageComponent")
-public class PageComponent {
+@Table(name = "InnerComponent" )
+public class InnerComponent {
     @Id
     @Column(unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public Long pageComponentId;
+    public Long innerComponentId;
+
 
     @ManyToOne
-    @JoinColumn(name = "pageId", nullable = false)
+    @JoinColumn(name = "containerId", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    public Page page;
-
+    public Container parent;
 
     @ManyToOne
     @JoinColumn(name = "componentId", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    public Component component;
+    public Component child;
 }

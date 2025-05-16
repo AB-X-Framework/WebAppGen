@@ -1,8 +1,8 @@
-package org.abx.webappgen.creds;
+package org.abx.webappgen.persistence;
 
 
-import org.abx.webappgen.creds.dao.UserRepository;
-import org.abx.webappgen.creds.model.User;
+import org.abx.webappgen.persistence.dao.UserRepository;
+import org.abx.webappgen.persistence.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;

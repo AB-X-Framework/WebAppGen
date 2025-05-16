@@ -4,7 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication(scanBasePackages = {
-        "org.abx.webappgen.creds",
+        "org.abx.webappgen.persistence",
         "org.abx.webappgen.spring",
         "org.abx.webappgen.utils",
         "org.abx.services",

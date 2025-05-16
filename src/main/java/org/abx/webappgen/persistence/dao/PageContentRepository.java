@@ -1,8 +1,7 @@
-package org.abx.webappgen.creds.dao;
+package org.abx.webappgen.persistence.dao;
 
 
-import org.abx.webappgen.creds.model.Page;
-import org.abx.webappgen.creds.model.User;
+import org.abx.webappgen.persistence.model.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PageContentRepository extends JpaRepository<Page, Long> {

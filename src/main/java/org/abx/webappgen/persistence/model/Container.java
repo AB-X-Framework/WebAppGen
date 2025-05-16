@@ -1,4 +1,4 @@
-package org.abx.webappgen.creds.model;
+package org.abx.webappgen.persistence.model;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.OnDelete;

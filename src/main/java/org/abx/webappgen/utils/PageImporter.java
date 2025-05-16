@@ -3,7 +3,7 @@ package org.abx.webappgen.utils;
 
 import jakarta.annotation.PostConstruct;
 import org.abx.util.StreamUtils;
-import org.abx.webappgen.creds.UserPageModel;
+import org.abx.webappgen.persistence.UserPageModel;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
