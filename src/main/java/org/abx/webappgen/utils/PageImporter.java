@@ -61,5 +61,8 @@ public class PageImporter {
         long id = userPageModel.createComponentByComponentName(
                 component.getString("name"),
                 container);
+        if (container){
+
+        }
     }
 }

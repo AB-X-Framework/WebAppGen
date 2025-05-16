@@ -2,8 +2,6 @@ package org.abx.webappgen.creds.model;
 
 import jakarta.persistence.*;
 
-import java.util.Collection;
-
 @Entity
 @Table(name = "Component" , indexes = {
         @Index(name = "idx_componentName", columnList = "componentName") // Index for better query performance
@@ -20,10 +18,10 @@ public class Component {
 
 
     @OneToOne(mappedBy = "component")
-    public ContainerComponent containerComponent;
+    public Container container;
 
     @Column
-    public boolean container;
+    public boolean isContainer;
 
 
 }

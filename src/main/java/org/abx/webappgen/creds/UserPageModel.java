@@ -1,8 +1,10 @@
 package org.abx.webappgen.creds;
 
+import org.abx.webappgen.creds.dao.ContainerRepository;
 import org.abx.webappgen.creds.dao.PageContentRepository;
-import org.abx.webappgen.creds.dao.SectionContentRepository;
+import org.abx.webappgen.creds.dao.ComponentRepository;
 import org.abx.webappgen.creds.model.Component;
+import org.abx.webappgen.creds.model.Container;
 import org.abx.webappgen.creds.model.Page;
 import org.abx.webappgen.creds.model.PageComponent;
 import org.json.JSONArray;
@@ -21,8 +23,10 @@ public class UserPageModel {
     public PageContentRepository pageContentRepository;
 
     @Autowired
-    public SectionContentRepository sectionContentRepository;
+    public ComponentRepository componentRepository;
 
+    @Autowired
+    public ContainerRepository containerRepository;
     @Transactional
     public JSONObject getPageByPageId(long id) {
         Page page = pageContentRepository.findByPageId(id);
@@ -65,18 +69,18 @@ public class UserPageModel {
 
 
     @Transactional
-    public long createComponentByComponentName(String componentName, boolean container) {
+    public long createComponentByComponentName(String componentName, boolean isContainer) {
         Component component = new Component();
         component.componentId = elementHashCode(componentName);
         component.componentName = componentName;
-        component.container = container;
-        sectionContentRepository.save(component);
+        component.isContainer = isContainer;
+        componentRepository.save(component);
         return component.componentId;
     }
 
 
     private JSONObject getComponentSpecsByComponentName(String sectionName) {
-        return getComponentSpecsByComponent(sectionContentRepository.findBycomponentId(elementHashCode(sectionName)));
+        return getComponentSpecsByComponent(componentRepository.findBycomponentId(elementHashCode(sectionName)));
     }
 
     private JSONObject getComponentSpecsByComponent(Component component) {
@@ -84,5 +88,14 @@ public class UserPageModel {
         jsonSection.put(Name, component.componentName);
         jsonSection.put(Container, component.container);
         return jsonSection;
+    }
+
+    @Transactional
+    public void createContainer(long id, String layout, JSONArray children) {
+        Container container = new Container();
+        container.containerComponentId = id;
+        container.layout = layout;
+        containerRepository.save(container);
+
     }
 }

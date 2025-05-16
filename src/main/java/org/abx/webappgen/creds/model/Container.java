@@ -6,7 +6,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @Table(name = "ContainerComponent")
-public class ContainerComponent {
+public class Container {
     @Id
     @Column(unique = true, nullable = false)
     public Long containerComponentId;
@@ -20,4 +20,7 @@ public class ContainerComponent {
     @JoinColumn(name = "innerComponentId", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     public InnerComponent innerComponent;
+
+    @Column
+    public String layout;
 }

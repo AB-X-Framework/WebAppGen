@@ -19,4 +19,10 @@ public class SpecsComponent {
 
     @Column
     public String type;
+
+    @Column
+    public String specs;
+
+    @Column
+    public String js;
 }
