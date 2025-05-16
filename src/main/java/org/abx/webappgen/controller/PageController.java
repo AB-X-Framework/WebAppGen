@@ -54,6 +54,8 @@ public class PageController {
         String env = "";
         if (session.getAttribute(LANG) != null) {
             env += (String) session.getAttribute(LANG);
+        }else {
+            env+="ES";
         }
         return env;
     }

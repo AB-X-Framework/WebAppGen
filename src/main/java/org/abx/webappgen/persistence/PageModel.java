@@ -99,7 +99,7 @@ public class PageModel {
         if (isContainer) {
             addContainer(env, jsonComponent, component);
         } else {
-            addElement(jsonComponent, component);
+            addElement(env,jsonComponent, component);
         }
         return jsonComponent;
     }
@@ -116,9 +116,14 @@ public class PageModel {
         }
     }
 
-    private void addElement(JSONObject jsonComponent, Component component) {
+    private void addElement(String env,JSONObject jsonComponent, Component component) {
         Element element = component.element;
-        jsonComponent.put(Specs,new JSONObject( element.specs));
+        for (EnvValue envValue : element.specs) {
+            if (matchesEnv(env, envValue.env)) {
+                jsonComponent.put(Specs, new JSONObject(envValue.value));
+                break;
+            }
+        }
         jsonComponent.put(Type, element.type);
 
     }
