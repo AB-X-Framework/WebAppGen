@@ -7,6 +7,8 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+
 @org.springframework.stereotype.Component
 public class UserPageModel {
 
@@ -100,6 +102,7 @@ public class UserPageModel {
         jsonComponent.put(Components, children);
         for (InnerComponent inner : container.innerComponent) {
             JSONObject innerComponent = new JSONObject();
+            children.put(innerComponent);
             innerComponent.put(Name, inner.name);
             innerComponent.put(Component, getComponentSpecsByComponent(inner.child));
         }
@@ -124,6 +127,7 @@ public class UserPageModel {
         container.component = componentRepository.findBycomponentId(id);
         container.containerId = id;
         container.layout = layout;
+        container.innerComponent = new ArrayList<>();
         containerRepository.save(container);
         containerRepository.flush();
         for (int i = 0; i < children.length(); i++) {
@@ -137,7 +141,9 @@ public class UserPageModel {
             inner.parent = container;
             inner.name = childName;
             innerComponentRepository.save(inner);
+            container.innerComponent.add(inner);
         }
+        containerRepository.save(container);
 
     }
 
