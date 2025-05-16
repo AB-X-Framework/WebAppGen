@@ -9,56 +9,55 @@ class PageContent {
             PageContent.processTile(specs);
             var output = [];
             console.log(JSON.stringify(specs.component));
-            PageContent.renderComponent( output, specs.component)
+            PageContent.renderComponent(output, specs.component)
             $("#body-content").html(output.join(""));
             M.updateTextFields();
         })
     }
 
-    static renderComponents(output,container) {
+    static renderComponents(output, container) {
         for (var innerComponent of container.components) {
-            output.push( "<div>");
-            PageContent.renderComponent(output,innerComponent.component);
+            output.push("<div>");
+            PageContent.renderComponent(output, innerComponent.component);
             output.push("</div>");
         }
     }
 
-    static renderComponent(output,componentSpecs) {
-        if (componentSpecs.isContainer){
-
+    static renderComponent(output, componentSpecs) {
+        if (componentSpecs.isContainer) {
             for (var component of componentSpecs.children) {
-                PageContent.renderComponent(output,component)
+                PageContent.renderComponent(output, component)
             }
-        }else {
+        } else {
             switch (componentSpecs.type) {
                 case "button":
-                    PageContent.renderButton(output,componentSpecs.specs);
+                    PageContent.renderButton(output, componentSpecs.specs);
                     break
                 case "img":
-                    PageContent.renderImg(output,componentSpecs.specs);
+                    PageContent.renderImg(output, componentSpecs.specs);
                     break
 
             }
         }
 
     }
-    static renderButton(output,specs) {
+
+    static renderButton(output, specs) {
         var results =
             `<button id="showFormBtn" class="btn waves-effect waves-light "> ${specs.text} 
              </button>`
-        output.push(results) ;
+        output.push(results);
     }
-    static renderImg(output,specs) {
+
+    static renderImg(output, specs) {
         var results =
-`<div class="row">
+            `<div class="row">
     <div class="col s6">
         <img src="/binary/${specs.src}" class="responsive-img" alt="example">
     </div>
 </div>`
-        output.push(results) ;
+        output.push(results);
     }
-
-
 
 
 }
