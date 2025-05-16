@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "Resource")
-public class Resource {
+public class TextResource {
     @Id
     @Column(unique = true, nullable = false)
     public Long resourceId;
@@ -13,8 +13,6 @@ public class Resource {
     public String resourceName;
 
     @Column
-    public char resourceType;
+    public char resourceValue;
 
-    @OneToOne(mappedBy = "resource")
-    public SingleResource resource;
 }
