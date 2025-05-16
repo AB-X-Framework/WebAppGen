@@ -34,6 +34,9 @@ class PageContent {
                 case "button":
                     PageContent.renderButton(output,componentSpecs.specs);
                     break
+                case "img":
+                    PageContent.renderImg(output,componentSpecs.specs);
+                    break
 
             }
         }
@@ -45,6 +48,13 @@ class PageContent {
              </button>`
         output.push(results) ;
     }
+    static renderImg(output,specs) {
+        var results =
+            `<img src="/binary/${specs.text} ">   </img>`
+        output.push(results) ;
+    }
+
+
 
 
 }

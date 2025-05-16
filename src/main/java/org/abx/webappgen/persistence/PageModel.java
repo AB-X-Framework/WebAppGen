@@ -42,10 +42,18 @@ public class PageModel {
     public EnvValueRepository envValueRepository;
 
     @Autowired
+    public TextResourceRepository textResourceRepository;
+
+    @Autowired
+    public BinaryResourceRepository binaryResourceRepository;
+
+    @Autowired
     public ResourceModel resourceModel;
 
     @Transactional
-    public void clean(){
+    public void clean() {
+        textResourceRepository.deleteAll();
+        binaryResourceRepository.deleteAll();
         envValueRepository.deleteAll();
         innerComponentRepository.deleteAll();
         elementRepository.deleteAll();
@@ -53,6 +61,7 @@ public class PageModel {
         componentRepository.deleteAll();
         pageRepository.deleteAll();
     }
+
     @Transactional
     public JSONObject getPageByPageId(String env, long id) {
         Page page = pageRepository.findByPageId(id);
@@ -62,7 +71,7 @@ public class PageModel {
             return jsonPage;
         }
         jsonPage.put(Title, page.pageTitle);
-        jsonPage.put(Component,  getComponentSpecsByComponent(env,page.component));
+        jsonPage.put(Component, getComponentSpecsByComponent(env, page.component));
         return jsonPage;
     }
 
@@ -75,7 +84,7 @@ public class PageModel {
     }
 
     @Transactional
-    public long createPageWithPageName(String pageName, String pageTitle,String componentName) {
+    public long createPageWithPageName(String pageName, String pageTitle, String componentName) {
         Page page = new Page();
         page.pageName = pageName;
         page.pageId = elementHashCode(pageName);
@@ -89,7 +98,7 @@ public class PageModel {
 
 
     private JSONObject getComponentSpecsByComponentName(String env, String componentName) {
-        return getComponentSpecsByComponent(env,componentRepository.findBycomponentId(elementHashCode(componentName)));
+        return getComponentSpecsByComponent(env, componentRepository.findBycomponentId(elementHashCode(componentName)));
     }
 
     private JSONObject getComponentSpecsByComponent(String env, Component component) {
@@ -100,7 +109,7 @@ public class PageModel {
         if (isContainer) {
             addContainer(env, jsonComponent, component);
         } else {
-            addElement(env,jsonComponent, component);
+            addElement(env, jsonComponent, component);
         }
         return jsonComponent;
     }
@@ -111,13 +120,13 @@ public class PageModel {
         JSONArray children = new JSONArray();
         jsonComponent.put(Children, children);
         for (InnerComponent inner : container.innerComponent) {
-            JSONObject innerComponent =getComponentSpecsByComponent(env, inner.child);
+            JSONObject innerComponent = getComponentSpecsByComponent(env, inner.child);
             children.put(innerComponent);
             innerComponent.put(InnerId, inner.innerId);
         }
     }
 
-    private void addElement(String env,JSONObject jsonComponent, Component component) {
+    private void addElement(String env, JSONObject jsonComponent, Component component) {
         Element element = component.element;
         for (EnvValue envValue : element.specs) {
             if (matchesEnv(env, envValue.env)) {
@@ -165,7 +174,7 @@ public class PageModel {
     private void saveComponent(JSONArray js, Component component) {
         componentRepository.save(component);
         componentRepository.flush();
-        component.js= new ArrayList<>();
+        component.js = new ArrayList<>();
         for (int i = 0; i < js.length(); i++) {
             JSONObject jsEnvValue = js.getJSONObject(i);
             component.js.add(createEnvValue(jsEnvValue));
