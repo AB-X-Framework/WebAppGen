@@ -34,7 +34,7 @@
       "js": [],
       "components": [
         {
-          "name": "login",
+          "innerId": "login",
           "component": "login",
           "env": "",
           "size": 1
@@ -54,13 +54,13 @@
       "layout": "vertical",
       "components": [
         {
-          "name": "header",
+          "innerId": "header",
           "component": "header",
           "env": "",
           "size": 12
         },
         {
-          "name": "footer",
+          "innerId": "footer",
           "component": "footer",
           "env": "",
           "size": 12

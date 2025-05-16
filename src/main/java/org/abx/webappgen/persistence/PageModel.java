@@ -12,7 +12,7 @@ import java.util.ArrayList;
 @org.springframework.stereotype.Component
 public class PageModel {
 
-    public static final String InnerName = "innerName";
+    public static final String InnerId = "innerId";
     public static final String Name = "name";
     public static final String Title = "title";
     public static final String JS = "js";
@@ -112,7 +112,7 @@ public class PageModel {
         for (InnerComponent inner : container.innerComponent) {
             JSONObject innerComponent =getComponentSpecsByComponent(env, inner.child);
             children.put(innerComponent);
-            innerComponent.put(InnerName, inner.name);
+            innerComponent.put(InnerId, inner.innerId);
         }
     }
 
@@ -145,14 +145,14 @@ public class PageModel {
         containerRepository.flush();
         for (int i = 0; i < children.length(); i++) {
             JSONObject jsonChild = children.getJSONObject(i);
-            String childName = jsonChild.getString(Name);
-            long childId = elementHashCode(childName);
+            String childComponent = jsonChild.getString(Component);
+            long childId = elementHashCode(childComponent);
             Component child = componentRepository.findBycomponentId(childId);
             InnerComponent inner = new InnerComponent();
 
             inner.child = child;
             inner.parent = container;
-            inner.name = childName;
+            inner.innerId = jsonChild.getString(InnerId);
             inner.size = jsonChild.getInt("size");
             innerComponentRepository.save(inner);
             container.innerComponent.add(inner);

@@ -20,7 +20,7 @@ public class InnerComponent {
     @JoinColumn(name = "componentId", nullable = false)
     public Component child;
 
-    public String name;
+    public String innerId;
 
     public int size;
 
