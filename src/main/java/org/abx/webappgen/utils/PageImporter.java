@@ -62,7 +62,13 @@ public class PageImporter {
                 component.getString("name"),
                 isContainer);
         if (isContainer){
-            userPageModel.createContainer(id,component.getString("layout"),component.getJSONArray("children"));
+            userPageModel.createContainer(id,
+                    component.getString("layout"),
+                    component.getJSONArray("children"));
+        }else {
+            userPageModel.createElement(id,
+                    component.getString("type"),
+                    component.get("specs").toString());
         }
     }
 }
