@@ -19,6 +19,11 @@ public class Component {
     public String componentName;
 
 
-    @OneToMany(mappedBy = "parent")
-    public Collection<InnerComponent> innerComponent;
+    @OneToOne(mappedBy = "component")
+    public ContainerComponent containerComponent;
+
+    @Column
+    public boolean container;
+
+
 }

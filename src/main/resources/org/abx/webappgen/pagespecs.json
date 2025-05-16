@@ -9,7 +9,10 @@
   ],
   "components":[
     {
-      "name": "header"
+      "name": "header",
+      "type": "section",
+      "inner": true,
+      "specs": ""
     },
     {
       "name": "footer"

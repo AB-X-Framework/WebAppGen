@@ -4,23 +4,20 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import java.util.Collection;
-
 @Entity
-@Table(name = "InnerComponent" )
-public class InnerComponent {
+@Table(name = "ContainerComponent")
+public class ContainerComponent {
     @Id
     @Column(unique = true, nullable = false)
-    public Long innerComponentId;
+    public Long containerComponentId;
 
-
-    @ManyToOne
-    @JoinColumn(name = "containerComponentId", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    public ContainerComponent parent;
-
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "componentId", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    public Component child;
+    public Component component;
+
+    @ManyToOne
+    @JoinColumn(name = "innerComponentId", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    public InnerComponent innerComponent;
 }
