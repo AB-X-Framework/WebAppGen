@@ -46,17 +46,18 @@ public class UserPageModel {
         }
         jsonPage.put(Title, page.pageTitle);
         jsonPage.put(Name, page.pageName);
-        JSONArray sections = new JSONArray();
+        JSONArray jsonComponents = new JSONArray();
         if (page.header) {
-            sections.put(getComponentSpecsByComponentName("header"));
+            jsonComponents.put(getComponentSpecsByComponentName("header"));
         }
         for (PageComponent pageComponent : page.pageComponents) {
-            sections.put(getComponentSpecsByComponent(pageComponent.component));
+            jsonComponents.put(getComponentSpecsByComponent(pageComponent.component));
         }
         if (page.footer) {
-            sections.put(getComponentSpecsByComponentName("footer"));
+            jsonComponents.put(getComponentSpecsByComponentName("footer"));
         }
-        jsonPage.put(Components, sections);
+        jsonPage.put(Components, jsonComponents);
+        jsonPage.put(Layout, "vertical");
         return jsonPage;
     }
 
@@ -77,8 +78,8 @@ public class UserPageModel {
     }
 
 
-    private JSONObject getComponentSpecsByComponentName(String sectionName) {
-        return getComponentSpecsByComponent(componentRepository.findBycomponentId(elementHashCode(sectionName)));
+    private JSONObject getComponentSpecsByComponentName(String componentName) {
+        return getComponentSpecsByComponent(componentRepository.findBycomponentId(elementHashCode(componentName)));
     }
 
     private JSONObject getComponentSpecsByComponent(Component component) {

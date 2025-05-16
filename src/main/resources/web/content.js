@@ -15,7 +15,13 @@ class PageContent {
 
     static renderComponents(output,componentSpecs) {
         for (var component of componentSpecs) {
-            output.push( "<div>hi</div>");
+            output.push( "<div>");
+            PageContent.renderComponent(output,component)
+            output.push("</div>");
         }
+    }
+
+    static renderComponents(output,componentSpecs) {
+        output.push(componentSpecs);
     }
 }

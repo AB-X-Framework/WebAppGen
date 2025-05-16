@@ -30,4 +30,6 @@ public class Page {
 
     @OneToMany(mappedBy = "page")
     public Collection<PageComponent> pageComponents;
+
+
 }

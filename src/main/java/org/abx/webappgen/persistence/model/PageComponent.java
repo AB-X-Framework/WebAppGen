@@ -20,4 +20,5 @@ public class PageComponent {
     @ManyToOne
     @JoinColumn(name = "componentId", nullable = false)
     public Component component;
+
 }
