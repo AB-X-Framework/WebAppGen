@@ -16,7 +16,7 @@ public class UserPageModel {
     public static final String Name = "name";
     public static final String Title = "title";
     public static final String Components = "components";
-    public static final String Container = "container";
+    public static final String IsContainer = "isContainer";
     @Autowired
     public PageContentRepository pageContentRepository;
 
@@ -70,17 +70,6 @@ public class UserPageModel {
     }
 
 
-    @Transactional
-    public long createComponentByComponentName(String componentName, boolean isContainer) {
-        Component component = new Component();
-        component.componentId = elementHashCode(componentName);
-        component.componentName = componentName;
-        component.isContainer = isContainer;
-        componentRepository.save(component);
-        return component.componentId;
-    }
-
-
     private JSONObject getComponentSpecsByComponentName(String sectionName) {
         return getComponentSpecsByComponent(componentRepository.findBycomponentId(elementHashCode(sectionName)));
     }
@@ -88,12 +77,18 @@ public class UserPageModel {
     private JSONObject getComponentSpecsByComponent(Component component) {
         JSONObject jsonSection = new JSONObject();
         jsonSection.put(Name, component.componentName);
-        jsonSection.put(Container, component.container);
+        jsonSection.put(IsContainer, component.container);
         return jsonSection;
     }
 
     @Transactional
-    public void createContainer(long id, String layout, JSONArray children) {
+    public void createContainer(String name, String layout, JSONArray children) {
+        long id = elementHashCode(name);
+        Component component = new Component();
+        component.componentId = id;
+        component.componentName = name;
+        component.isContainer = true;
+        componentRepository.save(component);
         Container container = new Container();
         container.component = componentRepository.findBycomponentId(id);
         container.containerId = id;
@@ -103,7 +98,13 @@ public class UserPageModel {
     }
 
     @Transactional
-    public void createElement(long id, String type, String specs) {
+    public void createElement(String name, String type, String specs) {
+        long id = elementHashCode(name);
+        Component component = new Component();
+        component.componentId = id;
+        component.componentName = name;
+        component.isContainer = false;
+        componentRepository.save(component);
         Element element = new Element();
         element.component = componentRepository.findBycomponentId(id);
         element.elementId = id;

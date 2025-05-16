@@ -58,15 +58,13 @@ public class PageImporter {
 
     private void processComponents(JSONObject component) {
         boolean isContainer = component.getBoolean("isContainer");
-        long id = userPageModel.createComponentByComponentName(
-                component.getString("name"),
-                isContainer);
+        String name = component.getString("name");
         if (isContainer){
-            userPageModel.createContainer(id,
+            userPageModel.createContainer(name,
                     component.getString("layout"),
                     component.getJSONArray("children"));
         }else {
-            userPageModel.createElement(id,
+            userPageModel.createElement(name,
                     component.getString("type"),
                     component.get("specs").toString());
         }
