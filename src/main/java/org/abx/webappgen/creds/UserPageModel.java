@@ -41,10 +41,10 @@ public class UserPageModel {
     }
 
     @Transactional
-    public long createPageWithPagename(String pagename,String pageTitle) {
+    public long createPageWithPageName(String pageName, String pageTitle) {
         Page page = new Page();
-        page.pageName = pagename;
-        page.pageId = elementHashCode(pagename);
+        page.pageName = pageName;
+        page.pageId = elementHashCode(pageName);
         page.pageTitle = pageTitle;
         pageContentRepository.save(page);
         return page.pageId;
