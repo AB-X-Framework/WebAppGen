@@ -7,7 +7,7 @@
       "footer": true
     }
   ],
-  "sections":[
+  "components":[
     {
       "name": "header"
     },

@@ -32,10 +32,10 @@ public class PageImporter {
             String data = StreamUtils.readStream(new FileInputStream(pageSpecsPath));
             JSONObject obj = new JSONObject(data);
 
-            JSONArray sections = obj.getJSONArray("sections");
-            for (int i = 0; i < sections.length(); i++) {
-                JSONObject page = sections.getJSONObject(i);
-                processSections(page);
+            JSONArray components = obj.getJSONArray("components");
+            for (int i = 0; i < components.length(); i++) {
+                JSONObject page = components.getJSONObject(i);
+                processComponents(page);
             }
 
             JSONArray pages = obj.getJSONArray("pages");
@@ -56,7 +56,7 @@ public class PageImporter {
     }
 
 
-    private void processSections(JSONObject section){
+    private void processComponents(JSONObject section){
         long id = userPageModel.createSectionBySectionName(section.getString("name"));
     }
 }
