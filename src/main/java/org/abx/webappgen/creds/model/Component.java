@@ -19,6 +19,6 @@ public class Component {
     public String componentName;
 
 
-    @OneToMany(mappedBy = "component")
-    private Collection<PageComponent> pageComponents;
+    @OneToMany(mappedBy = "parent")
+    public Collection<InnerComponent> innerComponent;
 }
