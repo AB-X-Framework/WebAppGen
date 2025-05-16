@@ -12,6 +12,9 @@ public class Resource {
     @Column
     public String resourceName;
 
+    @Column
+    public char resourceType;
+
     @OneToOne(mappedBy = "resource")
     public SingleResource resource;
 }
