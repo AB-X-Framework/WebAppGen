@@ -72,7 +72,7 @@ public class PageImporter {
             pageModel.createElement(name,
                     component.getJSONArray("js"),
                     component.getString("type"),
-                    component.get("specs").toString());
+                    component.getJSONArray("specs"));
         }
     }
 }

@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import java.util.Collection;
+
 @Entity
 @Table(name = "Element")
 public class Element {
@@ -18,7 +20,7 @@ public class Element {
     @Column
     public String type;
 
-    @Column
-    public String specs;
+    @OneToMany
+    public Collection<EnvValue> specs;
 
 }

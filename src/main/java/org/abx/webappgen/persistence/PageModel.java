@@ -130,7 +130,7 @@ public class PageModel {
         component.componentId = id;
         component.componentName = name;
         component.isContainer = true;
-        componentRepository.save(component);
+        saveComponent(js, component);
         Container container = new Container();
         container.component = componentRepository.findBycomponentId(id);
         container.containerId = id;
@@ -156,24 +156,45 @@ public class PageModel {
 
     }
 
+    private void saveComponent(JSONArray js, Component component) {
+        componentRepository.save(component);
+        componentRepository.flush();
+        component.js= new ArrayList<>();
+        for (int i = 0; i < js.length(); i++) {
+            JSONObject jsEnvValue = js.getJSONObject(i);
+            component.js.add(createEnvValue(jsEnvValue));
+        }
+        componentRepository.save(component);
+    }
+
     @Transactional
-    public void createElement(String name, JSONArray js, String type, String specs) {
+    public void createElement(String name, JSONArray js, String type, JSONArray specs) {
         long id = elementHashCode(name);
         Component component = new Component();
         component.componentId = id;
         component.componentName = name;
         component.isContainer = false;
-        componentRepository.save(component);
+        saveComponent(js, component);
         Element element = new Element();
         element.component = componentRepository.findBycomponentId(id);
         element.elementId = id;
         element.type = type;
-        element.specs = specs;
         elementRepository.save(element);
-        for (int i = 0; i < js.length(); i++) {
-            JSONObject jsEnvValue = js.getJSONObject(i);
-
+        elementRepository.flush();
+        element.specs = new ArrayList<>();
+        for (int i = 0; i < specs.length(); i++) {
+            JSONObject specsEnvValue = specs.getJSONObject(i);
+            element.specs.add(createEnvValue(specsEnvValue));
         }
+        elementRepository.save(element);
 
+    }
+
+    private EnvValue createEnvValue(JSONObject jsonEnvValue) {
+        EnvValue envValue = new EnvValue();
+        envValue.env = jsonEnvValue.getString("env");
+        envValue.value = jsonEnvValue.get("value").toString();
+        envValueRepository.save(envValue);
+        return envValue;
     }
 }
