@@ -34,13 +34,13 @@ public class UserPageModel {
         jsonPage.put(Name,page.pageName);
         JSONArray sections = new JSONArray();
         if (page.header){
-            sections.put(getSectionSpecsBySectionName("header"));
+            sections.put(getComponentSpecsByComponentName("header"));
         }
         for (PageComponent pageComponent :page.pageComponents){
-            sections.put(getSectionSpecsBySection(pageComponent.component));
+            sections.put(getComponentSpecsByComponent(pageComponent.component));
         }
         if (page.footer){
-            sections.put(getSectionSpecsBySectionName("footer"));
+            sections.put(getComponentSpecsByComponentName("footer"));
         }
         jsonPage.put(Components,sections);
         return jsonPage;
@@ -73,11 +73,11 @@ public class UserPageModel {
     }
 
 
-    private JSONObject getSectionSpecsBySectionName(String sectionName){
-        return getSectionSpecsBySection(sectionContentRepository.findBycomponentId(elementHashCode(sectionName)));
+    private JSONObject getComponentSpecsByComponentName(String sectionName){
+        return getComponentSpecsByComponent(sectionContentRepository.findBycomponentId(elementHashCode(sectionName)));
     }
 
-   private JSONObject getSectionSpecsBySection(Component component){
+   private JSONObject getComponentSpecsByComponent(Component component){
         JSONObject jsonSection = new JSONObject();
         jsonSection.put(Name, component.componentName);
         return jsonSection;

@@ -5,12 +5,12 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
-@Table(name = "PageSection")
+@Table(name = "PageComponent")
 public class PageComponent {
     @Id
     @Column(unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public Long pagecomponentId;
+    public Long pageComponentId;
 
     @ManyToOne
     @JoinColumn(name = "pageId", nullable = false)
