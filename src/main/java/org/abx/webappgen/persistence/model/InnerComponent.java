@@ -22,6 +22,8 @@ public class InnerComponent {
 
     public String name;
 
+    public int size;
+
     @Column
     public String env;
 }
