@@ -28,6 +28,8 @@ public class SecConfiguration {
                     authz
                             .requestMatchers("web/**")
                             .permitAll()
+                            .requestMatchers("session/**")
+                            .permitAll()
                             .requestMatchers("page/**")
                             .permitAll()
                             .requestMatchers("error").permitAll()
