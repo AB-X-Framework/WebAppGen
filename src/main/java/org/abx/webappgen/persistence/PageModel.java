@@ -38,8 +38,7 @@ public class PageModel {
     @Autowired
     public InnerComponentRepository innerComponentRepository;
 
-    @Autowired
-    public PageComponentRepository pageComponentRepository;
+
 
     @Autowired
     public EnvValueRepository envValueRepository;
@@ -50,7 +49,6 @@ public class PageModel {
         innerComponentRepository.deleteAll();
         elementRepository.deleteAll();
         containerRepository.deleteAll();
-        pageComponentRepository.deleteAll();
         componentRepository.deleteAll();
         pageRepository.deleteAll();
     }
@@ -63,20 +61,7 @@ public class PageModel {
             return jsonPage;
         }
         jsonPage.put(Title, page.pageTitle);
-        JSONObject pageComponents = new JSONObject();
-        jsonPage.put(Component, pageComponents);
-        pageComponents.put(Layout, "vertical");
-        pageComponents.put(IsContainer, true);
-        JSONArray jsonComponents = new JSONArray();
-        pageComponents.put(Children, jsonComponents);
-        for (PageComponent pageComponent : page.pageComponents) {
-            String targetEnv = pageComponent.env;
-            if (matchesEnv(targetEnv, env)){
-                JSONObject child = getComponentSpecsByComponent(env,pageComponent.component);
-                child.put(InnerName, pageComponent.name);
-                jsonComponents.put(child);
-            }
-        }
+        jsonPage.put(Component,  getComponentSpecsByComponent(env,page.component));
         return jsonPage;
     }
 
@@ -89,28 +74,14 @@ public class PageModel {
     }
 
     @Transactional
-    public long createPageWithPageName(String pageName, String pageTitle,JSONArray components) {
+    public long createPageWithPageName(String pageName, String pageTitle,String componentName) {
         Page page = new Page();
         page.pageName = pageName;
         page.pageId = elementHashCode(pageName);
         page.pageTitle = pageTitle;
-        page.pageComponents = new ArrayList<>();
         pageRepository.save(page);
         pageRepository.flush();
-        for (int i = 0; i < components.length(); i++) {
-            JSONObject jsonComponent = components.getJSONObject(i);
-            String innerName = jsonComponent.getString(Name);
-            String componentName = jsonComponent.getString(Component);
-            long componentId = elementHashCode(componentName);
-            Component component = componentRepository.findBycomponentId(componentId);
-            PageComponent pageComponent = new PageComponent();
-            pageComponent.name = innerName;
-            pageComponent.component = component;
-            pageComponent.page = page;
-            pageComponent.env= jsonComponent.getString(Env);
-            pageComponentRepository.save(pageComponent);
-            page.pageComponents.add(pageComponent);
-        }
+        page.component = componentRepository.findBycomponentId(elementHashCode(componentName));
         pageRepository.save(page);
         return page.pageId;
     }

@@ -24,9 +24,8 @@ class PageContent {
     }
 
     static renderComponent(output,componentSpecs) {
-        console.log("JE·"+JSON.stringify(componentSpecs));
         if (componentSpecs.isContainer){
-            console.log(JSON.stringify( "AaSA"+componentSpecs.children));
+
             for (var component of componentSpecs.children) {
                 PageContent.renderComponent(output,component)
             }
@@ -42,11 +41,9 @@ class PageContent {
     }
     static renderButton(output,specs) {
         var results =
-            `<button id="showFormBtn" class="btn waves-effect waves-light"> ${specs.text} 
+            `<button id="showFormBtn" class="btn waves-effect waves-light "> ${specs.text} 
              </button>`
         output.push(results) ;
-
-
     }
 
 

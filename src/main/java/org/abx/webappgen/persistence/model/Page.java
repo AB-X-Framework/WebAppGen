@@ -22,8 +22,8 @@ public class Page {
     @Column(length = 60)
     public String pageTitle;
 
-    @OneToMany(mappedBy = "page")
-    public Collection<PageComponent> pageComponents;
+    @ManyToOne
+    public Component component;
 
 
 }

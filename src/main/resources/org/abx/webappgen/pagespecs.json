@@ -3,18 +3,7 @@
     {
       "name": "main",
       "title": "Main Page",
-      "components": [
-        {
-          "name": "header",
-          "component": "header",
-          "env": ""
-        },
-        {
-          "name": "footer",
-          "component": "footer",
-          "env": ""
-        }
-      ]
+      "component": "MainPageComponent"
     }
   ],
   "components": [
@@ -23,9 +12,20 @@
       "isContainer": false,
       "type": "button",
       "js": [],
-      "specs": {
-        "text": "Hello"
-      }
+      "specs": [
+        {
+          "env": "EN",
+          "value": {
+            "text": "Hello"
+          }
+        },
+        {
+          "env": "ES",
+          "value": {
+            "text": "Hola"
+          }
+        }
+      ]
     },
     {
       "name": "header",
@@ -36,7 +36,8 @@
         {
           "name": "login",
           "component": "login",
-          "env": ""
+          "env": "",
+          "size": 1
         }
       ]
     },
@@ -47,6 +48,25 @@
       "children": [],
       "js": [],
       "components": []
+    },{
+      "name": "MainPageComponent",
+      "isContainer": true,
+      "layout": "vertical",
+      "components": [
+        {
+          "name": "header",
+          "component": "header",
+          "env": "",
+          "size": 12
+        },
+        {
+          "name": "footer",
+          "component": "footer",
+          "env": "",
+          "size": 12
+        }
+      ],
+      "js": []
     }
   ]
 }
