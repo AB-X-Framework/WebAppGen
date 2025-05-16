@@ -5,7 +5,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
-@Table(name = "PageComponent")
+@Table(name = "PageComponentRepository")
 public class PageComponent {
     @Id
     @Column(unique = true, nullable = false)
@@ -16,6 +16,9 @@ public class PageComponent {
     @JoinColumn(name = "pageId", nullable = false)
     public Page page;
 
+
+    @Column
+    public String name;
 
     @ManyToOne
     @JoinColumn(name = "componentId", nullable = false)

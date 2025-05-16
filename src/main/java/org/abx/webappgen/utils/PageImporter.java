@@ -3,7 +3,7 @@ package org.abx.webappgen.utils;
 
 import jakarta.annotation.PostConstruct;
 import org.abx.util.StreamUtils;
-import org.abx.webappgen.persistence.UserPageModel;
+import org.abx.webappgen.persistence.PageModel;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ import java.io.FileInputStream;
 @Component
 public class PageImporter {
     @Autowired
-    private UserPageModel userPageModel;
+    private PageModel pageModel;
 
     @Value("${load.pages}")
     public boolean loadPages;
@@ -48,7 +48,7 @@ public class PageImporter {
     }
 
     private void processPage(JSONObject page) {
-        long id = userPageModel.createPageWithPageName(
+        long id = pageModel.createPageWithPageName(
                 page.getString("name"),
                 page.getString("title"),
                 page.getJSONArray("components"));
@@ -60,12 +60,12 @@ public class PageImporter {
         boolean isContainer = component.getBoolean("isContainer");
         String name = component.getString("name");
         if (isContainer){
-            userPageModel.createContainer(name,
+            pageModel.createContainer(name,
                     component.getJSONArray("js"),
                     component.getString("layout"),
                     component.getJSONArray("components"));
         }else {
-            userPageModel.createElement(name,
+            pageModel.createElement(name,
                     component.getJSONArray("js"),
                     component.getString("type"),
                     component.get("specs").toString());

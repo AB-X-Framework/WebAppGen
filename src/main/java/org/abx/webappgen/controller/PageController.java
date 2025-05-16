@@ -1,7 +1,7 @@
 package org.abx.webappgen.controller;
 
 import org.abx.util.StreamUtils;
-import org.abx.webappgen.persistence.UserPageModel;
+import org.abx.webappgen.persistence.PageModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -15,13 +15,13 @@ import java.io.IOException;
 
 @RestController
 @RequestMapping("/page")
-public class UserPageController {
+public class PageController {
 
     private  ST pageTemplate ;
 
     @Autowired
-    public UserPageModel userPageModel;
-    public UserPageController(){
+    public PageModel pageModel;
+    public PageController(){
         try {
             String data = StreamUtils.readResource("org/abx/webappgen/page.html");
             pageTemplate = new ST(data,'{', '}');
@@ -38,9 +38,10 @@ public class UserPageController {
         return output;
     }
 
+
     @GetMapping(value = "/specs/{pagename}", produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("permitAll()")
     public String pageSpecs(@PathVariable String pagename) {
-        return userPageModel.getPageByPageId(userPageModel.elementHashCode(pagename)).toString(1);
+        return pageModel.getPageByPageId(pageModel.elementHashCode(pagename)).toString(1);
     }
 }

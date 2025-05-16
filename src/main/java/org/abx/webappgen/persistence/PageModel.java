@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 
 @org.springframework.stereotype.Component
-public class UserPageModel {
+public class PageModel {
 
     public static final String Name = "name";
     public static final String Title = "title";
@@ -23,7 +23,7 @@ public class UserPageModel {
     public static final String Components = "components";
     public static final String IsContainer = "isContainer";
     @Autowired
-    public PageContentRepository pageContentRepository;
+    public PageRepository pageRepository;
 
     @Autowired
     public ComponentRepository componentRepository;
@@ -36,10 +36,12 @@ public class UserPageModel {
 
     @Autowired
     public InnerComponentRepository innerComponentRepository;
+    @Autowired
+    public PageComponentRepository pageComponentRepository;
 
     @Transactional
     public JSONObject getPageByPageId(long id) {
-        Page page = pageContentRepository.findByPageId(id);
+        Page page = pageRepository.findByPageId(id);
         JSONObject jsonPage = new JSONObject();
         if (page == null) {
             jsonPage.put(Title, "Not found");
@@ -66,17 +68,24 @@ public class UserPageModel {
         page.pageName = pageName;
         page.pageId = elementHashCode(pageName);
         page.pageTitle = pageTitle;
-        pageContentRepository.save(page);
+        page.pageComponents = new ArrayList<>();
+        pageRepository.save(page);
+        pageRepository.flush();
         for (int i = 0; i < components.length(); i++) {
             JSONObject jsonComponent = components.getJSONObject(i);
-            String componentName = jsonComponent.getString(Name);
+            String innerName = jsonComponent.getString(Name);
+            String componentName = jsonComponent.getString(Component);
             long componentId = elementHashCode(componentName);
             Component component = componentRepository.findBycomponentId(componentId);
             PageComponent pageComponent = new PageComponent();
+            pageComponent.name = innerName;
             pageComponent.component = component;
             pageComponent.page = page;
             pageComponent.env= jsonComponent.getString(Env);
+            pageComponentRepository.save(pageComponent);
+            page.pageComponents.add(pageComponent);
         }
+        pageRepository.save(page);
         return page.pageId;
     }
 
