@@ -10,8 +10,8 @@
           "env": ""
         },
         {
-          "name": "header",
-          "component": "header",
+          "name": "footer",
+          "component": "footer",
           "env": ""
         }
       ]

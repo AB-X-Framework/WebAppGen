@@ -21,7 +21,7 @@ public class PageModel {
     public static final String Type = "type";
     public static final String Env = "env";
     public static final String Specs = "specs";
-    public static final String Components = "components";
+    public static final String Children = "children";
     public static final String IsContainer = "isContainer";
     @Autowired
     public PageRepository pageRepository;
@@ -63,16 +63,20 @@ public class PageModel {
             return jsonPage;
         }
         jsonPage.put(Title, page.pageTitle);
-        jsonPage.put(Name, page.pageName);
+        JSONObject pageComponents = new JSONObject();
+        jsonPage.put(Component, pageComponents);
+        pageComponents.put(Layout, "vertical");
+        pageComponents.put(IsContainer, true);
         JSONArray jsonComponents = new JSONArray();
+        pageComponents.put(Children, jsonComponents);
         for (PageComponent pageComponent : page.pageComponents) {
             String targetEnv = pageComponent.env;
             if (matchesEnv(targetEnv, env)){
-                jsonComponents.put(getComponentSpecsByComponent(env,pageComponent.component));
+                JSONObject child = getComponentSpecsByComponent(env,pageComponent.component);
+                child.put(InnerName, pageComponent.name);
+                jsonComponents.put(child);
             }
         }
-        jsonPage.put(Components, jsonComponents);
-        jsonPage.put(Layout, "vertical");
         return jsonPage;
     }
 
@@ -118,7 +122,6 @@ public class PageModel {
 
     private JSONObject getComponentSpecsByComponent(String env, Component component) {
         JSONObject jsonComponent = new JSONObject();
-        jsonComponent.put(Name, component.componentName);
         jsonComponent.put(JS, component.js);
         boolean isContainer = component.isContainer;
         jsonComponent.put(IsContainer, isContainer);
@@ -134,18 +137,17 @@ public class PageModel {
         Container container = component.container;
         jsonComponent.put(Layout, container.layout);
         JSONArray children = new JSONArray();
-        jsonComponent.put(Components, children);
+        jsonComponent.put(Children, children);
         for (InnerComponent inner : container.innerComponent) {
-            JSONObject innerComponent = new JSONObject();
+            JSONObject innerComponent =getComponentSpecsByComponent(env, inner.child);
             children.put(innerComponent);
             innerComponent.put(InnerName, inner.name);
-            innerComponent.put(Component, getComponentSpecsByComponent(env, inner.child));
         }
     }
 
     private void addElement(JSONObject jsonComponent, Component component) {
         Element element = component.element;
-        jsonComponent.put(Specs, element.specs);
+        jsonComponent.put(Specs,new JSONObject( element.specs));
         jsonComponent.put(Type, element.type);
 
     }
