@@ -6,7 +6,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "Resource")
+@Table(name = "BinaryResource")
 public class BinaryResource {
     @Id
     @Column(unique = true, nullable = false)

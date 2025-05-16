@@ -3,7 +3,7 @@ package org.abx.webappgen.persistence.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "Resource")
+@Table(name = "TextResource")
 public class TextResource {
     @Id
     @Column(unique = true, nullable = false)
