@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class TextResource {
     @Id
     @Column(unique = true, nullable = false)
-    public Long resourceId;
+    public Long textResourceId;
 
     @Column
     public String resourceName;

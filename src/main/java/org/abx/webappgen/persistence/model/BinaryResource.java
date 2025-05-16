@@ -10,7 +10,7 @@ import jakarta.persistence.Table;
 public class BinaryResource {
     @Id
     @Column(unique = true, nullable = false)
-    public Long resourceId;
+    public Long binaryResourceId;
 
     @Column
     public String resourceName;
