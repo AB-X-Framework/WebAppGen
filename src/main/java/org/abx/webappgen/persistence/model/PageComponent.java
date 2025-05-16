@@ -21,4 +21,6 @@ public class PageComponent {
     @JoinColumn(name = "componentId", nullable = false)
     public Component component;
 
+    @Column
+    public String env;
 }

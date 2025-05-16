@@ -50,9 +50,7 @@ public class PageImporter {
     private void processPage(JSONObject page) {
         long id = userPageModel.createPageWithPageName(
                 page.getString("name"),
-                page.getString("title"),
-                page.getBoolean("header"),
-                page.getBoolean("footer"));
+                page.getString("title"));
     }
 
 

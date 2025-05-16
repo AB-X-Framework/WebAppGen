@@ -22,12 +22,6 @@ public class Page {
     @Column(length = 60)
     public String pageTitle;
 
-    @Column
-    public boolean header;
-
-    @Column
-    public boolean footer;
-
     @OneToMany(mappedBy = "page")
     public Collection<PageComponent> pageComponents;
 

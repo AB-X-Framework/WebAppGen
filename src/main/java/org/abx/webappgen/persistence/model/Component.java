@@ -12,10 +12,8 @@ public class Component {
     @Column(unique = true, nullable = false)
     public Long componentId;
 
-
     @Column(length = 60)
     public String componentName;
-
 
     @OneToOne(mappedBy = "component")
     public Container container;

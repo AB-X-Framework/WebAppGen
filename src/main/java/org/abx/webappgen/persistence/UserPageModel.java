@@ -47,14 +47,8 @@ public class UserPageModel {
         jsonPage.put(Title, page.pageTitle);
         jsonPage.put(Name, page.pageName);
         JSONArray jsonComponents = new JSONArray();
-        if (page.header) {
-            jsonComponents.put(getComponentSpecsByComponentName("header"));
-        }
         for (PageComponent pageComponent : page.pageComponents) {
             jsonComponents.put(getComponentSpecsByComponent(pageComponent.component));
-        }
-        if (page.footer) {
-            jsonComponents.put(getComponentSpecsByComponentName("footer"));
         }
         jsonPage.put(Components, jsonComponents);
         jsonPage.put(Layout, "vertical");
@@ -66,13 +60,11 @@ public class UserPageModel {
     }
 
     @Transactional
-    public long createPageWithPageName(String pageName, String pageTitle, boolean header, boolean footer) {
+    public long createPageWithPageName(String pageName, String pageTitle) {
         Page page = new Page();
         page.pageName = pageName;
         page.pageId = elementHashCode(pageName);
         page.pageTitle = pageTitle;
-        page.header = header;
-        page.footer = footer;
         pageContentRepository.save(page);
         return page.pageId;
     }
