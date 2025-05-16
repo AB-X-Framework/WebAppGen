@@ -33,13 +33,25 @@ public class PageModel {
     public ContainerRepository containerRepository;
 
     @Autowired
-    public ElementRepository specsComponentRepository;
+    public ElementRepository elementRepository;
 
     @Autowired
     public InnerComponentRepository innerComponentRepository;
     @Autowired
     public PageComponentRepository pageComponentRepository;
+    @Autowired
+    public EnvValueRepository envValueRepository;
 
+    @Transactional
+    public void clean(){
+        envValueRepository.deleteAll();
+        innerComponentRepository.deleteAll();
+        elementRepository.deleteAll();
+        containerRepository.deleteAll();
+        pageComponentRepository.deleteAll();
+        componentRepository.deleteAll();
+        pageRepository.deleteAll();
+    }
     @Transactional
     public JSONObject getPageByPageId(String env, long id) {
         Page page = pageRepository.findByPageId(id);
@@ -181,7 +193,7 @@ public class PageModel {
         element.elementId = id;
         element.type = type;
         element.specs = specs;
-        specsComponentRepository.save(element);
+        elementRepository.save(element);
         for (int i = 0; i < js.length(); i++) {
             JSONObject jsEnvValue = js.getJSONObject(i);
 

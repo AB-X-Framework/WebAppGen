@@ -8,20 +8,21 @@ class PageContent {
         $.get(`/page/specs/${name}`, (specs) => {
             PageContent.processTile(specs);
             var output = [];
+            console.log(JSON.stringify(specs.components));
             PageContent.renderComponents( output, specs.components)
             $("#body-content").html(output.join(""));
         })
     }
 
-    static renderComponents(output,componentSpecs) {
-        for (var component of componentSpecs) {
+    static renderComponents(output,container) {
+        for (var innerComponent of container.components) {
             output.push( "<div>");
-            PageContent.renderComponent(output,component)
+            PageContent.renderComponent(output,innerComponent.component,innerComponent.innerName)
             output.push("</div>");
         }
     }
 
-    static renderComponent(output,componentSpecs) {
+    static renderComponent(output,componentSpecs,innerName) {
         if (componentSpecs.isContainer){
             for (var component of componentSpecs.components) {
                 PageContent.renderComponent(output,component)

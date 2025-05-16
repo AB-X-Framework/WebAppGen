@@ -20,13 +20,17 @@ public class PageImporter {
     @Value("${load.pages}")
     public boolean loadPages;
 
+    @Value("${drop.pages}")
+    public boolean dropPages;
 
     @Value("${pages.resource}")
     public String pageSpecsPath;
 
     @PostConstruct
     public void init() throws Exception {
-        System.out.println("PageImporter init!!!" + loadPages);
+        if (dropPages) {
+            pageModel.clean();
+        }
         if (loadPages) {
 
             String data = StreamUtils.readStream(new FileInputStream(pageSpecsPath));
