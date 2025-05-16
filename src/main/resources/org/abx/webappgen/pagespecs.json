@@ -51,13 +51,13 @@
           "innerId": "login",
           "component": "login",
           "env": "",
-          "size": 1
+          "size": 2
         },
         {
           "innerId": "abxImg",
           "component": "abxImg",
           "env": "",
-          "size": 1
+          "size": 2
         }
       ]
     },

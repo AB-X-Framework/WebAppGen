@@ -20,6 +20,7 @@ public class PageModel {
     public static final String Layout = "layout";
     public static final String Type = "type";
     public static final String Env = "env";
+    public static final String Size = "size";
     public static final String Specs = "specs";
     public static final String Children = "children";
     public static final String IsContainer = "isContainer";
@@ -123,6 +124,7 @@ public class PageModel {
             JSONObject innerComponent = getComponentSpecsByComponent(env, inner.child);
             children.put(innerComponent);
             innerComponent.put(InnerId, inner.innerId);
+            innerComponent.put(Size, inner.size);
         }
     }
 

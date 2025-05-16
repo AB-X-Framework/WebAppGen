@@ -25,10 +25,25 @@ class PageContent {
 
     static renderComponent(output, componentSpecs) {
         if (componentSpecs.isContainer) {
+            var horizontal = componentSpecs.layout === "horizontal";
+            var vertical = componentSpecs.layout === "vertical";
+            if (horizontal){
+                output.push('<div class="row">');
+            }
             for (var component of componentSpecs.children) {
+                if (vertical){
+                    output.push('<div class="row">');
+                }
                 PageContent.renderComponent(output, component)
+                if (vertical){
+                    output.push('</div>');
+                }
+            }
+            if (horizontal){
+                output.push('</div>');
             }
         } else {
+
             switch (componentSpecs.type) {
                 case "button":
                     PageContent.renderButton(output, componentSpecs.specs);
@@ -44,17 +59,15 @@ class PageContent {
 
     static renderButton(output, specs) {
         var results =
-            `<button id="showFormBtn" class="btn waves-effect waves-light "> ${specs.text} 
-             </button>`
+            `<div class="col s${specs.size}"><button id="showFormBtn" class="btn waves-effect waves-light "> ${specs.text} 
+             </button></div>`
         output.push(results);
     }
 
     static renderImg(output, specs) {
         var results =
-            `<div class="row">
-    <div class="col s6">
+            `<div class="col s${specs.size}">
         <img src="/binary/${specs.src}" class="responsive-img" alt="example">
-    </div>
 </div>`
         output.push(results);
     }
