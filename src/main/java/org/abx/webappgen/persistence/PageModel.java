@@ -129,7 +129,7 @@ public class PageModel {
     private void addElement(String env, JSONObject jsonComponent, Component component) {
         Element element = component.element;
         for (EnvValue envValue : element.specs) {
-            if (matchesEnv(env, envValue.env)) {
+            if (matchesEnv(envValue.env,env)) {
                 jsonComponent.put(Specs, new JSONObject(envValue.value));
                 break;
             }

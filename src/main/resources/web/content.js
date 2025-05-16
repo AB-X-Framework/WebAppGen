@@ -50,7 +50,11 @@ class PageContent {
     }
     static renderImg(output,specs) {
         var results =
-            `<img src="/binary/${specs.text} ">   </img>`
+`<div class="row">
+    <div class="col s6">
+        <img src="/binary/${specs.src}" class="responsive-img" alt="example">
+    </div>
+</div>`
         output.push(results) ;
     }
 
