@@ -3,10 +3,8 @@ package org.abx.webappgen.creds;
 import org.abx.webappgen.creds.dao.ContainerRepository;
 import org.abx.webappgen.creds.dao.PageContentRepository;
 import org.abx.webappgen.creds.dao.ComponentRepository;
-import org.abx.webappgen.creds.model.Component;
-import org.abx.webappgen.creds.model.Container;
-import org.abx.webappgen.creds.model.Page;
-import org.abx.webappgen.creds.model.PageComponent;
+import org.abx.webappgen.creds.dao.SpecsComponentRepository;
+import org.abx.webappgen.creds.model.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +25,10 @@ public class UserPageModel {
 
     @Autowired
     public ContainerRepository containerRepository;
+
+    @Autowired
+    public SpecsComponentRepository specsComponentRepository;
+
     @Transactional
     public JSONObject getPageByPageId(long id) {
         Page page = pageContentRepository.findByPageId(id);
@@ -97,6 +99,17 @@ public class UserPageModel {
         container.containerId = id;
         container.layout = layout;
         containerRepository.save(container);
+
+    }
+
+    @Transactional
+    public void createSpecComponent(long id, String type, String specs) {
+        SpecsComponent specsComponent = new SpecsComponent();
+        specsComponent.component = componentRepository.findBycomponentId(id);
+        specsComponent.specComponentId = id;
+        specsComponent.type = type;
+        specsComponent.specs = specs;
+        specsComponentRepository.save(specsComponent);
 
     }
 }

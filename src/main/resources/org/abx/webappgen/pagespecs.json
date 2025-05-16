@@ -9,6 +9,14 @@
   ],
   "components":[
     {
+      "name": "login",
+      "isContainer": false,
+      "type": "button",
+      "specs": {
+        "text": "Hello"
+      }
+    },
+    {
       "name": "header",
       "isContainer": true,
       "layout": "horizontal",
