@@ -6,11 +6,11 @@ import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @Table(name = "PageSection")
-public class PageSection {
+public class PageComponent {
     @Id
     @Column(unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public Long pageSectionId;
+    public Long pagecomponentId;
 
     @ManyToOne
     @JoinColumn(name = "pageId", nullable = false)
@@ -19,7 +19,7 @@ public class PageSection {
 
 
     @ManyToOne
-    @JoinColumn(name = "sectionId", nullable = false)
+    @JoinColumn(name = "componentId", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    public Section section;
+    public Component component;
 }

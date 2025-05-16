@@ -29,5 +29,5 @@ public class Page {
     public boolean footer;
 
     @OneToMany(mappedBy = "page")
-    public Collection<PageSection> pageSections;
+    public Collection<PageComponent> pageComponents;
 }

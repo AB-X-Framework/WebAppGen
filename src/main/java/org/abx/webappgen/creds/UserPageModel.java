@@ -3,20 +3,19 @@ package org.abx.webappgen.creds;
 import org.abx.webappgen.creds.dao.PageContentRepository;
 import org.abx.webappgen.creds.dao.SectionContentRepository;
 import org.abx.webappgen.creds.model.Page;
-import org.abx.webappgen.creds.model.PageSection;
-import org.abx.webappgen.creds.model.Section;
+import org.abx.webappgen.creds.model.PageComponent;
+import org.abx.webappgen.creds.model.Component;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-@Component
+@org.springframework.stereotype.Component
 public class UserPageModel {
 
     public static final String Name = "name";
     public static final String Title = "title";
-    public static final String Sections = "sections";
+    public static final String Components = "components";
     @Autowired
     public PageContentRepository  pageContentRepository;
 
@@ -37,13 +36,13 @@ public class UserPageModel {
         if (page.header){
             sections.put(getSectionSpecsBySectionName("header"));
         }
-        for (PageSection pageSection:page.pageSections){
-            sections.put(getSectionSpecsBySection(pageSection.section));
+        for (PageComponent pageComponent :page.pageComponents){
+            sections.put(getSectionSpecsBySection(pageComponent.component));
         }
         if (page.footer){
             sections.put(getSectionSpecsBySectionName("footer"));
         }
-        jsonPage.put(Sections,sections);
+        jsonPage.put(Components,sections);
         return jsonPage;
     }
 
@@ -66,21 +65,21 @@ public class UserPageModel {
 
     @Transactional
     public long createSectionBySectionName(String sectionName){
-        Section section = new Section();
-        section.sectionId = elementHashCode(sectionName);
-        section.sectionName = sectionName;
-        sectionContentRepository.save(section);
-        return section.sectionId;
+        Component component = new Component();
+        component.componentId = elementHashCode(sectionName);
+        component.componentName = sectionName;
+        sectionContentRepository.save(component);
+        return component.componentId;
     }
 
 
     private JSONObject getSectionSpecsBySectionName(String sectionName){
-        return getSectionSpecsBySection(sectionContentRepository.findBySectionId(elementHashCode(sectionName)));
+        return getSectionSpecsBySection(sectionContentRepository.findBycomponentId(elementHashCode(sectionName)));
     }
 
-   private JSONObject getSectionSpecsBySection(Section section){
+   private JSONObject getSectionSpecsBySection(Component component){
         JSONObject jsonSection = new JSONObject();
-        jsonSection.put(Name,section.sectionName);
+        jsonSection.put(Name, component.componentName);
         return jsonSection;
     }
 }

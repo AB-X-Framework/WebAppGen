@@ -1,14 +1,13 @@
 package org.abx.webappgen.creds.dao;
 
 
-import org.abx.webappgen.creds.model.Page;
-import org.abx.webappgen.creds.model.Section;
+import org.abx.webappgen.creds.model.Component;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface SectionContentRepository extends JpaRepository<Section, Long> {
-    Section findBySectionId(long sectionId);
+public interface SectionContentRepository extends JpaRepository<Component, Long> {
+    Component findBycomponentId(long componentId);
 
     @Override
-    void delete(Section user);
+    void delete(Component user);
 
 }
