@@ -46,10 +46,10 @@ class PageContent {
 
             switch (componentSpecs.type) {
                 case "button":
-                    PageContent.renderButton(output, componentSpecs.specs);
+                    PageContent.renderButton(output, componentSpecs);
                     break
                 case "img":
-                    PageContent.renderImg(output, componentSpecs.specs);
+                    PageContent.renderImg(output, componentSpecs);
                     break
 
             }
@@ -57,16 +57,20 @@ class PageContent {
 
     }
 
-    static renderButton(output, specs) {
+    static renderButton(output, componentSpecs) {
+        var specs = componentSpecs.specs;
+        var size = componentSpecs.size;
         var results =
-            `<div class="col s${specs.size}"><button id="showFormBtn" class="btn waves-effect waves-light "> ${specs.text} 
+            `<div class="col s${size}"><button id="showFormBtn" class="btn waves-effect waves-light "> ${specs.text} 
              </button></div>`
         output.push(results);
     }
 
-    static renderImg(output, specs) {
+    static renderImg(output, componentSpecs) {
+        var specs = componentSpecs.specs;
+        var size = componentSpecs.size;
         var results =
-            `<div class="col s${specs.size}">
+            `<div class="col s${size}">
         <img src="/binary/${specs.src}" class="responsive-img" alt="example">
 </div>`
         output.push(results);
