@@ -10,11 +10,15 @@
   "components":[
     {
       "name": "header",
-      "container": true
+      "isContainer": true,
+      "layout": "horizontal",
+      "children": []
     },
     {
       "name": "footer",
-      "container": true
+      "isContainer": true,
+      "layout": "horizontal",
+      "children": []
     }
   ]
 

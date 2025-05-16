@@ -9,11 +9,12 @@ import org.hibernate.annotations.OnDeleteAction;
 public class InnerComponent {
     @Id
     @Column(unique = true, nullable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public Long innerComponentId;
 
 
     @ManyToOne
-    @JoinColumn(name = "containerComponentId", nullable = false)
+    @JoinColumn(name = "containerId", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     public Container parent;
 

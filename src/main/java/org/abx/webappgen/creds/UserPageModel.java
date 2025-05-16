@@ -93,7 +93,8 @@ public class UserPageModel {
     @Transactional
     public void createContainer(long id, String layout, JSONArray children) {
         Container container = new Container();
-        container.containerComponentId = id;
+        container.component = componentRepository.findBycomponentId(id);
+        container.containerId = id;
         container.layout = layout;
         containerRepository.save(container);
 

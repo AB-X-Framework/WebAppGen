@@ -5,9 +5,9 @@ import org.abx.webappgen.creds.model.Container;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ContainerRepository extends JpaRepository<Container, Long> {
-    Container findByContainerComponentId(long containerId);
+    Container findByContainerId(long containerId);
 
     @Override
-    void delete(Container continer);
+    void delete(Container container);
 
 }
