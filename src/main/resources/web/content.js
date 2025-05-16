@@ -21,7 +21,22 @@ class PageContent {
         }
     }
 
-    static renderComponents(output,componentSpecs) {
-        output.push(componentSpecs);
+    static renderComponent(output,componentSpecs) {
+        if (componentSpecs.isContainer){
+            for (var component of componentSpecs.components) {
+                PageContent.renderComponent(output,component)
+            }
+        }else {
+            switch (componentSpecs.type) {
+                case "button":
+                    output.push(componentSpecs);
+                    break
+
+            }
+        }
+
     }
+
+
+
 }
