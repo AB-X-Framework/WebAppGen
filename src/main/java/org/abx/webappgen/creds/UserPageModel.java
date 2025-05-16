@@ -34,8 +34,14 @@ public class UserPageModel {
         jsonPage.put(Title,page.pageTitle);
         jsonPage.put(Name,page.pageName);
         JSONArray sections = new JSONArray();
+        if (page.header){
+            sections.put(getSectionSpecsBySectionName("header"));
+        }
         for (PageSection pageSection:page.pageSections){
             sections.put(getSectionSpecsBySection(pageSection.section));
+        }
+        if (page.footer){
+            sections.put(getSectionSpecsBySectionName("footer"));
         }
         jsonPage.put(Sections,sections);
         return jsonPage;
@@ -46,11 +52,13 @@ public class UserPageModel {
     }
 
     @Transactional
-    public long createPageWithPageName(String pageName, String pageTitle) {
+    public long createPageWithPageName(String pageName, String pageTitle,boolean header,boolean footer) {
         Page page = new Page();
         page.pageName = pageName;
         page.pageId = elementHashCode(pageName);
         page.pageTitle = pageTitle;
+        page.header = header;
+        page.footer = footer;
         pageContentRepository.save(page);
         return page.pageId;
     }
@@ -63,6 +71,11 @@ public class UserPageModel {
         section.sectionName = sectionName;
         sectionContentRepository.save(section);
         return section.sectionId;
+    }
+
+
+    private JSONObject getSectionSpecsBySectionName(String sectionName){
+        return getSectionSpecsBySection(sectionContentRepository.findBySectionId(elementHashCode(sectionName)));
     }
 
    private JSONObject getSectionSpecsBySection(Section section){
