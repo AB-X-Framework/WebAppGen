@@ -1,7 +1,9 @@
 package org.abx.webappgen.creds;
 
 import org.abx.webappgen.creds.dao.PageContentRepository;
+import org.abx.webappgen.creds.dao.SectionContentRepository;
 import org.abx.webappgen.creds.model.Page;
+import org.abx.webappgen.creds.model.Section;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,9 @@ public class UserPageModel {
     @Autowired
     public PageContentRepository  pageContentRepository;
 
+    @Autowired
+    public SectionContentRepository sectionContentRepository;
+
     @Transactional
     public JSONObject getPageByPageId(long id) {
         Page page = pageContentRepository.findByPageId(id);
@@ -27,21 +32,35 @@ public class UserPageModel {
             return jsonPage;
         }
         jsonPage.put(Title,page.pageTitle);
-        jsonPage.put(Name,page.pagename);
+        jsonPage.put(Name,page.pageName);
         return jsonPage;
     }
 
-    public long pageHashCode(String pagename){
-        return pagename.hashCode();
+    public long elementHashCode(String element){
+        return element.hashCode();
     }
 
     @Transactional
     public long createPageWithPagename(String pagename,String pageTitle) {
         Page page = new Page();
-        page.pagename = pagename;
-        page.pageId = pageHashCode(pagename);
+        page.pageName = pagename;
+        page.pageId = elementHashCode(pagename);
         page.pageTitle = pageTitle;
         pageContentRepository.save(page);
         return page.pageId;
     }
+
+
+    @Transactional
+    public long createSectionBySectionName(String sectionName){
+        Section section = new Section();
+        section.sectionId = elementHashCode(sectionName);
+        section.sectionName = sectionName;
+        sectionContentRepository.save(section);
+        return section.sectionId;
+    }
+
+   /* private JSONObject getSectionBySectionId(long sectionId){
+
+    }*/
 }

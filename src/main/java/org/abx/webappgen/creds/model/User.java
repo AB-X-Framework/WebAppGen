@@ -1,14 +1,11 @@
 package org.abx.webappgen.creds.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
-@Table(name = "user_account")
+@Table(name = "UserAccount", indexes = {
+        @Index(name = "idx_username", columnList = "username") // Index for better query performance
+})
 public class User {
 
     @Id

@@ -3,8 +3,8 @@ package org.abx.webappgen.creds.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "page" , indexes = {
-        @Index(name = "idx_pagename", columnList = "pagename") // Index for better query performance
+@Table(name = "Page", indexes = {
+        @Index(name = "idx_pagename", columnList = "pageName") // Index for better query performance
 })
 public class Page {
 
@@ -14,9 +14,11 @@ public class Page {
 
 
     @Column(length = 60)
-    public String pagename;
+    public String pageName;
 
 
     @Column(length = 60)
     public String pageTitle;
+
+
 }

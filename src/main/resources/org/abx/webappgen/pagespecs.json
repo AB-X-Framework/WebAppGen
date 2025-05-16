@@ -2,7 +2,18 @@
   "pages": [
     {
       "name": "main",
-      "title": "Main Page"
+      "title": "Main Page",
+      "header": true,
+      "footer": true
+    }
+  ],
+  "sections":[
+    {
+      "name": "header"
+    },
+    {
+      "name": "footer"
     }
   ]
+
 }
