@@ -3,16 +3,26 @@
     {
       "name": "main",
       "title": "Main Page",
-      "header": true,
-      "footer": true
+      "components": [
+        {
+          "name": "header",
+          "component": "header",
+          "env": ""
+        },
+        {
+          "name": "header",
+          "component": "header",
+          "env": ""
+        }
+      ]
     }
   ],
   "components": [
     {
       "name": "login",
-      "js": "",
       "isContainer": false,
       "type": "button",
+      "js": [],
       "specs": {
         "text": "Hello"
       }
@@ -21,11 +31,12 @@
       "name": "header",
       "isContainer": true,
       "layout": "horizontal",
-      "js": "",
-      "children": [
+      "js": [],
+      "components": [
         {
           "name": "login",
-          "component": "login"
+          "component": "login",
+          "env": ""
         }
       ]
     },
@@ -33,8 +44,9 @@
       "name": "footer",
       "isContainer": true,
       "layout": "horizontal",
-      "js": "",
-      "children": []
+      "children": [],
+      "js": [],
+      "components": []
     }
   ]
 }

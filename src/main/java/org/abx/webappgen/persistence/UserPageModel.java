@@ -18,6 +18,7 @@ public class UserPageModel {
     public static final String Component = "component";
     public static final String Layout = "layout";
     public static final String Type = "type";
+    public static final String Env = "env";
     public static final String Specs = "specs";
     public static final String Components = "components";
     public static final String IsContainer = "isContainer";
@@ -60,12 +61,22 @@ public class UserPageModel {
     }
 
     @Transactional
-    public long createPageWithPageName(String pageName, String pageTitle) {
+    public long createPageWithPageName(String pageName, String pageTitle,JSONArray components) {
         Page page = new Page();
         page.pageName = pageName;
         page.pageId = elementHashCode(pageName);
         page.pageTitle = pageTitle;
         pageContentRepository.save(page);
+        for (int i = 0; i < components.length(); i++) {
+            JSONObject jsonComponent = components.getJSONObject(i);
+            String componentName = jsonComponent.getString(Name);
+            long componentId = elementHashCode(componentName);
+            Component component = componentRepository.findBycomponentId(componentId);
+            PageComponent pageComponent = new PageComponent();
+            pageComponent.component = component;
+            pageComponent.page = page;
+            pageComponent.env= jsonComponent.getString(Env);
+        }
         return page.pageId;
     }
 
@@ -109,7 +120,7 @@ public class UserPageModel {
     }
 
     @Transactional
-    public void createContainer(String name, String js, String layout, JSONArray children) {
+    public void createContainer(String name, JSONArray js, String layout, JSONArray children) {
         long id = elementHashCode(name);
         Component component = new Component();
         component.componentId = id;
@@ -141,7 +152,7 @@ public class UserPageModel {
     }
 
     @Transactional
-    public void createElement(String name, String js, String type, String specs) {
+    public void createElement(String name, JSONArray js, String type, String specs) {
         long id = elementHashCode(name);
         Component component = new Component();
         component.componentId = id;
@@ -154,6 +165,10 @@ public class UserPageModel {
         element.type = type;
         element.specs = specs;
         specsComponentRepository.save(element);
+        for (int i = 0; i < js.length(); i++) {
+            JSONObject jsEnvValue = js.getJSONObject(i);
+
+        }
 
     }
 }

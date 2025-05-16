@@ -2,6 +2,8 @@ package org.abx.webappgen.persistence.model;
 
 import jakarta.persistence.*;
 
+import java.util.Collection;
+
 @Entity
 @Table(name = "Component" , indexes = {
         @Index(name = "idx_componentName", columnList = "componentName") // Index for better query performance
@@ -24,7 +26,7 @@ public class Component {
     @Column
     public boolean isContainer;
 
-    @Column
-    public String js;
+    @OneToMany
+    public Collection<EnvValue> js;
 
 }

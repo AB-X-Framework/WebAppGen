@@ -50,7 +50,9 @@ public class PageImporter {
     private void processPage(JSONObject page) {
         long id = userPageModel.createPageWithPageName(
                 page.getString("name"),
-                page.getString("title"));
+                page.getString("title"),
+                page.getJSONArray("components"));
+
     }
 
 
@@ -59,12 +61,12 @@ public class PageImporter {
         String name = component.getString("name");
         if (isContainer){
             userPageModel.createContainer(name,
-                    component.getString("js"),
+                    component.getJSONArray("js"),
                     component.getString("layout"),
-                    component.getJSONArray("children"));
+                    component.getJSONArray("components"));
         }else {
             userPageModel.createElement(name,
-                    component.getString("js"),
+                    component.getJSONArray("js"),
                     component.getString("type"),
                     component.get("specs").toString());
         }
