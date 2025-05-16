@@ -13,7 +13,7 @@ class PageContent {
         })
     }
 
-    static renderComponents(componentSpecs) {
+    static renderComponents(output,componentSpecs) {
         for (var component of componentSpecs) {
             output.push( "<div>hi</div>");
         }
