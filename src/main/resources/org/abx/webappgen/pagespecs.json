@@ -42,6 +42,20 @@
       ]
     },
     {
+      "name": "textField",
+      "isContainer": false,
+      "type": "textfield",
+      "js": [],
+      "specs": [
+        {
+          "env": "",
+          "value": {
+            "text": "Hello"
+          }
+        }
+      ]
+    },
+    {
       "name": "header",
       "isContainer": true,
       "layout": "horizontal",
@@ -56,6 +70,12 @@
         {
           "innerId": "abxImg",
           "component": "abxImg",
+          "env": "",
+          "size": 2
+        },
+        {
+          "innerId": "textField",
+          "component": "textField",
           "env": "",
           "size": 2
         }

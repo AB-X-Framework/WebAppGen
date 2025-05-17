@@ -53,6 +53,9 @@ class PageContent {
                 case "img":
                     PageContent.renderImg(output, componentSpecs.specs);
                     break
+                case "textfield":
+                    PageContent.renderTextfield(output, componentSpecs.specs);
+                    break
 
             }
             output.push(`</div>`);
@@ -75,8 +78,8 @@ class PageContent {
 
     static renderTextfield(output, specs){
         var results =
-            `<input placeholder="Placeholder" id="first_name" type="text" class="validate">
-          <label for="first_name">First Name</label>`;
+            `<div class="input-field"></div><input placeholder="Placeholder" id="first_name" type="text" class="validate">
+          <label for="first_name">First Name</label></div>`;
         output.push(results);
 
     }
