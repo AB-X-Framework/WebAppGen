@@ -59,6 +59,9 @@ class PageContent {
                 case "textfield":
                     PageContent.renderTextfield(output, componentSpecs.specs);
                     break
+                case "textarea":
+                    PageContent.renderTextarea(output, componentSpecs.specs);
+                    break
 
             }
             output.push(`</div>`);
@@ -83,10 +86,16 @@ class PageContent {
         var results =
             `<div id="${specs.id}"  class="input-field"></div>
             <input placeholder="${specs.placeholder}" id="f_${specs.id}"  type="text" class="validate">
-          <label for="f_${specs.id}">${specs.label}</label></div>`;
+          <label for="f_${specs.id}">${specs.label}</label>`;
         output.push(results);
-
     }
 
+    static renderTextarea(output, specs){
+        var results =
+            `<div id="${specs.id}"  class="input-field"></div>
+            <textarea placeholder="${specs.placeholder}" id="f_${specs.id}"  type="text" class="materialize-textarea"></textarea>
+          <label for="f_${specs.id}">${specs.label}</label>`;
+        output.push(results);
+    }
 
 }

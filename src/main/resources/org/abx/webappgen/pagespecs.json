@@ -57,6 +57,21 @@
       ]
     },
     {
+      "name": "textArea",
+      "isContainer": false,
+      "type": "textarea",
+      "js": [],
+      "specs": [
+        {
+          "env": "",
+          "value": {
+            "placeholder": "Textarea data",
+            "label": "This is the Textarea label"
+          }
+        }
+      ]
+    },
+    {
       "name": "header",
       "isContainer": true,
       "layout": "horizontal",
@@ -77,6 +92,12 @@
         {
           "innerId": "textField",
           "component": "textField",
+          "env": "",
+          "size": 2
+        },
+        {
+          "innerId": "textArea",
+          "component": "textArea",
           "env": "",
           "size": 2
         }
