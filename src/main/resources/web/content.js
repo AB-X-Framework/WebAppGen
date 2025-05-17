@@ -65,20 +65,20 @@ class PageContent {
 
     static renderButton(output, specs) {
         var results =
-            `<button id="showFormBtn" class="btn waves-effect waves-light "> ${specs.text} 
+            `<button id="${specs.id}" class="btn waves-effect waves-light "> ${specs.text} 
              </button>`
         output.push(results);
     }
 
     static renderImg(output, specs) {
         var results =
-            `<img src="/binary/${specs.src}" class="responsive-img" alt="example">`
+            `<img id="${specs.id}"  src="/binary/${specs.src}" class="responsive-img" alt="example">`
         output.push(results);
     }
 
     static renderTextfield(output, specs){
         var results =
-            `<div class="input-field"></div><input placeholder="Placeholder" id="first_name" type="text" class="validate">
+            `<div id="${specs.id}"  class="input-field"></div><input placeholder="Placeholder" id="first_name" type="text" class="validate">
           <label for="first_name">First Name</label></div>`;
         output.push(results);
 
