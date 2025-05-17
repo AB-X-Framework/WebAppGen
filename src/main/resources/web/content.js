@@ -8,22 +8,29 @@ class PageContent {
         $.get(`/page/specs/${name}`, (specs) => {
             PageContent.processTile(specs);
             var output = [];
-            console.log(JSON.stringify(specs.component));
-            PageContent.renderComponent(output, specs.component)
+            var js = [];
+            PageContent.renderComponent(output,js, specs.component)
             $("#body-content").html(output.join(""));
+            console.log(js);
+            for (var line of js){
+                console.log(line);
+                eval(line)
+            }
             M.updateTextFields();
         })
     }
 
-    static renderComponents(output, container) {
+    static renderComponents(output, js, container) {
         for (var innerComponent of container.components) {
             output.push("<div>");
-            PageContent.renderComponent(output, innerComponent.component);
+            PageContent.renderComponent(output, js, innerComponent.component);
             output.push("</div>");
         }
+        js.push(container.js);
     }
 
-    static renderComponent(output, componentSpecs) {
+    static renderComponent(output, js,componentSpecs) {
+        js.push(componentSpecs.js);
         if (componentSpecs.isContainer) {
             var horizontal = componentSpecs.layout === "horizontal";
             var vertical = componentSpecs.layout === "vertical";
@@ -35,7 +42,7 @@ class PageContent {
                 if (vertical){
                     output.push('<div class="row">');
                 }
-                PageContent.renderComponent(output, component)
+                PageContent.renderComponent(output, js, component)
                 if (vertical){
                     output.push('</div>');
                 }
