@@ -7,9 +7,9 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @org.springframework.stereotype.Component
 public class PageModel {
@@ -74,15 +74,15 @@ public class PageModel {
             jsonPage.put(Title, "Not found");
             return jsonPage;
         }
-        if (!"Anonymous".equals(page.role)){
-            if (!roles.contains(page.role)){
+        if (!"Anonymous".equals(page.role)) {
+            if (!roles.contains(page.role)) {
                 jsonPage.put(Title, "Not authorized");
                 return jsonPage;
             }
         }
 
         jsonPage.put(Title, page.pageTitle);
-        jsonPage.put(Component, getComponentSpecsByComponent("top",new HashSet<>(),env, page.component));
+        jsonPage.put(Component, getComponentSpecsByComponent("top", new HashMap<>(), env, page.component));
         return jsonPage;
     }
 
@@ -96,7 +96,7 @@ public class PageModel {
 
     @Transactional
     public long createPageWithPageName(String pageName, String pageTitle,
-                                       String role,String componentName) {
+                                       String role, String componentName) {
         Page page = new Page();
         page.pageName = pageName;
         page.pageId = elementHashCode(pageName);
@@ -110,14 +110,36 @@ public class PageModel {
     }
 
 
-    private JSONObject getComponentSpecsByComponentName(String parent,HashSet<String> siblings, String env, String componentName) {
-        return getComponentSpecsByComponent(parent, siblings,env,
+    private JSONObject getComponentSpecsByComponentName(String parent, Map<String, String> siblings, String env, String componentName) {
+        return getComponentSpecsByComponent(parent, siblings, env,
                 componentRepository.findBycomponentId(elementHashCode(componentName)));
     }
 
-    private JSONObject getComponentSpecsByComponent(String parent, HashSet<String> siblings, String env, Component component) {
+    private String replaceWholeWords(String source, Map<String, String> replacements) {
+        String result = source;
+
+        for (Map.Entry<String, String> entry : replacements.entrySet()) {
+            String target = entry.getKey();
+            String replacement = entry.getValue();
+
+            // Match the whole word using word boundaries
+            String regex = "\\b" + Pattern.quote(target) + "\\b";
+            result = result.replaceAll(regex, Matcher.quoteReplacement(replacement));
+        }
+
+        return result;
+    }
+
+    private JSONObject getComponentSpecsByComponent(String parent, Map<String, String> siblings,
+                                                    String env, Component component) {
         JSONObject jsonComponent = new JSONObject();
-        jsonComponent.put(JS, component.js);
+        StringBuilder sb = new StringBuilder();
+        for (EnvValue jsValue : component.js) {
+            if (matchesEnv(jsValue.env, env)) {
+                sb.append(replaceWholeWords(jsValue.value, siblings));
+            }
+        }
+        jsonComponent.put(JS, sb.toString());
         boolean isContainer = component.isContainer;
         jsonComponent.put(IsContainer, isContainer);
         if (isContainer) {
@@ -133,10 +155,13 @@ public class PageModel {
         jsonComponent.put(Layout, container.layout);
         JSONArray children = new JSONArray();
         jsonComponent.put(Children, children);
-        HashSet<String> siblings = new HashSet<>();
+        Map<String,String> siblings = new HashMap<>();
         for (InnerComponent inner : container.innerComponent) {
-            String innerId = parent+"_"+inner.innerId;
-            JSONObject innerComponent = getComponentSpecsByComponent(innerId,siblings, env, inner.child);
+            siblings.put(inner.innerId, parent + "_" + inner.innerId);
+        }
+        for (InnerComponent inner : container.innerComponent) {
+            String innerId = parent + "_" + inner.innerId;
+            JSONObject innerComponent = getComponentSpecsByComponent(innerId, siblings, env, inner.child);
             children.put(innerComponent);
             innerComponent.put(Id, innerId);
             innerComponent.put(Size, inner.size);
