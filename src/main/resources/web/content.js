@@ -44,36 +44,41 @@ class PageContent {
             }
         } else {
 
+            var size = componentSpecs.size;
+            output.push(`<div class="col s${size}">`)
             switch (componentSpecs.type) {
                 case "button":
-                    PageContent.renderButton(output, componentSpecs);
+                    PageContent.renderButton(output, componentSpecs.specs);
                     break
                 case "img":
-                    PageContent.renderImg(output, componentSpecs);
+                    PageContent.renderImg(output, componentSpecs.specs);
                     break
 
             }
+            output.push(`</div>`);
         }
 
     }
 
-    static renderButton(output, componentSpecs) {
-        var specs = componentSpecs.specs;
-        var size = componentSpecs.size;
+    static renderButton(output, specs) {
         var results =
-            `<div class="col s${size}"><button id="showFormBtn" class="btn waves-effect waves-light "> ${specs.text} 
+            `<button id="showFormBtn" class="btn waves-effect waves-light "> ${specs.text} 
              </button></div>`
         output.push(results);
     }
 
-    static renderImg(output, componentSpecs) {
-        var specs = componentSpecs.specs;
-        var size = componentSpecs.size;
+    static renderImg(output, specs) {
         var results =
-            `<div class="col s${size}">
-        <img src="/binary/${specs.src}" class="responsive-img" alt="example">
-</div>`
+            `<img src="/binary/${specs.src}" class="responsive-img" alt="example">`
         output.push(results);
+    }
+
+    static renderTextfield(output, specs){
+        var results =
+            `<input placeholder="Placeholder" id="first_name" type="text" class="validate">
+          <label for="first_name">First Name</label>`;
+        output.push(results);
+
     }
 
 
