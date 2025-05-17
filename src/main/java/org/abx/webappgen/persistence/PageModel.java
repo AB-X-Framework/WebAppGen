@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Set;
 
 @org.springframework.stereotype.Component
 public class PageModel {
@@ -66,13 +67,20 @@ public class PageModel {
     }
 
     @Transactional
-    public JSONObject getPageByPageId(String env, long id) {
+    public JSONObject getPageByPageId(Set<String> roles, String env, long id) {
         Page page = pageRepository.findByPageId(id);
         JSONObject jsonPage = new JSONObject();
         if (page == null) {
             jsonPage.put(Title, "Not found");
             return jsonPage;
         }
+        if (!"Anonymous".equals(page.role)){
+            if (!roles.contains(page.role)){
+                jsonPage.put(Title, "Not authorized");
+                return jsonPage;
+            }
+        }
+
         jsonPage.put(Title, page.pageTitle);
         jsonPage.put(Component, getComponentSpecsByComponent("top",new HashSet<>(),env, page.component));
         return jsonPage;

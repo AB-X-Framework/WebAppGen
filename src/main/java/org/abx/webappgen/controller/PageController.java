@@ -6,6 +6,9 @@ import org.abx.webappgen.persistence.PageModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.stringtemplate.v4.ST;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/page")
@@ -45,7 +51,12 @@ public class PageController {
     @GetMapping(value = "/specs/{pagename}", produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("permitAll()")
     public String pageSpecs(@PathVariable String pagename, HttpSession session) {
-        return pageModel.getPageByPageId(env(session),
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Set<String> roles = auth.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.toSet());
+        return pageModel.getPageByPageId(roles, env(session),
                 pageModel.elementHashCode(pagename)).toString(1);
     }
 
@@ -54,8 +65,8 @@ public class PageController {
         String env = "";
         if (session.getAttribute(LANG) != null) {
             env += (String) session.getAttribute(LANG);
-        }else {
-            env+="ES";
+        } else {
+            env += "ES";
         }
         return env;
     }
