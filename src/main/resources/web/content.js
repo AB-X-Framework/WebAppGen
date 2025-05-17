@@ -66,7 +66,7 @@ class PageContent {
     static renderButton(output, specs) {
         var results =
             `<button id="showFormBtn" class="btn waves-effect waves-light "> ${specs.text} 
-             </button></div>`
+             </button>`
         output.push(results);
     }
 
