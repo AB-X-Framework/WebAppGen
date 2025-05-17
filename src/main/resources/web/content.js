@@ -27,6 +27,7 @@ class PageContent {
         if (componentSpecs.isContainer) {
             var horizontal = componentSpecs.layout === "horizontal";
             var vertical = componentSpecs.layout === "vertical";
+            output.push(`<div id="${componentSpecs.id}">`);
             if (horizontal){
                 output.push('<div class="row">');
             }
@@ -42,10 +43,12 @@ class PageContent {
             if (horizontal){
                 output.push('</div>');
             }
+            output.push('</div>');
         } else {
 
             var size = componentSpecs.size;
             output.push(`<div class="col s${size}">`)
+            componentSpecs.specs.id = componentSpecs.id;
             switch (componentSpecs.type) {
                 case "button":
                     PageContent.renderButton(output, componentSpecs.specs);
