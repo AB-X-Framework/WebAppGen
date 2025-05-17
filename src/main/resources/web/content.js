@@ -81,8 +81,9 @@ class PageContent {
 
     static renderTextfield(output, specs){
         var results =
-            `<div id="${specs.id}"  class="input-field"></div><input placeholder="Placeholder" id="first_name" type="text" class="validate">
-          <label for="first_name">First Name</label></div>`;
+            `<div id="${specs.id}"  class="input-field"></div>
+            <input placeholder="${specs.placeholder}" id="f_${specs.id}"  type="text" class="validate">
+          <label for="f_${specs.id}">${specs.label}</label></div>`;
         output.push(results);
 
     }

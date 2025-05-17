@@ -50,7 +50,8 @@
         {
           "env": "",
           "value": {
-            "text": "Hello"
+            "placeholder": "Put your data",
+            "label": "This is the label"
           }
         }
       ]
