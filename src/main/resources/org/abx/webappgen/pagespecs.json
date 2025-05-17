@@ -3,7 +3,8 @@
     {
       "name": "main",
       "title": "Main Page",
-      "component": "MainPageComponent"
+      "component": "MainPageComponent",
+      "role": "Anonymous"
     }
   ],
   "components": [

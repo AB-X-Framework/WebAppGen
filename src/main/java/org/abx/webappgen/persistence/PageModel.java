@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 @org.springframework.stereotype.Component
 public class PageModel {
@@ -73,7 +74,7 @@ public class PageModel {
             return jsonPage;
         }
         jsonPage.put(Title, page.pageTitle);
-        jsonPage.put(Component, getComponentSpecsByComponent("top",env, page.component));
+        jsonPage.put(Component, getComponentSpecsByComponent("top",new HashSet<>(),env, page.component));
         return jsonPage;
     }
 
@@ -86,10 +87,12 @@ public class PageModel {
     }
 
     @Transactional
-    public long createPageWithPageName(String pageName, String pageTitle, String componentName) {
+    public long createPageWithPageName(String pageName, String pageTitle,
+                                       String role,String componentName) {
         Page page = new Page();
         page.pageName = pageName;
         page.pageId = elementHashCode(pageName);
+        page.role = role;
         page.pageTitle = pageTitle;
         pageRepository.save(page);
         pageRepository.flush();
@@ -99,12 +102,12 @@ public class PageModel {
     }
 
 
-    private JSONObject getComponentSpecsByComponentName(String parent, String env, String componentName) {
-        return getComponentSpecsByComponent(parent, env,
+    private JSONObject getComponentSpecsByComponentName(String parent,HashSet<String> siblings, String env, String componentName) {
+        return getComponentSpecsByComponent(parent, siblings,env,
                 componentRepository.findBycomponentId(elementHashCode(componentName)));
     }
 
-    private JSONObject getComponentSpecsByComponent(String parent, String env, Component component) {
+    private JSONObject getComponentSpecsByComponent(String parent, HashSet<String> siblings, String env, Component component) {
         JSONObject jsonComponent = new JSONObject();
         jsonComponent.put(JS, component.js);
         boolean isContainer = component.isContainer;
@@ -122,9 +125,10 @@ public class PageModel {
         jsonComponent.put(Layout, container.layout);
         JSONArray children = new JSONArray();
         jsonComponent.put(Children, children);
+        HashSet<String> siblings = new HashSet<>();
         for (InnerComponent inner : container.innerComponent) {
             String innerId = parent+"_"+inner.innerId;
-            JSONObject innerComponent = getComponentSpecsByComponent(innerId, env, inner.child);
+            JSONObject innerComponent = getComponentSpecsByComponent(innerId,siblings, env, inner.child);
             children.put(innerComponent);
             innerComponent.put(Id, innerId);
             innerComponent.put(Size, inner.size);

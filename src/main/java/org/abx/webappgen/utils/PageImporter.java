@@ -60,6 +60,7 @@ public class PageImporter {
         long id = pageModel.createPageWithPageName(
                 page.getString("name"),
                 page.getString("title"),
+                page.getString("role"),
                 page.getString("component"));
 
     }

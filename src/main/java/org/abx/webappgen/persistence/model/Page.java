@@ -22,8 +22,12 @@ public class Page {
     @Column(length = 60)
     public String pageTitle;
 
+    @Column(length = 60)
+    public String role;
+
     @ManyToOne
     public Component component;
+
 
 
 }
