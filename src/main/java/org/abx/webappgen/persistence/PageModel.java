@@ -13,6 +13,7 @@ import java.util.ArrayList;
 public class PageModel {
 
     public static final String InnerId = "innerId";
+    public static final String Id = "id";
     public static final String Name = "name";
     public static final String Title = "title";
     public static final String JS = "js";
@@ -123,7 +124,7 @@ public class PageModel {
         for (InnerComponent inner : container.innerComponent) {
             JSONObject innerComponent = getComponentSpecsByComponent(env, inner.child);
             children.put(innerComponent);
-            innerComponent.put(InnerId, inner.innerId);
+            innerComponent.put(Id, inner.innerId);
             innerComponent.put(Size, inner.size);
         }
     }
