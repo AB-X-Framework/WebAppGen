@@ -62,6 +62,9 @@ class PageContent {
                 case "textarea":
                     PageContent.renderTextarea(output, componentSpecs.specs);
                     break
+                case "section":
+                    PageContent.renderSection(output, componentSpecs.specs);
+                    break
 
             }
             output.push(`</div>`);
@@ -84,17 +87,30 @@ class PageContent {
 
     static renderTextfield(output, specs){
         var results =
-            `<div id="${specs.id}"  class="input-field"></div>
+            `<div id="${specs.id}"  class="input-field">
             <input placeholder="${specs.placeholder}" id="f_${specs.id}"  type="text" class="validate">
-          <label for="f_${specs.id}">${specs.label}</label>`;
+          <label for="f_${specs.id}">${specs.label}</label></div>`;
         output.push(results);
     }
 
     static renderTextarea(output, specs){
         var results =
-            `<div id="${specs.id}"  class="input-field"></div>
+            `<div id="${specs.id}"  class="input-field">
             <textarea placeholder="${specs.placeholder}" id="f_${specs.id}"  type="text" class="materialize-textarea"></textarea>
-          <label for="f_${specs.id}">${specs.label}</label>`;
+          <label for="f_${specs.id}">${specs.label}</label></div>`;
+        output.push(results);
+    }
+
+
+    static renderSection(output, specs){
+        var results =
+            `<div id="${specs.id}"  class="section white section-content">
+            <div class="row container">
+            <h4 class="header">${specs.title}</h4>
+             <p class="grey-text text-darken-3">
+             ${specs.content}
+             </p>
+          </div></div>`;
         output.push(results);
     }
 

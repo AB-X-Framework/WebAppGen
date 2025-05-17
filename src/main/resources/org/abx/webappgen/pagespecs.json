@@ -57,6 +57,21 @@
       ]
     },
     {
+      "name": "section",
+      "isContainer": false,
+      "type": "section",
+      "js": [],
+      "specs": [
+        {
+          "env": "",
+          "value": {
+            "title": "My Title",
+            "content": "This is the text"
+          }
+        }
+      ]
+    },
+    {
       "name": "textArea",
       "isContainer": false,
       "type": "textarea",
@@ -98,6 +113,12 @@
         {
           "innerId": "textArea",
           "component": "textArea",
+          "env": "",
+          "size": 2
+        },
+        {
+          "innerId": "section",
+          "component": "section",
           "env": "",
           "size": 2
         }
