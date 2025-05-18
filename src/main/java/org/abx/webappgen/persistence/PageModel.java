@@ -97,7 +97,9 @@ public class PageModel {
         }
 
         jsonPage.put(Title, page.pageTitle);
-        jsonPage.put(Component, getComponentSpecsByComponent("top", new HashMap<>(), env, page.component));
+        ComponentSpecs topSpecs = new ComponentSpecs();
+        topSpecs.parent = "top";
+        jsonPage.put(Component, getComponentSpecsByComponent(topSpecs, new HashMap<>(), env, page.component));
         return jsonPage;
     }
 
@@ -125,8 +127,8 @@ public class PageModel {
     }
 
 
-    private JSONObject getComponentSpecsByComponentName(String parent, Map<String, String> siblings, String env, String componentName) {
-        return getComponentSpecsByComponent(parent, siblings, env,
+    private JSONObject getComponentSpecsByComponentName(ComponentSpecs specs, Map<String, String> siblings, String env, String componentName) {
+        return getComponentSpecsByComponent(specs, siblings, env,
                 componentRepository.findBycomponentId(elementHashCode(componentName)));
     }
 
@@ -145,7 +147,7 @@ public class PageModel {
         return result;
     }
 
-    private JSONObject getComponentSpecsByComponent(String parent, Map<String, String> siblings,
+    private JSONObject getComponentSpecsByComponent(ComponentSpecs specs, Map<String, String> siblings,
                                                     String env, Component component) {
         JSONObject jsonComponent = new JSONObject();
         StringBuilder sb = new StringBuilder();
@@ -158,25 +160,27 @@ public class PageModel {
         boolean isContainer = component.isContainer;
         jsonComponent.put(IsContainer, isContainer);
         if (isContainer) {
-            addContainer(parent, env, jsonComponent, component);
+            addContainer(specs, env, jsonComponent, component);
         } else {
             addElement(env, jsonComponent, component);
         }
         return jsonComponent;
     }
 
-    private void addContainer(String parent, String env, JSONObject jsonComponent, Component component) {
+    private void addContainer(ComponentSpecs specs, String env, JSONObject jsonComponent, Component component) {
         Container container = component.container;
         jsonComponent.put(Layout, container.layout);
         JSONArray children = new JSONArray();
         jsonComponent.put(Children, children);
         Map<String,String> siblings = new HashMap<>();
         for (InnerComponent inner : container.innerComponent) {
-            siblings.put(inner.innerId, parent + "_" + inner.innerId);
+            siblings.put(inner.innerId, specs.parent + "_" + inner.innerId);
         }
         for (InnerComponent inner : container.innerComponent) {
-            String innerId = parent + "_" + inner.innerId;
-            JSONObject innerComponent = getComponentSpecsByComponent(innerId, siblings, env, inner.child);
+            String innerId = specs.parent + "_" + inner.innerId;
+            ComponentSpecs componentSpecs = new ComponentSpecs();
+            componentSpecs.parent = inner.innerId;
+            JSONObject innerComponent = getComponentSpecsByComponent(componentSpecs, siblings, env, inner.child);
             children.put(innerComponent);
             innerComponent.put(Id, innerId);
             innerComponent.put(Size, inner.size);
