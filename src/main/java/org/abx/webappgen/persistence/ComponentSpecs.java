@@ -9,7 +9,12 @@ public class ComponentSpecs {
     public String env;
     public Map<String, String> siblings;
 
-    public ComponentSpecs(){
-        siblings = new HashMap<>();
+    public ComponentSpecs(String parent,String env){
+        this.parent = parent;
+        this.env = env;
+    }
+
+    public ComponentSpecs child(String parent){
+        return  new ComponentSpecs(parent,env);
     }
 }
