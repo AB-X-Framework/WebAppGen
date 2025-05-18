@@ -97,8 +97,12 @@ public class PageModel {
         }
 
         jsonPage.put(Title, page.pageTitle);
-        ComponentSpecs topSpecs = new ComponentSpecs("top",env);
-        jsonPage.put(Component, getComponentSpecsByComponent(topSpecs, new HashMap<>(), page.component));
+        String top = "top";
+        ComponentSpecs topSpecs = new ComponentSpecs(top,env);
+        topSpecs.siblings = new HashMap<>();
+        topSpecs.localId = top;
+        topSpecs.component = page.component;
+        jsonPage.put(Component, getComponentSpecsByComponent(topSpecs));
         return jsonPage;
     }
 
@@ -126,11 +130,6 @@ public class PageModel {
     }
 
 
-    private JSONObject getComponentSpecsByComponentName(ComponentSpecs specs, Map<String, String> siblings, String env, String componentName) {
-        return getComponentSpecsByComponent(specs, siblings,
-                componentRepository.findBycomponentId(elementHashCode(componentName)));
-    }
-
     private String replaceWholeWords(String source, Map<String, String> replacements) {
         String result = source;
 
@@ -146,27 +145,28 @@ public class PageModel {
         return result;
     }
 
-    private JSONObject getComponentSpecsByComponent(ComponentSpecs specs, Map<String, String> siblings,
-                                                     Component component) {
+    private JSONObject getComponentSpecsByComponent(ComponentSpecs specs) {
+        Component component = specs.component;
         JSONObject jsonComponent = new JSONObject();
         StringBuilder sb = new StringBuilder();
         for (EnvValue jsValue : component.js) {
             if (matchesEnv(jsValue.env, specs.env)) {
-                sb.append(replaceWholeWords(jsValue.value, siblings));
+                sb.append(replaceWholeWords(jsValue.value, specs.siblings));
             }
         }
         jsonComponent.put(JS, sb.toString());
         boolean isContainer = component.isContainer;
         jsonComponent.put(IsContainer, isContainer);
         if (isContainer) {
-            addContainer(specs, jsonComponent, component);
+            addContainer(specs, jsonComponent);
         } else {
-            addElement(specs, jsonComponent, component);
+            addElement(specs, jsonComponent);
         }
         return jsonComponent;
     }
 
-    private void addContainer(ComponentSpecs specs,  JSONObject jsonComponent, Component component) {
+    private void addContainer(ComponentSpecs specs,  JSONObject jsonComponent) {
+        Component component = specs.component;
         Container container = component.container;
         jsonComponent.put(Layout, container.layout);
         JSONArray children = new JSONArray();
@@ -178,16 +178,18 @@ public class PageModel {
         for (InnerComponent inner : container.innerComponent) {
             String innerId = specs.parent + "_" + inner.innerId;
             ComponentSpecs componentSpecs = specs.child(innerId);
+            componentSpecs.siblings = siblings;
+            componentSpecs.component = inner.child;
             JSONObject innerComponent =
-                    getComponentSpecsByComponent(componentSpecs, siblings, inner.child);
+                    getComponentSpecsByComponent(componentSpecs);
             children.put(innerComponent);
             innerComponent.put(Id, innerId);
             innerComponent.put(Size, inner.size);
         }
     }
 
-    private void addElement(ComponentSpecs specs, JSONObject jsonComponent, Component component) {
-        Element element = component.element;
+    private void addElement(ComponentSpecs specs, JSONObject jsonComponent) {
+        Element element = specs.component.element;
         for (EnvValue envValue : element.specs) {
             if (matchesEnv(envValue.env, specs.env)) {
                 jsonComponent.put(Specs, new JSONObject(envValue.value));
