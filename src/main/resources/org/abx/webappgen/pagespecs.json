@@ -3,8 +3,7 @@
     "binary": [
       {
         "name": "abx.png",
-        "type": "application/png",
-        "src": "{specs}/abx.png"
+        "type": "application/png"
       }
     ]
   },
