@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class MapEntry {
 
     @Id
-    public Long arrayEntryId;
+    public Long mapEntryId;
     @Column
     public String entryName;
     // Other fields...

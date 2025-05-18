@@ -10,7 +10,7 @@ import java.util.List;
 public class MapResource {
 
     @Id
-    public Long arrayResourceId;
+    public Long mapResourceId;
     @Column
     public String resourceName;
     // Other fields...
