@@ -100,7 +100,7 @@ public class PageModel {
         String top = "top";
         ComponentSpecs topSpecs = new ComponentSpecs(top,env);
         topSpecs.siblings = new HashMap<>();
-        topSpecs.localId = top;
+        topSpecs.siblings.put("self",top);
         topSpecs.component = page.component;
         jsonPage.put(Component, getComponentSpecsByComponent(topSpecs));
         return jsonPage;
@@ -152,6 +152,7 @@ public class PageModel {
         for (EnvValue jsValue : component.js) {
             if (matchesEnv(jsValue.env, specs.env)) {
                 sb.append(replaceWholeWords(jsValue.value, specs.siblings));
+                sb.append("\n");
             }
         }
         jsonComponent.put(JS, sb.toString());
@@ -180,6 +181,7 @@ public class PageModel {
             ComponentSpecs componentSpecs = specs.child(innerId);
             componentSpecs.siblings = siblings;
             componentSpecs.component = inner.child;
+            componentSpecs.siblings.put("self",innerId);
             JSONObject innerComponent =
                     getComponentSpecsByComponent(componentSpecs);
             children.put(innerComponent);

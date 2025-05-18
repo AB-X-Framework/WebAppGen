@@ -36,7 +36,10 @@
       "type": "button",
       "js": [{
         "env": "",
-        "value": "$(login).click(()=>$(textField).hide())"
+        "value": "$(login).click(()=>$(textField).hide()) "
+      },{
+        "env": "",
+        "value": "$(self).click(()=>$(self).hide())"
       }
       ],
       "specs": [
