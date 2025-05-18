@@ -6,7 +6,7 @@ public class ArrayEntry {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long id;
+    public Long arrayEntryId;
 
     // Other fields...
 
