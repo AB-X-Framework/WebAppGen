@@ -51,11 +51,19 @@ public class PageModel {
     @Autowired
     public BinaryResourceRepository binaryResourceRepository;
 
+
+    @Autowired
+    public ArrayResourceRepository arrayResourceRepository;
+    @Autowired
+    public ArrayEntryRepository arrayEntryRepository;
+
     @Autowired
     public ResourceModel resourceModel;
 
     @Transactional
     public void clean() {
+        arrayEntryRepository.deleteAll();
+        arrayResourceRepository.deleteAll();
         textResourceRepository.deleteAll();
         binaryResourceRepository.deleteAll();
         envValueRepository.deleteAll();
