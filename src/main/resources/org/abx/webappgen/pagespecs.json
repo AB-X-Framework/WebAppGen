@@ -1,4 +1,13 @@
 {
+  "resources": {
+    "binary": [
+      {
+        "name": "abx.png",
+        "type": "application/png",
+        "src": "{specs}/abx.png"
+      }
+    ]
+  },
   "pages": [
     {
       "name": "main",

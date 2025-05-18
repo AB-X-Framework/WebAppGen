@@ -1,19 +1,20 @@
 package org.abx.webappgen.persistence.model;
+
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "ArrayEntry")
-public class ArrayEntry {
+@Table(name = "MapEntry")
+public class MapEntry {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     public Long arrayEntryId;
-
+    @Column
+    public String entryName;
     // Other fields...
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "arrayResourceId")
-    public ArrayResource arrayResource;
+    @JoinColumn(name = "mapResourceId")
+    public MapResource mapResource;
 
     @Column(length = 2048)
     public String value;
