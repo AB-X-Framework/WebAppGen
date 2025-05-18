@@ -11,9 +11,7 @@ class PageContent {
             var js = [];
             PageContent.renderComponent(output,js, specs.component)
             $("#body-content").html(output.join(""));
-            console.log(js);
             for (var line of js){
-                console.log(line);
                 eval(line)
             }
             M.updateTextFields();
