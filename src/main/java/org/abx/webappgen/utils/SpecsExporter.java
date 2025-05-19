@@ -190,6 +190,7 @@ public class SpecsExporter {
         object.put("binary", createBinaryResources(specsFolder));
         object.put("text", createTextResources(specsFolder));
         object.put("array", createArrayResources(specsFolder));
+        object.put("map", createArrayResources(specsFolder));
         return object;
     }
 
@@ -227,7 +228,7 @@ public class SpecsExporter {
         new File(specsFolder + "/array").mkdirs();
         JSONArray arrayResources = new JSONArray();
         for (ArrayResource arrayResource : arrayResourceRepository.findAll()) {
-            String name = arrayResource.name;
+            String name = arrayResource.resourceName;
             arrayResources.put(name);
             JSONArray values = new JSONArray();
             for (ArrayEntry entry : arrayResource.resourceEntries) {
@@ -237,6 +238,22 @@ public class SpecsExporter {
                     write(values.toString().getBytes());
         }
         return arrayResources;
+    }
+
+    public JSONArray createMapResources(String specsFolder) throws IOException {
+        new File(specsFolder + "/map").mkdirs();
+        JSONArray mapResources = new JSONArray();
+        for (MapResource arrayResource : mapResourceRepository.findAll()) {
+            String name = arrayResource.resourceName;
+            mapResources.put(name);
+            JSONObject values = new JSONObject();
+            for (MapEntry entry : arrayResource.resourceEntries) {
+                values.put(entry.entryName,entry.value);
+            }
+            new FileOutputStream(specsFolder + "/map/" + name + ".json").
+                    write(values.toString().getBytes());
+        }
+        return mapResources;
     }
 
 

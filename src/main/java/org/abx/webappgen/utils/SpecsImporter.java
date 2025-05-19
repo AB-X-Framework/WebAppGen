@@ -122,6 +122,13 @@ public class SpecsImporter {
             resourceModel.saveArrayResource(arrayName,new JSONArray(arrayData));
         }
     }
+    private void processMapResource(String specsPath, JSONArray mapResources) throws Exception {
+        for (int i = 0; i < mapResources.length(); i++) {
+            String mapName = mapResources.getString(i);
+            String arrayData = StreamUtils.readStream(new FileInputStream(specsPath+"/map/"+mapName+".json" ));
+            resourceModel.saveMapResource(mapName,new JSONObject(arrayData));
+        }
+    }
 
     private void processBinaryResource(String specsPath, JSONArray specs) throws Exception {
         for (int i = 0; i < specs.length(); i++) {
@@ -149,6 +156,7 @@ public class SpecsImporter {
         processBinaryResource(specsPath, resource.getJSONArray("binary"));
         processTextResource(specsPath, resource.getJSONArray("text"));
         processArrayResource(specsPath, resource.getJSONArray("array"));
+        processMapResource(specsPath, resource.getJSONArray("map"));
     }
 
     private void processComponents(JSONObject component) throws Exception {

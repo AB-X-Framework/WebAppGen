@@ -1,15 +1,10 @@
 package org.abx.webappgen.persistence;
 
-import org.abx.webappgen.persistence.dao.ArrayEntryRepository;
-import org.abx.webappgen.persistence.dao.ArrayResourceRepository;
-import org.abx.webappgen.persistence.dao.BinaryResourceRepository;
-import org.abx.webappgen.persistence.dao.TextResourceRepository;
+import org.abx.webappgen.persistence.dao.*;
 import org.abx.util.Pair;
-import org.abx.webappgen.persistence.model.ArrayEntry;
-import org.abx.webappgen.persistence.model.ArrayResource;
-import org.abx.webappgen.persistence.model.BinaryResource;
-import org.abx.webappgen.persistence.model.TextResource;
+import org.abx.webappgen.persistence.model.*;
 import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +22,10 @@ public class ResourceModel {
     private ArrayResourceRepository arrayResourceRepository;
     @Autowired
     private ArrayEntryRepository arrayEntryRepository;
+    @Autowired
+    private MapResourceRepository mapResourceRepository;
+    @Autowired
+    private MapEntryRepository mapEntryRepository;
 
     public String getTextResource(Set<String> roles,String resourceName) {
         TextResource text = textResourceRepository.findByTextResourceId(
@@ -73,11 +72,27 @@ public class ResourceModel {
 
     }
 
+    public long saveMapResource(String resourceName, JSONObject data) {
+        long id =   PageModel.elementHashCode(resourceName);
+        MapResource mapResource = new MapResource();
+        mapResource.mapResourceId=id;
+        mapResource.resourceName=resourceName;
+        mapResourceRepository.save(mapResource);
+        for (String key : data.keySet()) {
+            MapEntry entry  = new MapEntry();
+            entry.entryName = key;
+            entry.value = data.getString(key);
+            entry.mapResource = mapResource;
+            mapEntryRepository.save(entry);
+        }
+        return id;
+    }
+
     public long saveArrayResource(String resourceName, JSONArray data) {
         long id =   PageModel.elementHashCode(resourceName);
         ArrayResource arrayResource = new ArrayResource();
         arrayResource.arrayResourceId=id;
-        arrayResource.name=resourceName;
+        arrayResource.resourceName=resourceName;
         arrayResourceRepository.save(arrayResource);
         for (int i = 0; i < data.length(); i++) {
             String value = data.getString(i);
@@ -87,8 +102,8 @@ public class ResourceModel {
             arrayEntryRepository.save(entry);
         }
         return id;
-
     }
+
     public long saveTextResource(String resourceName,String data,String role) {
         long id =   PageModel.elementHashCode(resourceName);
         TextResource textResource = new TextResource();

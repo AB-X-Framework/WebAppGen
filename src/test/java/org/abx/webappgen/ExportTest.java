@@ -62,6 +62,7 @@ class ExportTest {
             compareFolders(folderName+"/text",appSpecsPath+"/text");
             compareFolders(folderName+"/methods",appSpecsPath+"/methods");
             compareJsonStringArraysInFolders(folderName+"/array",appSpecsPath+"/array");
+            compareJsonStringArraysInFolders(folderName+"/map",appSpecsPath+"/map");
         } finally {
             deleteDir(specsFolder);
         }
@@ -262,5 +263,55 @@ class ExportTest {
         result.removeAll(b);
         return result;
     }
+    public static void compareJsonStringObjectsInFolders(String folderPath1, String folderPath2) throws IOException {
+        Path dir1 = Paths.get(folderPath1);
+        Path dir2 = Paths.get(folderPath2);
+
+        if (!Files.isDirectory(dir1) || !Files.isDirectory(dir2)) {
+            throw new IllegalArgumentException("Both paths must be directories.");
+        }
+
+        Set<String> fileNames1 = listFileNames(dir1);
+        Set<String> fileNames2 = listFileNames(dir2);
+
+        if (!fileNames1.equals(fileNames2)) {
+            throw new AssertionError("Folders do not contain the same files.\nOnly in folder1: "
+                    + diff2(fileNames1, fileNames2) + "\nOnly in folder2: " + diff2(fileNames2, fileNames1));
+        }
+
+        for (String fileName : fileNames1) {
+            Path file1 = dir1.resolve(fileName);
+            Path file2 = dir2.resolve(fileName);
+
+            JSONObject obj1 = parseJsonObject(Files.readString(file1), file1);
+            JSONObject obj2 = parseJsonObject(Files.readString(file2), file2);
+
+            if (!obj1.keySet().equals(obj2.keySet())) {
+                throw new AssertionError("Key set mismatch in file: " + fileName +
+                        "\nKeys in folder1: " + obj1.keySet() +
+                        "\nKeys in folder2: " + obj2.keySet());
+            }
+
+            for (String key : obj1.keySet()) {
+                String val1 = obj1.getString(key);
+                String val2 = obj2.getString(key);
+                if (!val1.equals(val2)) {
+                    throw new AssertionError("Value mismatch for key '" + key + "' in file " + fileName +
+                            "\nfolder1: " + val1 + "\nfolder2: " + val2);
+                }
+            }
+        }
+
+        System.out.println("All files contain identical flat JSONObjects of strings.");
+    }
+
+    private static JSONObject parseJsonObject(String content, Path path) {
+        try {
+            return new JSONObject(content);
+        } catch (JSONException e) {
+            throw new RuntimeException("Invalid JSON object in file: " + path, e);
+        }
+    }
+
 
 }

@@ -26,6 +26,9 @@
     ],
     "array": [
        "basicarray"
+    ],
+    "map": [
+      "basicmap"
     ]
   },
   "pages": [

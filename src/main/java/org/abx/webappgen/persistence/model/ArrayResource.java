@@ -14,7 +14,7 @@ public class ArrayResource {
 
 
     @Column(nullable = false)
-    public String name;
+    public String resourceName;
 
     @OneToMany(mappedBy = "arrayResource", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     public List<ArrayEntry> resourceEntries;
