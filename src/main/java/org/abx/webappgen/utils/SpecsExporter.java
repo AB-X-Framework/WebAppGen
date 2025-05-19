@@ -74,6 +74,8 @@ public class SpecsExporter {
         specs.put("methods", getMethods(specsFolder));
         specs.put("users", createUsers(specsFolder));
         specs.put("resources", createResources(specsFolder));
+        specs.put("components", createComponents());
+        specs.put("pages", createPages());
         new FileOutputStream(specsFolder + "/specs.json").write(specs.toString(1).getBytes());
     }
 
@@ -91,6 +93,20 @@ public class SpecsExporter {
         String usersFile = "users.json";
         new FileOutputStream(specsFolder + "/" + usersFile).write(users.toString(1).getBytes());
         return usersFile;
+    }
+
+
+    public JSONArray createComponents()  {
+        JSONArray jsonComponents = new JSONArray();
+
+        return jsonComponents;
+    }
+
+    public JSONArray createPages()  {
+        JSONArray jsonPages = new JSONArray();
+
+        return jsonPages;
+
     }
 
     public JSONArray getMethods(String specsFolder) throws IOException {
