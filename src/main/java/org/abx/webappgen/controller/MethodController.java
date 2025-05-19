@@ -1,13 +1,13 @@
 package org.abx.webappgen.controller;
 
+import org.abx.webappgen.persistence.MethodModel;
+import org.abx.webappgen.persistence.PageModel;
 import org.abx.webappgen.persistence.UserModel;
 import org.abx.webappgen.utils.SpecsExporter;
 import org.abx.webappgen.utils.SpecsImporter;
 import org.graalvm.polyglot.Context;
 import org.graalvm.polyglot.Source;
 import org.graalvm.polyglot.Value;
-import org.abx.webappgen.persistence.MethodModel;
-import org.abx.webappgen.persistence.PageModel;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -16,6 +16,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -23,6 +24,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 @RestController
+@RequestMapping("/process")
 public class MethodController extends RoleController {
 
     @Autowired
@@ -40,9 +42,11 @@ public class MethodController extends RoleController {
     public SpecsExporter specsExporter;
 
 
-    @PostMapping(value = "/process/{methodName}")
+    @PostMapping(value = "/{methodName}",consumes = "multipart/form-data")
     @PreAuthorize("permitAll()")
-    public ResponseEntity<byte[]> page(@PathVariable String methodName, @RequestParam String args) {
+    public ResponseEntity<byte[]> method(@PathVariable String methodName,
+                                         @RequestPart(required = false) MultipartFile data,
+                                         @RequestPart String args) {
         JSONObject methodSpecs = methodModel.getMethodSpec(methodName);
         if (methodSpecs == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -61,14 +65,14 @@ public class MethodController extends RoleController {
                 methodSpecs.getString("outputName"));
 
         try {
-            Object obj = processMethod(methodName, methodSpecs, args);
-            byte[] data = serialize(type, obj);
-            headers.setContentLength(data.length);
-            return new ResponseEntity<>(data, headers, HttpStatus.OK);
+            Object obj = processMethod(methodName, methodSpecs, data, args);
+            byte[] output = serialize(type, obj);
+            headers.setContentLength(output.length);
+            return new ResponseEntity<>(output, headers, HttpStatus.OK);
         } catch (Exception e) {
-             headers = new HttpHeaders();
+            headers = new HttpHeaders();
             headers.setContentType(MediaType.TEXT_PLAIN);
-            return new ResponseEntity<>(e.getMessage().getBytes(),headers,HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(e.getMessage().getBytes(), headers, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -79,7 +83,7 @@ public class MethodController extends RoleController {
                 return obj.toString().getBytes();
             case "png":
             case "jpg":
-                return toBytes((BufferedImage) obj,type);
+                return toBytes((BufferedImage) obj, type);
             default:
                 return (byte[]) obj;
         }
@@ -115,7 +119,8 @@ public class MethodController extends RoleController {
         }
     }
 
-    private Object processMethod(String methodName,JSONObject methodSpecs, String args) throws Exception {
+    private Object processMethod(String methodName, JSONObject methodSpecs, MultipartFile data,
+                                 String args) throws Exception {
         Context cx = Context.newBuilder("js").allowExperimentalOptions(true).option("js.operator-overloading", "true")
                 .allowAllAccess(true)
                 .build();
@@ -124,6 +129,7 @@ public class MethodController extends RoleController {
         JSONObject jsonArgs = new JSONObject(args);
         jsBindings.putMember("pageModel", pageModel);
         jsBindings.putMember("userModel", userModel);
+        jsBindings.putMember("data", data);
         jsBindings.putMember("specsExporter", specsExporter);
         jsBindings.putMember("specsImporter", specsImporter);
         for (String arg : jsonArgs.keySet()) {
