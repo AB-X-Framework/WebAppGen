@@ -37,7 +37,28 @@
       "js": [{
         "env": "",
         "value": "$(login).click(()=>$(textField).hide()) "
-      },{
+      }
+      ],
+      "specs": [
+        {
+          "env": "EN",
+          "value": {
+            "text": "Hello"
+          }
+        },
+        {
+          "env": "ES",
+          "value": {
+            "text": "Hola"
+          }
+        }
+      ]
+    },
+    {
+      "name": "login2",
+      "isContainer": false,
+      "type": "button",
+      "js": [{
         "env": "",
         "value": "$(self).click(()=>$(self).hide())"
       }
@@ -106,16 +127,22 @@
       "name": "header",
       "isContainer": true,
       "layout": "horizontal",
-      "js": [],
+      "js": [{
+        "env": "",
+        "value": "$(myLogBtn).click(()=>$(mySuperImg).hide())"
+      },{
+        "env": "",
+        "value": ""
+      }],
       "components": [
         {
-          "innerId": "login",
+          "innerId": "myLogBtn",
           "component": "login",
           "env": "",
           "size": 2
         },
         {
-          "innerId": "abxImg",
+          "innerId": "mySuperImg",
           "component": "abxImg",
           "env": "",
           "size": 2
@@ -127,7 +154,51 @@
           "size": 2
         },
         {
-          "innerId": "textArea",
+          "innerId": "superArea",
+          "component": "textArea",
+          "env": "",
+          "size": 2
+        },
+        {
+          "innerId": "section",
+          "component": "section",
+          "env": "",
+          "size": 4
+        }
+      ]
+    },
+    {
+      "name": "header2",
+      "isContainer": true,
+      "layout": "horizontal",
+      "js": [{
+        "env": "",
+        "value": ""
+      },{
+        "env": "",
+        "value": "$(myLogBtn).click(()=>$(self).hide())"
+      }],
+      "components": [
+        {
+          "innerId": "myLogBtn",
+          "component": "login",
+          "env": "",
+          "size": 2
+        },
+        {
+          "innerId": "mySuperImg",
+          "component": "abxImg",
+          "env": "",
+          "size": 2
+        },
+        {
+          "innerId": "textField",
+          "component": "textField",
+          "env": "",
+          "size": 2
+        },
+        {
+          "innerId": "superArea",
           "component": "textArea",
           "env": "",
           "size": 2
@@ -155,6 +226,18 @@
         {
           "innerId": "header",
           "component": "header",
+          "env": "",
+          "size": 12
+        },
+        {
+          "innerId": "section",
+          "component": "section",
+          "env": "",
+          "size": 4
+        },
+        {
+          "innerId": "header2",
+          "component": "header2",
           "env": "",
           "size": 12
         },
