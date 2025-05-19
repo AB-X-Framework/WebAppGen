@@ -41,6 +41,12 @@ class BinaryResourceTest {
         ServiceResponse res = servicesClient.process(req);
         System.out.println(res.asString());
         Assertions.assertEquals(PageModel.elementHashCode(filename), res.asLong());
+
+        req = servicesClient.get("app", "/resources/binary/"+filename);
+        res = servicesClient.process(req);
+        Assertions.assertEquals(res.headers().get("Content-Type").getFirst(), "application/octet-stream");
+        Assertions.assertEquals("abcd", res.asString());
+
     }
 
     @AfterAll

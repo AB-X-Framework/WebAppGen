@@ -34,7 +34,7 @@ public class ResourceController extends RoleController {
         Set<String> roles = getRoles();
         Pair<String, byte[]> fileContent = resourceModel.getBinaryResource(roles, resource);
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_PDF); // Or your custom type
+        headers.setContentType(MediaType.valueOf(fileContent.first)); // Or your custom type
         headers.setContentDispositionFormData("attachment", resource);
         headers.setContentLength(fileContent.second.length);
         return new ResponseEntity<>(fileContent.second, headers, HttpStatus.OK);
