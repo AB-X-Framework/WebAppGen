@@ -32,7 +32,12 @@ class PageContent {
         if (componentSpecs.isContainer) {
             var horizontal = componentSpecs.layout === "horizontal";
             var vertical = componentSpecs.layout === "vertical";
-            output.push(`<div id="${componentSpecs.id}">`);
+            var cv = componentSpecs.layout === "cv";
+            if (cv){
+                output.push(`<div class="valign-wrapper row" style="height: 100%;">`)
+            }else {
+                output.push(`<div id="${componentSpecs.id}">`);
+            }
             if (horizontal){
                 output.push('<div class="row">');
             }

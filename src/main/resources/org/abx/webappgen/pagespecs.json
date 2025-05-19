@@ -13,6 +13,12 @@
       "title": "Main Page",
       "component": "MainPageComponent",
       "role": "Anonymous"
+    },
+    {
+      "name": "main2",
+      "title": "Main Page",
+      "component": "MainPageComponent2",
+      "role": "Anonymous"
     }
   ],
   "components": [
@@ -246,6 +252,25 @@
           "component": "footer",
           "env": "",
           "size": 12
+        }
+      ],
+      "js": []
+    },{
+      "name": "MainPageComponent2",
+      "isContainer": true,
+      "layout": "cv",
+      "components": [
+        {
+          "innerId": "login",
+          "component": "login",
+          "env": "",
+          "size": 6
+        },
+        {
+          "innerId": "login2",
+          "component": "login",
+          "env": "",
+          "size": 6
         }
       ],
       "js": []
