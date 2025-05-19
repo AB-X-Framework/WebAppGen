@@ -227,7 +227,7 @@ public class PageModel {
             inner.child = child;
             inner.parent = container;
             inner.innerId = jsonChild.getString(InnerId);
-            inner.size = jsonChild.getInt("size");
+            inner.size = jsonChild.getString("size");
             innerComponentRepository.save(inner);
             container.innerComponent.add(inner);
         }

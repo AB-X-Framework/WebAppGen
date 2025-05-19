@@ -57,7 +57,7 @@ class PageContent {
         } else {
 
             var size = componentSpecs.size;
-            output.push(`<div class="col s${size}">`)
+            output.push(`<div class="col ${size}">`)
             componentSpecs.specs.id = componentSpecs.id;
             switch (componentSpecs.type) {
                 case "button":

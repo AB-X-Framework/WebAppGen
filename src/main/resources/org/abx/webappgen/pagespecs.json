@@ -145,31 +145,31 @@
           "innerId": "myLogBtn",
           "component": "login",
           "env": "",
-          "size": 2
+          "size": "s2"
         },
         {
           "innerId": "mySuperImg",
           "component": "abxImg",
           "env": "",
-          "size": 2
+          "size": "s2"
         },
         {
           "innerId": "textField",
           "component": "textField",
           "env": "",
-          "size": 2
+          "size": "s2"
         },
         {
           "innerId": "superArea",
           "component": "textArea",
           "env": "",
-          "size": 2
+          "size": "s2"
         },
         {
           "innerId": "section",
           "component": "section",
           "env": "",
-          "size": 4
+          "size": "s4"
         }
       ]
     },
@@ -189,31 +189,31 @@
           "innerId": "myLogBtn",
           "component": "login",
           "env": "",
-          "size": 2
+          "size": "s2"
         },
         {
           "innerId": "mySuperImg",
           "component": "abxImg",
           "env": "",
-          "size": 2
+          "size": "s2"
         },
         {
           "innerId": "textField",
           "component": "textField",
           "env": "",
-          "size": 2
+          "size": "s2"
         },
         {
           "innerId": "superArea",
           "component": "textArea",
           "env": "",
-          "size": 2
+          "size": "s2"
         },
         {
           "innerId": "section",
           "component": "section",
           "env": "",
-          "size": 4
+          "size": "s2"
         }
       ]
     },
@@ -233,25 +233,25 @@
           "innerId": "header",
           "component": "header",
           "env": "",
-          "size": 12
+          "size": "s12"
         },
         {
           "innerId": "section",
           "component": "section",
           "env": "",
-          "size": 4
+          "size": "s4"
         },
         {
           "innerId": "header2",
           "component": "header2",
           "env": "",
-          "size": 12
+          "size": "s12"
         },
         {
           "innerId": "footer",
           "component": "footer",
           "env": "",
-          "size": 12
+          "size": "s12"
         }
       ],
       "js": []
@@ -264,13 +264,13 @@
           "innerId": "login",
           "component": "login",
           "env": "",
-          "size": 6
+          "size": "s6"
         },
         {
           "innerId": "login2",
           "component": "login",
           "env": "",
-          "size": 6
+          "size": "s6"
         }
       ],
       "js": []
