@@ -3,6 +3,7 @@ package org.abx.webappgen.utils;
 
 import org.abx.webappgen.persistence.ResourceModel;
 import org.abx.webappgen.persistence.dao.*;
+import org.abx.webappgen.persistence.model.BinaryResource;
 import org.abx.webappgen.persistence.model.MethodSpec;
 import org.abx.webappgen.persistence.model.User;
 import org.json.JSONArray;
@@ -11,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -72,7 +72,8 @@ public class SpecsExporter {
         JSONObject specs = new JSONObject();
         specs.put("methods", getMethods(specsFolder));
         specs.put("users", createUsers(specsFolder));
-        new FileOutputStream(specsFolder+"/specs.json").write(specs.toString(1).getBytes());
+        specs.put("resources", createResources(specsFolder));
+        new FileOutputStream(specsFolder + "/specs.json").write(specs.toString(1).getBytes());
     }
 
 
@@ -87,26 +88,45 @@ public class SpecsExporter {
             jsonUser.put("password", user.password);
         }
         String usersFile = "users.json";
-        new FileOutputStream(specsFolder+"/"+usersFile).write(users.toString(1).getBytes());
+        new FileOutputStream(specsFolder + "/" + usersFile).write(users.toString(1).getBytes());
         return usersFile;
     }
 
     public JSONArray getMethods(String specsFolder) throws IOException {
-        new File(specsFolder+"/methods").mkdirs();
+        new File(specsFolder + "/methods").mkdirs();
         JSONArray methods = new JSONArray();
         for (MethodSpec method : methodSpecRepository.findAll()) {
             JSONObject jsonMethod = new JSONObject();
-            jsonMethod.put("name",method.methodName);
-            jsonMethod.put("type",method.type);
-            jsonMethod.put("outputName",method.outputName);
-            jsonMethod.put("role",method.role);
+            jsonMethod.put("name", method.methodName);
+            jsonMethod.put("type", method.type);
+            jsonMethod.put("outputName", method.outputName);
+            jsonMethod.put("role", method.role);
             methods.put(jsonMethod);
-            new FileOutputStream(specsFolder+"/methods/"+method.methodName).write(method.methodJS.getBytes());
+            new FileOutputStream(specsFolder + "/methods/" + method.methodName).write(method.methodJS.getBytes());
         }
         return methods;
     }
 
+    public JSONObject createResources(String specsFolder) throws IOException {
+        JSONObject object = new JSONObject();
+        object.put("binary",createBinaryResources(specsFolder));
+        return object;
+    }
 
+    public JSONArray createBinaryResources(String specsFolder) throws IOException {
+        new File(specsFolder + "/binary").mkdirs();
+        JSONArray binaryResources = new JSONArray();
+        for (BinaryResource binaryResource : binaryResourceRepository.findAll()) {
+            JSONObject jsonBinaryResource = new JSONObject();
+            binaryResources.put(jsonBinaryResource);
+            jsonBinaryResource.put("name",binaryResource.resourceName);
+            jsonBinaryResource.put("contentType",binaryResource.contentType);
+            jsonBinaryResource.put("role",binaryResource.role);
+            new FileOutputStream(specsFolder + "/binary/" + binaryResource.resourceName).
+                    write(binaryResource.resourceValue);
+        }
+        return binaryResources;
+    }
 
 
 }

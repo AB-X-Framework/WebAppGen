@@ -17,6 +17,12 @@
         "contentType": "application/png",
         "role": "Anonymous"
       }
+    ],
+    "text": [
+      {
+        "name": "loren.txt",
+        "role": "Anonymous"
+      }
     ]
   },
   "pages": [

@@ -4,6 +4,7 @@ import org.abx.webappgen.persistence.dao.BinaryResourceRepository;
 import org.abx.webappgen.persistence.dao.TextResourceRepository;
 import org.abx.util.Pair;
 import org.abx.webappgen.persistence.model.BinaryResource;
+import org.abx.webappgen.persistence.model.TextResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,10 +19,21 @@ public class ResourceModel {
     @Autowired
     BinaryResourceRepository binaryResourceRepository;
 
-    public String getTextResource(String resourceName) {
-        return textResourceRepository.findByTextResourceId(
+    public String getTextResource(Set<String> roles,String resourceName) {
+        TextResource text = textResourceRepository.findByTextResourceId(
                 PageModel.elementHashCode(resourceName)
-        ).resourceValue;
+        );
+
+        if (text == null) {
+            return null;
+        }
+        String requiredRole = text.role;
+        if (!requiredRole.equals("Anonymous")) {
+            if (!roles.contains(requiredRole)) {
+                return null;
+            }
+        }
+        return text.resourceValue;
     }
 
     public Pair<String, byte[]> getBinaryResource(Set<String> roles, String resourceName) {
@@ -48,6 +60,17 @@ public class ResourceModel {
         binaryResource.role=role;
         binaryResource.resourceName=resourceName;
         binaryResourceRepository.save(binaryResource);
+        return id;
+
+    }
+    public long saveTextResource(String resourceName,String data,String role) {
+        long id =   PageModel.elementHashCode(resourceName);
+        TextResource textResource = new TextResource();
+        textResource.textResourceId=id;
+        textResource.resourceValue=data;
+        textResource.role=role;
+        textResource.resourceName=resourceName;
+        textResourceRepository.save(textResource);
         return id;
 
     }

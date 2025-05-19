@@ -25,14 +25,26 @@ public class ResourceController extends RoleController {
 
     @GetMapping(value = "/text/{resource}", produces = MediaType.TEXT_PLAIN_VALUE)
     @PreAuthorize("permitAll()")
-    public String page(@PathVariable String resource) {
-        return resourceModel.getTextResource(resource);
+    public ResponseEntity<String>  page(@PathVariable String resource) {
+        Set<String> roles = getRoles();
+        String data = resourceModel.getTextResource(roles,resource);
+        if (data == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.TEXT_PLAIN); // Or your custom type
+        headers.setContentDispositionFormData("attachment", resource);
+        headers.setContentLength(data.length());
+        return new ResponseEntity<>(data, headers, HttpStatus.OK);
     }
 
     @GetMapping("/binary/{resource}")
     public ResponseEntity<byte[]> downloadFile(@PathVariable String resource) {
         Set<String> roles = getRoles();
         Pair<String, byte[]> fileContent = resourceModel.getBinaryResource(roles, resource);
+        if (fileContent == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.valueOf(fileContent.first)); // Or your custom type
         headers.setContentDispositionFormData("attachment", resource);

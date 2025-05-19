@@ -119,15 +119,27 @@ public class SpecsImporter {
         for (int i = 0; i < specs.length(); i++) {
             JSONObject jsonResource = specs.getJSONObject(i);
             String name = jsonResource.getString("name");
-            String file = specsPath + "/resources/" + name;
+            String file = specsPath + "/binary/" + name;
             byte[] data = StreamUtils.readByteArrayStream(new FileInputStream(file));
             resourceModel.saveBinaryResource(name, jsonResource.getString("contentType"), data,
                     jsonResource.getString("role"));
         }
     }
 
+    private void processTextResource(String specsPath, JSONArray specs) throws Exception {
+        for (int i = 0; i < specs.length(); i++) {
+            JSONObject jsonResource = specs.getJSONObject(i);
+            String name = jsonResource.getString("name");
+            String file = specsPath + "/text/" + name;
+            String data = StreamUtils.readStream(new FileInputStream(file));
+            resourceModel.saveTextResource(name,  data,
+                    jsonResource.getString("role"));
+        }
+    }
+
     private void processResource(String specsPath, JSONObject resource) throws Exception {
         processBinaryResource(specsPath, resource.getJSONArray("binary"));
+        processTextResource(specsPath, resource.getJSONArray("text"));
     }
 
     private void processComponents(JSONObject component) throws Exception {
