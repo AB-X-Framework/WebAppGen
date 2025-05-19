@@ -12,23 +12,22 @@ public class MethodSpec {
     @Column(unique = true, nullable = false)
     public Long methodSpecId;
 
-    @Column
+    @Column(nullable = false)
     public String methodName;
 
-
-    @Column
+    @Column(nullable = false)
     public String type;
 
-    @Column
+    @Column(nullable = false)
     public String outputName;
 
-    @Column(length = 11)
+    @Column(length = 11,nullable = false)
     public String role;
 
-    @Column
+    @Column(nullable = false)
     public String description;
 
-    @Column(columnDefinition = "MEDIUMTEXT")
+    @Column(columnDefinition = "MEDIUMTEXT",nullable = false)
     public String methodJS;
 
 }

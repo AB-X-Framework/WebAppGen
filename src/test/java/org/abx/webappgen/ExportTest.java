@@ -45,7 +45,7 @@ class ExportTest {
                     new JSONObject(StreamUtils.readStream(new FileInputStream(folderName + "/specs.json")));
             JSONObject original =
                     new JSONObject(StreamUtils.readStream(new FileInputStream(appSpecsPath + "/specs.json")));
-            assertJsonEquals(generated, original);
+            assertJsonEquals("", generated, original);
         } finally {
             deleteDir(specsFolder);
         }
@@ -66,20 +66,20 @@ class ExportTest {
         context.stop();
     }
 
-    public static void assertJsonEquals(Object expected, Object actual) {
+    public static void assertJsonEquals(String path, Object expected, Object actual) {
         if (expected instanceof JSONObject expectedJson && actual instanceof JSONObject actualJson) {
             Assertions.assertEquals(expectedJson.keySet(), actualJson.keySet(), "Key sets don't match");
             for (String key : expectedJson.keySet()) {
-                assertJsonEquals(expectedJson.get(key), actualJson.get(key));
+                assertJsonEquals(path + "/" + key, expectedJson.get(key), actualJson.get(key));
             }
         } else if (expected instanceof JSONArray expectedArr && actual instanceof JSONArray actualArr) {
-            assertJsonArraysEqualIgnoringOrder(expectedArr, actualArr);
+            assertJsonArraysEqualIgnoringOrder(path, expectedArr, actualArr);
         } else {
-            Assertions.assertEquals(expected, actual, "Values don't match");
+            Assertions.assertEquals(expected, actual, "Values don't match on path " + path);
         }
     }
 
-    private static void assertJsonArraysEqualIgnoringOrder(JSONArray expectedArr, JSONArray actualArr) {
+    private static void assertJsonArraysEqualIgnoringOrder(String path, JSONArray expectedArr, JSONArray actualArr) {
         Assertions.assertEquals(expectedArr.length(), actualArr.length(), "Array lengths differ");
 
         boolean[] matched = new boolean[actualArr.length()];
@@ -92,7 +92,7 @@ class ExportTest {
                 if (matched[j]) continue;
 
                 try {
-                    assertJsonEquals(expectedElem, actualArr.get(j));
+                    assertJsonEquals(path + "[]/", expectedElem, actualArr.get(j));
                     matched[j] = true;
                     foundMatch = true;
                     break;
@@ -102,7 +102,16 @@ class ExportTest {
             }
 
             if (!foundMatch) {
-                Assertions.fail("No match found for array element: " + expectedElem);
+                if (expectedElem instanceof JSONArray jsonExpect) {
+                    Assertions.fail("No match found for JSONArray element: " + jsonExpect.toString(1) + " on path " + path);
+                } else if (expectedElem instanceof JSONObject jsonExpect) {
+                    Assertions.fail("No match found for JSONObject element: " + jsonExpect.toString(1) + " on path " + path);
+                } else {
+
+                    Assertions.fail("No match found for element: " + expectedElem + " on path " + path);
+
+                }
+
             }
         }
     }

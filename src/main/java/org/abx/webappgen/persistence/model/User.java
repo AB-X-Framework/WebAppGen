@@ -12,16 +12,16 @@ public class User {
     @Column(unique = true, nullable = false)
     public Long userId;
 
-    @Column(length = 60)
+    @Column(length = 60,nullable = false)
     public String username;
 
-    @Column(length = 200)
+    @Column(length = 200,nullable = false)
     public String password;
 
-    @Column(length = 60)
+    @Column(length = 60,nullable = false)
     public String role;
 
-    @Column
+    @Column(nullable = false)
     public boolean enabled;
 
 

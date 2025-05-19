@@ -24,6 +24,7 @@ public class PageModel {
     public static final String Layout = "layout";
     public static final String Type = "type";
     public static final String Size = "size";
+    public static final String Env = "env";
     public static final String Specs = "specs";
     public static final String Children = "children";
     public static final String IsContainer = "isContainer";
@@ -237,7 +238,8 @@ public class PageModel {
             inner.child = child;
             inner.parent = container;
             inner.innerId = jsonChild.getString(InnerId);
-            inner.size = jsonChild.getString("size");
+            inner.size = jsonChild.getString(Size);
+            inner.env = jsonChild.getString(Env);
             innerComponentRepository.save(inner);
             container.innerComponent.add(inner);
         }

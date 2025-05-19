@@ -10,9 +10,9 @@ public class EnvValue {
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long envValueId;
 
-    @Column
+    @Column(nullable = false)
     public String env;
 
-    @Column
+    @Column(nullable = false)
     public String value;
 }

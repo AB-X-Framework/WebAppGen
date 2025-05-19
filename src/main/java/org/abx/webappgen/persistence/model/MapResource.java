@@ -11,12 +11,10 @@ public class MapResource {
 
     @Id
     public Long mapResourceId;
-    @Column
-    public String resourceName;
-    // Other fields...
 
+    @Column(nullable = false)
+    public String resourceName;
     @OneToMany(mappedBy = "mapResource", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     public List<MapEntry> resourceEntries;
 
-    // Getters and Setters
 }

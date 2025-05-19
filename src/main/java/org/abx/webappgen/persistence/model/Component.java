@@ -14,17 +14,17 @@ public class Component {
     @Column(unique = true, nullable = false)
     public Long componentId;
 
-    @Column(length = 60)
+    @Column(length = 60,nullable = false)
     public String componentName;
+
+    @Column(nullable = false)
+    public boolean isContainer;
 
     @OneToOne(mappedBy = "component")
     public Container container;
 
     @OneToOne(mappedBy = "component")
     public Element element;
-
-    @Column
-    public boolean isContainer;
 
     @OneToMany
     public Collection<EnvValue> js;

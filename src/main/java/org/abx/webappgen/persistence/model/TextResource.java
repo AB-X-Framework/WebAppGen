@@ -12,12 +12,13 @@ public class TextResource {
     @Column(unique = true, nullable = false)
     public Long textResourceId;
 
-    @Column
+    @Column(nullable = false)
     public String resourceName;
-    @Column
+
+    @Column(nullable = false)
     public String role;
 
-    @Column(columnDefinition = "MEDIUMTEXT")
+    @Column(columnDefinition = "MEDIUMTEXT", nullable = false)
     public String resourceValue;
 
 }

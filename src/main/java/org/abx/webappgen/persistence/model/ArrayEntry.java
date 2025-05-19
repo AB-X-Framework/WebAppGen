@@ -1,4 +1,5 @@
 package org.abx.webappgen.persistence.model;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -9,13 +10,11 @@ public class ArrayEntry {
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long arrayEntryId;
 
-    // Other fields...
+    @Column(length = 2048, nullable = false)
+    public String value;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "arrayResourceId")
+    @JoinColumn(name = "arrayResourceId", nullable = false)
     public ArrayResource arrayResource;
 
-    @Column(length = 2048)
-    public String value;
-    // Getters and Setters
 }

@@ -14,15 +14,13 @@ public class Page {
     @Column(unique = true, nullable = false)
     public Long pageId;
 
-
-    @Column(length = 60)
+    @Column(length = 60,nullable = false)
     public String pageName;
 
-
-    @Column(length = 60)
+    @Column(length = 60,nullable = false)
     public String pageTitle;
 
-    @Column(length = 60)
+    @Column(length = 60,nullable = false)
     public String role;
 
     @ManyToOne

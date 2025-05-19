@@ -13,14 +13,15 @@ public class Element {
     @Column(unique = true, nullable = false)
     public Long elementId;
 
-    @OneToOne
-    @JoinColumn(name = "componentId", nullable = false)
-    public Component component;
-
-    @Column
+    @Column(nullable = false)
     public String type;
 
     @OneToMany
     public Collection<EnvValue> specs;
+
+    @OneToOne
+    @JoinColumn(name = "componentId", nullable = false)
+    public Component component;
+
 
 }

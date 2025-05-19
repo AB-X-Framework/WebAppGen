@@ -13,6 +13,9 @@ public class Container {
     @Column(unique = true, nullable = false)
     public Long containerId;
 
+    @Column(nullable = false)
+    public String layout;
+
     @OneToOne
     @JoinColumn(name = "componentId", nullable = false)
     public Component component;
@@ -21,6 +24,5 @@ public class Container {
     @JoinColumn(name = "container")
     public Collection<InnerComponent> innerComponent;
 
-    @Column
-    public String layout;
+
 }

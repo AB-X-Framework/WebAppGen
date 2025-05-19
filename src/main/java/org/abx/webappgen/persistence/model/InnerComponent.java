@@ -12,6 +12,16 @@ public class InnerComponent {
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long innerComponentId;
 
+
+    @Column(nullable = false)
+    public String innerId;
+
+    @Column(nullable = false)
+    public String size;
+
+    @Column(nullable = false)
+    public String env;
+
     @ManyToOne
     @JoinColumn(name = "containerId", nullable = false)
     public Container parent;
@@ -20,11 +30,4 @@ public class InnerComponent {
     @JoinColumn(name = "componentId", nullable = false)
     public Component child;
 
-    public String innerId;
-
-    @Column
-    public String size;
-
-    @Column
-    public String env;
 }

@@ -12,16 +12,16 @@ public class BinaryResource {
     @Column(unique = true, nullable = false)
     public Long binaryResourceId;
 
-    @Column
+    @Column(nullable = false)
     public String resourceName;
 
-    @Column
+    @Column(nullable = false)
     public String contentType;
 
-    @Column
+    @Column(nullable = false)
     public String role;
 
-    @Column(columnDefinition = "MEDIUMBLOB")
+    @Column(columnDefinition = "MEDIUMBLOB",nullable = false)
     public byte[] resourceValue;
 
 }

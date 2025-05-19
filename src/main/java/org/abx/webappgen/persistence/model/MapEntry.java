@@ -8,15 +8,15 @@ public class MapEntry {
 
     @Id
     public Long mapEntryId;
-    @Column
+
+    @Column(nullable = false)
     public String entryName;
-    // Other fields...
+
+    @Column(length = 2048, nullable = false)
+    public String value;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "mapResourceId")
     public MapResource mapResource;
 
-    @Column(length = 2048)
-    public String value;
-    // Getters and Setters
 }
