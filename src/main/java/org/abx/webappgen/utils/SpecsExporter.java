@@ -3,18 +3,17 @@ package org.abx.webappgen.utils;
 
 import org.abx.webappgen.persistence.ResourceModel;
 import org.abx.webappgen.persistence.dao.*;
-import org.abx.webappgen.persistence.model.BinaryResource;
-import org.abx.webappgen.persistence.model.MethodSpec;
-import org.abx.webappgen.persistence.model.TextResource;
-import org.abx.webappgen.persistence.model.User;
+import org.abx.webappgen.persistence.model.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Collection;
 
 @Component
 public class SpecsExporter {
@@ -69,6 +68,7 @@ public class SpecsExporter {
      *
      * @return
      */
+    @Transactional
     public void createSpecs(String specsFolder) throws IOException {
         JSONObject specs = new JSONObject();
         specs.put("methods", getMethods(specsFolder));
@@ -99,12 +99,61 @@ public class SpecsExporter {
     public JSONArray createComponents()  {
         JSONArray jsonComponents = new JSONArray();
 
+        for (org.abx.webappgen.persistence.model.Component component : componentRepository.findAll()) {
+            JSONObject jsonComponent = new JSONObject();
+            jsonComponents.put(jsonComponent);
+            jsonComponent.put("name",component.componentName);
+            jsonComponent.put("isContainer",component.isContainer);
+
+            jsonComponent.put("js",envValue(component.js));
+            if (component.isContainer) {
+                Container container = component.container;
+                jsonComponent.put("layout",container.layout);
+                JSONArray components = new JSONArray();
+                jsonComponent.put("components",components);
+                for (InnerComponent inner : container.innerComponent) {
+                    JSONObject jsonInner = new JSONObject();
+                    components.put(jsonInner);
+                    jsonInner.put("env",inner.env);
+                    jsonInner.put("size",inner.size);
+                    jsonInner.put("innerId",inner.innerId);
+                    jsonInner.put("component",inner.child.componentName);
+                }
+            }else {
+                Element element = component.element;
+                jsonComponent.put("type",element.type);
+                JSONArray jsonSpecs = new JSONArray();
+                for (EnvValue envValue : element.specs) {
+                    JSONObject jsonEnvValue = new JSONObject();
+                    jsonEnvValue.put("env",envValue.env);
+                    jsonEnvValue.put("value",envValue.value);
+                    jsonSpecs.put(jsonEnvValue);
+                }
+            }
+        }
         return jsonComponents;
     }
 
+    private JSONArray envValue (Collection<EnvValue> values){
+        JSONArray jsonValues = new JSONArray();
+        for (EnvValue envValue: values){
+            JSONObject jsonEnvValue = new JSONObject();
+            jsonValues.put(jsonEnvValue);
+            jsonEnvValue.put("env",envValue.env);
+            jsonEnvValue.put("value",envValue.value);
+        }
+        return jsonValues;
+    }
     public JSONArray createPages()  {
         JSONArray jsonPages = new JSONArray();
-
+        for (Page page : pageRepository.findAll()) {
+            JSONObject jsonPage = new JSONObject();
+            jsonPages.put(jsonPage);
+            jsonPage.put("name",page.pageName);
+            jsonPage.put("title",page.pageTitle);
+            jsonPage.put("role",page.role);
+            jsonPage.put("component",page.component);
+        }
         return jsonPages;
 
     }
