@@ -1,6 +1,8 @@
 package org.abx.webappgen.controller;
 
 import org.abx.webappgen.persistence.UserModel;
+import org.abx.webappgen.utils.SpecsExporter;
+import org.abx.webappgen.utils.SpecsImporter;
 import org.graalvm.polyglot.Context;
 import org.graalvm.polyglot.Source;
 import org.graalvm.polyglot.Value;
@@ -14,7 +16,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -33,6 +34,10 @@ public class MethodController extends RoleController {
     @Autowired
     public UserModel userModel;
 
+    @Autowired
+    public SpecsImporter specsImporter;
+    @Autowired
+    public SpecsExporter specsExporter;
 
 
     @PostMapping(value = "/process/{methodName}")
@@ -119,6 +124,8 @@ public class MethodController extends RoleController {
         JSONObject jsonArgs = new JSONObject(args);
         jsBindings.putMember("pageModel", pageModel);
         jsBindings.putMember("userModel", userModel);
+        jsBindings.putMember("specsExporter", specsExporter);
+        jsBindings.putMember("specsImporter", specsImporter);
         for (String arg : jsonArgs.keySet()) {
             jsBindings.putMember(arg, jsonArgs.get(arg));
         }

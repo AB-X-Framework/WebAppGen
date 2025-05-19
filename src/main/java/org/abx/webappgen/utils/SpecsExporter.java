@@ -1,22 +1,18 @@
 package org.abx.webappgen.utils;
 
 
-import jakarta.annotation.PostConstruct;
-import org.abx.util.StreamUtils;
-import org.abx.webappgen.persistence.PageModel;
 import org.abx.webappgen.persistence.ResourceModel;
 import org.abx.webappgen.persistence.dao.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.io.File;
-import java.io.FileInputStream;
-
 @Component
-public class PageExporter {
+public class SpecsExporter {
+    @Autowired
+    public UserRepository userRepository;
+
     @Autowired
     public PageRepository pageRepository;
 
@@ -48,7 +44,6 @@ public class PageExporter {
     @Autowired
     public ArrayEntryRepository arrayEntryRepository;
 
-
     @Autowired
     public MapEntryRepository mapEntryRepository;
 
@@ -61,13 +56,23 @@ public class PageExporter {
     @Autowired
     public ResourceModel resourceModel;
 
-    public JSONObject getSpecs() {
+    /**
+     * Create specs and saves it in
+     *
+     * @return
+     */
+    public void createSpecs(String specsFolder) {
         JSONObject specs = new JSONObject();
-        specs.put("methods", getMethods());
-        return specs;
+        specs.put("methods", getMethods(specsFolder));
+        specs.put("users", createUsers(specsFolder));
     }
 
-    public JSONArray getMethods(){
+
+    public String createUsers(String specsFolder) {
+        throw new RuntimeException("Not implemented yet");
+    }
+
+    public JSONArray getMethods(String specsFolder) {
         throw new RuntimeException("Not implemented yet");
     }
 

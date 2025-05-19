@@ -17,11 +17,10 @@ import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 @Component
-public class PageImporter {
+public class SpecsImporter {
     @Autowired
     private PageModel pageModel;
     @Autowired
@@ -29,54 +28,56 @@ public class PageImporter {
     @Autowired
     private MethodSpecRepository methodSpecRepository;
 
-    @Value("${load.pages}")
-    public boolean loadPages;
+    @Value("${load.app}")
+    public boolean loadApp;
 
-    @Value("${drop.pages}")
-    public boolean dropPages;
+    @Value("${drop.app}")
+    public boolean dropApp;
 
-    @Value("${pages.resource}")
-    public String pageSpecsPath;
+    @Value("${app.specs}")
+    public String appSpecsPath;
     @Autowired
     private UserRepository userRepository;
 
     @PostConstruct
     public void init() throws Exception {
-        if (dropPages) {
+        if (dropApp) {
             pageModel.clean();
         }
-        if (loadPages) {
-            File resourceFile = new File(pageSpecsPath);
-            String specsFolder = resourceFile.getParent();
-            String data = StreamUtils.readStream(new FileInputStream(resourceFile));
-            JSONObject obj = new JSONObject(data);
-
-            processUsers(specsFolder,obj.getString("users"));
-            JSONArray methods = obj.getJSONArray("methods");
-            for (int i = 0; i < methods.length(); i++) {
-                JSONObject method = methods.getJSONObject(i);
-                processMethods(specsFolder, method);
-            }
-
-            JSONObject resources = obj.getJSONObject("resources");
-            processResource(specsFolder, resources);
-
-
-            JSONArray components = obj.getJSONArray("components");
-            for (int i = 0; i < components.length(); i++) {
-                JSONObject page = components.getJSONObject(i);
-                processComponents(page);
-            }
-
-            JSONArray pages = obj.getJSONArray("pages");
-            for (int i = 0; i < pages.length(); i++) {
-                JSONObject page = pages.getJSONObject(i);
-                processPage(page);
-            }
-
+        if (loadApp) {
+            uploadSpecs(appSpecsPath);
         }
     }
 
+    public void uploadSpecs(String specsFolder)throws Exception{
+        File resourceFile = new File(specsFolder+"/specs.json");
+        String data = StreamUtils.readStream(new FileInputStream(resourceFile));
+        JSONObject obj = new JSONObject(data);
+
+        processUsers(specsFolder,obj.getString("users"));
+        JSONArray methods = obj.getJSONArray("methods");
+        for (int i = 0; i < methods.length(); i++) {
+            JSONObject method = methods.getJSONObject(i);
+            processMethods(specsFolder, method);
+        }
+
+        JSONObject resources = obj.getJSONObject("resources");
+        processResource(specsFolder, resources);
+
+
+        JSONArray components = obj.getJSONArray("components");
+        for (int i = 0; i < components.length(); i++) {
+            JSONObject page = components.getJSONObject(i);
+            processComponents(page);
+        }
+
+        JSONArray pages = obj.getJSONArray("pages");
+        for (int i = 0; i < pages.length(); i++) {
+            JSONObject page = pages.getJSONObject(i);
+            processPage(page);
+        }
+
+    }
     private void processUsers(String specsFolder,String userfile) throws IOException {
         JSONArray users = new JSONArray(StreamUtils.readStream(new FileInputStream(
                 specsFolder + "/"+userfile )));
