@@ -14,7 +14,8 @@
     "binary": [
       {
         "name": "abx.png",
-        "contentType": "application/png"
+        "contentType": "application/png",
+        "role": "Anonymous"
       }
     ]
   },

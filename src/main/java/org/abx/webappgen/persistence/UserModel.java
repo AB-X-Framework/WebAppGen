@@ -12,8 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Component
 public class UserModel {
 
-    private boolean alreadySetup = false;
-
     @Autowired
     private UserRepository userRepository;
 
