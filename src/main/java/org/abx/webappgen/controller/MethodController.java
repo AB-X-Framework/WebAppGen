@@ -41,11 +41,13 @@ public class MethodController extends RoleController {
         if (methodSpecs == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Method " + methodName + " not found");
         }
-        Set<String> roles = getRoles();
         String requiredRole = methodSpecs.getString("role");
-        if (!roles.contains(requiredRole)) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Unauthorized access");
+        if (!requiredRole.equals("Anonymous")) {
+            if (!getRoles().contains(requiredRole)) {
+                throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Unauthorized access");
+            }
         }
+
         HttpHeaders headers = new HttpHeaders();
         String type = methodSpecs.getString("type");
         headers.setContentType(contentType(type)); // Or your custom type
