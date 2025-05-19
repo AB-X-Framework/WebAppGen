@@ -16,13 +16,11 @@ public class PageModel {
 
     public static final String InnerId = "innerId";
     public static final String Id = "id";
-    public static final String Name = "name";
     public static final String Title = "title";
     public static final String JS = "js";
     public static final String Component = "component";
     public static final String Layout = "layout";
     public static final String Type = "type";
-    public static final String Env = "env";
     public static final String Size = "size";
     public static final String Specs = "specs";
     public static final String Children = "children";
