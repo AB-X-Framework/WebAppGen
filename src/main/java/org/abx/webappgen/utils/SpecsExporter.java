@@ -190,7 +190,7 @@ public class SpecsExporter {
         object.put("binary", createBinaryResources(specsFolder));
         object.put("text", createTextResources(specsFolder));
         object.put("array", createArrayResources(specsFolder));
-        object.put("map", createArrayResources(specsFolder));
+        object.put("map", createMapResources(specsFolder));
         return object;
     }
 

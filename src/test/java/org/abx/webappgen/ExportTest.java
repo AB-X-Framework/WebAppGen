@@ -62,7 +62,7 @@ class ExportTest {
             compareFolders(folderName+"/text",appSpecsPath+"/text");
             compareFolders(folderName+"/methods",appSpecsPath+"/methods");
             compareJsonStringArraysInFolders(folderName+"/array",appSpecsPath+"/array");
-            compareJsonStringArraysInFolders(folderName+"/map",appSpecsPath+"/map");
+            compareJsonStringObjectsInFolders(folderName+"/map",appSpecsPath+"/map");
         } finally {
             deleteDir(specsFolder);
         }
