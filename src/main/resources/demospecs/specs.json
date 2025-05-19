@@ -239,7 +239,6 @@
       "name": "footer",
       "isContainer": true,
       "layout": "horizontal",
-      "children": [],
       "js": [],
       "components": []
     },{
