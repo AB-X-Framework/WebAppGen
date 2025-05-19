@@ -1,5 +1,11 @@
 {
   "methods": [
+    {
+      "name": "hello",
+      "role": "Anonymous",
+      "type": "text",
+      "methodJS": "return 'hi'"
+    }
 
   ],
   "resources": {
