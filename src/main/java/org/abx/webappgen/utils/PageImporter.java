@@ -5,6 +5,7 @@ import jakarta.annotation.PostConstruct;
 import org.abx.util.StreamUtils;
 import org.abx.webappgen.persistence.PageModel;
 import org.abx.webappgen.persistence.ResourceModel;
+import org.abx.webappgen.persistence.dao.MethodSpecRepository;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,8 @@ public class PageImporter {
     private PageModel pageModel;
     @Autowired
     private ResourceModel resourceModel;
+    @Autowired
+    private MethodSpecRepository methodSpecRepository;
 
     @Value("${load.pages}")
     public boolean loadPages;
@@ -41,6 +44,11 @@ public class PageImporter {
             String data = StreamUtils.readStream(new FileInputStream(resourceFile));
             JSONObject obj = new JSONObject(data);
 
+            JSONArray methods = obj.getJSONArray("methods");
+            for (int i = 0; i < methods.length(); i++) {
+                JSONObject method = methods.getJSONObject(i);
+                processMethods(method);
+            }
 
             JSONObject resources = obj.getJSONObject("resources");
             processResource(resourceFolder, resources);

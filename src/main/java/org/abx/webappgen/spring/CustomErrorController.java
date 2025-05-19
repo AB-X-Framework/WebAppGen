@@ -10,11 +10,6 @@ import java.io.IOException;
 @Controller
 public class CustomErrorController implements ErrorController {
 
-    @GetMapping("/error")
-    public String handleError() {
-        return "redirect:/page/main";
-    }
-
     @GetMapping("/favicon.ico")
     public void redirectFavicon(HttpServletResponse response) throws IOException {
         response.sendRedirect("/web/favicon.ico");

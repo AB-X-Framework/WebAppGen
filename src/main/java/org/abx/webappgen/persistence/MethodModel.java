@@ -18,7 +18,7 @@ public class MethodModel {
         JSONObject methodSpecJson = new JSONObject();
         MethodSpec spec =
                 methodSpecRepository.findByMethodSpecId(elementHashCode(methodName));
-        if (spec != null) {
+        if (spec == null) {
            return null;
         }
         methodSpecJson.put("type", spec.type);

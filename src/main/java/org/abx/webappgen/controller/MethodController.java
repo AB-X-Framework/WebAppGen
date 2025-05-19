@@ -12,17 +12,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.Set;
 
 @RestController
 public class MethodController extends RoleController {
@@ -34,17 +30,17 @@ public class MethodController extends RoleController {
     public PageModel pageModel;
 
 
-    @GetMapping(value = "/process/{methodName}")
+    @PostMapping(value = "/process/{methodName}")
     @PreAuthorize("permitAll()")
     public ResponseEntity<byte[]> page(@PathVariable String methodName, @RequestParam String args) {
         JSONObject methodSpecs = methodModel.getMethodSpec(methodName);
         if (methodSpecs == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Method " + methodName + " not found");
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         String requiredRole = methodSpecs.getString("role");
         if (!requiredRole.equals("Anonymous")) {
             if (!getRoles().contains(requiredRole)) {
-                throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Unauthorized access");
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
         }
 
@@ -58,6 +54,7 @@ public class MethodController extends RoleController {
             Object obj = processMethod(methodSpecs, args);
             byte[] data = serialize(type, obj);
             headers.setContentLength(data.length);
+
             return new ResponseEntity<>(data, headers, HttpStatus.OK);
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
