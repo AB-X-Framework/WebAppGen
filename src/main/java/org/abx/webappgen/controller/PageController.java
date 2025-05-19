@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/page")
-public class PageController {
+public class PageController extends RoleController{
     public final static String LANG = "lang";
 
     private ST pageTemplate;
@@ -51,11 +51,7 @@ public class PageController {
     @GetMapping(value = "/specs/{pagename}", produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("permitAll()")
     public String pageSpecs(@PathVariable String pagename, HttpSession session) {
-
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        Set<String> roles = auth.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority)
-                .collect(Collectors.toSet());
+        Set<String> roles = getRoles();
         return pageModel.getPageByPageId(roles, env(session),
                 pageModel.elementHashCode(pagename)).toString(1);
     }

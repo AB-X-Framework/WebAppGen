@@ -6,7 +6,7 @@
     "binary": [
       {
         "name": "abx.png",
-        "type": "application/png"
+        "contentType": "application/png"
       }
     ]
   },

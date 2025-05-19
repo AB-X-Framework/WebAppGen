@@ -23,14 +23,14 @@ public class ResourceModel {
     public Pair<String, byte[]> getBinaryResource(String resourceName) {
         BinaryResource binaryResource = binaryResourceRepository.findByBinaryResourceId(
                 PageModel.elementHashCode(resourceName));
-        return new Pair<>(binaryResource.resourceType, binaryResource.resourceValue);
+        return new Pair<>(binaryResource.contentType, binaryResource.resourceValue);
     }
 
-    public long saveBinaryResource(String resourceName,String resourceType, byte[] data) {
+    public long saveBinaryResource(String resourceName,String contentType, byte[] data) {
         long id =   PageModel.elementHashCode(resourceName);
         BinaryResource binaryResource = new BinaryResource();
         binaryResource.binaryResourceId=id;
-        binaryResource.resourceType=resourceType;
+        binaryResource.contentType=contentType;
         binaryResource.resourceValue=data;
         binaryResource.resourceName=resourceName;
         binaryResourceRepository.save(binaryResource);

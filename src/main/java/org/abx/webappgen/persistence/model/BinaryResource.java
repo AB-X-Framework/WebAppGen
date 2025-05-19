@@ -16,7 +16,7 @@ public class BinaryResource {
     public String resourceName;
 
     @Column
-    public String resourceType;
+    public String contentType;
 
     @Column(columnDefinition = "MEDIUMBLOB")
     public byte[] resourceValue;

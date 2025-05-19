@@ -70,6 +70,9 @@ public class PageImporter {
 
     }
 
+    private void processMethods(JSONObject method) {
+        throw new RuntimeException("Not implemented yet");
+    }
 
     private void processBinaryComponent(String specsPath, JSONArray specs) throws Exception {
         for (int i = 0; i < specs.length(); i++) {
@@ -77,7 +80,7 @@ public class PageImporter {
             String name = jsonResource.getString("name");
             String file = specsPath + "/" + name;
             byte[] data = StreamUtils.readByteArrayStream(new FileInputStream(file));
-            resourceModel.saveBinaryResource(name, jsonResource.getString("type"), data);
+            resourceModel.saveBinaryResource(name, jsonResource.getString("contentType"), data);
         }
     }
 
