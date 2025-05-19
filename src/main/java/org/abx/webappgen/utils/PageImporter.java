@@ -6,6 +6,7 @@ import org.abx.util.StreamUtils;
 import org.abx.webappgen.persistence.PageModel;
 import org.abx.webappgen.persistence.ResourceModel;
 import org.abx.webappgen.persistence.dao.MethodSpecRepository;
+import org.abx.webappgen.persistence.model.MethodSpec;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,7 +80,15 @@ public class PageImporter {
     }
 
     private void processMethods(JSONObject method) {
-        throw new RuntimeException("Not implemented yet");
+        MethodSpec specs = new MethodSpec();
+        specs.methodName = method.getString("name");
+        specs.description =method.getString("description");
+        specs.methodSpecId=PageModel.elementHashCode(specs.methodName );
+        specs.methodJS=method.getString("methodJS") ;
+        specs.type=method.getString("type") ;
+        specs.outputName=method.getString("outputName") ;
+        specs.role=method.getString("role") ;
+        methodSpecRepository.save(specs);
     }
 
     private void processBinaryComponent(String specsPath, JSONArray specs) throws Exception {

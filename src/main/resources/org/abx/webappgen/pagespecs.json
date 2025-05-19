@@ -4,7 +4,9 @@
       "name": "hello",
       "role": "Anonymous",
       "type": "text",
-      "methodJS": "return 'hi'"
+      "methodJS": "return 'hi'",
+      "outputName": "welcome",
+      "description": "say hi"
     }
 
   ],

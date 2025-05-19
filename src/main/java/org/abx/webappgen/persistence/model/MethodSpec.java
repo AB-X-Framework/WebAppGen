@@ -26,7 +26,7 @@ public class MethodSpec {
     public String role;
 
     @Column
-    public String methodDescription;
+    public String description;
 
     @Column(columnDefinition = "MEDIUMTEXT")
     public String methodJS;

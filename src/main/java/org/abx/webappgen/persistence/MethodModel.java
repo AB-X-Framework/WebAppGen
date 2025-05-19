@@ -25,6 +25,7 @@ public class MethodModel {
         methodSpecJson.put("methodJS", spec.methodJS);
         methodSpecJson.put("outputName", spec.outputName);
         methodSpecJson.put("role", spec.role);
+        methodSpecJson.put("type", spec.type);
         return methodSpecJson;
     }
 }

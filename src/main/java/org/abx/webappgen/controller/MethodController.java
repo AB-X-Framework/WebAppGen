@@ -51,13 +51,15 @@ public class MethodController extends RoleController {
                 methodSpecs.getString("outputName"));
 
         try {
-            Object obj = processMethod(methodSpecs, args);
+            Object obj = processMethod(methodName, methodSpecs, args);
             byte[] data = serialize(type, obj);
             headers.setContentLength(data.length);
 
             return new ResponseEntity<>(data, headers, HttpStatus.OK);
         } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+             headers = new HttpHeaders();
+            headers.setContentType(MediaType.TEXT_PLAIN);
+            return new ResponseEntity<>(e.getMessage().getBytes(),headers,HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -104,14 +106,13 @@ public class MethodController extends RoleController {
         }
     }
 
-    private Object processMethod(JSONObject methodSpecs, String args) throws Exception {
+    private Object processMethod(String methodName,JSONObject methodSpecs, String args) throws Exception {
         Context cx = Context.newBuilder("js").allowExperimentalOptions(true).option("js.operator-overloading", "true")
                 .allowAllAccess(true)
                 .build();
         cx.enter();
         Value jsBindings = cx.getBindings("js");
-        String methodName = methodSpecs.getString("name");
-        JSONObject jsonArgs = methodSpecs.getJSONObject("args");
+        JSONObject jsonArgs = methodSpecs.getJSONObject(args);
         for (String arg : jsonArgs.keySet()) {
             jsBindings.putMember(arg, jsonArgs.get(arg));
         }
