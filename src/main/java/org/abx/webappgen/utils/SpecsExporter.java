@@ -5,6 +5,7 @@ import org.abx.webappgen.persistence.ResourceModel;
 import org.abx.webappgen.persistence.dao.*;
 import org.abx.webappgen.persistence.model.BinaryResource;
 import org.abx.webappgen.persistence.model.MethodSpec;
+import org.abx.webappgen.persistence.model.TextResource;
 import org.abx.webappgen.persistence.model.User;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -126,6 +127,20 @@ public class SpecsExporter {
                     write(binaryResource.resourceValue);
         }
         return binaryResources;
+    }
+
+    public JSONArray createTextResources(String specsFolder) throws IOException {
+        new File(specsFolder + "/text").mkdirs();
+        JSONArray textResources = new JSONArray();
+        for (TextResource textResource : textResourceRepository.findAll()) {
+            JSONObject jsonTextResource = new JSONObject();
+            textResources.put(jsonTextResource);
+            jsonTextResource.put("name",textResource.resourceName);
+            jsonTextResource.put("role",textResource.role);
+            new FileOutputStream(specsFolder + "/text/" + textResource.resourceName).
+                    write(textResource.resourceValue.getBytes());
+        }
+        return textResources;
     }
 
 
