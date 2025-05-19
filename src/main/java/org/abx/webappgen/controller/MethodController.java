@@ -2,8 +2,6 @@ package org.abx.webappgen.controller;
 
 import org.abx.webappgen.persistence.MethodModel;
 import org.abx.webappgen.persistence.PageModel;
-import org.abx.webappgen.persistence.dao.MethodSpecRepository;
-import org.abx.webappgen.persistence.model.MethodSpec;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -17,8 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Set;
-
-import static org.abx.webappgen.persistence.PageModel.elementHashCode;
 
 @RestController
 public class MethodController extends RoleController {
@@ -43,12 +39,30 @@ public class MethodController extends RoleController {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Unauthorized access");
         }
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(new MediaType(methodSpecs.getString("setContentType"))); // Or your custom type
+        String type = methodSpecs.getString("type");
+        headers.setContentType(contentType(type)); // Or your custom type
         headers.setContentDispositionFormData("attachment",
                 methodSpecs.getString("outputName"));
 
         String r = new JSONObject(roles).toString();
         headers.setContentLength(r.length());
         return new ResponseEntity<>(r.getBytes(), headers, HttpStatus.OK);
+    }
+
+    private MediaType contentType(String type) {
+        switch (type) {
+            case "string":
+                return MediaType.TEXT_PLAIN;
+            case "json":
+                return MediaType.APPLICATION_JSON;
+            case "png":
+                return MediaType.IMAGE_PNG;
+            case "jpg":
+                return MediaType.IMAGE_JPEG;
+            case "pdf":
+                return MediaType.APPLICATION_PDF;
+            default:
+                return MediaType.APPLICATION_OCTET_STREAM;
+        }
     }
 }
