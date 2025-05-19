@@ -1,26 +1,24 @@
 package org.abx.webappgen.controller;
 
-import jakarta.servlet.http.HttpServletRequest;
 import org.abx.util.Pair;
-import org.abx.webappgen.persistence.PageModel;
 import org.abx.webappgen.persistence.ResourceModel;
-import org.abx.webappgen.persistence.model.BinaryResource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.*;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.Enumeration;
-import java.util.Iterator;
 import java.util.Set;
 
 @RestController
 
 @RequestMapping("/resources")
-public class ResourceController extends RoleController{
+public class ResourceController extends RoleController {
 
     @Autowired
     private ResourceModel resourceModel;
@@ -33,8 +31,8 @@ public class ResourceController extends RoleController{
 
     @GetMapping("/binary/{resource}")
     public ResponseEntity<byte[]> downloadFile(@PathVariable String resource) {
-        Set<String> roles =  getRoles();
-        Pair<String, byte[]> fileContent = resourceModel.getBinaryResource(roles,resource);
+        Set<String> roles = getRoles();
+        Pair<String, byte[]> fileContent = resourceModel.getBinaryResource(roles, resource);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_PDF); // Or your custom type
         headers.setContentDispositionFormData("attachment", resource);
@@ -48,8 +46,8 @@ public class ResourceController extends RoleController{
             @RequestPart MultipartFile data,
             @RequestPart String role,
             @RequestPart String contentType) throws IOException {
-       byte[] fileBytes = data.getBytes();
+        byte[] fileBytes = data.getBytes();
         String name = data.getOriginalFilename();
-        return resourceModel.saveBinaryResource(name,contentType,fileBytes,role);
+        return resourceModel.saveBinaryResource(name, contentType, fileBytes, role);
     }
 }
