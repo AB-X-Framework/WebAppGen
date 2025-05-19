@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 
 @Component
 public class PageImporter {
@@ -41,18 +42,18 @@ public class PageImporter {
         }
         if (loadPages) {
             File resourceFile = new File(pageSpecsPath);
-            String resourceFolder = resourceFile.getParent();
+            String specsFolder = resourceFile.getParent();
             String data = StreamUtils.readStream(new FileInputStream(resourceFile));
             JSONObject obj = new JSONObject(data);
 
             JSONArray methods = obj.getJSONArray("methods");
             for (int i = 0; i < methods.length(); i++) {
                 JSONObject method = methods.getJSONObject(i);
-                processMethods(method);
+                processMethods(specsFolder, method);
             }
 
             JSONObject resources = obj.getJSONObject("resources");
-            processResource(resourceFolder, resources);
+            processResource(specsFolder, resources);
 
 
             JSONArray components = obj.getJSONArray("components");
@@ -79,30 +80,31 @@ public class PageImporter {
 
     }
 
-    private void processMethods(JSONObject method) {
+    private void processMethods(String specsFolder, JSONObject method) throws IOException {
         MethodSpec specs = new MethodSpec();
         specs.methodName = method.getString("name");
-        specs.description =method.getString("description");
-        specs.methodSpecId=PageModel.elementHashCode(specs.methodName );
-        specs.methodJS=method.getString("methodJS") ;
-        specs.type=method.getString("type") ;
-        specs.outputName=method.getString("outputName") ;
-        specs.role=method.getString("role") ;
+        specs.description = method.getString("description");
+        specs.methodSpecId = PageModel.elementHashCode(specs.methodName);
+        specs.methodJS = StreamUtils.readStream(new FileInputStream(
+                specsFolder + "/methods/" + specs.methodName + ".js" ));
+        specs.type = method.getString("type");
+        specs.outputName = method.getString("outputName");
+        specs.role = method.getString("role");
         methodSpecRepository.save(specs);
     }
 
-    private void processBinaryComponent(String specsPath, JSONArray specs) throws Exception {
+    private void processBinaryResource(String specsPath, JSONArray specs) throws Exception {
         for (int i = 0; i < specs.length(); i++) {
             JSONObject jsonResource = specs.getJSONObject(i);
             String name = jsonResource.getString("name");
-            String file = specsPath + "/" + name;
+            String file = specsPath + "/resources/" + name;
             byte[] data = StreamUtils.readByteArrayStream(new FileInputStream(file));
             resourceModel.saveBinaryResource(name, jsonResource.getString("contentType"), data);
         }
     }
 
     private void processResource(String specsPath, JSONObject resource) throws Exception {
-        processBinaryComponent(specsPath, resource.getJSONArray("binary"));
+        processBinaryResource(specsPath, resource.getJSONArray("binary"));
     }
 
     private void processComponents(JSONObject component) throws Exception {

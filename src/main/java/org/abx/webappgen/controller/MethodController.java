@@ -115,8 +115,8 @@ public class MethodController extends RoleController {
         for (String arg : jsonArgs.keySet()) {
             jsBindings.putMember(arg, jsonArgs.get(arg));
         }
-        String fullSources = "function " + methodName + "(){" +
-                methodSpecs.getString("methodJS") + "} " + methodName + "();";
+        String fullSources =
+                methodSpecs.getString("methodJS") + "\n" + methodName + "();";
         Source source = Source.newBuilder("js", fullSources, methodName).build();
         return cx.eval(source);
     }
