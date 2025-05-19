@@ -61,10 +61,13 @@ public class PageModel {
     @Autowired
     public MapResourceRepository mapResourceRepository;
     @Autowired
+    public MethodSpecRepository methodSpecRepository;
+    @Autowired
     public ResourceModel resourceModel;
 
     @Transactional
     public void clean() {
+        methodSpecRepository.deleteAll();
         mapEntryRepository.deleteAll();
         mapResourceRepository.deleteAll();
         arrayEntryRepository.deleteAll();

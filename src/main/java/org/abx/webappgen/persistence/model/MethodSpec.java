@@ -15,6 +15,9 @@ public class MethodSpec {
     @Column
     public String methodName;
 
+    @Column(length = 11)
+    public String role;
+
     @Column
     public String methodDescription;
 
