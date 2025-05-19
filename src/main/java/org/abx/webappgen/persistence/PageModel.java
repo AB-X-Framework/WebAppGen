@@ -2,6 +2,7 @@ package org.abx.webappgen.persistence;
 
 import org.abx.webappgen.persistence.dao.*;
 import org.abx.webappgen.persistence.model.*;
+import org.abx.webappgen.spring.CredsUserDetailsService;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,9 +66,14 @@ public class PageModel {
     public MethodSpecRepository methodSpecRepository;
     @Autowired
     public ResourceModel resourceModel;
+    @Autowired
+    private CredsUserDetailsService userDetailsService;
 
+    @Autowired
+    private UserRepository userRepository;
     @Transactional
     public void clean() {
+        userRepository.deleteAll();
         methodSpecRepository.deleteAll();
         mapEntryRepository.deleteAll();
         mapResourceRepository.deleteAll();

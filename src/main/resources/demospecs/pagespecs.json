@@ -1,4 +1,5 @@
 {
+  "users": "users.json",
   "methods": [
     {
       "name": "hello",

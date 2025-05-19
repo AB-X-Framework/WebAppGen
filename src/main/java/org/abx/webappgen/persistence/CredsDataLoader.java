@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 @Component
-public class CredsDataLoader implements ApplicationListener<ContextRefreshedEvent> {
+public class CredsDataLoader  {
 
     private boolean alreadySetup = false;
 
@@ -24,31 +24,18 @@ public class CredsDataLoader implements ApplicationListener<ContextRefreshedEven
     private PasswordEncoder passwordEncoder;
 
 
-    // API
-
-    @Override
-    @Transactional
-    public void onApplicationEvent(final ContextRefreshedEvent event) {
-        if (alreadySetup) {
-            return;
-        }
-        // == create initial user
-        createUserIfNotFound("root@abxwebappgen.org", "12345", "Admin");
-        alreadySetup = true;
-    }
-
-
     @Transactional
     public void createUserIfNotFound(final String username, final String password,
                                      final String role) {
         User user = userRepository.findByUsername(username);
         if (user == null) {
             user = new User();
-            user.setUsername(username);
-            user.setPassword(passwordEncoder.encode(password));
-            user.setEnabled(true);
+            user.username=(username);
+            user.password=passwordEncoder.encode(password);
+            user.enabled=true;
         }
-        user.setRole(role);
+        user.userId = PageModel.elementHashCode(username);
+        user.role=role;
         userRepository.save(user);
     }
 

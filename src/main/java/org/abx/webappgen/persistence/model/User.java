@@ -10,59 +10,26 @@ public class User {
 
     @Id
     @Column(unique = true, nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
-    private String username;
+    public Long userId;
 
     @Column(length = 60)
-    private String password;
+    public String username;
+
+    @Column(length = 200)
+    public String password;
 
     @Column(length = 60)
-    private String role;
+    public String role;
 
     @Column
-    private boolean enabled;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(final Long id) {
-        this.id = id;
-    }
-
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(final String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(final String password) {
-        this.password = password;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(final String role) {
-        this.role = role;
-    }
+    public boolean enabled;
 
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = (prime * result) + ((getUsername() == null) ? 0 : getUsername().hashCode());
+        result = (prime * result) + ((username== null) ? 0 : username.hashCode());
         return result;
     }
 
@@ -78,7 +45,7 @@ public class User {
             return false;
         }
         final User user = (User) obj;
-        if (!getUsername().equals(user.getUsername())) {
+        if (!username.equals(user.username)) {
             return false;
         }
         return true;
@@ -88,19 +55,11 @@ public class User {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append("User [id=")
-                .append(id)
+                .append(userId)
                 .append(", username=").append(username)
                 .append(", role=").append(role)
                 .append("]");
         return builder.toString();
-    }
-
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
     }
 }
 

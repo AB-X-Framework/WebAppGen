@@ -43,14 +43,14 @@ public class CredsUserDetailsService implements UserDetailsService {
             if (user == null) {
                 throw new UsernameNotFoundException("No user found with username: " + username);
             }
-            if (!user.isEnabled()) {
+            if (!user.enabled) {
                 throw new UsernameNotFoundException("No username: " + username + " is disabled.");
             }
 
-            return new org.springframework.security.core.userdetails.User(user.getUsername(),
-                    user.getPassword(),
+            return new org.springframework.security.core.userdetails.User(user.username,
+                    user.password,
                     true, true, true, true
-                    , getAuthorities(user.getRole()));
+                    , getAuthorities(user.role));
         } catch (final Exception e) {
             throw new RuntimeException(e);
         }

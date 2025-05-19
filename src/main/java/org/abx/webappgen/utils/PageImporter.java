@@ -6,7 +6,9 @@ import org.abx.util.StreamUtils;
 import org.abx.webappgen.persistence.PageModel;
 import org.abx.webappgen.persistence.ResourceModel;
 import org.abx.webappgen.persistence.dao.MethodSpecRepository;
+import org.abx.webappgen.persistence.dao.UserRepository;
 import org.abx.webappgen.persistence.model.MethodSpec;
+import org.abx.webappgen.persistence.model.User;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 @Component
@@ -34,6 +37,8 @@ public class PageImporter {
 
     @Value("${pages.resource}")
     public String pageSpecsPath;
+    @Autowired
+    private UserRepository userRepository;
 
     @PostConstruct
     public void init() throws Exception {
@@ -46,6 +51,7 @@ public class PageImporter {
             String data = StreamUtils.readStream(new FileInputStream(resourceFile));
             JSONObject obj = new JSONObject(data);
 
+            processUsers(specsFolder,obj.getString("users"));
             JSONArray methods = obj.getJSONArray("methods");
             for (int i = 0; i < methods.length(); i++) {
                 JSONObject method = methods.getJSONObject(i);
@@ -68,6 +74,21 @@ public class PageImporter {
                 processPage(page);
             }
 
+        }
+    }
+
+    private void processUsers(String specsFolder,String userfile) throws IOException {
+        JSONArray users = new JSONArray(StreamUtils.readStream(new FileInputStream(
+                specsFolder + "/"+userfile )));
+        for (int i = 0; i< users.length();i++){
+            JSONObject jsonUser = users.getJSONObject(i);
+            User user = new User();
+            user.username = jsonUser.getString("username");
+            user.userId = PageModel.elementHashCode(user.username);
+            user.password = jsonUser.getString("password");
+            user.enabled = jsonUser.getBoolean("enabled");
+            user.role = jsonUser.getString("role");
+            userRepository.save(user);
         }
     }
 
