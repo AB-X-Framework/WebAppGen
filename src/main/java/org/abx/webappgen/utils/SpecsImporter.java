@@ -115,6 +115,14 @@ public class SpecsImporter {
         methodSpecRepository.save(specs);
     }
 
+    private void processArrayResource(String specsPath, JSONArray arrayResources) throws Exception {
+        for (int i = 0; i < arrayResources.length(); i++) {
+            String arrayName = arrayResources.getString(i);
+            String arrayData = StreamUtils.readStream(new FileInputStream(specsPath+"/array/"+arrayName+".json" ));
+            resourceModel.saveArrayResource(arrayName,new JSONArray(arrayData));
+        }
+    }
+
     private void processBinaryResource(String specsPath, JSONArray specs) throws Exception {
         for (int i = 0; i < specs.length(); i++) {
             JSONObject jsonResource = specs.getJSONObject(i);
@@ -140,6 +148,7 @@ public class SpecsImporter {
     private void processResource(String specsPath, JSONObject resource) throws Exception {
         processBinaryResource(specsPath, resource.getJSONArray("binary"));
         processTextResource(specsPath, resource.getJSONArray("text"));
+        processArrayResource(specsPath, resource.getJSONArray("array"));
     }
 
     private void processComponents(JSONObject component) throws Exception {

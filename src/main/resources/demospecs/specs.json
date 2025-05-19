@@ -23,6 +23,9 @@
         "name": "loren.txt",
         "role": "Anonymous"
       }
+    ],
+    "array": [
+       "basicarray"
     ]
   },
   "pages": [

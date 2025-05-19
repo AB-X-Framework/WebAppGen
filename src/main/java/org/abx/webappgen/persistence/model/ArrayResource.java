@@ -13,6 +13,9 @@ public class ArrayResource {
     public Long arrayResourceId;
 
 
+    @Column(nullable = false)
+    public String name;
+
     @OneToMany(mappedBy = "arrayResource", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     public List<ArrayEntry> resourceEntries;
 

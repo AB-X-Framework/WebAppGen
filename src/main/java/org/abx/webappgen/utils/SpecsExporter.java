@@ -96,7 +96,7 @@ public class SpecsExporter {
     }
 
 
-    public JSONArray createComponents()  {
+    public JSONArray createComponents() {
         JSONArray jsonComponents = new JSONArray();
 
         for (org.abx.webappgen.persistence.model.Component component : componentRepository.findAll()) {
@@ -106,62 +106,64 @@ public class SpecsExporter {
         return jsonComponents;
     }
 
-    private JSONObject createComponent(org.abx.webappgen.persistence.model.Component component){
+    private JSONObject createComponent(org.abx.webappgen.persistence.model.Component component) {
         JSONObject jsonComponent = new JSONObject();
-        jsonComponent.put("name",component.componentName);
-        jsonComponent.put("isContainer",component.isContainer);
+        jsonComponent.put("name", component.componentName);
+        jsonComponent.put("isContainer", component.isContainer);
 
-        jsonComponent.put("js",envValue(component.js));
+        jsonComponent.put("js", envValue(component.js));
         if (component.isContainer) {
-            processContainer(jsonComponent,component.container);
-        }else {
+            processContainer(jsonComponent, component.container);
+        } else {
             Element element = component.element;
-            jsonComponent.put("type",element.type);
+            jsonComponent.put("type", element.type);
             JSONArray jsonSpecs = new JSONArray();
-            jsonComponent.put("specs",jsonSpecs);
+            jsonComponent.put("specs", jsonSpecs);
             for (EnvValue envValue : element.specs) {
                 JSONObject jsonEnvValue = new JSONObject();
                 jsonSpecs.put(jsonEnvValue);
-                jsonEnvValue.put("env",envValue.env);
-                jsonEnvValue.put("value",new JSONObject(envValue.value));
+                jsonEnvValue.put("env", envValue.env);
+                jsonEnvValue.put("value", new JSONObject(envValue.value));
 
             }
         }
         return jsonComponent;
     }
 
-    private void processContainer(JSONObject jsonComponent, Container container){
-        jsonComponent.put("layout",container.layout);
+    private void processContainer(JSONObject jsonComponent, Container container) {
+        jsonComponent.put("layout", container.layout);
         JSONArray components = new JSONArray();
-        jsonComponent.put("components",components);
+        jsonComponent.put("components", components);
         for (InnerComponent inner : container.innerComponent) {
             JSONObject jsonInner = new JSONObject();
             components.put(jsonInner);
-            jsonInner.put("env",inner.env);
-            jsonInner.put("size",inner.size);
-            jsonInner.put("innerId",inner.innerId);
-            jsonInner.put("component",inner.child.componentName);
+            jsonInner.put("env", inner.env);
+            jsonInner.put("size", inner.size);
+            jsonInner.put("innerId", inner.innerId);
+            jsonInner.put("component", inner.child.componentName);
         }
     }
-    private JSONArray envValue (Collection<EnvValue> values){
+
+    private JSONArray envValue(Collection<EnvValue> values) {
         JSONArray jsonValues = new JSONArray();
-        for (EnvValue envValue: values){
+        for (EnvValue envValue : values) {
             JSONObject jsonEnvValue = new JSONObject();
             jsonValues.put(jsonEnvValue);
-            jsonEnvValue.put("env",envValue.env);
-            jsonEnvValue.put("value",envValue.value);
+            jsonEnvValue.put("env", envValue.env);
+            jsonEnvValue.put("value", envValue.value);
         }
         return jsonValues;
     }
-    public JSONArray createPages()  {
+
+    public JSONArray createPages() {
         JSONArray jsonPages = new JSONArray();
         for (Page page : pageRepository.findAll()) {
             JSONObject jsonPage = new JSONObject();
             jsonPages.put(jsonPage);
-            jsonPage.put("name",page.pageName);
-            jsonPage.put("title",page.pageTitle);
-            jsonPage.put("role",page.role);
-            jsonPage.put("component",page.component.componentName);
+            jsonPage.put("name", page.pageName);
+            jsonPage.put("title", page.pageTitle);
+            jsonPage.put("role", page.role);
+            jsonPage.put("component", page.component.componentName);
         }
         return jsonPages;
 
@@ -178,15 +180,16 @@ public class SpecsExporter {
             jsonMethod.put("role", method.role);
             jsonMethod.put("description", method.description);
             methods.put(jsonMethod);
-            new FileOutputStream(specsFolder + "/methods/" + method.methodName).write(method.methodJS.getBytes());
+            new FileOutputStream(specsFolder + "/methods/" + method.methodName + ".js").write(method.methodJS.getBytes());
         }
         return methods;
     }
 
     public JSONObject createResources(String specsFolder) throws IOException {
         JSONObject object = new JSONObject();
-        object.put("binary",createBinaryResources(specsFolder));
-        object.put("text",createTextResources(specsFolder));
+        object.put("binary", createBinaryResources(specsFolder));
+        object.put("text", createTextResources(specsFolder));
+        object.put("array", createArrayResources(specsFolder));
         return object;
     }
 
@@ -196,9 +199,9 @@ public class SpecsExporter {
         for (BinaryResource binaryResource : binaryResourceRepository.findAll()) {
             JSONObject jsonBinaryResource = new JSONObject();
             binaryResources.put(jsonBinaryResource);
-            jsonBinaryResource.put("name",binaryResource.resourceName);
-            jsonBinaryResource.put("contentType",binaryResource.contentType);
-            jsonBinaryResource.put("role",binaryResource.role);
+            jsonBinaryResource.put("name", binaryResource.resourceName);
+            jsonBinaryResource.put("contentType", binaryResource.contentType);
+            jsonBinaryResource.put("role", binaryResource.role);
             new FileOutputStream(specsFolder + "/binary/" + binaryResource.resourceName).
                     write(binaryResource.resourceValue);
         }
@@ -211,12 +214,29 @@ public class SpecsExporter {
         for (TextResource textResource : textResourceRepository.findAll()) {
             JSONObject jsonTextResource = new JSONObject();
             textResources.put(jsonTextResource);
-            jsonTextResource.put("name",textResource.resourceName);
-            jsonTextResource.put("role",textResource.role);
+            jsonTextResource.put("name", textResource.resourceName);
+            jsonTextResource.put("role", textResource.role);
             new FileOutputStream(specsFolder + "/text/" + textResource.resourceName).
                     write(textResource.resourceValue.getBytes());
         }
         return textResources;
+    }
+
+
+    public JSONArray createArrayResources(String specsFolder) throws IOException {
+        new File(specsFolder + "/array").mkdirs();
+        JSONArray arrayResources = new JSONArray();
+        for (ArrayResource arrayResource : arrayResourceRepository.findAll()) {
+            String name = arrayResource.name;
+            arrayResources.put(name);
+            JSONArray values = new JSONArray();
+            for (ArrayEntry entry : arrayResource.resourceEntries) {
+                values.put(entry.value);
+            }
+            new FileOutputStream(specsFolder + "/array/" + name + ".json").
+                    write(values.toString().getBytes());
+        }
+        return arrayResources;
     }
 
 

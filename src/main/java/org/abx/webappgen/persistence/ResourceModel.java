@@ -1,10 +1,15 @@
 package org.abx.webappgen.persistence;
 
+import org.abx.webappgen.persistence.dao.ArrayEntryRepository;
+import org.abx.webappgen.persistence.dao.ArrayResourceRepository;
 import org.abx.webappgen.persistence.dao.BinaryResourceRepository;
 import org.abx.webappgen.persistence.dao.TextResourceRepository;
 import org.abx.util.Pair;
+import org.abx.webappgen.persistence.model.ArrayEntry;
+import org.abx.webappgen.persistence.model.ArrayResource;
 import org.abx.webappgen.persistence.model.BinaryResource;
 import org.abx.webappgen.persistence.model.TextResource;
+import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +23,10 @@ public class ResourceModel {
     TextResourceRepository textResourceRepository;
     @Autowired
     BinaryResourceRepository binaryResourceRepository;
+    @Autowired
+    private ArrayResourceRepository arrayResourceRepository;
+    @Autowired
+    private ArrayEntryRepository arrayEntryRepository;
 
     public String getTextResource(Set<String> roles,String resourceName) {
         TextResource text = textResourceRepository.findByTextResourceId(
@@ -60,6 +69,23 @@ public class ResourceModel {
         binaryResource.role=role;
         binaryResource.resourceName=resourceName;
         binaryResourceRepository.save(binaryResource);
+        return id;
+
+    }
+
+    public long saveArrayResource(String resourceName, JSONArray data) {
+        long id =   PageModel.elementHashCode(resourceName);
+        ArrayResource arrayResource = new ArrayResource();
+        arrayResource.arrayResourceId=id;
+        arrayResource.name=resourceName;
+        arrayResourceRepository.save(arrayResource);
+        for (int i = 0; i < data.length(); i++) {
+            String value = data.getString(i);
+            ArrayEntry entry  = new ArrayEntry();
+            entry.value = value;
+            entry.arrayResource = arrayResource;
+            arrayEntryRepository.save(entry);
+        }
         return id;
 
     }
