@@ -4,15 +4,13 @@ package org.abx.webappgen.persistence;
 import org.abx.webappgen.persistence.dao.UserRepository;
 import org.abx.webappgen.persistence.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationListener;
-import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 
 @Component
-public class CredsDataLoader  {
+public class UserModel {
 
     private boolean alreadySetup = false;
 

@@ -1,5 +1,6 @@
 package org.abx.webappgen.controller;
 
+import org.abx.webappgen.persistence.UserModel;
 import org.graalvm.polyglot.Context;
 import org.graalvm.polyglot.Source;
 import org.graalvm.polyglot.Value;
@@ -28,6 +29,10 @@ public class MethodController extends RoleController {
 
     @Autowired
     public PageModel pageModel;
+
+    @Autowired
+    public UserModel userModel;
+
 
 
     @PostMapping(value = "/process/{methodName}")
@@ -112,6 +117,8 @@ public class MethodController extends RoleController {
         cx.enter();
         Value jsBindings = cx.getBindings("js");
         JSONObject jsonArgs = new JSONObject(args);
+        jsBindings.putMember("pageModel", pageModel);
+        jsBindings.putMember("userModel", userModel);
         for (String arg : jsonArgs.keySet()) {
             jsBindings.putMember(arg, jsonArgs.get(arg));
         }
