@@ -54,7 +54,6 @@ public class MethodController extends RoleController {
             Object obj = processMethod(methodName, methodSpecs, args);
             byte[] data = serialize(type, obj);
             headers.setContentLength(data.length);
-
             return new ResponseEntity<>(data, headers, HttpStatus.OK);
         } catch (Exception e) {
              headers = new HttpHeaders();
@@ -64,9 +63,9 @@ public class MethodController extends RoleController {
     }
 
     private byte[] serialize(String type, Object obj) throws Exception {
-        switch (type) {
+        switch (type.intern()) {
             case "json":
-            case "string":
+            case "text":
                 return obj.toString().getBytes();
             case "png":
             case "jpg":
@@ -90,8 +89,8 @@ public class MethodController extends RoleController {
     }
 
     private MediaType contentType(String type) {
-        switch (type) {
-            case "string":
+        switch (type.intern()) {
+            case "text":
                 return MediaType.TEXT_PLAIN;
             case "json":
                 return MediaType.APPLICATION_JSON;
@@ -112,7 +111,7 @@ public class MethodController extends RoleController {
                 .build();
         cx.enter();
         Value jsBindings = cx.getBindings("js");
-        JSONObject jsonArgs = methodSpecs.getJSONObject(args);
+        JSONObject jsonArgs = new JSONObject(args);
         for (String arg : jsonArgs.keySet()) {
             jsBindings.putMember(arg, jsonArgs.get(arg));
         }
