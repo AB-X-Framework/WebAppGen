@@ -1,65 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Ace Editor in Materialize Grid</title>
-    <!-- Materialize CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
-    <!-- Material Icons -->
+    <title>Themes - Materialize</title>
+    <!-- Favicons-->
+    <link rel="icon" href="images/favicon/favicon-32x32.png" sizes="32x32">
+    <!--  Android 5 Chrome Color-->
+    <meta name="theme-color" content="#EE6E73">
+    <!-- CSS-->
+    <link href="https://materializecss.com/css/prism.css" rel="stylesheet">
+    <link href="https://materializecss.com/css/ghpages-materialize.css" type="text/css" rel="stylesheet"
+          media="screen,projection">
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        html, body {
-            height: 100%;
-            margin: 0;
-        }
-        .editor-wrapper {
-            height: 400px;
-        }
-        #editor {
-            height: 100%;
-            width: 100%;
-        }
-    </style>
 </head>
-<body>
-
-<!-- Navbar -->
-<nav class="blue">
-    <div class="nav-wrapper container">
-        <a href="#!" class="brand-logo">Ace in Material Grid</a>
+<body class="themes">
+<header>
+    <div class="container">
+        <a href="#" data-target="nav-mobile"
+           class="top-nav sidenav-trigger waves-effect waves-light circle hide-on-large-only">
+            <i  class="material-icons">menu</i>
+        </a>
     </div>
-</nav>
+    <ul id="nav-mobile" class="sidenav sidenav-fixed">
+        <li class="bold"><a href="about.html" class="waves-effect waves-teal">About</a></li>
+        <li class="bold"><a href="mobile.html" class="waves-effect waves-teal">Mobile</a></li>
+        <li class="bold"><a href="showcase.html" class="waves-effect waves-teal">Showcase</a></li>
+        <li class="bold active"><a href="themes.html" class="waves-effect waves-teal">Themes</a></li>
+    </ul>
+</header>
+<main>
+    <div class="section" id="index-banner">
+        <div class="container">
+            <div class="row" style="margin-bottom: 0;">
+                <div class="col s12 m8 offset-m1 xl7 offset-xl1 center-on-small-only">
+                    <h1 class="header">Themes</h1>
+                    <h4 class="light">Now Updated to Materialize 1.0.0</h4>
+                </div>
 
-<!-- Grid Layout -->
-<div class="container">
-    <div class="row">
-        <!-- Left Column -->
-        <div class="col s6">
-            <div class="card-panel">
-                <h5>Instructions</h5>
-                <p>This is a Materialize column using <code>col s6</code>.</p>
             </div>
         </div>
-
-        <!-- Ace Editor Column -->
-        <div class="col s6">
-            <div id="editor" style="width: 100%; height: 100%">function test() {
-                console.log("Ace inside col s6!");
-                }</div>
-        </div>
     </div>
-</div>
-
-<!-- Scripts -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.3/ace.min.js"></script>
-
-<script>
-    const editor = ace.edit("editor");
-    editor.setTheme("ace/theme/monokai");
-    editor.session.setMode("ace/mode/javascript");
-</script>
-
+</main>
+<!--  Scripts-->
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://materializecss.com/bin/materialize.js"></script>
+<script src="https://materializecss.com/docs/js/init.js"></script>
 </body>
 </html>
