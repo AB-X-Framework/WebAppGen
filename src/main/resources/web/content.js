@@ -14,10 +14,7 @@ class PageContent {
             for (var line of js) {
                 eval(line)
             }
-            M.updateTextFields();
-
-            const elems = document.querySelectorAll('select');
-            M.FormSelect.init(elems);
+            M.AutoInit();
 
         })
     }
@@ -34,30 +31,11 @@ class PageContent {
     static renderComponent(output, js, componentSpecs) {
         js.push(componentSpecs.js);
         if (componentSpecs.isContainer) {
-            var horizontal = componentSpecs.layout === "horizontal";
-            var vertical = componentSpecs.layout === "vertical";
-            var cv = componentSpecs.layout === "cv";
-            if (cv) {
-                output.push(`<div class="valign-wrapper row" style="height: 100%;">`)
+            if (componentSpecs.layout === "nav") {
+                PageContent.renderNav(output, js, componentSpecs);
             } else {
-                output.push(`<div id="${componentSpecs.id}">`);
+                PageContent.renderContainer(output, js, componentSpecs);
             }
-            if (horizontal) {
-                output.push('<div class="row">');
-            }
-            for (var component of componentSpecs.children) {
-                if (vertical) {
-                    output.push('<div class="row">');
-                }
-                PageContent.renderComponent(output, js, component)
-                if (vertical) {
-                    output.push('</div>');
-                }
-            }
-            if (horizontal) {
-                output.push('</div>');
-            }
-            output.push('</div>');
         } else {
 
             var size = componentSpecs.size;
@@ -93,6 +71,53 @@ class PageContent {
             output.push(`</div>`);
         }
 
+    }
+
+    static renderNav(output, js, componentSpecs) {
+        var children = componentSpecs.children;
+        output.push(`
+    <link href="/web/icons.css" rel="stylesheet">
+<header><div class="container">
+       <div class="container">
+        <a href="#" data-target="nav-mobile"
+           class="top-nav sidenav-trigger waves-effect waves-light circle hide-on-large-only">
+            <i  class="material-icons">menu</i>
+        </a>
+    </div>
+    <ul id="nav-mobile" class="sidenav sidenav-fixed">`)
+        PageContent.renderComponent(output, js, children[0])
+        output.push(`</ul></header><main>
+    <div class="section" id="index-banner">
+        <div class="container">  <div class="row" style="margin-bottom: 0;">`);
+        PageContent.renderComponent(output, js, children[1])
+        output.push(`   </div>     </div></div></main>`)
+    }
+
+    static renderContainer(output, js, componentSpecs) {
+        var horizontal = componentSpecs.layout === "horizontal";
+        var vertical = componentSpecs.layout === "vertical";
+        var cv = componentSpecs.layout === "cv";
+        if (cv) {
+            output.push(`<div class="valign-wrapper row" style="height: 100%;">`)
+        } else {
+            output.push(`<div id="${componentSpecs.id}">`);
+        }
+        if (horizontal) {
+            output.push('<div class="row">');
+        }
+        for (var component of componentSpecs.children) {
+            if (vertical) {
+                output.push('<div class="row">');
+            }
+            PageContent.renderComponent(output, js, component)
+            if (vertical) {
+                output.push('</div>');
+            }
+        }
+        if (horizontal) {
+            output.push('</div>');
+        }
+        output.push('</div>');
     }
 
     static renderButton(output, specs) {
@@ -158,7 +183,7 @@ class PageContent {
         output.push(results);
     }
 
-    static renderJS(output, specs){
+    static renderJS(output, specs) {
         var result = `
     <script src="/web/ace/src-min-noconflict/ace.js"></script>
     <div id="${specs.id}" style="height: ${specs.height}; width: 100%">// Write your JavaScript here</div>
@@ -205,7 +230,7 @@ class App {
         }
 
         $.ajax({
-            url:`/process/${method}`, // Replace or define $url
+            url: `/process/${method}`, // Replace or define $url
             method: "POST",
             data: formData,
             processData: false,
@@ -219,7 +244,7 @@ class App {
         App.processBinaryDownload(method, args, undefined, success, error);
     }
 
-    static processBinaryDownload(method, args, data){
+    static processBinaryDownload(method, args, data) {
         const formData = new FormData();
         if (typeof args === "undefined") {
             args = {};

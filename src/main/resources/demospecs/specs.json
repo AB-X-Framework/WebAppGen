@@ -59,6 +59,12 @@
       "role": "Anonymous"
     },
     {
+      "name": "tabPage",
+      "title": "Page Page",
+      "component": "TabPageComponent",
+      "role": "Anonymous"
+    },
+    {
       "name": "main3",
       "title": "Main Page",
       "component": "MainPageComponent3",
@@ -474,6 +480,28 @@
           "size": "s6"
         }
 
+      ],
+      "js": []
+    },
+
+    {
+      "package": "demo",
+      "name": "TabPageComponent",
+      "isContainer": true,
+      "layout": "nav",
+      "components": [
+        {
+          "innerId": "download",
+          "component": "download",
+          "env": "",
+          "size": "s1"
+        },
+        {
+          "innerId": "modelSpecs",
+          "component": "modelSpecs",
+          "env": "",
+          "size": "s1"
+        }
       ],
       "js": []
     }
