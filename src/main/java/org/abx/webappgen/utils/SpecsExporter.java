@@ -13,6 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Collection;
 
 @Component
@@ -27,18 +29,6 @@ public class SpecsExporter {
     public ComponentRepository componentRepository;
 
     @Autowired
-    public ContainerRepository containerRepository;
-
-    @Autowired
-    public ElementRepository elementRepository;
-
-    @Autowired
-    public InnerComponentRepository innerComponentRepository;
-
-    @Autowired
-    public EnvValueRepository envValueRepository;
-
-    @Autowired
     public TextResourceRepository textResourceRepository;
 
     @Autowired
@@ -48,11 +38,6 @@ public class SpecsExporter {
     @Autowired
     public ArrayResourceRepository arrayResourceRepository;
 
-    @Autowired
-    public ArrayEntryRepository arrayEntryRepository;
-
-    @Autowired
-    public MapEntryRepository mapEntryRepository;
 
     @Autowired
     public MapResourceRepository mapResourceRepository;
@@ -60,8 +45,6 @@ public class SpecsExporter {
     @Autowired
     public MethodSpecRepository methodSpecRepository;
 
-    @Autowired
-    public ResourceModel resourceModel;
 
     /**
      * Create specs and saves it in
@@ -79,6 +62,13 @@ public class SpecsExporter {
         new FileOutputStream(specsFolder + "/specs.json").write(specs.toString(1).getBytes());
     }
 
+    public byte[] exportSpecs() throws IOException {
+        Path p = Files.createTempDirectory("temp-");
+        createSpecs(p.toString());
+        byte[] bytes = ZipUtils.zipFolderToByteArray(p);
+        ZipUtils.delete(p);
+        return bytes;
+    }
 
     public String createUsers(String specsFolder) throws IOException {
         JSONArray users = new JSONArray();

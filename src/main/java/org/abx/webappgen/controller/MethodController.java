@@ -114,6 +114,8 @@ public class MethodController extends RoleController {
                 return MediaType.IMAGE_JPEG;
             case "pdf":
                 return MediaType.APPLICATION_PDF;
+            case "zip":
+                return MediaType.valueOf("application/zip");
             default:
                 return MediaType.APPLICATION_OCTET_STREAM;
         }

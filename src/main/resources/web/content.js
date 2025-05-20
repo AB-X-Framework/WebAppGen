@@ -9,15 +9,15 @@ class PageContent {
             PageContent.processTile(specs);
             var output = [];
             var js = [];
-            PageContent.renderComponent(output,js, specs.component)
+            PageContent.renderComponent(output, js, specs.component)
             $("#body-content").html(output.join(""));
-            for (var line of js){
+            for (var line of js) {
                 eval(line)
             }
             M.updateTextFields();
 
-                const elems = document.querySelectorAll('select');
-                M.FormSelect.init(elems);
+            const elems = document.querySelectorAll('select');
+            M.FormSelect.init(elems);
 
         })
     }
@@ -31,30 +31,30 @@ class PageContent {
         js.push(container.js);
     }
 
-    static renderComponent(output, js,componentSpecs) {
+    static renderComponent(output, js, componentSpecs) {
         js.push(componentSpecs.js);
         if (componentSpecs.isContainer) {
             var horizontal = componentSpecs.layout === "horizontal";
             var vertical = componentSpecs.layout === "vertical";
             var cv = componentSpecs.layout === "cv";
-            if (cv){
+            if (cv) {
                 output.push(`<div class="valign-wrapper row" style="height: 100%;">`)
-            }else {
+            } else {
                 output.push(`<div id="${componentSpecs.id}">`);
             }
-            if (horizontal){
+            if (horizontal) {
                 output.push('<div class="row">');
             }
             for (var component of componentSpecs.children) {
-                if (vertical){
+                if (vertical) {
                     output.push('<div class="row">');
                 }
                 PageContent.renderComponent(output, js, component)
-                if (vertical){
+                if (vertical) {
                     output.push('</div>');
                 }
             }
-            if (horizontal){
+            if (horizontal) {
                 output.push('</div>');
             }
             output.push('</div>');
@@ -102,7 +102,7 @@ class PageContent {
         output.push(results);
     }
 
-    static renderTextfield(output, specs){
+    static renderTextfield(output, specs) {
         var results =
             `<div id="${specs.id}"  class="input-field">
             <input placeholder="${specs.placeholder}" id="f_${specs.id}"  type="text" class="validate">
@@ -110,7 +110,7 @@ class PageContent {
         output.push(results);
     }
 
-    static renderTextarea(output, specs){
+    static renderTextarea(output, specs) {
         var results =
             `<div id="${specs.id}"  class="input-field">
             <textarea placeholder="${specs.placeholder}" id="f_${specs.id}"  type="text" class="materialize-textarea"></textarea>
@@ -119,7 +119,7 @@ class PageContent {
     }
 
 
-    static renderSection(output, specs){
+    static renderSection(output, specs) {
         var results =
             `<div id="${specs.id}"  class="section white section-content">
             <div class="row container">
@@ -131,7 +131,7 @@ class PageContent {
         output.push(results);
     }
 
-    static renderSelect(output, specs){
+    static renderSelect(output, specs) {
         const optionsHtml = specs.values.map(item =>
             `<option value="${item.key}">${item.value}</option>`
         ).join('');
@@ -143,6 +143,44 @@ class PageContent {
             </select>
             </div>`;
         output.push(results);
+    }
+
+}
+
+class App {
+    static process(method, args, success, error) {
+        App.processBinary(method, args, undefined, success, error);
+    }
+
+    static processBinary(method, args, data, success, error) {
+        const formData = new FormData();
+        if (typeof args === "undefined") {
+            args = {};
+        }
+        formData.append("args", JSON.stringify(args));
+        if (typeof data === "undefined") {
+            formData.append("data", data);
+        }
+        if (typeof success === "undefined") {
+            success = function (response) {
+                console.log("Method successful", response);
+            }
+        }
+        if (typeof error === "undefined") {
+            error = function (xhr, status, error) {
+                console.error("Upload failed", status, error);
+            }
+        }
+
+        $.ajax({
+            url:`/process/${method}`, // Replace or define $url
+            method: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: success,
+            error: error
+        });
     }
 
 }

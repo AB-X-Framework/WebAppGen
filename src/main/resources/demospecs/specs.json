@@ -14,6 +14,13 @@
       "type": "text",
       "outputName": "uppercase",
       "description": "say hi"
+    },
+    {
+      "name": "downloadModel",
+      "role": "Anonymous",
+      "type": "zip",
+      "outputName": "model.zip",
+      "description": "Downlaod model"
     }
   ],
   "resources": {
@@ -42,6 +49,12 @@
       "name": "main",
       "title": "Main Page",
       "component": "MainPageComponent",
+      "role": "Anonymous"
+    },
+    {
+      "name": "main3",
+      "title": "Main Page",
+      "component": "MainPageComponent3",
       "role": "Anonymous"
     },
     {
@@ -110,6 +123,25 @@
           "env": "ES",
           "value": {
             "text": "Hola"
+          }
+        }
+      ]
+    },
+    {
+      "name": "download",
+      "isContainer": false,
+      "type": "button",
+      "js": [
+        {
+          "env": "",
+          "value": "$(self).click(()=>App.process('downloadModel')) "
+        }
+      ],
+      "specs": [
+        {
+          "env": "",
+          "value": {
+            "text": "Download Model"
           }
         }
       ]
@@ -287,7 +319,7 @@
       ]
     },
     {
-      "name": "MainPageComponent",
+      "name": "MainPageComponent3",
       "isContainer": true,
       "layout": "vertical",
       "components": [
@@ -332,6 +364,21 @@
         {
           "innerId": "login2",
           "component": "login",
+          "env": "",
+          "size": "s6"
+        }
+      ],
+      "js": []
+    }
+  ,
+    {
+      "name": "MainPageComponent",
+      "isContainer": true,
+      "layout": "cv",
+      "components": [
+        {
+          "innerId": "download",
+          "component": "download",
           "env": "",
           "size": "s6"
         }
