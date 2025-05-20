@@ -58,12 +58,13 @@ public class PageController extends RoleController{
 
 
     private String env(HttpSession session) {
-        String env = "";
+        StringBuilder env = new StringBuilder();
         if (session.getAttribute(LANG) != null) {
-            env += (String) session.getAttribute(LANG);
-        } else {
-            env += "ES";
+            env .append((String) session.getAttribute(LANG));
         }
-        return env;
+        for (String role : getRoles()) {
+            env.append("|").append(role);
+        }
+        return env.toString();
     }
 }

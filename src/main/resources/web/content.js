@@ -129,7 +129,7 @@ class PageContent {
 
     static renderImg(output, specs) {
         var results =
-            `<img id="${specs.id}"  src="/binary/${specs.src}" class="responsive-img" alt="example">`
+            `<img id="${specs.id}"  src="/resources/binary/${specs.src}" class="responsive-img" alt="example">`
         output.push(results);
     }
 

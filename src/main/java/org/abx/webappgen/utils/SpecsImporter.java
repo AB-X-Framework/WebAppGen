@@ -74,7 +74,11 @@ public class SpecsImporter {
         JSONArray components = obj.getJSONArray("components");
         for (int i = 0; i < components.length(); i++) {
             JSONObject page = components.getJSONObject(i);
-            processComponents(page);
+            processComponents(page,false);
+        };
+        for (int i = 0; i < components.length(); i++) {
+            JSONObject page = components.getJSONObject(i);
+            processComponents(page,true);
         }
 
         JSONArray pages = obj.getJSONArray("pages");
@@ -165,16 +169,16 @@ public class SpecsImporter {
         processMapResource(specsPath, resource.getJSONArray("map"));
     }
 
-    private void processComponents(JSONObject component) throws Exception {
+    private void processComponents(JSONObject component, boolean doContainer) throws Exception {
         boolean isContainer = component.getBoolean("isContainer");
         String name = component.getString("name");
-        if (isContainer) {
+        if (isContainer && doContainer) {
             pageModel.createContainer(name,
                     component.getString("package"),
                     component.getJSONArray("js"),
                     component.getString("layout"),
                     component.getJSONArray("components"));
-        } else {
+        } else if (!isContainer && !doContainer) {
             JSONArray specs = component.getJSONArray("specs");
             pageModel.createElement(name,
                     component.getString("package"),

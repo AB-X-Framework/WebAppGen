@@ -1,0 +1,68 @@
+{
+  "users": "users.json",
+  "methods": [
+  ],
+  "resources": {
+    "binary": [
+      {
+        "name": "abx.png",
+        "contentType": "application/png",
+        "role": "Anonymous"
+      }
+    ],
+    "text": [
+    ],
+    "array": [
+    ],
+    "map": [
+    ]
+  },
+  "pages": [
+    {
+      "name": "main",
+      "title": "Login Page",
+      "component": "LoginPageComponent",
+      "role": "Anonymous"
+    }
+
+  ],
+  "components": [
+    {
+      "package": "demo",
+      "name": "LoginPageComponent",
+      "isContainer": true,
+      "layout": "horizontal",
+      "js": [
+      ],
+      "components": [
+        {
+          "innerId": "abxImg",
+          "component": "abxImg",
+          "env": "",
+          "size": "s0 l6"
+        },
+        {
+          "innerId": "abxImg2",
+          "component": "abxImg",
+          "env": "",
+          "size": "s0 l6"
+        }
+      ]
+    },
+    {
+      "package": "demo",
+      "name": "abxImg",
+      "isContainer": false,
+      "type": "img",
+      "js": [],
+      "specs": [
+        {
+          "env": "",
+          "value": {
+            "src": "abx.png"
+          }
+        }
+      ]
+    }
+  ]
+}
