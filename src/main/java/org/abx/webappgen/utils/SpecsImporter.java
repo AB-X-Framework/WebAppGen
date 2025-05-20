@@ -170,12 +170,14 @@ public class SpecsImporter {
         String name = component.getString("name");
         if (isContainer) {
             pageModel.createContainer(name,
+                    component.getString("package"),
                     component.getJSONArray("js"),
                     component.getString("layout"),
                     component.getJSONArray("components"));
         } else {
             JSONArray specs = component.getJSONArray("specs");
             pageModel.createElement(name,
+                    component.getString("package"),
                     component.getJSONArray("js"),
                     component.getString("type"),
                     specs);

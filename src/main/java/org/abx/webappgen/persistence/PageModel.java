@@ -27,6 +27,7 @@ public class PageModel {
     public static final String Env = "env";
     public static final String Specs = "specs";
     public static final String Children = "children";
+    public static final String Package = "package";
     public static final String IsContainer = "isContainer";
     @Autowired
     public PageRepository pageRepository;
@@ -133,7 +134,7 @@ public class PageModel {
         page.pageTitle = pageTitle;
         pageRepository.save(page);
         pageRepository.flush();
-        page.component = componentRepository.findBycomponentId(elementHashCode(componentName));
+        page.component = componentRepository.findByComponentId(elementHashCode(componentName));
         pageRepository.save(page);
         return page.pageId;
     }
@@ -164,6 +165,8 @@ public class PageModel {
         }
         boolean isContainer = component.isContainer;
         jsonComponent.put(IsContainer, isContainer);
+        jsonComponent.put(Package, component.packageName);
+
         if (isContainer) {
             Map<String,String> children = addContainer(specs, jsonComponent);
             children.putAll(specs.siblings);
@@ -214,15 +217,16 @@ public class PageModel {
     }
 
     @Transactional
-    public void createContainer(String name, JSONArray js, String layout, JSONArray children) {
+    public void createContainer(String name, String packageName, JSONArray js, String layout, JSONArray children) {
         long id = elementHashCode(name);
         Component component = new Component();
         component.componentId = id;
+        component.packageName=packageName;
         component.componentName = name;
         component.isContainer = true;
         saveComponent(js, component);
         Container container = new Container();
-        container.component = componentRepository.findBycomponentId(id);
+        container.component = componentRepository.findByComponentId(id);
         container.containerId = id;
         container.layout = layout;
         container.innerComponent = new ArrayList<>();
@@ -232,7 +236,7 @@ public class PageModel {
             JSONObject jsonChild = children.getJSONObject(i);
             String childComponent = jsonChild.getString(Component);
             long childId = elementHashCode(childComponent);
-            Component child = componentRepository.findBycomponentId(childId);
+            Component child = componentRepository.findByComponentId(childId);
             InnerComponent inner = new InnerComponent();
 
             inner.child = child;
@@ -259,15 +263,16 @@ public class PageModel {
     }
 
     @Transactional
-    public void createElement(String name, JSONArray js, String type, JSONArray specs) {
+    public void createElement(String name, String packageName,JSONArray js, String type, JSONArray specs) {
         long id = elementHashCode(name);
         Component component = new Component();
+        component.packageName=packageName;
         component.componentId = id;
         component.componentName = name;
         component.isContainer = false;
         saveComponent(js, component);
         Element element = new Element();
-        element.component = componentRepository.findBycomponentId(id);
+        element.component = componentRepository.findByComponentId(id);
         element.elementId = id;
         element.type = type;
         elementRepository.save(element);

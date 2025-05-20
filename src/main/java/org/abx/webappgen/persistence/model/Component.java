@@ -6,7 +6,7 @@ import java.util.Collection;
 
 @Entity
 @Table(name = "Component" , indexes = {
-        @Index(name = "idx_componentName", columnList = "componentName") // Index for better query performance
+        @Index(name = "idx_packageName", columnList = "packageName") // Index for better query performance
 })
 public class Component {
 
@@ -16,6 +16,9 @@ public class Component {
 
     @Column(length = 60,nullable = false)
     public String componentName;
+
+    @Column(length = 60,nullable = false)
+    public String packageName;
 
     @Column(nullable = false)
     public boolean isContainer;
