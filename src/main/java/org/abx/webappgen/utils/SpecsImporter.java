@@ -49,6 +49,12 @@ public class SpecsImporter {
         }
     }
 
+    public boolean uploadBinarySpecs(byte[] zipFolder)throws Exception{
+        String path = ZipUtils.unzipToTempFolder(zipFolder);
+        uploadSpecs(path);
+        return true;
+    }
+
     public void uploadSpecs(String specsFolder)throws Exception{
         File resourceFile = new File(specsFolder+"/specs.json");
         String data = StreamUtils.readStream(new FileInputStream(resourceFile));
