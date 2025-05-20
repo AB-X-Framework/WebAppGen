@@ -14,21 +14,26 @@ public class Page {
     @Column(unique = true, nullable = false)
     public Long pageId;
 
-    @Column(length = 60,nullable = false)
+    @Column(length = 60, nullable = false)
     public String pageName;
 
-    @Column(length = 60,nullable = false)
+    @Column(length = 60, nullable = false)
     public String pageTitle;
 
-    @Column(length = 60,nullable = false)
+    @Column(length = 60, nullable = false)
     public String role;
 
     @ManyToOne
     public Component component;
 
     @OneToMany
+    @JoinTable(name = "PageCSS", joinColumns = @JoinColumn(name = "pageId"),
+            inverseJoinColumns = @JoinColumn(name = "envValueId"))
     public Collection<EnvValue> css;
+
     @OneToMany
+    @JoinTable(name = "PageScripts", joinColumns = @JoinColumn(name = "pageId"),
+            inverseJoinColumns = @JoinColumn(name = "envValueId"))
     public Collection<EnvValue> scripts;
 
 

@@ -16,7 +16,10 @@
       }
 
     ],
-    "text": [
+    "text": [ {
+      "name": "loren.txt",
+      "role": "Anonymous"
+    }
     ],
     "array": [
     ],

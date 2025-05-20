@@ -9,6 +9,8 @@ class PageContent {
             PageContent.processTile(specs);
             var output = [];
             var js = [];
+            PageContent.renderCSS(output, specs.css);
+            PageContent.renderScripts(output, specs.scripts);
             PageContent.renderComponent(output, js, specs.component)
             $("#body-content").html(output.join(""));
             M.updateTextFields();
@@ -18,6 +20,18 @@ class PageContent {
             }
 
         })
+    }
+
+    static renderCSS(output, cssList){
+        for (var css of cssList) {
+            output.push(`<link href="/resources/binary/${css}" rel="stylesheet">`)
+        }
+    }
+
+    static renderScripts(output, jsList){
+        for (var js of jsList) {
+            output.push(`<script src="/resources/binary/${js}"></script>`)
+        }
     }
 
     static renderComponents(output, js, container) {

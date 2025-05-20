@@ -2,7 +2,6 @@ package org.abx.webappgen.persistence;
 
 import org.abx.webappgen.persistence.dao.*;
 import org.abx.webappgen.persistence.model.*;
-import org.abx.webappgen.spring.CredsUserDetailsService;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +23,8 @@ public class PageModel {
     public static final String Layout = "layout";
     public static final String Type = "type";
     public static final String Size = "size";
+    public static final String CSS = "css";
+    public static final String Scripts = "scripts";
     public static final String Env = "env";
     public static final String Specs = "specs";
     public static final String Children = "children";
@@ -66,10 +67,6 @@ public class PageModel {
     public MapResourceRepository mapResourceRepository;
     @Autowired
     public MethodSpecRepository methodSpecRepository;
-    @Autowired
-    public ResourceModel resourceModel;
-    @Autowired
-    private CredsUserDetailsService userDetailsService;
 
     @Autowired
     private UserRepository userRepository;
@@ -107,6 +104,20 @@ public class PageModel {
         }
 
         jsonPage.put(Title, page.pageTitle);
+        JSONArray scripts = new JSONArray();
+        jsonPage.put(Scripts, scripts);
+        for (EnvValue scriptValue : page.css) {
+            if (matchesEnv(scriptValue.env, env)) {
+                scripts.put(scriptValue.value);
+            }
+        }
+        JSONArray css = new JSONArray();
+        jsonPage.put(CSS, css);
+        for (EnvValue cssValue : page.css) {
+            if (matchesEnv(cssValue.env, env)) {
+                css.put(cssValue.value);
+            }
+        }
         String top = "top";
         ComponentSpecs topSpecs = new ComponentSpecs(top,env);
         topSpecs.siblings = new HashMap<>();
@@ -133,11 +144,10 @@ public class PageModel {
         page.pageId = elementHashCode(pageName);
         page.role = role;
         page.pageTitle = pageTitle;
+        page.css = createEnvValues(css);
         pageRepository.save(page);
         pageRepository.flush();
         page.component = componentRepository.findByComponentId(elementHashCode(componentName));
-        page.css = createEnvValues(css);
-        page.scripts = createEnvValues(css);
         pageRepository.save(page);
         return page.pageId;
     }
