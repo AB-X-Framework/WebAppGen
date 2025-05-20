@@ -106,7 +106,7 @@ public class PageModel {
         jsonPage.put(Title, page.pageTitle);
         JSONArray scripts = new JSONArray();
         jsonPage.put(Scripts, scripts);
-        for (EnvValue scriptValue : page.css) {
+        for (EnvValue scriptValue : page.scripts) {
             if (matchesEnv(scriptValue.env, env)) {
                 scripts.put(scriptValue.value);
             }
@@ -145,6 +145,7 @@ public class PageModel {
         page.role = role;
         page.pageTitle = pageTitle;
         page.css = createEnvValues(css);
+        page.scripts = createEnvValues(scripts);
         pageRepository.save(page);
         pageRepository.flush();
         page.component = componentRepository.findByComponentId(elementHashCode(componentName));

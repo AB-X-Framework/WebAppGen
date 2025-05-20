@@ -38,7 +38,12 @@
       },
       {
         "name": "icons.css",
-        "contentType": "application/css",
+        "contentType": "text/css",
+        "role": "Anonymous"
+      },
+      {
+        "name": "basic.js",
+        "contentType": "application/js",
         "role": "Anonymous"
       }
 
@@ -63,7 +68,10 @@
         "env": "",
         "value": "icons.css"
       }],
-      "scripts": []
+      "scripts": [{
+        "env": "",
+        "value": "basic.js"
+      }]
     }
 
   ],
