@@ -108,7 +108,9 @@ public class SpecsImporter {
                 page.getString("name"),
                 page.getString("title"),
                 page.getString("role"),
-                page.getString("component"));
+                page.getString("component"),
+                page.getJSONArray("css"),
+                page.getJSONArray("scripts"));
 
     }
 

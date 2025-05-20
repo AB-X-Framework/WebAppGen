@@ -26,6 +26,10 @@ public class Page {
     @ManyToOne
     public Component component;
 
+    @OneToMany
+    public Collection<EnvValue> css;
+    @OneToMany
+    public Collection<EnvValue> scripts;
 
 
 }

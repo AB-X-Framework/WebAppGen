@@ -126,7 +126,8 @@ public class PageModel {
 
     @Transactional
     public long createPageWithPageName(String pageName, String pageTitle,
-                                       String role, String componentName) {
+                                       String role, String componentName,
+                                       JSONArray css,JSONArray scripts) {
         Page page = new Page();
         page.pageName = pageName;
         page.pageId = elementHashCode(pageName);
@@ -135,6 +136,8 @@ public class PageModel {
         pageRepository.save(page);
         pageRepository.flush();
         page.component = componentRepository.findByComponentId(elementHashCode(componentName));
+        page.css = createEnvValues(css);
+        page.scripts = createEnvValues(css);
         pageRepository.save(page);
         return page.pageId;
     }
@@ -254,12 +257,17 @@ public class PageModel {
     private void saveComponent(JSONArray js, Component component) {
         componentRepository.save(component);
         componentRepository.flush();
-        component.js = new ArrayList<>();
-        for (int i = 0; i < js.length(); i++) {
-            JSONObject jsEnvValue = js.getJSONObject(i);
-            component.js.add(createEnvValue(jsEnvValue));
-        }
+        component.js = createEnvValues(js);
         componentRepository.save(component);
+    }
+
+    private ArrayList<EnvValue> createEnvValues(JSONArray envValues){
+        ArrayList<EnvValue> env = new ArrayList<>();
+        for (int i = 0; i < envValues.length(); i++) {
+            JSONObject jsEnvValue = envValues.getJSONObject(i);
+            env.add(createEnvValue(jsEnvValue));
+        }
+        return env;
     }
 
     @Transactional
