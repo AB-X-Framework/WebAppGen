@@ -61,8 +61,7 @@ public class MethodController extends RoleController {
         HttpHeaders headers = new HttpHeaders();
         String type = methodSpecs.getString("type");
         headers.setContentType(contentType(type)); // Or your custom type
-        headers.setContentDispositionFormData("attachment",
-                methodSpecs.getString("outputName"));
+        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\""+methodSpecs.getString("outputName")+"\"");
 
         try {
             Object obj = processMethod(methodName, methodSpecs, data, args);
@@ -85,7 +84,7 @@ public class MethodController extends RoleController {
             case "jpg":
                 return toBytes((BufferedImage) obj, type);
             default:
-                return (byte[]) obj;
+                return ((Value)obj).as(byte[].class);
         }
     }
 

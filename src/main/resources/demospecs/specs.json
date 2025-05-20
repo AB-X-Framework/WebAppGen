@@ -20,7 +20,7 @@
       "role": "Anonymous",
       "type": "zip",
       "outputName": "model.zip",
-      "description": "Downlaod model"
+      "description": "Download model"
     }
   ],
   "resources": {
@@ -134,7 +134,7 @@
       "js": [
         {
           "env": "",
-          "value": "$(self).click(()=>App.process('downloadModel')) "
+          "value": "$(self).click(()=>App.processDownload('downloadModel')) "
         }
       ],
       "specs": [

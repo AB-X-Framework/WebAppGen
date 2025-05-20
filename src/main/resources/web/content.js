@@ -148,7 +148,7 @@ class PageContent {
 }
 
 class App {
-    static process(method, args, success, error) {
+    static process2(method, args, success, error) {
         App.processBinary(method, args, undefined, success, error);
     }
 
@@ -181,6 +181,40 @@ class App {
             success: success,
             error: error
         });
+    }
+
+    static processDownload(method, args, success, error) {
+        App.processBinaryDownload(method, args, undefined, success, error);
+    }
+
+    static processBinaryDownload(method, args, data){
+        const formData = new FormData();
+        if (typeof args === "undefined") {
+            args = {};
+        }
+        formData.append("args", JSON.stringify(args));
+        if (typeof data === "undefined") {
+            formData.append("data", data);
+        }
+        fetch(`/process/${method}`, {
+            method: "POST",
+            body: formData
+        })
+            .then(response => {
+                if (!response.ok) throw new Error("Request failed");
+                return response.blob();
+            })
+            .then(blob => {
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = "model.zip"; // You may dynamically extract filename from headers if needed
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                window.URL.revokeObjectURL(url);
+            })
+            .catch(err => console.error("Download failed:", err));
     }
 
 }
