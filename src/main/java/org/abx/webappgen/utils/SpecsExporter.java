@@ -155,6 +155,8 @@ public class SpecsExporter {
             jsonPage.put("title", page.pageTitle);
             jsonPage.put("role", page.role);
             jsonPage.put("component", page.component.componentName);
+            jsonPage.put("css",envValue(page.css));
+            jsonPage.put("scripts",envValue(page.scripts));
         }
         return jsonPages;
 
