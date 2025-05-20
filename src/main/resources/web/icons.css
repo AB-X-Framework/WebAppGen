@@ -21,3 +21,8 @@
     -moz-font-feature-settings: 'liga';
     -moz-osx-font-smoothing: grayscale;
 }
+
+.header {
+    color:#ee6e73;
+    font-weight:300
+}

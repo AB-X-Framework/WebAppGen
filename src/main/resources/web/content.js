@@ -155,7 +155,7 @@ class PageContent {
         var results =
             `<div id="${specs.id}"  class="section white section-content">
             <div class="row container">
-            <h4 class="header">${specs.title}</h4>
+            <${specs.size} class="header">${specs.title}</${specs.size}>
              <p class="grey-text text-darken-3">
              ${specs.content}
              </p>

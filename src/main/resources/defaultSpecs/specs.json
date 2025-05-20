@@ -22,7 +22,9 @@
       "name": "main",
       "title": "Login Page",
       "component": "login.LoginPageComponent",
-      "role": "Anonymous"
+      "role": "Anonymous",
+      "css":[],
+      "js": []
     }
 
   ],
@@ -65,6 +67,46 @@
         }
       ]
     },
+    {
+      "package": "login",
+      "name": "login.password",
+      "isContainer": false,
+      "type": "textfield",
+      "js": [],
+      "specs": [
+        {
+          "env": "ES",
+          "value": {
+            "placeholder": "Contraseña",
+            "label": "Su contraseña"
+          }
+        },
+        {
+          "env": "",
+          "value": {
+            "placeholder": "Your password",
+            "label": "Password"
+          }
+        }
+      ]
+    },
+    {
+      "package": "login",
+      "name": "login.welcome",
+      "isContainer": false,
+      "type": "section",
+      "js": [],
+      "specs": [
+        {
+          "env": "",
+          "value": {
+            "title": "ABX WebApp Gen",
+            "content": "Please type your credentials to log in",
+            "size": "h2"
+          }
+        }
+      ]
+    },
 
     {
       "package": "login",
@@ -75,10 +117,22 @@
       ],
       "components": [
         {
+          "innerId": "welcome",
+          "component": "login.welcome",
+          "env": "",
+          "size": "s12 l6"
+        },
+        {
           "innerId": "username",
           "component": "login.username",
           "env": "",
-          "size": "s18 "
+          "size": "s12 l4"
+        },
+        {
+          "innerId": "password",
+          "component": "login.password",
+          "env": "",
+          "size": "s12 l4"
         }
       ]
     },
