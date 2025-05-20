@@ -38,7 +38,7 @@ public class SecConfiguration {
                             .permitAll()
                             .requestMatchers("error").permitAll()
                             .anyRequest()
-                            .permitAll();
+                            .authenticated();
                 }).exceptionHandling(security -> {
                     security.authenticationEntryPoint(
                             (request, response, authException) -> {
