@@ -15,6 +15,10 @@ class PageContent {
                 eval(line)
             }
             M.updateTextFields();
+
+                const elems = document.querySelectorAll('select');
+                M.FormSelect.init(elems);
+
         })
     }
 
@@ -75,6 +79,9 @@ class PageContent {
                 case "section":
                     PageContent.renderSection(output, componentSpecs.specs);
                     break
+                case "select":
+                    PageContent.renderSelect(output, componentSpecs.specs);
+                    break
 
             }
             output.push(`</div>`);
@@ -121,6 +128,20 @@ class PageContent {
              ${specs.content}
              </p>
           </div></div>`;
+        output.push(results);
+    }
+
+    static renderSelect(output, specs){
+        const optionsHtml = specs.values.map(item =>
+            `<option value="${item.key}">${item.value}</option>`
+        ).join('');
+
+        var results =
+            `<div id="${specs.id}"   class="input-field">
+            <select id="${specs.id}">
+            ${optionsHtml}
+            </select>
+            </div>`;
         output.push(results);
     }
 

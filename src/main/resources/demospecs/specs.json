@@ -15,7 +15,6 @@
       "outputName": "uppercase",
       "description": "say hi"
     }
-
   ],
   "resources": {
     "binary": [
@@ -32,7 +31,7 @@
       }
     ],
     "array": [
-       "basicarray"
+      "basicarray"
     ],
     "map": [
       "basicmap"
@@ -54,6 +53,29 @@
   ],
   "components": [
     {
+      "name": "basicSelect",
+      "isContainer": false,
+      "type": "select",
+      "js": [],
+      "specs": [
+        {
+          "env": "",
+          "value": {
+            "values": [
+              {
+                "key": "a",
+                "value": "A"
+              },
+              {
+                "key": "B",
+                "value": "b"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
       "name": "abxImg",
       "isContainer": false,
       "type": "img",
@@ -71,10 +93,11 @@
       "name": "login",
       "isContainer": false,
       "type": "button",
-      "js": [{
-        "env": "",
-        "value": "$(login).click(()=>$(textField).hide()) "
-      }
+      "js": [
+        {
+          "env": "",
+          "value": "$(login).click(()=>$(textField).hide()) "
+        }
       ],
       "specs": [
         {
@@ -95,10 +118,11 @@
       "name": "login2",
       "isContainer": false,
       "type": "button",
-      "js": [{
-        "env": "",
-        "value": "$(self).click(()=>$(self).hide())"
-      }
+      "js": [
+        {
+          "env": "",
+          "value": "$(self).click(()=>$(self).hide())"
+        }
       ],
       "specs": [
         {
@@ -164,13 +188,16 @@
       "name": "header",
       "isContainer": true,
       "layout": "horizontal",
-      "js": [{
-        "env": "",
-        "value": "$(myLogBtn).click(()=>$(mySuperImg).hide())"
-      },{
-        "env": "",
-        "value": ""
-      }],
+      "js": [
+        {
+          "env": "",
+          "value": "$(myLogBtn).click(()=>$(mySuperImg).hide())"
+        },
+        {
+          "env": "",
+          "value": ""
+        }
+      ],
       "components": [
         {
           "innerId": "myLogBtn",
@@ -208,13 +235,16 @@
       "name": "header2",
       "isContainer": true,
       "layout": "horizontal",
-      "js": [{
-        "env": "",
-        "value": ""
-      },{
-        "env": "",
-        "value": "$(myLogBtn).click(()=>$(self).hide())"
-      }],
+      "js": [
+        {
+          "env": "",
+          "value": ""
+        },
+        {
+          "env": "",
+          "value": "$(myLogBtn).click(()=>$(self).hide())"
+        }
+      ],
       "components": [
         {
           "innerId": "myLogBtn",
@@ -239,12 +269,11 @@
           "component": "textArea",
           "env": "",
           "size": "s2"
-        },
-        {
-          "innerId": "section",
-          "component": "section",
+        },{
+          "innerId": "basicSelect",
+          "component": "basicSelect",
           "env": "",
-          "size": "s2"
+          "size": "s4"
         }
       ]
     },
@@ -253,8 +282,11 @@
       "isContainer": true,
       "layout": "horizontal",
       "js": [],
-      "components": []
-    },{
+      "components": [
+
+      ]
+    },
+    {
       "name": "MainPageComponent",
       "isContainer": true,
       "layout": "vertical",
@@ -285,7 +317,8 @@
         }
       ],
       "js": []
-    },{
+    },
+    {
       "name": "MainPageComponent2",
       "isContainer": true,
       "layout": "cv",
