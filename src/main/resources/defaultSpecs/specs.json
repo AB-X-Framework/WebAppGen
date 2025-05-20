@@ -50,7 +50,7 @@
       ]
     },
     {
-      "package": "demo",
+      "package": "base",
       "name": "abxImg",
       "isContainer": false,
       "type": "img",
@@ -60,6 +60,29 @@
           "env": "",
           "value": {
             "src": "abx.png"
+          }
+        }
+      ]
+    },
+    {
+      "package": "login",
+      "name": "login.username",
+      "isContainer": false,
+      "type": "textfield",
+      "js": [],
+      "specs": [
+        {
+          "env": "ES",
+          "value": {
+            "placeholder": "Usuario",
+            "label": "Su nombre de usuario"
+          }
+        },
+        {
+          "env": "",
+          "value": {
+            "placeholder": "Your username",
+            "label": "Username"
           }
         }
       ]
