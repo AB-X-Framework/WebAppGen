@@ -39,7 +39,7 @@
           "innerId": "abxImg",
           "component": "abxImg",
           "env": "",
-          "size": "s0 l6"
+          "size": "l6 hide-on-small-only "
         },
         {
           "innerId": "abxImg2",

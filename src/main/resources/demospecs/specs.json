@@ -145,7 +145,7 @@
       ],
       "specs": [
         {
-          "env": "EN",
+          "env": "",
           "value": {
             "text": "Hello"
           }

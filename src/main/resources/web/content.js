@@ -11,10 +11,11 @@ class PageContent {
             var js = [];
             PageContent.renderComponent(output, js, specs.component)
             $("#body-content").html(output.join(""));
+            M.updateTextFields();
+            M.AutoInit();
             for (var line of js) {
                 eval(line)
             }
-            M.AutoInit();
 
         })
     }
