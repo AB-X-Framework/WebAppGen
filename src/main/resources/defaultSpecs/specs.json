@@ -21,34 +21,12 @@
     {
       "name": "main",
       "title": "Login Page",
-      "component": "LoginPageComponent",
+      "component": "login.LoginPageComponent",
       "role": "Anonymous"
     }
 
   ],
   "components": [
-    {
-      "package": "demo",
-      "name": "LoginPageComponent",
-      "isContainer": true,
-      "layout": "horizontal",
-      "js": [
-      ],
-      "components": [
-        {
-          "innerId": "abxImg",
-          "component": "abxImg",
-          "env": "",
-          "size": "l6 hide-on-small-only "
-        },
-        {
-          "innerId": "abxImg2",
-          "component": "abxImg",
-          "env": "",
-          "size": "s0 l6"
-        }
-      ]
-    },
     {
       "package": "base",
       "name": "abxImg",
@@ -84,6 +62,45 @@
             "placeholder": "Your username",
             "label": "Username"
           }
+        }
+      ]
+    },
+
+    {
+      "package": "login",
+      "name": "login.form",
+      "isContainer": true,
+      "layout": "horizontal",
+      "js": [
+      ],
+      "components": [
+        {
+          "innerId": "username",
+          "component": "login.username",
+          "env": "",
+          "size": "s18 "
+        }
+      ]
+    },
+    {
+      "package": "login",
+      "name": "login.LoginPageComponent",
+      "isContainer": true,
+      "layout": "horizontal",
+      "js": [
+      ],
+      "components": [
+        {
+          "innerId": "abxImg",
+          "component": "abxImg",
+          "env": "",
+          "size": "l6 hide-on-small-only "
+        },
+        {
+          "innerId": "loginForm",
+          "component": "login.form",
+          "env": "",
+          "size": "s12 l6"
         }
       ]
     }
