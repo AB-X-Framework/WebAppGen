@@ -82,6 +82,9 @@ class PageContent {
                 case "select":
                     PageContent.renderSelect(output, componentSpecs.specs);
                     break
+                case "file":
+                    PageContent.renderFile(output, componentSpecs.specs);
+                    break
 
             }
             output.push(`</div>`);
@@ -131,6 +134,13 @@ class PageContent {
         output.push(results);
     }
 
+
+    static renderFile(output, specs) {
+        var results =
+            `<input type="file" name="data" id="${specs.id}" required />`;
+        output.push(results);
+    }
+
     static renderSelect(output, specs) {
         const optionsHtml = specs.values.map(item =>
             `<option value="${item.key}">${item.value}</option>`
@@ -148,7 +158,7 @@ class PageContent {
 }
 
 class App {
-    static process2(method, args, success, error) {
+    static process(method, args, success, error) {
         App.processBinary(method, args, undefined, success, error);
     }
 
@@ -158,7 +168,7 @@ class App {
             args = {};
         }
         formData.append("args", JSON.stringify(args));
-        if (typeof data === "undefined") {
+        if (typeof data !== "undefined") {
             formData.append("data", data);
         }
         if (typeof success === "undefined") {
@@ -193,7 +203,7 @@ class App {
             args = {};
         }
         formData.append("args", JSON.stringify(args));
-        if (typeof data === "undefined") {
+        if (typeof data !== "undefined") {
             formData.append("data", data);
         }
         fetch(`/process/${method}`, {

@@ -1,13 +1,12 @@
 package org.abx.webappgen.utils;
 
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.UncheckedIOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Comparator;
 import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
 public class ZipUtils {
@@ -48,5 +47,40 @@ public class ZipUtils {
                         throw new RuntimeException("Failed to delete: " + p, e);
                     }
                 });
+    }
+
+
+    public static String unzipToTempFolder(byte[] zipBytes) throws IOException {
+        // Create a temporary directory
+        Path tempDir = Files.createTempDirectory("unzipped_");
+
+        try (ByteArrayInputStream bais = new ByteArrayInputStream(zipBytes);
+             ZipInputStream zis = new ZipInputStream(bais)) {
+
+            ZipEntry entry;
+            while ((entry = zis.getNextEntry()) != null) {
+                Path newPath = resolveZipEntry(tempDir, entry);
+
+                if (entry.isDirectory()) {
+                    Files.createDirectories(newPath);
+                } else {
+                    Files.createDirectories(newPath.getParent());
+                    try (OutputStream os = Files.newOutputStream(newPath)) {
+                        zis.transferTo(os);
+                    }
+                }
+                zis.closeEntry();
+            }
+        }
+
+        return tempDir.toAbsolutePath().toString();
+    }
+    // Prevent Zip Slip vulnerability
+    private static Path resolveZipEntry(Path targetDir, ZipEntry entry) throws IOException {
+        Path resolvedPath = targetDir.resolve(entry.getName()).normalize();
+        if (!resolvedPath.startsWith(targetDir)) {
+            throw new IOException("Bad zip entry: " + entry.getName());
+        }
+        return resolvedPath;
     }
 }

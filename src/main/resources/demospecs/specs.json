@@ -21,6 +21,13 @@
       "type": "zip",
       "outputName": "model.zip",
       "description": "Download model"
+    },
+    {
+      "name": "uploadModel",
+      "role": "Anonymous",
+      "type": "text",
+      "outputName": "response",
+      "description": "Upload model"
     }
   ],
   "resources": {
@@ -142,6 +149,41 @@
           "env": "",
           "value": {
             "text": "Download Model"
+          }
+        }
+      ]
+    },
+    {
+      "name": "uploadModel",
+      "isContainer": false,
+      "type": "button",
+      "js": [
+        {
+          "env": "",
+          "value": "$(self).click(()=>App.processBinary('uploadModel',undefined,modelSpecs.files[0])) "
+        }
+      ],
+      "specs": [
+        {
+          "env": "",
+          "value": {
+            "text": "Upload Model"
+          }
+        }
+      ]
+    },
+
+    {
+      "name": "modelSpecs",
+      "isContainer": false,
+      "type": "file",
+      "js": [
+      ],
+      "specs": [
+        {
+          "env": "",
+          "value": {
+            "label": "Select Model"
           }
         }
       ]
@@ -380,8 +422,21 @@
           "innerId": "download",
           "component": "download",
           "env": "",
-          "size": "s6"
+          "size": "s12"
+        },
+        {
+          "innerId": "modelSpecs",
+          "component": "modelSpecs",
+          "env": "",
+          "size": "s12"
+        },
+        {
+          "innerId": "uploadModel",
+          "component": "uploadModel",
+          "env": "",
+          "size": "s12"
         }
+
       ],
       "js": []
     }
