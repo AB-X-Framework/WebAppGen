@@ -8,7 +8,13 @@
         "name": "abx.png",
         "contentType": "application/png",
         "role": "Anonymous"
+      },
+      {
+        "name": "icons.css",
+        "contentType": "application/css",
+        "role": "Anonymous"
       }
+
     ],
     "text": [
     ],
@@ -23,8 +29,11 @@
       "title": "Login Page",
       "component": "login.LoginPageComponent",
       "role": "Anonymous",
-      "css":[],
-      "js": []
+      "css":[{
+        "env": "",
+        "value": "icons.css"
+      }],
+      "scripts": []
     }
 
   ],

@@ -56,25 +56,33 @@
       "name": "main",
       "title": "Main Page",
       "component": "MainPageComponent",
-      "role": "Anonymous"
+      "role": "Anonymous",
+      "css":[],
+      "scripts": []
     },
     {
       "name": "tabPage",
       "title": "Page Page",
       "component": "TabPageComponent",
-      "role": "Anonymous"
+      "role": "Anonymous",
+      "css":[],
+      "scripts": []
     },
     {
       "name": "main3",
       "title": "Main Page",
       "component": "MainPageComponent3",
-      "role": "Anonymous"
+      "role": "Anonymous",
+      "css":[],
+      "scripts": []
     },
     {
       "name": "main2",
       "title": "Main Page",
       "component": "MainPageComponent2",
-      "role": "Anonymous"
+      "role": "Anonymous",
+      "css":[],
+      "scripts": []
     }
   ],
   "components": [
