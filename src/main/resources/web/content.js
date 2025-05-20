@@ -85,6 +85,9 @@ class PageContent {
                 case "file":
                     PageContent.renderFile(output, componentSpecs.specs);
                     break
+                case "js":
+                    PageContent.renderJS(output, componentSpecs.specs);
+                    break
 
             }
             output.push(`</div>`);
@@ -153,6 +156,25 @@ class PageContent {
             </select>
             </div>`;
         output.push(results);
+    }
+
+    static renderJS(output, specs){
+        var result = `
+    <script src="/web/ace/src-min-noconflict/ace.js"></script>
+    <div id="${specs.id}" style="height: ${specs.height}; width: 100%">// Write your JavaScript here</div>
+        
+<script>
+    const editor = ace.edit("${specs.id}");
+    editor.setTheme("ace/theme/monokai"); // Change theme if desired
+    editor.session.setMode("ace/mode/javascript"); // JS highlighting
+    editor.setOptions({
+        fontSize: "14px",
+        showPrintMargin: false,
+        wrap: true,
+        useWorker: true // Enables JS syntax checking
+    });
+</script>`;
+        output.push(result);
     }
 
 }

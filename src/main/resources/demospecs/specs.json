@@ -73,6 +73,20 @@
   ],
   "components": [
     {
+      "name": "jsEditor",
+      "isContainer": false,
+      "type": "js",
+      "js": [],
+      "specs": [
+        {
+          "env": "",
+          "value": {
+            "height": "500px"
+          }
+        }
+      ]
+    },
+    {
       "name": "basicSelect",
       "isContainer": false,
       "type": "select",
@@ -422,19 +436,25 @@
           "innerId": "download",
           "component": "download",
           "env": "",
-          "size": "s12"
+          "size": "s1"
         },
         {
           "innerId": "modelSpecs",
           "component": "modelSpecs",
           "env": "",
-          "size": "s12"
+          "size": "s1"
         },
         {
           "innerId": "uploadModel",
           "component": "uploadModel",
           "env": "",
-          "size": "s12"
+          "size": "s1"
+        },
+        {
+          "innerId": "jsEditor",
+          "component": "jsEditor",
+          "env": "",
+          "size": "s6"
         }
 
       ],
