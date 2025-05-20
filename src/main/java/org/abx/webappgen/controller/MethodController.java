@@ -129,7 +129,10 @@ public class MethodController extends RoleController {
         JSONObject jsonArgs = new JSONObject(args);
         jsBindings.putMember("pageModel", pageModel);
         jsBindings.putMember("userModel", userModel);
-        jsBindings.putMember("data", data);
+        if (data!= null) {
+            jsBindings.putMember("data", data.getBytes());
+        }
+        jsBindings.putMember("utils", new MethodUtils());
         jsBindings.putMember("specsExporter", specsExporter);
         jsBindings.putMember("specsImporter", specsImporter);
         for (String arg : jsonArgs.keySet()) {

@@ -27,11 +27,11 @@ class BinaryMethodTest {
 
     @Test
     public void doBasicTest() throws Exception {
-        ServiceRequest req = servicesClient.post("app", "/process/hello").addPart(
-                "args","{}");
+        ServiceRequest req = servicesClient.post("app", "/process/uppercase").addPart(
+                "args","{}").addPart("data","abcd".getBytes(),"mydata.data");
         ServiceResponse res = servicesClient.process(req);
         System.out.println(res.asString());
-        Assertions.assertEquals("hi",res.asString());
+        Assertions.assertEquals("ABCD",res.asString());
     }
 
     @AfterAll
