@@ -249,7 +249,7 @@ public class SpecsExporter {
             jsonMapResource.put("name",name);
             jsonMapResource.put("package",mapResource.packageName);
             JSONObject values = new JSONObject();
-            for (MapEntry entry : arrayResource.resourceEntries) {
+            for (MapEntry entry : mapResource.resourceEntries) {
                 values.put(entry.entryName,entry.value);
             }
             new FileOutputStream(specsFolder + "/map/" + name + ".json").
