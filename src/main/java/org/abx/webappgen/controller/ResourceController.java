@@ -56,10 +56,11 @@ public class ResourceController extends RoleController {
     @PostMapping(value = "/upload/binary", consumes = "multipart/form-data")
     public long handleUpload(
             @RequestPart MultipartFile data,
+            @RequestPart String packageName,
             @RequestPart String role,
             @RequestPart String contentType) throws IOException {
         byte[] fileBytes = data.getBytes();
         String name = data.getOriginalFilename();
-        return resourceModel.saveBinaryResource(name, contentType, fileBytes, role);
+        return resourceModel.saveBinaryResource(name, packageName,contentType, fileBytes, role);
     }
 }
