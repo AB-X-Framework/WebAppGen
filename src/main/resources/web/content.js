@@ -115,6 +115,7 @@ class PageContent {
         var horizontal = componentSpecs.layout === "horizontal";
         var vertical = componentSpecs.layout === "vertical";
         var cv = componentSpecs.layout === "cv";
+        output.push(`<div class="col" >`);
         if (cv) {
             output.push(`<div class="valign-wrapper row" style="height: 100%;">`)
         } else {
@@ -133,6 +134,7 @@ class PageContent {
         }
         output.push(`<div>`);
 
+        output.push('</div>');
 
         output.push('</div>');
     }
