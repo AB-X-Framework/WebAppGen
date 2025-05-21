@@ -1,12 +1,10 @@
 package org.abx.webappgen.persistence.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
-@Table(name = "TextResource")
+@Table(name = "TextResource",
+        indexes = {@Index(name = "idx_packageName", columnList = "packageName")})
 public class TextResource {
     @Id
     @Column(unique = true, nullable = false)

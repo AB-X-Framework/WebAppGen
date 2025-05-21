@@ -145,7 +145,7 @@ public class SpecsImporter {
             JSONObject mapResource = mapResources.getJSONObject(i);
             String mapName = mapResource.getString("name");
             String arrayData = StreamUtils.readStream(new FileInputStream(specsPath + "/map/" + mapName + ".json"));
-            resourceModel.saveMapResource(mapName, mapResource.getString("name"), new JSONObject(arrayData));
+            resourceModel.saveMapResource(mapName, mapResource.getString("package"), new JSONObject(arrayData));
         }
     }
 

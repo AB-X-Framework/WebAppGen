@@ -25,7 +25,7 @@ public class ResourceController extends RoleController {
 
     @GetMapping(value = "/text/{resource}", produces = MediaType.TEXT_PLAIN_VALUE)
     @PreAuthorize("permitAll()")
-    public ResponseEntity<String>  page(@PathVariable String resource) {
+    public ResponseEntity<String>  textResource(@PathVariable String resource) {
         Set<String> roles = getRoles();
         String data = resourceModel.getTextResource(roles,resource);
         if (data == null) {

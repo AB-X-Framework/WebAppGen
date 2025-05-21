@@ -6,7 +6,8 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "MapResource")
+@Table(name = "MapResource",
+        indexes = {@Index(name = "idx_packageName", columnList = "packageName")}) // Index for better query performance)
 public class MapResource {
 
     @Id

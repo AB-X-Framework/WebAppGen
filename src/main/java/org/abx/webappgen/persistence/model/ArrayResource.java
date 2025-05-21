@@ -6,7 +6,8 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "ArrayResource")
+@Table(name = "ArrayResource",
+        indexes = {@Index(name = "idx_packageName", columnList = "packageName")})
 public class ArrayResource {
 
     @Id

@@ -1,12 +1,10 @@
 package org.abx.webappgen.persistence.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
-@Table(name = "MethodSpec")
+@Table(name = "MethodSpec",
+        indexes = {@Index(name = "idx_packageName", columnList = "packageName")})
 public class MethodSpec {
     @Id
     @Column(unique = true, nullable = false)
