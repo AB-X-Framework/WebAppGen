@@ -2,6 +2,7 @@
   "users": "users.json",
   "methods": [
     {
+      "package": "demo",
       "name": "hello",
       "role": "Anonymous",
       "type": "text",
@@ -9,6 +10,7 @@
       "description": "say hi"
     },
     {
+      "package": "demo",
       "name": "uppercase",
       "role": "Anonymous",
       "type": "text",
@@ -16,6 +18,7 @@
       "description": "say hi"
     },
     {
+      "package": "demo",
       "name": "downloadModel",
       "role": "Anonymous",
       "type": "zip",
@@ -23,6 +26,7 @@
       "description": "Download model"
     },
     {
+      "package": "demo",
       "name": "uploadModel",
       "role": "Anonymous",
       "type": "text",

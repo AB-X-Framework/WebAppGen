@@ -66,6 +66,7 @@ public class ResourceModel {
         binaryResource.contentType=contentType;
         binaryResource.resourceValue=data;
         binaryResource.role=role;
+        binaryResource.packageName=packageName;
         binaryResource.resourceName=resourceName;
         binaryResourceRepository.save(binaryResource);
         return id;
