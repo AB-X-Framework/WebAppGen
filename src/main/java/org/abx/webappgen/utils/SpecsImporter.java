@@ -108,6 +108,7 @@ public class SpecsImporter {
     private void processPage(JSONObject page) {
         long id = pageModel.createPageWithPageName(
                 page.getString("name"),
+                page.getString("package"),
                 page.getString("title"),
                 page.getString("role"),
                 page.getString("component"),

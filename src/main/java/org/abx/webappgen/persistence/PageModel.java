@@ -136,11 +136,12 @@ public class PageModel {
     }
 
     @Transactional
-    public long createPageWithPageName(String pageName, String pageTitle,
+    public long createPageWithPageName(String pageName, String packageName,String pageTitle,
                                        String role, String componentName,
                                        JSONArray css,JSONArray scripts) {
         Page page = new Page();
         page.pageName = pageName;
+        page.packageName = packageName;
         page.pageId = elementHashCode(pageName);
         page.role = role;
         page.pageTitle = pageTitle;
