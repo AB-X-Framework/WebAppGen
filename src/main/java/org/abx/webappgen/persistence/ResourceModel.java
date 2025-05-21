@@ -94,6 +94,7 @@ public class ResourceModel {
         ArrayResource arrayResource = new ArrayResource();
         arrayResource.arrayResourceId=id;
         arrayResource.resourceName=resourceName;
+        arrayResource.packageName=packageName;
         arrayResourceRepository.save(arrayResource);
         for (int i = 0; i < data.length(); i++) {
             String value = data.getString(i);
