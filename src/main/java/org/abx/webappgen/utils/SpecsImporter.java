@@ -155,8 +155,8 @@ public class SpecsImporter {
             String name = jsonResource.getString("name");
             String file = specsPath + "/binary/" + name;
             byte[] data = StreamUtils.readByteArrayStream(new FileInputStream(file));
-            resourceModel.saveBinaryResource(name, jsonResource.getString("contentType"),
-                    jsonResource.getString("package"), data, jsonResource.getString("role"));
+            resourceModel.saveBinaryResource(name,   jsonResource.getString("package"),
+                    jsonResource.getString("contentType"),data, jsonResource.getString("role"));
         }
     }
 

@@ -152,6 +152,7 @@ public class SpecsExporter {
             JSONObject jsonPage = new JSONObject();
             jsonPages.put(jsonPage);
             jsonPage.put("name", page.pageName);
+            jsonPage.put("package", page.packageName);
             jsonPage.put("title", page.pageTitle);
             jsonPage.put("role", page.role);
             jsonPage.put("component", page.component.componentName);
