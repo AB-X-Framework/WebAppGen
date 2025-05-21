@@ -48,7 +48,9 @@ class PageContent {
         if (componentSpecs.isContainer) {
             if (componentSpecs.layout === "nav") {
                 PageContent.renderNav(output, js, componentSpecs);
-            } else {
+            } else if (componentSpecs.layout === "header") {
+                PageContent.renderHeader(output, js, componentSpecs);
+            } else{
                 PageContent.renderContainer(output, js, componentSpecs);
             }
         } else {
@@ -81,6 +83,7 @@ class PageContent {
                 case "js":
                     PageContent.renderJS(output, componentSpecs.specs);
                     break
+
 
             }
             output.push(`</div>`);
@@ -115,11 +118,10 @@ class PageContent {
         if (cv) {
             output.push(`<div class="valign-wrapper row" style="height: 100%;">`)
         } else {
-            output.push(`<div id="${componentSpecs.id}">`);
+            output.push(`<div class="row" id="${componentSpecs.id}">`);
         }
-        if (horizontal) {
-            output.push('<div class="row">');
-        }
+        output.push(`<div class="col" >`);
+
         for (var component of componentSpecs.children) {
             if (vertical) {
                 output.push('<div class="row">');
@@ -129,9 +131,9 @@ class PageContent {
                 output.push('</div>');
             }
         }
-        if (horizontal) {
-            output.push('</div>');
-        }
+        output.push(`<div>`);
+
+
         output.push('</div>');
     }
 
@@ -168,7 +170,7 @@ class PageContent {
     static renderSection(output, specs) {
         var results =
             `<div id="${specs.id}"  class="section white section-content">
-            <div class="row container">
+            <div class="row ">
             <${specs.size} class="header">${specs.title}</${specs.size}>
              <p class="grey-text text-darken-3">
              ${specs.content}
@@ -216,6 +218,23 @@ class PageContent {
 </script>`;
         output.push(result);
     }
+
+    static renderHeader(output, specs) {
+        var result= `  <nav>
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo">
+      <img src="/resources/binary/abx.png" alt="Logo" style="height: 64px; padding: 5px;">
+    </a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="sass.html">Sass</a></li>
+        <li><a href="badges.html">Components</a></li>
+        <li><a href="collapsible.html">JavaScript</a></li>
+      </ul>
+    </div>
+  </nav>`
+        output.push(result)
+    }
+
 
 }
 

@@ -177,29 +177,44 @@
     },
     {
       "package": "login",
+      "name": "login.header",
+      "isContainer": true,
+      "layout": "header",
+      "js": [],
+      "components": [
+      ]
+    },
+    {
+      "package": "login",
       "name": "login.form",
       "isContainer": true,
-      "layout": "horizontal",
+      "layout": "vertical",
       "js": [
       ],
       "components": [
         {
+          "innerId": "header",
+          "component": "login.header",
+          "env": "",
+          "size": "s12"
+        },
+        {
           "innerId": "welcome",
           "component": "login.welcome",
           "env": "",
-          "size": "s12 l6"
+          "size": "s12"
         },
         {
           "innerId": "username",
           "component": "login.username",
           "env": "",
-          "size": "s12 l4"
+          "size": "s12"
         },
         {
           "innerId": "password",
           "component": "login.password",
           "env": "",
-          "size": "s12 l4"
+          "size": "s12"
         }
       ]
     },
