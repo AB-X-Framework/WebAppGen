@@ -33,6 +33,7 @@
   "resources": {
     "binary": [
       {
+        "package": "demo",
         "name": "abx.png",
         "contentType": "application/png",
         "role": "Anonymous"
@@ -40,48 +41,59 @@
     ],
     "text": [
       {
+        "package": "demo",
         "name": "loren.txt",
         "role": "Anonymous"
       }
     ],
     "array": [
-      "basicarray"
+      {
+        "package": "demo",
+        "name": "basicarray"
+      }
     ],
     "map": [
-      "basicmap"
+      {
+        "package": "demo",
+        "name": "basicmap"
+      }
     ]
   },
   "pages": [
     {
+      "package": "demo",
       "name": "main",
       "title": "Main Page",
       "component": "MainPageComponent",
       "role": "Anonymous",
-      "css":[],
+      "css": [],
       "scripts": []
     },
     {
+      "package": "demo",
       "name": "tabPage",
       "title": "Page Page",
       "component": "TabPageComponent",
       "role": "Anonymous",
-      "css":[],
+      "css": [],
       "scripts": []
     },
     {
+      "package": "demo",
       "name": "main3",
       "title": "Main Page",
       "component": "MainPageComponent3",
       "role": "Anonymous",
-      "css":[],
+      "css": [],
       "scripts": []
     },
     {
+      "package": "demo",
       "name": "main2",
       "title": "Main Page",
       "component": "MainPageComponent2",
       "role": "Anonymous",
-      "css":[],
+      "css": [],
       "scripts": []
     }
   ],
@@ -206,7 +218,6 @@
         }
       ]
     },
-
     {
       "package": "demo",
       "name": "modelSpecs",
@@ -384,7 +395,8 @@
           "component": "textArea",
           "env": "",
           "size": "s2"
-        },{
+        },
+        {
           "innerId": "basicSelect",
           "component": "basicSelect",
           "env": "",
@@ -399,7 +411,6 @@
       "layout": "horizontal",
       "js": [],
       "components": [
-
       ]
     },
     {
@@ -455,8 +466,7 @@
         }
       ],
       "js": []
-    }
-  ,
+    },
     {
       "package": "demo",
       "name": "MainPageComponent",
@@ -487,11 +497,9 @@
           "env": "",
           "size": "s6"
         }
-
       ],
       "js": []
     },
-
     {
       "package": "demo",
       "name": "TabPageComponent",

@@ -16,6 +16,9 @@ public class MethodSpec {
     public String methodName;
 
     @Column(nullable = false)
+    public String packageName;
+
+    @Column(nullable = false)
     public String type;
 
     @Column(nullable = false)

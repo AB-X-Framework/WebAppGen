@@ -59,7 +59,7 @@ public class ResourceModel {
         return new Pair<>(binaryResource.contentType, binaryResource.resourceValue);
     }
 
-    public long saveBinaryResource(String resourceName,String contentType, byte[] data,String role) {
+    public long saveBinaryResource(String resourceName,String packageName,String contentType, byte[] data,String role) {
         long id =   PageModel.elementHashCode(resourceName);
         BinaryResource binaryResource = new BinaryResource();
         binaryResource.binaryResourceId=id;
@@ -72,7 +72,7 @@ public class ResourceModel {
 
     }
 
-    public long saveMapResource(String resourceName, JSONObject data) {
+    public long saveMapResource(String resourceName, String packageName,JSONObject data) {
         long id =   PageModel.elementHashCode(resourceName);
         MapResource mapResource = new MapResource();
         mapResource.mapResourceId=id;
@@ -88,7 +88,7 @@ public class ResourceModel {
         return id;
     }
 
-    public long saveArrayResource(String resourceName, JSONArray data) {
+    public long saveArrayResource(String resourceName, String packageName,JSONArray data) {
         long id =   PageModel.elementHashCode(resourceName);
         ArrayResource arrayResource = new ArrayResource();
         arrayResource.arrayResourceId=id;
@@ -104,7 +104,7 @@ public class ResourceModel {
         return id;
     }
 
-    public long saveTextResource(String resourceName,String data,String role) {
+    public long saveTextResource(String resourceName,String packageName,String data,String role) {
         long id =   PageModel.elementHashCode(resourceName);
         TextResource textResource = new TextResource();
         textResource.textResourceId=id;

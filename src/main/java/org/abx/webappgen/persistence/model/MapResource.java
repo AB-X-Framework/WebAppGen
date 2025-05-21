@@ -14,6 +14,10 @@ public class MapResource {
 
     @Column(nullable = false)
     public String resourceName;
+
+    @Column(nullable = false)
+    public String packageName;
+
     @OneToMany(mappedBy = "mapResource", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     public List<MapEntry> resourceEntries;
 

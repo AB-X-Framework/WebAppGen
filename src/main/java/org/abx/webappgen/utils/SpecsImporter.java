@@ -49,18 +49,18 @@ public class SpecsImporter {
         }
     }
 
-    public boolean uploadBinarySpecs(byte[] zipFolder)throws Exception{
+    public boolean uploadBinarySpecs(byte[] zipFolder) throws Exception {
         String path = ZipUtils.unzipToTempFolder(zipFolder);
         uploadSpecs(path);
         return true;
     }
 
-    public void uploadSpecs(String specsFolder)throws Exception{
-        File resourceFile = new File(specsFolder+"/specs.json");
+    public void uploadSpecs(String specsFolder) throws Exception {
+        File resourceFile = new File(specsFolder + "/specs.json");
         String data = StreamUtils.readStream(new FileInputStream(resourceFile));
         JSONObject obj = new JSONObject(data);
 
-        processUsers(specsFolder,obj.getString("users"));
+        processUsers(specsFolder, obj.getString("users"));
         JSONArray methods = obj.getJSONArray("methods");
         for (int i = 0; i < methods.length(); i++) {
             JSONObject method = methods.getJSONObject(i);
@@ -74,11 +74,12 @@ public class SpecsImporter {
         JSONArray components = obj.getJSONArray("components");
         for (int i = 0; i < components.length(); i++) {
             JSONObject page = components.getJSONObject(i);
-            processComponents(page,false);
-        };
+            processComponents(page, false);
+        }
+        ;
         for (int i = 0; i < components.length(); i++) {
             JSONObject page = components.getJSONObject(i);
-            processComponents(page,true);
+            processComponents(page, true);
         }
 
         JSONArray pages = obj.getJSONArray("pages");
@@ -88,10 +89,11 @@ public class SpecsImporter {
         }
 
     }
-    private void processUsers(String specsFolder,String userfile) throws IOException {
+
+    private void processUsers(String specsFolder, String userfile) throws IOException {
         JSONArray users = new JSONArray(StreamUtils.readStream(new FileInputStream(
-                specsFolder + "/"+userfile )));
-        for (int i = 0; i< users.length();i++){
+                specsFolder + "/" + userfile)));
+        for (int i = 0; i < users.length(); i++) {
             JSONObject jsonUser = users.getJSONObject(i);
             User user = new User();
             user.username = jsonUser.getString("username");
@@ -117,10 +119,11 @@ public class SpecsImporter {
     private void processMethods(String specsFolder, JSONObject method) throws IOException {
         MethodSpec specs = new MethodSpec();
         specs.methodName = method.getString("name");
+        specs.packageName = method.getString("package");
         specs.description = method.getString("description");
         specs.methodSpecId = PageModel.elementHashCode(specs.methodName);
         specs.methodJS = StreamUtils.readStream(new FileInputStream(
-                specsFolder + "/methods/" + specs.methodName + ".js" ));
+                specsFolder + "/methods/" + specs.methodName + ".js"));
         specs.type = method.getString("type");
         specs.outputName = method.getString("outputName");
         specs.role = method.getString("role");
@@ -129,16 +132,19 @@ public class SpecsImporter {
 
     private void processArrayResource(String specsPath, JSONArray arrayResources) throws Exception {
         for (int i = 0; i < arrayResources.length(); i++) {
-            String arrayName = arrayResources.getString(i);
-            String arrayData = StreamUtils.readStream(new FileInputStream(specsPath+"/array/"+arrayName+".json" ));
-            resourceModel.saveArrayResource(arrayName,new JSONArray(arrayData));
+            JSONObject arrayResource = arrayResources.getJSONObject(i);
+            String arrayName = arrayResource.getString("name");
+            String arrayData = StreamUtils.readStream(new FileInputStream(specsPath + "/array/" + arrayName + ".json"));
+            resourceModel.saveArrayResource(arrayName, arrayResource.getString("package"), new JSONArray(arrayData));
         }
     }
+
     private void processMapResource(String specsPath, JSONArray mapResources) throws Exception {
         for (int i = 0; i < mapResources.length(); i++) {
-            String mapName = mapResources.getString(i);
-            String arrayData = StreamUtils.readStream(new FileInputStream(specsPath+"/map/"+mapName+".json" ));
-            resourceModel.saveMapResource(mapName,new JSONObject(arrayData));
+            JSONObject mapResource = mapResources.getJSONObject(i);
+            String mapName = mapResource.getString("name");
+            String arrayData = StreamUtils.readStream(new FileInputStream(specsPath + "/map/" + mapName + ".json"));
+            resourceModel.saveMapResource(mapName, mapResource.getString("name"), new JSONObject(arrayData));
         }
     }
 
@@ -148,8 +154,8 @@ public class SpecsImporter {
             String name = jsonResource.getString("name");
             String file = specsPath + "/binary/" + name;
             byte[] data = StreamUtils.readByteArrayStream(new FileInputStream(file));
-            resourceModel.saveBinaryResource(name, jsonResource.getString("contentType"), data,
-                    jsonResource.getString("role"));
+            resourceModel.saveBinaryResource(name, jsonResource.getString("contentType"),
+                    jsonResource.getString("package"), data, jsonResource.getString("role"));
         }
     }
 
@@ -159,8 +165,8 @@ public class SpecsImporter {
             String name = jsonResource.getString("name");
             String file = specsPath + "/text/" + name;
             String data = StreamUtils.readStream(new FileInputStream(file));
-            resourceModel.saveTextResource(name,  data,
-                    jsonResource.getString("role"));
+            resourceModel.saveTextResource(name, data,
+                    jsonResource.getString("package"), jsonResource.getString("role"));
         }
     }
 

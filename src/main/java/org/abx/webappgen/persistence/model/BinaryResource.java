@@ -16,6 +16,9 @@ public class BinaryResource {
     public String resourceName;
 
     @Column(nullable = false)
+    public String packageName;
+
+    @Column(nullable = false)
     public String contentType;
 
     @Column(nullable = false)

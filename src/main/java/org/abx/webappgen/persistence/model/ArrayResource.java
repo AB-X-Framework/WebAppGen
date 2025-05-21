@@ -12,6 +12,8 @@ public class ArrayResource {
     @Id
     public Long arrayResourceId;
 
+    @Column(nullable = false)
+    public String packageName;
 
     @Column(nullable = false)
     public String resourceName;

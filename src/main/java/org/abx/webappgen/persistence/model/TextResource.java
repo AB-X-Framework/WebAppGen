@@ -13,6 +13,9 @@ public class TextResource {
     public Long textResourceId;
 
     @Column(nullable = false)
+    public String packageName;
+
+    @Column(nullable = false)
     public String resourceName;
 
     @Column(nullable = false)

@@ -168,6 +168,7 @@ public class SpecsExporter {
         for (MethodSpec method : methodSpecRepository.findAll()) {
             JSONObject jsonMethod = new JSONObject();
             jsonMethod.put("name", method.methodName);
+            jsonMethod.put("package", method.packageName);
             jsonMethod.put("type", method.type);
             jsonMethod.put("outputName", method.outputName);
             jsonMethod.put("role", method.role);
@@ -194,6 +195,7 @@ public class SpecsExporter {
             JSONObject jsonBinaryResource = new JSONObject();
             binaryResources.put(jsonBinaryResource);
             jsonBinaryResource.put("name", binaryResource.resourceName);
+            jsonBinaryResource.put("package", binaryResource.packageName);
             jsonBinaryResource.put("contentType", binaryResource.contentType);
             jsonBinaryResource.put("role", binaryResource.role);
             new FileOutputStream(specsFolder + "/binary/" + binaryResource.resourceName).
@@ -209,6 +211,7 @@ public class SpecsExporter {
             JSONObject jsonTextResource = new JSONObject();
             textResources.put(jsonTextResource);
             jsonTextResource.put("name", textResource.resourceName);
+            jsonTextResource.put("package", textResource.packageName);
             jsonTextResource.put("role", textResource.role);
             new FileOutputStream(specsFolder + "/text/" + textResource.resourceName).
                     write(textResource.resourceValue.getBytes());
@@ -221,8 +224,11 @@ public class SpecsExporter {
         new File(specsFolder + "/array").mkdirs();
         JSONArray arrayResources = new JSONArray();
         for (ArrayResource arrayResource : arrayResourceRepository.findAll()) {
+            JSONObject jsonArrayResource = new JSONObject();
+            arrayResources.put(jsonArrayResource);
             String name = arrayResource.resourceName;
-            arrayResources.put(name);
+            jsonArrayResource.put("name",name);
+            jsonArrayResource.put("package",arrayResource.packageName);
             JSONArray values = new JSONArray();
             for (ArrayEntry entry : arrayResource.resourceEntries) {
                 values.put(entry.value);
@@ -236,9 +242,12 @@ public class SpecsExporter {
     public JSONArray createMapResources(String specsFolder) throws IOException {
         new File(specsFolder + "/map").mkdirs();
         JSONArray mapResources = new JSONArray();
-        for (MapResource arrayResource : mapResourceRepository.findAll()) {
-            String name = arrayResource.resourceName;
-            mapResources.put(name);
+        for (MapResource mapResource : mapResourceRepository.findAll()) {
+            JSONObject jsonMapResource = new JSONObject();
+            mapResources.put(jsonMapResource);
+            String name = mapResource.resourceName;
+            jsonMapResource.put("name",name);
+            jsonMapResource.put("package",mapResource.packageName);
             JSONObject values = new JSONObject();
             for (MapEntry entry : arrayResource.resourceEntries) {
                 values.put(entry.entryName,entry.value);

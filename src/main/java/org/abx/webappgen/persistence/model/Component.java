@@ -14,10 +14,10 @@ public class Component {
     @Column(unique = true, nullable = false)
     public Long componentId;
 
-    @Column(length = 60,nullable = false)
+    @Column(nullable = false)
     public String componentName;
 
-    @Column(length = 60,nullable = false)
+    @Column(nullable = false)
     public String packageName;
 
     @Column(nullable = false)
