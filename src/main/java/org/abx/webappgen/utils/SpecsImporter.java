@@ -166,8 +166,8 @@ public class SpecsImporter {
             String name = jsonResource.getString("name");
             String file = specsPath + "/text/" + name;
             String data = StreamUtils.readStream(new FileInputStream(file));
-            resourceModel.saveTextResource(name, data,
-                    jsonResource.getString("package"), jsonResource.getString("role"));
+            resourceModel.saveTextResource(name,  jsonResource.getString("package"),
+                    data, jsonResource.getString("role"));
         }
     }
 
