@@ -78,6 +78,7 @@ public class ResourceModel {
         MapResource mapResource = new MapResource();
         mapResource.mapResourceId=id;
         mapResource.resourceName=resourceName;
+        mapResource.packageName=packageName;
         mapResourceRepository.save(mapResource);
         for (String key : data.keySet()) {
             MapEntry entry  = new MapEntry();
