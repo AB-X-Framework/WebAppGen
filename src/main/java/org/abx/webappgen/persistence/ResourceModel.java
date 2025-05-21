@@ -111,6 +111,7 @@ public class ResourceModel {
         textResource.textResourceId=id;
         textResource.resourceValue=data;
         textResource.role=role;
+        textResource.packageName=packageName;
         textResource.resourceName=resourceName;
         textResourceRepository.save(textResource);
         return id;
