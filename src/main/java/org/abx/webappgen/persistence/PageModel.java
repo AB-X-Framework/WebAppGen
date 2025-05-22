@@ -125,6 +125,7 @@ public class PageModel {
         topSpecs.component = page.component;
         JSONObject componentSpecs = getComponentSpecsByComponent(topSpecs);
         componentSpecs.put(Id,top);
+        componentSpecs.put(Size,"");
         jsonPage.put(Component,componentSpecs );
         return jsonPage;
     }

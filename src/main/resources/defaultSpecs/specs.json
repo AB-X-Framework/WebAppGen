@@ -187,31 +187,8 @@
           "value": {
             "img": "/resources/binary/abx.png",
             "links": [
-
             ]
           }
-        }
-      ]
-    },
-    {
-      "package": "login",
-      "name": "login.form",
-      "isContainer": true,
-      "layout": "vertical",
-      "js": [
-      ],
-      "components": [
-        {
-          "innerId": "header",
-          "component": "login.header",
-          "env": "",
-          "size": "s12"
-        },
-        {
-          "innerId": "welcome",
-          "component": "login.form.child",
-          "env": "",
-          "size": "s12"
         }
       ]
     },
@@ -238,6 +215,28 @@
         {
           "innerId": "password",
           "component": "login.password",
+          "env": "",
+          "size": "s12"
+        }
+      ]
+    },
+    {
+      "package": "login",
+      "name": "login.form",
+      "isContainer": true,
+      "layout": "vertical",
+      "js": [
+      ],
+      "components": [
+        {
+          "innerId": "header",
+          "component": "login.header",
+          "env": "",
+          "size": "s12"
+        },
+        {
+          "innerId": "welcome",
+          "component": "login.form.child",
           "env": "",
           "size": "s12"
         }

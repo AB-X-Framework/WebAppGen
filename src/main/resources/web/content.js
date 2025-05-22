@@ -39,10 +39,10 @@ class PageContent {
         if (componentSpecs.isContainer) {
             if (componentSpecs.layout === "nav") {
                 PageContent.renderNav(output, js, componentSpecs);
-            } else if (componentSpecs.layout === "header") {
-                PageContent.renderHeader(output, js, componentSpecs);
             } else if (componentSpecs.layout === "horizontal") {
                 PageContent.renderHorizontal(output, js, componentSpecs);
+            } else if (componentSpecs.layout === "container") {
+                PageContent.renderContainer(output, js, componentSpecs);
             } else {
                 PageContent.renderVertical(output, js, componentSpecs);
             }
@@ -76,6 +76,9 @@ class PageContent {
                 case "js":
                     PageContent.renderJS(output, componentSpecs.specs);
                     break
+                case "header":
+                    PageContent.renderHeader(output, componentSpecs.specs);
+                    break
 
 
             }
@@ -105,16 +108,24 @@ class PageContent {
     }
 
     static renderHorizontal(output, js, componentSpecs) {
-        output.push(`<div class="row" style="height: 100%;" id="${componentSpecs.id}">`);
+        output.push(`<div class="row  ${componentSpecs.size}" style="height: 100%; margin-bottom: 0;" id="${componentSpecs.id}">`);
         for (var component of componentSpecs.children) {
             PageContent.renderComponent(output, js, component);
         }
         output.push('</div>');
-
     }
 
     static renderVertical(output, js, componentSpecs) {
-        output.push(`<div class="col" id="${componentSpecs.id}">`);
+        output.push(`<div class="col ${componentSpecs.size}" id="${componentSpecs.id}">`);
+        for (var component of componentSpecs.children) {
+            PageContent.renderComponent(output, js, component)
+        }
+        output.push('</div>');
+    }
+
+
+    static renderContainer(output, js, componentSpecs) {
+        output.push(`<div class=" container ${componentSpecs.size}" id="${componentSpecs.id}">`);
         for (var component of componentSpecs.children) {
             PageContent.renderComponent(output, js, component)
         }
@@ -123,14 +134,14 @@ class PageContent {
 
     static renderButton(output, specs) {
         var results =
-            `<button id="${specs.id}" class="btn waves-effect waves-light "> ${specs.text} 
+            `<button id="${specs.id}" class="btn waves-effect waves-light  ${specs.size}"> ${specs.text} 
              </button>`
         output.push(results);
     }
 
     static renderImg(output, specs) {
         var results =
-            `<img id="${specs.id}"  src="/resources/binary/${specs.src}" class="responsive-img" alt="example">`
+            `<img id="${specs.id}"  src="${specs.src}" class="responsive-img" style="max-height: 100%" alt="example">`
         output.push(results);
     }
 
@@ -207,7 +218,7 @@ class PageContent {
         var result = `  <nav>
     <div class="nav-wrapped">
       <a href="#" class="left">
-      <img src="/resources/binary/abx.png" alt="Logo" style="height: 64px; padding: 5px;">
+      <img src="${specs.img}" alt="Logo" style="height: 64px; padding: 5px;">
     </a>
       <ul id="nav-mobileasd" class="right">
         <li><a href="sass.html">Sass</a></li>
