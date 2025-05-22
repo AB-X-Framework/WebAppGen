@@ -362,6 +362,10 @@
       "isContainer": false,
       "type": "button",
       "js": [
+        {
+          "env": "",
+          "value": "$(self).click(()=>App.process('uploadModel')) "
+        }
       ],
       "specs": [
         {
