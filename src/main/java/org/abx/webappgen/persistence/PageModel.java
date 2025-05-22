@@ -224,11 +224,21 @@ public class PageModel {
 
     private void addElement(ComponentSpecs specs, JSONObject jsonComponent) {
         Element element = specs.component.element;
+        boolean found=false;
+        String emptyEnv=null;
         for (EnvValue envValue : element.specs) {
             if (matchesEnv(envValue.env, specs.env)) {
-                jsonComponent.put(Specs, new JSONObject(envValue.value));
-                break;
+                if (specs.env.isEmpty()){
+                    emptyEnv = envValue.value;
+                }else {
+                    jsonComponent.put(Specs, new JSONObject(envValue.value));
+                    found = true;
+                    break;
+                }
             }
+        }
+        if (!found){
+            jsonComponent.put(Specs, new JSONObject(emptyEnv));
         }
         jsonComponent.put(Type, element.type);
 
@@ -266,7 +276,6 @@ public class PageModel {
             container.innerComponent.add(inner);
         }
         containerRepository.save(container);
-
     }
 
     private void saveComponent(JSONArray js, Component component) {
@@ -304,7 +313,6 @@ public class PageModel {
         for (int i = 0; i < specs.length(); i++) {
             JSONObject specsEnvValue = specs.getJSONObject(i);
             element.specs.add(createEnvValue(specsEnvValue));
-
         }
         elementRepository.save(element);
 

@@ -94,6 +94,21 @@
           "value": "basic.js"
         }
       ]
+    },
+    {
+      "package": "home",
+      "name": "welcome",
+      "title": "Welcome Page",
+      "component": "home.WelcomePageComponent",
+      "role": "User",
+      "css": [
+        {
+          "env": "",
+          "value": "icons.css"
+        }
+      ],
+      "scripts": [
+      ]
     }
   ],
   "components": [
@@ -139,7 +154,7 @@
       "package": "login",
       "name": "login.password",
       "isContainer": false,
-      "type": "textfield",
+      "type": "password",
       "js": [],
       "specs": [
         {
@@ -187,7 +202,27 @@
           "value": {
             "img": "/resources/binary/abx.png",
             "links": [
+              {
+                "href": "/help",
+                "text": "About us"
+              }
             ]
+          }
+        }
+      ]
+    },
+    {
+      "package": "login",
+      "name": "login.submit",
+      "isContainer": false,
+      "type": "button",
+      "js": [
+      ],
+      "specs": [
+        {
+          "env": "",
+          "value": {
+            "text": "Log in"
           }
         }
       ]
@@ -198,6 +233,10 @@
       "isContainer": true,
       "layout": "container",
       "js": [
+        {
+          "env": "",
+          "value": "$(login).click(()=>$.post('/session/login',{'username':$(username).val(),'password':$(password).val()}))"
+        }
       ],
       "components": [
         {
@@ -215,6 +254,12 @@
         {
           "innerId": "password",
           "component": "login.password",
+          "env": "",
+          "size": "s12"
+        },
+        {
+          "innerId": "login",
+          "component": "login.submit",
           "env": "",
           "size": "s12"
         }
@@ -261,6 +306,43 @@
           "component": "login.form",
           "env": "",
           "size": "s12 l6"
+        }
+      ]
+    },
+    {
+      "package": "home",
+      "name": "home.header",
+      "isContainer": false,
+      "type": "header",
+      "js": [],
+      "specs": [
+        {
+          "env": "",
+          "value": {
+            "img": "/resources/binary/abx.png",
+            "links": [
+              {
+                "href": "/help",
+                "text": "Components"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "package": "home",
+      "name": "home.WelcomePageComponent",
+      "isContainer": true,
+      "layout": "vertical",
+      "js": [
+      ],
+      "components": [
+        {
+          "innerId": "header",
+          "component": "home.header",
+          "env": "",
+          "size": ""
         }
       ]
     }

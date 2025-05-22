@@ -61,6 +61,9 @@ class PageContent {
                 case "textfield":
                     PageContent.renderTextfield(output, componentSpecs.specs);
                     break
+                case "password":
+                    PageContent.renderPassword(output, componentSpecs.specs);
+                    break
                 case "textarea":
                     PageContent.renderTextarea(output, componentSpecs.specs);
                     break
@@ -147,8 +150,16 @@ class PageContent {
 
     static renderTextfield(output, specs) {
         var results =
-            `<div id="${specs.id}"  class="input-field">
-            <input placeholder="${specs.placeholder}" id="f_${specs.id}"  type="text" class="validate">
+            `<div  class="input-field">
+            <input placeholder="${specs.placeholder}" id="${specs.id}"  type="text" class="validate">
+          <label for="f_${specs.id}">${specs.label}</label></div>`;
+        output.push(results);
+    }
+
+    static renderPassword(output, specs) {
+        var results =
+            `<div  class="input-field">
+            <input placeholder="${specs.placeholder}" id="${specs.id}"  type="password" class="validate">
           <label for="f_${specs.id}">${specs.label}</label></div>`;
         output.push(results);
     }
@@ -215,15 +226,17 @@ class PageContent {
     }
 
     static renderHeader(output, specs) {
+        var links ="";
+        for (var link of specs.links) {
+            links += `<li><a href="${link.href}">${link.text}</li></a>`
+        }
         var result = `  <nav>
     <div class="nav-wrapped">
       <a href="#" class="left">
       <img src="${specs.img}" alt="Logo" style="height: 64px; padding: 5px;">
     </a>
       <ul id="nav-mobileasd" class="right">
-        <li><a href="sass.html">Sass</a></li>
-        <li><a href="badges.html">Components</a></li>
-        <li><a href="collapsible.html">JavaScript</a></li>
+      ${links}
       </ul>
     </div>
   </nav><div style="height: 10px"></div>`
