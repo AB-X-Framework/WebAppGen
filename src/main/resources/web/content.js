@@ -173,8 +173,8 @@ class PageContent {
     static renderModal(output, js,specs) {
         var results = `<div id="${specs.id}" class="modal">
     <div class="modal-content">
-        <h4>Invalid Credentials</h4>
-        <p>Your username or password is incorrect. Please try again.</p>
+        <h4>${specs.title}</h4>
+        <p>${specs.content}</p>
     </div>
     <div class="modal-footer">
         <a href="#!" class="modal-close waves-effect waves-green btn-flat">OK</a>

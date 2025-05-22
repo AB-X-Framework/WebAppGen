@@ -160,8 +160,8 @@
         {
           "env": "",
           "value": {
-            "placeholder": "Your username",
-            "label": "Username"
+            "title": "Invalid Credentials",
+            "content": "Your username or password is incorrect. Please try again."
           }
         }
       ]
