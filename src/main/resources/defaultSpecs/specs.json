@@ -344,7 +344,11 @@
             "img": "/resources/binary/abx.png",
             "links": [
               {
-                "href": "/help",
+                "href": "page/welcome",
+                "text": "Home"
+              },
+              {
+                "href": "page/components",
                 "text": "Components"
               }
             ]
@@ -352,6 +356,24 @@
         }
       ]
     },
+    {
+      "package": "home.app",
+      "name": "home.app.upload",
+      "isContainer": false,
+      "type": "button",
+      "js": [
+      ],
+      "specs": [
+        {
+          "env": "",
+          "value": {
+            "text": "Upload Model"
+          }
+        }
+      ]
+    },
+
+
     {
       "package": "home",
       "name": "home.WelcomePageComponent",
@@ -363,6 +385,13 @@
         {
           "innerId": "header",
           "component": "home.header",
+          "env": "",
+          "size": ""
+        },
+
+        {
+          "innerId": "header",
+          "component": "home.app.upload",
           "env": "",
           "size": ""
         }
