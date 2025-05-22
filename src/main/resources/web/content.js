@@ -22,25 +22,16 @@ class PageContent {
         })
     }
 
-    static renderCSS(output, cssList){
+    static renderCSS(output, cssList) {
         for (var css of cssList) {
             output.push(`<link href="/resources/binary/${css}" rel="stylesheet">`)
         }
     }
 
-    static renderScripts(output, jsList){
+    static renderScripts(output, jsList) {
         for (var js of jsList) {
             output.push(`<script src="/resources/binary/${js}"></script>`)
         }
-    }
-
-    static renderComponents(output, js, container) {
-        for (var innerComponent of container.components) {
-            output.push("<div>");
-            PageContent.renderComponent(output, js, innerComponent.component);
-            output.push("</div>");
-        }
-        js.push(container.js);
     }
 
     static renderComponent(output, js, componentSpecs) {
@@ -50,8 +41,10 @@ class PageContent {
                 PageContent.renderNav(output, js, componentSpecs);
             } else if (componentSpecs.layout === "header") {
                 PageContent.renderHeader(output, js, componentSpecs);
-            } else{
-                PageContent.renderContainer(output, js, componentSpecs);
+            } else if (componentSpecs.layout === "horizontal") {
+                PageContent.renderHorizontal(output, js, componentSpecs);
+            } else {
+                PageContent.renderVertical(output, js, componentSpecs);
             }
         } else {
 
@@ -111,31 +104,20 @@ class PageContent {
         output.push(`   </div>     </div></div></main>`)
     }
 
-    static renderContainer(output, js, componentSpecs) {
-        var horizontal = componentSpecs.layout === "horizontal";
-        var vertical = componentSpecs.layout === "vertical";
-        var cv = componentSpecs.layout === "cv";
-        output.push(`<div class="col" >`);
-        if (cv) {
-            output.push(`<div class="valign-wrapper row" style="height: 100%;">`)
-        } else {
-            output.push(`<div class="row" id="${componentSpecs.id}">`);
-        }
-        output.push(`<div class="col" >`);
-
+    static renderHorizontal(output, js, componentSpecs) {
+        output.push(`<div class="row" style="height: 100%;" id="${componentSpecs.id}">`);
         for (var component of componentSpecs.children) {
-            if (vertical) {
-                output.push('<div class="row">');
-            }
-            PageContent.renderComponent(output, js, component)
-            if (vertical) {
-                output.push('</div>');
-            }
+            PageContent.renderComponent(output, js, component);
         }
-        output.push(`<div>`);
-
         output.push('</div>');
 
+    }
+
+    static renderVertical(output, js, componentSpecs) {
+        output.push(`<div class="col" id="${componentSpecs.id}">`);
+        for (var component of componentSpecs.children) {
+            PageContent.renderComponent(output, js, component)
+        }
         output.push('</div>');
     }
 
@@ -222,18 +204,18 @@ class PageContent {
     }
 
     static renderHeader(output, specs) {
-        var result= `  <nav>
-    <div class="nav-wrapper">
-      <a href="#" class="brand-logo">
+        var result = `  <nav>
+    <div class="nav-wrapped">
+      <a href="#" class="left">
       <img src="/resources/binary/abx.png" alt="Logo" style="height: 64px; padding: 5px;">
     </a>
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <ul id="nav-mobileasd" class="right">
         <li><a href="sass.html">Sass</a></li>
         <li><a href="badges.html">Components</a></li>
         <li><a href="collapsible.html">JavaScript</a></li>
       </ul>
     </div>
-  </nav>`
+  </nav><div style="height: 10px"></div>`
         output.push(result)
     }
 

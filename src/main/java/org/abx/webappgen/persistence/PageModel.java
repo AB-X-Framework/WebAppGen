@@ -123,7 +123,9 @@ public class PageModel {
         topSpecs.siblings = new HashMap<>();
         topSpecs.siblings.put("self",top);
         topSpecs.component = page.component;
-        jsonPage.put(Component, getComponentSpecsByComponent(topSpecs));
+        JSONObject componentSpecs = getComponentSpecsByComponent(topSpecs);
+        componentSpecs.put(Id,top);
+        jsonPage.put(Component,componentSpecs );
         return jsonPage;
     }
 
