@@ -18,8 +18,9 @@ public class SessionController {
     @PreAuthorize("permitAll()")
     public String login(final HttpServletRequest request,
                         @RequestParam String username,
-                        @RequestParam String password) {
+                        @RequestParam String password) throws ServletException {
 
+        request.logout();
         JSONObject status = new JSONObject();
         try {
             request.login(username, password);

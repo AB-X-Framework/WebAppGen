@@ -35,7 +35,9 @@ class PageContent {
     }
 
     static renderComponent(output, js, componentSpecs) {
-        js.push(componentSpecs.js);
+        if (js !== "") {
+            js.push(componentSpecs.js);
+        }
         if (componentSpecs.isContainer) {
             if (componentSpecs.layout === "nav") {
                 PageContent.renderNav(output, js, componentSpecs);
