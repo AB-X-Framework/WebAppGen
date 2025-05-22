@@ -30,6 +30,9 @@ public class PageModel {
     public static final String Children = "children";
     public static final String Package = "package";
     public static final String IsContainer = "isContainer";
+
+    long envId;
+
     @Autowired
     public PageRepository pageRepository;
 
@@ -54,22 +57,27 @@ public class PageModel {
     @Autowired
     public BinaryResourceRepository binaryResourceRepository;
 
-
     @Autowired
     public ArrayResourceRepository arrayResourceRepository;
+
     @Autowired
     public ArrayEntryRepository arrayEntryRepository;
 
-
     @Autowired
     public MapEntryRepository mapEntryRepository;
+
     @Autowired
     public MapResourceRepository mapResourceRepository;
+
     @Autowired
     public MethodSpecRepository methodSpecRepository;
 
     @Autowired
     private UserRepository userRepository;
+
+    public PageModel(){
+        envId = PageModel.elementHashCode("Env.home");
+    }
     @Transactional
     public void clean() {
         userRepository.deleteAll();
@@ -86,6 +94,22 @@ public class PageModel {
         containerRepository.deleteAll();
         componentRepository.deleteAll();
         pageRepository.deleteAll();
+    }
+
+    @Transactional
+    public String getHome(){
+        return  mapEntryRepository.findByMapEntryId(envId).value;
+    }
+    @Transactional
+    public boolean validPage(Set<String> roles,  long id) {
+        Page page = pageRepository.findByPageId(id);
+        if (page == null) {
+            return false;
+        }
+        if (!"Anonymous".equals(page.role)) {
+            return roles.contains(page.role);
+        }
+        return true;
     }
 
     @Transactional

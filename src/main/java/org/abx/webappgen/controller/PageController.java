@@ -3,12 +3,14 @@ package org.abx.webappgen.controller;
 import jakarta.servlet.http.HttpSession;
 import org.abx.util.StreamUtils;
 import org.abx.webappgen.persistence.PageModel;
+import org.abx.webappgen.persistence.dao.MapEntryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,10 +30,14 @@ public class PageController extends RoleController{
     private ST pageTemplate;
 
     @Autowired
+    private MapEntryRepository mapEntryRepository;
+
+    @Autowired
     public PageModel pageModel;
 
     public PageController() {
         try {
+
             String data = StreamUtils.readResource("org/abx/webappgen/page.html");
             pageTemplate = new ST(data, '{', '}');
         } catch (IOException e) {
@@ -42,6 +48,9 @@ public class PageController extends RoleController{
     @GetMapping(value = "/{pagename}", produces = MediaType.TEXT_HTML_VALUE)
     @PreAuthorize("permitAll()")
     public String page(@PathVariable String pagename) {
+        if (!pageModel.validPage(getRoles(), pageModel.elementHashCode(pagename))){
+            pagename= pageModel.getHome();
+        }
         ST st1 = new ST(pageTemplate);
         String output = st1.add("pagename", pagename).render();
         return output;

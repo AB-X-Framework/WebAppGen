@@ -235,7 +235,7 @@
       "js": [
         {
           "env": "",
-          "value": "$(login).click(()=>$.post('/session/login',{'username':$(username).val(),'password':$(password).val()},(loged)=>{console.log(loged)}))"
+          "value": "$(login).click(()=>$.post('/session/login',{'username':$(username).val(),'password':$(password).val()},(result)=>{if (result.logged){location.href='/page/welcome'}else{} }))"
         }
       ],
       "components": [

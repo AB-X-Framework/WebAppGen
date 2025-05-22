@@ -20,19 +20,13 @@ import org.springframework.transaction.annotation.Transactional;
 @EnableMethodSecurity(securedEnabled = true)
 public class SecConfiguration {
 
-    long envId;
-
-    public SecConfiguration( ) {
-        envId = PageModel.elementHashCode("Env.home");
-    }
-
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(11);
     }
 
     @Autowired
-    private MapEntryRepository mapEntryRepository;
+    private PageModel pageModel;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -55,7 +49,7 @@ public class SecConfiguration {
                 }).exceptionHandling(security -> {
                     security.authenticationEntryPoint(
                             (request, response, authException) -> {
-                                String home = getHome();
+                                String home = pageModel.getHome();
                                 response.sendRedirect("/page/"+home);
                             }
                     );
@@ -64,8 +58,4 @@ public class SecConfiguration {
         return http.build();
     }
 
-    @Transactional
-    public String getHome(){
-        return  mapEntryRepository.findByMapEntryId(envId).value;
-    }
 }
