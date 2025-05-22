@@ -1,5 +1,9 @@
 package org.abx.webappgen.spring;
 
+import org.abx.webappgen.persistence.PageModel;
+import org.abx.webappgen.persistence.dao.MapEntryRepository;
+import org.abx.webappgen.persistence.dao.MapResourceRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -9,17 +13,26 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.transaction.annotation.Transactional;
 
 @EnableWebSecurity
 @Configuration
 @EnableMethodSecurity(securedEnabled = true)
 public class SecConfiguration {
 
+    long envId;
+
+    public SecConfiguration( ) {
+        envId = PageModel.elementHashCode("Env.home");
+    }
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(11);
     }
 
+    @Autowired
+    private MapEntryRepository mapEntryRepository;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -42,11 +55,17 @@ public class SecConfiguration {
                 }).exceptionHandling(security -> {
                     security.authenticationEntryPoint(
                             (request, response, authException) -> {
-                                response.sendRedirect("/page/main");
+                                String home = getHome();
+                                response.sendRedirect("/page/"+home);
                             }
                     );
 
                 });
         return http.build();
+    }
+
+    @Transactional
+    public String getHome(){
+        return  mapEntryRepository.findByMapEntryId(envId).value;
     }
 }

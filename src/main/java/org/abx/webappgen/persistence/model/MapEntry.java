@@ -7,7 +7,6 @@ import jakarta.persistence.*;
 public class MapEntry {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     public Long mapEntryId;
 
     @Column(nullable = false)

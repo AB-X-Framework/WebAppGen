@@ -83,6 +83,7 @@ public class ResourceModel {
         for (String key : data.keySet()) {
             MapEntry entry  = new MapEntry();
             entry.entryName = key;
+            entry.mapEntryId=PageModel.elementHashCode(mapResource.resourceName+"."+entry.entryName);
             entry.value = data.getString(key);
             entry.mapResource = mapResource;
             mapEntryRepository.save(entry);

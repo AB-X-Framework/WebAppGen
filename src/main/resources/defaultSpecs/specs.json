@@ -71,7 +71,7 @@
     "map": [
       {
         "package": "demo",
-        "name": "basicmap"
+        "name": "Env"
       }
     ]
   },
