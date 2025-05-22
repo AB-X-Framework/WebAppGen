@@ -37,7 +37,6 @@ public class PageController extends RoleController{
 
     public PageController() {
         try {
-
             String data = StreamUtils.readResource("org/abx/webappgen/page.html");
             pageTemplate = new ST(data, '{', '}');
         } catch (IOException e) {

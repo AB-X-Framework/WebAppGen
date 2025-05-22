@@ -24,13 +24,14 @@ class PageContent {
 
     static renderCSS(output, cssList) {
         for (var css of cssList) {
-            output.push(`<link href="/resources/binary/${css}" rel="stylesheet">`)
+            output.push(`<link href="${css}" rel="stylesheet">`)
         }
     }
 
+
     static renderScripts(output, jsList) {
         for (var js of jsList) {
-            output.push(`<script src="/resources/binary/${js}"></script>`)
+            output.push(`<script src="${js}"></script>`)
         }
     }
 
@@ -77,6 +78,9 @@ class PageContent {
                     break
                 case "file":
                     PageContent.renderFile(output, componentSpecs.specs);
+                    break
+                case "modal":
+                    PageContent.renderModal(output, js,componentSpecs.specs);
                     break
                 case "js":
                     PageContent.renderJS(output, componentSpecs.specs);
@@ -164,6 +168,21 @@ class PageContent {
             <input placeholder="${specs.placeholder}" id="${specs.id}"  type="password" class="validate">
           <label for="f_${specs.id}">${specs.label}</label></div>`;
         output.push(results);
+    }
+
+    static renderModal(output, js,specs) {
+        var results = `<div id="${specs.id}" class="modal">
+    <div class="modal-content">
+        <h4>Invalid Credentials</h4>
+        <p>Your username or password is incorrect. Please try again.</p>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat">OK</a>
+    </div>
+</div>`;
+        js.push(`M.Modal.init(${specs.id});`)
+        output.push(results);
+
     }
 
     static renderTextarea(output, specs) {

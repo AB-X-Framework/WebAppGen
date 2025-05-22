@@ -50,7 +50,7 @@
       },
       {
         "package": "demo",
-        "name": "basic.js",
+        "name": "process.login.js",
         "contentType": "application/js",
         "role": "Anonymous"
       }
@@ -85,13 +85,13 @@
       "css": [
         {
           "env": "",
-          "value": "icons.css"
+          "value": "/resources/binary/icons.css"
         }
       ],
       "scripts": [
         {
           "env": "",
-          "value": "basic.js"
+          "value": "/resources/binary/process.login.js"
         }
       ]
     },
@@ -104,7 +104,7 @@
       "css": [
         {
           "env": "",
-          "value": "icons.css"
+          "value": "/resources/binary/icons.css"
         }
       ],
       "scripts": [
@@ -141,6 +141,22 @@
             "label": "Su nombre de usuario"
           }
         },
+        {
+          "env": "",
+          "value": {
+            "placeholder": "Your username",
+            "label": "Username"
+          }
+        }
+      ]
+    },
+    {
+      "package": "login",
+      "name": "login.invalidCreds",
+      "isContainer": false,
+      "type": "modal",
+      "js": [],
+      "specs": [
         {
           "env": "",
           "value": {
@@ -235,7 +251,7 @@
       "js": [
         {
           "env": "",
-          "value": "$(login).click(()=>$.post('/session/login',{'username':$(username).val(),'password':$(password).val()},(result)=>{if (result.logged){location.href='/page/welcome'}else{} }))"
+          "value": "$(login).click(()=>processLogIn($(username).val(),$(password).val(),invalidCreds))"
         }
       ],
       "components": [
@@ -262,6 +278,12 @@
           "component": "login.submit",
           "env": "",
           "size": "s12"
+        },
+        {
+          "innerId": "invalidCreds",
+          "component": "login.invalidCreds",
+          "env": "",
+          "size": ""
         }
       ]
     },
