@@ -107,7 +107,7 @@
         {
           "env": "",
           "value": {
-            "src": "abx.png"
+            "src": "/resources/binary/abx.png"
           }
         }
       ]
@@ -178,10 +178,19 @@
     {
       "package": "login",
       "name": "login.header",
-      "isContainer": true,
-      "layout": "header",
+      "isContainer": false,
+      "type": "header",
       "js": [],
-      "components": [
+      "specs": [
+        {
+          "env": "",
+          "value": {
+            "img": "/resources/binary/abx.png",
+            "links": [
+
+            ]
+          }
+        }
       ]
     },
     {
@@ -198,6 +207,22 @@
           "env": "",
           "size": "s12"
         },
+        {
+          "innerId": "welcome",
+          "component": "login.form.child",
+          "env": "",
+          "size": "s12"
+        }
+      ]
+    },
+    {
+      "package": "login",
+      "name": "login.form.child",
+      "isContainer": true,
+      "layout": "container",
+      "js": [
+      ],
+      "components": [
         {
           "innerId": "welcome",
           "component": "login.welcome",
