@@ -394,6 +394,28 @@
       ]
     },
     {
+      "package": "home.app",
+      "name": "home.app.container",
+      "isContainer": true,
+      "layout": "container",
+      "js": [
+      ],
+      "components": [
+        {
+          "innerId": "modelPath",
+          "component": "home.app.model",
+          "env": "",
+          "size": ""
+        },
+        {
+          "innerId": "upload",
+          "component": "home.app.upload",
+          "env": "",
+          "size": ""
+        }
+      ]
+    },
+    {
       "package": "home",
       "name": "home.WelcomePageComponent",
       "isContainer": true,
@@ -409,13 +431,7 @@
         },
         {
           "innerId": "modelPath",
-          "component": "home.app.model",
-          "env": "",
-          "size": ""
-        },
-        {
-          "innerId": "upload",
-          "component": "home.app.upload",
+          "component": "home.app.container",
           "env": "",
           "size": ""
         }
