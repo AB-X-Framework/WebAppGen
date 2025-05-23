@@ -63,6 +63,7 @@ public class SpecsImporter {
      * @throws Exception
      */
     public void loadSpecs(String specsFolder) throws Exception {
+        pageModel.clean();
         File resourceFile = new File(specsFolder + "/specs.json");
         String data = StreamUtils.readStream(new FileInputStream(resourceFile));
         JSONObject obj = new JSONObject(data);

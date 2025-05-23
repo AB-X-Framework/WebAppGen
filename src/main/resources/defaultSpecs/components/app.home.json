@@ -23,7 +23,7 @@
    {
     "innerId": "download",
     "component": "app.home.download",
-    "size": "",
+    "size": "l3",
     "env": ""
    }
   ],

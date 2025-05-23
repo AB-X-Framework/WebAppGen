@@ -70,6 +70,7 @@ public class SpecsExporter {
         ZipUtils.delete(p);
         return bytes;
     }
+
     public static void deleteFolderRecursively(File folder) throws IOException {
         if (!folder.exists()) {
             throw new IOException("Folder does not exist: " + folder.getAbsolutePath());
@@ -274,7 +275,7 @@ public class SpecsExporter {
         new File(specsFolder + "/text").mkdirs();
         JSONArray textResources = new JSONArray();
         for (String packageName : textResourceRepository.findDistinctPackageNames()) {
-            new File(specsFolder + "/text/"+packageName).mkdirs();
+            new File(specsFolder + "/text/" + packageName).mkdirs();
             textResources.put(packageName);
             JSONArray packageResources = new JSONArray();
             for (TextResource textResource : textResourceRepository.findAllByPackageName(packageName)) {
@@ -283,11 +284,11 @@ public class SpecsExporter {
                 jsonTextResource.put("name", textResource.resourceName);
                 jsonTextResource.put("package", packageName);
                 jsonTextResource.put("role", textResource.role);
-                new FileOutputStream(specsFolder + "/text/" + packageName+"/"+textResource.resourceName).
+                new FileOutputStream(specsFolder + "/text/" + packageName + "/" + textResource.resourceName).
                         write(textResource.resourceValue.getBytes());
             }
 
-            new FileOutputStream(specsFolder + "/text/" + packageName+".json").
+            new FileOutputStream(specsFolder + "/text/" + packageName + ".json").
                     write(packageResources.toString(1).getBytes());
         }
         return textResources;
