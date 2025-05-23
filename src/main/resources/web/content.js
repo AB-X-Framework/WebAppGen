@@ -291,7 +291,7 @@ class PageContent {
         output.push(result)
     }
 
-    static showModel(title, content) {
+    static showModal(title, content) {
         // Create modal container
         const modal = document.createElement('div');
         modal.className = 'modal';
@@ -300,7 +300,7 @@ class PageContent {
         // Modal content
         modal.innerHTML = `
     <div class="modal-content">
-      <h4>${tile}</h4>
+      <h4>${title}</h4>
       <p>${content}</p>
     </div>
     <div class="modal-footer">
