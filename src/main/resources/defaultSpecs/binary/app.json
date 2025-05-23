@@ -1,18 +1,15 @@
 [
   {
-    "package": "app",
     "name": "app.abx.png",
     "contentType": "application/png",
     "role": "Anonymous"
   },
   {
-    "package": "app",
     "name": "app.icons.css",
     "contentType": "text/css",
     "role": "Anonymous"
   },
   {
-    "package": "app",
     "name": "app.process.login.js",
     "contentType": "application/js",
     "role": "Anonymous"

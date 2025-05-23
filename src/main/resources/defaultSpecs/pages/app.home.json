@@ -12,6 +12,10 @@
       }
     ],
     "scripts": [
+      {
+        "env": "",
+        "value": "/resources/binary/model.methods.js"
+      }
     ]
   }
 ]

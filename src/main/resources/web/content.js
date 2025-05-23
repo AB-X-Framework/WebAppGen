@@ -291,6 +291,34 @@ class PageContent {
         output.push(result)
     }
 
+    static function showModel(title, content) {
+        // Create modal container
+        const modal = document.createElement('div');
+        modal.className = 'modal';
+        modal.id = 'temp-modal';
+
+        // Modal content
+        modal.innerHTML = `
+    <div class="modal-content">
+      <h4>${tile}</h4>
+      <p>${content}</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat">OK</a>
+    </div>
+  `;
+
+        // Append to body
+        document.body.appendChild(modal);
+
+        // Initialize and open the modal
+        const instance = M.Modal.init(modal, {
+            onCloseEnd: () => modal.remove() // Cleanup after closing
+        });
+        instance.open();
+    }
+
+
 
 }
 

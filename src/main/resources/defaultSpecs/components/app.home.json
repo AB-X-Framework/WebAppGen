@@ -89,12 +89,17 @@
     "js": [
       {
         "env": "",
-        "value": "$(load).click(()=>App.process('loadModel',{modelPath:$(modelPath).val()})) "
+        "value": "$(load).click(()=>uploadModel($(modelPath).val())) "
       },
 
       {
         "env": "",
-        "value": "$(save).click(()=>App.process('saveModel',{modelPath:$(modelPath).val()})) "
+        "value": "$(save).click(()=>App.process('model.saveModel',{modelPath:$(modelPath).val()})) "
+      },
+
+      {
+        "env": "",
+        "value": "$(download).click(()=>App.process('model.downloadModel')) "
       }
     ],
     "components": [
