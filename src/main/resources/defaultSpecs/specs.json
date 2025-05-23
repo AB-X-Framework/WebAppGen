@@ -376,8 +376,23 @@
         }
       ]
     },
-
-
+    {
+      "package": "home.app",
+      "name": "home.app.model",
+      "isContainer": false,
+      "type": "textfield",
+      "js": [],
+      "specs": [
+        {
+          "env": "",
+          "value": {
+            "placeholder": "",
+            "url": "/resources/map/Env/modelPath",
+            "label": "Project path"
+          }
+        }
+      ]
+    },
     {
       "package": "home",
       "name": "home.WelcomePageComponent",
@@ -392,9 +407,14 @@
           "env": "",
           "size": ""
         },
-
         {
-          "innerId": "header",
+          "innerId": "modelPath",
+          "component": "home.app.model",
+          "env": "",
+          "size": ""
+        },
+        {
+          "innerId": "upload",
           "component": "home.app.upload",
           "env": "",
           "size": ""

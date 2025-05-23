@@ -65,7 +65,7 @@ public class ResourceController extends RoleController {
     }
 
     @Secured("Admin")
-    @GetMapping(value = "/upload/map/{resource}/{key}")
+    @GetMapping(value = "/map/{resource}/{key}")
     public String downloadMapValue(
             @PathVariable String resource,
             @PathVariable String key)  {

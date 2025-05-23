@@ -62,7 +62,7 @@ class PageContent {
                     PageContent.renderImg(output, componentSpecs.specs);
                     break
                 case "textfield":
-                    PageContent.renderTextfield(output, componentSpecs.specs);
+                    PageContent.renderTextfield(output, js, componentSpecs.specs);
                     break
                 case "password":
                     PageContent.renderPassword(output, componentSpecs.specs);
@@ -154,12 +154,15 @@ class PageContent {
         output.push(results);
     }
 
-    static renderTextfield(output, specs) {
+    static renderTextfield(output, js, specs) {
         var results =
             `<div  class="input-field">
             <input placeholder="${specs.placeholder}" id="${specs.id}"  type="text" class="validate">
-          <label for="f_${specs.id}">${specs.label}</label></div>`;
+          <label for="${specs.id}">${specs.label}</label></div>`;
         output.push(results);
+        if (typeof specs.url!=="undefined") {
+            js.push(`$.get('${specs.url}',(res)=>{$(${specs.id}).val(res)})`);
+        }
     }
 
     static renderPassword(output, specs) {
