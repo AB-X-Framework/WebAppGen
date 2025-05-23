@@ -34,7 +34,7 @@ class BinaryResourceTest {
         req.addPart("username", "root@abxwebappgen.org");
         req.addPart("password", "12345");
         System.out.println("STATUS "+servicesClient.process(req).asString());
-        req = servicesClient.post("app", "/resources/upload/binary").
+        req = servicesClient.post("app", "/resources/binary").
                 addPart("contentType", "application/octet-stream").
                 addPart("role", "Admin").
                 addPart("packageName", "myPackage").

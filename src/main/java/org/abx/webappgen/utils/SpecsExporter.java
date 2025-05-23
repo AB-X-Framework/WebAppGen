@@ -153,6 +153,7 @@ public class SpecsExporter {
     }
 
     public JSONArray createPages(String specsFolder) throws IOException {
+        new File(specsFolder + "/pages").mkdirs();
         JSONArray jsonPages = new JSONArray();
         HashMap<String, JSONArray> pages = new HashMap<>();
         for (Page page : pageRepository.findAll()) {
@@ -168,7 +169,7 @@ public class SpecsExporter {
                 jsonPages.put(page.packageName);
                 pages.put(page.packageName, new JSONArray());
             }
-            pages.get(page.pageName).put(jsonPage);
+            pages.get(page.packageName).put(jsonPage);
         }
         for (Map.Entry<String,JSONArray> page:pages.entrySet()){
             new FileOutputStream(specsFolder + "/pages/" + page.getKey() + ".json").
