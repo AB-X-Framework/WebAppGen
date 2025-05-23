@@ -1,5 +1,5 @@
 var modelPath;
-function loadModel() {
-    specsExported.createSpecs(modelPath);
+function saveModel() {
+    specsExporter.createSpecs(modelPath);
     return true;
 }

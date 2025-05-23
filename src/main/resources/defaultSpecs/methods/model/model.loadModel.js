@@ -1,5 +1,5 @@
 var modelPath;
-function modelLoadModel() {
+function loadModel() {
     specsImporter.loadSpecs(modelPath);
     return true;
 }

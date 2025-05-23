@@ -42,11 +42,9 @@ public class MethodController extends RoleController {
     public SpecsExporter specsExporter;
 
 
-    @PostMapping(value = "/{methodName}",consumes = "multipart/form-data")
+    @PostMapping(value = "/{methodName}", consumes = "multipart/form-data")
     @PreAuthorize("permitAll()")
-    public ResponseEntity<byte[]> method(@PathVariable String methodName,
-                                         @RequestPart(required = false) MultipartFile data,
-                                         @RequestPart String args) {
+    public ResponseEntity<byte[]> method(@PathVariable String methodName, @RequestPart(required = false) MultipartFile data, @RequestPart String args) {
         JSONObject methodSpecs = methodModel.getMethodSpec(methodName);
         if (methodSpecs == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -61,7 +59,7 @@ public class MethodController extends RoleController {
         HttpHeaders headers = new HttpHeaders();
         String type = methodSpecs.getString("type");
         headers.setContentType(contentType(type)); // Or your custom type
-        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\""+methodSpecs.getString("outputName")+"\"");
+        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + methodSpecs.getString("outputName") + "\"");
 
         try {
             Object obj = processMethod(methodName, methodSpecs, data, args);
@@ -84,12 +82,11 @@ public class MethodController extends RoleController {
             case "jpg":
                 return toBytes((BufferedImage) obj, type);
             default:
-                return ((Value)obj).as(byte[].class);
+                return ((Value) obj).as(byte[].class);
         }
     }
 
-    public static byte[] toBytes(BufferedImage image, String format)
-            throws IOException {
+    public static byte[] toBytes(BufferedImage image, String format) throws IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         boolean result = ImageIO.write(image, format, baos);
         if (!result) {
@@ -120,17 +117,31 @@ public class MethodController extends RoleController {
         }
     }
 
-    private Object processMethod(String methodName, JSONObject methodSpecs, MultipartFile data,
-                                 String args) throws Exception {
-        Context cx = Context.newBuilder("js").allowExperimentalOptions(true).option("js.operator-overloading", "true")
-                .allowAllAccess(true)
-                .build();
+    private String expandDotPath(String path) {
+        String[] keys = path.split("\\.");
+        StringBuilder output = new StringBuilder();
+        StringBuilder current = new StringBuilder();
+
+        for (int i = 0; i < keys.length - 1; i++) {
+            if (i > 0) current.append(".");
+            current.append(keys[i]);
+            output.append(current).append("={}\n");
+        }
+
+        // Final assignment
+        output.append(current).append(".").append(keys[keys.length - 1]).append("=").append(keys[keys.length - 1]);
+
+        return output.toString();
+    }
+
+    private Object processMethod(String methodName, JSONObject methodSpecs, MultipartFile data, String args) throws Exception {
+        Context cx = Context.newBuilder("js").allowExperimentalOptions(true).option("js.operator-overloading", "true").allowAllAccess(true).build();
         cx.enter();
         Value jsBindings = cx.getBindings("js");
         JSONObject jsonArgs = new JSONObject(args);
         jsBindings.putMember("pageModel", pageModel);
         jsBindings.putMember("userModel", userModel);
-        if (data!= null) {
+        if (data != null) {
             jsBindings.putMember("data", data.getBytes());
         }
         jsBindings.putMember("utils", new MethodUtils());
@@ -139,9 +150,16 @@ public class MethodController extends RoleController {
         for (String arg : jsonArgs.keySet()) {
             jsBindings.putMember(arg, jsonArgs.get(arg));
         }
-        String fullSources =
-                methodSpecs.getString("methodJS") + "\n" + methodName + "();";
+        String fullSources = methodSpecs.getString("methodJS");
         Source source = Source.newBuilder("js", fullSources, methodName).build();
+        cx.eval(source);
+
+        fullSources = expandDotPath(methodName);
+        source = Source.newBuilder("js", fullSources, methodName).build();
+        cx.eval(source);
+
+        fullSources = methodName+"();";
+        source = Source.newBuilder("js", fullSources, methodName).build();
         return cx.eval(source);
     }
 }
