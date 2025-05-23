@@ -231,6 +231,9 @@ class PageContent {
               M.FormSelect.init(${specs.id});
             });`);
             output.push(results);
+            js.push( ` $(${specs.id}).on('change', function () {
+        console.log('New value:', $(this).val());
+      });`);
         } else {
             const optionsHtml = specs.values.map(item =>
                 `<option value="${item.key}">${item.value}</option>`
