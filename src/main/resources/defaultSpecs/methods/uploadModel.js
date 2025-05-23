@@ -1,5 +1,5 @@
 var modelPath;
 function uploadModel() {
-    return specsImporter.uploadSpecs(modelPath);
+    specsImporter.uploadSpecs(modelPath);
     return true;
 }

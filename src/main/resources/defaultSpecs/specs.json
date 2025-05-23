@@ -401,12 +401,12 @@
       "js": [
         {
           "env": "",
-          "value": "$(upload).click(()=>App.process('uploadModel',{modelPath:$(modelPathX).val()})) "
+          "value": "$(upload).click(()=>App.process('uploadModel',{modelPath:$(modelPath).val()})) "
         }
       ],
       "components": [
         {
-          "innerId": "modelPathX",
+          "innerId": "modelPath",
           "component": "home.app.model",
           "env": "",
           "size": ""
@@ -434,7 +434,7 @@
           "size": ""
         },
         {
-          "innerId": "modelPath",
+          "innerId": "modelContainer",
           "component": "home.app.container",
           "env": "",
           "size": ""
