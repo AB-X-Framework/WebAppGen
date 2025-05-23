@@ -344,7 +344,7 @@
             "img": "/resources/binary/abx.png",
             "links": [
               {
-                "href": "page/welcome",
+                "href": "/page/welcome",
                 "text": "Home"
               },
               {
