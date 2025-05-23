@@ -293,11 +293,9 @@ class PageContent {
       <ul id="nav-mobileasd" class="right">
       ${links}
       </ul>
-    </div>
-  </nav><div style="height: 10px"></div>`
+    </div>`
         output.push(result)
     }
-
 
     static renderMenu(output, specs) {
 
