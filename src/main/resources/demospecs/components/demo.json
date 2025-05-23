@@ -1,6 +1,5 @@
 [
   {
-    "package": "demo",
     "name": "TabPageComponent",
     "isContainer": true,
     "layout": "nav",
@@ -21,7 +20,6 @@
     "js": []
   },
   {
-    "package": "demo",
     "name": "jsEditor",
     "isContainer": false,
     "type": "js",
@@ -36,7 +34,6 @@
     ]
   },
   {
-    "package": "demo",
     "name": "basicSelect",
     "isContainer": false,
     "type": "select",
@@ -60,7 +57,6 @@
     ]
   },
   {
-    "package": "demo",
     "name": "abxImg",
     "isContainer": false,
     "type": "img",
@@ -75,7 +71,6 @@
     ]
   },
   {
-    "package": "demo",
     "name": "login",
     "isContainer": false,
     "type": "button",
@@ -101,7 +96,6 @@
     ]
   },
   {
-    "package": "demo",
     "name": "download",
     "isContainer": false,
     "type": "button",
@@ -121,7 +115,6 @@
     ]
   },
   {
-    "package": "demo",
     "name": "uploadModel",
     "isContainer": false,
     "type": "button",
@@ -141,7 +134,6 @@
     ]
   },
   {
-    "package": "demo",
     "name": "modelSpecs",
     "isContainer": false,
     "type": "file",
@@ -157,7 +149,6 @@
     ]
   },
   {
-    "package": "demo",
     "name": "login2",
     "isContainer": false,
     "type": "button",
@@ -183,7 +174,6 @@
     ]
   },
   {
-    "package": "demo",
     "name": "textField",
     "isContainer": false,
     "type": "textfield",
@@ -199,7 +189,6 @@
     ]
   },
   {
-    "package": "demo",
     "name": "section",
     "isContainer": false,
     "type": "section",
@@ -215,7 +204,6 @@
     ]
   },
   {
-    "package": "demo",
     "name": "textArea",
     "isContainer": false,
     "type": "textarea",
@@ -231,7 +219,6 @@
     ]
   },
   {
-    "package": "demo",
     "name": "header",
     "isContainer": true,
     "layout": "horizontal",
@@ -279,7 +266,6 @@
     ]
   },
   {
-    "package": "demo",
     "name": "header2",
     "isContainer": true,
     "layout": "horizontal",
@@ -327,7 +313,6 @@
     ]
   },
   {
-    "package": "demo",
     "name": "footer",
     "isContainer": true,
     "layout": "horizontal",
@@ -336,7 +321,6 @@
     ]
   },
   {
-    "package": "demo",
     "name": "MainPageComponent3",
     "isContainer": true,
     "layout": "vertical",
@@ -369,7 +353,6 @@
     "js": []
   },
   {
-    "package": "demo",
     "name": "MainPageComponent2",
     "isContainer": true,
     "layout": "cv",
@@ -390,7 +373,6 @@
     "js": []
   },
   {
-    "package": "demo",
     "name": "MainPageComponent",
     "isContainer": true,
     "layout": "cv",

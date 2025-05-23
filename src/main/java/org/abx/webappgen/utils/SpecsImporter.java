@@ -193,6 +193,9 @@ public class SpecsImporter {
             JSONArray packageComponents = new JSONArray(
                     StreamUtils.readStream(new FileInputStream(
                             specsFolder + "/components/" + componentPackage + ".json")));
+            for (int j = 0; j < packageComponents.length(); j++) {
+                packageComponents.getJSONObject(j).put("package", componentPackage);
+            }
             missing.putAll(packageComponents);
             missing = processComponentsAux(missing, saved);
         }

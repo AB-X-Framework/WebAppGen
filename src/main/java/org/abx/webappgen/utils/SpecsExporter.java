@@ -111,9 +111,7 @@ public class SpecsExporter {
     private JSONObject createComponent(org.abx.webappgen.persistence.model.Component component) {
         JSONObject jsonComponent = new JSONObject();
         jsonComponent.put("name", component.componentName);
-        jsonComponent.put("package", component.packageName);
         jsonComponent.put("isContainer", component.isContainer);
-
         jsonComponent.put("js", envValue(component.js));
         if (component.isContainer) {
             processContainer(jsonComponent, component.container);
