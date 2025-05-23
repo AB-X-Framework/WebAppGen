@@ -6,13 +6,20 @@ import java.util.Collection;
 
 @Entity
 @Table(name = "Page", indexes = {
-        @Index(name = "idx_pagename", columnList = "pageName") // Index for better query performance
+        @Index(name = "idx_pagename", columnList = "pageName") ,// Index for better query performance
+        @Index(name = "idx_pagematchesId", columnList = "matchesId") ,// Index for better query performance
 })
 public class Page {
 
     @Id
     @Column(unique = true, nullable = false)
     public Long pageId;
+
+    @Column( nullable = false)
+    public String matches;
+
+    @Column( nullable = false)
+    public Long matchesId;
 
     @Column( nullable = false)
     public String pageName;

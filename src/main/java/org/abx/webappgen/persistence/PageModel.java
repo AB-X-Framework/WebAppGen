@@ -119,7 +119,18 @@ public class PageModel {
     }
     @Transactional
     public JSONObject getPageByPageId(Set<String> roles, String env, long id) {
-        Page page = pageRepository.findByPageId(id);
+         Page page = pageRepository.findByPageId(id);
+        return getPageByPageId(roles, env, page);
+    }
+
+    @Transactional
+    public JSONObject getPageByPageMatchesId(Set<String> roles, String env, long matchId) {
+        Page page = pageRepository.findByMatchesId(matchId);
+        return getPageByPageId(roles, env, page);
+    }
+
+    private  JSONObject getPageByPageId(Set<String> roles, String env, Page page) {
+
         JSONObject jsonPage = new JSONObject();
         if (page == null) {
             jsonPage.put(Title, "Not found");
@@ -168,7 +179,9 @@ public class PageModel {
     }
 
     @Transactional
-    public long createPageWithPageName(String pageName, String packageName,String pageTitle,
+    public long createPageWithPageName(String pageName, String packageName,
+                                       String matches,
+                                       String pageTitle,
                                        String role, String componentName,
                                        JSONArray css,JSONArray scripts) {
         Page page = new Page();
@@ -176,6 +189,8 @@ public class PageModel {
         page.packageName = packageName;
         page.pageId = elementHashCode(pageName);
         page.role = role;
+        page.matches = matches;
+        page.matchesId = elementHashCode(matches);
         page.pageTitle = pageTitle;
         page.css = createEnvValues(css);
         page.scripts = createEnvValues(scripts);

@@ -162,6 +162,8 @@ public class SpecsExporter {
         for (Page page : pageRepository.findAll()) {
             JSONObject jsonPage = new JSONObject();
             jsonPage.put("name", page.pageName);
+            jsonPage.put("matches", page.matches);
+            jsonPage.put("matchesId", page.matchesId);
             jsonPage.put("title", page.pageTitle);
             jsonPage.put("role", page.role);
             jsonPage.put("component", page.component.componentName);
@@ -244,14 +246,21 @@ public class SpecsExporter {
     public JSONArray createTextResources(String specsFolder) throws IOException {
         new File(specsFolder + "/text").mkdirs();
         JSONArray textResources = new JSONArray();
-        for (TextResource textResource : textResourceRepository.findAll()) {
-            JSONObject jsonTextResource = new JSONObject();
-            textResources.put(jsonTextResource);
-            jsonTextResource.put("name", textResource.resourceName);
-            jsonTextResource.put("package", textResource.packageName);
-            jsonTextResource.put("role", textResource.role);
-            new FileOutputStream(specsFolder + "/text/" + textResource.resourceName).
-                    write(textResource.resourceValue.getBytes());
+        for (String packageName : textResourceRepository.findDistinctPackageNames()) {
+            textResources.put(packageName);
+            JSONArray packageResources = new JSONArray();
+            for (TextResource textResource : textResourceRepository.findAllByPackageName(packageName)) {
+                JSONObject jsonTextResource = new JSONObject();
+                packageResources.put(jsonTextResource);
+                jsonTextResource.put("name", textResource.resourceName);
+                jsonTextResource.put("package", packageName);
+                jsonTextResource.put("role", textResource.role);
+                new FileOutputStream(specsFolder + "/text/" + packageName+"/"+textResource.resourceName).
+                        write(textResource.resourceValue.getBytes());
+            }
+
+            new FileOutputStream(specsFolder + "/text/" + packageName+".json").
+                    write(packageResources.toString(1).getBytes());
         }
         return textResources;
     }

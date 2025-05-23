@@ -1,6 +1,7 @@
 [
   {
-    "name": "main",
+    "matches":"main",
+    "name": "demo.main",
     "title": "Main Page",
     "component": "MainPageComponent",
     "role": "Anonymous",
@@ -8,7 +9,8 @@
     "scripts": []
   },
   {
-    "name": "tabPage",
+    "matches":"tabPage",
+    "name": "demo.tabPage",
     "title": "Page Page",
     "component": "TabPageComponent",
     "role": "Anonymous",
@@ -16,7 +18,8 @@
     "scripts": []
   },
   {
-    "name": "main3",
+    "matches":"main3",
+    "name": "demo.main3",
     "title": "Main Page",
     "component": "MainPageComponent3",
     "role": "Anonymous",
@@ -24,7 +27,8 @@
     "scripts": []
   },
   {
-    "name": "main2",
+    "matches":"main2",
+    "name": "demo.main2",
     "title": "Main Page",
     "component": "MainPageComponent2",
     "role": "Anonymous",

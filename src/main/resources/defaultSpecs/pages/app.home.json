@@ -1,6 +1,7 @@
 [
   {
-    "name": "welcome",
+    "matches": "welcome",
+    "name": "app.home.welcome",
     "title": "Welcome Page",
     "component": "app.home.WelcomePageComponent",
     "role": "Admin",

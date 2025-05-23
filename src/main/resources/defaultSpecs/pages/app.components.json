@@ -1,6 +1,7 @@
 [
   {
-    "name": "components",
+    "matches": "components",
+    "name": "app.components.components",
     "title": "Components Page",
     "component": "app.components.ComponentsPageComponent",
     "role": "Admin",

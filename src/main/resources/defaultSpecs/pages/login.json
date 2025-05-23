@@ -1,6 +1,7 @@
 [
   {
-    "name": "main",
+    "matches": "main",
+    "name": "login.LoginPageComponent.main",
     "title": "Login Page",
     "component": "login.LoginPageComponent",
     "role": "Anonymous",

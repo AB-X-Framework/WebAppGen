@@ -8,10 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,9 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.stringtemplate.v4.ST;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/page")
@@ -68,7 +62,7 @@ public class PageController extends RoleController{
     @PreAuthorize("permitAll()")
     public String pageSpecs(@PathVariable String pagename, HttpSession session) {
         Set<String> roles = getRoles();
-        return pageModel.getPageByPageId(roles, env(session),
+        return pageModel.getPageByPageMatchesId(roles, env(session),
                 pageModel.elementHashCode(pagename)).toString(1);
     }
 
