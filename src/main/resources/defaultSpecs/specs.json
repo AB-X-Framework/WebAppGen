@@ -364,7 +364,7 @@
       "js": [
         {
           "env": "",
-          "value": "$(self).click(()=>App.process('uploadModel')) "
+          "value": ""
         }
       ],
       "specs": [
@@ -399,6 +399,10 @@
       "isContainer": true,
       "layout": "container",
       "js": [
+        {
+          "env": "",
+          "value": "$(upload).click(()=>App.process('uploadModel',{modelPath:$(modelPath).val()})) "
+        }
       ],
       "components": [
         {
