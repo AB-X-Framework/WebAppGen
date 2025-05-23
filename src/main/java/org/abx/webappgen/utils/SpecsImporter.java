@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 @Component
@@ -111,10 +112,10 @@ public class SpecsImporter {
         }
     }
 
-    private void processPagePackage(String pagesFolder, String packageName) {
-        JSONArray pages = StreamUtils.readStream(new FileInputStream(
+    private void processPagePackage(String pagesFolder, String packageName) throws IOException {
+        JSONArray pages = new JSONArray( StreamUtils.readStream(new FileInputStream(
                 pagesFolder+"/"+packageName+".json"
-        ));
+        )));
         for (int i = 0; i < pages.length();++i){
             processPage(pages.getJSONObject(i));
         }
