@@ -14,7 +14,6 @@ class PageContent {
             PageContent.renderComponent(output, js, specs.component)
             $("#body-content").html(output.join(""));
             M.updateTextFields();
-            M.AutoInit();
             for (var line of js) {
                 eval(line)
             }
@@ -74,13 +73,13 @@ class PageContent {
                     PageContent.renderSection(output, componentSpecs.specs);
                     break;
                 case "select":
-                    PageContent.renderSelect(output, componentSpecs.specs);
+                    PageContent.renderSelect(output, js, componentSpecs.specs);
                     break;
                 case "file":
                     PageContent.renderFile(output, componentSpecs.specs);
                     break;
                 case "modal":
-                    PageContent.renderModal(output, js,componentSpecs.specs);
+                    PageContent.renderModal(output, js, componentSpecs.specs);
                     break;
                 case "js":
                     PageContent.renderJS(output, componentSpecs.specs);
@@ -158,7 +157,7 @@ class PageContent {
             <input placeholder="${specs.placeholder}" id="${specs.id}"  type="text" class="validate">
           <label for="${specs.id}">${specs.label}</label></div>`;
         output.push(results);
-        if (typeof specs.url!=="undefined") {
+        if (typeof specs.url !== "undefined") {
             js.push(`$.get('${specs.url}',(res)=>{$(${specs.id}).val(res)})`);
         }
     }
@@ -171,7 +170,7 @@ class PageContent {
         output.push(results);
     }
 
-    static renderModal(output, js,specs) {
+    static renderModal(output, js, specs) {
         var results = `<div id="${specs.id}" class="modal">
     <div class="modal-content">
         <h4>${specs.title}</h4>
@@ -214,19 +213,40 @@ class PageContent {
         output.push(results);
     }
 
-    static renderSelect(output, specs) {
-        const optionsHtml = specs.values.map(item =>
-            `<option value="${item.key}">${item.value}</option>`
-        ).join('');
-
-        var results =
-            `<div id="${specs.id}"   class="input-field">
+    static renderSelect(output, js, specs) {
+        if (typeof specs.list !== "undefined") {
+            var results =
+                `<div   class="input-field">
+            <select id="${specs.id}">
+            </select>
+             <label>${specs.label}</label>
+            </div>`;
+            js.push(`$.get("${specs.list}",(resultList)=>{resultList.forEach(function(item) {
+                $(${specs.id}).append($('<option>', {
+                    value: item,
+                    text: item
+               }));
+              })
+              M.FormSelect.init(${specs.id});
+            });`);
+            output.push(results);
+        } else {
+            const optionsHtml = specs.values.map(item =>
+                `<option value="${item.key}">${item.value}</option>`
+            ).join('');
+            var results =
+                `<div   class="input-field">
             <select id="${specs.id}">
             ${optionsHtml}
             </select>
              <label>${specs.label}</label>
             </div>`;
-        output.push(results);
+            js.push( `$(${specs.id}).formSelect();`);
+            js.push( ` $(${specs.id}).on('change', function () {
+        console.log('New value:', $(this).val());
+      });`);
+            output.push(results);
+        }
     }
 
     static renderJS(output, specs) {
@@ -249,7 +269,7 @@ class PageContent {
     }
 
     static renderHeader(output, specs) {
-        var links ="";
+        var links = "";
         for (var link of specs.links) {
             links += `<li><a href="${link.href}">${link.text}</li></a>`
         }

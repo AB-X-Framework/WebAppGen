@@ -466,7 +466,7 @@
         {
           "env": "",
           "value": {
-            "url": "/page/packages",
+            "list": "/page/component/packages",
             "label": "Package"
           }
         }
