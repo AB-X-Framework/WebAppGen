@@ -247,6 +247,7 @@ public class SpecsExporter {
         new File(specsFolder + "/text").mkdirs();
         JSONArray textResources = new JSONArray();
         for (String packageName : textResourceRepository.findDistinctPackageNames()) {
+            new File(specsFolder + "/text/"+packageName).mkdirs();
             textResources.put(packageName);
             JSONArray packageResources = new JSONArray();
             for (TextResource textResource : textResourceRepository.findAllByPackageName(packageName)) {

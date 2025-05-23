@@ -192,7 +192,7 @@ public class SpecsImporter {
                     StreamUtils.readStream(
                             new FileInputStream(specsPath+"/text/" + packageName + ".json") ));
             for (int j = 0; j < textPackages.length(); j++) {
-                JSONObject jsonResource = specs.getJSONObject(j);
+                JSONObject jsonResource = textPackages.getJSONObject(j);
                 String name = jsonResource.getString("name");
                 String file = specsPath + "/text/" + packageName+"/"+name;
                 String data = StreamUtils.readStream(new FileInputStream(file));
