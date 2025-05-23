@@ -32,11 +32,11 @@
   "js": [
    {
     "env": "",
-    "value": "$(load).click(()=>uploadModel($(modelPath).val())) "
+    "value": "$(load).click(()=>loadModel($(modelPath).val())) "
    },
    {
     "env": "",
-    "value": "$(save).click(()=>App.process('model.saveModel',{modelPath:$(modelPath).val()})) "
+    "value": "$(save).click(()=>saveModel($(modelPath).val())) "
    },
    {
     "env": "",
