@@ -115,7 +115,7 @@ class PageContent {
     }
 
     static renderHorizontal(output, js, componentSpecs) {
-        output.push(`<div  ${componentSpecs.size}" style="height: 100%; margin-bottom: 0;" id="${componentSpecs.id}" class="row">`);
+        output.push(`<div  style="height: 100%; margin-bottom: 0;" id="${componentSpecs.id}" class="row">`);
         for (var component of componentSpecs.children) {
             output.push(`<div class="col ${component.size}" >`);
             PageContent.renderComponent(output, js, component);
@@ -125,7 +125,7 @@ class PageContent {
     }
 
     static renderVertical(output, js, componentSpecs) {
-        output.push(`<div ${componentSpecs.size}" id="${componentSpecs.id}">`);
+        output.push(`<div  id="${componentSpecs.id}">`);
         for (var component of componentSpecs.children) {
             output.push(`<div class="row ${component.size}">`);
             PageContent.renderComponent(output, js, component)
@@ -286,14 +286,14 @@ class PageContent {
             links += `<li><a href="${link.href}">${link.text}</li></a>`
         }
         var result = `  <nav>
-    <div class="nav-wrapped">
+    <div>
       <a href="#" class="left">
       <img src="${specs.img}" alt="Logo" style="height: 64px; padding: 5px;">
     </a>
-      <ul id="nav-mobileasd" class="right">
+      <ul class="right">
       ${links}
       </ul>
-    </div>`
+    </div> </nav>`
         output.push(result)
     }
 

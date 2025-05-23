@@ -100,7 +100,7 @@
     "components": [
       {
         "innerId": "header",
-        "component": "app.header",
+        "component": "app.home.header",
         "size": "l2",
         "env": ""
       },

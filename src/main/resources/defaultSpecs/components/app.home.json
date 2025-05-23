@@ -79,7 +79,7 @@
         }
       }
     ],
-    "name": "app.header",
+    "name": "app.home.header",
     "isContainer": false,
     "js": [],
     "type": "header"
@@ -146,7 +146,7 @@
     "components": [
       {
         "innerId": "header",
-        "component": "app.header",
+        "component": "app.home.header",
         "size": "l12",
         "env": ""
       },
