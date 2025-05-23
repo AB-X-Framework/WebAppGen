@@ -1,7 +1,6 @@
 package org.abx.webappgen.utils;
 
 
-import org.abx.webappgen.persistence.ResourceModel;
 import org.abx.webappgen.persistence.dao.*;
 import org.abx.webappgen.persistence.model.*;
 import org.json.JSONArray;
@@ -11,6 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -58,7 +58,7 @@ public class SpecsExporter {
         specs.put("methods", getMethods(specsFolder));
         specs.put("users", createUsers(specsFolder));
         specs.put("resources", createResources(specsFolder));
-        specs.put("components", createComponents());
+        specs.put("components", createComponents(specsFolder));
         specs.put("pages", createPages(specsFolder));
         new FileOutputStream(specsFolder + "/specs.json").write(specs.toString(1).getBytes());
     }
@@ -71,7 +71,7 @@ public class SpecsExporter {
         return bytes;
     }
 
-    public void saveSpecs(String name)throws IOException {
+    public void saveSpecs(String name) throws IOException {
         Path p = Paths.get(name);
         createSpecs(p.toString());
     }
@@ -92,12 +92,18 @@ public class SpecsExporter {
     }
 
 
-    public JSONArray createComponents() {
+    public JSONArray createComponents(String specsFolder) throws IOException {
+        new File(specsFolder + "/components").mkdirs();
         JSONArray jsonComponents = new JSONArray();
-
-        for (org.abx.webappgen.persistence.model.Component component : componentRepository.findAll()) {
-
-            jsonComponents.put(createComponent(component));
+        for (String packageName : componentRepository.findDistinctPackageNames()) {
+            jsonComponents.put(packageName);
+            JSONArray componentsByPackage = new JSONArray();
+            for (org.abx.webappgen.persistence.model.Component component : componentRepository.findAllByPackageName(packageName)) {
+                JSONObject jsonComponent = createComponent(component);
+                componentsByPackage.put(jsonComponent);
+            }
+            new FileOutputStream(specsFolder + "/components/" + packageName + ".json").
+                    write(componentsByPackage.toString(1).getBytes());
         }
         return jsonComponents;
     }
@@ -163,15 +169,15 @@ public class SpecsExporter {
             jsonPage.put("title", page.pageTitle);
             jsonPage.put("role", page.role);
             jsonPage.put("component", page.component.componentName);
-            jsonPage.put("css",envValue(page.css));
-            jsonPage.put("scripts",envValue(page.scripts));
+            jsonPage.put("css", envValue(page.css));
+            jsonPage.put("scripts", envValue(page.scripts));
             if (!pages.containsKey(page.packageName)) {
                 jsonPages.put(page.packageName);
                 pages.put(page.packageName, new JSONArray());
             }
             pages.get(page.packageName).put(jsonPage);
         }
-        for (Map.Entry<String,JSONArray> page:pages.entrySet()){
+        for (Map.Entry<String, JSONArray> page : pages.entrySet()) {
             new FileOutputStream(specsFolder + "/pages/" + page.getKey() + ".json").
                     write(page.getValue().toString(1).getBytes());
         }
@@ -244,8 +250,8 @@ public class SpecsExporter {
             JSONObject jsonArrayResource = new JSONObject();
             arrayResources.put(jsonArrayResource);
             String name = arrayResource.resourceName;
-            jsonArrayResource.put("name",name);
-            jsonArrayResource.put("package",arrayResource.packageName);
+            jsonArrayResource.put("name", name);
+            jsonArrayResource.put("package", arrayResource.packageName);
             JSONArray values = new JSONArray();
             for (ArrayEntry entry : arrayResource.resourceEntries) {
                 values.put(entry.value);
@@ -263,11 +269,11 @@ public class SpecsExporter {
             JSONObject jsonMapResource = new JSONObject();
             mapResources.put(jsonMapResource);
             String name = mapResource.resourceName;
-            jsonMapResource.put("name",name);
-            jsonMapResource.put("package",mapResource.packageName);
+            jsonMapResource.put("name", name);
+            jsonMapResource.put("package", mapResource.packageName);
             JSONObject values = new JSONObject();
             for (MapEntry entry : mapResource.resourceEntries) {
-                values.put(entry.entryName,entry.value);
+                values.put(entry.entryName, entry.value);
             }
             new FileOutputStream(specsFolder + "/map/" + name + ".json").
                     write(values.toString().getBytes());

@@ -58,6 +58,7 @@ public class SpecsImporter {
 
     /**
      * Uploads spe
+     *
      * @param specsFolder
      * @throws Exception
      */
@@ -74,7 +75,7 @@ public class SpecsImporter {
         JSONObject resources = obj.getJSONObject("resources");
         processResource(specsFolder, resources);
         JSONArray components = obj.getJSONArray("components");
-        processComponents(components);
+        processComponents(specsFolder, components);
         JSONArray pages = obj.getJSONArray("pages");
         processPages(specsFolder, pages);
     }
@@ -184,21 +185,39 @@ public class SpecsImporter {
         processMapResource(specsPath, resource.getJSONArray("map"));
     }
 
-    private void processComponents(JSONArray components) throws Exception {
-        processComponentsAux(components,new HashSet<>());
+    private void processComponents(String specsFolder, JSONArray componentPackages) throws Exception {
+        JSONArray missing = new JSONArray();
+        HashSet<String> saved = new HashSet<>();
+        for (int i = 0; i < componentPackages.length(); i++) {
+            String componentPackage = componentPackages.getString(i);
+            JSONArray packageComponents = new JSONArray(
+                    StreamUtils.readStream(new FileInputStream(
+                            specsFolder + "/components/" + componentPackage + ".json")));
+            missing.putAll(packageComponents);
+            missing = processComponentsAux(missing, saved);
+        }
+        int totalMissing = missing.length();
+        while (true) {
+            missing = processComponentsAux(missing, saved);
+            if (missing.isEmpty()) {
+                return;
+            }
+            if (missing.length() == totalMissing) {
+                throw new Exception("Could not resolve all components " + missing.toString(1));
+            }
+        }
     }
 
-    private void processComponentsAux(JSONArray components, HashSet<String> saved) throws Exception {
-        if (components.isEmpty()){
-            return;
+    private JSONArray processComponentsAux(JSONArray components, HashSet<String> saved) throws Exception {
+        if (components.isEmpty()) {
+            return components;
         }
         JSONArray missing = new JSONArray();
-        boolean save = false;
         for (int i = 0; i < components.length(); i++) {
             JSONObject component = components.getJSONObject(i);
             String name = component.getString("name");
             boolean isContainer = component.getBoolean("isContainer");
-            if (isContainer){
+            if (isContainer) {
                 JSONArray children = component.getJSONArray("components");
                 boolean valid = true;
                 for (int j = 0; j < children.length(); j++) {
@@ -213,18 +232,13 @@ public class SpecsImporter {
                 if (valid) {
                     processComponent(component);
                     saved.add(name);
-                    save = true;
                 }
-            }else {
+            } else {
                 saved.add(name);
-                save = true;
                 processComponent(component);
             }
         }
-        if (!save){
-            throw new Exception("Component with unknown children "+missing.toString(1));
-        }
-        processComponentsAux(missing,saved);
+        return missing;
     }
 
     private void processComponent(JSONObject component) throws Exception {
