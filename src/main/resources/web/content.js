@@ -127,7 +127,7 @@ class PageContent {
     static renderVertical(output, js, componentSpecs) {
         output.push(`<div ${componentSpecs.size}" id="${componentSpecs.id}">`);
         for (var component of componentSpecs.children) {
-            output.push('<div class="row ${component.size}">');
+            output.push(`<div class="row ${component.size}">`);
             PageContent.renderComponent(output, js, component)
             output.push('</div>');
         }
@@ -136,9 +136,9 @@ class PageContent {
 
 
     static renderContainer(output, js, componentSpecs) {
-        output.push(`<div class=" container ${componentSpecs.size}" id="${componentSpecs.id}"><div class="col">`);
+        output.push(`<div class=" container ${componentSpecs.size}" id="${componentSpecs.id}">`);
         for (var component of componentSpecs.children) {
-            output.push('<div class="row" ${component.size}>');
+            output.push(`<div class="row" ${component.size}>`);
             PageContent.renderComponent(output, js, component)
             output.push('</div>');
         }
