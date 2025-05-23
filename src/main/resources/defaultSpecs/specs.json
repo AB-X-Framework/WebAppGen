@@ -348,7 +348,7 @@
     },
     {
       "package": "app.home",
-      "name": "app.home.header",
+      "name": "app.header",
       "isContainer": false,
       "type": "header",
       "js": [],
@@ -372,8 +372,8 @@
       ]
     },
     {
-      "package": "app.home.app",
-      "name": "app.home.app.upload",
+      "package": "app.home",
+      "name": "app.home.upload",
       "isContainer": false,
       "type": "button",
       "js": [
@@ -392,8 +392,8 @@
       ]
     },
     {
-      "package": "app.home.app",
-      "name": "app.home.app.model",
+      "package": "app.home",
+      "name": "app.home.model",
       "isContainer": false,
       "type": "textfield",
       "js": [],
@@ -409,8 +409,8 @@
       ]
     },
     {
-      "package": "app.home.app",
-      "name": "app.home.app.container",
+      "package": "app.home",
+      "name": "app.home.container",
       "isContainer": true,
       "layout": "container",
       "js": [
@@ -422,13 +422,13 @@
       "components": [
         {
           "innerId": "modelPath",
-          "component": "app.home.app.model",
+          "component": "app.home.model",
           "env": "",
           "size": ""
         },
         {
           "innerId": "upload",
-          "component": "app.home.app.upload",
+          "component": "app.home.upload",
           "env": "",
           "size": ""
         }
@@ -444,22 +444,64 @@
       "components": [
         {
           "innerId": "header",
-          "component": "app.home.header",
+          "component": "app.header",
           "env": "",
           "size": ""
         },
         {
           "innerId": "modelContainer",
-          "component": "app.home.app.container",
+          "component": "app.home.container",
           "env": "",
           "size": ""
         }
       ]
-    }
-
-  ,
+    },
     {
-      "package": "home",
+      "package": "app.components",
+      "name": "app.components.ComponentType",
+      "isContainer": false,
+      "type": "select",
+      "js": [],
+      "specs": [
+        {
+          "env": "",
+          "value": {
+            "values": [
+              {
+                "key": "Select",
+                "value": "Select"
+              },
+              {
+                "key": "Button",
+                "value": "Button"
+              },
+              {
+                "key": "Textfield",
+                "value": "Textfield"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "package": "app.components",
+      "name": "app.components.container",
+      "isContainer": true,
+      "layout": "container",
+      "js": [
+      ],
+      "components": [
+        {
+          "innerId": "ComponentType",
+          "component": "app.components.ComponentType",
+          "env": "",
+          "size": ""
+        }
+      ]
+    },
+    {
+      "package": "app.components",
       "name": "app.components.ComponentsPageComponent",
       "isContainer": true,
       "layout": "vertical",
@@ -468,13 +510,13 @@
       "components": [
         {
           "innerId": "header",
-          "component": "app.home.header",
+          "component": "app.header",
           "env": "",
           "size": ""
         },
         {
           "innerId": "modelContainer",
-          "component": "app.home.app.container",
+          "component": "app.components.container",
           "env": "",
           "size": ""
         }
