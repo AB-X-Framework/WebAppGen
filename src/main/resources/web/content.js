@@ -291,7 +291,7 @@ class PageContent {
         output.push(result)
     }
 
-    static function showModel(title, content) {
+    static showModel(title, content) {
         // Create modal container
         const modal = document.createElement('div');
         modal.className = 'modal';

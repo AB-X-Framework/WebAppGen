@@ -5,7 +5,7 @@
   ],
   "resources": {
     "binary": [
-      "app"
+      "app","model"
     ],
     "text": [
       "demo"

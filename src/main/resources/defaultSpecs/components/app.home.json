@@ -46,6 +46,26 @@
   },
   {
 
+    "name": "app.home.download",
+    "isContainer": false,
+    "type": "button",
+    "js": [
+      {
+        "env": "",
+        "value": ""
+      }
+    ],
+    "specs": [
+      {
+        "env": "",
+        "value": {
+          "text": "Download Model"
+        }
+      }
+    ]
+  },
+  {
+
     "name": "app.home.save",
     "isContainer": false,
     "type": "button",
@@ -118,6 +138,12 @@
       {
         "innerId": "save",
         "component": "app.home.save",
+        "env": "",
+        "size": ""
+      },
+      {
+        "innerId": "download",
+        "component": "app.home.download",
         "env": "",
         "size": ""
       }

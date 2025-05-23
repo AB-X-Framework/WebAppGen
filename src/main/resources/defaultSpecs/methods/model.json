@@ -1,20 +1,20 @@
 [
   {
-    "name": "downloadModel",
+    "name": "model.downloadModel",
     "role": "Admin",
     "type": "zip",
     "outputName": "model.zip",
     "description": "Download model"
   },
   {
-    "name": "loadModel",
+    "name": "model.loadModel",
     "role": "Admin",
     "type": "json",
     "outputName": "response",
     "description": "Load model"
   },
   {
-    "name": "saveModel",
+    "name": "model.saveModel",
     "role": "Admin",
     "type": "json",
     "outputName": "response",
