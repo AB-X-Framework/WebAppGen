@@ -17,8 +17,8 @@ import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.HashSet;
 
 @Component
 public class SpecsImporter {
@@ -56,37 +56,27 @@ public class SpecsImporter {
         return true;
     }
 
+    /**
+     * Uploads spe
+     * @param specsFolder
+     * @throws Exception
+     */
     public void uploadSpecs(String specsFolder) throws Exception {
         File resourceFile = new File(specsFolder + "/specs.json");
         String data = StreamUtils.readStream(new FileInputStream(resourceFile));
         JSONObject obj = new JSONObject(data);
-
         processUsers(specsFolder, obj.getString("users"));
         JSONArray methods = obj.getJSONArray("methods");
         for (int i = 0; i < methods.length(); i++) {
             JSONObject method = methods.getJSONObject(i);
             processMethods(specsFolder, method);
         }
-
         JSONObject resources = obj.getJSONObject("resources");
         processResource(specsFolder, resources);
-
-
         JSONArray components = obj.getJSONArray("components");
-        for (int i = 0; i < components.length(); i++) {
-            JSONObject page = components.getJSONObject(i);
-            processComponents(page, false);
-        }
-        ;
-        for (int i = 0; i < components.length(); i++) {
-            JSONObject page = components.getJSONObject(i);
-            processComponents(page, true);
-        }
+        processComponents(components);
         JSONArray pages = obj.getJSONArray("pages");
-
         processPages(specsFolder, pages);
-
-
     }
 
     private void processUsers(String specsFolder, String userfile) throws IOException {
@@ -113,10 +103,10 @@ public class SpecsImporter {
     }
 
     private void processPagePackage(String pagesFolder, String packageName) throws IOException {
-        JSONArray pages = new JSONArray( StreamUtils.readStream(new FileInputStream(
-                pagesFolder+"/"+packageName+".json"
+        JSONArray pages = new JSONArray(StreamUtils.readStream(new FileInputStream(
+                pagesFolder + "/" + packageName + ".json"
         )));
-        for (int i = 0; i < pages.length();++i){
+        for (int i = 0; i < pages.length(); ++i) {
             processPage(pages.getJSONObject(i));
         }
     }
@@ -194,16 +184,59 @@ public class SpecsImporter {
         processMapResource(specsPath, resource.getJSONArray("map"));
     }
 
-    private void processComponents(JSONObject component, boolean doContainer) throws Exception {
+    private void processComponents(JSONArray components) throws Exception {
+        processComponentsAux(components,new HashSet<>());
+    }
+
+    private void processComponentsAux(JSONArray components, HashSet<String> saved) throws Exception {
+        if (components.isEmpty()){
+            return;
+        }
+        JSONArray missing = new JSONArray();
+        boolean save = false;
+        for (int i = 0; i < components.length(); i++) {
+            JSONObject component = components.getJSONObject(i);
+            String name = component.getString("name");
+            boolean isContainer = component.getBoolean("isContainer");
+            if (isContainer){
+                JSONArray children = component.getJSONArray("components");
+                boolean valid = true;
+                for (int j = 0; j < children.length(); j++) {
+                    JSONObject child = children.getJSONObject(j);
+                    String childComponent = child.getString("component");
+                    if (!saved.contains(childComponent)) {
+                        missing.put(component);
+                        valid = false;
+                        break;
+                    }
+                }
+                if (valid) {
+                    processComponent(component);
+                    saved.add(name);
+                    save = true;
+                }
+            }else {
+                saved.add(name);
+                save = true;
+                processComponent(component);
+            }
+        }
+        if (!save){
+            throw new Exception("Component with unknown children "+missing.toString(1));
+        }
+        processComponentsAux(missing,saved);
+    }
+
+    private void processComponent(JSONObject component) throws Exception {
         boolean isContainer = component.getBoolean("isContainer");
         String name = component.getString("name");
-        if (isContainer && doContainer) {
+        if (isContainer) {
             pageModel.createContainer(name,
                     component.getString("package"),
                     component.getJSONArray("js"),
                     component.getString("layout"),
                     component.getJSONArray("components"));
-        } else if (!isContainer && !doContainer) {
+        } else {
             JSONArray specs = component.getJSONArray("specs");
             pageModel.createElement(name,
                     component.getString("package"),
