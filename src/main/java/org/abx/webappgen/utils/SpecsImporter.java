@@ -46,13 +46,13 @@ public class SpecsImporter {
             pageModel.clean();
         }
         if (loadApp) {
-            uploadSpecs(appSpecsPath);
+            loadSpecs(appSpecsPath);
         }
     }
 
     public boolean uploadBinarySpecs(byte[] zipFolder) throws Exception {
         String path = ZipUtils.unzipToTempFolder(zipFolder);
-        uploadSpecs(path);
+        loadSpecs(path);
         return true;
     }
 
@@ -62,7 +62,7 @@ public class SpecsImporter {
      * @param specsFolder
      * @throws Exception
      */
-    public void uploadSpecs(String specsFolder) throws Exception {
+    public void loadSpecs(String specsFolder) throws Exception {
         File resourceFile = new File(specsFolder + "/specs.json");
         String data = StreamUtils.readStream(new FileInputStream(resourceFile));
         JSONObject obj = new JSONObject(data);

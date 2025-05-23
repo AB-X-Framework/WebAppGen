@@ -1,0 +1,23 @@
+[
+  {
+    "name": "downloadModel",
+    "role": "Admin",
+    "type": "zip",
+    "outputName": "model.zip",
+    "description": "Download model"
+  },
+  {
+    "name": "loadModel",
+    "role": "Admin",
+    "type": "json",
+    "outputName": "response",
+    "description": "Load model"
+  },
+  {
+    "name": "saveModel",
+    "role": "Admin",
+    "type": "json",
+    "outputName": "response",
+    "description": "Save model"
+  }
+]

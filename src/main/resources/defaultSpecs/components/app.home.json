@@ -26,7 +26,7 @@
   },
   {
     
-    "name": "app.home.upload",
+    "name": "app.home.load",
     "isContainer": false,
     "type": "button",
     "js": [
@@ -40,6 +40,26 @@
         "env": "",
         "value": {
           "text": "Upload Model"
+        }
+      }
+    ]
+  },
+  {
+
+    "name": "app.home.save",
+    "isContainer": false,
+    "type": "button",
+    "js": [
+      {
+        "env": "",
+        "value": ""
+      }
+    ],
+    "specs": [
+      {
+        "env": "",
+        "value": {
+          "text": "Save Model"
         }
       }
     ]
@@ -69,7 +89,12 @@
     "js": [
       {
         "env": "",
-        "value": "$(upload).click(()=>App.process('uploadModel',{modelPath:$(modelPath).val()})) "
+        "value": "$(load).click(()=>App.process('loadModel',{modelPath:$(modelPath).val()})) "
+      },
+
+      {
+        "env": "",
+        "value": "$(save).click(()=>App.process('saveModel',{modelPath:$(modelPath).val()})) "
       }
     ],
     "components": [
@@ -80,8 +105,14 @@
         "size": ""
       },
       {
-        "innerId": "upload",
-        "component": "app.home.upload",
+        "innerId": "load",
+        "component": "app.home.load",
+        "env": "",
+        "size": ""
+      },
+      {
+        "innerId": "save",
+        "component": "app.home.save",
         "env": "",
         "size": ""
       }

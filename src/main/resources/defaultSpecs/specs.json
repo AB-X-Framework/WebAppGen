@@ -1,7 +1,7 @@
 {
   "users": "users.json",
   "methods": [
-    "demo"
+    "model"
   ],
   "resources": {
     "binary": [
