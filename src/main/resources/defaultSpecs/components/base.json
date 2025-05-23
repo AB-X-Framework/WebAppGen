@@ -1,0 +1,17 @@
+[
+  {
+    "package": "base",
+    "name": "abxImg",
+    "isContainer": false,
+    "type": "img",
+    "js": [],
+    "specs": [
+      {
+        "env": "",
+        "value": {
+          "src": "/resources/binary/abx.png"
+        }
+      }
+    ]
+  }
+]

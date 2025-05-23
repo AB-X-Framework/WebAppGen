@@ -1,0 +1,112 @@
+[
+  {
+    "package": "app.home",
+    "name": "app.header",
+    "isContainer": false,
+    "type": "header",
+    "js": [],
+    "specs": [
+      {
+        "env": "",
+        "value": {
+          "img": "/resources/binary/abx.png",
+          "links": [
+            {
+              "href": "/page/welcome",
+              "text": "Home"
+            },
+            {
+              "href": "/page/components",
+              "text": "Components"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "package": "app.home",
+    "name": "app.home.upload",
+    "isContainer": false,
+    "type": "button",
+    "js": [
+      {
+        "env": "",
+        "value": ""
+      }
+    ],
+    "specs": [
+      {
+        "env": "",
+        "value": {
+          "text": "Upload Model"
+        }
+      }
+    ]
+  },
+  {
+    "package": "app.home",
+    "name": "app.home.model",
+    "isContainer": false,
+    "type": "textfield",
+    "js": [],
+    "specs": [
+      {
+        "env": "",
+        "value": {
+          "placeholder": "",
+          "url": "/resources/map/Env/modelPath",
+          "label": "Project path"
+        }
+      }
+    ]
+  },
+  {
+    "package": "app.home",
+    "name": "app.home.container",
+    "isContainer": true,
+    "layout": "container",
+    "js": [
+      {
+        "env": "",
+        "value": "$(upload).click(()=>App.process('uploadModel',{modelPath:$(modelPath).val()})) "
+      }
+    ],
+    "components": [
+      {
+        "innerId": "modelPath",
+        "component": "app.home.model",
+        "env": "",
+        "size": ""
+      },
+      {
+        "innerId": "upload",
+        "component": "app.home.upload",
+        "env": "",
+        "size": ""
+      }
+    ]
+  },
+  {
+    "package": "home",
+    "name": "app.home.WelcomePageComponent",
+    "isContainer": true,
+    "layout": "vertical",
+    "js": [
+    ],
+    "components": [
+      {
+        "innerId": "header",
+        "component": "app.header",
+        "env": "",
+        "size": ""
+      },
+      {
+        "innerId": "modelContainer",
+        "component": "app.home.container",
+        "env": "",
+        "size": ""
+      }
+    ]
+  }
+]

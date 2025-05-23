@@ -1,0 +1,206 @@
+[
+  {
+    "package": "login",
+    "name": "login.username",
+    "isContainer": false,
+    "type": "textfield",
+    "js": [],
+    "specs": [
+      {
+        "env": "ES",
+        "value": {
+          "placeholder": "Usuario",
+          "label": "Su nombre de usuario"
+        }
+      },
+      {
+        "env": "",
+        "value": {
+          "placeholder": "Your username",
+          "label": "Username"
+        }
+      }
+    ]
+  },
+  {
+    "package": "login",
+    "name": "login.invalidCreds",
+    "isContainer": false,
+    "type": "modal",
+    "js": [],
+    "specs": [
+      {
+        "env": "",
+        "value": {
+          "title": "Invalid Credentials",
+          "content": "Your username or password is incorrect. Please try again."
+        }
+      }
+    ]
+  },
+  {
+    "package": "login",
+    "name": "login.password",
+    "isContainer": false,
+    "type": "password",
+    "js": [],
+    "specs": [
+      {
+        "env": "ES",
+        "value": {
+          "placeholder": "Contraseña",
+          "label": "Su contraseña"
+        }
+      },
+      {
+        "env": "",
+        "value": {
+          "placeholder": "Your password",
+          "label": "Password"
+        }
+      }
+    ]
+  },
+  {
+    "package": "login",
+    "name": "login.welcome",
+    "isContainer": false,
+    "type": "section",
+    "js": [],
+    "specs": [
+      {
+        "env": "",
+        "value": {
+          "title": "ABX WebApp Gen",
+          "content": "Please type your credentials to log in",
+          "size": "h2"
+        }
+      }
+    ]
+  },
+  {
+    "package": "login",
+    "name": "login.header",
+    "isContainer": false,
+    "type": "header",
+    "js": [],
+    "specs": [
+      {
+        "env": "",
+        "value": {
+          "img": "/resources/binary/abx.png",
+          "links": [
+            {
+              "href": "/help",
+              "text": "About us"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "package": "login",
+    "name": "login.submit",
+    "isContainer": false,
+    "type": "button",
+    "js": [
+    ],
+    "specs": [
+      {
+        "env": "",
+        "value": {
+          "text": "Log in"
+        }
+      }
+    ]
+  },
+  {
+    "package": "login",
+    "name": "login.form.child",
+    "isContainer": true,
+    "layout": "container",
+    "js": [
+      {
+        "env": "",
+        "value": "$(login).click(()=>processLogIn($(username).val(),$(password).val(),invalidCreds))"
+      }
+    ],
+    "components": [
+      {
+        "innerId": "welcome",
+        "component": "login.welcome",
+        "env": "",
+        "size": "s12"
+      },
+      {
+        "innerId": "username",
+        "component": "login.username",
+        "env": "",
+        "size": "s12"
+      },
+      {
+        "innerId": "password",
+        "component": "login.password",
+        "env": "",
+        "size": "s12"
+      },
+      {
+        "innerId": "login",
+        "component": "login.submit",
+        "env": "",
+        "size": "s12"
+      },
+      {
+        "innerId": "invalidCreds",
+        "component": "login.invalidCreds",
+        "env": "",
+        "size": ""
+      }
+    ]
+  },
+  {
+    "package": "login",
+    "name": "login.form",
+    "isContainer": true,
+    "layout": "vertical",
+    "js": [
+    ],
+    "components": [
+      {
+        "innerId": "header",
+        "component": "login.header",
+        "env": "",
+        "size": "s12"
+      },
+      {
+        "innerId": "welcome",
+        "component": "login.form.child",
+        "env": "",
+        "size": "s12"
+      }
+    ]
+  },
+  {
+    "package": "login",
+    "name": "login.LoginPageComponent",
+    "isContainer": true,
+    "layout": "horizontal",
+    "js": [
+    ],
+    "components": [
+      {
+        "innerId": "abxImg",
+        "component": "abxImg",
+        "env": "",
+        "size": "l6 hide-on-small-only "
+      },
+      {
+        "innerId": "loginForm",
+        "component": "login.form",
+        "env": "",
+        "size": "s12 l6"
+      }
+    ]
+  }
+]
