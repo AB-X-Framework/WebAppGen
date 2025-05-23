@@ -53,6 +53,7 @@ public class SpecsExporter {
      */
     @Transactional
     public void createSpecs(String specsFolder) throws IOException {
+        deleteFolderRecursively(new File(specsFolder));
         JSONObject specs = new JSONObject();
         specs.put("methods", getMethods(specsFolder));
         specs.put("users", createUsers(specsFolder));
@@ -68,6 +69,32 @@ public class SpecsExporter {
         byte[] bytes = ZipUtils.zipFolderToByteArray(p);
         ZipUtils.delete(p);
         return bytes;
+    }
+    public static void deleteFolderRecursively(File folder) throws IOException {
+        if (!folder.exists()) {
+            throw new IOException("Folder does not exist: " + folder.getAbsolutePath());
+        }
+
+        if (!folder.isDirectory()) {
+            throw new IOException("Not a directory: " + folder.getAbsolutePath());
+        }
+
+        File[] files = folder.listFiles();
+        if (files != null) { // folder is not empty
+            for (File file : files) {
+                if (file.isDirectory()) {
+                    deleteFolderRecursively(file);
+                } else {
+                    if (!file.delete()) {
+                        throw new IOException("Failed to delete file: " + file.getAbsolutePath());
+                    }
+                }
+            }
+        }
+
+        if (!folder.delete()) {
+            throw new IOException("Failed to delete folder: " + folder.getAbsolutePath());
+        }
     }
 
     public void saveSpecs(String name) throws IOException {
