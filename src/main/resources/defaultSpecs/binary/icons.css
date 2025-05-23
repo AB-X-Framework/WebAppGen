@@ -3901,7 +3901,6 @@ small {
     margin-right:24px;
     -webkit-transition:color .3s ease;
     transition:color .3s ease;
-    text-transform:uppercase
 }
 .card .card-action a:not(.btn):not(.btn-large):not(.btn-small):not(.btn-large):not(.btn-floating):hover {
     color:#ffd8a6
@@ -4035,7 +4034,6 @@ small {
     height:48px;
     padding:0;
     margin:0;
-    text-transform:uppercase
 }
 .tabs .tab a {
     color:rgba(238,110,115,0.7);
@@ -4130,7 +4128,6 @@ small {
     height:36px;
     line-height:36px;
     padding:0 16px;
-    text-transform:uppercase;
     vertical-align:middle;
     -webkit-tap-highlight-color:transparent
 }
@@ -7661,7 +7658,6 @@ ul.sidenav.sidenav-fixed:hover {
     background-color:#ee6e73;
     color:#fff;
     content:"Sponsor";
-    text-transform:uppercase;
     letter-spacing:.4px;
     font-weight:600;
     font-size:10px;
@@ -8388,7 +8384,6 @@ code[class*="language-"] {
     background-color:#ee6e73;
     color:#fff;
     content:"Sponsor";
-    text-transform:uppercase;
     letter-spacing:.4px;
     font-weight:600;
     font-size:10px;
