@@ -8,22 +8,18 @@
       "demo"
     ],
     "text": [
-      {
-        "package": "demo",
-        "name": "loren.txt",
-        "role": "Anonymous"
-      }
+      "demo"
     ],
     "array": [
       {
         "package": "demo",
-        "name": "basicarray"
+        "name": "demo.basicarray"
       }
     ],
     "map": [
       {
         "package": "demo",
-        "name": "Env"
+        "name": "demo.Env"
       }
     ]
   },

@@ -190,7 +190,7 @@ public class SpecsImporter {
             String packageName = specs.getString(i);
             JSONArray textPackages = new JSONArray(
                     StreamUtils.readStream(
-                            new FileInputStream("/text/" + packageName + ".json") ));
+                            new FileInputStream(specsPath+"/text/" + packageName + ".json") ));
             for (int j = 0; j < textPackages.length(); j++) {
                 JSONObject jsonResource = specs.getJSONObject(j);
                 String name = jsonResource.getString("name");
