@@ -8,7 +8,7 @@
     "css": [
       {
         "env": "",
-        "value": "/resources/binary/icons.css"
+        "value": "/resources/binary/app.icons.css"
       }
     ],
     "scripts": [

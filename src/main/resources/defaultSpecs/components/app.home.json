@@ -9,7 +9,7 @@
       {
         "env": "",
         "value": {
-          "img": "/resources/binary/abx.png",
+          "img": "/resources/binary/app.abx.png",
           "links": [
             {
               "href": "/page/welcome",
@@ -55,7 +55,7 @@
         "env": "",
         "value": {
           "placeholder": "",
-          "url": "/resources/map/Env/modelPath",
+          "url": "/resources/map/app.Env/modelPath",
           "label": "Project path"
         }
       }

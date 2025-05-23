@@ -1,19 +1,19 @@
 [
   {
-    "package": "demo",
-    "name": "abx.png",
+    "package": "app",
+    "name": "app.abx.png",
     "contentType": "application/png",
     "role": "Anonymous"
   },
   {
-    "package": "demo",
-    "name": "icons.css",
+    "package": "app",
+    "name": "app.icons.css",
     "contentType": "text/css",
     "role": "Anonymous"
   },
   {
-    "package": "demo",
-    "name": "process.login.js",
+    "package": "app",
+    "name": "app.process.login.js",
     "contentType": "application/js",
     "role": "Anonymous"
   }

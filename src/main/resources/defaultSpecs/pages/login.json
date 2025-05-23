@@ -8,13 +8,13 @@
     "css": [
       {
         "env": "",
-        "value": "/resources/binary/icons.css"
+        "value": "/resources/binary/app.icons.css"
       }
     ],
     "scripts": [
       {
         "env": "",
-        "value": "/resources/binary/process.login.js"
+        "value": "/resources/binary/app.process.login.js"
       }
     ]
   }

@@ -76,7 +76,7 @@ public class PageModel {
     private UserRepository userRepository;
 
     public PageModel(){
-        envId = PageModel.elementHashCode("Env.home");
+        envId = PageModel.mapHashCode("app.Env","home");
     }
     @Transactional
     public void clean() {
@@ -101,8 +101,8 @@ public class PageModel {
         return  mapEntryRepository.findByMapEntryId(envId).value;
     }
     @Transactional
-    public boolean validPage(Set<String> roles,  long id) {
-        Page page = pageRepository.findByPageId(id);
+    public boolean validPage(Set<String> roles,  long matchesId) {
+        Page page = pageRepository.findByMatchesId(matchesId);
         if (page == null) {
             return false;
         }
@@ -176,6 +176,10 @@ public class PageModel {
 
     public static long elementHashCode(String element) {
         return element.hashCode();
+    }
+
+    public static long mapHashCode(String map,String key) {
+        return elementHashCode(map+"."+key);
     }
 
     @Transactional

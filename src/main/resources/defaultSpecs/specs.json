@@ -5,7 +5,7 @@
   ],
   "resources": {
     "binary": [
-      "demo"
+      "app"
     ],
     "text": [
       "demo"
@@ -18,8 +18,8 @@
     ],
     "map": [
       {
-        "package": "demo",
-        "name": "demo.Env"
+        "package": "app",
+        "name": "app.Env"
       }
     ]
   },
