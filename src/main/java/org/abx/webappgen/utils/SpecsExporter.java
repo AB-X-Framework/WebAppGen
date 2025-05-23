@@ -15,6 +15,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Collection;
 
 @Component
@@ -34,10 +35,8 @@ public class SpecsExporter {
     @Autowired
     public BinaryResourceRepository binaryResourceRepository;
 
-
     @Autowired
     public ArrayResourceRepository arrayResourceRepository;
-
 
     @Autowired
     public MapResourceRepository mapResourceRepository;
@@ -68,6 +67,11 @@ public class SpecsExporter {
         byte[] bytes = ZipUtils.zipFolderToByteArray(p);
         ZipUtils.delete(p);
         return bytes;
+    }
+
+    public void saveSpecs(String name)throws IOException {
+        Path p = Paths.get(name);
+        createSpecs(p.toString());
     }
 
     public String createUsers(String specsFolder) throws IOException {
