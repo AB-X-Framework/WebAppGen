@@ -53,7 +53,7 @@ public class ResourceController extends RoleController {
     }
 
     @Secured("Admin")
-    @PostMapping(value = "/upload/binary", consumes = "multipart/form-data")
+    @PostMapping(value = "/binary", consumes = "multipart/form-data")
     public long handleUpload(
             @RequestPart MultipartFile data,
             @RequestPart String packageName,

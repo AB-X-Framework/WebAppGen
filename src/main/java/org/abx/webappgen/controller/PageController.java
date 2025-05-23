@@ -6,6 +6,7 @@ import org.abx.webappgen.persistence.PageModel;
 import org.abx.webappgen.persistence.dao.MapEntryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -53,6 +54,13 @@ public class PageController extends RoleController{
         ST st1 = new ST(pageTemplate);
         String output = st1.add("pagename", pagename).render();
         return output;
+    }
+
+
+    @GetMapping(value = "/component/packages", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Secured("Admin")
+    public String packages() {
+        return pageModel.getPackages().toString(1);
     }
 
 

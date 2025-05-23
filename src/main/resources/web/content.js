@@ -224,6 +224,7 @@ class PageContent {
             <select id="${specs.id}">
             ${optionsHtml}
             </select>
+             <label>${specs.label}</label>
             </div>`;
         output.push(results);
     }
