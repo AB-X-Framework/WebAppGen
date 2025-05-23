@@ -218,6 +218,7 @@ class PageContent {
             var results =
                 `<div   class="input-field">
             <select id="${specs.id}">
+             <option value="" disabled selected></option>
             </select>
              <label>${specs.label}</label>
             </div>`;
@@ -237,6 +238,7 @@ class PageContent {
             var results =
                 `<div   class="input-field">
             <select id="${specs.id}">
+             <option value="" disabled selected></option>
             ${optionsHtml}
             </select>
              <label>${specs.label}</label>
