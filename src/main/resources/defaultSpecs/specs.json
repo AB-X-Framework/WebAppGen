@@ -29,7 +29,7 @@
       "package": "demo",
       "name": "uploadModel",
       "role": "Anonymous",
-      "type": "text",
+      "type": "json",
       "outputName": "response",
       "description": "Upload model"
     }
@@ -401,12 +401,12 @@
       "js": [
         {
           "env": "",
-          "value": "$(upload).click(()=>App.process('uploadModel',{modelPath:$(modelPath).val()})) "
+          "value": "$(upload).click(()=>App.process('uploadModel',{modelPath:$(modelPathX).val()})) "
         }
       ],
       "components": [
         {
-          "innerId": "modelPath",
+          "innerId": "modelPathX",
           "component": "home.app.model",
           "env": "",
           "size": ""

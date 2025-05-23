@@ -36,7 +36,7 @@ class PageContent {
     }
 
     static renderComponent(output, js, componentSpecs) {
-        if (js !== "") {
+        if (componentSpecs.js !== "") {
             js.push(componentSpecs.js);
         }
         if (componentSpecs.isContainer) {
