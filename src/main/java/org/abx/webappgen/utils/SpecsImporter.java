@@ -69,8 +69,8 @@ public class SpecsImporter {
         processUsers(specsFolder, obj.getString("users"));
         JSONArray methods = obj.getJSONArray("methods");
         for (int i = 0; i < methods.length(); i++) {
-            JSONObject method = methods.getJSONObject(i);
-            processMethods(specsFolder, method);
+            String packageName = methods.getString(i);
+            processPackageMethods(specsFolder, packageName);
         }
         JSONObject resources = obj.getJSONObject("resources");
         processResource(specsFolder, resources);
@@ -124,14 +124,23 @@ public class SpecsImporter {
 
     }
 
-    private void processMethods(String specsFolder, JSONObject method) throws IOException {
+    private void processPackageMethods(String specsFolder, String packageName) throws IOException {
+        JSONArray jsonMethods = new JSONArray(
+                StreamUtils.readStream(new FileInputStream(specsFolder + "/methods/" + packageName + ".json"))
+        );
+        for (int i = 0; i < jsonMethods.length(); i++) {
+            JSONObject method = jsonMethods.getJSONObject(i);
+            processMethods(specsFolder,packageName, method);
+        }
+    }
+    private void processMethods(String specsFolder, String packageName, JSONObject method) throws IOException {
         MethodSpec specs = new MethodSpec();
         specs.methodName = method.getString("name");
-        specs.packageName = method.getString("package");
+        specs.packageName = packageName;
         specs.description = method.getString("description");
         specs.methodSpecId = PageModel.elementHashCode(specs.methodName);
         specs.methodJS = StreamUtils.readStream(new FileInputStream(
-                specsFolder + "/methods/" + specs.methodName + ".js"));
+                specsFolder + "/methods/" + packageName+"/"+specs.methodName + ".js"));
         specs.type = method.getString("type");
         specs.outputName = method.getString("outputName");
         specs.role = method.getString("role");

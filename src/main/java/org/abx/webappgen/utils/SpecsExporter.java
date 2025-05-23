@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -184,18 +183,28 @@ public class SpecsExporter {
 
     public JSONArray getMethods(String specsFolder) throws IOException {
         new File(specsFolder + "/methods").mkdirs();
+
         JSONArray methods = new JSONArray();
-        for (MethodSpec method : methodSpecRepository.findAll()) {
-            JSONObject jsonMethod = new JSONObject();
-            jsonMethod.put("name", method.methodName);
-            jsonMethod.put("package", method.packageName);
-            jsonMethod.put("type", method.type);
-            jsonMethod.put("outputName", method.outputName);
-            jsonMethod.put("role", method.role);
-            jsonMethod.put("description", method.description);
-            methods.put(jsonMethod);
-            new FileOutputStream(specsFolder + "/methods/" + method.methodName + ".js").write(method.methodJS.getBytes());
+        for (String packageName : methodSpecRepository.findDistinctPackageNames()) {
+            methods.put(packageName);
+            new File(specsFolder + "/methods/" + packageName).mkdirs();
+            JSONArray jsonMethodsPerPackage = new JSONArray();
+            for (MethodSpec method : methodSpecRepository.findAll()) {
+                JSONObject jsonMethod = new JSONObject();
+                jsonMethodsPerPackage.put(jsonMethod);
+                jsonMethod.put("name", method.methodName);
+                jsonMethod.put("package", method.packageName);
+                jsonMethod.put("type", method.type);
+                jsonMethod.put("outputName", method.outputName);
+                jsonMethod.put("role", method.role);
+                jsonMethod.put("description", method.description);
+                new FileOutputStream(specsFolder + "/methods/" +
+                        packageName + "/" + method.methodName + ".js").write(method.methodJS.getBytes());
+            }
+            new FileOutputStream(specsFolder + "/methods/" +
+                    packageName+ ".json").write(jsonMethodsPerPackage.toString(1).getBytes());
         }
+
         return methods;
     }
 

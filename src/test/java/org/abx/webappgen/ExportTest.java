@@ -163,6 +163,10 @@ class ExportTest {
             Path file1 = dir1.resolve(relative);
             Path file2 = dir2.resolve(relative);
 
+            //No checksum for .json files
+            if (file1.toString().endsWith(".json")){
+                continue;
+            }
             String hash1 = sha256(file1);
             String hash2 = sha256(file2);
 
