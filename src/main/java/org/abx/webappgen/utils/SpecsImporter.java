@@ -108,14 +108,14 @@ public class SpecsImporter {
                 pagesFolder + "/" + packageName + ".json"
         )));
         for (int i = 0; i < pages.length(); ++i) {
-            processPage(pages.getJSONObject(i));
+            processPage(packageName,pages.getJSONObject(i));
         }
     }
 
-    private void processPage(JSONObject page) {
+    private void processPage(String packageName,JSONObject page) {
         pageModel.createPageWithPageName(
                 page.getString("name"),
-                page.getString("package"),
+                packageName,
                 page.getString("title"),
                 page.getString("role"),
                 page.getString("component"),

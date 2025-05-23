@@ -165,7 +165,6 @@ public class SpecsExporter {
         for (Page page : pageRepository.findAll()) {
             JSONObject jsonPage = new JSONObject();
             jsonPage.put("name", page.pageName);
-            jsonPage.put("package", page.packageName);
             jsonPage.put("title", page.pageTitle);
             jsonPage.put("role", page.role);
             jsonPage.put("component", page.component.componentName);
