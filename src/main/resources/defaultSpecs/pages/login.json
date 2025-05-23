@@ -1,16 +1,22 @@
-[{
- "component": "login.LoginPageComponent",
- "css": [{
-  "env": "",
-  "value": "/resources/binary/app.icons.css"
- }],
- "role": "Anonymous",
- "name": "login.LoginPageComponent.main",
- "title": "Login Page",
- "scripts": [{
-  "env": "",
-  "value": "/resources/binary/app.process.login.js"
- }],
- "matches": "main",
- "matchesId": 3343801
-}]
+[
+  {
+    "component": "login.LoginPageComponent",
+    "css": [
+      {
+        "env": "",
+        "value": "/resources/binary/app.icons.css"
+      }
+    ],
+    "role": "Anonymous",
+    "name": "login.LoginPageComponent.main",
+    "title": "Login Page",
+    "scripts": [
+      {
+        "env": "",
+        "value": "/resources/binary/app.process.login.js"
+      }
+    ],
+    "matches": "main",
+    "matchesId": 3343801
+  }
+]

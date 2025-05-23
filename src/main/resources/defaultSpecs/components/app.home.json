@@ -1,142 +1,164 @@
 [
- {
-  "layout": "container",
-  "components": [
-   {
-    "innerId": "modelPath",
-    "component": "app.home.model",
-    "size": "",
-    "env": ""
-   },
-   {
-    "innerId": "load",
-    "component": "app.home.load",
-    "size": "",
-    "env": ""
-   },
-   {
-    "innerId": "save",
-    "component": "app.home.save",
-    "size": "",
-    "env": ""
-   },
-   {
-    "innerId": "download",
-    "component": "app.home.download",
-    "size": "l3",
-    "env": ""
-   }
-  ],
-  "name": "app.home.container",
-  "isContainer": true,
-  "js": [
-   {
-    "env": "",
-    "value": "$(load).click(()=>loadModel($(modelPath).val())) "
-   },
-   {
-    "env": "",
-    "value": "$(save).click(()=>saveModel($(modelPath).val())) "
-   },
-   {
-    "env": "",
-    "value": "$(download).click(()=>downloadModel()) "
-   }
-  ]
- },
- {
-  "specs": [{
-   "env": "",
-   "value": {
-    "placeholder": "",
-    "label": "Project path",
-    "url": "/resources/map/app.Env/modelPath"
-   }
-  }],
-  "name": "app.home.model",
-  "isContainer": false,
-  "js": [],
-  "type": "textfield"
- },
- {
-  "specs": [{
-   "env": "",
-   "value": {
-    "img": "/resources/binary/app.abx.png",
-    "links": [
-     {
-      "href": "/page/welcome",
-      "text": "Home"
-     },
-     {
-      "href": "/page/components",
-      "text": "Components"
-     }
+  {
+    "layout": "container",
+    "components": [
+      {
+        "innerId": "modelPath",
+        "component": "app.home.model",
+        "size": "",
+        "env": ""
+      },
+      {
+        "innerId": "load",
+        "component": "app.home.load",
+        "size": "",
+        "env": ""
+      },
+      {
+        "innerId": "save",
+        "component": "app.home.save",
+        "size": "",
+        "env": ""
+      },
+      {
+        "innerId": "download",
+        "component": "app.home.download",
+        "size": "l3",
+        "env": ""
+      }
+    ],
+    "name": "app.home.container",
+    "isContainer": true,
+    "js": [
+      {
+        "env": "",
+        "value": "$(load).click(()=>loadModel($(modelPath).val())) "
+      },
+      {
+        "env": "",
+        "value": "$(save).click(()=>saveModel($(modelPath).val())) "
+      },
+      {
+        "env": "",
+        "value": "$(download).click(()=>downloadModel()) "
+      }
     ]
-   }
-  }],
-  "name": "app.header",
-  "isContainer": false,
-  "js": [],
-  "type": "header"
- },
- {
-  "specs": [{
-   "env": "",
-   "value": {"text": "Download Model"}
-  }],
-  "name": "app.home.download",
-  "isContainer": false,
-  "js": [{
-   "env": "",
-   "value": ""
-  }],
-  "type": "button"
- },
- {
-  "specs": [{
-   "env": "",
-   "value": {"text": "Upload Model"}
-  }],
-  "name": "app.home.load",
-  "isContainer": false,
-  "js": [{
-   "env": "",
-   "value": ""
-  }],
-  "type": "button"
- },
- {
-  "specs": [{
-   "env": "",
-   "value": {"text": "Save Model"}
-  }],
-  "name": "app.home.save",
-  "isContainer": false,
-  "js": [{
-   "env": "",
-   "value": ""
-  }],
-  "type": "button"
- },
- {
-  "layout": "vertical",
-  "components": [
-   {
-    "innerId": "header",
-    "component": "app.header",
-    "size": "",
-    "env": ""
-   },
-   {
-    "innerId": "modelContainer",
-    "component": "app.home.container",
-    "size": "",
-    "env": ""
-   }
-  ],
-  "name": "app.home.WelcomePageComponent",
-  "isContainer": true,
-  "js": []
- }
+  },
+  {
+    "specs": [
+      {
+        "env": "",
+        "value": {
+          "placeholder": "",
+          "label": "Project path",
+          "url": "/resources/map/app.Env/modelPath"
+        }
+      }
+    ],
+    "name": "app.home.model",
+    "isContainer": false,
+    "js": [],
+    "type": "textfield"
+  },
+  {
+    "specs": [
+      {
+        "env": "",
+        "value": {
+          "img": "/resources/binary/app.abx.png",
+          "links": [
+            {
+              "href": "/page/welcome",
+              "text": "Home"
+            },
+            {
+              "href": "/page/components",
+              "text": "Components"
+            }
+          ]
+        }
+      }
+    ],
+    "name": "app.header",
+    "isContainer": false,
+    "js": [],
+    "type": "header"
+  },
+  {
+    "specs": [
+      {
+        "env": "",
+        "value": {
+          "text": "Download Model"
+        }
+      }
+    ],
+    "name": "app.home.download",
+    "isContainer": false,
+    "js": [
+      {
+        "env": "",
+        "value": ""
+      }
+    ],
+    "type": "button"
+  },
+  {
+    "specs": [
+      {
+        "env": "",
+        "value": {
+          "text": "Upload Model"
+        }
+      }
+    ],
+    "name": "app.home.load",
+    "isContainer": false,
+    "js": [
+      {
+        "env": "",
+        "value": ""
+      }
+    ],
+    "type": "button"
+  },
+  {
+    "specs": [
+      {
+        "env": "",
+        "value": {
+          "text": "Save Model"
+        }
+      }
+    ],
+    "name": "app.home.save",
+    "isContainer": false,
+    "js": [
+      {
+        "env": "",
+        "value": ""
+      }
+    ],
+    "type": "button"
+  },
+  {
+    "layout": "vertical",
+    "components": [
+      {
+        "innerId": "header",
+        "component": "app.header",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "modelContainer",
+        "component": "app.home.container",
+        "size": "",
+        "env": ""
+      }
+    ],
+    "name": "app.home.WelcomePageComponent",
+    "isContainer": true,
+    "js": []
+  }
 ]

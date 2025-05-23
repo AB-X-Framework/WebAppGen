@@ -1,0 +1,60 @@
+<!-- Required Stylesheets -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+
+<!-- Materialize JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+<!-- Custom Style to Widen Dropdown -->
+<style>
+    .dropdown-content {
+        min-width: 200px !important; /* Adjust as needed */
+    }
+</style>
+
+<!-- Navigation Menu -->
+<nav>
+    <div class="nav-wrapper blue">
+        <ul id="nav-mobile" class="left">
+            <li>
+                <a class="dropdown-trigger" href="#!" data-target="file-dropdown">
+                    File <i class="material-icons tiny right" style="line-height: inherit;">arrow_drop_down</i>
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-trigger" href="#!" data-target="edit-dropdown">
+                    Edit <i class="material-icons tiny right" style="line-height: inherit;">arrow_drop_down</i>
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Dropdown Menus -->
+<ul id="file-dropdown" class="dropdown-content">
+    <li><a href="#!" onclick="newComponent()">New Component</a></li>
+    <li><a href="#!" onclick="deleteComponent()">Delete Component</a></li>
+</ul>
+
+<ul id="edit-dropdown" class="dropdown-content">
+    <li><a href="#!" onclick="renameComponent()">Rename Component</a></li>
+</ul>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const elems = document.querySelectorAll('.dropdown-trigger');
+        M.Dropdown.init(elems, { coverTrigger: false });
+    });
+
+    function newComponent() {
+        alert("New Component clicked");
+    }
+
+    function deleteComponent() {
+        alert("Delete Component clicked");
+    }
+
+    function renameComponent() {
+        alert("Rename Component clicked");
+    }
+</script>

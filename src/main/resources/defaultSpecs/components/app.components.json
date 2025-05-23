@@ -1,93 +1,124 @@
 [
- {
-  "layout": "horizontal",
-  "components": [
-   {
-    "innerId": "ComponentA",
-    "component": "app.components.ComponentPackage",
-    "size": "l2",
-    "env": ""
-   },
-   {
-    "innerId": "ComponentAX",
-    "component": "app.components.container",
-    "size": "l10",
-    "env": ""
-   }
-  ],
-  "name": "app.components.NavPanel",
-  "isContainer": true,
-  "js": []
- },
- {
-  "specs": [{
-   "env": "",
-   "value": {
-    "label": "Package",
-    "list": "/page/component/packages"
-   }
-  }],
-  "name": "app.components.ComponentPackage",
-  "isContainer": false,
-  "js": [],
-  "type": "select"
- },
- {
-  "layout": "container",
-  "components": [{
-   "innerId": "ComponentType",
-   "component": "app.components.ComponentType",
-   "size": "l10",
-   "env": ""
-  }],
-  "name": "app.components.container",
-  "isContainer": true,
-  "js": []
- },
- {
-  "specs": [{
-   "env": "",
-   "value": {
-    "values": [
-     {
-      "value": "Select",
-      "key": "Select"
-     },
-     {
-      "value": "Button",
-      "key": "Button"
-     },
-     {
-      "value": "Textfield",
-      "key": "Textfield"
-     }
+  {
+    "layout": "horizontal",
+    "components": [
+      {
+        "innerId": "ComponentA",
+        "component": "app.components.ComponentPackage",
+        "size": "l2",
+        "env": ""
+      },
+      {
+        "innerId": "ComponentAX",
+        "component": "app.components.container",
+        "size": "l10",
+        "env": ""
+      }
     ],
-    "label": "Component Type"
-   }
-  }],
-  "name": "app.components.ComponentType",
-  "isContainer": false,
-  "js": [],
-  "type": "select"
- },
- {
-  "layout": "vertical",
-  "components": [
-   {
-    "innerId": "header",
-    "component": "app.header",
-    "size": "",
-    "env": ""
-   },
-   {
-    "innerId": "modelContainer",
-    "component": "app.components.NavPanel",
-    "size": "l12",
-    "env": ""
-   }
-  ],
-  "name": "app.components.ComponentsPageComponent",
-  "isContainer": true,
-  "js": []
- }
+    "name": "app.components.NavPanel",
+    "isContainer": true,
+    "js": []
+  },
+  {
+    "specs": [
+      {
+        "env": "",
+        "value": {
+          "label": "Package",
+          "list": "/page/component/packages"
+        }
+      }
+    ],
+    "name": "app.components.ComponentPackage",
+    "isContainer": false,
+    "js": [],
+    "type": "select"
+  },
+  {
+    "layout": "container",
+    "components": [
+      {
+        "innerId": "ComponentType",
+        "component": "app.components.ComponentType",
+        "size": "l10",
+        "env": ""
+      }
+    ],
+    "name": "app.components.container",
+    "isContainer": true,
+    "js": []
+  },
+  {
+    "specs": [
+      {
+        "env": "",
+        "value": {
+          "values": [
+            {
+              "value": "Select",
+              "key": "Select"
+            },
+            {
+              "value": "Button",
+              "key": "Button"
+            },
+            {
+              "value": "Textfield",
+              "key": "Textfield"
+            }
+          ],
+          "label": "Component Type"
+        }
+      }
+    ],
+    "name": "app.components.ComponentType",
+    "isContainer": false,
+    "js": [],
+    "type": "select"
+  },
+
+
+
+  {
+    "specs": [
+      {
+        "env": "",
+        "value": {
+
+        }
+      }
+    ],
+    "name": "app.components.ComponentMenu",
+    "isContainer": false,
+    "js": [],
+    "type": "menu"
+  },
+
+
+  {
+    "layout": "vertical",
+    "components": [
+      {
+        "innerId": "header",
+        "component": "app.header",
+        "size": "l2",
+        "env": ""
+      },
+      {
+        "innerId": "ComponentMenu",
+        "component": "app.components.ComponentMenu",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "modelContainer",
+        "component": "app.components.NavPanel",
+        "size": "l12",
+        "env": ""
+      }
+    ],
+    "name": "app.components.ComponentsPageComponent",
+    "isContainer": true,
+    "js": []
+  }
 ]

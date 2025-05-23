@@ -1,9 +1,6 @@
 [{
  "component": "app.components.ComponentsPageComponent",
- "css": [{
-  "env": "",
-  "value": "/resources/binary/app.icons.css"
- }],
+ "css": [],
  "role": "Admin",
  "name": "app.components.components",
  "title": "Components Page",

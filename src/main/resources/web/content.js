@@ -51,7 +51,6 @@ class PageContent {
         } else {
 
             var size = componentSpecs.size;
-            output.push(`<div class="col ${size}">`)
             componentSpecs.specs.id = componentSpecs.id;
             switch (componentSpecs.type) {
                 case "button":
@@ -87,8 +86,10 @@ class PageContent {
                 case "header":
                     PageContent.renderHeader(output, componentSpecs.specs);
                     break;
+                case "menu":
+                    PageContent.renderMenu(output, componentSpecs.specs);
+                    break;
             }
-            output.push(`</div>`);
         }
 
     }
@@ -114,26 +115,32 @@ class PageContent {
     }
 
     static renderHorizontal(output, js, componentSpecs) {
-        output.push(`<div class="row  ${componentSpecs.size}" style="height: 100%; margin-bottom: 0;" id="${componentSpecs.id}">`);
+        output.push(`<div  ${componentSpecs.size}" style="height: 100%; margin-bottom: 0;" id="${componentSpecs.id}" class="row">`);
         for (var component of componentSpecs.children) {
+            output.push(`<div class="col ${component.size}" >`);
             PageContent.renderComponent(output, js, component);
+            output.push('</div>');
         }
         output.push('</div>');
     }
 
     static renderVertical(output, js, componentSpecs) {
-        output.push(`<div class="col ${componentSpecs.size}" id="${componentSpecs.id}">`);
+        output.push(`<div ${componentSpecs.size}" id="${componentSpecs.id}">`);
         for (var component of componentSpecs.children) {
+            output.push('<div class="row ${component.size}">');
             PageContent.renderComponent(output, js, component)
+            output.push('</div>');
         }
         output.push('</div>');
     }
 
 
     static renderContainer(output, js, componentSpecs) {
-        output.push(`<div class=" container ${componentSpecs.size}" id="${componentSpecs.id}">`);
+        output.push(`<div class=" container ${componentSpecs.size}" id="${componentSpecs.id}"><div class="col">`);
         for (var component of componentSpecs.children) {
+            output.push('<div class="row" ${component.size}>');
             PageContent.renderComponent(output, js, component)
+            output.push('</div>');
         }
         output.push('</div>');
     }
@@ -288,6 +295,115 @@ class PageContent {
       </ul>
     </div>
   </nav><div style="height: 10px"></div>`
+        output.push(result)
+    }
+
+
+    static renderMenu(output, specs) {
+
+        var result = `  
+        
+        
+  <style>
+    /* Custom grey menu bar styles */
+    #custom-menu-bar {
+      height: 48px;
+      line-height: 48px;
+    }
+
+    #custom-menu-bar .nav-wrapper {
+      height: 48px;
+    }
+
+    #custom-menu-bar ul li a {
+      line-height: 48px;
+      height: 48px;
+      padding: 0 12px;
+      font-size: 14px;
+      color: #212121;
+    }
+
+    #custom-menu-bar .material-icons {
+      font-size: 18px;
+      vertical-align: middle;
+    }
+
+    /* Active (selected) menu button */
+    #custom-menu-bar ul li.active a {
+      background-color: #9e9e9e; /* dark grey */
+      color: white;
+    }
+
+    /* Widen and compact dropdowns */
+    .dropdown-content {
+      min-width: 200px !important;
+    }
+
+    .dropdown-content li > a {
+      padding: 8px 16px;
+      line-height: 1.2rem;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Custom Grey Menu Bar -->
+  <nav id="custom-menu-bar">
+    <div class="nav-wrapper grey lighten-2">
+      <ul id="nav-mobile" class="left">
+        <li class="active">
+          <a class="dropdown-trigger" href="#!" data-target="file-dropdown">
+            File <i class="material-icons tiny right">arrow_drop_down</i>
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-trigger" href="#!" data-target="edit-dropdown">
+            Edit <i class="material-icons tiny right">arrow_drop_down</i>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- File Dropdown Menu -->
+  <ul id="file-dropdown" class="dropdown-content">
+    <li><a href="#!" onclick="newComponent()">New Component</a></li>
+    <li><a href="#!" onclick="deleteComponent()">Delete Component</a></li>
+  </ul>
+
+  <!-- Edit Dropdown Menu -->
+  <ul id="edit-dropdown" class="dropdown-content">
+    <li><a href="#!" onclick="renameComponent()">Rename Component</a></li>
+  </ul>
+
+  <!-- Scripts -->
+  <script>
+
+
+    function newComponent() {
+      alert("New Component clicked");
+    }
+
+    function deleteComponent() {
+      alert("Delete Component clicked");
+    }
+
+    function renameComponent() {
+      alert("Rename Component clicked");
+    }
+     const elems = document.querySelectorAll('.dropdown-trigger');
+      M.Dropdown.init(elems, { coverTrigger: false });
+
+    // Optional: make active tab toggle dynamically
+    document.querySelectorAll('#custom-menu-bar ul li').forEach(li => {
+      li.addEventListener('click', () => {
+        document.querySelectorAll('#custom-menu-bar ul li').forEach(el => el.classList.remove('active'));
+        li.classList.add('active');
+      });
+    });
+  </script>
+`
         output.push(result)
     }
 
