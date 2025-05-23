@@ -1,23 +1,26 @@
 [
-  {
-    "name": "model.downloadModel",
-    "role": "Admin",
-    "type": "zip",
-    "outputName": "model.zip",
-    "description": "Download model"
-  },
-  {
-    "name": "model.loadModel",
-    "role": "Admin",
-    "type": "json",
-    "outputName": "response",
-    "description": "Load model"
-  },
-  {
-    "name": "model.saveModel",
-    "role": "Admin",
-    "type": "json",
-    "outputName": "response",
-    "description": "Save model"
-  }
+ {
+  "package": "model",
+  "outputName": "model.zip",
+  "role": "Admin",
+  "name": "model.downloadModel",
+  "description": "Download model",
+  "type": "zip"
+ },
+ {
+  "package": "model",
+  "outputName": "response",
+  "role": "Admin",
+  "name": "model.saveModel",
+  "description": "Save model",
+  "type": "json"
+ },
+ {
+  "package": "model",
+  "outputName": "response",
+  "role": "Admin",
+  "name": "model.loadModel",
+  "description": "Load model",
+  "type": "json"
+ }
 ]

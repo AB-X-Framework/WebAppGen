@@ -1,7 +1,6 @@
-[
-  {
-    "name": "model.methods.js",
-    "contentType": "application/js",
-    "role": "Anonymous"
-  }
-]
+[{
+ "package": "model",
+ "role": "Anonymous",
+ "name": "model.methods.js",
+ "contentType": "application/js"
+}]

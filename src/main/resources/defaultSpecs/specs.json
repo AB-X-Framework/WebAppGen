@@ -1,37 +1,30 @@
 {
-  "users": "users.json",
-  "methods": [
-    "model"
+ "components": [
+  "app.components",
+  "app.home",
+  "base",
+  "login"
+ ],
+ "pages": [
+  "app.home",
+  "login",
+  "app.components"
+ ],
+ "methods": ["model"],
+ "resources": {
+  "array": [{
+   "package": "demo",
+   "name": "demo.basicarray"
+  }],
+  "binary": [
+   "app",
+   "model"
   ],
-  "resources": {
-    "binary": [
-      "app","model"
-    ],
-    "text": [
-      "demo"
-    ],
-    "array": [
-      {
-        "package": "demo",
-        "name": "demo.basicarray"
-      }
-    ],
-    "map": [
-      {
-        "package": "app",
-        "name": "app.Env"
-      }
-    ]
-  },
-  "pages": [
-    "login",
-    "app.home",
-    "app.components"
-  ],
-  "components": [
-    "base",
-    "login",
-    "app.home",
-    "app.components"
-  ]
+  "text": ["demo"],
+  "map": [{
+   "package": "app",
+   "name": "app.Env"
+  }]
+ },
+ "users": "users.json"
 }

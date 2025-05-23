@@ -1,21 +1,16 @@
-[
-  {
-    "matches": "welcome",
-    "name": "app.home.welcome",
-    "title": "Welcome Page",
-    "component": "app.home.WelcomePageComponent",
-    "role": "Admin",
-    "css": [
-      {
-        "env": "",
-        "value": "/resources/binary/app.icons.css"
-      }
-    ],
-    "scripts": [
-      {
-        "env": "",
-        "value": "/resources/binary/model.methods.js"
-      }
-    ]
-  }
-]
+[{
+ "component": "app.home.WelcomePageComponent",
+ "css": [{
+  "env": "",
+  "value": "/resources/binary/app.icons.css"
+ }],
+ "role": "Admin",
+ "name": "app.home.welcome",
+ "title": "Welcome Page",
+ "scripts": [{
+  "env": "",
+  "value": "/resources/binary/model.methods.js"
+ }],
+ "matches": "welcome",
+ "matchesId": 1233099618
+}]
