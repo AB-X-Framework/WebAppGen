@@ -57,39 +57,37 @@ class PageContent {
             switch (componentSpecs.type) {
                 case "button":
                     PageContent.renderButton(output, componentSpecs.specs);
-                    break
+                    break;
                 case "img":
                     PageContent.renderImg(output, componentSpecs.specs);
-                    break
+                    break;
                 case "textfield":
                     PageContent.renderTextfield(output, js, componentSpecs.specs);
-                    break
+                    break;
                 case "password":
                     PageContent.renderPassword(output, componentSpecs.specs);
-                    break
+                    break;
                 case "textarea":
                     PageContent.renderTextarea(output, componentSpecs.specs);
-                    break
+                    break;
                 case "section":
                     PageContent.renderSection(output, componentSpecs.specs);
-                    break
+                    break;
                 case "select":
                     PageContent.renderSelect(output, componentSpecs.specs);
-                    break
+                    break;
                 case "file":
                     PageContent.renderFile(output, componentSpecs.specs);
-                    break
+                    break;
                 case "modal":
                     PageContent.renderModal(output, js,componentSpecs.specs);
-                    break
+                    break;
                 case "js":
                     PageContent.renderJS(output, componentSpecs.specs);
-                    break
+                    break;
                 case "header":
                     PageContent.renderHeader(output, componentSpecs.specs);
-                    break
-
-
+                    break;
             }
             output.push(`</div>`);
         }
