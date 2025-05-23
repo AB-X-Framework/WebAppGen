@@ -1,0 +1,20 @@
+[
+  {
+    "package": "demo",
+    "name": "abx.png",
+    "contentType": "application/png",
+    "role": "Anonymous"
+  },
+  {
+    "package": "demo",
+    "name": "icons.css",
+    "contentType": "text/css",
+    "role": "Anonymous"
+  },
+  {
+    "package": "demo",
+    "name": "process.login.js",
+    "contentType": "application/js",
+    "role": "Anonymous"
+  }
+]
