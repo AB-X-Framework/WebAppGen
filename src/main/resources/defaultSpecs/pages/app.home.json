@@ -1,0 +1,17 @@
+[
+  {
+    "package": "app.home",
+    "name": "welcome",
+    "title": "Welcome Page",
+    "component": "app.home.WelcomePageComponent",
+    "role": "User",
+    "css": [
+      {
+        "env": "",
+        "value": "/resources/binary/icons.css"
+      }
+    ],
+    "scripts": [
+    ]
+  }
+]

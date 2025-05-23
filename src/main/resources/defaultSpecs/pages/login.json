@@ -1,0 +1,21 @@
+[
+  {
+    "package": "login",
+    "name": "main",
+    "title": "Login Page",
+    "component": "login.LoginPageComponent",
+    "role": "Anonymous",
+    "css": [
+      {
+        "env": "",
+        "value": "/resources/binary/icons.css"
+      }
+    ],
+    "scripts": [
+      {
+        "env": "",
+        "value": "/resources/binary/process.login.js"
+      }
+    ]
+  }
+]

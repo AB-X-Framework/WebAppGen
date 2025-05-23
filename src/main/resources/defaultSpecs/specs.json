@@ -75,57 +75,7 @@
       }
     ]
   },
-  "pages": [
-    {
-      "package": "login",
-      "name": "main",
-      "title": "Login Page",
-      "component": "login.LoginPageComponent",
-      "role": "Anonymous",
-      "css": [
-        {
-          "env": "",
-          "value": "/resources/binary/icons.css"
-        }
-      ],
-      "scripts": [
-        {
-          "env": "",
-          "value": "/resources/binary/process.login.js"
-        }
-      ]
-    },
-    {
-      "package": "app.home",
-      "name": "welcome",
-      "title": "Welcome Page",
-      "component": "app.home.WelcomePageComponent",
-      "role": "User",
-      "css": [
-        {
-          "env": "",
-          "value": "/resources/binary/icons.css"
-        }
-      ],
-      "scripts": [
-      ]
-    },
-    {
-      "package": "app.components",
-      "name": "components",
-      "title": "Components Page",
-      "component": "app.components.ComponentsPageComponent",
-      "role": "User",
-      "css": [
-        {
-          "env": "",
-          "value": "/resources/binary/icons.css"
-        }
-      ],
-      "scripts": [
-      ]
-    }
-  ],
+  "pages": ["login","app.home","app.components"],
   "components": [
     {
       "package": "base",

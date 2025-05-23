@@ -81,12 +81,10 @@ public class SpecsImporter {
             JSONObject page = components.getJSONObject(i);
             processComponents(page, true);
         }
-
         JSONArray pages = obj.getJSONArray("pages");
-        for (int i = 0; i < pages.length(); i++) {
-            JSONObject page = pages.getJSONObject(i);
-            processPage(page);
-        }
+
+        processPages(specsFolder, pages);
+
 
     }
 
@@ -105,8 +103,25 @@ public class SpecsImporter {
         }
     }
 
+    private void processPages(String specsFolder, JSONArray pages) throws IOException {
+        String pagesFolder = specsFolder + "/pages";
+        for (int i = 0; i < pages.length(); i++) {
+            String packageName = pages.getString(i);
+            processPagePackage(pagesFolder, packageName);
+        }
+    }
+
+    private void processPagePackage(String pagesFolder, String packageName) {
+        JSONArray pages = StreamUtils.readStream(new FileInputStream(
+                pagesFolder+"/"+packageName+".json"
+        ));
+        for (int i = 0; i < pages.length();++i){
+            processPage(pages.getJSONObject(i));
+        }
+    }
+
     private void processPage(JSONObject page) {
-        long id = pageModel.createPageWithPageName(
+        pageModel.createPageWithPageName(
                 page.getString("name"),
                 page.getString("package"),
                 page.getString("title"),
@@ -155,8 +170,8 @@ public class SpecsImporter {
             String name = jsonResource.getString("name");
             String file = specsPath + "/binary/" + name;
             byte[] data = StreamUtils.readByteArrayStream(new FileInputStream(file));
-            resourceModel.saveBinaryResource(name,   jsonResource.getString("package"),
-                    jsonResource.getString("contentType"),data, jsonResource.getString("role"));
+            resourceModel.saveBinaryResource(name, jsonResource.getString("package"),
+                    jsonResource.getString("contentType"), data, jsonResource.getString("role"));
         }
     }
 
@@ -166,7 +181,7 @@ public class SpecsImporter {
             String name = jsonResource.getString("name");
             String file = specsPath + "/text/" + name;
             String data = StreamUtils.readStream(new FileInputStream(file));
-            resourceModel.saveTextResource(name,  jsonResource.getString("package"),
+            resourceModel.saveTextResource(name, jsonResource.getString("package"),
                     data, jsonResource.getString("role"));
         }
     }

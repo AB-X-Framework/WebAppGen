@@ -64,42 +64,7 @@
     ]
   },
   "pages": [
-    {
-      "package": "demo",
-      "name": "main",
-      "title": "Main Page",
-      "component": "MainPageComponent",
-      "role": "Anonymous",
-      "css": [],
-      "scripts": []
-    },
-    {
-      "package": "demo",
-      "name": "tabPage",
-      "title": "Page Page",
-      "component": "TabPageComponent",
-      "role": "Anonymous",
-      "css": [],
-      "scripts": []
-    },
-    {
-      "package": "demo",
-      "name": "main3",
-      "title": "Main Page",
-      "component": "MainPageComponent3",
-      "role": "Anonymous",
-      "css": [],
-      "scripts": []
-    },
-    {
-      "package": "demo",
-      "name": "main2",
-      "title": "Main Page",
-      "component": "MainPageComponent2",
-      "role": "Anonymous",
-      "css": [],
-      "scripts": []
-    }
+    "demo"
   ],
   "components": [
     {

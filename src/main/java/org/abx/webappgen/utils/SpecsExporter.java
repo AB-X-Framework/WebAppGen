@@ -17,6 +17,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 @Component
 public class SpecsExporter {
@@ -57,7 +59,7 @@ public class SpecsExporter {
         specs.put("users", createUsers(specsFolder));
         specs.put("resources", createResources(specsFolder));
         specs.put("components", createComponents());
-        specs.put("pages", createPages());
+        specs.put("pages", createPages(specsFolder));
         new FileOutputStream(specsFolder + "/specs.json").write(specs.toString(1).getBytes());
     }
 
@@ -150,11 +152,11 @@ public class SpecsExporter {
         return jsonValues;
     }
 
-    public JSONArray createPages() {
+    public JSONArray createPages(String specsFolder) throws IOException {
         JSONArray jsonPages = new JSONArray();
+        HashMap<String, JSONArray> pages = new HashMap<>();
         for (Page page : pageRepository.findAll()) {
             JSONObject jsonPage = new JSONObject();
-            jsonPages.put(jsonPage);
             jsonPage.put("name", page.pageName);
             jsonPage.put("package", page.packageName);
             jsonPage.put("title", page.pageTitle);
@@ -162,6 +164,15 @@ public class SpecsExporter {
             jsonPage.put("component", page.component.componentName);
             jsonPage.put("css",envValue(page.css));
             jsonPage.put("scripts",envValue(page.scripts));
+            if (!pages.containsKey(page.packageName)) {
+                jsonPages.put(page.packageName);
+                pages.put(page.packageName, new JSONArray());
+            }
+            pages.get(page.pageName).put(jsonPage);
+        }
+        for (Map.Entry<String,JSONArray> page:pages.entrySet()){
+            new FileOutputStream(specsFolder + "/pages/" + page.getKey() + ".json").
+                    write(page.getValue().toString(1).getBytes());
         }
         return jsonPages;
 
