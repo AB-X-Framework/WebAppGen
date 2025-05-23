@@ -202,7 +202,7 @@ public class SpecsExporter {
                         packageName + "/" + method.methodName + ".js").write(method.methodJS.getBytes());
             }
             new FileOutputStream(specsFolder + "/methods/" +
-                    packageName+ ".json").write(jsonMethodsPerPackage.toString(1).getBytes());
+                    packageName + ".json").write(jsonMethodsPerPackage.toString(1).getBytes());
         }
 
         return methods;
@@ -220,15 +220,23 @@ public class SpecsExporter {
     public JSONArray createBinaryResources(String specsFolder) throws IOException {
         new File(specsFolder + "/binary").mkdirs();
         JSONArray binaryResources = new JSONArray();
-        for (BinaryResource binaryResource : binaryResourceRepository.findAll()) {
-            JSONObject jsonBinaryResource = new JSONObject();
-            binaryResources.put(jsonBinaryResource);
-            jsonBinaryResource.put("name", binaryResource.resourceName);
-            jsonBinaryResource.put("package", binaryResource.packageName);
-            jsonBinaryResource.put("contentType", binaryResource.contentType);
-            jsonBinaryResource.put("role", binaryResource.role);
-            new FileOutputStream(specsFolder + "/binary/" + binaryResource.resourceName).
-                    write(binaryResource.resourceValue);
+
+        for (String packageName : binaryResourceRepository.findDistinctPackageNames()) {
+            binaryResources.put(packageName);
+            JSONArray packageResources = new JSONArray();
+            new File(specsFolder + "/binary/" + packageName).mkdirs();
+            for (BinaryResource binaryResource : binaryResourceRepository.findAllByPackageName(packageName)) {
+                JSONObject jsonBinaryResource = new JSONObject();
+                packageResources.put(jsonBinaryResource);
+                jsonBinaryResource.put("name", binaryResource.resourceName);
+                jsonBinaryResource.put("package", packageName);
+                jsonBinaryResource.put("contentType", binaryResource.contentType);
+                jsonBinaryResource.put("role", binaryResource.role);
+                new FileOutputStream(specsFolder + "/binary/" + packageName + "/" + binaryResource.resourceName).
+                        write(binaryResource.resourceValue);
+            }
+            new FileOutputStream(specsFolder + "/binary/" + packageName + ".json").
+                    write(packageResources.toString(1).getBytes());
         }
         return binaryResources;
     }

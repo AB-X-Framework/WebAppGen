@@ -5,12 +5,7 @@
   ],
   "resources": {
     "binary": [
-      {
-        "package": "demo",
-        "name": "abx.png",
-        "contentType": "application/png",
-        "role": "Anonymous"
-      }
+      "demo"
     ],
     "text": [
       {

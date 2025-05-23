@@ -165,15 +165,22 @@ public class SpecsImporter {
         }
     }
 
-    private void processBinaryResource(String specsPath, JSONArray specs) throws Exception {
-        for (int i = 0; i < specs.length(); i++) {
-            JSONObject jsonResource = specs.getJSONObject(i);
-            String name = jsonResource.getString("name");
-            String file = specsPath + "/binary/" + name;
-            byte[] data = StreamUtils.readByteArrayStream(new FileInputStream(file));
-            resourceModel.saveBinaryResource(name, jsonResource.getString("package"),
-                    jsonResource.getString("contentType"), data, jsonResource.getString("role"));
+    private void processBinaryResource(String specsPath, JSONArray packageNames) throws Exception {
+        for (int packageNameIndex = 0; packageNameIndex < packageNames.length(); packageNameIndex++) {
+            String packageName = packageNames.getString(packageNameIndex);
+            JSONArray specs = new JSONArray(
+                    StreamUtils.readStream(new FileInputStream(
+                            specsPath + "/binary/" + packageName + ".json")));
+            for (int i = 0; i < specs.length(); i++) {
+                JSONObject jsonResource = specs.getJSONObject(i);
+                String name = jsonResource.getString("name");
+                String file = specsPath + "/binary/" +packageName+"/"+ name;
+                byte[] data = StreamUtils.readByteArrayStream(new FileInputStream(file));
+                resourceModel.saveBinaryResource(name, packageName,
+                        jsonResource.getString("contentType"), data, jsonResource.getString("role"));
+            }
         }
+
     }
 
     private void processTextResource(String specsPath, JSONArray specs) throws Exception {
