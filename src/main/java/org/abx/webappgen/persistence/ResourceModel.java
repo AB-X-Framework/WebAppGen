@@ -16,14 +16,19 @@ import java.util.Set;
 public class ResourceModel {
     @Autowired
     TextResourceRepository textResourceRepository;
+
     @Autowired
     BinaryResourceRepository binaryResourceRepository;
+
     @Autowired
     private ArrayResourceRepository arrayResourceRepository;
+
     @Autowired
     private ArrayEntryRepository arrayEntryRepository;
+
     @Autowired
     private MapResourceRepository mapResourceRepository;
+
     @Autowired
     private MapEntryRepository mapEntryRepository;
 
@@ -71,6 +76,11 @@ public class ResourceModel {
         binaryResourceRepository.save(binaryResource);
         return id;
 
+    }
+
+    public String getMapResource(String resourceName, String key) {
+        return mapEntryRepository.findByMapEntryId(
+                PageModel.elementHashCode(resourceName+"."+key)).value;
     }
 
     public long saveMapResource(String resourceName, String packageName,JSONObject data) {
