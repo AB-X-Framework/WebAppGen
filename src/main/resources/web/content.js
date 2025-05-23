@@ -313,6 +313,9 @@ class PageContent {
       height: 48px;
     }
 
+    #custom-menu-bar li {
+      height: 48px;
+    }
     #custom-menu-bar ul li a {
       line-height: 48px;
       height: 48px;
