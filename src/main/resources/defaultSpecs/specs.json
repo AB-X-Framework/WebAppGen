@@ -96,10 +96,25 @@
       ]
     },
     {
-      "package": "home",
+      "package": "app.home",
       "name": "welcome",
       "title": "Welcome Page",
-      "component": "home.WelcomePageComponent",
+      "component": "app.home.WelcomePageComponent",
+      "role": "User",
+      "css": [
+        {
+          "env": "",
+          "value": "/resources/binary/icons.css"
+        }
+      ],
+      "scripts": [
+      ]
+    },
+    {
+      "package": "app.components",
+      "name": "components",
+      "title": "Components Page",
+      "component": "app.components.ComponentsPageComponent",
       "role": "User",
       "css": [
         {
@@ -332,8 +347,8 @@
       ]
     },
     {
-      "package": "home",
-      "name": "home.header",
+      "package": "app.home",
+      "name": "app.home.header",
       "isContainer": false,
       "type": "header",
       "js": [],
@@ -357,8 +372,8 @@
       ]
     },
     {
-      "package": "home.app",
-      "name": "home.app.upload",
+      "package": "app.home.app",
+      "name": "app.home.app.upload",
       "isContainer": false,
       "type": "button",
       "js": [
@@ -377,8 +392,8 @@
       ]
     },
     {
-      "package": "home.app",
-      "name": "home.app.model",
+      "package": "app.home.app",
+      "name": "app.home.app.model",
       "isContainer": false,
       "type": "textfield",
       "js": [],
@@ -394,8 +409,8 @@
       ]
     },
     {
-      "package": "home.app",
-      "name": "home.app.container",
+      "package": "app.home.app",
+      "name": "app.home.app.container",
       "isContainer": true,
       "layout": "container",
       "js": [
@@ -407,13 +422,13 @@
       "components": [
         {
           "innerId": "modelPath",
-          "component": "home.app.model",
+          "component": "app.home.app.model",
           "env": "",
           "size": ""
         },
         {
           "innerId": "upload",
-          "component": "home.app.upload",
+          "component": "app.home.app.upload",
           "env": "",
           "size": ""
         }
@@ -421,7 +436,7 @@
     },
     {
       "package": "home",
-      "name": "home.WelcomePageComponent",
+      "name": "app.home.WelcomePageComponent",
       "isContainer": true,
       "layout": "vertical",
       "js": [
@@ -429,13 +444,37 @@
       "components": [
         {
           "innerId": "header",
-          "component": "home.header",
+          "component": "app.home.header",
           "env": "",
           "size": ""
         },
         {
           "innerId": "modelContainer",
-          "component": "home.app.container",
+          "component": "app.home.app.container",
+          "env": "",
+          "size": ""
+        }
+      ]
+    }
+
+  ,
+    {
+      "package": "home",
+      "name": "app.components.ComponentsPageComponent",
+      "isContainer": true,
+      "layout": "vertical",
+      "js": [
+      ],
+      "components": [
+        {
+          "innerId": "header",
+          "component": "app.home.header",
+          "env": "",
+          "size": ""
+        },
+        {
+          "innerId": "modelContainer",
+          "component": "app.home.app.container",
           "env": "",
           "size": ""
         }
