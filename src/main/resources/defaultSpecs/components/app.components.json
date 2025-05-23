@@ -1,6 +1,5 @@
 [
   {
-    "package": "app.components",
     "name": "app.components.ComponentPackage",
     "isContainer": false,
     "type": "select",
@@ -16,7 +15,6 @@
     ]
   },
   {
-    "package": "app.components",
     "name": "app.components.ComponentType",
     "isContainer": false,
     "type": "select",
@@ -45,7 +43,6 @@
     ]
   },
   {
-    "package": "app.components",
     "name": "app.components.container",
     "isContainer": true,
     "layout": "container",
@@ -61,7 +58,6 @@
     ]
   },
   {
-    "package": "app.components",
     "name": "app.components.NavPanel",
     "isContainer": true,
     "layout": "horizontal",
@@ -83,7 +79,6 @@
     ]
   },
   {
-    "package": "app.components",
     "name": "app.components.ComponentsPageComponent",
     "isContainer": true,
     "layout": "vertical",

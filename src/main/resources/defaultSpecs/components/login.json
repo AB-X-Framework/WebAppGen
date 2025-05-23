@@ -1,6 +1,5 @@
 [
   {
-    "package": "login",
     "name": "login.username",
     "isContainer": false,
     "type": "textfield",
@@ -23,7 +22,6 @@
     ]
   },
   {
-    "package": "login",
     "name": "login.invalidCreds",
     "isContainer": false,
     "type": "modal",
@@ -39,7 +37,6 @@
     ]
   },
   {
-    "package": "login",
     "name": "login.password",
     "isContainer": false,
     "type": "password",
@@ -62,7 +59,6 @@
     ]
   },
   {
-    "package": "login",
     "name": "login.welcome",
     "isContainer": false,
     "type": "section",
@@ -79,7 +75,6 @@
     ]
   },
   {
-    "package": "login",
     "name": "login.header",
     "isContainer": false,
     "type": "header",
@@ -100,7 +95,6 @@
     ]
   },
   {
-    "package": "login",
     "name": "login.submit",
     "isContainer": false,
     "type": "button",
@@ -116,7 +110,6 @@
     ]
   },
   {
-    "package": "login",
     "name": "login.form.child",
     "isContainer": true,
     "layout": "container",
@@ -160,7 +153,6 @@
     ]
   },
   {
-    "package": "login",
     "name": "login.form",
     "isContainer": true,
     "layout": "vertical",
@@ -182,7 +174,6 @@
     ]
   },
   {
-    "package": "login",
     "name": "login.LoginPageComponent",
     "isContainer": true,
     "layout": "horizontal",

@@ -1,10 +1,9 @@
 [
   {
-    "package": "app.components",
-    "name": "welcome",
-    "title": "Welcome Page",
+    "name": "components",
+    "title": "Components Page",
     "component": "app.components.ComponentsPageComponent",
-    "role": "User",
+    "role": "Admin",
     "css": [
       {
         "env": "",

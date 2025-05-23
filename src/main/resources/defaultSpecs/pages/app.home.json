@@ -1,10 +1,9 @@
 [
   {
-    "package": "app.home",
     "name": "welcome",
     "title": "Welcome Page",
     "component": "app.home.WelcomePageComponent",
-    "role": "User",
+    "role": "Admin",
     "css": [
       {
         "env": "",

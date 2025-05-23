@@ -1,6 +1,5 @@
 [
   {
-    "package": "base",
     "name": "abxImg",
     "isContainer": false,
     "type": "img",

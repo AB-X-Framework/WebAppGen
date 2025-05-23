@@ -1,6 +1,6 @@
 [
   {
-    "package": "app.home",
+    
     "name": "app.header",
     "isContainer": false,
     "type": "header",
@@ -25,7 +25,7 @@
     ]
   },
   {
-    "package": "app.home",
+    
     "name": "app.home.upload",
     "isContainer": false,
     "type": "button",
@@ -45,7 +45,7 @@
     ]
   },
   {
-    "package": "app.home",
+    
     "name": "app.home.model",
     "isContainer": false,
     "type": "textfield",
@@ -62,7 +62,7 @@
     ]
   },
   {
-    "package": "app.home",
+    
     "name": "app.home.container",
     "isContainer": true,
     "layout": "container",

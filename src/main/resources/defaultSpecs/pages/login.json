@@ -1,6 +1,5 @@
 [
   {
-    "package": "login",
     "name": "main",
     "title": "Login Page",
     "component": "login.LoginPageComponent",
