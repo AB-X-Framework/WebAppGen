@@ -1,0 +1,30 @@
+[
+  {
+    "name": "hello",
+    "role": "Anonymous",
+    "type": "text",
+    "outputName": "welcome",
+    "description": "say hi"
+  },
+  {
+    "name": "uppercase",
+    "role": "Anonymous",
+    "type": "text",
+    "outputName": "uppercase",
+    "description": "say hi"
+  },
+  {
+    "name": "downloadModel",
+    "role": "Anonymous",
+    "type": "zip",
+    "outputName": "model.zip",
+    "description": "Download model"
+  },
+  {
+    "name": "uploadModel",
+    "role": "Anonymous",
+    "type": "json",
+    "outputName": "response",
+    "description": "Upload model"
+  }
+]
