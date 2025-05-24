@@ -84,7 +84,10 @@
       {
         "env": "",
         "value": {
-
+          "items": [
+            {"name": "File"},
+            {"name": "Edit"}
+          ]
         }
       }
     ],

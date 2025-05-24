@@ -315,12 +315,16 @@ class PageContent {
         output.push(result)
     }
 
+    static renderMenuItems(items){
+        var line = "";
+        for (var item of items) {
+            return line+=` <li><a href="${item}">${item.name}</a></li>`;
+        }
+    }
     static renderMenu(output,js, specs) {
-
         var result = ` 
 <!-- Dropdown Structure -->
 
-<!-- Dropdown Structure -->
 <ul id="dropdown1" class="dropdown-content">
   <li><a href="#!">one</a></li>
   <li><a href="#!">two</a></li>
@@ -330,8 +334,7 @@ class PageContent {
 <nav>
   <div class="nav-wrapper">
     <ul class="left hide-on-med-and-down">
-      <li><a href="sass.html">Sass</a></li>
-      <li><a href="badges.html">Components</a></li>
+      ${PageContent.renderMenuItems(specs.items)}
       <!-- Dropdown Trigger -->
       <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Dropdown<i class="material-icons right">arrow_drop_down</i></a></li>
     </ul>
