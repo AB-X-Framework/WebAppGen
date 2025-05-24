@@ -29,7 +29,7 @@ public class SessionController {
             status.put("logged", false);
             status.put("error", "Invalid credentials.");
         }
-        return status.toString(1);
+        return status.toString(2);
     }
 
     @RequestMapping(value = "/isLoggedIn", produces =  MediaType.APPLICATION_JSON_VALUE)

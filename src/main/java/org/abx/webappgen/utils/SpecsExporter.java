@@ -60,7 +60,7 @@ public class SpecsExporter {
         specs.put("resources", createResources(specsFolder));
         specs.put("components", createComponents(specsFolder));
         specs.put("pages", createPages(specsFolder));
-        new FileOutputStream(specsFolder + "/specs.json").write(specs.toString(1).getBytes());
+        new FileOutputStream(specsFolder + "/specs.json").write(specs.toString(2).getBytes());
     }
 
     public byte[] exportSpecs() throws IOException {
@@ -114,7 +114,7 @@ public class SpecsExporter {
             jsonUser.put("password", user.password);
         }
         String usersFile = "users.json";
-        new FileOutputStream(specsFolder + "/" + usersFile).write(users.toString(1).getBytes());
+        new FileOutputStream(specsFolder + "/" + usersFile).write(users.toString(2).getBytes());
         return usersFile;
     }
 
@@ -130,7 +130,7 @@ public class SpecsExporter {
                 componentsByPackage.put(jsonComponent);
             }
             new FileOutputStream(specsFolder + "/components/" + packageName + ".json").
-                    write(componentsByPackage.toString(1).getBytes());
+                    write(componentsByPackage.toString(2).getBytes());
         }
         return jsonComponents;
     }
@@ -205,7 +205,7 @@ public class SpecsExporter {
         }
         for (Map.Entry<String, JSONArray> page : pages.entrySet()) {
             new FileOutputStream(specsFolder + "/pages/" + page.getKey() + ".json").
-                    write(page.getValue().toString(1).getBytes());
+                    write(page.getValue().toString(2).getBytes());
         }
         return jsonPages;
 
@@ -232,7 +232,7 @@ public class SpecsExporter {
                         packageName + "/" + method.methodName + ".js").write(method.methodJS.getBytes());
             }
             new FileOutputStream(specsFolder + "/methods/" +
-                    packageName + ".json").write(jsonMethodsPerPackage.toString(1).getBytes());
+                    packageName + ".json").write(jsonMethodsPerPackage.toString(2).getBytes());
         }
 
         return methods;
@@ -266,7 +266,7 @@ public class SpecsExporter {
                         write(binaryResource.resourceValue);
             }
             new FileOutputStream(specsFolder + "/binary/" + packageName + ".json").
-                    write(packageResources.toString(1).getBytes());
+                    write(packageResources.toString(2).getBytes());
         }
         return binaryResources;
     }
@@ -289,7 +289,7 @@ public class SpecsExporter {
             }
 
             new FileOutputStream(specsFolder + "/text/" + packageName + ".json").
-                    write(packageResources.toString(1).getBytes());
+                    write(packageResources.toString(2).getBytes());
         }
         return textResources;
     }

@@ -232,7 +232,7 @@ public class SpecsImporter {
                 return;
             }
             if (missing.length() == totalMissing) {
-                throw new Exception("Could not resolve all components " + missing.toString(1));
+                throw new Exception("Could not resolve all components " + missing.toString(2));
             }
         }
     }

@@ -120,9 +120,9 @@ class ExportTest {
 
             if (!foundMatch) {
                 if (expectedElem instanceof JSONArray jsonExpect) {
-                    Assertions.fail("No match found for JSONArray element: " + jsonExpect.toString(1) + " on path " + path);
+                    Assertions.fail("No match found for JSONArray element: " + jsonExpect.toString(2) + " on path " + path);
                 } else if (expectedElem instanceof JSONObject jsonExpect) {
-                    Assertions.fail("No match found for JSONObject element: " + jsonExpect.toString(1) + " on path " + path);
+                    Assertions.fail("No match found for JSONObject element: " + jsonExpect.toString(2) + " on path " + path);
                 } else {
 
                     Assertions.fail("No match found for element: " + expectedElem + " on path " + path);

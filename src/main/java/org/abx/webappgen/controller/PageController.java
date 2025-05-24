@@ -54,7 +54,7 @@ public class PageController extends RoleController{
     @GetMapping(value = "/component/packages", produces = MediaType.APPLICATION_JSON_VALUE)
     @Secured("Admin")
     public String packages() {
-        return pageModel.getPackages().toString(1);
+        return pageModel.getPackages().toString(2);
     }
 
 
@@ -63,7 +63,7 @@ public class PageController extends RoleController{
     public String pageSpecs(@PathVariable String pagename, HttpSession session) {
         Set<String> roles = getRoles();
         return pageModel.getPageByPageMatchesId(roles, env(session),
-                pageModel.elementHashCode(pagename)).toString(1);
+                pageModel.elementHashCode(pagename)).toString(2);
     }
 
 
