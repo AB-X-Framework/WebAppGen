@@ -45,8 +45,10 @@ class PageContent {
                 PageContent.renderHorizontal(output, js, componentSpecs);
             } else if (componentSpecs.layout === "container") {
                 PageContent.renderContainer(output, js, componentSpecs);
-            } else {
+            } else  if (componentSpecs.layout === "vertical") {
                 PageContent.renderVertical(output, js, componentSpecs);
+            } else {
+                PageContent.renderTop(output, js, componentSpecs);
             }
         } else {
 
@@ -87,7 +89,7 @@ class PageContent {
                     PageContent.renderHeader(output, componentSpecs.specs);
                     break;
                 case "menu":
-                    PageContent.renderMenu(output, componentSpecs.specs);
+                    PageContent.renderMenu(output, js, componentSpecs.specs);
                     break;
             }
         }
@@ -133,6 +135,22 @@ class PageContent {
         }
         output.push('</div>');
     }
+    static renderTop(output, js, componentSpecs) {
+        output.push(`<div  id="${componentSpecs.id}">`);
+        let first = false;
+        for (var component of componentSpecs.children) {
+            if (first){
+                first = true;
+                output.push(`<div class="row ${component.size}">`);
+            }else{
+                output.push(`<div class=" ${component.size}">`);
+            }
+            PageContent.renderComponent(output, js, component)
+            output.push('</div>');
+        }
+        output.push('</div>');
+    }
+
 
 
     static renderContainer(output, js, componentSpecs) {
@@ -287,8 +305,8 @@ class PageContent {
         }
         var result = `  <nav>
     <div>
-      <a href="#" class="left">
-      <img src="${specs.img}" alt="Logo" style="height: 64px; padding: 5px;">
+      <a href="#" class="left" style="height: 64px; ">
+      <img src="${specs.img}" alt="Logo" style="height: 60px; padding: 2px;">
     </a>
       <ul class="right">
       ${links}
@@ -297,114 +315,33 @@ class PageContent {
         output.push(result)
     }
 
-    static renderMenu(output, specs) {
+    static renderMenu(output,js, specs) {
 
-        var result = `  
+        var result = ` 
+<!-- Dropdown Structure -->
+
+<!-- Dropdown Structure -->
+<ul id="dropdown1" class="dropdown-content">
+  <li><a href="#!">one</a></li>
+  <li><a href="#!">two</a></li>
+  <li class="divider"></li>
+  <li><a href="#!">three</a></li>
+</ul>
+<nav>
+  <div class="nav-wrapper">
+    <ul class="left hide-on-med-and-down">
+      <li><a href="sass.html">Sass</a></li>
+      <li><a href="badges.html">Components</a></li>
+      <!-- Dropdown Trigger -->
+      <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Dropdown<i class="material-icons right">arrow_drop_down</i></a></li>
+    </ul>
+  </div>
+</nav>
         
-        
-  <style>
-    /* Custom grey menu bar styles */
-    #custom-menu-bar {
-      height: 48px;
-      line-height: 48px;
-    }
-
-    #custom-menu-bar .nav-wrapper {
-      height: 48px;
-    }
-
-    #custom-menu-bar li {
-      height: 48px;
-    }
-    #custom-menu-bar ul li a {
-      line-height: 48px;
-      height: 48px;
-      padding: 0 12px;
-      font-size: 14px;
-      color: #212121;
-    }
-
-    #custom-menu-bar .material-icons {
-      font-size: 18px;
-      vertical-align: middle;
-    }
-
-    /* Active (selected) menu button */
-    #custom-menu-bar ul li.active a {
-      background-color: #9e9e9e; /* dark grey */
-      color: white;
-    }
-
-    /* Widen and compact dropdowns */
-    .dropdown-content {
-      min-width: 200px !important;
-    }
-
-    .dropdown-content li > a {
-      padding: 8px 16px;
-      line-height: 1.2rem;
-      font-size: 14px;
-    }
-  </style>
-</head>
-<body>
-
-  <!-- Custom Grey Menu Bar -->
-  <nav id="custom-menu-bar">
-    <div class="nav-wrapper grey lighten-2">
-      <ul id="nav-mobile" class="left">
-        <li class="active">
-          <a class="dropdown-trigger" href="#!" data-target="file-dropdown">
-            File <i class="material-icons tiny right">arrow_drop_down</i>
-          </a>
-        </li>
-        <li>
-          <a class="dropdown-trigger" href="#!" data-target="edit-dropdown">
-            Edit <i class="material-icons tiny right">arrow_drop_down</i>
-          </a>
-        </li>
-      </ul>
-    </div>
-  </nav>
-
-  <!-- File Dropdown Menu -->
-  <ul id="file-dropdown" class="dropdown-content">
-    <li><a href="#!" onclick="newComponent()">New Component</a></li>
-    <li><a href="#!" onclick="deleteComponent()">Delete Component</a></li>
-  </ul>
-
-  <!-- Edit Dropdown Menu -->
-  <ul id="edit-dropdown" class="dropdown-content">
-    <li><a href="#!" onclick="renameComponent()">Rename Component</a></li>
-  </ul>
-
-  <!-- Scripts -->
-  <script>
-
-
-    function newComponent() {
-      alert("New Component clicked");
-    }
-
-    function deleteComponent() {
-      alert("Delete Component clicked");
-    }
-
-    function renameComponent() {
-      alert("Rename Component clicked");
-    }
-     const elems = document.querySelectorAll('.dropdown-trigger');
-      M.Dropdown.init(elems, { coverTrigger: false });
-
-    // Optional: make active tab toggle dynamically
-    document.querySelectorAll('#custom-menu-bar ul li').forEach(li => {
-      li.addEventListener('click', () => {
-        document.querySelectorAll('#custom-menu-bar ul li').forEach(el => el.classList.remove('active'));
-        li.classList.add('active');
-      });
-    });
-  </script>
 `
+        js.push(`
+$(".dropdown-trigger").dropdown();
+        `)
         output.push(result)
     }
 
