@@ -93,6 +93,9 @@ function processSpecs() {
         case "img":
             $(workingComponent.SpecsURL).closest('.input-field').parent().show();
             break
+        case "button":
+            $(workingComponent.SpecsTitle).closest('.input-field').parent().show();
+            break
         case "modal":
             $(workingComponent.SpecsTitle).closest('.input-field').parent().show();
             $(workingComponent.SpecsContent).closest('.input-field').parent().show();
@@ -122,6 +125,9 @@ function processElement(){
     switch (component.type) {
         case "img":
             $(workingComponent.SpecsURL).val(specs.src);
+            break;
+        case "button":
+            $(workingComponent.SpecsTitle).val(specs.title);
             break;
         case "modal":
             $(workingComponent.SpecsTitle).val(specs.title);

@@ -140,7 +140,7 @@
       {
         "env": "",
         "value": {
-          "text": "Log in"
+          "title": "Log in"
         }
       }
     ],

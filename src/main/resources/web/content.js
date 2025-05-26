@@ -173,7 +173,7 @@ class PageContent {
 
     static renderButton(output, specs) {
         var results =
-            `<button id="${specs.id}" class="btn waves-effect waves-light  ${specs.size}"> ${specs.text} 
+            `<button id="${specs.id}" class="btn waves-effect waves-light  "> ${specs.title} 
              </button>`
         output.push(results);
     }
