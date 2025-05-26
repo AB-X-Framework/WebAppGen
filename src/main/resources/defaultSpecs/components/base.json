@@ -3,7 +3,7 @@
   "env": "",
   "value": {"src": "/resources/binary/app.abx.png"}
  }],
- "name": "abxImg",
+ "name": "base.abxImg",
  "isContainer": false,
  "js": [],
  "type": "img"
