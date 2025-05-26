@@ -259,7 +259,6 @@ public class SpecsExporter {
                 JSONObject jsonBinaryResource = new JSONObject();
                 packageResources.put(jsonBinaryResource);
                 jsonBinaryResource.put("name", binaryResource.resourceName);
-                jsonBinaryResource.put("package", packageName);
                 jsonBinaryResource.put("contentType", binaryResource.contentType);
                 jsonBinaryResource.put("role", binaryResource.role);
                 new FileOutputStream(specsFolder + "/binary/" + packageName + "/" + binaryResource.resourceName).
