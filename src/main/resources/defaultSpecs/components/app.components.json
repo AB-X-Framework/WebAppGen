@@ -88,12 +88,40 @@
   },
 
   {
+    "specs": [
+      {
+        "env": "",
+        "value": {
+          "text": "Add Env"
+        }
+      }
+    ],
+    "name": "app.components.AddEnv",
+    "isContainer": false,
+    "js": [],
+    "type": "button"
+  },{
+  "specs": [
+    {
+      "env": "",
+      "value": {
+        "text": "Remove Env"
+      }
+    }
+  ],
+  "name": "app.components.RemoveEnv",
+  "isContainer": false,
+  "js": [],
+  "type": "button"
+},
+
+  {
     "layout": "horizontal",
     "components": [
       {
         "innerId": "ComponentType",
         "component": "app.components.ComponentType",
-        "size": "l2",
+        "size": "l1",
         "env": ""
       },
       {
@@ -118,6 +146,18 @@
         "innerId": "ComponentEnv",
         "component": "app.components.ComponentEnv",
         "size": "l4",
+        "env": ""
+      },
+      {
+        "innerId": "ComponentEnv",
+        "component": "app.components.AddEnv",
+        "size": "l1",
+        "env": ""
+      },
+      {
+        "innerId": "ComponentEnv",
+        "component": "app.components.RemoveEnv",
+        "size": "l1",
         "env": ""
       }
     ],
