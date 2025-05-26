@@ -4,6 +4,11 @@ var processElementType;
 var processContainerLayout;
 var workingComponent={};
 
+function hideElemContainer(){
+
+    $(workingComponent.ElementType).closest('.input-field').parent().hide();
+    $(workingComponent.ContainerLayout).closest('.input-field').parent().hide();
+}
 function selectPackage(componentBox, packageName) {
     $(componentBox).empty();
     $(componentBox).append($('<option>', {
@@ -19,8 +24,7 @@ function selectPackage(componentBox, packageName) {
         });
         $(workingComponent.show).empty();
         $(workingComponent.div).empty();
-        $(workingComponent.ElementType).closest('.input-field').hide();
-        $(workingComponent.ContainerLayout).closest('.input-field').hide();
+        hideElemContainer();
         M.FormSelect.init(componentBox);
     });
 }
@@ -54,11 +58,11 @@ function processComponent(componentName) {
 }
 function setComponentTypeVisibility(type, element,layout){
     if (type === "Container"){
-        $(element).closest('.input-field').hide();
-        $(layout).closest('.input-field').show();
+        $(workingComponent.ElementType).closest('.input-field').parent().hide()
+        $(workingComponent.ContainerLayout).closest('.input-field').parent().show();
     }else{
 
-        $(element).closest('.input-field').show();
-        $(layout).closest('.input-field').hide();
+        $(workingComponent.ElementType).closest('.input-field').parent().show()
+        $(workingComponent.ContainerLayout).closest('.input-field').parent().hide();
     }
 }

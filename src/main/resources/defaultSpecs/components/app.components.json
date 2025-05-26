@@ -99,13 +99,19 @@
       {
         "innerId": "ElementType",
         "component": "app.components.ElementType",
-        "size": "l8",
+        "size": "l2",
         "env": ""
       },
       {
         "innerId": "ContainerLayout",
         "component": "app.components.ContainerLayout",
-        "size": "l8",
+        "size": "l2",
+        "env": ""
+      },
+      {
+        "innerId": "ContainerDetails",
+        "component": "app.components.ContainerDetails",
+        "size": "l1",
         "env": ""
       }
     ],
@@ -116,10 +122,10 @@
       "value": "workingComponent.ElementType=ElementType; workingComponent.ContainerLayout=ContainerLayout;"
     }, {
       "env": "",
-      "value": "$(ComponentType).on('change', ()=>{setComponentTypeVisibility( $(ComponentType).val(),ElementType,ContainerLayout);});"
+      "value": "$(ComponentType).on('change', ()=>{setComponentTypeVisibility( $(ComponentType).val());});"
     }, {
       "env": "",
-      "value": "PageContent.hide(ElementType);PageContent.hide(ContainerLayout);"
+      "value": "hideElemContainer();"
     }]
   },
   {
@@ -198,6 +204,12 @@
           },{
             "text": "Section",
             "value": "section"
+          },{
+            "text": "Password",
+            "value": "password"
+          },{
+            "text": "Modal",
+            "value": "modal"
           }
           ],
           "label": "Element Type"
@@ -244,6 +256,28 @@
     }],
     "type": "select"
   },
+
+
+
+
+  {
+    "specs": [
+      {
+        "env": "",
+        "value": {
+          "values": [
+          ],
+          "label": "Details"
+        }
+      }
+    ],
+    "name": "app.components.ContainerDetails",
+    "isContainer": false,
+    "js": [],
+    "type": "select"
+  },
+
+
   {
     "specs": [
       {
