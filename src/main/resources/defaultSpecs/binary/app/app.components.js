@@ -33,3 +33,13 @@ function processComponent(componentName) {
     });
 
 }
+function setComponentTypeVisibility(type, element,layout){
+    if (type === "Container"){
+        $(element).closest('.input-field').hide();
+        $(layout).closest('.input-field').show();
+    }else{
+
+        $(element).closest('.input-field').show();
+        $(layout).closest('.input-field').hide();
+    }
+}

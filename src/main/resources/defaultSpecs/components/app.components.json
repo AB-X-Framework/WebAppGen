@@ -84,7 +84,10 @@
     ],
     "name": "app.components.containerAndComponent",
     "isContainer": true,
-    "js": []
+    "js": [ {
+      "env": "",
+      "value": "$(ComponentType).on('change', ()=>{setComponentTypeVisibility( $(ComponentType).val(),ElementType,ContainerLayout);});"
+    }]
   },
   {
     "specs": [
@@ -130,7 +133,7 @@
     "isContainer": false,
     "js": [{
       "env": "",
-      "value": "processComponentType= function (componentType){ $(self).val(componentType);$(self).formSelect();}"
+        "value": "processComponentType= function (componentType){ $(self).val(componentType);$(self).formSelect();$(self).trigger('change');}"
     }],
     "type": "select"
   },
@@ -169,7 +172,7 @@
     "isContainer": false,
     "js": [{
       "env": "",
-      "value": "processElementType= function (elementType){ $(self).val(elementType);$(self).formSelect();}"
+      "value": "processElementType= function (elementType){ $(self).val(elementType);$(self).formSelect();$(self).trigger('change');}"
     }],
     "type": "select"
   },
