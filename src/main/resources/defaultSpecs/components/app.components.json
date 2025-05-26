@@ -73,6 +73,12 @@
         "env": ""
       },
       {
+        "innerId": "SpecsContent",
+        "component": "app.components.SpecsContent",
+        "size": "l2",
+        "env": ""
+      },
+      {
         "innerId": "divider",
         "component": "base.divider",
         "size": "l12",
@@ -105,6 +111,10 @@
       {
         "env": "",
         "value": "workingComponent.SpecsTitle=SpecsTitle"
+      },
+      {
+        "env": "",
+        "value": "workingComponent.SpecsContent=SpecsContent"
       }
     ]
   },
@@ -532,6 +542,22 @@
       }
     ],
     "name": "app.components.SpecsTitle",
+    "isContainer": false,
+    "js": [],
+    "type": "textfield"
+  },
+
+  {
+    "specs": [
+      {
+        "env": "",
+        "value": {
+          "placeholder": "Content",
+          "label": "Content"
+        }
+      }
+    ],
+    "name": "app.components.SpecsContent",
     "isContainer": false,
     "js": [],
     "type": "textfield"

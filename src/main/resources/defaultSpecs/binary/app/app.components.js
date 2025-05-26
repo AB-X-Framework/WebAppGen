@@ -15,6 +15,7 @@ function hideSpecs(){
 
     $(workingComponent.SpecsURL).closest('.input-field').parent().hide();
     $(workingComponent.SpecsTitle).closest('.input-field').parent().hide();
+    $(workingComponent.SpecsContent).closest('.input-field').parent().hide();
 }
 
 function selectPackage(componentBox, packageName) {
@@ -92,6 +93,7 @@ function processSpecs() {
             break
         case "modal":
             $(workingComponent.SpecsTitle).closest('.input-field').parent().show();
+            $(workingComponent.SpecsContent).closest('.input-field').parent().show();
             break
     }
     processElement();
@@ -107,6 +109,7 @@ function processElement(){
             break;
         case "modal":
             $(workingComponent.SpecsTitle).val(specs.title);
+            $(workingComponent.SpecsContent).val(specs.content);
             break;
     }
 }
