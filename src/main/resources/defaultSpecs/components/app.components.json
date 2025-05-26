@@ -80,7 +80,7 @@
     "isContainer": false,
     "js": [{
       "env": "",
-      "value": " processAction = function (x){processPackage($(self),x);}"
+      "value": " processAction = function (x){selectPackage($(self),x);}"
     }],
     "type": "select"
   },
