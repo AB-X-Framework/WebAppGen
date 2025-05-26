@@ -1,4 +1,6 @@
 var processAction;
+var processComponentType;
+
 
 function selectPackage(componentBox, packageName) {
     $(componentBox).empty();
@@ -6,7 +8,7 @@ function selectPackage(componentBox, packageName) {
         value: "",
         text: ""
     }));
-    $.get(`/page/components/packages/${packageName}/components`, (resultList) => {
+    $.get(`/page/packages/${packageName}/components`, (resultList) => {
         resultList.forEach(function (item) {
             $(componentBox).append($('<option>', {
                 value: item,
@@ -15,4 +17,16 @@ function selectPackage(componentBox, packageName) {
         })
         M.FormSelect.init(componentBox);
     });
+}
+
+function processComponent(componentName) {
+    $.get(`/page/components/${componentName}`, (componentSpecs) => {
+        if (componentSpecs.isContainer) {
+            processComponentType("Container");
+        } else {
+
+            processComponentType("Element");
+        }
+    });
+
 }

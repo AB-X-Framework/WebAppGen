@@ -1,6 +1,7 @@
 package org.abx.webappgen.utils;
 
 
+import org.abx.webappgen.persistence.PageModel;
 import org.abx.webappgen.persistence.dao.*;
 import org.abx.webappgen.persistence.model.*;
 import org.json.JSONArray;
@@ -44,6 +45,8 @@ public class SpecsExporter {
 
     @Autowired
     public MethodSpecRepository methodSpecRepository;
+    @Autowired
+    private PageModel pageModel;
 
 
     /**
@@ -133,6 +136,12 @@ public class SpecsExporter {
                     write(componentsByPackage.toString(2).getBytes());
         }
         return jsonComponents;
+    }
+
+    @Transactional
+    public JSONObject createComponent(String componentName) {
+        return createComponent(componentRepository.findByComponentId(
+                PageModel.elementHashCode(componentName)   ));
     }
 
     private JSONObject createComponent(org.abx.webappgen.persistence.model.Component component) {

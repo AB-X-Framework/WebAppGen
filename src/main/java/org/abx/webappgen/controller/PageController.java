@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpSession;
 import org.abx.util.StreamUtils;
 import org.abx.webappgen.persistence.PageModel;
 import org.abx.webappgen.persistence.dao.MapEntryRepository;
+import org.abx.webappgen.utils.SpecsExporter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.annotation.Secured;
@@ -26,6 +27,9 @@ public class PageController extends RoleController{
 
     @Autowired
     private MapEntryRepository mapEntryRepository;
+
+    @Autowired
+    private SpecsExporter specsExporter;
 
     @Autowired
     public PageModel pageModel;
@@ -51,7 +55,7 @@ public class PageController extends RoleController{
     }
 
 
-    @GetMapping(value = "/components/packages", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/packages", produces = MediaType.APPLICATION_JSON_VALUE)
     @Secured("Admin")
     public String packages() {
         return pageModel.getPackages().toString(2);
@@ -59,14 +63,19 @@ public class PageController extends RoleController{
 
 
 
-    @GetMapping(value = "/components/packages/{packageName}/components", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/packages/{packageName}/components", produces = MediaType.APPLICATION_JSON_VALUE)
     @Secured("Admin")
     public String byPackage(@PathVariable String packageName) {
         return pageModel.getComponentNames(packageName).toString(2);
 
     }
 
+    @GetMapping(value = "/components/{componentName}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Secured("Admin")
+    public String componentByName(@PathVariable String componentName)  {
+        return specsExporter.createComponent(componentName).toString(2);
 
+    }
     @GetMapping(value = "/specs/{pagename}", produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("permitAll()")
     public String pageSpecs(@PathVariable String pagename, HttpSession session) {
