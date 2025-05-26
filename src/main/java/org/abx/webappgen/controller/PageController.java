@@ -58,6 +58,15 @@ public class PageController extends RoleController{
     }
 
 
+
+    @GetMapping(value = "/components/packages/{packageName}/components", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Secured("Admin")
+    public String byPackage(@PathVariable String packageName) {
+        return pageModel.getComponentNames(packageName).toString(2);
+
+    }
+
+
     @GetMapping(value = "/specs/{pagename}", produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("permitAll()")
     public String pageSpecs(@PathVariable String pagename, HttpSession session) {

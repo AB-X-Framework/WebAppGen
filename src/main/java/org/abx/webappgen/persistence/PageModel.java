@@ -75,9 +75,10 @@ public class PageModel {
     @Autowired
     private UserRepository userRepository;
 
-    public PageModel(){
-        envId = PageModel.mapHashCode("app.Env","home");
+    public PageModel() {
+        envId = PageModel.mapHashCode("app.Env", "home");
     }
+
     @Transactional
     public void clean() {
         userRepository.deleteAll();
@@ -97,11 +98,12 @@ public class PageModel {
     }
 
     @Transactional
-    public String getHome(){
-        return  mapEntryRepository.findByMapEntryId(envId).value;
+    public String getHome() {
+        return mapEntryRepository.findByMapEntryId(envId).value;
     }
+
     @Transactional
-    public boolean validPage(Set<String> roles,  long matchesId) {
+    public boolean validPage(Set<String> roles, long matchesId) {
         Page page = pageRepository.findByMatchesId(matchesId);
         if (page == null) {
             return false;
@@ -111,15 +113,26 @@ public class PageModel {
         }
         return true;
     }
+
     @Transactional
     public JSONArray getPackages() {
         JSONArray packages = new JSONArray();
         packages.putAll(componentRepository.findDistinctPackageNames());
         return packages;
     }
+
+    @Transactional
+    public JSONArray getComponentNames(String packageName) {
+        JSONArray packages = new JSONArray();
+        for (Component component : componentRepository.findAllByPackageName(packageName)){
+            packages.put(component.componentName);
+        }
+        return packages;
+    }
+
     @Transactional
     public JSONObject getPageByPageId(Set<String> roles, String env, long id) {
-         Page page = pageRepository.findByPageId(id);
+        Page page = pageRepository.findByPageId(id);
         return getPageByPageId(roles, env, page);
     }
 
@@ -129,7 +142,7 @@ public class PageModel {
         return getPageByPageId(roles, env, page);
     }
 
-    private  JSONObject getPageByPageId(Set<String> roles, String env, Page page) {
+    private JSONObject getPageByPageId(Set<String> roles, String env, Page page) {
 
         JSONObject jsonPage = new JSONObject();
         if (page == null) {
@@ -159,14 +172,14 @@ public class PageModel {
             }
         }
         String top = "top";
-        ComponentSpecs topSpecs = new ComponentSpecs(top,env);
+        ComponentSpecs topSpecs = new ComponentSpecs(top, env);
         topSpecs.siblings = new HashMap<>();
-        topSpecs.siblings.put("self",top);
+        topSpecs.siblings.put("self", top);
         topSpecs.component = page.component;
         JSONObject componentSpecs = getComponentSpecsByComponent(topSpecs);
-        componentSpecs.put(Id,top);
-        componentSpecs.put(Size,"");
-        jsonPage.put(Component,componentSpecs );
+        componentSpecs.put(Id, top);
+        componentSpecs.put(Size, "");
+        jsonPage.put(Component, componentSpecs);
         return jsonPage;
     }
 
@@ -178,8 +191,8 @@ public class PageModel {
         return element.hashCode();
     }
 
-    public static long mapHashCode(String map,String key) {
-        return elementHashCode(map+"."+key);
+    public static long mapHashCode(String map, String key) {
+        return elementHashCode(map + "." + key);
     }
 
     @Transactional
@@ -187,7 +200,7 @@ public class PageModel {
                                        String matches,
                                        String pageTitle,
                                        String role, String componentName,
-                                       JSONArray css,JSONArray scripts) {
+                                       JSONArray css, JSONArray scripts) {
         Page page = new Page();
         page.pageName = pageName;
         page.packageName = packageName;
@@ -217,7 +230,7 @@ public class PageModel {
             }
         }
 
-        return "{\n"+ sb +source+"}";
+        return "{\n" + sb + source + "}";
     }
 
     private JSONObject getComponentSpecsByComponent(ComponentSpecs specs) {
@@ -234,23 +247,23 @@ public class PageModel {
         jsonComponent.put(Package, component.packageName);
 
         if (isContainer) {
-            Map<String,String> children = addContainer(specs, jsonComponent);
+            Map<String, String> children = addContainer(specs, jsonComponent);
             children.putAll(specs.siblings);
-            jsonComponent.put(JS,addTempVariables(sb.toString(),children));
+            jsonComponent.put(JS, addTempVariables(sb.toString(), children));
         } else {
-            jsonComponent.put(JS, addTempVariables(sb.toString(),specs.siblings));
+            jsonComponent.put(JS, addTempVariables(sb.toString(), specs.siblings));
             addElement(specs, jsonComponent);
         }
         return jsonComponent;
     }
 
-    private  Map<String,String> addContainer(ComponentSpecs specs,  JSONObject jsonComponent) {
+    private Map<String, String> addContainer(ComponentSpecs specs, JSONObject jsonComponent) {
         Component component = specs.component;
         Container container = component.container;
         jsonComponent.put(Layout, container.layout);
         JSONArray jsonChildren = new JSONArray();
         jsonComponent.put(Children, jsonChildren);
-        Map<String,String> childrenInnerIds = new HashMap<>();
+        Map<String, String> childrenInnerIds = new HashMap<>();
         for (InnerComponent inner : container.innerComponent) {
             childrenInnerIds.put(inner.innerId, specs.parent + "_" + inner.innerId);
             childrenInnerIds.put(inner.child.componentName, specs.parent + "_" + inner.innerId);
@@ -260,7 +273,7 @@ public class PageModel {
             ComponentSpecs componentSpecs = specs.child(innerId);
             componentSpecs.siblings = childrenInnerIds;
             componentSpecs.component = inner.child;
-            componentSpecs.siblings.put("self",innerId);
+            componentSpecs.siblings.put("self", innerId);
             JSONObject innerComponent =
                     getComponentSpecsByComponent(componentSpecs);
             jsonChildren.put(innerComponent);
@@ -272,20 +285,20 @@ public class PageModel {
 
     private void addElement(ComponentSpecs specs, JSONObject jsonComponent) {
         Element element = specs.component.element;
-        boolean found=false;
-        String emptyEnv=null;
+        boolean found = false;
+        String emptyEnv = null;
         for (EnvValue envValue : element.specs) {
             if (matchesEnv(envValue.env, specs.env)) {
-                if (specs.env.isEmpty()){
+                if (specs.env.isEmpty()) {
                     emptyEnv = envValue.value;
-                }else {
+                } else {
                     jsonComponent.put(Specs, new JSONObject(envValue.value));
                     found = true;
                     break;
                 }
             }
         }
-        if (!found){
+        if (!found) {
             jsonComponent.put(Specs, new JSONObject(emptyEnv));
         }
         jsonComponent.put(Type, element.type);
@@ -297,7 +310,7 @@ public class PageModel {
         long id = elementHashCode(name);
         Component component = new Component();
         component.componentId = id;
-        component.packageName=packageName;
+        component.packageName = packageName;
         component.componentName = name;
         component.isContainer = true;
         saveComponent(js, component);
@@ -333,7 +346,7 @@ public class PageModel {
         componentRepository.save(component);
     }
 
-    private ArrayList<EnvValue> createEnvValues(JSONArray envValues){
+    private ArrayList<EnvValue> createEnvValues(JSONArray envValues) {
         ArrayList<EnvValue> env = new ArrayList<>();
         for (int i = 0; i < envValues.length(); i++) {
             JSONObject jsEnvValue = envValues.getJSONObject(i);
@@ -343,10 +356,10 @@ public class PageModel {
     }
 
     @Transactional
-    public void createElement(String name, String packageName,JSONArray js, String type, JSONArray specs) {
+    public void createElement(String name, String packageName, JSONArray js, String type, JSONArray specs) {
         long id = elementHashCode(name);
         Component component = new Component();
-        component.packageName=packageName;
+        component.packageName = packageName;
         component.componentId = id;
         component.componentName = name;
         component.isContainer = false;
