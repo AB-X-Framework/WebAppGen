@@ -84,8 +84,11 @@
         "env": "",
         "value": {
           "values": [{
-            "key": "as",
-            "value": "afadsfds"
+            "key": "Container",
+            "value": "Container"
+          },{
+            "key": "Element",
+            "value": "Element"
           }
           ],
           "label": "Component Type"
