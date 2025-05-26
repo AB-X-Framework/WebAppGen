@@ -145,7 +145,7 @@
       {
         "innerId": "ComponentEnv",
         "component": "app.components.ComponentEnv",
-        "size": "l4",
+        "size": "l5",
         "env": ""
       },
       {
