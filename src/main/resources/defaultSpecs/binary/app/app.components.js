@@ -5,10 +5,10 @@ var processContainerLayout;
 var workingComponent={};
 
 function hideElemContainer(){
-
     $(workingComponent.ElementType).closest('.input-field').parent().hide();
     $(workingComponent.ContainerLayout).closest('.input-field').parent().hide();
 }
+
 function selectPackage(componentBox, packageName) {
     $(componentBox).empty();
     $(componentBox).append($('<option>', {
@@ -29,6 +29,20 @@ function selectPackage(componentBox, packageName) {
     });
 }
 
+function processJS(){
+    $(workingComponent.ComponentEnv).empty();
+    workingComponent.specs.js.forEach(function (item,va) {
+        if (item.env === ""){
+            item.env ="Default";
+        }
+        $(workingComponent.ComponentEnv).append($('<option>', {
+            value: va,
+            text: item.env+" -> "+item.value
+        }));
+    });
+    M.FormSelect.init(workingComponent.ComponentEnv);
+}
+
 function processComponent(componentName) {
     $(workingComponent.div).empty();
     $(workingComponent.ComponentDetails).empty();
@@ -38,6 +52,7 @@ function processComponent(componentName) {
     }));
     $(workingComponent.show).empty();
     $.get(`/page/components/${componentName}`, (componentSpecs) => {
+        workingComponent.specs = componentSpecs;
         if (componentSpecs.isContainer) {
             processComponentType("Container");
             processContainerLayout(componentSpecs.layout)
@@ -49,7 +64,9 @@ function processComponent(componentName) {
             processComponentType("Element");
             processElementType(componentSpecs.type);
         }
+
         M.FormSelect.init(workingComponent.ComponentDetails);
+        processJS();
         $.get(`/page/component/${componentName}`, (componentSpecs) => {
             var output = [];
             var js = [];
