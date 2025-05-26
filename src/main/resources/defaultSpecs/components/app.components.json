@@ -61,8 +61,8 @@
         "env": ""
       },
       {
-        "innerId": "ElementURL",
-        "component": "app.components.ElementURL",
+        "innerId": "SpecsURL",
+        "component": "app.components.SpecsURL",
         "size": "l2",
         "env": ""
       },
@@ -94,7 +94,7 @@
       },
       {
         "env": "",
-        "value": "workingComponent.ElementURL=ElementURL"
+        "value": "workingComponent.SpecsURL=SpecsURL"
       }
     ]
   },
@@ -503,7 +503,7 @@
         }
       }
     ],
-    "name": "app.components.ElementURL",
+    "name": "app.components.SpecsURL",
     "isContainer": false,
     "js": [],
     "type": "textfield"

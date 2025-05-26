@@ -8,6 +8,7 @@ var maxLine = 73;
 function hideElemContainer(){
     $(workingComponent.ElementType).closest('.input-field').parent().hide();
     $(workingComponent.ContainerLayout).closest('.input-field').parent().hide();
+    $(workingComponent.SpecsURL).closest('.input-field').parent().hide();
 }
 
 function selectPackage(componentBox, packageName) {
@@ -16,6 +17,8 @@ function selectPackage(componentBox, packageName) {
         value: "",
         text: ""
     }));
+    $(workingComponent.ComponentEnv).empty();
+    M.FormSelect.init(workingComponent.ComponentEnv);
     $.get(`/page/packages/${packageName}/components`, (resultList) => {
         resultList.forEach(function (item) {
             $(componentBox).append($('<option>', {
@@ -23,6 +26,7 @@ function selectPackage(componentBox, packageName) {
                 text: item
             }));
         });
+
         $(workingComponent.show).empty();
         $(workingComponent.div).empty();
         hideElemContainer();
