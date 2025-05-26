@@ -90,7 +90,7 @@
     "js": [
       {
         "env": "",
-        "value": "workingComponent.div=componentDetails; workingComponent.show=componentShow"
+        "value": "workingComponent.show=componentShow"
       },
       {
         "env": "",
