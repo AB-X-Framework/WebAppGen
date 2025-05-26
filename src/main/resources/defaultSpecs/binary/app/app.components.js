@@ -49,6 +49,7 @@ function processComponent(componentName) {
             processComponentType("Element");
             processElementType(componentSpecs.type);
         }
+        M.FormSelect.init(workingComponent.ComponentDetails);
         $.get(`/page/component/${componentName}`, (componentSpecs) => {
             var output = [];
             var js = [];
