@@ -25,14 +25,18 @@
         "env": "",
         "value": {
           "label": "Package",
-          "onChange": "selectPackage",
           "list": "/page/components/packages"
         }
       }
     ],
     "name": "app.components.ComponentPackage",
     "isContainer": false,
-    "js": [],
+    "js": [
+      {
+        "env": "",
+        "value": "$(self).on('change', ()=>{processAction( $(self).val());});"
+      }
+    ],
     "type": "select"
   },
   {
@@ -74,20 +78,24 @@
     ],
     "name": "app.components.ComponentType",
     "isContainer": false,
-    "js": [],
+    "js": [{
+      "env": "",
+      "value": " processAction = function (x){console.log(x);}"
+    }],
     "type": "select"
   },
-
-
-
   {
     "specs": [
       {
         "env": "",
         "value": {
           "items": [
-            {"name": "File"},
-            {"name": "Edit"}
+            {
+              "name": "File"
+            },
+            {
+              "name": "Edit"
+            }
           ]
         }
       }
@@ -97,8 +105,6 @@
     "js": [],
     "type": "menu"
   },
-
-
   {
     "layout": "top",
     "components": [
