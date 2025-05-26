@@ -13,6 +13,7 @@ function hideElemContainer(){
 
 function hideSpecs(){
 
+    $(workingComponent.SpecsSize).closest('.input-field').parent().hide();
     $(workingComponent.SpecsURL).closest('.input-field').parent().hide();
     $(workingComponent.SpecsTitle).closest('.input-field').parent().hide();
     $(workingComponent.SpecsContent).closest('.input-field').parent().hide();
@@ -42,6 +43,7 @@ function selectPackage(componentBox, packageName) {
 }
 
 function processJS() {
+    hideSpecs();
     $(workingComponent.ComponentEnv).empty();
     let first = false;
     workingComponent.specs.js.forEach(function (item, va) {
@@ -95,6 +97,11 @@ function processSpecs() {
             $(workingComponent.SpecsTitle).closest('.input-field').parent().show();
             $(workingComponent.SpecsContent).closest('.input-field').parent().show();
             break
+        case "section":
+            $(workingComponent.SpecsSize).closest('.input-field').parent().show();
+            $(workingComponent.SpecsTitle).closest('.input-field').parent().show();
+            $(workingComponent.SpecsContent).closest('.input-field').parent().show();
+            break
     }
     processElement();
 }
@@ -108,6 +115,11 @@ function processElement(){
             $(workingComponent.SpecsURL).val(specs.src);
             break;
         case "modal":
+            $(workingComponent.SpecsTitle).val(specs.title);
+            $(workingComponent.SpecsContent).val(specs.content);
+            break;
+        case "section":
+            $(workingComponent.SpecsSize).val(specs.size);
             $(workingComponent.SpecsTitle).val(specs.title);
             $(workingComponent.SpecsContent).val(specs.content);
             break;
