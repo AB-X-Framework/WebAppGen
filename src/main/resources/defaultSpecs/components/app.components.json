@@ -216,6 +216,12 @@
           },{
             "text": "Modal",
             "value": "modal"
+          },{
+            "text": "Div",
+            "value": "div"
+          },{
+            "text": "Divider",
+            "value": "divider"
           }
           ],
           "label": "Element Type"
