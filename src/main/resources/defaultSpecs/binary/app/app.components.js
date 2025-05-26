@@ -85,15 +85,22 @@ function processSpecs() {
     });
     M.FormSelect.init(workingComponent.ComponentEnv);
     hideSpecs();
-    switch (workingComponent.specs.type) {
+    switch (component.type) {
         case "img":
             $(workingComponent.SpecsURL).closest('.input-field').parent().show();
+            break
     }
     processElement();
 }
 
 function processElement(){
-    $(workingComponent.ElementURL).closest('.input-field').parent().show();
+    var component= workingComponent.specs;
+    var index =  $(workingComponent.ComponentEnv).val();
+    var specs = component.specs[index].value;
+    switch (component.type) {
+        case "img":
+            $(workingComponent.SpecsURL).val(specs.src);
+    }
 }
 
 function processComponent(componentName) {
