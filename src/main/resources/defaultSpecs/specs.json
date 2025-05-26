@@ -24,7 +24,8 @@
       "app",
       "model",
       "jquery",
-      "icons"
+      "icons",
+      "materialize"
     ],
     "text": [
       "demo"
