@@ -263,7 +263,7 @@ class PageContent {
             }
         } else {
             const optionsHtml = specs.values.map(item =>
-                `<option value="${item.key}">${item.value}</option>`
+                `<option value="${item.value}">${item.text}</option>`
             ).join('');
             var results =
                 `<div   class="input-field">

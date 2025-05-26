@@ -94,10 +94,10 @@
         "env": "",
         "value": {
           "values": [{
-            "key": "Container",
+            "text": "Container",
             "value": "Container"
           },{
-            "key": "Element",
+            "text": "Element",
             "value": "Element"
           }
           ],
