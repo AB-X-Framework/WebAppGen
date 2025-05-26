@@ -30,53 +30,58 @@ function selectPackage(componentBox, packageName) {
     });
 }
 
-function processJS(){
+function processJS() {
     $(workingComponent.ComponentEnv).empty();
     let first = false;
-    workingComponent.specs.js.forEach(function (item,va) {
-        if (!first){
+    workingComponent.specs.js.forEach(function (item, va) {
+        if (!first) {
             first = true;
             $(workingComponent.Env).val(item.env);
         }
-        if (item.env === ""){
-            item.env ="Default";
+        if (item.env === "") {
+            item.env = "Default";
         }
         var lineValue = JSON.stringify(item.value);
-        if (lineValue.length > maxLine){
-            lineValue = lineValue.substring(0,maxLine-3)+"...";
+        if (lineValue.length > maxLine) {
+            lineValue = lineValue.substring(0, maxLine - 3) + "...";
         }
         $(workingComponent.ComponentEnv).append($('<option>', {
             value: va,
-            text: item.env+" -> "+lineValue
+            text: item.env + " -> " + lineValue
         }));
     });
     M.FormSelect.init(workingComponent.ComponentEnv);
 }
 
-function processSpecs(){
+function processSpecs() {
     $(workingComponent.ComponentEnv).empty();
     let first = false;
-    workingComponent.specs.specs.forEach(function (item,va) {if (!first){
-        first = true;
-        $(workingComponent.Env).val(item.env);
-    }
-        if (item.env === ""){
-            item.env ="Default";
+    workingComponent.specs.specs.forEach(function (item, va) {
+        if (!first) {
+            first = true;
+            $(workingComponent.Env).val(item.env);
+        }
+        if (item.env === "") {
+            item.env = "Default";
         }
         var lineValue = JSON.stringify(item.value);
-        if (lineValue.length > maxLine){
-            lineValue = lineValue.substring(0,maxLine-3)+"...";
+        if (lineValue.length > maxLine) {
+            lineValue = lineValue.substring(0, maxLine - 3) + "...";
         }
         $(workingComponent.ComponentEnv).append($('<option>', {
             value: va,
-            text: item.env+" -> "+lineValue
+            text: item.env + " -> " + lineValue
         }));
     });
     M.FormSelect.init(workingComponent.ComponentEnv);
+    processElement();
+}
+
+function processElement(){
+    $(workingComponent.ElementURL).closest('.input-field').parent().show();
 }
 
 function processComponent(componentName) {
-    $(workingComponent.div).empty();
     $(workingComponent.ComponentDetails).empty();
     $(workingComponent.ComponentDetails).append($('<option>', {
         value: "js",
@@ -99,11 +104,12 @@ function processComponent(componentName) {
             processComponentType("Element");
             processElementType(componentSpecs.type);
             processSpecs();
+
         }
-        $(workingComponent.ComponentDetails).change(()=>{
-            if ($(workingComponent.ComponentDetails).val() === "specs"){
+        $(workingComponent.ComponentDetails).change(() => {
+            if ($(workingComponent.ComponentDetails).val() === "specs") {
                 processSpecs();
-            }else {
+            } else {
                 processJS();
             }
         });
@@ -113,7 +119,7 @@ function processComponent(componentName) {
             var output = [];
             var js = [];
             //Clear JS
-            componentSpecs.js="";
+            componentSpecs.js = "";
             PageContent.renderComponent(output, js, componentSpecs)
             $(workingComponent.show).html(output.join(""));
             M.updateTextFields();
@@ -124,11 +130,12 @@ function processComponent(componentName) {
     });
 
 }
-function setComponentTypeVisibility(type, element,layout){
-    if (type === "Container"){
+
+function setComponentTypeVisibility(type, element, layout) {
+    if (type === "Container") {
         $(workingComponent.ElementType).closest('.input-field').parent().hide()
         $(workingComponent.ContainerLayout).closest('.input-field').parent().show();
-    }else{
+    } else {
 
         $(workingComponent.ElementType).closest('.input-field').parent().show()
         $(workingComponent.ContainerLayout).closest('.input-field').parent().hide();

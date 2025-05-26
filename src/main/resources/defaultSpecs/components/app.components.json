@@ -61,9 +61,9 @@
         "env": ""
       },
       {
-        "innerId": "componentDetails",
-        "component": "base.div",
-        "size": "l12",
+        "innerId": "ElementURL",
+        "component": "app.components.ElementURL",
+        "size": "l2",
         "env": ""
       },
       {
@@ -91,23 +91,25 @@
       {
         "env": "",
         "value": "workingComponent.div=componentDetails; workingComponent.show=componentShow"
+      },
+      {
+        "env": "",
+        "value": "workingComponent.ElementURL=ElementURL"
       }
     ]
   },
-
   {
     "layout": "horizontal",
     "components": [
-
       {
-        "innerId": "Env",
+        "innerId": "EnvData",
         "component": "app.components.Env",
         "size": "l5",
         "env": ""
       },
       {
         "innerId": "ComponentEnv",
-        "component": "app.components.AddEnv",
+        "component": "app.components.UpdateEnvSpecs",
         "size": "l1",
         "env": ""
       }
@@ -117,11 +119,10 @@
     "js": [
       {
         "env": "",
-        "value": "workingComponent.Env=Env;"
+        "value": "workingComponent.Env=EnvData;"
       }
     ]
   },
-
   {
     "specs": [
       {
@@ -132,6 +133,20 @@
       }
     ],
     "name": "app.components.AddEnv",
+    "isContainer": false,
+    "js": [],
+    "type": "button"
+  },
+  {
+    "specs": [
+      {
+        "env": "",
+        "value": {
+          "text": "Update"
+        }
+      }
+    ],
+    "name": "app.components.UpdateEnvSpecs",
     "isContainer": false,
     "js": [],
     "type": "button"
@@ -471,6 +486,24 @@
       }
     ],
     "name": "app.components.Env",
+    "isContainer": false,
+    "js": [],
+    "type": "textfield"
+  }
+
+  ,
+
+  {
+    "specs": [
+      {
+        "env": "",
+        "value": {
+          "placeholder": "URL",
+          "label": "URL"
+        }
+      }
+    ],
+    "name": "app.components.ElementURL",
     "isContainer": false,
     "js": [],
     "type": "textfield"
