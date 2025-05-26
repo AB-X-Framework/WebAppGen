@@ -7,21 +7,21 @@
     "description": "say hi"
   },
   {
-    "name": "uppercase",
+    "name": "demo.uppercase",
     "role": "Anonymous",
     "type": "text",
     "outputName": "uppercase",
     "description": "say hi"
   },
   {
-    "name": "downloadModel",
+    "name": "demo.downloadModel",
     "role": "Anonymous",
     "type": "zip",
     "outputName": "model.zip",
     "description": "Download model"
   },
   {
-    "name": "uploadModel",
+    "name": "demo.uploadModel",
     "role": "Anonymous",
     "type": "text",
     "outputName": "response",

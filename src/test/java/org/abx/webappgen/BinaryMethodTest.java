@@ -27,7 +27,7 @@ class BinaryMethodTest {
 
     @Test
     public void doBasicTest() throws Exception {
-        ServiceRequest req = servicesClient.post("app", "/process/uppercase").addPart(
+        ServiceRequest req = servicesClient.post("app", "/process/demo.uppercase").addPart(
                 "args","{}").addPart("data","abcd".getBytes(),"mydata.data");
         ServiceResponse res = servicesClient.process(req);
         System.out.println(res.asString());
