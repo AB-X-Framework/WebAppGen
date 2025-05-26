@@ -49,19 +49,40 @@
         "env": ""
       },
       {
-        "innerId": "ComponentType",
-        "component": "app.components.ComponentType",
-        "size": "l10",
-        "env": ""
-      },
-      {
-        "innerId": "ElementType",
-        "component": "app.components.ElementType",
+        "innerId": "containerAndComponent",
+        "component": "app.components.containerAndComponent",
         "size": "l10",
         "env": ""
       }
     ],
     "name": "app.components.container",
+    "isContainer": true,
+    "js": []
+  },
+
+  {
+    "layout": "horizontal",
+    "components": [
+      {
+        "innerId": "ComponentType",
+        "component": "app.components.ComponentType",
+        "size": "l2",
+        "env": ""
+      },
+      {
+        "innerId": "ElementType",
+        "component": "app.components.ElementType",
+        "size": "l8",
+        "env": ""
+      },
+      {
+        "innerId": "ContainerLayout",
+        "component": "app.components.ContainerLayout",
+        "size": "l8",
+        "env": ""
+      }
+    ],
+    "name": "app.components.containerAndComponent",
     "isContainer": true,
     "js": []
   },
@@ -153,6 +174,37 @@
     "type": "select"
   },
 
+  {
+    "specs": [
+      {
+        "env": "",
+        "value": {
+          "values": [{
+            "text": "Horizontal",
+            "value": "horizontal"
+          },{
+            "text": "Vertical",
+            "value": "vertical"
+          },{
+            "text": "Top",
+            "value": "top"
+          },{
+            "text": "Container",
+            "value": "container"
+          }
+          ],
+          "label": "Layout"
+        }
+      }
+    ],
+    "name": "app.components.ContainerLayout",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "processContainerLayout= function (layout){ $(self).val(layout);$(self).formSelect();}"
+    }],
+    "type": "select"
+  },
   {
     "specs": [
       {
