@@ -14,6 +14,7 @@ function hideElemContainer(){
 function hideSpecs(){
 
     $(workingComponent.SpecsURL).closest('.input-field').parent().hide();
+    $(workingComponent.SpecsTitle).closest('.input-field').parent().hide();
 }
 
 function selectPackage(componentBox, packageName) {
@@ -89,6 +90,9 @@ function processSpecs() {
         case "img":
             $(workingComponent.SpecsURL).closest('.input-field').parent().show();
             break
+        case "modal":
+            $(workingComponent.SpecsTitle).closest('.input-field').parent().show();
+            break
     }
     processElement();
 }
@@ -100,6 +104,10 @@ function processElement(){
     switch (component.type) {
         case "img":
             $(workingComponent.SpecsURL).val(specs.src);
+            break;
+        case "modal":
+            $(workingComponent.SpecsTitle).val(specs.title);
+            break;
     }
 }
 
