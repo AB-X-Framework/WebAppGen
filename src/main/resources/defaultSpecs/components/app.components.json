@@ -53,6 +53,12 @@
         "component": "app.components.ComponentType",
         "size": "l10",
         "env": ""
+      },
+      {
+        "innerId": "ElementType",
+        "component": "app.components.ElementType",
+        "size": "l10",
+        "env": ""
       }
     ],
     "name": "app.components.container",
@@ -107,6 +113,46 @@
     }],
     "type": "select"
   },
+
+
+  {
+    "specs": [
+      {
+        "env": "",
+        "value": {
+          "values": [{
+            "text": "Button",
+            "value": "button"
+          },{
+            "text": "Select",
+            "value": "select"
+          },{
+            "text": "Textfield",
+            "value": "textfield"
+          },{
+            "text": "Textarea",
+            "value": "textarea"
+          },{
+            "text": "Menu",
+            "value": "menu"
+          },{
+            "text": "Img",
+            "value": "img"
+          }
+          ],
+          "label": "Element Type"
+        }
+      }
+    ],
+    "name": "app.components.ElementType",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "processElementType= function (elementType){ $(self).val(elementType);$(self).formSelect();}"
+    }],
+    "type": "select"
+  },
+
   {
     "specs": [
       {

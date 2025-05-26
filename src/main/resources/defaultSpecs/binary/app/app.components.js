@@ -1,6 +1,6 @@
 var processAction;
 var processComponentType;
-
+var processElementType;
 
 function selectPackage(componentBox, packageName) {
     $(componentBox).empty();
@@ -26,6 +26,7 @@ function processComponent(componentName) {
         } else {
 
             processComponentType("Element");
+            processElementType(componentSpecs.type);
         }
     });
 
