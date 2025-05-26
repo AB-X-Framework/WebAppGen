@@ -4,6 +4,7 @@ var processElementType;
 var processContainerLayout;
 var workingComponent={};
 
+var maxLine = 43;
 function hideElemContainer(){
     $(workingComponent.ElementType).closest('.input-field').parent().hide();
     $(workingComponent.ContainerLayout).closest('.input-field').parent().hide();
@@ -35,9 +36,13 @@ function processJS(){
         if (item.env === ""){
             item.env ="Default";
         }
+        var lineValue = JSON.stringify(item.value);
+        if (lineValue.length > maxLine){
+            lineValue = lineValue.substring(0,maxLine-3)+"...";
+        }
         $(workingComponent.ComponentEnv).append($('<option>', {
             value: va,
-            text: item.env+" -> "+item.value
+            text: item.env+" -> "+lineValue
         }));
     });
     M.FormSelect.init(workingComponent.ComponentEnv);
@@ -49,9 +54,13 @@ function processSpecs(){
         if (item.env === ""){
             item.env ="Default";
         }
+        var lineValue = JSON.stringify(item.value);
+        if (lineValue.length > maxLine){
+            lineValue = lineValue.substring(0,maxLine-3)+"...";
+        }
         $(workingComponent.ComponentEnv).append($('<option>', {
             value: va,
-            text: item.env+" -> "+JSON.stringify(item.value)
+            text: item.env+" -> "+lineValue
         }));
     });
     M.FormSelect.init(workingComponent.ComponentEnv);
@@ -70,24 +79,27 @@ function processComponent(componentName) {
         if (componentSpecs.isContainer) {
             processComponentType("Container");
             processContainerLayout(componentSpecs.layout)
+            processJS();
         } else {
             $(workingComponent.ComponentDetails).append($('<option>', {
                 value: "specs",
-                text: "Specs"
+                text: "Specs",
+                selected: true
             }));
-            $(workingComponent.ComponentDetails).change(()=>{
-                if ($(workingComponent.ComponentDetails).val() === "specs"){
-                    processSpecs();
-                }else {
-                    processJS();
-                }
-            });
+
             processComponentType("Element");
             processElementType(componentSpecs.type);
+            processSpecs();
         }
+        $(workingComponent.ComponentDetails).change(()=>{
+            if ($(workingComponent.ComponentDetails).val() === "specs"){
+                processSpecs();
+            }else {
+                processJS();
+            }
+        });
 
         M.FormSelect.init(workingComponent.ComponentDetails);
-        processJS();
         $.get(`/page/component/${componentName}`, (componentSpecs) => {
             var output = [];
             var js = [];
