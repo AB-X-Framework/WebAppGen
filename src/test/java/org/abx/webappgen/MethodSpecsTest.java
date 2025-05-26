@@ -27,7 +27,7 @@ class MethodSpecsTest {
 
     @Test
     public void doBasicTest() throws Exception {
-        ServiceRequest req = servicesClient.post("app", "/process/hello").addPart(
+        ServiceRequest req = servicesClient.post("app", "/process/demo.hello").addPart(
                 "args","{}");
         ServiceResponse res = servicesClient.process(req);
         System.out.println(res.asString());

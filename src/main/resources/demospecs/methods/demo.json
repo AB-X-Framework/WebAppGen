@@ -1,6 +1,6 @@
 [
   {
-    "name": "hello",
+    "name": "demo.hello",
     "role": "Anonymous",
     "type": "text",
     "outputName": "welcome",
