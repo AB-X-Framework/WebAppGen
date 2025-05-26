@@ -4,7 +4,7 @@ var processElementType;
 var processContainerLayout;
 var workingComponent={};
 
-var maxLine = 53;
+var maxLine = 73;
 function hideElemContainer(){
     $(workingComponent.ElementType).closest('.input-field').parent().hide();
     $(workingComponent.ContainerLayout).closest('.input-field').parent().hide();
