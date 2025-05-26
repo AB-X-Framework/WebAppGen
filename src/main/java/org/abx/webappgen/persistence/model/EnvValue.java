@@ -13,6 +13,6 @@ public class EnvValue {
     @Column(nullable = false)
     public String env;
 
-    @Column(nullable = false)
+    @Column(nullable = false,length = 4096)
     public String value;
 }

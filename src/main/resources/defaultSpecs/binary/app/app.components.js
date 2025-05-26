@@ -16,13 +16,18 @@ function selectPackage(componentBox, packageName) {
                 value: item,
                 text: item
             }));
-        })
+        });
+        $(workingComponent.show).empty();
+        $(workingComponent.div).empty();
+        $(workingComponent.ElementType).closest('.input-field').hide();
+        $(workingComponent.ContainerLayout).closest('.input-field').hide();
         M.FormSelect.init(componentBox);
     });
 }
 
 function processComponent(componentName) {
     $(workingComponent.div).empty();
+    $(workingComponent.show).empty();
     $.get(`/page/components/${componentName}`, (componentSpecs) => {
         if (componentSpecs.isContainer) {
             processComponentType("Container");

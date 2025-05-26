@@ -67,6 +67,12 @@
         "env": ""
       },
       {
+        "innerId": "divider2",
+        "component": "base.divider",
+        "size": "l10",
+        "env": ""
+      },
+      {
         "innerId": "componentShow",
         "component": "base.div",
         "size": "l10",
@@ -106,6 +112,9 @@
     "name": "app.components.containerAndComponent",
     "isContainer": true,
     "js": [ {
+      "env": "",
+      "value": "workingComponent.ElementType=ElementType; workingComponent.ContainerLayout=ContainerLayout;"
+    }, {
       "env": "",
       "value": "$(ComponentType).on('change', ()=>{setComponentTypeVisibility( $(ComponentType).val(),ElementType,ContainerLayout);});"
     }, {
