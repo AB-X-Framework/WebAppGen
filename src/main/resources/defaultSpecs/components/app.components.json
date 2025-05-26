@@ -113,6 +113,12 @@
         "component": "app.components.ContainerDetails",
         "size": "l1",
         "env": ""
+      },
+      {
+        "innerId": "ContainerEnv",
+        "component": "app.components.ContainerEnv",
+        "size": "l1",
+        "env": ""
       }
     ],
     "name": "app.components.containerAndComponent",
@@ -256,10 +262,6 @@
     }],
     "type": "select"
   },
-
-
-
-
   {
     "specs": [
       {
@@ -272,6 +274,22 @@
       }
     ],
     "name": "app.components.ContainerDetails",
+    "isContainer": false,
+    "js": [],
+    "type": "select"
+  },
+  {
+    "specs": [
+      {
+        "env": "",
+        "value": {
+          "values": [
+          ],
+          "label": "Environment"
+        }
+      }
+    ],
+    "name": "app.components.ContainerEnv",
     "isContainer": false,
     "js": [],
     "type": "select"
