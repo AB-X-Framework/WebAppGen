@@ -8,6 +8,11 @@ var maxLine = 73;
 function hideElemContainer(){
     $(workingComponent.ElementType).closest('.input-field').parent().hide();
     $(workingComponent.ContainerLayout).closest('.input-field').parent().hide();
+    hideSpecs();
+}
+
+function hideSpecs(){
+
     $(workingComponent.SpecsURL).closest('.input-field').parent().hide();
 }
 
@@ -60,7 +65,8 @@ function processJS() {
 function processSpecs() {
     $(workingComponent.ComponentEnv).empty();
     let first = false;
-    workingComponent.specs.specs.forEach(function (item, va) {
+    var component= workingComponent.specs;
+    component.specs.forEach(function (item, va) {
         if (!first) {
             first = true;
             $(workingComponent.Env).val(item.env);
@@ -78,6 +84,11 @@ function processSpecs() {
         }));
     });
     M.FormSelect.init(workingComponent.ComponentEnv);
+    hideSpecs();
+    switch (workingComponent.specs.type) {
+        case "img":
+            $(workingComponent.SpecsURL).closest('.input-field').parent().show();
+    }
     processElement();
 }
 
