@@ -223,7 +223,6 @@ public class SpecsExporter {
                 JSONObject jsonMethod = new JSONObject();
                 jsonMethodsPerPackage.put(jsonMethod);
                 jsonMethod.put("name", method.methodName);
-                jsonMethod.put("package", method.packageName);
                 jsonMethod.put("type", method.type);
                 jsonMethod.put("outputName", method.outputName);
                 jsonMethod.put("role", method.role);
