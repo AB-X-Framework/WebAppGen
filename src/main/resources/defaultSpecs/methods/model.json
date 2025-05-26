@@ -1,6 +1,5 @@
 [
  {
-  "package": "model",
   "outputName": "model.zip",
   "role": "Admin",
   "name": "model.downloadModel",
@@ -8,7 +7,6 @@
   "type": "zip"
  },
  {
-  "package": "model",
   "outputName": "response",
   "role": "Admin",
   "name": "model.saveModel",
@@ -16,7 +14,6 @@
   "type": "json"
  },
  {
-  "package": "model",
   "outputName": "response",
   "role": "Admin",
   "name": "model.loadModel",

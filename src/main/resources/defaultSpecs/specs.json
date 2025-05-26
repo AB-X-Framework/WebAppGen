@@ -22,7 +22,8 @@
     ],
     "binary": [
       "app",
-      "model"
+      "model",
+      "jquery"
     ],
     "text": [
       "demo"
