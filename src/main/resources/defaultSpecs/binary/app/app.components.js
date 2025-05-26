@@ -93,6 +93,9 @@ function processSpecs() {
         case "img":
             $(workingComponent.SpecsURL).closest('.input-field').parent().show();
             break
+        case "header":
+            $(workingComponent.SpecsURL).closest('.input-field').parent().show();
+            break
         case "button":
             $(workingComponent.SpecsTitle).closest('.input-field').parent().show();
             break
@@ -123,6 +126,9 @@ function processElement(){
     var index =  $(workingComponent.ComponentEnv).val();
     var specs = component.specs[index].value;
     switch (component.type) {
+        case "header":
+            $(workingComponent.SpecsURL).val(specs.src);
+            break;
         case "img":
             $(workingComponent.SpecsURL).val(specs.src);
             break;

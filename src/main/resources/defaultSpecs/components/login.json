@@ -25,7 +25,7 @@
       },
       {
         "innerId": "welcome",
-        "component": "login.form.child",
+        "component": "login.formChild",
         "size": "s12",
         "env": ""
       }
@@ -68,7 +68,7 @@
         "env": ""
       }
     ],
-    "name": "login.form.child",
+    "name": "login.formChild",
     "isContainer": true,
     "js": [
       {
@@ -120,7 +120,7 @@
       {
         "env": "",
         "value": {
-          "img": "/resources/binary/app.abx.png",
+          "src": "/resources/binary/app.abx.png",
           "links": [
             {
               "href": "/help",
