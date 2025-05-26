@@ -31,13 +31,21 @@ function selectPackage(componentBox, packageName) {
 
 function processComponent(componentName) {
     $(workingComponent.div).empty();
+    $(workingComponent.ComponentDetails).empty();
+    $(workingComponent.ComponentDetails).append($('<option>', {
+        value: "js",
+        text: "JS"
+    }));
     $(workingComponent.show).empty();
     $.get(`/page/components/${componentName}`, (componentSpecs) => {
         if (componentSpecs.isContainer) {
             processComponentType("Container");
             processContainerLayout(componentSpecs.layout)
         } else {
-
+            $(workingComponent.ComponentDetails).append($('<option>', {
+                value: "env",
+                text: "Env"
+            }));
             processComponentType("Element");
             processElementType(componentSpecs.type);
         }

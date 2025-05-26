@@ -109,14 +109,14 @@
         "env": ""
       },
       {
-        "innerId": "ContainerDetails",
-        "component": "app.components.ContainerDetails",
+        "innerId": "ComponentDetails",
+        "component": "app.components.ComponentDetails",
         "size": "l1",
         "env": ""
       },
       {
-        "innerId": "ContainerEnv",
-        "component": "app.components.ContainerEnv",
+        "innerId": "ElementEnv",
+        "component": "app.components.ElementEnv",
         "size": "l1",
         "env": ""
       }
@@ -132,6 +132,9 @@
     }, {
       "env": "",
       "value": "hideElemContainer();"
+    }, {
+      "env": "",
+      "value": "workingComponent.ComponentDetails=ComponentDetails"
     }]
   },
   {
@@ -279,7 +282,7 @@
         }
       }
     ],
-    "name": "app.components.ContainerDetails",
+    "name": "app.components.ComponentDetails",
     "isContainer": false,
     "js": [],
     "type": "select"
@@ -295,7 +298,7 @@
         }
       }
     ],
-    "name": "app.components.ContainerEnv",
+    "name": "app.components.ElementEnv",
     "isContainer": false,
     "js": [],
     "type": "select"
