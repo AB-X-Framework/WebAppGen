@@ -51,7 +51,7 @@ public class PageController extends RoleController{
     }
 
 
-    @GetMapping(value = "/component/packages", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/components/packages", produces = MediaType.APPLICATION_JSON_VALUE)
     @Secured("Admin")
     public String packages() {
         return pageModel.getPackages().toString(2);
