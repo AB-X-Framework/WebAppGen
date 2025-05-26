@@ -98,15 +98,15 @@
       {
         "env": "ES",
         "value": {
-          "placeholder": "Contraseña",
-          "label": "Su contraseña"
+          "content": "Contraseña",
+          "title": "Su contraseña"
         }
       },
       {
         "env": "",
         "value": {
-          "placeholder": "Your password",
-          "label": "Password"
+          "content": "Your password",
+          "title": "Password"
         }
       }
     ],
@@ -174,15 +174,15 @@
       {
         "env": "ES",
         "value": {
-          "placeholder": "Usuario",
-          "label": "Su nombre de usuario"
+          "content": "Usuario",
+          "title": "Su nombre de usuario"
         }
       },
       {
         "env": "",
         "value": {
-          "placeholder": "Your username",
-          "label": "Username"
+          "content": "Your username",
+          "title": "Username"
         }
       }
     ],

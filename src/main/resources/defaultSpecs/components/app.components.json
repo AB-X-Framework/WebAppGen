@@ -510,8 +510,8 @@
       {
         "env": "",
         "value": {
-          "placeholder": "Empty is Default",
-          "label": "Env"
+          "content": "Empty is Default",
+          "title": "Env"
         }
       }
     ],
@@ -519,17 +519,14 @@
     "isContainer": false,
     "js": [],
     "type": "textfield"
-  }
-
-  ,
-
+  },
   {
     "specs": [
       {
         "env": "",
         "value": {
-          "placeholder": "URL",
-          "label": "URL"
+          "content": "URL",
+          "title": "URL"
         }
       }
     ],
@@ -537,17 +534,14 @@
     "isContainer": false,
     "js": [],
     "type": "textfield"
-  }
-
-,
-
+  },
   {
     "specs": [
       {
         "env": "",
         "value": {
-          "placeholder": "Title",
-          "label": "Title"
+          "content": "Title",
+          "title": "Title"
         }
       }
     ],
@@ -556,14 +550,13 @@
     "js": [],
     "type": "textfield"
   },
-
   {
     "specs": [
       {
         "env": "",
         "value": {
-          "placeholder": "Content",
-          "label": "Content"
+          "content": "Content",
+          "title": "Content"
         }
       }
     ],
@@ -572,14 +565,13 @@
     "js": [],
     "type": "textfield"
   },
-
   {
     "specs": [
       {
         "env": "",
         "value": {
-          "placeholder": "Size",
-          "label": "Size"
+          "content": "Size",
+          "title": "Size"
         }
       }
     ],

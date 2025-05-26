@@ -182,8 +182,8 @@
       {
         "env": "",
         "value": {
-          "placeholder": "Put your data",
-          "label": "This is the label"
+          "content": "Put your data",
+          "tile": "This is the label"
         }
       }
     ]
@@ -212,8 +212,8 @@
       {
         "env": "",
         "value": {
-          "placeholder": "Textarea data",
-          "label": "This is the Textarea label"
+          "content": "Textarea data",
+          "title": "This is the Textarea label"
         }
       }
     ]

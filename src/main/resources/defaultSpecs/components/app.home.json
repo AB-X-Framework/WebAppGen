@@ -49,9 +49,9 @@
       {
         "env": "",
         "value": {
-          "placeholder": "",
-          "label": "Project path",
-          "url": "/resources/map/app.Env/modelPath"
+          "content": "",
+          "title": "Project path",
+          "src": "/resources/map/app.Env/modelPath"
         }
       }
     ],

@@ -198,19 +198,19 @@ class PageContent {
     static renderTextfield(output, js, specs) {
         var results =
             `<div  class="input-field">
-            <input placeholder="${specs.placeholder}" id="${specs.id}"  type="text" class="validate">
-          <label for="${specs.id}">${specs.label}</label></div>`;
+            <input placeholder="${specs.content}" id="${specs.id}"  type="text" class="validate">
+          <label for="${specs.id}">${specs.title}</label></div>`;
         output.push(results);
-        if (typeof specs.url !== "undefined") {
-            js.push(`$.get('${specs.url}',(res)=>{$(${specs.id}).val(res)})`);
+        if (typeof specs.src !== "undefined") {
+            js.push(`$.get('${specs.src}',(res)=>{$(${specs.id}).val(res)})`);
         }
     }
 
     static renderPassword(output, specs) {
         var results =
             `<div  class="input-field">
-            <input placeholder="${specs.placeholder}" id="${specs.id}"  type="password" class="validate">
-          <label for="f_${specs.id}">${specs.label}</label></div>`;
+            <input placeholder="${specs.content}" id="${specs.id}"  type="password" class="validate">
+          <label for="f_${specs.id}">${specs.title}</label></div>`;
         output.push(results);
     }
 

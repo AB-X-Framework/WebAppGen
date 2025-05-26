@@ -102,6 +102,15 @@ function processSpecs() {
             $(workingComponent.SpecsTitle).closest('.input-field').parent().show();
             $(workingComponent.SpecsContent).closest('.input-field').parent().show();
             break
+        case "password":
+            $(workingComponent.SpecsTitle).closest('.input-field').parent().show();
+            $(workingComponent.SpecsContent).closest('.input-field').parent().show();
+            break
+        case "textfield":
+            $(workingComponent.SpecsURL).closest('.input-field').parent().show();
+            $(workingComponent.SpecsTitle).closest('.input-field').parent().show();
+            $(workingComponent.SpecsContent).closest('.input-field').parent().show();
+            break
     }
     processElement();
 }
@@ -115,6 +124,15 @@ function processElement(){
             $(workingComponent.SpecsURL).val(specs.src);
             break;
         case "modal":
+            $(workingComponent.SpecsTitle).val(specs.title);
+            $(workingComponent.SpecsContent).val(specs.content);
+            break;
+        case "password":
+            $(workingComponent.SpecsTitle).val(specs.title);
+            $(workingComponent.SpecsContent).val(specs.content);
+            break;
+        case "textfield":
+            $(workingComponent.SpecsURL).val(specs.src);
             $(workingComponent.SpecsTitle).val(specs.title);
             $(workingComponent.SpecsContent).val(specs.content);
             break;
