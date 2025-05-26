@@ -23,7 +23,8 @@
     "binary": [
       "app",
       "model",
-      "jquery"
+      "jquery",
+      "icons"
     ],
     "text": [
       "demo"

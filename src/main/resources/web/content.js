@@ -99,7 +99,7 @@ class PageContent {
     static renderNav(output, js, componentSpecs) {
         var children = componentSpecs.children;
         output.push(`
-    <link href="/web/icons.css" rel="stylesheet">
+    <link href="/defaultSpecs/binary/icons/icons.css" rel="stylesheet">
 <header><div class="container">
        <div class="container">
         <a href="#" data-target="nav-mobile"
