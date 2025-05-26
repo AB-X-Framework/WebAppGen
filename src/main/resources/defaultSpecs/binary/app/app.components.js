@@ -1,4 +1,4 @@
 var processAction;
-function selectPackage(packageName){
+function selectPackage(componentBox, packageName){
     console.log("packageName "+packageName);
 }
