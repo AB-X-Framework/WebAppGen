@@ -1,3 +1,3 @@
 function selectPackage(packageName){
-    console.log("packageName "+selectPackage)
+    console.log("packageName "+packageName);
 }

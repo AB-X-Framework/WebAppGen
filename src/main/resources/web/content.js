@@ -256,7 +256,11 @@ class PageContent {
               M.FormSelect.init(${specs.id});
             });`);
             output.push(results);
-            js.push( `$(${specs.id}).on('change', selectPackage);`);
+            if (specs.onChange) {
+                js.push(`$(${specs.id}).on('change', function () {
+        ${specs.onChange}( $(this).val());
+      });`);
+            }
         } else {
             const optionsHtml = specs.values.map(item =>
                 `<option value="${item.key}">${item.value}</option>`
@@ -270,7 +274,11 @@ class PageContent {
              <label>${specs.label}</label>
             </div>`;
             js.push(`$(${specs.id}).formSelect();`);
-            js.push(`$(${specs.id}).on('change', selectPackage);`);
+            if (specs.onChange) {
+                js.push(`$(${specs.id}).on('change', function () {
+        ${specs.onChange}( $(this).val());
+      });`);
+            }
             output.push(results);
         }
     }
