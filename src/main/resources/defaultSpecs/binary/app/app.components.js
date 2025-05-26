@@ -32,7 +32,12 @@ function selectPackage(componentBox, packageName) {
 
 function processJS(){
     $(workingComponent.ComponentEnv).empty();
+    let first = false;
     workingComponent.specs.js.forEach(function (item,va) {
+        if (!first){
+            first = true;
+            $(workingComponent.Env).val(item.env);
+        }
         if (item.env === ""){
             item.env ="Default";
         }
@@ -50,7 +55,11 @@ function processJS(){
 
 function processSpecs(){
     $(workingComponent.ComponentEnv).empty();
-    workingComponent.specs.specs.forEach(function (item,va) {
+    let first = false;
+    workingComponent.specs.specs.forEach(function (item,va) {if (!first){
+        first = true;
+        $(workingComponent.Env).val(item.env);
+    }
         if (item.env === ""){
             item.env ="Default";
         }

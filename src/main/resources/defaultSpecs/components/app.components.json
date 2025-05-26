@@ -55,6 +55,12 @@
         "env": ""
       },
       {
+        "innerId": "Env",
+        "component": "app.components.EnvContainer",
+        "size": "l2",
+        "env": ""
+      },
+      {
         "innerId": "componentDetails",
         "component": "base.div",
         "size": "l12",
@@ -81,10 +87,39 @@
     ],
     "name": "app.components.container",
     "isContainer": true,
-    "js": [{
-      "env": "",
-      "value": "workingComponent.div=componentDetails; workingComponent.show=componentShow;"
-    }]
+    "js": [
+      {
+        "env": "",
+        "value": "workingComponent.div=componentDetails; workingComponent.show=componentShow"
+      }
+    ]
+  },
+
+  {
+    "layout": "horizontal",
+    "components": [
+
+      {
+        "innerId": "Env",
+        "component": "app.components.Env",
+        "size": "l5",
+        "env": ""
+      },
+      {
+        "innerId": "ComponentEnv",
+        "component": "app.components.AddEnv",
+        "size": "l1",
+        "env": ""
+      }
+    ],
+    "name": "app.components.EnvContainer",
+    "isContainer": true,
+    "js": [
+      {
+        "env": "",
+        "value": "workingComponent.Env=Env;"
+      }
+    ]
   },
 
   {
@@ -100,21 +135,21 @@
     "isContainer": false,
     "js": [],
     "type": "button"
-  },{
-  "specs": [
-    {
-      "env": "",
-      "value": {
-        "text": "Remove Env"
+  },
+  {
+    "specs": [
+      {
+        "env": "",
+        "value": {
+          "text": "Remove Env"
+        }
       }
-    }
-  ],
-  "name": "app.components.RemoveEnv",
-  "isContainer": false,
-  "js": [],
-  "type": "button"
-},
-
+    ],
+    "name": "app.components.RemoveEnv",
+    "isContainer": false,
+    "js": [],
+    "type": "button"
+  },
   {
     "layout": "horizontal",
     "components": [
@@ -163,19 +198,24 @@
     ],
     "name": "app.components.containerAndComponent",
     "isContainer": true,
-    "js": [ {
-      "env": "",
-      "value": "workingComponent.ElementType=ElementType; workingComponent.ContainerLayout=ContainerLayout;"
-    }, {
-      "env": "",
-      "value": "$(ComponentType).on('change', ()=>{setComponentTypeVisibility( $(ComponentType).val());});"
-    }, {
-      "env": "",
-      "value": "hideElemContainer();"
-    }, {
-      "env": "",
-      "value": "workingComponent.ComponentDetails=ComponentDetails;workingComponent.ComponentEnv=ComponentEnv;"
-    }]
+    "js": [
+      {
+        "env": "",
+        "value": "workingComponent.ElementType=ElementType; workingComponent.ContainerLayout=ContainerLayout;"
+      },
+      {
+        "env": "",
+        "value": "$(ComponentType).on('change', ()=>{setComponentTypeVisibility( $(ComponentType).val());});"
+      },
+      {
+        "env": "",
+        "value": "hideElemContainer();"
+      },
+      {
+        "env": "",
+        "value": "workingComponent.ComponentDetails=ComponentDetails;workingComponent.ComponentEnv=ComponentEnv;"
+      }
+    ]
   },
   {
     "specs": [
@@ -190,14 +230,16 @@
     ],
     "name": "app.components.ComponentName",
     "isContainer": false,
-    "js": [{
-      "env": "",
-      "value": " processAction = function (x){selectPackage($(self),x);}"
-    },
+    "js": [
+      {
+        "env": "",
+        "value": " processAction = function (x){selectPackage($(self),x);}"
+      },
       {
         "env": "",
         "value": "$(self).on('change', ()=>{processComponent( $(self).val());});"
-      }],
+      }
+    ],
     "type": "select"
   },
   {
@@ -205,13 +247,15 @@
       {
         "env": "",
         "value": {
-          "values": [{
-            "text": "Container",
-            "value": "Container"
-          },{
-            "text": "Element",
-            "value": "Element"
-          }
+          "values": [
+            {
+              "text": "Container",
+              "value": "Container"
+            },
+            {
+              "text": "Element",
+              "value": "Element"
+            }
           ],
           "label": "Component Type"
         }
@@ -219,56 +263,68 @@
     ],
     "name": "app.components.ComponentType",
     "isContainer": false,
-    "js": [{
-      "env": "",
+    "js": [
+      {
+        "env": "",
         "value": "processComponentType= function (componentType){ $(self).val(componentType);$(self).formSelect();$(self).trigger('change');}"
-    }],
+      }
+    ],
     "type": "select"
   },
-
-
   {
     "specs": [
       {
         "env": "",
         "value": {
-          "values": [{
-            "text": "Button",
-            "value": "button"
-          },{
-            "text": "Select",
-            "value": "select"
-          },{
-            "text": "Textfield",
-            "value": "textfield"
-          },{
-            "text": "Textarea",
-            "value": "textarea"
-          },{
-            "text": "Menu",
-            "value": "menu"
-          },{
-            "text": "Header",
-            "value": "header"
-          },{
-            "text": "Img",
-            "value": "img"
-          },{
-            "text": "Section",
-            "value": "section"
-          },{
-            "text": "Password",
-            "value": "password"
-          },{
-            "text": "Modal",
-            "value": "modal"
-          },{
-            "text": "Div",
-            "value": "div"
-          },{
-            "text": "Divider",
-            "value": "divider"
-          }
+          "values": [
+            {
+              "text": "Button",
+              "value": "button"
+            },
+            {
+              "text": "Select",
+              "value": "select"
+            },
+            {
+              "text": "Textfield",
+              "value": "textfield"
+            },
+            {
+              "text": "Textarea",
+              "value": "textarea"
+            },
+            {
+              "text": "Menu",
+              "value": "menu"
+            },
+            {
+              "text": "Header",
+              "value": "header"
+            },
+            {
+              "text": "Img",
+              "value": "img"
+            },
+            {
+              "text": "Section",
+              "value": "section"
+            },
+            {
+              "text": "Password",
+              "value": "password"
+            },
+            {
+              "text": "Modal",
+              "value": "modal"
+            },
+            {
+              "text": "Div",
+              "value": "div"
+            },
+            {
+              "text": "Divider",
+              "value": "divider"
+            }
           ],
           "label": "Element Type"
         }
@@ -276,34 +332,40 @@
     ],
     "name": "app.components.ElementType",
     "isContainer": false,
-    "js": [{
-      "env": "",
-      "value": "processElementType= function (elementType){ $(self).val(elementType);$(self).formSelect();$(self).trigger('change');}"
-    }],
+    "js": [
+      {
+        "env": "",
+        "value": "processElementType= function (elementType){ $(self).val(elementType);$(self).formSelect();$(self).trigger('change');}"
+      }
+    ],
     "type": "select"
   },
-
   {
     "specs": [
       {
         "env": "",
         "value": {
-          "values": [{
-            "text": "Horizontal",
-            "value": "horizontal"
-          },{
-            "text": "Vertical",
-            "value": "vertical"
-          },{
-            "text": "Top",
-            "value": "top"
-          },{
-            "text": "Container",
-            "value": "container"
-          },{
-            "text": "Nav",
-            "value": "nav"
-          }
+          "values": [
+            {
+              "text": "Horizontal",
+              "value": "horizontal"
+            },
+            {
+              "text": "Vertical",
+              "value": "vertical"
+            },
+            {
+              "text": "Top",
+              "value": "top"
+            },
+            {
+              "text": "Container",
+              "value": "container"
+            },
+            {
+              "text": "Nav",
+              "value": "nav"
+            }
           ],
           "label": "Layout"
         }
@@ -311,10 +373,12 @@
     ],
     "name": "app.components.ContainerLayout",
     "isContainer": false,
-    "js": [{
-      "env": "",
-      "value": "processContainerLayout= function (layout){ $(self).val(layout);$(self).formSelect();}"
-    }],
+    "js": [
+      {
+        "env": "",
+        "value": "processContainerLayout= function (layout){ $(self).val(layout);$(self).formSelect();}"
+      }
+    ],
     "type": "select"
   },
   {
@@ -349,8 +413,6 @@
     "js": [],
     "type": "select"
   },
-
-
   {
     "specs": [
       {
@@ -397,5 +459,20 @@
     "name": "app.components.ComponentsPageComponent",
     "isContainer": true,
     "js": []
+  },
+  {
+    "specs": [
+      {
+        "env": "",
+        "value": {
+          "placeholder": "Empty is Default",
+          "label": "Env"
+        }
+      }
+    ],
+    "name": "app.components.Env",
+    "isContainer": false,
+    "js": [],
+    "type": "textfield"
   }
 ]
