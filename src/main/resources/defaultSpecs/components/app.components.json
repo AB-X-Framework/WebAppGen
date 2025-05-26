@@ -59,18 +59,6 @@
         "env": "",
         "value": {
           "values": [
-            {
-              "value": "Select",
-              "key": "Select"
-            },
-            {
-              "value": "Button",
-              "key": "Button"
-            },
-            {
-              "value": "Textfield",
-              "key": "Textfield"
-            }
           ],
           "label": "Component Type"
         }
