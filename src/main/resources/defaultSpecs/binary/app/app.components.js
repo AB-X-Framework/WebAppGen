@@ -43,8 +43,8 @@ function processComponent(componentName) {
             processContainerLayout(componentSpecs.layout)
         } else {
             $(workingComponent.ComponentDetails).append($('<option>', {
-                value: "env",
-                text: "Env"
+                value: "specs",
+                text: "Specs"
             }));
             processComponentType("Element");
             processElementType(componentSpecs.type);
