@@ -15,7 +15,6 @@ import java.util.Set;
 @org.springframework.stereotype.Component
 public class PageModel {
 
-    public static final String Top = "top";
     public static final String InnerId = "innerId";
     public static final String Id = "id";
     public static final String Title = "title";
@@ -173,8 +172,7 @@ public class PageModel {
                 css.put(cssValue.value);
             }
         }
-        jsonPage.put(Component,
-                processTop(page.component, env));
+        jsonPage.put(Component, processTop("top", page.component, env));
         return jsonPage;
     }
 
@@ -182,16 +180,16 @@ public class PageModel {
 
     @Transactional
     public JSONObject getComponentByName(String name, String env) {
-        return processTop(componentRepository.findByComponentId(elementHashCode(name)), env);
+        return processTop("__top",componentRepository.findByComponentId(elementHashCode(name)), env);
     }
 
-    private JSONObject processTop(Component component, String env) {
-        ComponentSpecs topSpecs = new ComponentSpecs(Top, env);
+    private JSONObject processTop(String name, Component component, String env) {
+        ComponentSpecs topSpecs = new ComponentSpecs(name, env);
         topSpecs.siblings = new HashMap<>();
-        topSpecs.siblings.put("self", Top);
+        topSpecs.siblings.put("self", name);
         topSpecs.component = component;
         JSONObject componentSpecs = getComponentSpecsByComponent(topSpecs);
-        componentSpecs.put(Id, Top);
+        componentSpecs.put(Id, name);
         componentSpecs.put(Size, "");
         return componentSpecs;
     }

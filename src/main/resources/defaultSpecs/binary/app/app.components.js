@@ -31,8 +31,14 @@ function processComponent(componentName) {
             $.get(`/page/component/${componentName}`, (componentSpecs) => {
                 var output = [];
                 var js = [];
+                //Clear JS
+                componentSpecs.js="";
                 PageContent.renderComponent(output, js, componentSpecs)
                 $(workingComponent.show).html(output.join(""));
+                M.updateTextFields();
+                for (var line of js) {
+                    eval(line)
+                }
             });
             processComponentType("Element");
             processElementType(componentSpecs.type);
