@@ -28,7 +28,12 @@ function processComponent(componentName) {
             processComponentType("Container");
             processContainerLayout(componentSpecs.layout)
         } else {
-
+            $.get(`/page/component/${componentName}`, (componentSpecs) => {
+                var output = [];
+                var js = [];
+                PageContent.renderComponent(output, js, componentSpecs)
+                $(workingComponent.show).html(output.join(""));
+            });
             processComponentType("Element");
             processElementType(componentSpecs.type);
         }

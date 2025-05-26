@@ -15,6 +15,7 @@ import java.util.Set;
 @org.springframework.stereotype.Component
 public class PageModel {
 
+    public static final String Top = "top";
     public static final String InnerId = "innerId";
     public static final String Id = "id";
     public static final String Title = "title";
@@ -124,7 +125,7 @@ public class PageModel {
     @Transactional
     public JSONArray getComponentNames(String packageName) {
         JSONArray packages = new JSONArray();
-        for (Component component : componentRepository.findAllByPackageName(packageName)){
+        for (Component component : componentRepository.findAllByPackageName(packageName)) {
             packages.put(component.componentName);
         }
         return packages;
@@ -172,16 +173,27 @@ public class PageModel {
                 css.put(cssValue.value);
             }
         }
-        String top = "top";
-        ComponentSpecs topSpecs = new ComponentSpecs(top, env);
-        topSpecs.siblings = new HashMap<>();
-        topSpecs.siblings.put("self", top);
-        topSpecs.component = page.component;
-        JSONObject componentSpecs = getComponentSpecsByComponent(topSpecs);
-        componentSpecs.put(Id, top);
-        componentSpecs.put(Size, "");
-        jsonPage.put(Component, componentSpecs);
+        jsonPage.put(Component,
+                processTop(page.component, env));
         return jsonPage;
+    }
+
+
+
+    @Transactional
+    public JSONObject getComponentByName(String name, String env) {
+        return processTop(componentRepository.findByComponentId(elementHashCode(name)), env);
+    }
+
+    private JSONObject processTop(Component component, String env) {
+        ComponentSpecs topSpecs = new ComponentSpecs(Top, env);
+        topSpecs.siblings = new HashMap<>();
+        topSpecs.siblings.put("self", Top);
+        topSpecs.component = component;
+        JSONObject componentSpecs = getComponentSpecsByComponent(topSpecs);
+        componentSpecs.put(Id, Top);
+        componentSpecs.put(Size, "");
+        return componentSpecs;
     }
 
     private boolean matchesEnv(String targetEnv, String currEnv) {

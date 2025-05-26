@@ -23,7 +23,6 @@ class PageContent {
             for (var line of js) {
                 eval(line)
             }
-
         })
     }
 
@@ -32,7 +31,6 @@ class PageContent {
             output.push(`<link href="${css}" rel="stylesheet">`)
         }
     }
-
 
     static renderScripts(output, jsList) {
         for (var js of jsList) {
@@ -57,8 +55,6 @@ class PageContent {
                 PageContent.renderTop(output, js, componentSpecs);
             }
         } else {
-
-            var size = componentSpecs.size;
             componentSpecs.specs.id = componentSpecs.id;
             switch (componentSpecs.type) {
                 case "button":
@@ -99,6 +95,9 @@ class PageContent {
                     break;
                 case "div":
                     PageContent.renderDiv(output, componentSpecs.specs);
+                    break;
+                case "divider":
+                    PageContent.renderDivider(output, componentSpecs.specs);
                     break;
             }
         }
@@ -165,7 +164,7 @@ class PageContent {
     static renderContainer(output, js, componentSpecs) {
         output.push(`<div class=" container ${componentSpecs.size}" id="${componentSpecs.id}">`);
         for (var component of componentSpecs.children) {
-            output.push(`<div class="row" ${component.size}>`);
+            output.push(`<div class="row ${component.size}">`);
             PageContent.renderComponent(output, js, component)
             output.push('</div>');
         }
@@ -188,6 +187,11 @@ class PageContent {
     static renderDiv(output, specs) {
         var results =
             `<div id="${specs.id}"  ></div>`
+        output.push(results);
+    }
+    static renderDivider(output, specs) {
+        var results =
+            `<div class="divider" id="${specs.id}"  ></div>`
         output.push(results);
     }
 

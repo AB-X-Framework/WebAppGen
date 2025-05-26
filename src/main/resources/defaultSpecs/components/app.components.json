@@ -59,13 +59,25 @@
         "component": "base.div",
         "size": "l10",
         "env": ""
+      },
+      {
+        "innerId": "divider",
+        "component": "base.divider",
+        "size": "l10",
+        "env": ""
+      },
+      {
+        "innerId": "componentShow",
+        "component": "base.div",
+        "size": "l10",
+        "env": ""
       }
     ],
     "name": "app.components.container",
     "isContainer": true,
     "js": [{
       "env": "",
-      "value": "workingComponent.div=componentDetails;"
+      "value": "workingComponent.div=componentDetails; workingComponent.show=componentShow;"
     }]
   },
 

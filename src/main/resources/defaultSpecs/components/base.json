@@ -25,5 +25,18 @@
     "isContainer": false,
     "js": [],
     "type": "div"
+  },
+  {
+    "specs": [
+      {
+        "env": "",
+        "value": {
+        }
+      }
+    ],
+    "name": "base.divider",
+    "isContainer": false,
+    "js": [],
+    "type": "divider"
   }
 ]

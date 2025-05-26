@@ -84,6 +84,12 @@ public class PageController extends RoleController{
                 pageModel.elementHashCode(pagename)).toString(2);
     }
 
+    @GetMapping(value = "/component/{componentName}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Secured("Admin")
+    public String component(@PathVariable String componentName, HttpSession session) {
+        return pageModel.getComponentByName(componentName, env(session)).toString(2);
+    }
+
 
     private String env(HttpSession session) {
         StringBuilder env = new StringBuilder();
