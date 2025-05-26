@@ -186,6 +186,9 @@
           },{
             "text": "Img",
             "value": "img"
+          },{
+            "text": "Section",
+            "value": "section"
           }
           ],
           "label": "Element Type"
