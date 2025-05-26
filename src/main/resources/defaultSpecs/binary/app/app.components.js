@@ -43,6 +43,20 @@ function processJS(){
     M.FormSelect.init(workingComponent.ComponentEnv);
 }
 
+function processSpecs(){
+    $(workingComponent.ComponentEnv).empty();
+    workingComponent.specs.specs.forEach(function (item,va) {
+        if (item.env === ""){
+            item.env ="Default";
+        }
+        $(workingComponent.ComponentEnv).append($('<option>', {
+            value: va,
+            text: item.env+" -> "+JSON.stringify(item.value)
+        }));
+    });
+    M.FormSelect.init(workingComponent.ComponentEnv);
+}
+
 function processComponent(componentName) {
     $(workingComponent.div).empty();
     $(workingComponent.ComponentDetails).empty();
@@ -61,6 +75,13 @@ function processComponent(componentName) {
                 value: "specs",
                 text: "Specs"
             }));
+            $(workingComponent.ComponentDetails).change(()=>{
+                if ($(workingComponent.ComponentDetails).val() === "specs"){
+                    processSpecs();
+                }else {
+                    processJS();
+                }
+            });
             processComponentType("Element");
             processElementType(componentSpecs.type);
         }
