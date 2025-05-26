@@ -1,10 +1,17 @@
-[{
- "component": "app.components.ComponentsPageComponent",
- "css": [],
- "role": "Admin",
- "name": "app.components.components",
- "title": "Components Page",
- "scripts": [],
- "matches": "components",
- "matchesId": -447446250
-}]
+[
+  {
+    "component": "app.components.ComponentsPageComponent",
+    "css": [],
+    "role": "Admin",
+    "name": "app.components.components",
+    "title": "Components Page",
+    "scripts": [
+      {
+        "env": "",
+        "value": "/resources/binary/app.components.js"
+      }
+    ],
+    "matches": "components",
+    "matchesId": -447446250
+  }
+]
