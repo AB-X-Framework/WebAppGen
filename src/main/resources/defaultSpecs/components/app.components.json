@@ -40,42 +40,42 @@
     "type": "select"
   },
   {
-    "layout": "container",
+    "layout": "vertical",
     "components": [
       {
         "innerId": "ComponentName",
         "component": "app.components.ComponentName",
-        "size": "l10",
+        "size": "l12",
         "env": ""
       },
       {
         "innerId": "containerAndComponent",
         "component": "app.components.containerAndComponent",
-        "size": "l10",
+        "size": "l12",
         "env": ""
       },
       {
         "innerId": "componentDetails",
         "component": "base.div",
-        "size": "l10",
+        "size": "l12",
         "env": ""
       },
       {
         "innerId": "divider",
         "component": "base.divider",
-        "size": "l10",
+        "size": "l12",
         "env": ""
       },
       {
         "innerId": "divider2",
         "component": "base.divider",
-        "size": "l10",
+        "size": "l12",
         "env": ""
       },
       {
         "innerId": "componentShow",
         "component": "base.div",
-        "size": "l10",
+        "size": "l12",
         "env": ""
       }
     ],
