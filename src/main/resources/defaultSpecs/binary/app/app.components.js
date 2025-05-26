@@ -2,6 +2,7 @@ var processAction;
 var processComponentType;
 var processElementType;
 var processContainerLayout;
+var workingComponent={};
 
 function selectPackage(componentBox, packageName) {
     $(componentBox).empty();
@@ -21,6 +22,7 @@ function selectPackage(componentBox, packageName) {
 }
 
 function processComponent(componentName) {
+    $(workingComponent.div).empty();
     $.get(`/page/components/${componentName}`, (componentSpecs) => {
         if (componentSpecs.isContainer) {
             processComponentType("Container");

@@ -53,11 +53,20 @@
         "component": "app.components.containerAndComponent",
         "size": "l10",
         "env": ""
+      },
+      {
+        "innerId": "componentDetails",
+        "component": "base.div",
+        "size": "l10",
+        "env": ""
       }
     ],
     "name": "app.components.container",
     "isContainer": true,
-    "js": []
+    "js": [{
+      "env": "",
+      "value": "workingComponent.div=componentDetails;"
+    }]
   },
 
   {
@@ -87,6 +96,9 @@
     "js": [ {
       "env": "",
       "value": "$(ComponentType).on('change', ()=>{setComponentTypeVisibility( $(ComponentType).val(),ElementType,ContainerLayout);});"
+    }, {
+      "env": "",
+      "value": "PageContent.hide(ElementType);PageContent.hide(ContainerLayout);"
     }]
   },
   {

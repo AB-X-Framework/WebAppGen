@@ -1,10 +1,29 @@
-[{
- "specs": [{
-  "env": "",
-  "value": {"src": "/resources/binary/app.abx.png"}
- }],
- "name": "base.abxImg",
- "isContainer": false,
- "js": [],
- "type": "img"
-}]
+[
+  {
+    "specs": [
+      {
+        "env": "",
+        "value": {
+          "src": "/resources/binary/app.abx.png"
+        }
+      }
+    ],
+    "name": "base.abxImg",
+    "isContainer": false,
+    "js": [],
+    "type": "img"
+  },
+  {
+    "specs": [
+      {
+        "env": "",
+        "value": {
+        }
+      }
+    ],
+    "name": "base.div",
+    "isContainer": false,
+    "js": [],
+    "type": "div"
+  }
+]

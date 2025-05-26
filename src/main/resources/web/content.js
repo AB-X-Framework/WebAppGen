@@ -1,5 +1,11 @@
 class PageContent {
 
+    static hide(element) {
+        $(element).closest('.input-field').hide();
+    }
+    static show(element) {
+        $(element).closest('.input-field').show();
+    }
     static processTile(specs) {
         document.title = specs.title;
     }
@@ -45,7 +51,7 @@ class PageContent {
                 PageContent.renderHorizontal(output, js, componentSpecs);
             } else if (componentSpecs.layout === "container") {
                 PageContent.renderContainer(output, js, componentSpecs);
-            } else  if (componentSpecs.layout === "vertical") {
+            } else if (componentSpecs.layout === "vertical") {
                 PageContent.renderVertical(output, js, componentSpecs);
             } else {
                 PageContent.renderTop(output, js, componentSpecs);
@@ -91,6 +97,9 @@ class PageContent {
                 case "menu":
                     PageContent.renderMenu(output, js, componentSpecs.specs);
                     break;
+                case "div":
+                    PageContent.renderDiv(output, componentSpecs.specs);
+                    break;
             }
         }
 
@@ -135,14 +144,15 @@ class PageContent {
         }
         output.push('</div>');
     }
+
     static renderTop(output, js, componentSpecs) {
         output.push(`<div  id="${componentSpecs.id}">`);
         let first = false;
         for (var component of componentSpecs.children) {
-            if (first){
+            if (first) {
                 first = true;
                 output.push(`<div class="row ${component.size}">`);
-            }else{
+            } else {
                 output.push(`<div class=" ${component.size}">`);
             }
             PageContent.renderComponent(output, js, component)
@@ -150,7 +160,6 @@ class PageContent {
         }
         output.push('</div>');
     }
-
 
 
     static renderContainer(output, js, componentSpecs) {
@@ -173,6 +182,12 @@ class PageContent {
     static renderImg(output, specs) {
         var results =
             `<img id="${specs.id}"  src="${specs.src}" class="responsive-img" style="max-height: 100%" alt="example">`
+        output.push(results);
+    }
+
+    static renderDiv(output, specs) {
+        var results =
+            `<div id="${specs.id}"  ></div>`
         output.push(results);
     }
 
@@ -319,13 +334,14 @@ class PageContent {
         output.push(result)
     }
 
-    static renderMenuItems(items){
+    static renderMenuItems(items) {
         var line = "";
         for (var item of items) {
-            return line+=` <li><a href="${item}">${item.name}</a></li>`;
+            return line += ` <li><a href="${item}">${item.name}</a></li>`;
         }
     }
-    static renderMenu(output,js, specs) {
+
+    static renderMenu(output, js, specs) {
         var result = ` 
 <!-- Dropdown Structure -->
 
@@ -378,7 +394,6 @@ $(".dropdown-trigger").dropdown();
         });
         instance.open();
     }
-
 
 
 }
