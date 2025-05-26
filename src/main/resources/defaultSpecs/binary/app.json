@@ -7,7 +7,12 @@
  {
   "role": "Anonymous",
   "name": "app.process.login.js",
-  "contentType": "application/js"
+  "contentType": "text/javascript"
+ },
+ {
+  "role": "Anonymous",
+  "name": "app.components.js",
+  "contentType": "text/javascript"
  },
  {
   "role": "Anonymous",
