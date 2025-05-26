@@ -43,6 +43,12 @@
     "layout": "container",
     "components": [
       {
+        "innerId": "ComponentName",
+        "component": "app.components.ComponentName",
+        "size": "l10",
+        "env": ""
+      },
+      {
         "innerId": "ComponentType",
         "component": "app.components.ComponentType",
         "size": "l10",
@@ -60,6 +66,28 @@
         "value": {
           "values": [
           ],
+          "label": "Component Name"
+        }
+      }
+    ],
+    "name": "app.components.ComponentName",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": " processAction = function (x){selectPackage($(self),x);}"
+    }],
+    "type": "select"
+  },
+  {
+    "specs": [
+      {
+        "env": "",
+        "value": {
+          "values": [{
+            "key": "as",
+            "value": "afadsfds"
+          }
+          ],
           "label": "Component Type"
         }
       }
@@ -68,7 +96,7 @@
     "isContainer": false,
     "js": [{
       "env": "",
-      "value": " processAction = function (x){selectPackage($(self),x);}"
+      "value": " "
     }],
     "type": "select"
   },
