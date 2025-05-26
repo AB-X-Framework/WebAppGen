@@ -208,6 +208,9 @@
             "text": "Menu",
             "value": "menu"
           },{
+            "text": "Header",
+            "value": "header"
+          },{
             "text": "Img",
             "value": "img"
           },{
@@ -257,6 +260,9 @@
           },{
             "text": "Container",
             "value": "container"
+          },{
+            "text": "Nav",
+            "value": "nav"
           }
           ],
           "label": "Layout"
