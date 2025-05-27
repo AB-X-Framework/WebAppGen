@@ -1,22 +1,27 @@
 [
- {
-  "role": "Anonymous",
-  "name": "app.abx.png",
-  "contentType": "application/png"
- },
- {
-  "role": "Anonymous",
-  "name": "app.process.login.js",
-  "contentType": "text/javascript"
- },
- {
-  "role": "Admin",
-  "name": "app.components.js",
-  "contentType": "text/javascript"
- },
- {
-  "role": "Anonymous",
-  "name": "app.icons.css",
-  "contentType": "text/css"
- }
+  {
+    "role": "Anonymous",
+    "name": "app.abx.png",
+    "contentType": "application/png"
+  },
+  {
+    "role": "Anonymous",
+    "name": "app.process.login.js",
+    "contentType": "text/javascript"
+  },
+  {
+    "role": "Admin",
+    "name": "app.components.js",
+    "contentType": "text/javascript"
+  },
+  {
+    "role": "Anonymous",
+    "name": "app.icons.css",
+    "contentType": "text/css"
+  },
+  {
+    "role": "Admin",
+    "name": "app.defaultEnv.properties",
+    "contentType": "text/plain"
+  }
 ]

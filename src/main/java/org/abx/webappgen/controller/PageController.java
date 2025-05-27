@@ -3,7 +3,6 @@ package org.abx.webappgen.controller;
 import jakarta.servlet.http.HttpSession;
 import org.abx.util.StreamUtils;
 import org.abx.webappgen.persistence.PageModel;
-import org.abx.webappgen.persistence.dao.MapEntryRepository;
 import org.abx.webappgen.utils.SpecsExporter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -24,9 +23,6 @@ public class PageController extends RoleController{
     public final static String LANG = "lang";
 
     private ST pageTemplate;
-
-    @Autowired
-    private MapEntryRepository mapEntryRepository;
 
     @Autowired
     private SpecsExporter specsExporter;
