@@ -24,9 +24,6 @@ public class EnvProperties extends Properties {
         if (session.containsKey(key) && session.get(key).equals(value)){
             return true;
         }
-        if (baseline.containsKey(key) && baseline.get(key).equals(value)){
-            return true;
-        }
-        return false;
+        return baseline.containsKey(key) && baseline.get(key).equals(value);
     }
 }
