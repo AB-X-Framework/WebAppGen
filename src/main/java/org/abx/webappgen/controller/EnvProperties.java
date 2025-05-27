@@ -1,29 +1,41 @@
 package org.abx.webappgen.controller;
 
+import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
 
-public class EnvProperties extends Properties {
+public class EnvProperties {
 
-    private Map<String,String> baseline;
+    private Map<String, String> baseline;
 
-    private Map<String,String> session;
+    private Map<String, String> session;
 
-    private EnvProperties(Map<String,String> baseline, Map<String,String> session){
-        this.baseline = baseline;
-        this.session = session;
+    private String str;
+
+    private void recompile() {
+        StringBuilder sb = new StringBuilder();
+        for (Map.Entry<String, String> entry : baseline.entrySet()) {
+            sb.append(entry.getKey()).append("=").append(entry.getValue()).append("\n");
+        }
+        for (Map.Entry<String, String> entry : session.entrySet()) {
+            if (!baseline.containsKey(entry.getKey())) {
+                sb.append(entry.getKey()).append("=").append(entry.getValue()).append("\n");
+            }
+        }
+        str = sb.toString();
     }
 
-    public boolean matches(String prop){
-        if (prop.isEmpty()){
-            return true;
-        }
-        String[] specs = prop.split("=");
-        String key = specs[0];
-        String value = specs[1];
-        if (session.containsKey(key) && session.get(key).equals(value)){
-            return true;
-        }
-        return baseline.containsKey(key) && baseline.get(key).equals(value);
+    public String asString() {
+        return str;
+    }
+
+    private EnvProperties(Map<String, String> baseline) {
+        this.baseline = baseline;
+        this.session = new HashMap<>();
+        recompile();
+    }
+
+    public void addProperty(String prop, String value) {
+        session.put(prop, value);
+        asString();
     }
 }
