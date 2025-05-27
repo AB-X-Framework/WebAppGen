@@ -648,6 +648,12 @@
         "component": "app.components.SpecsSelect",
         "size": "l4",
         "env": ""
+      },
+      {
+        "innerId": "RemoveEnv",
+        "component": "app.components.RemoveEnv",
+        "size": "l1",
+        "env": ""
       }
     ],
     "name": "app.components.SpecsSelectContainer",
