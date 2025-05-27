@@ -7,12 +7,12 @@
  },
  {
   "role": "Anonymous",
-  "name": "theme-monokai.js",
+  "name": "ace.theme-monokai.js",
   "contentType": "text/javascript"
  },
  {
   "role": "Anonymous",
-  "name": "mode-javascript.js",
+  "name": "ace.mode-javascript.js",
   "contentType": "text/javascript"
  },
  {
