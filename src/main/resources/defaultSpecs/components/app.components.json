@@ -85,8 +85,8 @@
         "env": ""
       },
       {
-        "innerId": "SpecsSelect",
-        "component": "app.components.SpecsSelect",
+        "innerId": "SpecsSelectContainer",
+        "component": "app.components.SpecsSelectContainer",
         "size": "l2",
         "env": ""
       },
@@ -137,10 +137,6 @@
       {
         "env": "",
         "value": "workingComponent.SpecsSize=SpecsSize"
-      },
-      {
-        "env": "",
-        "value": "workingComponent.SpecsSelect=SpecsSelect"
       }
     ]
   },
@@ -634,8 +630,8 @@
       {
         "env": "",
         "value": {
+          "title": "Values",
           "values": [
-
           ]
         }
       }
@@ -644,5 +640,24 @@
     "isContainer": false,
     "js": [],
     "type": "select"
+  },
+  {
+    "components": [
+      {
+        "innerId": "SpecsSelect",
+        "component": "app.components.SpecsSelect",
+        "size": "l4",
+        "env": ""
+      }
+    ],
+    "name": "app.components.SpecsSelectContainer",
+    "isContainer": true,
+    "js": [
+      {
+        "env": "",
+        "value": "workingComponent.SpecsSelect=SpecsSelect"
+      }
+    ],
+    "layout": "horizontal"
   }
 ]
