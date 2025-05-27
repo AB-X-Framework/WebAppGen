@@ -81,6 +81,19 @@ function processJS() {
     });
 }
 
+function processSelect(){
+    var component = workingComponent.specs;
+    let index = $(workingComponent.ComponentEnv).val();
+    var specs = component.specs[index].value;
+    specs.values.forEach(function (item, va) {
+        $(workingComponent.SpecsSelect).append($('<option>', {
+            value: item,
+            text: item.value+" "+item.text
+        }));
+    });
+    M.FormSelect.init(workingComponent.SpecsSelect);
+}
+
 function processSpecs() {
     $(workingComponent.ComponentEnv).empty();
     let first = false;
@@ -118,6 +131,7 @@ function processSpecs() {
         case "select":
             $(workingComponent.SpecsTitle).closest('.input-field').parent().show();
             $(workingComponent.SpecsSelect).closest('.input-field').parent().show();
+            processSelect();
             break
         case "modal":
             $(workingComponent.SpecsTitle).closest('.input-field').parent().show();
