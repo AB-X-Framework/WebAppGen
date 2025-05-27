@@ -264,7 +264,7 @@ class PageContent {
             <select id="${specs.id}">
              <option value="" disabled selected></option>
             </select>
-             <label>${specs.label}</label>
+             <label>${specs.title}</label>
             </div>`;
             js.push(`$.get("${specs.list}",(resultList)=>{resultList.forEach(function(item) {
                 $(${specs.id}).append($('<option>', {
@@ -290,7 +290,7 @@ class PageContent {
              <option value="" disabled selected></option>
             ${optionsHtml}
             </select>
-             <label>${specs.label}</label>
+             <label>${specs.title}</label>
             </div>`;
             js.push(`$(${specs.id}).formSelect();`);
             if (specs.onChange) {
@@ -308,7 +308,7 @@ class PageContent {
     <div id="${specs.id}" style="height: ${specs.height}; width: 100%">// Write your JavaScript here</div>
         
 <script>
-    const editor = ace.edit("${specs.id}");
+   { const editor = ace.edit("${specs.id}");
     editor.setTheme("ace/theme/monokai"); // Change theme if desired
     editor.session.setMode("ace/mode/javascript"); // JS highlighting
     editor.setOptions({
@@ -317,6 +317,7 @@ class PageContent {
         wrap: true,
         useWorker: true // Enables JS syntax checking
     });
+    }
 </script>`;
         output.push(result);
     }
@@ -329,7 +330,7 @@ class PageContent {
         var result = `  <nav>
     <div>
       <a href="#" class="left" style="height: 64px; ">
-      <img src="${specs.img}" alt="Logo" style="height: 60px; padding: 2px;">
+      <img src="${specs.src}" alt="Logo" style="height: 60px; padding: 2px;">
     </a>
       <ul class="right">
       ${links}

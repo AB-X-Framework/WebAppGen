@@ -17,6 +17,7 @@ function hideSpecs(){
     $(workingComponent.SpecsURL).closest('.input-field').parent().hide();
     $(workingComponent.SpecsTitle).closest('.input-field').parent().hide();
     $(workingComponent.SpecsContent).closest('.input-field').parent().hide();
+    $(workingComponent.SpecsJS).hide();
 }
 
 function selectPackage(componentBox, packageName) {
@@ -44,12 +45,14 @@ function selectPackage(componentBox, packageName) {
 
 function processJS() {
     hideSpecs();
+    $(workingComponent.SpecsJS).show();
     $(workingComponent.ComponentEnv).empty();
     let first = false;
     workingComponent.specs.js.forEach(function (item, va) {
         if (!first) {
             first = true;
             $(workingComponent.Env).val(item.env);
+            ace.edit(workingComponent.SpecsJS).setValue(item.value)
         }
         if (item.env === "") {
             item.env = "Default";
@@ -64,6 +67,7 @@ function processJS() {
         }));
     });
     M.FormSelect.init(workingComponent.ComponentEnv);
+
 }
 
 function processSpecs() {
@@ -71,12 +75,13 @@ function processSpecs() {
     let first = false;
     var component= workingComponent.specs;
     component.specs.forEach(function (item, va) {
+        let env=item.env;
         if (!first) {
             first = true;
             $(workingComponent.Env).val(item.env);
         }
-        if (item.env === "") {
-            item.env = "Default";
+        if (env === "") {
+            env = "Default";
         }
         var lineValue = JSON.stringify(item.value);
         if (lineValue.length > maxLine) {
@@ -84,7 +89,7 @@ function processSpecs() {
         }
         $(workingComponent.ComponentEnv).append($('<option>', {
             value: va,
-            text: item.env + " -> " + lineValue
+            text: env + " -> " + lineValue
         }));
     });
     M.FormSelect.init(workingComponent.ComponentEnv);
@@ -97,6 +102,9 @@ function processSpecs() {
             $(workingComponent.SpecsURL).closest('.input-field').parent().show();
             break
         case "button":
+            $(workingComponent.SpecsTitle).closest('.input-field').parent().show();
+            break
+        case "select":
             $(workingComponent.SpecsTitle).closest('.input-field').parent().show();
             break
         case "modal":
@@ -119,11 +127,15 @@ function processSpecs() {
             break
     }
     processElement();
+    $(workingComponent.ComponentEnv).change(()=>processElement());
 }
 
 function processElement(){
+
     var component= workingComponent.specs;
+
     var index =  $(workingComponent.ComponentEnv).val();
+    $(workingComponent.Env).val(component.specs[index].env);
     var specs = component.specs[index].value;
     switch (component.type) {
         case "header":
@@ -133,6 +145,9 @@ function processElement(){
             $(workingComponent.SpecsURL).val(specs.src);
             break;
         case "button":
+            $(workingComponent.SpecsTitle).val(specs.title);
+            break;
+        case "select":
             $(workingComponent.SpecsTitle).val(specs.title);
             break;
         case "modal":

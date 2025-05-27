@@ -24,7 +24,7 @@
       {
         "env": "",
         "value": {
-          "label": "Package",
+          "title": "Package",
           "list": "/page/packages"
         }
       }
@@ -82,6 +82,12 @@
         "innerId": "SpecsSize",
         "component": "app.components.SpecsSize",
         "size": "l2",
+        "env": ""
+      },
+      {
+        "innerId": "SpecsJSContainer",
+        "component": "app.components.SpecsJSContainer",
+        "size": "l11",
         "env": ""
       },
       {
@@ -150,6 +156,25 @@
       {
         "env": "",
         "value": "workingComponent.Env=EnvData;"
+      }
+    ]
+  },
+  {
+    "layout": "horizontal",
+    "components": [
+      {
+        "innerId": "SpecsJS",
+        "component": "app.components.SpecsJS",
+        "size": "l11",
+        "env": ""
+      }
+    ],
+    "name": "app.components.SpecsJSContainer",
+    "isContainer": true,
+    "js": [
+      {
+        "env": "",
+        "value": "workingComponent.SpecsJS=SpecsJS;"
       }
     ]
   },
@@ -269,7 +294,7 @@
         "value": {
           "values": [
           ],
-          "label": "Component Name"
+          "title": "Component Name"
         }
       }
     ],
@@ -302,7 +327,7 @@
               "value": "Element"
             }
           ],
-          "label": "Component Type"
+          "title": "Component Type"
         }
       }
     ],
@@ -371,7 +396,7 @@
               "value": "divider"
             }
           ],
-          "label": "Element Type"
+          "title": "Element Type"
         }
       }
     ],
@@ -412,7 +437,7 @@
               "value": "nav"
             }
           ],
-          "label": "Layout"
+          "title": "Layout"
         }
       }
     ],
@@ -433,7 +458,7 @@
         "value": {
           "values": [
           ],
-          "label": "Details"
+          "title": "Details"
         }
       }
     ],
@@ -449,7 +474,7 @@
         "value": {
           "values": [
           ],
-          "label": "Environment"
+          "title": "Environment"
         }
       }
     ],
@@ -579,5 +604,21 @@
     "isContainer": false,
     "js": [],
     "type": "textfield"
+  },
+
+
+  {
+    "specs": [
+      {
+        "env": "",
+        "value": {
+          "height": "300px"
+        }
+      }
+    ],
+    "name": "app.components.SpecsJS",
+    "isContainer": false,
+    "js": [],
+    "type": "js"
   }
 ]
