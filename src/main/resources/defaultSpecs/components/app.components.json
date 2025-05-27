@@ -55,14 +55,8 @@
         "env": ""
       },
       {
-        "innerId": "Env",
-        "component": "app.components.EnvContainer",
-        "size": "l2",
-        "env": ""
-      },
-      {
-        "innerId": "SpecsURL",
-        "component": "app.components.SpecsURL",
+        "innerId": "SpecsSource",
+        "component": "app.components.SpecsSource",
         "size": "l2",
         "env": ""
       },
@@ -124,7 +118,7 @@
       },
       {
         "env": "",
-        "value": "workingComponent.SpecsURL=SpecsURL"
+        "value": "workingComponent.SpecsSource=SpecsSource"
       },
       {
         "env": "",
@@ -147,12 +141,6 @@
         "innerId": "EnvData",
         "component": "app.components.Env",
         "size": "l5",
-        "env": ""
-      },
-      {
-        "innerId": "ComponentEnv",
-        "component": "app.components.UpdateEnvSpecs",
-        "size": "l1",
         "env": ""
       }
     ],
@@ -189,7 +177,7 @@
       {
         "env": "",
         "value": {
-          "title": "Add Env"
+          "title": "Add"
         }
       }
     ],
@@ -203,11 +191,12 @@
       {
         "env": "",
         "value": {
-          "title": "Update"
+            "title": "Remove"
+
         }
       }
     ],
-    "name": "app.components.UpdateEnvSpecs",
+    "name": "app.components.RemoveEnv",
     "isContainer": false,
     "js": [],
     "type": "button"
@@ -217,11 +206,12 @@
       {
         "env": "",
         "value": {
-          "title": "Remove Env"
+          "title": "Edit"
+
         }
       }
     ],
-    "name": "app.components.RemoveEnv",
+    "name": "app.components.EditEnv",
     "isContainer": false,
     "js": [],
     "type": "button"
@@ -238,7 +228,7 @@
       {
         "innerId": "ElementType",
         "component": "app.components.ElementType",
-        "size": "l2",
+        "size": "l1",
         "env": ""
       },
       {
@@ -260,14 +250,20 @@
         "env": ""
       },
       {
-        "innerId": "ComponentEnv",
-        "component": "app.components.AddEnv",
+        "innerId": "EditEnv",
+        "component": "app.components.EditEnv",
         "size": "l1",
         "env": ""
       },
       {
         "innerId": "ComponentEnv",
         "component": "app.components.RemoveEnv",
+        "size": "l1",
+        "env": ""
+      },
+      {
+        "innerId": "ComponentEnv",
+        "component": "app.components.AddEnv",
         "size": "l1",
         "env": ""
       }
@@ -550,12 +546,12 @@
       {
         "env": "",
         "value": {
-          "content": "URL",
-          "title": "URL"
+          "content": "Source",
+          "title": "Source"
         }
       }
     ],
-    "name": "app.components.SpecsURL",
+    "name": "app.components.SpecsSource",
     "isContainer": false,
     "js": [],
     "type": "textfield"
@@ -644,8 +640,20 @@
         "env": ""
       },
       {
+        "innerId": "SpecsSelectEdit",
+        "component": "app.components.EditEnv",
+        "size": "l1",
+        "env": ""
+      },
+      {
         "innerId": "SpecsSelectRemove",
         "component": "app.components.RemoveEnv",
+        "size": "l1",
+        "env": ""
+      },
+      {
+        "innerId": "SpecsSelectAdd",
+        "component": "app.components.AddEnv",
         "size": "l1",
         "env": ""
       }
@@ -660,6 +668,14 @@
       {
         "env": "",
         "value": "workingComponent.SpecsSelectRemove=SpecsSelectRemove"
+      },
+      {
+        "env": "",
+        "value": "workingComponent.SpecsSelectAdd=SpecsSelectAdd"
+      },
+      {
+        "env": "",
+        "value": "workingComponent.SpecsSelectEdit=SpecsSelectEdit"
       }
     ],
     "layout": "horizontal"

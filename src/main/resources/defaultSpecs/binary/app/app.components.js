@@ -14,11 +14,13 @@ function hideElemContainer(){
 function hideSpecs(){
 
     $(workingComponent.SpecsSize).closest('.input-field').parent().hide();
-    $(workingComponent.SpecsURL).closest('.input-field').parent().hide();
+    $(workingComponent.SpecsSource).closest('.input-field').parent().hide();
     $(workingComponent.SpecsTitle).closest('.input-field').parent().hide();
     $(workingComponent.SpecsContent).closest('.input-field').parent().hide();
     $(workingComponent.SpecsSelect).closest('.input-field').parent().hide();
-    $(workingComponent.SpecsSelectRemove).hide();
+    $(workingComponent.SpecsSelectRemove).parent().hide();
+    $(workingComponent.SpecsSelectEdit).parent().hide();
+    $(workingComponent.SpecsSelectAdd).parent().hide();
     $(workingComponent.SpecsJS).hide();
     $(workingComponent.ComponentEnv).off("change")
     ace.edit(workingComponent.SpecsJS).setValue("");
@@ -90,9 +92,13 @@ function processSelect(){
     let index = $(workingComponent.ComponentEnv).val();
     var specs = component.specs[index].value;
     specs.values.forEach(function (item, va) {
+        var textLine = "value: "+item.value+", text: "+item.text;
+        if (textLine.length > maxLine) {
+            textLine = textLine.substring(0, maxLine - 3) + "...";
+        }
         $(workingComponent.SpecsSelect).append($('<option>', {
             value: item,
-            text: item.value+" "+item.text
+            text: textLine
         }));
     });
     M.FormSelect.init(workingComponent.SpecsSelect);
@@ -124,10 +130,10 @@ function processSpecs() {
     hideSpecs();
     switch (component.type) {
         case "img":
-            $(workingComponent.SpecsURL).closest('.input-field').parent().show();
+            $(workingComponent.SpecsSource).closest('.input-field').parent().show();
             break
         case "header":
-            $(workingComponent.SpecsURL).closest('.input-field').parent().show();
+            $(workingComponent.SpecsSource).closest('.input-field').parent().show();
             break
         case "button":
             $(workingComponent.SpecsTitle).closest('.input-field').parent().show();
@@ -135,7 +141,9 @@ function processSpecs() {
         case "select":
             $(workingComponent.SpecsTitle).closest('.input-field').parent().show();
             $(workingComponent.SpecsSelect).closest('.input-field').parent().show();
-            $(workingComponent.SpecsSelectRemove).closest('.input-field').parent().show();
+            $(workingComponent.SpecsSelectRemove).parent().show();
+            $(workingComponent.SpecsSelectAdd).parent().show();
+            $(workingComponent.SpecsSelectEdit).parent().show();
             processSelect();
             break
         case "modal":
@@ -152,7 +160,7 @@ function processSpecs() {
             $(workingComponent.SpecsContent).closest('.input-field').parent().show();
             break
         case "textfield":
-            $(workingComponent.SpecsURL).closest('.input-field').parent().show();
+            $(workingComponent.SpecsSource).closest('.input-field').parent().show();
             $(workingComponent.SpecsTitle).closest('.input-field').parent().show();
             $(workingComponent.SpecsContent).closest('.input-field').parent().show();
             break
@@ -170,10 +178,10 @@ function processElement(){
     var specs = component.specs[index].value;
     switch (component.type) {
         case "header":
-            $(workingComponent.SpecsURL).val(specs.src);
+            $(workingComponent.SpecsSource).val(specs.src);
             break;
         case "img":
-            $(workingComponent.SpecsURL).val(specs.src);
+            $(workingComponent.SpecsSource).val(specs.src);
             break;
         case "button":
             $(workingComponent.SpecsTitle).val(specs.title);
@@ -190,7 +198,7 @@ function processElement(){
             $(workingComponent.SpecsContent).val(specs.content);
             break;
         case "textfield":
-            $(workingComponent.SpecsURL).val(specs.src);
+            $(workingComponent.SpecsSource).val(specs.src);
             $(workingComponent.SpecsTitle).val(specs.title);
             $(workingComponent.SpecsContent).val(specs.content);
             break;
