@@ -8,5 +8,10 @@
   "role": "Anonymous",
   "name": "materialize.min.js",
   "contentType": "text/javascript"
+ },
+ {
+  "role": "Anonymous",
+  "name": "materialize.content.js",
+  "contentType": "text/javascript"
  }
 ]

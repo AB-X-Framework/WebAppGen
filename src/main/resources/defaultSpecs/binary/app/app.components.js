@@ -47,6 +47,9 @@ function selectPackage(componentBox, packageName) {
     });
 }
 
+function processChildren() {
+
+}
 function processJS() {
     hideSpecs();
     $(workingComponent.SpecsJS).show();
@@ -211,6 +214,10 @@ function processComponent(componentName) {
         if (componentSpecs.isContainer) {
             processComponentType("Container");
             processContainerLayout(componentSpecs.layout)
+            $(workingComponent.ComponentDetails).append($('<option>', {
+                value: "children",
+                text: "Children",
+            }));
             processJS();
         } else {
             $(workingComponent.ComponentDetails).append($('<option>', {
@@ -227,8 +234,10 @@ function processComponent(componentName) {
         $(workingComponent.ComponentDetails).change(() => {
             if ($(workingComponent.ComponentDetails).val() === "specs") {
                 processSpecs();
-            } else {
+            } else  if ($(workingComponent.ComponentDetails).val() === "specs") {
                 processJS();
+            } else  if ($(workingComponent.ComponentDetails).val() === "specs") {
+                processChildren()
             }
         });
 
