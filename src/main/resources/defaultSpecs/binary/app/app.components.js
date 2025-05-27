@@ -18,6 +18,7 @@ function hideSpecs(){
     $(workingComponent.SpecsTitle).closest('.input-field').parent().hide();
     $(workingComponent.SpecsContent).closest('.input-field').parent().hide();
     $(workingComponent.SpecsSelect).closest('.input-field').parent().hide();
+    $(workingComponent.SpecsSelectRemove).closest('.input-field').parent().hide();
     $(workingComponent.SpecsJS).hide();
     $(workingComponent.ComponentEnv).off("change")
     ace.edit(workingComponent.SpecsJS).setValue("");
@@ -131,6 +132,7 @@ function processSpecs() {
         case "select":
             $(workingComponent.SpecsTitle).closest('.input-field').parent().show();
             $(workingComponent.SpecsSelect).closest('.input-field').parent().show();
+            $(workingComponent.SpecsSelectRemove).closest('.input-field').parent().show();
             processSelect();
             break
         case "modal":

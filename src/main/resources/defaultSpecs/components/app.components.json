@@ -650,7 +650,7 @@
         "env": ""
       },
       {
-        "innerId": "RemoveEnv",
+        "innerId": "SpecsSelectRemove",
         "component": "app.components.RemoveEnv",
         "size": "l1",
         "env": ""
@@ -662,6 +662,10 @@
       {
         "env": "",
         "value": "workingComponent.SpecsSelect=SpecsSelect"
+      },
+      {
+        "env": "",
+        "value": "workingComponent.SpecsSelectRemove=SpecsSelectRemove"
       }
     ],
     "layout": "horizontal"
