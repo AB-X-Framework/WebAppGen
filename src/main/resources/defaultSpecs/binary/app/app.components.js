@@ -50,9 +50,20 @@ function selectPackage(componentBox, packageName) {
 }
 
 function processChildren() {
-
+    hideSpecs();
+    $(workingComponent.ComponentEnv).empty();
+    $(workingComponent.ComponentEnv).closest('.input-field').children('label').text('Children');
+    workingComponent.specs.components.forEach(function (item, index) {
+        $(workingComponent.ComponentEnv).append($('<option>', {
+            value: index,
+            text: JSON.stringify(item)
+        }));
+    });
+    M.FormSelect.init(workingComponent.ComponentEnv);
 }
+
 function processJS() {
+    $(workingComponent.ComponentEnv).closest('.input-field').children('label').text('JS');
     hideSpecs();
     $(workingComponent.SpecsJS).show();
     $(workingComponent.ComponentEnv).empty();
@@ -105,6 +116,7 @@ function processSelect(){
 }
 
 function processSpecs() {
+    $(workingComponent.ComponentEnv).closest('.input-field').children('label').text('Specs');
     $(workingComponent.ComponentEnv).empty();
     let first = false;
     var component= workingComponent.specs;
@@ -242,9 +254,9 @@ function processComponent(componentName) {
         $(workingComponent.ComponentDetails).change(() => {
             if ($(workingComponent.ComponentDetails).val() === "specs") {
                 processSpecs();
-            } else  if ($(workingComponent.ComponentDetails).val() === "specs") {
+            } else  if ($(workingComponent.ComponentDetails).val() === "js") {
                 processJS();
-            } else  if ($(workingComponent.ComponentDetails).val() === "specs") {
+            } else  if ($(workingComponent.ComponentDetails).val() === "children") {
                 processChildren()
             }
         });
