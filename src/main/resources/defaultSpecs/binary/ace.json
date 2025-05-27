@@ -1,0 +1,23 @@
+[
+
+ {
+  "role": "Anonymous",
+  "name": "ace.min.js",
+  "contentType": "text/javascript"
+ },
+ {
+  "role": "Anonymous",
+  "name": "theme-monokai.js",
+  "contentType": "text/javascript"
+ },
+ {
+  "role": "Anonymous",
+  "name": "mode-javascript.js",
+  "contentType": "text/javascript"
+ },
+ {
+  "role": "Anonymous",
+  "name": "worker-javascript.js",
+  "contentType": "text/javascript"
+ }
+]

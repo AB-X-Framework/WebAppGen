@@ -25,7 +25,8 @@
       "model",
       "jquery",
       "icons",
-      "materialize"
+      "materialize",
+      "ace"
     ],
     "text": [
       "demo"

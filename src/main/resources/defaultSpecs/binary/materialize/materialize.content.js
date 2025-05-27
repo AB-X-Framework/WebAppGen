@@ -304,7 +304,7 @@ class PageContent {
 
     static renderJS(output, specs) {
         var result = `
-    <script src="/web/ace/src-min-noconflict/ace.js"></script>
+    <script src="/resources/binary/ace.min.js"></script>
     <div id="${specs.id}" style="height: ${specs.height}; width: 100%">// Write your JavaScript here</div>
         
 <script>
