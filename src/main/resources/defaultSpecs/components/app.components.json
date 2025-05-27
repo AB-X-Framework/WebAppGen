@@ -520,12 +520,6 @@
         "env": ""
       },
       {
-        "innerId": "ComponentMenu",
-        "component": "app.components.ComponentMenu",
-        "size": "l12",
-        "env": ""
-      },
-      {
         "innerId": "modelContainer",
         "component": "app.components.NavPanel",
         "size": "l12",
