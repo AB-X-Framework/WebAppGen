@@ -5,9 +5,9 @@ import java.util.Map;
 
 public class EnvProperties {
 
-    private Map<String, String> baseline;
+    private final Map<String, String> baseline;
 
-    private Map<String, String> session;
+    private final Map<String, String> session;
 
     private String str;
 
