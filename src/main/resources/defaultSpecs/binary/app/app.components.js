@@ -24,6 +24,9 @@ function hideSpecs(){
     $(workingComponent.SpecsJS).hide();
     $(workingComponent.ComponentEnv).off("change")
     ace.edit(workingComponent.SpecsJS).setValue("");
+
+
+    $(workingComponent.SpecsSource).closest('.input-field').children("label").text("Source");
 }
 
 function selectPackage(componentBox, packageName) {
@@ -54,9 +57,13 @@ function processChildren() {
     $(workingComponent.ComponentEnv).empty();
     $(workingComponent.ComponentEnv).closest('.input-field').children('label').text('Children');
     workingComponent.specs.components.forEach(function (item, index) {
+        var line = JSON.stringify(item);
+        if (line.length > maxLine) {
+            line = line.substring(0, maxLine - 3) + "...";
+        }
         $(workingComponent.ComponentEnv).append($('<option>', {
             value: index,
-            text: JSON.stringify(item)
+            text: line
         }));
     });
     M.FormSelect.init(workingComponent.ComponentEnv);

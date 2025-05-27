@@ -679,5 +679,56 @@
       }
     ],
     "layout": "horizontal"
+  },
+
+
+  {
+    "components": [
+      {
+        "innerId": "SpecsSelect",
+        "component": "app.components.SpecsSelect",
+        "size": "l4",
+        "env": ""
+      },
+      {
+        "innerId": "SpecsSelectEdit",
+        "component": "app.components.EditEnv",
+        "size": "l1",
+        "env": ""
+      },
+      {
+        "innerId": "SpecsSelectRemove",
+        "component": "app.components.RemoveEnv",
+        "size": "l1",
+        "env": ""
+      },
+      {
+        "innerId": "SpecsSelectAdd",
+        "component": "app.components.AddEnv",
+        "size": "l1",
+        "env": ""
+      }
+    ],
+    "name": "app.components.SpecsSelectContainer",
+    "isContainer": true,
+    "js": [
+      {
+        "env": "",
+        "value": "workingComponent.SpecsSelect=SpecsSelect"
+      },
+      {
+        "env": "",
+        "value": "workingComponent.SpecsSelectRemove=SpecsSelectRemove"
+      },
+      {
+        "env": "",
+        "value": "workingComponent.SpecsSelectAdd=SpecsSelectAdd"
+      },
+      {
+        "env": "",
+        "value": "workingComponent.SpecsSelectEdit=SpecsSelectEdit"
+      }
+    ],
+    "layout": "horizontal"
   }
 ]
