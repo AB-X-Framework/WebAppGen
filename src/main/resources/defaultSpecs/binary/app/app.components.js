@@ -18,7 +18,7 @@ function hideSpecs(){
     $(workingComponent.SpecsTitle).closest('.input-field').parent().hide();
     $(workingComponent.SpecsContent).closest('.input-field').parent().hide();
     $(workingComponent.SpecsSelect).closest('.input-field').parent().hide();
-    $(workingComponent.SpecsSelectRemove).closest('.input-field').parent().hide();
+    $(workingComponent.SpecsSelectRemove).hide();
     $(workingComponent.SpecsJS).hide();
     $(workingComponent.ComponentEnv).off("change")
     ace.edit(workingComponent.SpecsJS).setValue("");
