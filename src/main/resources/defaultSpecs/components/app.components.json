@@ -85,6 +85,12 @@
         "env": ""
       },
       {
+        "innerId": "SpecsSelect",
+        "component": "app.components.SpecsSelect",
+        "size": "l2",
+        "env": ""
+      },
+      {
         "innerId": "SpecsJSContainer",
         "component": "app.components.SpecsJSContainer",
         "size": "l11",
@@ -131,6 +137,10 @@
       {
         "env": "",
         "value": "workingComponent.SpecsSize=SpecsSize"
+      },
+      {
+        "env": "",
+        "value": "workingComponent.SpecsSelect=SpecsSelect"
       }
     ]
   },
@@ -605,8 +615,6 @@
     "js": [],
     "type": "textfield"
   },
-
-
   {
     "specs": [
       {
@@ -620,5 +628,21 @@
     "isContainer": false,
     "js": [],
     "type": "js"
+  },
+  {
+    "specs": [
+      {
+        "env": "",
+        "value": {
+          "values": [
+
+          ]
+        }
+      }
+    ],
+    "name": "app.components.SpecsSelect",
+    "isContainer": false,
+    "js": [],
+    "type": "select"
   }
 ]
