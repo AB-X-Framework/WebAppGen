@@ -49,13 +49,14 @@ function processJS() {
     $(workingComponent.ComponentEnv).empty();
     let first = false;
     workingComponent.specs.js.forEach(function (item, va) {
+        let env= item.env;
         if (!first) {
             first = true;
             $(workingComponent.Env).val(item.env);
-            ace.edit(workingComponent.SpecsJS).setValue(item.value)
+            ace.edit(workingComponent.SpecsJS).setValue(item.value);
         }
-        if (item.env === "") {
-            item.env = "Default";
+        if (env === "") {
+            env = "Default";
         }
         var lineValue = JSON.stringify(item.value);
         if (lineValue.length > maxLine) {
@@ -63,11 +64,18 @@ function processJS() {
         }
         $(workingComponent.ComponentEnv).append($('<option>', {
             value: va,
-            text: item.env + " -> " + lineValue
+            text: env + " -> " + lineValue
         }));
     });
     M.FormSelect.init(workingComponent.ComponentEnv);
 
+    $(workingComponent.ComponentEnv).change(()=>{
+        let index = $(workingComponent.ComponentEnv).val();
+        var envValue = workingComponent.specs.js[index];
+        ace.edit(workingComponent.SpecsJS).setValue(envValue.value);
+        $(workingComponent.Env).val(envValue.env);
+
+    });
 }
 
 function processSpecs() {
