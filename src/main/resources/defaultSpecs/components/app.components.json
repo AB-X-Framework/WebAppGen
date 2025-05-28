@@ -3,7 +3,7 @@
     "layout": "horizontal",
     "components": [
       {
-        "innerId": "ComponentA",
+        "innerId": "ComponentPackage",
         "component": "app.components.ComponentPackage",
         "size": "l2",
         "env": ""
@@ -17,7 +17,10 @@
     ],
     "name": "app.components.NavPanel",
     "isContainer": true,
-    "js": []
+    "js": [      {
+      "env": "",
+      "value": "$(ComponentPackage).on('change', ()=>{processAction( $(ComponentPackage).val());});"
+    }]
   },
   {
     "specs": [
@@ -32,10 +35,7 @@
     "name": "app.components.ComponentPackage",
     "isContainer": false,
     "js": [
-      {
-        "env": "",
-        "value": "$(self).on('change', ()=>{processAction( $(self).val());});"
-      }
+
     ],
     "type": "select"
   },
@@ -91,6 +91,12 @@
         "env": ""
       },
       {
+        "innerId": "ChildrenComponent",
+        "component": "app.components.ChildrenComponent",
+        "size": "l4",
+        "env": ""
+      },
+      {
         "innerId": "divider",
         "component": "base.divider",
         "size": "l12",
@@ -112,6 +118,14 @@
     "name": "app.components.container",
     "isContainer": true,
     "js": [
+      {
+        "env": "",
+        "value": "workingComponent.ComponentName=ComponentName"
+      },
+      {
+        "env": "",
+        "value": "$(ComponentName).on('change', ()=>{processComponent( $(ComponentName).val());});"
+      },
       {
         "env": "",
         "value": "workingComponent.show=componentShow"
@@ -303,14 +317,6 @@
     "name": "app.components.ComponentName",
     "isContainer": false,
     "js": [
-      {
-        "env": "",
-        "value": " processAction = function (x){selectPackage($(self),x);}"
-      },
-      {
-        "env": "",
-        "value": "$(self).on('change', ()=>{processComponent( $(self).val());});"
-      }
     ],
     "type": "select"
   },
@@ -728,6 +734,33 @@
         "env": "",
         "value": "workingComponent.SpecsSelectEdit=SpecsSelectEdit"
       }
+    ],
+    "layout": "horizontal"
+  },
+
+
+
+  {
+    "components": [
+
+      {
+        "innerId": "InnerComponentPackage",
+        "component": "app.components.ComponentPackage",
+        "size": "l2",
+        "env": ""
+      }, {
+        "innerId": "InnerComponentName",
+        "component": "app.components.ComponentName",
+        "size": "l7",
+        "env": ""
+      }
+
+
+    ],
+    "name": "app.components.ChildrenComponent",
+    "isContainer": true,
+    "js": [
+
     ],
     "layout": "horizontal"
   }
