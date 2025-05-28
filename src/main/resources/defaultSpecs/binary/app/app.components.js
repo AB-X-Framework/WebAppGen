@@ -22,11 +22,11 @@ function hideSpecs() {
     $(workingComponent.SpecsSource).closest('.input-field').parent().hide();
     $(workingComponent.SpecsTitle).closest('.input-field').parent().hide();
     $(workingComponent.SpecsContent).closest('.input-field').parent().hide();
-    $(workingComponent.SpecsSelect).closest('.input-field').parent().hide();
+    $(workingComponent.SpecsSelect).closest('.input-field').parent().parent().parent().hide();
     $(workingComponent.SpecsSelectRemove).parent().hide();
     $(workingComponent.SpecsSelectEdit).parent().hide();
     $(workingComponent.SpecsSelectAdd).parent().hide();
-    $(workingComponent.SpecsJS).hide();
+    $(workingComponent.SpecsJS).parent().parent().parent().hide();
     $(workingComponent.ComponentEnv).off("change")
     ace.edit(workingComponent.SpecsJS).setValue("");
 
@@ -77,7 +77,7 @@ function processChildren() {
 function processJS() {
     $(workingComponent.ComponentEnv).closest('.input-field').children('label').text('JS');
     hideSpecs();
-    $(workingComponent.SpecsJS).show();
+    $(workingComponent.SpecsJS).parent().parent().parent().show();
     $(workingComponent.ComponentEnv).empty();
     let first = false;
     workingComponent.specs.js.forEach(function (item, va) {
@@ -164,7 +164,7 @@ function processSpecs() {
             break
         case "select":
             $(workingComponent.SpecsTitle).closest('.input-field').parent().show();
-            $(workingComponent.SpecsSelect).closest('.input-field').parent().show();
+            $(workingComponent.SpecsSelect).closest('.input-field').parent().parent().parent().show();
             $(workingComponent.SpecsSelectRemove).parent().show();
             $(workingComponent.SpecsSelectAdd).parent().show();
             $(workingComponent.SpecsSelectEdit).parent().show();
