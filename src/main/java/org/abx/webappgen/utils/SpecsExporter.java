@@ -129,7 +129,7 @@ public class SpecsExporter {
             jsonComponents.put(packageName);
             JSONArray componentsByPackage = new JSONArray();
             for (org.abx.webappgen.persistence.model.Component component : componentRepository.findAllByPackageName(packageName)) {
-                JSONObject jsonComponent = createComponent(component);
+                JSONObject jsonComponent = getComponentDetails(component);
                 componentsByPackage.put(jsonComponent);
             }
             new FileOutputStream(specsFolder + "/components/" + packageName + ".json").
@@ -139,12 +139,12 @@ public class SpecsExporter {
     }
 
     @Transactional
-    public JSONObject createComponent(String componentName) {
-        return createComponent(componentRepository.findByComponentId(
+    public JSONObject getComponentDetails(String componentName) {
+        return getComponentDetails(componentRepository.findByComponentId(
                 PageModel.elementHashCode(componentName)   ));
     }
 
-    private JSONObject createComponent(org.abx.webappgen.persistence.model.Component component) {
+    private JSONObject getComponentDetails(org.abx.webappgen.persistence.model.Component component) {
         JSONObject jsonComponent = new JSONObject();
         jsonComponent.put("name", component.componentName);
         jsonComponent.put("isContainer", component.isContainer);

@@ -63,13 +63,12 @@ public class PageController extends RoleController{
     @Secured("Admin")
     public String byPackage(@PathVariable String packageName) {
         return pageModel.getComponentNames(packageName).toString(2);
-
     }
 
     @GetMapping(value = "/components/{componentName}", produces = MediaType.APPLICATION_JSON_VALUE)
     @Secured("Admin")
-    public String componentByName(@PathVariable String componentName)  {
-        return specsExporter.createComponent(componentName).toString(2);
+    public String getComponentDetails(@PathVariable String componentName)  {
+        return specsExporter.getComponentDetails(componentName).toString(2);
 
     }
     @GetMapping(value = "/specs/{pagename}", produces = MediaType.APPLICATION_JSON_VALUE)
