@@ -51,7 +51,7 @@
         "value": {
           "content": "",
           "title": "Project path",
-          "src": "/resources/map/app.Env/modelPath"
+          "src": "/resources/map/org.abx.app.Env/modelPath"
         }
       }
     ],

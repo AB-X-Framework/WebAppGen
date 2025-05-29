@@ -31,8 +31,8 @@
     ],
     "map": [
       {
-        "package": "app",
-        "name": "app.Env"
+        "package": "org.abx.app",
+        "name": "org.abx.app.Env"
       }
     ]
   },
