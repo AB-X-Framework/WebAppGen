@@ -74,10 +74,21 @@ function processChildren() {
             value: index,
             text: line
         }));
+        $(workingComponent.ComponentEnv).change(()=>{
+            processInnerComponent($(workingComponent.ComponentEnv).val());
+        });
     });
+    if (workingComponent.specs.components.length>0){
+        processInnerComponent(0);
+    }
     M.FormSelect.init(workingComponent.ComponentEnv);
 }
 
+function processInnerComponent(index){
+    let component = workingComponent.specs;
+    $(workingComponent.ChildrenInnerId).val(component.components[index].innerId);
+
+}
 function processJS() {
     $(workingComponent.ComponentEnv).closest('.input-field').children('label').text('JS');
     hideSpecs();

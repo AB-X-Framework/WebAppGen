@@ -794,6 +794,10 @@
     "name": "app.components.ChildrenComponentDetails",
     "isContainer": true,
     "js": [
+      {
+        "env": "",
+        "value": "workingComponent.ChildrenInnerId=ChildrenInnerId"
+      }
     ],
     "layout": "horizontal"
   },
