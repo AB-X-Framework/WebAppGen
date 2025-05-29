@@ -883,6 +883,10 @@
       {
         "env": "",
         "value": "$(SaveComponent).click(()=> M.Modal.init(ConfirmChangesModal).open())"
+      },
+      {
+        "env": "",
+        "value": "$(ConfirmChangesModal.yes).click(saveCurrentSpecs)"
       }
     ],
     "layout": "horizontal"
@@ -931,7 +935,9 @@
     ],
     "name": "org.abx.app.components.ConfirmChangesModal",
     "isContainer": false,
-    "js": [],
+    "js": [
+
+    ],
     "type": "yesNoModal"
   }
 ]

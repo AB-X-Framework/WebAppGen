@@ -322,6 +322,28 @@ function processComponent(componentName) {
 
 }
 
+function saveCurrentSpecs() {
+    $.post("/page/components", {component: JSON.stringify(workingEnv.component)}, function (response) {
+        let message = "";
+        if (response.success) {
+            message = "Component saved successfully";
+        } else {
+            message = "Error saving component " + message.error;
+        }
+        $('body').append(`
+    <div id="okModal" class="modal">
+      <div class="modal-content"><p></p>${message}</div>
+      <div class="modal-footer">
+        <button class="modal-close btn blue" id="okBtn">OK</button>
+      </div>
+    </div>
+  `);
+        const modal = M.Modal.init($('#okModal')[0]);
+    });
+
+
+}
+
 function setComponentTypeVisibility(type) {
     if (type === "Container") {
         $(workingEnv.ElementType).closest('.input-field').parent().hide()

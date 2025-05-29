@@ -3,9 +3,11 @@ class PageContent {
     static hide(element) {
         $(element).closest('.input-field').hide();
     }
+
     static show(element) {
         $(element).closest('.input-field').show();
     }
+
     static processTile(specs) {
         document.title = specs.title;
     }
@@ -39,9 +41,7 @@ class PageContent {
     }
 
     static renderComponent(output, js, componentSpecs) {
-        if (componentSpecs.js !== "") {
-            js.push(componentSpecs.js);
-        }
+
         if (componentSpecs.isContainer) {
             if (componentSpecs.layout === "nav") {
                 PageContent.renderNav(output, js, componentSpecs);
@@ -91,7 +91,7 @@ class PageContent {
                     PageContent.renderHeader(output, componentSpecs.specs);
                     break;
                 case "yesNoModal":
-                    PageContent.renderYesNoModal(output, js,componentSpecs.specs);
+                    PageContent.renderYesNoModal(output, js, componentSpecs.specs);
                     break;
                 case "menu":
                     PageContent.renderMenu(output, js, componentSpecs.specs);
@@ -103,6 +103,9 @@ class PageContent {
                     PageContent.renderDivider(output, componentSpecs.specs);
                     break;
             }
+        }
+        if (componentSpecs.js !== "") {
+            js.push(componentSpecs.js);
         }
 
     }
@@ -191,6 +194,7 @@ class PageContent {
             `<div id="${specs.id}"  ></div>`
         output.push(results);
     }
+
     static renderDivider(output, specs) {
         var results =
             `<div class="divider" id="${specs.id}"  ></div>`
@@ -342,19 +346,21 @@ class PageContent {
     }
 
     static renderYesNoModal(output, js, specs) {
-       let html = `
+        let html = `
     <div id="${specs.id}" class="modal">
     
       <div class="modal-content">
        <h5>${specs.title}</h5>
       <p>${specs.content}</p></div>
       <div class="modal-footer">
-        <button class="modal-close btn green" id="yesBtn">${specs.yes}</button>
-        <button class="modal-close btn red" id="noBtn">${specs.no}</button>
+        <button class="modal-close btn green" id="${specs.id}_yes">${specs.yes}</button>
+        <button class="modal-close btn red" id="${specs.id}_no">${specs.no}</button>
       </div>
     </div>
   `;
-       output.push(html);
+        js.push(`${specs.id}.yes=${specs.id}_yes`);
+        js.push(`${specs.id}.no=${specs.id}_no`);
+        output.push(html);
     }
 
     static renderMenuItems(items) {
