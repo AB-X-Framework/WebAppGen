@@ -107,7 +107,6 @@ class PageContent {
     static renderNav(output, js, componentSpecs) {
         var children = componentSpecs.children;
         output.push(`
-    <link href="/defaultSpecs/binary/icons/icons.css" rel="stylesheet">
 <header><div class="container">
        <div class="container">
         <a href="#" data-target="nav-mobile"
@@ -327,7 +326,7 @@ class PageContent {
         for (var link of specs.links) {
             links += `<li><a href="${link.href}">${link.text}</li></a>`
         }
-        var result = `  <nav>
+        var result = `  <nav style="margin-bottom: 5px;">
     <div>
       <a href="#" class="left" style="height: 64px; ">
       <img src="${specs.src}" alt="Logo" style="height: 60px; padding: 2px;">

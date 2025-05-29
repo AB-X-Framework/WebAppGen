@@ -44,8 +44,8 @@
     "layout": "vertical",
     "components": [
       {
-        "innerId": "ComponentName",
-        "component": "org.abx.app.components.ComponentName",
+        "innerId": "ComponentNameContainer",
+        "component": "org.abx.app.components.ComponentNameContainer",
         "size": "l12",
         "env": ""
       },
@@ -125,14 +125,6 @@
     "name": "org.abx.app.components.container",
     "isContainer": true,
     "js": [
-      {
-        "env": "",
-        "value": "workingComponent.ComponentName=ComponentName"
-      },
-      {
-        "env": "",
-        "value": "$(ComponentName).on('change', ()=>{processComponent( $(ComponentName).val());});"
-      },
       {
         "env": "",
         "value": "workingComponent.show=componentShow"
@@ -845,5 +837,68 @@
     "isContainer": false,
     "js": [],
     "type": "textfield"
+  },
+  {
+    "components": [
+      {
+        "innerId": "ComponentName",
+        "component": "org.abx.app.components.ComponentName",
+        "size": "l5",
+        "env": ""
+      },
+      {
+        "innerId": "SaveComponent",
+        "component": "org.abx.app.components.SaveComponent",
+        "size": "l1",
+        "env": ""
+      },
+      {
+        "innerId": "DiscardChanges",
+        "component": "org.abx.app.components.DiscardChanges",
+        "size": "l1",
+        "env": ""
+      }
+    ],
+    "name": "org.abx.app.components.ComponentNameContainer",
+    "isContainer": true,
+    "js": [
+      {
+        "env": "",
+        "value": "workingComponent.ComponentName=ComponentName"
+      },
+      {
+        "env": "",
+        "value": "$(ComponentName).on('change', ()=>{processComponent( $(ComponentName).val());});"
+      }
+    ],
+    "layout": "horizontal"
+  },
+  {
+    "specs": [
+      {
+        "env": "",
+        "value": {
+          "title": "Save Component"
+        }
+      }
+    ],
+    "name": "org.abx.app.components.SaveComponent",
+    "isContainer": false,
+    "js": [],
+    "type": "button"
+  },
+  {
+    "specs": [
+      {
+        "env": "",
+        "value": {
+          "title": "Discard Changes"
+        }
+      }
+    ],
+    "name": "org.abx.app.components.DiscardChanges",
+    "isContainer": false,
+    "js": [],
+    "type": "button"
   }
 ]
