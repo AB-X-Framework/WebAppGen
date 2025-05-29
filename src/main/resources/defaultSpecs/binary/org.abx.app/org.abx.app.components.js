@@ -20,6 +20,7 @@ function hideSpecs() {
 
     $(workingEnv.SpecsSize).closest('.input-field').parent().hide();
     $(workingEnv.SpecsYes).closest('.input-field').parent().hide();
+    $(workingEnv.SpecsNo).closest('.input-field').parent().hide();
     $(workingEnv.SpecsSource).closest('.input-field').parent().hide();
     $(workingEnv.SpecsTitle).closest('.input-field').parent().hide();
     $(workingEnv.SpecsContent).closest('.input-field').parent().hide();
@@ -211,6 +212,7 @@ function processSpecs() {
             $(workingEnv.SpecsTitle).closest('.input-field').parent().show();
             $(workingEnv.SpecsContent).closest('.input-field').parent().show();
             $(workingEnv.SpecsYes).closest('.input-field').parent().show();
+            $(workingEnv.SpecsNo).closest('.input-field').parent().show();
             break
         case "section":
             $(workingEnv.SpecsSize).closest('.input-field').parent().show();

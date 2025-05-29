@@ -388,14 +388,8 @@
         "env": ""
       },
       {
-        "innerId": "SpecsYes",
-        "component": "org.abx.app.components.SpecsYes",
-        "size": "l4",
-        "env": ""
-      },
-      {
-        "innerId": "SpecsNo",
-        "component": "org.abx.app.components.SpecsNo",
+        "innerId": "SpecsYesNoContainer",
+        "component": "org.abx.app.components.SpecsYesNoContainer",
         "size": "l4",
         "env": ""
       },
@@ -451,14 +445,6 @@
       {
         "env": "",
         "value": "workingEnv.SpecsTitle=SpecsTitle"
-      },
-      {
-        "env": "",
-        "value": "workingEnv.SpecsYes=SpecsYes"
-      },
-      {
-        "env": "",
-        "value": "workingEnv.SpecsNo=SpecsNo"
       },
       {
         "env": "",
@@ -965,5 +951,35 @@
     "isContainer": false,
     "js": [],
     "type": "textfield"
+  },
+  {
+    "layout": "horizontal",
+    "components": [
+      {
+        "innerId": "SpecsYes",
+        "component": "org.abx.app.components.SpecsYes",
+        "size": "l4",
+        "env": ""
+      },
+      {
+        "innerId": "SpecsNo",
+        "component": "org.abx.app.components.SpecsNo",
+        "size": "l4",
+        "env": ""
+      }
+    ],
+    "package": "org.abx.app.components",
+    "name": "org.abx.app.components.SpecsYesNoContainer",
+    "isContainer": true,
+    "js": [
+      {
+        "env": "",
+        "value": "workingEnv.SpecsYes=SpecsYes;"
+      },
+      {
+        "env": "",
+        "value": "workingEnv.SpecsNo=SpecsNo;"
+      }
+    ]
   }
 ]
