@@ -98,6 +98,12 @@
         "env": ""
       },
       {
+        "innerId": "ChildrenComponent2",
+        "component": "app.components.ChildrenComponent",
+        "size": "l4",
+        "env": ""
+      },
+      {
         "innerId": "divider",
         "component": "base.divider",
         "size": "l12",
