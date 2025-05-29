@@ -19,11 +19,12 @@ function processAction(x) {
 function hideSpecs() {
 
     $(workingEnv.SpecsSize).closest('.input-field').parent().hide();
+    $(workingEnv.SpecsYes).closest('.input-field').parent().hide();
     $(workingEnv.SpecsSource).closest('.input-field').parent().hide();
     $(workingEnv.SpecsTitle).closest('.input-field').parent().hide();
     $(workingEnv.SpecsContent).closest('.input-field').parent().hide();
-    $(workingEnv.ChildrenComponentClass).hide();
-    $(workingEnv.ChildrenComponentDetails).hide();
+    $(workingEnv.ChildrenComponentClass).parent().hide();
+    $(workingEnv.ChildrenComponentDetails).parent().hide();
     $(workingEnv.SpecsSelect).closest('.input-field').parent().parent().parent().hide();
     $(workingEnv.SpecsSelectRemove).parent().hide();
     $(workingEnv.SpecsSelectEdit).parent().hide();
@@ -58,8 +59,8 @@ function selectPackage(componentBox, packageName) {
 
 function processChildren() {
     hideSpecs();
-    $(workingEnv.ChildrenComponentClass).show();
-    $(workingEnv.ChildrenComponentDetails).show();
+    $(workingEnv.ChildrenComponentClass).parent().show();
+    $(workingEnv.ChildrenComponentDetails).parent().show();
     $(workingEnv.ComponentEnv).empty();
     $(workingEnv.ComponentEnv).closest('.input-field').children('label').text('Children');
     workingEnv.component.components.forEach(function (item, index) {
@@ -206,6 +207,11 @@ function processSpecs() {
             $(workingEnv.SpecsTitle).closest('.input-field').parent().show();
             $(workingEnv.SpecsContent).closest('.input-field').parent().show();
             break
+        case "yesNoModal":
+            $(workingEnv.SpecsTitle).closest('.input-field').parent().show();
+            $(workingEnv.SpecsContent).closest('.input-field').parent().show();
+            $(workingEnv.SpecsYes).closest('.input-field').parent().show();
+            break
         case "section":
             $(workingEnv.SpecsSize).closest('.input-field').parent().show();
             $(workingEnv.SpecsTitle).closest('.input-field').parent().show();
@@ -248,6 +254,12 @@ function processElement() {
         case "modal":
             $(workingEnv.SpecsTitle).val(specs.title);
             $(workingEnv.SpecsContent).val(specs.content);
+            break;
+        case "yesNoModal":
+            $(workingEnv.SpecsTitle).val(specs.title);
+            $(workingEnv.SpecsContent).val(specs.content);
+            $(workingEnv.SpecsYes).val(specs.yes);
+            $(workingEnv.SpecsNo).val(specs.no);
             break;
         case "password":
             $(workingEnv.SpecsTitle).val(specs.title);
