@@ -65,7 +65,7 @@ function processChildren() {
     $(workingEnv.ChildrenComponentDetails).show();
     $(workingEnv.ComponentEnv).empty();
     $(workingEnv.ComponentEnv).closest('.input-field').children('label').text('Children');
-    workingEnv.specs.components.forEach(function (item, index) {
+    workingEnv.component.components.forEach(function (item, index) {
         var line = JSON.stringify(item);
         if (line.length > maxLine) {
             line = line.substring(0, maxLine - 3) + "...";
@@ -78,14 +78,14 @@ function processChildren() {
             processInnerComponent($(workingEnv.ComponentEnv).val());
         });
     });
-    if (workingEnv.specs.components.length > 0) {
+    if (workingEnv.component.components.length > 0) {
         processInnerComponent(0);
     }
     M.FormSelect.init(workingEnv.ComponentEnv);
 }
 
 function processInnerComponent(index) {
-    let component = workingEnv.specs;
+    let component = workingEnv.component;
     $(workingEnv.ChildrenInnerId).val(component.components[index].innerId);
     $(workingEnv.ChildrenSize).val(component.components[index].size);
     $(workingEnv.InnerComponentEnv).val(component.components[index].env);
@@ -115,7 +115,7 @@ function processJS() {
     $(workingEnv.SpecsJS).parent().parent().parent().show();
     $(workingEnv.ComponentEnv).empty();
     let first = false;
-    workingEnv.specs.js.forEach(function (item, va) {
+    workingEnv.component.js.forEach(function (item, va) {
         let env = item.env;
         if (!first) {
             first = true;
@@ -138,7 +138,7 @@ function processJS() {
 
     $(workingEnv.ComponentEnv).change(() => {
         let index = $(workingEnv.ComponentEnv).val();
-        var envValue = workingEnv.specs.js[index];
+        var envValue = workingEnv.component.js[index];
         ace.edit(workingEnv.SpecsJS).setValue(envValue.value);
         $(workingEnv.Env).val(envValue.env);
 
@@ -146,7 +146,7 @@ function processJS() {
 }
 
 function processSelect() {
-    var component = workingEnv.specs;
+    var component = workingEnv.component;
     let index = $(workingEnv.ComponentEnv).val();
     var specs = component.specs[index].value;
     specs.values.forEach(function (item, va) {
@@ -166,7 +166,7 @@ function processSpecs() {
     $(workingEnv.ComponentEnv).closest('.input-field').children('label').text('Specs');
     $(workingEnv.ComponentEnv).empty();
     let first = false;
-    var component = workingEnv.specs;
+    var component = workingEnv.component;
     component.specs.forEach(function (item, va) {
         let env = item.env;
         if (!first) {
@@ -230,7 +230,7 @@ function processSpecs() {
 
 function processElement() {
 
-    var component = workingEnv.specs;
+    var component = workingEnv.component;
 
     var index = $(workingEnv.ComponentEnv).val();
     $(workingEnv.Env).val(component.specs[index].env);
@@ -277,7 +277,7 @@ function processComponent(componentName) {
     }));
     $(workingEnv.show).empty();
     $.get(`/page/components/${componentName}`, (componentSpecs) => {
-        workingEnv.specs = componentSpecs;
+        workingEnv.component = componentSpecs;
         if (componentSpecs.isContainer) {
             processComponentType("Container");
             processContainerLayout(componentSpecs.layout)
