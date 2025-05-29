@@ -1,5 +1,5 @@
 function loadModel(modelPath) {
-    App.process('model.loadModel', {"modelPath": modelPath},
+    App.process('org.abx.app.loadModel', {"modelPath": modelPath},
         (result) => {
             PageContent.showModal("Load Model", "New model loaded successfully.");
         },
@@ -10,14 +10,14 @@ function loadModel(modelPath) {
 
 
 function downloadModel() {
-    App.processDownload('model.downloadModel', {},
+    App.processDownload('org.abx.app.downloadModel', {},
         undefined,
         (result) => {
             PageContent.showModal("Download Mode", "Cannot download model. "+result);
         });
 }
 function saveModel(modelPath) {
-    App.process('model.saveModel', {"modelPath": modelPath},
+    App.process('org.abx.app.saveModel', {"modelPath": modelPath},
         (result) => {
             PageContent.showModal("Save Model", "Model saved successfully.");
         },
