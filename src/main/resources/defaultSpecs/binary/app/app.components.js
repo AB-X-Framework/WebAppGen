@@ -23,6 +23,7 @@ function hideSpecs() {
     $(workingComponent.SpecsTitle).closest('.input-field').parent().hide();
     $(workingComponent.SpecsContent).closest('.input-field').parent().hide();
     $(workingComponent.ChildrenComponentClass).hide();
+    $(workingComponent.ChildrenComponentDetails).hide();
     $(workingComponent.SpecsSelect).closest('.input-field').parent().parent().parent().hide();
     $(workingComponent.SpecsSelectRemove).parent().hide();
     $(workingComponent.SpecsSelectEdit).parent().hide();
@@ -60,6 +61,8 @@ function selectPackage(componentBox, packageName) {
 
 function processChildren() {
     hideSpecs();
+    $(workingComponent.ChildrenComponentClass).show();
+    $(workingComponent.ChildrenComponentDetails).show();
     $(workingComponent.ComponentEnv).empty();
     $(workingComponent.ComponentEnv).closest('.input-field').children('label').text('Children');
     workingComponent.specs.components.forEach(function (item, index) {

@@ -152,6 +152,14 @@
       {
         "env": "",
         "value": "workingComponent.SpecsSize=SpecsSize"
+      },
+      {
+        "env": "",
+        "value": "workingComponent.ChildrenComponentClass=ChildrenComponentClass;"
+      },
+      {
+        "env": "",
+        "value": "workingComponent.ChildrenComponentDetails=ChildrenComponentDetails;"
       }
     ]
   },
@@ -758,8 +766,7 @@
     "name": "app.components.ChildrenComponentClass",
     "isContainer": true,
     "js": [
-      {"env": "",
-        "value":  "workingComponent.ChildrenComponentClass=ChildrenComponentClass;"}
+
     ],
     "layout": "horizontal"
   },
@@ -790,8 +797,6 @@
     ],
     "layout": "horizontal"
   },
-
-
   {
     "specs": [
       {
