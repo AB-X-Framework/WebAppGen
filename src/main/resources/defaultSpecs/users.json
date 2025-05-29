@@ -1,6 +1,6 @@
 [{
- "password": "$2a$11$DfNX8Sgu17Z/39t6tTwStuynOYzhiwuulMSmuRKdwdnQjRXit/vmW",
- "role": "Admin",
- "enabled": true,
- "username": "root@abxwebappgen.org"
+  "password": "$2a$11$DfNX8Sgu17Z/39t6tTwStuynOYzhiwuulMSmuRKdwdnQjRXit/vmW",
+  "role": "Admin",
+  "enabled": true,
+  "username": "root@abxwebappgen.org"
 }]

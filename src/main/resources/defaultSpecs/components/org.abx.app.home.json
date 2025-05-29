@@ -1,5 +1,91 @@
 [
   {
+    "specs": [{
+      "env": "",
+      "value": {"title": "Load Model"}
+    }],
+    "package": "org.abx.app.home",
+    "name": "org.abx.app.home.load",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": ""
+    }],
+    "type": "button"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "Save Model"}
+    }],
+    "package": "org.abx.app.home",
+    "name": "org.abx.app.home.save",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": ""
+    }],
+    "type": "button"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "src": "/resources/binary/org.abx.app.abx.png",
+        "links": [
+          {
+            "href": "/page/welcome",
+            "text": "Home"
+          },
+          {
+            "href": "/page/components",
+            "text": "Components"
+          }
+        ]
+      }
+    }],
+    "package": "org.abx.app.home",
+    "name": "org.abx.app.home.header",
+    "isContainer": false,
+    "js": [],
+    "type": "header"
+  },
+  {
+    "layout": "vertical",
+    "components": [
+      {
+        "innerId": "header",
+        "component": "org.abx.app.home.header",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "modelContainer",
+        "component": "org.abx.app.home.container",
+        "size": "",
+        "env": ""
+      }
+    ],
+    "package": "org.abx.app.home",
+    "name": "org.abx.app.home.WelcomePageComponent",
+    "isContainer": true,
+    "js": []
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "Download Model"}
+    }],
+    "package": "org.abx.app.home",
+    "name": "org.abx.app.home.download",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": ""
+    }],
+    "type": "button"
+  },
+  {
     "layout": "container",
     "components": [
       {
@@ -27,6 +113,7 @@
         "env": ""
       }
     ],
+    "package": "org.abx.app.home",
     "name": "org.abx.app.home.container",
     "isContainer": true,
     "js": [
@@ -45,120 +132,18 @@
     ]
   },
   {
-    "specs": [
-      {
-        "env": "",
-        "value": {
-          "content": "",
-          "title": "Project path",
-          "src": "/resources/map/org.abx.app.Env/modelPath"
-        }
+    "specs": [{
+      "env": "",
+      "value": {
+        "src": "/resources/map/org.abx.app.Env/modelPath",
+        "title": "Project path",
+        "content": ""
       }
-    ],
+    }],
+    "package": "org.abx.app.home",
     "name": "org.abx.app.home.model",
     "isContainer": false,
     "js": [],
     "type": "textfield"
-  },
-  {
-    "specs": [
-      {
-        "env": "",
-        "value": {
-          "src": "/resources/binary/org.abx.app.abx.png",
-          "links": [
-            {
-              "href": "/page/welcome",
-              "text": "Home"
-            },
-            {
-              "href": "/page/components",
-              "text": "Components"
-            }
-          ]
-        }
-      }
-    ],
-    "name": "org.abx.app.home.header",
-    "isContainer": false,
-    "js": [],
-    "type": "header"
-  },
-  {
-    "specs": [
-      {
-        "env": "",
-        "value": {
-          "title": "Download Model"
-        }
-      }
-    ],
-    "name": "org.abx.app.home.download",
-    "isContainer": false,
-    "js": [
-      {
-        "env": "",
-        "value": ""
-      }
-    ],
-    "type": "button"
-  },
-  {
-    "specs": [
-      {
-        "env": "",
-        "value": {
-          "title": "Load Model"
-        }
-      }
-    ],
-    "name": "org.abx.app.home.load",
-    "isContainer": false,
-    "js": [
-      {
-        "env": "",
-        "value": ""
-      }
-    ],
-    "type": "button"
-  },
-  {
-    "specs": [
-      {
-        "env": "",
-        "value": {
-          "title": "Save Model"
-        }
-      }
-    ],
-    "name": "org.abx.app.home.save",
-    "isContainer": false,
-    "js": [
-      {
-        "env": "",
-        "value": ""
-      }
-    ],
-    "type": "button"
-  },
-  {
-    "layout": "vertical",
-    "components": [
-      {
-        "innerId": "header",
-        "component": "org.abx.app.home.header",
-        "size": "l12",
-        "env": ""
-      },
-      {
-        "innerId": "modelContainer",
-        "component": "org.abx.app.home.container",
-        "size": "",
-        "env": ""
-      }
-    ],
-    "name": "org.abx.app.home.WelcomePageComponent",
-    "isContainer": true,
-    "js": []
   }
 ]

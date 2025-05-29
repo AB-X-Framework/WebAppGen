@@ -1,38 +1,28 @@
 {
   "components": [
+    "org.abx.app.base",
     "org.abx.app.components",
     "org.abx.app.home",
-    "org.abx.app.base",
     "org.abx.app.login"
   ],
-  "pages": [
-    "org.abx.app"
-  ],
-  "methods": [
-    "org.abx.app"
-  ],
+  "pages": ["org.abx.app"],
+  "methods": ["org.abx.app"],
   "resources": {
-    "array": [
-      {
-        "package": "demo",
-        "name": "demo.basicarray"
-      }
-    ],
+    "array": [{
+      "package": "demo",
+      "name": "demo.basicarray"
+    }],
     "binary": [
-      "org.abx.app",
+      "ace",
       "jquery",
       "materialize",
-      "ace"
+      "org.abx.app"
     ],
-    "text": [
-      "demo"
-    ],
-    "map": [
-      {
-        "package": "org.abx.app",
-        "name": "org.abx.app.Env"
-      }
-    ]
+    "text": ["demo"],
+    "map": [{
+      "package": "org.abx.app",
+      "name": "org.abx.app.Env"
+    }]
   },
   "users": "users.json"
 }

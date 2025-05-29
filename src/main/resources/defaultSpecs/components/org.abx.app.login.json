@@ -1,14 +1,72 @@
 [
   {
+    "specs": [{
+      "env": "",
+      "value": {
+        "size": "h2",
+        "title": "ABX WebApp Gen",
+        "content": "Please type your credentials to log in"
+      }
+    }],
+    "package": "org.abx.app.login",
+    "name": "org.abx.app.login.welcome",
+    "isContainer": false,
+    "js": [],
+    "type": "section"
+  },
+  {
     "specs": [
+      {
+        "env": "ES",
+        "value": {
+          "title": "Su nombre de usuario",
+          "content": "Usuario"
+        }
+      },
       {
         "env": "",
         "value": {
-          "title": "Invalid Credentials",
-          "content": "Your username or password is incorrect. Please try again."
+          "title": "Username",
+          "content": "Your username"
         }
       }
     ],
+    "package": "org.abx.app.login",
+    "name": "org.abx.app.login.username",
+    "isContainer": false,
+    "js": [],
+    "type": "textfield"
+  },
+  {
+    "layout": "horizontal",
+    "components": [
+      {
+        "innerId": "abxImg",
+        "component": "org.abx.app.base.abxImg",
+        "size": "l6 hide-on-small-only ",
+        "env": ""
+      },
+      {
+        "innerId": "loginForm",
+        "component": "org.abx.app.login.form",
+        "size": "s12 l6",
+        "env": ""
+      }
+    ],
+    "package": "org.abx.app.login",
+    "name": "org.abx.app.login.LoginPageComponent",
+    "isContainer": true,
+    "js": []
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "title": "Invalid Credentials",
+        "content": "Your username or password is incorrect. Please try again."
+      }
+    }],
+    "package": "org.abx.app.login",
     "name": "org.abx.app.login.invalidCreds",
     "isContainer": false,
     "js": [],
@@ -30,9 +88,61 @@
         "env": ""
       }
     ],
+    "package": "org.abx.app.login",
     "name": "org.abx.app.login.form",
     "isContainer": true,
     "js": []
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "src": "/resources/binary/org.abx.app.abx.png",
+        "links": [{
+          "href": "/help",
+          "text": "About us"
+        }]
+      }
+    }],
+    "package": "org.abx.app.login",
+    "name": "org.abx.app.login.header",
+    "isContainer": false,
+    "js": [],
+    "type": "header"
+  },
+  {
+    "specs": [
+      {
+        "env": "ES",
+        "value": {
+          "title": "Su contraseña",
+          "content": "Contraseña"
+        }
+      },
+      {
+        "env": "",
+        "value": {
+          "title": "Password",
+          "content": "Your password"
+        }
+      }
+    ],
+    "package": "org.abx.app.login",
+    "name": "org.abx.app.login.password",
+    "isContainer": false,
+    "js": [],
+    "type": "password"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "Log in"}
+    }],
+    "package": "org.abx.app.login",
+    "name": "org.abx.app.login.submit",
+    "isContainer": false,
+    "js": [],
+    "type": "button"
   },
   {
     "layout": "container",
@@ -68,127 +178,12 @@
         "env": ""
       }
     ],
+    "package": "org.abx.app.login",
     "name": "org.abx.app.login.formChild",
     "isContainer": true,
-    "js": [
-      {
-        "env": "",
-        "value": "$(login).click(()=>processLogIn($(username).val(),$(password).val(),invalidCreds))"
-      }
-    ]
-  },
-  {
-    "specs": [
-      {
-        "env": "",
-        "value": {
-          "size": "h2",
-          "title": "ABX WebApp Gen",
-          "content": "Please type your credentials to log in"
-        }
-      }
-    ],
-    "name": "org.abx.app.login.welcome",
-    "isContainer": false,
-    "js": [],
-    "type": "section"
-  },
-  {
-    "specs": [
-      {
-        "env": "ES",
-        "value": {
-          "content": "Contraseña",
-          "title": "Su contraseña"
-        }
-      },
-      {
-        "env": "",
-        "value": {
-          "content": "Your password",
-          "title": "Password"
-        }
-      }
-    ],
-    "name": "org.abx.app.login.password",
-    "isContainer": false,
-    "js": [],
-    "type": "password"
-  },
-  {
-    "specs": [
-      {
-        "env": "",
-        "value": {
-          "src": "/resources/binary/org.abx.app.abx.png",
-          "links": [
-            {
-              "href": "/help",
-              "text": "About us"
-            }
-          ]
-        }
-      }
-    ],
-    "name": "org.abx.app.login.header",
-    "isContainer": false,
-    "js": [],
-    "type": "header"
-  },
-  {
-    "specs": [
-      {
-        "env": "",
-        "value": {
-          "title": "Log in"
-        }
-      }
-    ],
-    "name": "org.abx.app.login.submit",
-    "isContainer": false,
-    "js": [],
-    "type": "button"
-  },
-  {
-    "layout": "horizontal",
-    "components": [
-      {
-        "innerId": "abxImg",
-        "component": "org.abx.app.base.abxImg",
-        "size": "l6 hide-on-small-only ",
-        "env": ""
-      },
-      {
-        "innerId": "loginForm",
-        "component": "org.abx.app.login.form",
-        "size": "s12 l6",
-        "env": ""
-      }
-    ],
-    "name": "org.abx.app.login.LoginPageComponent",
-    "isContainer": true,
-    "js": []
-  },
-  {
-    "specs": [
-      {
-        "env": "ES",
-        "value": {
-          "content": "Usuario",
-          "title": "Su nombre de usuario"
-        }
-      },
-      {
-        "env": "",
-        "value": {
-          "content": "Your username",
-          "title": "Username"
-        }
-      }
-    ],
-    "name": "org.abx.app.login.username",
-    "isContainer": false,
-    "js": [],
-    "type": "textfield"
+    "js": [{
+      "env": "",
+      "value": "$(login).click(()=>processLogIn($(username).val(),$(password).val(),invalidCreds))"
+    }]
   }
 ]

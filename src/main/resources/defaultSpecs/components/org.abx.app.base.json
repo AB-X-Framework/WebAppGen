@@ -1,42 +1,35 @@
 [
   {
-    "specs": [
-      {
-        "env": "",
-        "value": {
-          "src": "/resources/binary/org.abx.app.abx.png"
-        }
-      }
-    ],
+    "specs": [{
+      "env": "",
+      "value": {}
+    }],
+    "package": "org.abx.app.base",
+    "name": "org.abx.app.base.divider",
+    "isContainer": false,
+    "js": [],
+    "type": "divider"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"src": "/resources/binary/org.abx.app.abx.png"}
+    }],
+    "package": "org.abx.app.base",
     "name": "org.abx.app.base.abxImg",
     "isContainer": false,
     "js": [],
     "type": "img"
   },
   {
-    "specs": [
-      {
-        "env": "",
-        "value": {
-        }
-      }
-    ],
+    "specs": [{
+      "env": "",
+      "value": {}
+    }],
+    "package": "org.abx.app.base",
     "name": "org.abx.app.base.div",
     "isContainer": false,
     "js": [],
     "type": "div"
-  },
-  {
-    "specs": [
-      {
-        "env": "",
-        "value": {
-        }
-      }
-    ],
-    "name": "org.abx.app.base.divider",
-    "isContainer": false,
-    "js": [],
-    "type": "divider"
   }
 ]

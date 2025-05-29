@@ -1,35 +1,16 @@
 [
   {
     "component": "org.abx.app.home.WelcomePageComponent",
-    "css": [
-    ],
+    "css": [],
     "role": "Admin",
     "name": "org.abx.app.Home",
     "title": "Welcome Page",
-    "scripts": [
-      {
-        "env": "",
-        "value": "/resources/binary/org.abx.app.model.methods.js"
-      }
-    ],
+    "scripts": [{
+      "env": "",
+      "value": "/resources/binary/org.abx.app.model.methods.js"
+    }],
     "matches": "welcome",
     "matchesId": 1233099618
-  },
-  {
-    "component": "org.abx.app.login.LoginPageComponent",
-    "css": [
-    ],
-    "role": "Anonymous",
-    "name": "org.abx.app.Login",
-    "title": "Login Page",
-    "scripts": [
-      {
-        "env": "",
-        "value": "/resources/binary/org.abx.app.login.js"
-      }
-    ],
-    "matches": "main",
-    "matchesId": 3343801
   },
   {
     "component": "org.abx.app.components.ComponentsPageComponent",
@@ -37,13 +18,24 @@
     "role": "Admin",
     "name": "app.components.Components",
     "title": "Components Page",
-    "scripts": [
-      {
-        "env": "",
-        "value": "/resources/binary/org.abx.app.components.js"
-      }
-    ],
+    "scripts": [{
+      "env": "",
+      "value": "/resources/binary/org.abx.app.components.js"
+    }],
     "matches": "components",
     "matchesId": -447446250
+  },
+  {
+    "component": "org.abx.app.login.LoginPageComponent",
+    "css": [],
+    "role": "Anonymous",
+    "name": "org.abx.app.Login",
+    "title": "Login Page",
+    "scripts": [{
+      "env": "",
+      "value": "/resources/binary/org.abx.app.login.js"
+    }],
+    "matches": "main",
+    "matchesId": 3343801
   }
 ]

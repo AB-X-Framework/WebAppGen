@@ -1,13 +1,23 @@
 [
   {
+    "role": "Admin",
+    "name": "org.abx.app.defaultEnv.properties",
+    "contentType": "text/plain"
+  },
+  {
     "role": "Anonymous",
-    "name": "org.abx.app.model.methods.js",
-    "contentType": "application/js"
+    "name": "org.abx.app.icons.css",
+    "contentType": "text/css"
   },
   {
     "role": "Anonymous",
     "name": "org.abx.app.abx.png",
     "contentType": "application/png"
+  },
+  {
+    "role": "Anonymous",
+    "name": "org.abx.app.model.methods.js",
+    "contentType": "application/js"
   },
   {
     "role": "Anonymous",
@@ -18,15 +28,5 @@
     "role": "Admin",
     "name": "org.abx.app.components.js",
     "contentType": "text/javascript"
-  },
-  {
-    "role": "Anonymous",
-    "name": "org.abx.app.icons.css",
-    "contentType": "text/css"
-  },
-  {
-    "role": "Admin",
-    "name": "org.abx.app.defaultEnv.properties",
-    "contentType": "text/plain"
   }
 ]
