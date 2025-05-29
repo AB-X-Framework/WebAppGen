@@ -6,9 +6,7 @@
     "org.abx.app.login"
   ],
   "pages": [
-    "org.abx.app.home",
-    "org.abx.app.login",
-    "org.abx.app.components"
+    "org.abx.app"
   ],
   "methods": [
     "org.abx.app"
