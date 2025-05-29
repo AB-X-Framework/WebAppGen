@@ -4,18 +4,18 @@
     "components": [
       {
         "innerId": "ComponentPackage",
-        "component": "app.components.ComponentPackage",
+        "component": "org.abx.app.components.ComponentPackage",
         "size": "l2",
         "env": ""
       },
       {
         "innerId": "ComponentAX",
-        "component": "app.components.container",
+        "component": "org.abx.app.components.container",
         "size": "l10",
         "env": ""
       }
     ],
-    "name": "app.components.NavPanel",
+    "name": "org.abx.app.components.NavPanel",
     "isContainer": true,
     "js": [
       {
@@ -34,7 +34,7 @@
         }
       }
     ],
-    "name": "app.components.ComponentPackage",
+    "name": "org.abx.app.components.ComponentPackage",
     "isContainer": false,
     "js": [
     ],
@@ -45,61 +45,61 @@
     "components": [
       {
         "innerId": "ComponentName",
-        "component": "app.components.ComponentName",
+        "component": "org.abx.app.components.ComponentName",
         "size": "l12",
         "env": ""
       },
       {
         "innerId": "containerAndComponent",
-        "component": "app.components.containerAndComponent",
+        "component": "org.abx.app.components.containerAndComponent",
         "size": "l12",
         "env": ""
       },
       {
         "innerId": "SpecsSource",
-        "component": "app.components.SpecsSource",
+        "component": "org.abx.app.components.SpecsSource",
         "size": "l2",
         "env": ""
       },
       {
         "innerId": "SpecsTitle",
-        "component": "app.components.SpecsTitle",
+        "component": "org.abx.app.components.SpecsTitle",
         "size": "l2",
         "env": ""
       },
       {
         "innerId": "SpecsContent",
-        "component": "app.components.SpecsContent",
+        "component": "org.abx.app.components.SpecsContent",
         "size": "l2",
         "env": ""
       },
       {
         "innerId": "SpecsSize",
-        "component": "app.components.SpecsSize",
+        "component": "org.abx.app.components.SpecsSize",
         "size": "l2",
         "env": ""
       },
       {
         "innerId": "SpecsSelectContainer",
-        "component": "app.components.SpecsSelectContainer",
+        "component": "org.abx.app.components.SpecsSelectContainer",
         "size": "l2",
         "env": ""
       },
       {
         "innerId": "SpecsJSContainer",
-        "component": "app.components.SpecsJSContainer",
+        "component": "org.abx.app.components.SpecsJSContainer",
         "size": "l11",
         "env": ""
       },
       {
         "innerId": "ChildrenComponentClass",
-        "component": "app.components.ChildrenComponentClass",
+        "component": "org.abx.app.components.ChildrenComponentClass",
         "size": "l4",
         "env": ""
       },
       {
         "innerId": "ChildrenComponentDetails",
-        "component": "app.components.ChildrenComponentDetails",
+        "component": "org.abx.app.components.ChildrenComponentDetails",
         "size": "l4",
         "env": ""
       },
@@ -122,7 +122,7 @@
         "env": ""
       }
     ],
-    "name": "app.components.container",
+    "name": "org.abx.app.components.container",
     "isContainer": true,
     "js": [
       {
@@ -168,12 +168,12 @@
     "components": [
       {
         "innerId": "EnvData",
-        "component": "app.components.Env",
+        "component": "org.abx.app.components.Env",
         "size": "l5",
         "env": ""
       }
     ],
-    "name": "app.components.EnvContainer",
+    "name": "org.abx.app.components.EnvContainer",
     "isContainer": true,
     "js": [
       {
@@ -187,12 +187,12 @@
     "components": [
       {
         "innerId": "SpecsJS",
-        "component": "app.components.SpecsJS",
+        "component": "org.abx.app.components.SpecsJS",
         "size": "l11",
         "env": ""
       }
     ],
-    "name": "app.components.SpecsJSContainer",
+    "name": "org.abx.app.components.SpecsJSContainer",
     "isContainer": true,
     "js": [
       {
@@ -210,7 +210,7 @@
         }
       }
     ],
-    "name": "app.components.AddEnv",
+    "name": "org.abx.app.components.AddEnv",
     "isContainer": false,
     "js": [],
     "type": "button"
@@ -224,7 +224,7 @@
         }
       }
     ],
-    "name": "app.components.RemoveEnv",
+    "name": "org.abx.app.components.RemoveEnv",
     "isContainer": false,
     "js": [],
     "type": "button"
@@ -238,7 +238,7 @@
         }
       }
     ],
-    "name": "app.components.EditEnv",
+    "name": "org.abx.app.components.EditEnv",
     "isContainer": false,
     "js": [],
     "type": "button"
@@ -248,54 +248,54 @@
     "components": [
       {
         "innerId": "ComponentType",
-        "component": "app.components.ComponentType",
+        "component": "org.abx.app.components.ComponentType",
         "size": "l1",
         "env": ""
       },
       {
         "innerId": "ElementType",
-        "component": "app.components.ElementType",
+        "component": "org.abx.app.components.ElementType",
         "size": "l1",
         "env": ""
       },
       {
         "innerId": "ContainerLayout",
-        "component": "app.components.ContainerLayout",
+        "component": "org.abx.app.components.ContainerLayout",
         "size": "l2",
         "env": ""
       },
       {
         "innerId": "ComponentDetails",
-        "component": "app.components.ComponentDetails",
+        "component": "org.abx.app.components.ComponentDetails",
         "size": "l1",
         "env": ""
       },
       {
         "innerId": "ComponentEnv",
-        "component": "app.components.ComponentEnv",
+        "component": "org.abx.app.components.ComponentEnv",
         "size": "l5",
         "env": ""
       },
       {
         "innerId": "EditEnv",
-        "component": "app.components.EditEnv",
+        "component": "org.abx.app.components.EditEnv",
         "size": "l1",
         "env": ""
       },
       {
         "innerId": "ComponentEnv",
-        "component": "app.components.RemoveEnv",
+        "component": "org.abx.app.components.RemoveEnv",
         "size": "l1",
         "env": ""
       },
       {
         "innerId": "ComponentEnv",
-        "component": "app.components.AddEnv",
+        "component": "org.abx.app.components.AddEnv",
         "size": "l1",
         "env": ""
       }
     ],
-    "name": "app.components.containerAndComponent",
+    "name": "org.abx.app.components.containerAndComponent",
     "isContainer": true,
     "js": [
       {
@@ -327,7 +327,7 @@
         }
       }
     ],
-    "name": "app.components.ComponentName",
+    "name": "org.abx.app.components.ComponentName",
     "isContainer": false,
     "js": [
     ],
@@ -352,7 +352,7 @@
         }
       }
     ],
-    "name": "app.components.ComponentType",
+    "name": "org.abx.app.components.ComponentType",
     "isContainer": false,
     "js": [
       {
@@ -421,7 +421,7 @@
         }
       }
     ],
-    "name": "app.components.ElementType",
+    "name": "org.abx.app.components.ElementType",
     "isContainer": false,
     "js": [
       {
@@ -462,7 +462,7 @@
         }
       }
     ],
-    "name": "app.components.ContainerLayout",
+    "name": "org.abx.app.components.ContainerLayout",
     "isContainer": false,
     "js": [
       {
@@ -483,7 +483,7 @@
         }
       }
     ],
-    "name": "app.components.ComponentDetails",
+    "name": "org.abx.app.components.ComponentDetails",
     "isContainer": false,
     "js": [],
     "type": "select"
@@ -499,7 +499,7 @@
         }
       }
     ],
-    "name": "app.components.ComponentEnv",
+    "name": "org.abx.app.components.ComponentEnv",
     "isContainer": false,
     "js": [],
     "type": "select"
@@ -520,7 +520,7 @@
         }
       }
     ],
-    "name": "app.components.ComponentMenu",
+    "name": "org.abx.app.components.ComponentMenu",
     "isContainer": false,
     "js": [],
     "type": "menu"
@@ -536,12 +536,12 @@
       },
       {
         "innerId": "modelContainer",
-        "component": "app.components.NavPanel",
+        "component": "org.abx.app.components.NavPanel",
         "size": "l12",
         "env": ""
       }
     ],
-    "name": "app.components.ComponentsPageComponent",
+    "name": "org.abx.app.components.ComponentsPageComponent",
     "isContainer": true,
     "js": []
   },
@@ -555,7 +555,7 @@
         }
       }
     ],
-    "name": "app.components.Env",
+    "name": "org.abx.app.components.Env",
     "isContainer": false,
     "js": [],
     "type": "textfield"
@@ -570,7 +570,7 @@
         }
       }
     ],
-    "name": "app.components.SpecsSource",
+    "name": "org.abx.app.components.SpecsSource",
     "isContainer": false,
     "js": [],
     "type": "textfield"
@@ -585,7 +585,7 @@
         }
       }
     ],
-    "name": "app.components.SpecsTitle",
+    "name": "org.abx.app.components.SpecsTitle",
     "isContainer": false,
     "js": [],
     "type": "textfield"
@@ -600,7 +600,7 @@
         }
       }
     ],
-    "name": "app.components.SpecsContent",
+    "name": "org.abx.app.components.SpecsContent",
     "isContainer": false,
     "js": [],
     "type": "textfield"
@@ -615,7 +615,7 @@
         }
       }
     ],
-    "name": "app.components.SpecsSize",
+    "name": "org.abx.app.components.SpecsSize",
     "isContainer": false,
     "js": [],
     "type": "textfield"
@@ -629,7 +629,7 @@
         }
       }
     ],
-    "name": "app.components.SpecsJS",
+    "name": "org.abx.app.components.SpecsJS",
     "isContainer": false,
     "js": [],
     "type": "js"
@@ -645,7 +645,7 @@
         }
       }
     ],
-    "name": "app.components.SpecsSelect",
+    "name": "org.abx.app.components.SpecsSelect",
     "isContainer": false,
     "js": [],
     "type": "select"
@@ -654,30 +654,30 @@
     "components": [
       {
         "innerId": "SpecsSelect",
-        "component": "app.components.SpecsSelect",
+        "component": "org.abx.app.components.SpecsSelect",
         "size": "l4",
         "env": ""
       },
       {
         "innerId": "SpecsSelectEdit",
-        "component": "app.components.EditEnv",
+        "component": "org.abx.app.components.EditEnv",
         "size": "l1",
         "env": ""
       },
       {
         "innerId": "SpecsSelectRemove",
-        "component": "app.components.RemoveEnv",
+        "component": "org.abx.app.components.RemoveEnv",
         "size": "l1",
         "env": ""
       },
       {
         "innerId": "SpecsSelectAdd",
-        "component": "app.components.AddEnv",
+        "component": "org.abx.app.components.AddEnv",
         "size": "l1",
         "env": ""
       }
     ],
-    "name": "app.components.SpecsSelectContainer",
+    "name": "org.abx.app.components.SpecsSelectContainer",
     "isContainer": true,
     "js": [
       {
@@ -703,30 +703,30 @@
     "components": [
       {
         "innerId": "SpecsSelect",
-        "component": "app.components.SpecsSelect",
+        "component": "org.abx.app.components.SpecsSelect",
         "size": "l4",
         "env": ""
       },
       {
         "innerId": "SpecsSelectEdit",
-        "component": "app.components.EditEnv",
+        "component": "org.abx.app.components.EditEnv",
         "size": "l1",
         "env": ""
       },
       {
         "innerId": "SpecsSelectRemove",
-        "component": "app.components.RemoveEnv",
+        "component": "org.abx.app.components.RemoveEnv",
         "size": "l1",
         "env": ""
       },
       {
         "innerId": "SpecsSelectAdd",
-        "component": "app.components.AddEnv",
+        "component": "org.abx.app.components.AddEnv",
         "size": "l1",
         "env": ""
       }
     ],
-    "name": "app.components.SpecsSelectContainer",
+    "name": "org.abx.app.components.SpecsSelectContainer",
     "isContainer": true,
     "js": [
       {
@@ -752,18 +752,18 @@
     "components": [
       {
         "innerId": "InnerComponentPackage",
-        "component": "app.components.ComponentPackage",
+        "component": "org.abx.app.components.ComponentPackage",
         "size": "l3",
         "env": ""
       },
       {
         "innerId": "InnerComponentName",
-        "component": "app.components.ComponentName",
+        "component": "org.abx.app.components.ComponentName",
         "size": "l7",
         "env": ""
       }
     ],
-    "name": "app.components.ChildrenComponentClass",
+    "name": "org.abx.app.components.ChildrenComponentClass",
     "isContainer": true,
     "js": [
 
@@ -774,24 +774,24 @@
     "components": [
       {
         "innerId": "ChildrenInnerId",
-        "component": "app.components.ChildrenInnerId",
+        "component": "org.abx.app.components.ChildrenInnerId",
         "size": "l4",
         "env": ""
       },
       {
         "innerId": "ChildrenInnerSize",
-        "component": "app.components.ChildrenInnerSize",
+        "component": "org.abx.app.components.ChildrenInnerSize",
         "size": "l3",
         "env": ""
       },
       {
         "innerId": "InnerComponentEnv",
-        "component": "app.components.Env",
+        "component": "org.abx.app.components.Env",
         "size": "l2",
         "env": ""
       }
     ],
-    "name": "app.components.ChildrenComponentDetails",
+    "name": "org.abx.app.components.ChildrenComponentDetails",
     "isContainer": true,
     "js": [
       {
@@ -811,7 +811,7 @@
         }
       }
     ],
-    "name": "app.components.ChildrenInnerSize",
+    "name": "org.abx.app.components.ChildrenInnerSize",
     "isContainer": false,
     "js": [],
     "type": "textfield"
@@ -826,7 +826,7 @@
         }
       }
     ],
-    "name": "app.components.ChildrenInnerId",
+    "name": "org.abx.app.components.ChildrenInnerId",
     "isContainer": false,
     "js": [],
     "type": "textfield"

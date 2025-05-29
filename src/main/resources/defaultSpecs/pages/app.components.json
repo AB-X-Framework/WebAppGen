@@ -1,6 +1,6 @@
 [
   {
-    "component": "app.components.ComponentsPageComponent",
+    "component": "org.abx.app.components.ComponentsPageComponent",
     "css": [],
     "role": "Admin",
     "name": "app.components.components",

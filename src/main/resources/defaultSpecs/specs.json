@@ -1,6 +1,6 @@
 {
   "components": [
-    "app.components",
+    "org.abx.app.components",
     "app.home",
     "base",
     "login"
