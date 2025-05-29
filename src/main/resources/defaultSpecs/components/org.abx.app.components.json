@@ -29,7 +29,7 @@
       {
         "env": "",
         "value": {
-          "title": "Package",
+          "title": "Component Package",
           "list": "/page/packages"
         }
       }
@@ -779,8 +779,8 @@
         "env": ""
       },
       {
-        "innerId": "ChildrenInnerSize",
-        "component": "org.abx.app.components.ChildrenInnerSize",
+        "innerId": "ChildrenSize",
+        "component": "org.abx.app.components.ChildrenSize",
         "size": "l3",
         "env": ""
       },
@@ -797,6 +797,10 @@
       {
         "env": "",
         "value": "workingComponent.ChildrenInnerId=ChildrenInnerId"
+      },
+      {
+        "env": "",
+        "value": "workingComponent.ChildrenSize=ChildrenSize"
       }
     ],
     "layout": "horizontal"
@@ -811,7 +815,7 @@
         }
       }
     ],
-    "name": "org.abx.app.components.ChildrenInnerSize",
+    "name": "org.abx.app.components.ChildrenSize",
     "isContainer": false,
     "js": [],
     "type": "textfield"

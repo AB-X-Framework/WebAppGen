@@ -87,6 +87,7 @@ function processChildren() {
 function processInnerComponent(index){
     let component = workingComponent.specs;
     $(workingComponent.ChildrenInnerId).val(component.components[index].innerId);
+    $(workingComponent.ChildrenSize).val(component.components[index].size);
 
 }
 function processJS() {
