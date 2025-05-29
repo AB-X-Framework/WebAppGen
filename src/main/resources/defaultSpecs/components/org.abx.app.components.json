@@ -127,31 +127,31 @@
     "js": [
       {
         "env": "",
-        "value": "workingComponent.show=componentShow"
+        "value": "workingEnv.show=componentShow"
       },
       {
         "env": "",
-        "value": "workingComponent.SpecsSource=SpecsSource"
+        "value": "workingEnv.SpecsSource=SpecsSource"
       },
       {
         "env": "",
-        "value": "workingComponent.SpecsTitle=SpecsTitle"
+        "value": "workingEnv.SpecsTitle=SpecsTitle"
       },
       {
         "env": "",
-        "value": "workingComponent.SpecsContent=SpecsContent"
+        "value": "workingEnv.SpecsContent=SpecsContent"
       },
       {
         "env": "",
-        "value": "workingComponent.SpecsSize=SpecsSize"
+        "value": "workingEnv.SpecsSize=SpecsSize"
       },
       {
         "env": "",
-        "value": "workingComponent.ChildrenComponentClass=ChildrenComponentClass;"
+        "value": "workingEnv.ChildrenComponentClass=ChildrenComponentClass;"
       },
       {
         "env": "",
-        "value": "workingComponent.ChildrenComponentDetails=ChildrenComponentDetails;"
+        "value": "workingEnv.ChildrenComponentDetails=ChildrenComponentDetails;"
       }
     ]
   },
@@ -170,7 +170,7 @@
     "js": [
       {
         "env": "",
-        "value": "workingComponent.Env=EnvData;"
+        "value": "workingEnv.Env=EnvData;"
       }
     ]
   },
@@ -189,7 +189,7 @@
     "js": [
       {
         "env": "",
-        "value": "workingComponent.SpecsJS=SpecsJS;"
+        "value": "workingEnv.SpecsJS=SpecsJS;"
       }
     ]
   },
@@ -292,7 +292,7 @@
     "js": [
       {
         "env": "",
-        "value": "workingComponent.ElementType=ElementType; workingComponent.ContainerLayout=ContainerLayout;"
+        "value": "workingEnv.ElementType=ElementType; workingEnv.ContainerLayout=ContainerLayout;"
       },
       {
         "env": "",
@@ -304,7 +304,7 @@
       },
       {
         "env": "",
-        "value": "workingComponent.ComponentDetails=ComponentDetails;workingComponent.ComponentEnv=ComponentEnv;"
+        "value": "workingEnv.ComponentDetails=ComponentDetails;workingEnv.ComponentEnv=ComponentEnv;"
       }
     ]
   },
@@ -674,19 +674,19 @@
     "js": [
       {
         "env": "",
-        "value": "workingComponent.SpecsSelect=SpecsSelect"
+        "value": "workingEnv.SpecsSelect=SpecsSelect"
       },
       {
         "env": "",
-        "value": "workingComponent.SpecsSelectRemove=SpecsSelectRemove"
+        "value": "workingEnv.SpecsSelectRemove=SpecsSelectRemove"
       },
       {
         "env": "",
-        "value": "workingComponent.SpecsSelectAdd=SpecsSelectAdd"
+        "value": "workingEnv.SpecsSelectAdd=SpecsSelectAdd"
       },
       {
         "env": "",
-        "value": "workingComponent.SpecsSelectEdit=SpecsSelectEdit"
+        "value": "workingEnv.SpecsSelectEdit=SpecsSelectEdit"
       }
     ],
     "layout": "horizontal"
@@ -723,19 +723,19 @@
     "js": [
       {
         "env": "",
-        "value": "workingComponent.SpecsSelect=SpecsSelect"
+        "value": "workingEnv.SpecsSelect=SpecsSelect"
       },
       {
         "env": "",
-        "value": "workingComponent.SpecsSelectRemove=SpecsSelectRemove"
+        "value": "workingEnv.SpecsSelectRemove=SpecsSelectRemove"
       },
       {
         "env": "",
-        "value": "workingComponent.SpecsSelectAdd=SpecsSelectAdd"
+        "value": "workingEnv.SpecsSelectAdd=SpecsSelectAdd"
       },
       {
         "env": "",
-        "value": "workingComponent.SpecsSelectEdit=SpecsSelectEdit"
+        "value": "workingEnv.SpecsSelectEdit=SpecsSelectEdit"
       }
     ],
     "layout": "horizontal"
@@ -760,11 +760,11 @@
     "js": [
       {
         "env": "",
-        "value": "workingComponent.InnerComponentPackage=InnerComponentPackage"
+        "value": "workingEnv.InnerComponentPackage=InnerComponentPackage"
       },
       {
         "env": "",
-        "value": "workingComponent.InnerComponentName=InnerComponentName"
+        "value": "workingEnv.InnerComponentName=InnerComponentName"
       }
     ],
     "layout": "horizontal"
@@ -795,15 +795,15 @@
     "js": [
       {
         "env": "",
-        "value": "workingComponent.ChildrenInnerId=ChildrenInnerId"
+        "value": "workingEnv.ChildrenInnerId=ChildrenInnerId"
       },
       {
         "env": "",
-        "value": "workingComponent.ChildrenSize=ChildrenSize"
+        "value": "workingEnv.ChildrenSize=ChildrenSize"
       },
       {
         "env": "",
-        "value": "workingComponent.InnerComponentEnv=InnerComponentEnv"
+        "value": "workingEnv.InnerComponentEnv=InnerComponentEnv"
       }
     ],
     "layout": "horizontal"
@@ -864,7 +864,7 @@
     "js": [
       {
         "env": "",
-        "value": "workingComponent.ComponentName=ComponentName"
+        "value": "workingEnv.ComponentName=ComponentName"
       },
       {
         "env": "",

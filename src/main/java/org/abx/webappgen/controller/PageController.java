@@ -4,14 +4,13 @@ import jakarta.servlet.http.HttpSession;
 import org.abx.util.StreamUtils;
 import org.abx.webappgen.persistence.PageModel;
 import org.abx.webappgen.utils.SpecsExporter;
+import org.abx.webappgen.utils.SpecsImporter;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.stringtemplate.v4.ST;
 
 import java.io.IOException;
@@ -26,6 +25,9 @@ public class PageController extends RoleController{
 
     @Autowired
     private SpecsExporter specsExporter;
+
+    @Autowired
+    private SpecsImporter specsImporter;
 
     @Autowired
     public PageModel pageModel;
@@ -69,8 +71,23 @@ public class PageController extends RoleController{
     @Secured("Admin")
     public String getComponentDetails(@PathVariable String componentName)  {
         return specsExporter.getComponentDetails(componentName).toString(2);
-
     }
+
+
+    @PostMapping(value = "/components", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Secured("Admin")
+    public String validComponent(@RequestParam String  component)  {
+        JSONObject status=new JSONObject();
+        try {
+            specsImporter.save(new JSONObject(component));
+            status.put("success","true");
+        }catch (Exception e){
+            status.put("success","false");
+            status.put("error", e.getMessage());
+        }
+        return status.toString(2);
+    }
+
     @GetMapping(value = "/specs/{pagename}", produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("permitAll()")
     public String pageSpecs(@PathVariable String pagename, HttpSession session) {

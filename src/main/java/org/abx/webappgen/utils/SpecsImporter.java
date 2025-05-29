@@ -2,6 +2,7 @@ package org.abx.webappgen.utils;
 
 
 import jakarta.annotation.PostConstruct;
+import jakarta.transaction.Transactional;
 import org.abx.util.StreamUtils;
 import org.abx.webappgen.persistence.PageModel;
 import org.abx.webappgen.persistence.ResourceModel;
@@ -191,13 +192,13 @@ public class SpecsImporter {
             String packageName = specs.getString(i);
             JSONArray textPackages = new JSONArray(
                     StreamUtils.readStream(
-                            new FileInputStream(specsPath+"/text/" + packageName + ".json") ));
+                            new FileInputStream(specsPath + "/text/" + packageName + ".json")));
             for (int j = 0; j < textPackages.length(); j++) {
                 JSONObject jsonResource = textPackages.getJSONObject(j);
                 String name = jsonResource.getString("name");
-                String file = specsPath + "/text/" + packageName+"/"+name;
+                String file = specsPath + "/text/" + packageName + "/" + name;
                 String data = StreamUtils.readStream(new FileInputStream(file));
-                resourceModel.saveTextResource(name,packageName,
+                resourceModel.saveTextResource(name, packageName,
                         data, jsonResource.getString("role"));
 
             }
@@ -237,6 +238,11 @@ public class SpecsImporter {
         }
     }
 
+    @Transactional
+    public void save(JSONObject component) {
+        processComponent(component);
+    }
+
     private JSONArray processComponentsAux(JSONArray components, HashSet<String> saved) throws Exception {
         if (components.isEmpty()) {
             return components;
@@ -270,7 +276,7 @@ public class SpecsImporter {
         return missing;
     }
 
-    private void processComponent(JSONObject component) throws Exception {
+    private void processComponent(JSONObject component) {
         boolean isContainer = component.getBoolean("isContainer");
         String name = component.getString("name");
         if (isContainer) {
