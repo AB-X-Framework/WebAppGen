@@ -1,6 +1,11 @@
 [
   {
     "role": "Anonymous",
+    "name": "org.abx.app.model.methods.js",
+    "contentType": "application/js"
+  },
+  {
+    "role": "Anonymous",
     "name": "org.abx.app.abx.png",
     "contentType": "application/png"
   },

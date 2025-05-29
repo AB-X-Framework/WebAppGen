@@ -2,21 +2,21 @@
  {
   "outputName": "model.zip",
   "role": "Admin",
-  "name": "model.downloadModel",
+  "name": "org.abx.app.downloadModel",
   "description": "Download model",
   "type": "zip"
  },
  {
   "outputName": "response",
   "role": "Admin",
-  "name": "model.saveModel",
+  "name": "org.abx.app.saveModel",
   "description": "Save model",
   "type": "json"
  },
  {
   "outputName": "response",
   "role": "Admin",
-  "name": "model.loadModel",
+  "name": "org.abx.app.loadModel",
   "description": "Load model",
   "type": "json"
  }

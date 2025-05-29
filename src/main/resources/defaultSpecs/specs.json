@@ -11,7 +11,7 @@
     "app.components"
   ],
   "methods": [
-    "model"
+    "org.abx.app"
   ],
   "resources": {
     "array": [
@@ -22,9 +22,7 @@
     ],
     "binary": [
       "org.abx.app",
-      "model",
       "jquery",
-      "icons",
       "materialize",
       "ace"
     ],
