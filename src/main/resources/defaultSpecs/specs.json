@@ -21,7 +21,7 @@
       }
     ],
     "binary": [
-      "app",
+      "org.abx.app",
       "model",
       "jquery",
       "icons",

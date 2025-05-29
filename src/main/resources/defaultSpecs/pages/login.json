@@ -2,10 +2,6 @@
   {
     "component": "login.LoginPageComponent",
     "css": [
-      {
-        "env": "",
-        "value": "/resources/binary/app.icons.css"
-      }
     ],
     "role": "Anonymous",
     "name": "login.LoginPageComponent.main",
@@ -13,7 +9,7 @@
     "scripts": [
       {
         "env": "",
-        "value": "/resources/binary/app.process.login.js"
+        "value": "/resources/binary/org.abx.app.login.js"
       }
     ],
     "matches": "main",

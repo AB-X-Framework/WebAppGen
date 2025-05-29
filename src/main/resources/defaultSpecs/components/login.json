@@ -120,7 +120,7 @@
       {
         "env": "",
         "value": {
-          "src": "/resources/binary/app.abx.png",
+          "src": "/resources/binary/org.abx.app.abx.png",
           "links": [
             {
               "href": "/help",

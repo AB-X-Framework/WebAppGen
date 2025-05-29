@@ -8,7 +8,7 @@
     "scripts": [
       {
         "env": "",
-        "value": "/resources/binary/app.components.js"
+        "value": "/resources/binary/org.abx.app.components.js"
       }
     ],
     "matches": "components",
