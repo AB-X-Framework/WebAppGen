@@ -385,6 +385,10 @@
               "value": "header"
             },
             {
+              "text": "Yes/No Modal",
+              "value": "yesNoModal"
+            },
+            {
               "text": "Img",
               "value": "img"
             },
@@ -857,6 +861,12 @@
         "component": "org.abx.app.components.DiscardChanges",
         "size": "l1",
         "env": ""
+      },
+      {
+        "innerId": "ConfirmChangesModal",
+        "component": "org.abx.app.components.ConfirmChangesModal",
+        "size": "l1",
+        "env": ""
       }
     ],
     "name": "org.abx.app.components.ComponentNameContainer",
@@ -869,6 +879,10 @@
       {
         "env": "",
         "value": "$(ComponentName).on('change', ()=>{processComponent( $(ComponentName).val());});"
+      },
+      {
+        "env": "",
+        "value": "$(SaveComponent).click(()=> M.Modal.init(ConfirmChangesModal).open())"
       }
     ],
     "layout": "horizontal"
@@ -884,7 +898,9 @@
     ],
     "name": "org.abx.app.components.SaveComponent",
     "isContainer": false,
-    "js": [],
+    "js": [
+
+    ],
     "type": "button"
   },
   {
@@ -900,5 +916,22 @@
     "isContainer": false,
     "js": [],
     "type": "button"
+  },
+  {
+    "specs": [
+      {
+        "env": "",
+        "value": {
+          "title": "Save Changes",
+          "content": "Do you want to save changes?",
+          "yes": "Save changes",
+          "no": "Cancel"
+        }
+      }
+    ],
+    "name": "org.abx.app.components.ConfirmChangesModal",
+    "isContainer": false,
+    "js": [],
+    "type": "yesNoModal"
   }
 ]

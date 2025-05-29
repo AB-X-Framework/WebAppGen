@@ -31,8 +31,6 @@ function hideSpecs() {
     $(workingEnv.SpecsJS).parent().parent().parent().hide();
     $(workingEnv.ComponentEnv).off("change")
     ace.edit(workingEnv.SpecsJS).setValue("");
-
-
     $(workingEnv.SpecsSource).closest('.input-field').children("label").text("Source");
 }
 
@@ -51,7 +49,6 @@ function selectPackage(componentBox, packageName) {
                 text: item
             }));
         });
-
         $(workingEnv.show).empty();
         $(workingEnv.div).empty();
         hideElemContainer();
@@ -325,7 +322,7 @@ function processComponent(componentName) {
 
 }
 
-function setComponentTypeVisibility(type, element, layout) {
+function setComponentTypeVisibility(type) {
     if (type === "Container") {
         $(workingEnv.ElementType).closest('.input-field').parent().hide()
         $(workingEnv.ContainerLayout).closest('.input-field').parent().show();

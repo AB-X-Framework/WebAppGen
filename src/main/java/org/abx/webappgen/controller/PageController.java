@@ -76,7 +76,7 @@ public class PageController extends RoleController{
 
     @PostMapping(value = "/components", produces = MediaType.APPLICATION_JSON_VALUE)
     @Secured("Admin")
-    public String validComponent(@RequestParam String  component)  {
+    public String saveComponent(@RequestParam String  component)  {
         JSONObject status=new JSONObject();
         try {
             specsImporter.save(new JSONObject(component));
