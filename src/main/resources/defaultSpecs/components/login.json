@@ -154,7 +154,7 @@
     "components": [
       {
         "innerId": "abxImg",
-        "component": "base.abxImg",
+        "component": "org.abx.app.base.abxImg",
         "size": "l6 hide-on-small-only ",
         "env": ""
       },

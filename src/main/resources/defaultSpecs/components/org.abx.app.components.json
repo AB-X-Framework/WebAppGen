@@ -105,19 +105,19 @@
       },
       {
         "innerId": "divider",
-        "component": "base.divider",
+        "component": "org.abx.app.base.divider",
         "size": "l12",
         "env": ""
       },
       {
         "innerId": "divider2",
-        "component": "base.divider",
+        "component": "org.abx.app.base.divider",
         "size": "l12",
         "env": ""
       },
       {
         "innerId": "componentShow",
-        "component": "base.div",
+        "component": "org.abx.app.base.div",
         "size": "l12",
         "env": ""
       }

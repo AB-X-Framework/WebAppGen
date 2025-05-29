@@ -8,7 +8,7 @@
         }
       }
     ],
-    "name": "base.abxImg",
+    "name": "org.abx.app.base.abxImg",
     "isContainer": false,
     "js": [],
     "type": "img"
@@ -21,7 +21,7 @@
         }
       }
     ],
-    "name": "base.div",
+    "name": "org.abx.app.base.div",
     "isContainer": false,
     "js": [],
     "type": "div"
@@ -34,7 +34,7 @@
         }
       }
     ],
-    "name": "base.divider",
+    "name": "org.abx.app.base.divider",
     "isContainer": false,
     "js": [],
     "type": "divider"

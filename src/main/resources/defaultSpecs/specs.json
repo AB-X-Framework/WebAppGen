@@ -2,7 +2,7 @@
   "components": [
     "org.abx.app.components",
     "org.abx.app.home",
-    "base",
+    "org.abx.app.base",
     "login"
   ],
   "pages": [
