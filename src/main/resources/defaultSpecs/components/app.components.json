@@ -758,6 +758,8 @@
     "name": "app.components.ChildrenComponentClass",
     "isContainer": true,
     "js": [
+      {"env": "",
+        "value":  "workingComponent.ChildrenComponentClass=ChildrenComponentClass;"}
     ],
     "layout": "horizontal"
   },

@@ -22,6 +22,7 @@ function hideSpecs() {
     $(workingComponent.SpecsSource).closest('.input-field').parent().hide();
     $(workingComponent.SpecsTitle).closest('.input-field').parent().hide();
     $(workingComponent.SpecsContent).closest('.input-field').parent().hide();
+    $(workingComponent.ChildrenComponentClass).hide();
     $(workingComponent.SpecsSelect).closest('.input-field').parent().parent().parent().hide();
     $(workingComponent.SpecsSelectRemove).parent().hide();
     $(workingComponent.SpecsSelectEdit).parent().hide();
