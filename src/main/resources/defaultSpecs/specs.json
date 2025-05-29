@@ -1,7 +1,7 @@
 {
   "components": [
     "org.abx.app.components",
-    "app.home",
+    "org.abx.app.home",
     "base",
     "login"
   ],

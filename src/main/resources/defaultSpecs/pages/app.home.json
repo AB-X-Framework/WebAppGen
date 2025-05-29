@@ -1,15 +1,18 @@
-[{
- "component": "app.home.WelcomePageComponent",
- "css": [
-
- ],
- "role": "Admin",
- "name": "app.home.welcome",
- "title": "Welcome Page",
- "scripts": [{
-  "env": "",
-  "value": "/resources/binary/model.methods.js"
- }],
- "matches": "welcome",
- "matchesId": 1233099618
-}]
+[
+  {
+    "component": "org.abx.app.home.WelcomePageComponent",
+    "css": [
+    ],
+    "role": "Admin",
+    "name": "app.home.welcome",
+    "title": "Welcome Page",
+    "scripts": [
+      {
+        "env": "",
+        "value": "/resources/binary/org.abx.app.model.methods.js"
+      }
+    ],
+    "matches": "welcome",
+    "matchesId": 1233099618
+  }
+]

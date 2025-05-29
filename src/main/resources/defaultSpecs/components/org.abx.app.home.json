@@ -4,30 +4,30 @@
     "components": [
       {
         "innerId": "modelPath",
-        "component": "app.home.model",
+        "component": "org.abx.app.home.model",
         "size": "l6",
         "env": ""
       },
       {
         "innerId": "load",
-        "component": "app.home.load",
+        "component": "org.abx.app.home.load",
         "size": "",
         "env": ""
       },
       {
         "innerId": "save",
-        "component": "app.home.save",
+        "component": "org.abx.app.home.save",
         "size": "",
         "env": ""
       },
       {
         "innerId": "download",
-        "component": "app.home.download",
+        "component": "org.abx.app.home.download",
         "size": "l3",
         "env": ""
       }
     ],
-    "name": "app.home.container",
+    "name": "org.abx.app.home.container",
     "isContainer": true,
     "js": [
       {
@@ -51,11 +51,11 @@
         "value": {
           "content": "",
           "title": "Project path",
-          "src": "/resources/map/org.abx.app.Env/modelPath"
+          "src": "/resources/map/app.Env/modelPath"
         }
       }
     ],
-    "name": "app.home.model",
+    "name": "org.abx.app.home.model",
     "isContainer": false,
     "js": [],
     "type": "textfield"
@@ -79,7 +79,7 @@
         }
       }
     ],
-    "name": "app.home.header",
+    "name": "org.abx.app.home.header",
     "isContainer": false,
     "js": [],
     "type": "header"
@@ -93,7 +93,7 @@
         }
       }
     ],
-    "name": "app.home.download",
+    "name": "org.abx.app.home.download",
     "isContainer": false,
     "js": [
       {
@@ -112,7 +112,7 @@
         }
       }
     ],
-    "name": "app.home.load",
+    "name": "org.abx.app.home.load",
     "isContainer": false,
     "js": [
       {
@@ -131,7 +131,7 @@
         }
       }
     ],
-    "name": "app.home.save",
+    "name": "org.abx.app.home.save",
     "isContainer": false,
     "js": [
       {
@@ -146,18 +146,18 @@
     "components": [
       {
         "innerId": "header",
-        "component": "app.home.header",
+        "component": "org.abx.app.home.header",
         "size": "l12",
         "env": ""
       },
       {
         "innerId": "modelContainer",
-        "component": "app.home.container",
+        "component": "org.abx.app.home.container",
         "size": "",
         "env": ""
       }
     ],
-    "name": "app.home.WelcomePageComponent",
+    "name": "org.abx.app.home.WelcomePageComponent",
     "isContainer": true,
     "js": []
   }

@@ -530,7 +530,7 @@
     "components": [
       {
         "innerId": "header",
-        "component": "app.home.header",
+        "component": "org.abx.app.home.header",
         "size": "l2",
         "env": ""
       },
