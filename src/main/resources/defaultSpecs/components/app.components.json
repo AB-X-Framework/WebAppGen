@@ -92,14 +92,14 @@
         "env": ""
       },
       {
-        "innerId": "ChildrenComponent",
-        "component": "app.components.ChildrenComponent",
+        "innerId": "ChildrenComponentClass",
+        "component": "app.components.ChildrenComponentClass",
         "size": "l4",
         "env": ""
       },
       {
-        "innerId": "ChildrenComponent2",
-        "component": "app.components.ChildrenComponent",
+        "innerId": "ChildrenComponentDetails",
+        "component": "app.components.ChildrenComponentDetails",
         "size": "l4",
         "env": ""
       },
@@ -745,7 +745,7 @@
       {
         "innerId": "InnerComponentPackage",
         "component": "app.components.ComponentPackage",
-        "size": "l2",
+        "size": "l3",
         "env": ""
       },
       {
@@ -755,10 +755,69 @@
         "env": ""
       }
     ],
-    "name": "app.components.ChildrenComponent",
+    "name": "app.components.ChildrenComponentClass",
     "isContainer": true,
     "js": [
     ],
     "layout": "horizontal"
+  },
+  {
+    "components": [
+      {
+        "innerId": "ChildrenInnerId",
+        "component": "app.components.ChildrenInnerId",
+        "size": "l4",
+        "env": ""
+      },
+      {
+        "innerId": "ChildrenInnerSize",
+        "component": "app.components.ChildrenInnerSize",
+        "size": "l3",
+        "env": ""
+      },
+      {
+        "innerId": "InnerComponentEnv",
+        "component": "app.components.Env",
+        "size": "l2",
+        "env": ""
+      }
+    ],
+    "name": "app.components.ChildrenComponentDetails",
+    "isContainer": true,
+    "js": [
+    ],
+    "layout": "horizontal"
+  },
+
+
+  {
+    "specs": [
+      {
+        "env": "",
+        "value": {
+          "content": "Children Component Size",
+          "title": "Size"
+        }
+      }
+    ],
+    "name": "app.components.ChildrenInnerSize",
+    "isContainer": false,
+    "js": [],
+    "type": "textfield"
+  },
+  {
+    "specs": [
+      {
+        "env": "",
+        "value": {
+          "content": "Children Component InnerId",
+          "title": "InnerId"
+        }
+      }
+    ],
+    "name": "app.components.ChildrenInnerId",
+    "isContainer": false,
+    "js": [],
+    "type": "textfield"
   }
 ]
