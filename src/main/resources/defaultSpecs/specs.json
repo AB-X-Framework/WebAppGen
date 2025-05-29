@@ -3,7 +3,7 @@
     "org.abx.app.components",
     "org.abx.app.home",
     "org.abx.app.base",
-    "login"
+    "org.abx.app.login"
   ],
   "pages": [
     "app.home",
