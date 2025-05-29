@@ -801,6 +801,10 @@
       {
         "env": "",
         "value": "workingComponent.ChildrenSize=ChildrenSize"
+      },
+      {
+        "env": "",
+        "value": "workingComponent.InnerComponentEnv=InnerComponentEnv"
       }
     ],
     "layout": "horizontal"
