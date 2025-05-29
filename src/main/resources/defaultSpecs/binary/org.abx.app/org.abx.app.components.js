@@ -338,9 +338,8 @@ function saveCurrentSpecs() {
       </div>
     </div>
   `);
-        const modal = M.Modal.init($('#okModal')[0]);
+        M.Modal.init($('#okModal')[0]).open();
     });
-
 
 }
 
