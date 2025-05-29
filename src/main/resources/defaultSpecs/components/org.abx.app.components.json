@@ -766,7 +766,14 @@
     "name": "org.abx.app.components.ChildrenComponentClass",
     "isContainer": true,
     "js": [
-
+      {
+        "env": "",
+        "value": "workingComponent.InnerComponentPackage=InnerComponentPackage"
+      },
+      {
+        "env": "",
+        "value": "workingComponent.InnerComponentName=InnerComponentName"
+      }
     ],
     "layout": "horizontal"
   },

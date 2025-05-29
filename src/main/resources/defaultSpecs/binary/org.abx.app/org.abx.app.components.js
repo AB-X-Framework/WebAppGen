@@ -74,23 +74,41 @@ function processChildren() {
             value: index,
             text: line
         }));
-        $(workingComponent.ComponentEnv).change(()=>{
+        $(workingComponent.ComponentEnv).change(() => {
             processInnerComponent($(workingComponent.ComponentEnv).val());
         });
     });
-    if (workingComponent.specs.components.length>0){
+    if (workingComponent.specs.components.length > 0) {
         processInnerComponent(0);
     }
     M.FormSelect.init(workingComponent.ComponentEnv);
 }
 
-function processInnerComponent(index){
+function processInnerComponent(index) {
     let component = workingComponent.specs;
     $(workingComponent.ChildrenInnerId).val(component.components[index].innerId);
     $(workingComponent.ChildrenSize).val(component.components[index].size);
     $(workingComponent.InnerComponentEnv).val(component.components[index].env);
+    var innerComponentName = component.components[index].component;
+    $.get(`/page/components/${innerComponentName}`, (componentSpecs) => {
+        console.log(JSON.stringify(componentSpecs));
+        $(workingComponent.InnerComponentPackage).val(componentSpecs.package);
+        let componentBox = workingComponent.InnerComponentName;
+        M.FormSelect.init(workingComponent.InnerComponentPackage);
+        $.get(`/page/packages/${componentSpecs.package}/components`, (resultList) => {
+            resultList.forEach(function (item) {
+                $(componentBox).append($('<option>', {
+                    value: item,
+                    text: item
+                }));
+            });
+            $(componentBox).val(innerComponentName);
+            M.FormSelect.init(componentBox);
+        });
+    });
 
 }
+
 function processJS() {
     $(workingComponent.ComponentEnv).closest('.input-field').children('label').text('JS');
     hideSpecs();
@@ -317,3 +335,5 @@ function setComponentTypeVisibility(type, element, layout) {
         $(workingComponent.ContainerLayout).closest('.input-field').parent().hide();
     }
 }
+
+$(document).ready(hideSpecs);
