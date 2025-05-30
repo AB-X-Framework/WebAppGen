@@ -67,6 +67,8 @@ function selectPackage(componentBox, packageName) {
 }
 
 function processChildren() {
+
+    $(workingEnv.InnerComponentName).empty();
     hideSpecs();
     let component = workingEnv.component;
     if (component.layout === "popup"){
@@ -95,7 +97,15 @@ function processChildren() {
     M.FormSelect.init(workingEnv.ComponentEnv);
 }
 
+function updateInnerElement(){
+    let index = $(workingEnv.ComponentEnv).val();
+    let component = workingEnv.component;
+    let inner = component.components[index];
+    inner.component=$(workingEnv.InnerComponentName).val();
+    renderCurrentComponent()
+}
 function processInnerComponent(index) {
+    workingEnv.editing=false;
     let component = workingEnv.component;
     $(workingEnv.ChildrenInnerId).val(component.components[index].innerId);
     $(workingEnv.ChildrenSize).val(component.components[index].size);
@@ -114,6 +124,7 @@ function processInnerComponent(index) {
             });
             $(componentBox).val(innerComponentName);
             M.FormSelect.init(componentBox);
+            workingEnv.editing=true;
         });
     });
 
