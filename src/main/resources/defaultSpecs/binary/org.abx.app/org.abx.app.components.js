@@ -135,7 +135,7 @@ function processJS() {
         if (env === "") {
             env = "Default";
         }
-        var lineValue = JSON.stringify(item.value);
+        var lineValue = item.value;
         if (lineValue.length > maxLine) {
             lineValue = lineValue.substring(0, maxLine - 3) + "...";
         }
@@ -196,6 +196,12 @@ function updateText(delta, text) {
     let index = $(workingEnv.ComponentEnv).val();
     let jsEnv = component.js[index]
     jsEnv.value = text;
+    if (jsEnv.env===""){
+        text = "Default -> "+text;
+    }else {
+        text = jsEnv.env+" -> "+text;
+    }
+    renderCurrentComponent()
     if (text.length>maxLine){
         text = text.substring(0,maxLine)+"...";
     }
