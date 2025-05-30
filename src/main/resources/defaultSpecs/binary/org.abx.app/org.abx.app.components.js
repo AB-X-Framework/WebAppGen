@@ -24,7 +24,7 @@ function hideSpecs() {
 
     $(workingEnv.SpecsSize).closest('.input-field').parent().hide();
     $(workingEnv.SpecsOk).closest('.input-field').parent().hide();
-    $(workingEnv.SpecsNo).closest('.input-field').parent().hide();
+    $(workingEnv.SpecsCancel).closest('.input-field').parent().hide();
 
     $(workingEnv.SpecsOkCancelContainer).closest('.input-field').parent().hide();
 
@@ -238,7 +238,7 @@ function processSpecs() {
             $(workingEnv.SpecsTitle).closest('.input-field').parent().show();
             $(workingEnv.SpecsContent).closest('.input-field').parent().show();
             $(workingEnv.SpecsOk).closest('.input-field').parent().show();
-            $(workingEnv.SpecsNo).closest('.input-field').parent().show();
+            $(workingEnv.SpecsCancel).closest('.input-field').parent().show();
             $(workingEnv.SpecsShowModal).parent().show();
             break
         case "section":
@@ -289,7 +289,7 @@ function processElement() {
             $(workingEnv.SpecsTitle).val(specs.title);
             $(workingEnv.SpecsContent).val(specs.content);
             $(workingEnv.SpecsOk).val(specs.ok);
-            $(workingEnv.SpecsNo).val(specs.cancel);
+            $(workingEnv.SpecsCancel).val(specs.cancel);
             break;
         case "password":
             $(workingEnv.SpecsTitle).val(specs.title);

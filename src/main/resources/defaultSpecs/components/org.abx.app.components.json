@@ -713,14 +713,18 @@
     "specs": [{
       "env": "",
       "value": {
-        "title": "No text",
-        "content": "No text"
+        "title": "Cancel text",
+        "content": "Cancel text"
       }
     }],
     "package": "org.abx.app.components",
-    "name": "org.abx.app.components.SpecsNo",
+    "name": "org.abx.app.components.SpecsCancel",
     "isContainer": false,
-    "js": [],
+    "js": [
+      {
+        "env": "",
+        "value": "$(self).on('input',()=>setSpecValue('cancel',$(self).val()))"
+      }],
     "type": "textfield"
   },
   {
@@ -734,7 +738,12 @@
     "package": "org.abx.app.components",
     "name": "org.abx.app.components.SpecsOk",
     "isContainer": false,
-    "js": [],
+    "js": [
+      {
+        "env": "",
+        "value": "$(self).on('input',()=>setSpecValue('ok',$(self).val()))"
+      }
+    ],
     "type": "textfield"
   },
   {
@@ -853,8 +862,8 @@
         "env": ""
       },
       {
-        "innerId": "SpecsNo",
-        "component": "org.abx.app.components.SpecsNo",
+        "innerId": "SpecsCancel",
+        "component": "org.abx.app.components.SpecsCancel",
         "size": "l4",
         "env": ""
       },
@@ -875,7 +884,7 @@
       },
       {
         "env": "",
-        "value": "workingEnv.SpecsNo=SpecsNo;"
+        "value": "workingEnv.SpecsCancel=SpecsCancel;"
       },
       {
         "env": "",
