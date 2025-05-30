@@ -308,11 +308,17 @@ public class PageModel {
         JSONArray jsonChildrenComponents = jsonComponent.getJSONArray(Components);
         for (int i = 0; i < jsonChildrenComponents.length(); i++) {
             JSONObject childComponent = jsonChildrenComponents.getJSONObject(i);
-            String childName = childComponent.getString("name");
+            String childEnv = childComponent.getString("env");
+            if (!matchesEnv(childEnv, env)) {
+                continue;
+            }
+            String childName = childComponent.getString(Component);
             org.abx.webappgen.persistence.model.Component child =
                     componentRepository.findByComponentId(elementHashCode(childName));
             ComponentSpecs componentSpecs = new ComponentSpecs("", env);
+            Map<String, String> childrenInnerIds = new HashMap<>();
             componentSpecs.component = child;
+            componentSpecs.siblings = childrenInnerIds;
             JSONObject innerComponent =
                     getComponentSpecsByComponent(componentSpecs);
             jsonChildren.put(innerComponent);
