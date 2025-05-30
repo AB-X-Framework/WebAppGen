@@ -266,7 +266,6 @@ public class PageModel {
             addPreviewContainer(jsonComponent, env);
             jsonComponent.put(JS, "");
         } else {
-
             JSONArray specs = jsonComponent.getJSONArray(Specs);
             for (int i = 0; i < specs.length(); i++) {
                 JSONObject spec = specs.getJSONObject(i);
@@ -275,7 +274,6 @@ public class PageModel {
                     break;
                 }
             }
-
             jsonComponent.put(JS, "");
         }
         return jsonComponent;
