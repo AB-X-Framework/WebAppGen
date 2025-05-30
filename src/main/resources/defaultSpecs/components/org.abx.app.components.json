@@ -110,7 +110,10 @@
     "package": "org.abx.app.components",
     "name": "org.abx.app.components.SpecsTitle",
     "isContainer": false,
-    "js": [],
+    "js": [{
+      "env": "",
+      "value": "$(self).on('input',()=>setSpecValue('title',$(self).val()))"
+    }],
     "type": "textfield"
   },
   {
