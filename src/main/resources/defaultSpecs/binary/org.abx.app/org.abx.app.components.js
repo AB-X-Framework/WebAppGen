@@ -23,7 +23,7 @@ function showPreviewModal(){
 function hideSpecs() {
 
     $(workingEnv.SpecsSize).closest('.input-field').parent().hide();
-    $(workingEnv.SpecsYes).closest('.input-field').parent().hide();
+    $(workingEnv.SpecsOk).closest('.input-field').parent().hide();
     $(workingEnv.SpecsNo).closest('.input-field').parent().hide();
     $(workingEnv.SpecsShowModal).parent().hide();
     $(workingEnv.SpecsSource).closest('.input-field').parent().hide();
@@ -216,7 +216,7 @@ function processSpecs() {
         case "okCancelModal":
             $(workingEnv.SpecsTitle).closest('.input-field').parent().show();
             $(workingEnv.SpecsContent).closest('.input-field').parent().show();
-            $(workingEnv.SpecsYes).closest('.input-field').parent().show();
+            $(workingEnv.SpecsOk).closest('.input-field').parent().show();
             $(workingEnv.SpecsNo).closest('.input-field').parent().show();
             $(workingEnv.SpecsShowModal).parent().show();
             break
@@ -262,12 +262,12 @@ function processElement() {
         case "modal":
             $(workingEnv.SpecsTitle).val(specs.title);
             $(workingEnv.SpecsContent).val(specs.content);
-            $(workingEnv.SpecsYes).val(specs.ok);
+            $(workingEnv.SpecsOk).val(specs.ok);
             break;
         case "okCancelModal":
             $(workingEnv.SpecsTitle).val(specs.title);
             $(workingEnv.SpecsContent).val(specs.content);
-            $(workingEnv.SpecsYes).val(specs.ok);
+            $(workingEnv.SpecsOk).val(specs.ok);
             $(workingEnv.SpecsNo).val(specs.cancel);
             break;
         case "password":

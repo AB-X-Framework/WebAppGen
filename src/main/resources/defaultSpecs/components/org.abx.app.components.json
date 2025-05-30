@@ -950,7 +950,7 @@
       }
     ],
     "package": "org.abx.app.components",
-    "name": "org.abx.app.components.SpecsYes",
+    "name": "org.abx.app.components.SpecsOk",
     "isContainer": false,
     "js": [],
     "type": "textfield"
@@ -975,8 +975,8 @@
     "layout": "horizontal",
     "components": [
       {
-        "innerId": "SpecsYes",
-        "component": "org.abx.app.components.SpecsYes",
+        "innerId": "SpecsOk",
+        "component": "org.abx.app.components.SpecsOk",
         "size": "l4",
         "env": ""
       },
@@ -999,7 +999,7 @@
     "js": [
       {
         "env": "",
-        "value": "workingEnv.SpecsYes=SpecsYes;"
+        "value": "workingEnv.SpecsOk=SpecsOk;"
       },
       {
         "env": "",

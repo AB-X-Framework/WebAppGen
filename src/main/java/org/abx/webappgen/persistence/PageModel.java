@@ -7,10 +7,7 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @org.springframework.stereotype.Component
 public class PageModel {
@@ -117,17 +114,22 @@ public class PageModel {
     @Transactional
     public JSONArray getPackages() {
         JSONArray packages = new JSONArray();
-        packages.putAll(componentRepository.findDistinctPackageNames());
+        List<String> packageList = componentRepository.findDistinctPackageNames();
+        Collections.sort(packageList);
+        packages.putAll(packageList);
         return packages;
     }
 
     @Transactional
     public JSONArray getComponentNames(String packageName) {
-        JSONArray packages = new JSONArray();
+        List<String>  components = new ArrayList<>();
         for (Component component : componentRepository.findAllByPackageName(packageName)) {
-            packages.put(component.componentName);
+            components.add(component.componentName);
         }
-        return packages;
+        Collections.sort(components);
+        JSONArray componentsArray = new JSONArray();
+        componentsArray.putAll(components);
+        return componentsArray;
     }
 
 
