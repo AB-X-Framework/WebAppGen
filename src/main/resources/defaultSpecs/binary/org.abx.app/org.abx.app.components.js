@@ -98,7 +98,6 @@ function processInnerComponent(index) {
     $(workingEnv.InnerComponentEnv).val(component.components[index].env);
     var innerComponentName = component.components[index].component;
     $.get(`/page/components/${innerComponentName}`, (componentSpecs) => {
-        console.log(JSON.stringify(componentSpecs));
         $(workingEnv.InnerComponentPackage).val(componentSpecs.package);
         let componentBox = workingEnv.InnerComponentName;
         M.FormSelect.init(workingEnv.InnerComponentPackage);
@@ -186,6 +185,20 @@ function setSpecValue(type, newValue) {
     var specs = component.specs[index];
     specs.value[type] = newValue;
     renderCurrentComponent()
+}
+function setChildValue(type, newValue){
+    let component = workingEnv.component;
+    let index = $(workingEnv.ComponentEnv).val();
+    let child = component.components[index];
+    child[type] = newValue;
+    renderCurrentComponent();
+    let text = JSON.stringify(child);
+    if (text.length>maxLine){
+        text = text.substring(0,maxLine)+"...";
+    }
+    $(workingEnv.ComponentEnv).find('option:selected').text(text);
+    $(workingEnv.ComponentEnv).formSelect();
+
 }
 
 function updateText(delta, text) {
