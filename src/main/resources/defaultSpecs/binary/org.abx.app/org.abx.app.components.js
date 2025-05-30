@@ -2,7 +2,7 @@ var processAction;
 var processComponentType;
 var processElementType;
 var processContainerLayout;
-var workingEnv = {};
+var workingEnv = {"editing": false};
 
 var maxLine = 73;
 
@@ -16,12 +16,12 @@ function processAction(x) {
     selectPackage($(workingEnv.ComponentName), x);
 }
 
-function showPreviewModal(){
+function showPreviewModal() {
     M.Modal.init($('#__preview')[0]).open();
 }
 
 function hideSpecs() {
-
+    workingEnv.editing = false;
     $(workingEnv.SpecsSize).closest('.input-field').parent().hide();
     $(workingEnv.SpecsOk).closest('.input-field').parent().hide();
     $(workingEnv.SpecsCancel).closest('.input-field').parent().hide();
@@ -117,6 +117,7 @@ function processInnerComponent(index) {
 }
 
 function processJS() {
+    workingEnv.editing=false;
     $(workingEnv.ComponentEnv).closest('.input-field').children('label').text('JS');
     hideSpecs();
     $(workingEnv.SpecsJS).parent().parent().parent().show();
@@ -128,6 +129,8 @@ function processJS() {
             first = true;
             $(workingEnv.Env).val(item.env);
             ace.edit(workingEnv.SpecsJS).setValue(item.value);
+
+            workingEnv.editing=true;
         }
         if (env === "") {
             env = "Default";
@@ -144,10 +147,12 @@ function processJS() {
     M.FormSelect.init(workingEnv.ComponentEnv);
 
     $(workingEnv.ComponentEnv).change(() => {
+        workingEnv.editing=false;
         let index = $(workingEnv.ComponentEnv).val();
         var envValue = workingEnv.component.js[index];
         ace.edit(workingEnv.SpecsJS).setValue(envValue.value);
         $(workingEnv.Env).val(envValue.env);
+        workingEnv.editing=true;
 
     });
 }
@@ -171,16 +176,31 @@ function processSelect() {
 }
 
 
-function discardSpecs(){
+function discardSpecs() {
     processComponent(workingEnv.originalComponent);
 }
 
-function setSpecValue(type, newValue){
+function setSpecValue(type, newValue) {
     var index = $(workingEnv.ComponentEnv).val();
     var component = workingEnv.component;
     var specs = component.specs[index];
     specs.value[type] = newValue;
     renderCurrentComponent()
+}
+
+function updateText(delta, text) {
+    if (!workingEnv.editing){
+        return;
+    }
+    let component = workingEnv.component;
+    let index = $(workingEnv.ComponentEnv).val();
+    let jsEnv = component.js[index]
+    jsEnv.value = text;
+    if (text.length>maxLine){
+        text = text.substring(0,maxLine)+"...";
+    }
+    $(workingEnv.ComponentEnv).find('option:selected').text(text);
+    $(workingEnv.ComponentEnv).formSelect();
 }
 
 function processSpecs() {
@@ -308,10 +328,11 @@ function processElement() {
     }
 }
 
-function renderCurrentComponent(){
-    $.post(`/page/preview`,  {
+
+function renderCurrentComponent() {
+    $.post(`/page/preview`, {
             componentSpecs: JSON.stringify(workingEnv.component),
-            env:""
+            env: ""
         },
         (componentSpecs) => {
             var output = [];

@@ -706,7 +706,10 @@
     "package": "org.abx.app.components",
     "name": "org.abx.app.components.SpecsJS",
     "isContainer": false,
-    "js": [],
+    "js": [{
+      "env": "",
+      "value": "  var editor = ace.edit(self); editor.getSession().on('change', (delta)=>{updateText(delta,editor.getValue())});"
+    }],
     "type": "jsEditor"
   },
   {
