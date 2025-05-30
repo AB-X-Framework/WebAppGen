@@ -102,6 +102,12 @@ public class PageController extends RoleController{
         return pageModel.getComponentByName(componentName, env(session)).toString(2);
     }
 
+    @PostMapping(value = "/preview", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Secured("Admin")
+    public String component(@RequestParam String componentSpecs, @RequestParam String env) {
+        return pageModel.preview(new JSONObject(componentSpecs),env).toString(2);
+    }
+
 
     private String env(HttpSession session) {
         StringBuilder env = new StringBuilder();

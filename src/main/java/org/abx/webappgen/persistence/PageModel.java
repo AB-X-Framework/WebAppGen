@@ -16,7 +16,8 @@ public class PageModel {
     public static final String Id = "id";
     public static final String Title = "title";
     public static final String JS = "js";
-    public static final String Component = "component";
+    public static final String Component = "component";;
+    public static final String Components = "components";
     public static final String Layout = "layout";
     public static final String Type = "type";
     public static final String Size = "size";
@@ -122,7 +123,7 @@ public class PageModel {
 
     @Transactional
     public JSONArray getComponentNames(String packageName) {
-        List<String>  components = new ArrayList<>();
+        List<String> components = new ArrayList<>();
         for (Component component : componentRepository.findAllByPackageName(packageName)) {
             components.add(component.componentName);
         }
@@ -179,11 +180,16 @@ public class PageModel {
     }
 
 
-
     @Transactional
     public JSONObject getComponentByName(String name, String env) {
-        return processTop("__top",componentRepository.findByComponentId(elementHashCode(name)), env);
+        return processTop("__top", componentRepository.findByComponentId(elementHashCode(name)), env);
     }
+
+    @Transactional
+    public JSONObject preview(JSONObject specs, String env) {
+        return previewComponent(specs, env);
+    }
+
 
     private JSONObject processTop(String name, Component component, String env) {
         ComponentSpecs topSpecs = new ComponentSpecs(name, env);
@@ -192,6 +198,12 @@ public class PageModel {
         topSpecs.component = component;
         JSONObject componentSpecs = getComponentSpecsByComponent(topSpecs);
         componentSpecs.put(Id, name);
+        componentSpecs.put(Size, "");
+        return componentSpecs;
+    }
+
+    private JSONObject processTop(JSONObject previewComponentSpecs, String env) {
+        JSONObject componentSpecs = previewComponent(previewComponentSpecs, env);
         componentSpecs.put(Size, "");
         return componentSpecs;
     }
@@ -246,6 +258,18 @@ public class PageModel {
         return "{\n" + sb + source + "}";
     }
 
+    private JSONObject previewComponent(JSONObject jsonComponent, String env) {
+        boolean isContainer = jsonComponent.getBoolean("isContainer");
+        jsonComponent.put("name","__top");
+        if (isContainer) {
+            addPreviewContainer(jsonComponent, env);
+            jsonComponent.put(JS, "");
+        } else {
+            jsonComponent.put(JS, "");
+        }
+        return jsonComponent;
+    }
+
     private JSONObject getComponentSpecsByComponent(ComponentSpecs specs) {
         Component component = specs.component;
         JSONObject jsonComponent = new JSONObject();
@@ -268,6 +292,24 @@ public class PageModel {
             addElement(specs, jsonComponent);
         }
         return jsonComponent;
+    }
+
+    private void addPreviewContainer(JSONObject jsonComponent, String env) {
+        JSONArray jsonChildren = new JSONArray();
+        jsonComponent.put(Children, jsonChildren);
+        JSONArray jsonChildrenComponents = jsonComponent.getJSONArray(Components);
+        for (int i = 0; i < jsonChildrenComponents.length(); i++) {
+            JSONObject childComponent = jsonChildrenComponents.getJSONObject(i);
+            String childName = childComponent.getString("name");
+            org.abx.webappgen.persistence.model.Component child =
+                    componentRepository.findByComponentId(elementHashCode(childName));
+            ComponentSpecs componentSpecs = new ComponentSpecs("",env);
+            componentSpecs.component = child;
+            JSONObject innerComponent =
+                    getComponentSpecsByComponent(componentSpecs);
+            jsonChildren.put(innerComponent);
+            innerComponent.put(Size, childComponent.getString(Size));
+        }
     }
 
     private Map<String, String> addContainer(ComponentSpecs specs, JSONObject jsonComponent) {
@@ -295,6 +337,7 @@ public class PageModel {
         }
         return childrenInnerIds;
     }
+
 
     private void addElement(ComponentSpecs specs, JSONObject jsonComponent) {
         Element element = specs.component.element;
