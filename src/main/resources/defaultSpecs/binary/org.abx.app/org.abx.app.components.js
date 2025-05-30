@@ -70,7 +70,6 @@ function processChildren() {
     hideSpecs();
     let component = workingEnv.component;
     if (component.layout === "popup"){
-        $(workingEnv.SpecsContent).closest('.input-field').parent().show();
         $(workingEnv.SpecsShowModal).parent().show();
     }
     $(workingEnv.ChildrenComponentClass).parent().show();
@@ -126,7 +125,6 @@ function processJS() {
     hideSpecs();
     let component = workingEnv.component;
     if (component.layout === "popup"){
-        $(workingEnv.SpecsContent).closest('.input-field').parent().show();
         $(workingEnv.SpecsShowModal).parent().show();
     }
     $(workingEnv.SpecsJS).parent().parent().parent().show();
