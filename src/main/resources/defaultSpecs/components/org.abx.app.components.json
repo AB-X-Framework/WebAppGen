@@ -1,34 +1,28 @@
 [
   {
     "layout": "horizontal",
-    "components": [
-      {
-        "innerId": "SpecsJS",
-        "component": "org.abx.app.components.SpecsJS",
-        "size": "l11",
-        "env": ""
-      }
-    ],
+    "components": [{
+      "innerId": "SpecsJS",
+      "component": "org.abx.app.components.SpecsJS",
+      "size": "l11",
+      "env": ""
+    }],
     "package": "org.abx.app.components",
     "name": "org.abx.app.components.SpecsJSContainer",
     "isContainer": true,
-    "js": [
-      {
-        "env": "",
-        "value": "workingEnv.SpecsJS=SpecsJS;"
-      }
-    ]
+    "js": [{
+      "env": "",
+      "value": "workingEnv.SpecsJS=SpecsJS;"
+    }]
   },
   {
-    "specs": [
-      {
-        "env": "",
-        "value": {
-          "title": "InnerId",
-          "content": "Children Component InnerId"
-        }
+    "specs": [{
+      "env": "",
+      "value": {
+        "title": "InnerId",
+        "content": "Children Component InnerId"
       }
-    ],
+    }],
     "package": "org.abx.app.components",
     "name": "org.abx.app.components.ChildrenInnerId",
     "isContainer": false,
@@ -37,45 +31,37 @@
   },
   {
     "layout": "horizontal",
-    "components": [
-      {
-        "innerId": "EnvData",
-        "component": "org.abx.app.components.Env",
-        "size": "l5",
-        "env": ""
-      }
-    ],
+    "components": [{
+      "innerId": "EnvData",
+      "component": "org.abx.app.components.Env",
+      "size": "l5",
+      "env": ""
+    }],
     "package": "org.abx.app.components",
     "name": "org.abx.app.components.EnvContainer",
     "isContainer": true,
-    "js": [
-      {
-        "env": "",
-        "value": "workingEnv.Env=EnvData;"
-      }
-    ]
+    "js": [{
+      "env": "",
+      "value": "workingEnv.Env=EnvData;"
+    }]
   },
   {
-    "specs": [
-      {
-        "env": "",
-        "value": {
-          "cancel": "Do not discard",
-          "title": "Discard Changes",
-          "ok": "Discard",
-          "content": "Are you sure you want to discard changes?"
-        }
+    "specs": [{
+      "env": "",
+      "value": {
+        "cancel": "Do not discard",
+        "title": "Discard Changes",
+        "ok": "Discard",
+        "content": "Are you sure you want to discard changes?"
       }
-    ],
+    }],
     "package": "org.abx.app.components",
     "name": "org.abx.app.components.DiscardChangesModal",
     "isContainer": false,
-    "js": [
-      {
-        "env": "",
-        "value": "$(self.ok).click(discardSpecs)"
-      }
-    ],
+    "js": [{
+      "env": "",
+      "value": "$(self.ok).click(discardSpecs)"
+    }],
     "type": "okCancelModal"
   },
   {
@@ -97,23 +83,19 @@
     "package": "org.abx.app.components",
     "name": "org.abx.app.components.NavPanel",
     "isContainer": true,
-    "js": [
-      {
-        "env": "",
-        "value": "$(ComponentPackage).on('change', ()=>{processAction( $(ComponentPackage).val());});"
-      }
-    ]
+    "js": [{
+      "env": "",
+      "value": "$(ComponentPackage).on('change', ()=>{processAction( $(ComponentPackage).val());});"
+    }]
   },
   {
-    "specs": [
-      {
-        "env": "",
-        "value": {
-          "title": "Size",
-          "content": "Children Component Size"
-        }
+    "specs": [{
+      "env": "",
+      "value": {
+        "title": "Size",
+        "content": "Children Component Size"
       }
-    ],
+    }],
     "package": "org.abx.app.components",
     "name": "org.abx.app.components.ChildrenSize",
     "isContainer": false,
@@ -121,35 +103,27 @@
     "type": "textfield"
   },
   {
-    "specs": [
-      {
-        "env": "",
-        "value": {
-          "title": "Title",
-          "content": "Title"
-        }
+    "specs": [{
+      "env": "",
+      "value": {
+        "title": "Title",
+        "content": "Title"
       }
-    ],
+    }],
     "package": "org.abx.app.components",
     "name": "org.abx.app.components.SpecsTitle",
     "isContainer": false,
-    "js": [
-      {
-        "env": "",
-        "value": "$(self).on('input',()=>setSpecValue('title',$(self).val()))"
-      }
-    ],
+    "js": [{
+      "env": "",
+      "value": "$(self).on('input',()=>setSpecValue('title',$(self).val()))"
+    }],
     "type": "textfield"
   },
   {
-    "specs": [
-      {
-        "env": "",
-        "value": {
-          "title": "Save Component"
-        }
-      }
-    ],
+    "specs": [{
+      "env": "",
+      "value": {"title": "Save Component"}
+    }],
     "package": "org.abx.app.components",
     "name": "org.abx.app.components.SaveComponent",
     "isContainer": false,
@@ -157,15 +131,13 @@
     "type": "button"
   },
   {
-    "specs": [
-      {
-        "env": "",
-        "value": {
-          "title": "Env",
-          "content": "Empty is Default"
-        }
+    "specs": [{
+      "env": "",
+      "value": {
+        "title": "Env",
+        "content": "Empty is Default"
       }
-    ],
+    }],
     "package": "org.abx.app.components",
     "name": "org.abx.app.components.Env",
     "isContainer": false,
@@ -173,17 +145,15 @@
     "type": "textfield"
   },
   {
-    "specs": [
-      {
-        "env": "",
-        "value": {
-          "cancel": "Cancel",
-          "ok": "Save changes",
-          "title": "Save Changes",
-          "content": "Do you want to save changes?"
-        }
+    "specs": [{
+      "env": "",
+      "value": {
+        "cancel": "Cancel",
+        "ok": "Save changes",
+        "title": "Save Changes",
+        "content": "Do you want to save changes?"
       }
-    ],
+    }],
     "package": "org.abx.app.components",
     "name": "org.abx.app.components.ConfirmChangesModal",
     "isContainer": false,
@@ -221,14 +191,10 @@
     ]
   },
   {
-    "specs": [
-      {
-        "env": "",
-        "value": {
-          "title": "Remove"
-        }
-      }
-    ],
+    "specs": [{
+      "env": "",
+      "value": {"title": "Remove"}
+    }],
     "package": "org.abx.app.components",
     "name": "org.abx.app.components.RemoveEnv",
     "isContainer": false,
@@ -257,14 +223,10 @@
     "js": []
   },
   {
-    "specs": [
-      {
-        "env": "",
-        "value": {
-          "title": "Add"
-        }
-      }
-    ],
+    "specs": [{
+      "env": "",
+      "value": {"title": "Add"}
+    }],
     "package": "org.abx.app.components",
     "name": "org.abx.app.components.AddEnv",
     "isContainer": false,
@@ -272,21 +234,13 @@
     "type": "button"
   },
   {
-    "specs": [
-      {
-        "env": "",
-        "value": {
-          "items": [
-            {
-              "name": "File"
-            },
-            {
-              "name": "Edit"
-            }
-          ]
-        }
-      }
-    ],
+    "specs": [{
+      "env": "",
+      "value": {"items": [
+        {"name": "File"},
+        {"name": "Edit"}
+      ]}
+    }],
     "package": "org.abx.app.components",
     "name": "org.abx.app.components.ComponentMenu",
     "isContainer": false,
@@ -294,15 +248,13 @@
     "type": "menu"
   },
   {
-    "specs": [
-      {
-        "env": "",
-        "value": {
-          "values": [],
-          "title": "Component Name"
-        }
+    "specs": [{
+      "env": "",
+      "value": {
+        "values": [],
+        "title": "Component Name"
       }
-    ],
+    }],
     "package": "org.abx.app.components",
     "name": "org.abx.app.components.ComponentName",
     "isContainer": false,
@@ -310,45 +262,39 @@
     "type": "select"
   },
   {
-    "specs": [
-      {
-        "env": "",
-        "value": {
-          "values": [
-            {
-              "text": "Container",
-              "value": "Container"
-            },
-            {
-              "text": "Element",
-              "value": "Element"
-            }
-          ],
-          "title": "Component Type"
-        }
+    "specs": [{
+      "env": "",
+      "value": {
+        "values": [
+          {
+            "text": "Container",
+            "value": "Container"
+          },
+          {
+            "text": "Element",
+            "value": "Element"
+          }
+        ],
+        "title": "Component Type"
       }
-    ],
+    }],
     "package": "org.abx.app.components",
     "name": "org.abx.app.components.ComponentType",
     "isContainer": false,
-    "js": [
-      {
-        "env": "",
-        "value": "processComponentType= function (componentType){ $(self).val(componentType);$(self).formSelect();$(self).trigger('change');}"
-      }
-    ],
+    "js": [{
+      "env": "",
+      "value": "processComponentType= function (componentType){ $(self).val(componentType);$(self).formSelect();$(self).trigger('change');}"
+    }],
     "type": "select"
   },
   {
-    "specs": [
-      {
-        "env": "",
-        "value": {
-          "title": "Component Package",
-          "list": "/page/packages"
-        }
+    "specs": [{
+      "env": "",
+      "value": {
+        "title": "Component Package",
+        "list": "/page/packages"
       }
-    ],
+    }],
     "package": "org.abx.app.components",
     "name": "org.abx.app.components.ComponentPackage",
     "isContainer": false,
@@ -356,23 +302,17 @@
     "type": "select"
   },
   {
-    "specs": [
-      {
-        "env": "",
-        "value": {
-          "title": "Discard Changes"
-        }
-      }
-    ],
+    "specs": [{
+      "env": "",
+      "value": {"title": "Discard Changes"}
+    }],
     "package": "org.abx.app.components",
     "name": "org.abx.app.components.DiscardChanges",
     "isContainer": false,
-    "js": [
-      {
-        "env": "",
-        "value": ""
-      }
-    ],
+    "js": [{
+      "env": "",
+      "value": ""
+    }],
     "type": "button"
   },
   {
@@ -616,15 +556,13 @@
     ]
   },
   {
-    "specs": [
-      {
-        "env": "",
-        "value": {
-          "title": "Size",
-          "content": "Size"
-        }
+    "specs": [{
+      "env": "",
+      "value": {
+        "title": "Size",
+        "content": "Size"
       }
-    ],
+    }],
     "package": "org.abx.app.components",
     "name": "org.abx.app.components.SpecsSize",
     "isContainer": false,
@@ -692,57 +630,51 @@
     ]
   },
   {
-    "specs": [
-      {
-        "env": "",
-        "value": {
-          "values": [
-            {
-              "text": "Horizontal",
-              "value": "horizontal"
-            },
-            {
-              "text": "Vertical",
-              "value": "vertical"
-            },
-            {
-              "text": "Top",
-              "value": "top"
-            },
-            {
-              "text": "Container",
-              "value": "container"
-            },
-            {
-              "text": "Nav",
-              "value": "nav"
-            }
-          ],
-          "title": "Layout"
-        }
+    "specs": [{
+      "env": "",
+      "value": {
+        "values": [
+          {
+            "text": "Horizontal",
+            "value": "horizontal"
+          },
+          {
+            "text": "Vertical",
+            "value": "vertical"
+          },
+          {
+            "text": "Top",
+            "value": "top"
+          },
+          {
+            "text": "Container",
+            "value": "container"
+          },
+          {
+            "text": "Nav",
+            "value": "nav"
+          }
+        ],
+        "title": "Layout"
       }
-    ],
+    }],
     "package": "org.abx.app.components",
     "name": "org.abx.app.components.ContainerLayout",
     "isContainer": false,
-    "js": [
-      {
-        "env": "",
-        "value": "processContainerLayout= function (layout){ $(self).val(layout);$(self).formSelect();}"
-      }
-    ],
+    "js": [{
+      "env": "",
+      "value": "processContainerLayout= function (layout){ $(self).val(layout);$(self).formSelect();}"
+    }],
     "type": "select"
   },
   {
-    "specs": [
-      {
-        "env": "",
-        "value": {
-          "values": [],
-          "title": "Values"
-        }
+    "specs": [{
+      "env": "",
+      "value": {
+        "values": [],
+        "title": "Values"
       }
-    ],
+    }],
     "package": "org.abx.app.components",
     "name": "org.abx.app.components.SpecsSelect",
     "isContainer": false,
@@ -750,35 +682,27 @@
     "type": "select"
   },
   {
-    "specs": [
-      {
-        "env": "",
-        "value": {
-          "title": "Source",
-          "content": "Source"
-        }
+    "specs": [{
+      "env": "",
+      "value": {
+        "title": "Source",
+        "content": "Source"
       }
-    ],
+    }],
     "package": "org.abx.app.components",
     "name": "org.abx.app.components.SpecsSource",
     "isContainer": false,
-    "js": [
-      {
-        "env": "",
-        "value": "$(self).on('input',()=>setSpecValue('src',$(self).val()))"
-      }
-    ],
+    "js": [{
+      "env": "",
+      "value": "$(self).on('input',()=>setSpecValue('src',$(self).val()))"
+    }],
     "type": "textfield"
   },
   {
-    "specs": [
-      {
-        "env": "",
-        "value": {
-          "height": "200px"
-        }
-      }
-    ],
+    "specs": [{
+      "env": "",
+      "value": {"height": "200px"}
+    }],
     "package": "org.abx.app.components",
     "name": "org.abx.app.components.SpecsJS",
     "isContainer": false,
@@ -786,15 +710,13 @@
     "type": "js"
   },
   {
-    "specs": [
-      {
-        "env": "",
-        "value": {
-          "title": "No text",
-          "content": "No text"
-        }
+    "specs": [{
+      "env": "",
+      "value": {
+        "title": "No text",
+        "content": "No text"
       }
-    ],
+    }],
     "package": "org.abx.app.components",
     "name": "org.abx.app.components.SpecsNo",
     "isContainer": false,
@@ -802,15 +724,13 @@
     "type": "textfield"
   },
   {
-    "specs": [
-      {
-        "env": "",
-        "value": {
-          "title": "Ok text",
-          "content": "Ok text"
-        }
+    "specs": [{
+      "env": "",
+      "value": {
+        "title": "Ok text",
+        "content": "Ok text"
       }
-    ],
+    }],
     "package": "org.abx.app.components",
     "name": "org.abx.app.components.SpecsOk",
     "isContainer": false,
@@ -868,14 +788,10 @@
     ]
   },
   {
-    "specs": [
-      {
-        "env": "",
-        "value": {
-          "title": "Edit"
-        }
-      }
-    ],
+    "specs": [{
+      "env": "",
+      "value": {"title": "Edit"}
+    }],
     "package": "org.abx.app.components",
     "name": "org.abx.app.components.EditEnv",
     "isContainer": false,
@@ -883,56 +799,44 @@
     "type": "button"
   },
   {
-    "specs": [
-      {
-        "env": "",
-        "value": {
-          "title": "Content",
-          "content": "Content"
-        }
+    "specs": [{
+      "env": "",
+      "value": {
+        "title": "Content",
+        "content": "Content"
       }
-    ],
+    }],
     "package": "org.abx.app.components",
     "name": "org.abx.app.components.SpecsContent",
     "isContainer": false,
-    "js": [
-      {
-        "env": "",
-        "value": "$(self).on('input',()=>setSpecValue('content',$(self).val()))"
-      }
-    ],
+    "js": [{
+      "env": "",
+      "value": "$(self).on('input',()=>setSpecValue('content',$(self).val()))"
+    }],
     "type": "textfield"
   },
   {
-    "specs": [
-      {
-        "env": "",
-        "value": {
-          "title": "Show Modal"
-        }
-      }
-    ],
+    "specs": [{
+      "env": "",
+      "value": {"title": "Show Modal"}
+    }],
     "package": "org.abx.app.components",
     "name": "org.abx.app.components.SpecsShowModal",
     "isContainer": false,
-    "js": [
-      {
-        "env": "",
-        "value": "$(self).click(showPreviewModal)"
-      }
-    ],
+    "js": [{
+      "env": "",
+      "value": "$(self).click(showPreviewModal)"
+    }],
     "type": "button"
   },
   {
-    "specs": [
-      {
-        "env": "",
-        "value": {
-          "values": [],
-          "title": "Details"
-        }
+    "specs": [{
+      "env": "",
+      "value": {
+        "values": [],
+        "title": "Details"
       }
-    ],
+    }],
     "package": "org.abx.app.components",
     "name": "org.abx.app.components.ComponentDetails",
     "isContainer": false,
@@ -980,15 +884,13 @@
     ]
   },
   {
-    "specs": [
-      {
-        "env": "",
-        "value": {
-          "values": [],
-          "title": "Environment"
-        }
+    "specs": [{
+      "env": "",
+      "value": {
+        "values": [],
+        "title": "Environment"
       }
-    ],
+    }],
     "package": "org.abx.app.components",
     "name": "org.abx.app.components.ComponentEnv",
     "isContainer": false,
@@ -996,77 +898,73 @@
     "type": "select"
   },
   {
-    "specs": [
-      {
-        "env": "",
-        "value": {
-          "values": [
-            {
-              "text": "Button",
-              "value": "button"
-            },
-            {
-              "text": "Select",
-              "value": "select"
-            },
-            {
-              "text": "Textfield",
-              "value": "textfield"
-            },
-            {
-              "text": "Textarea",
-              "value": "textarea"
-            },
-            {
-              "text": "Menu",
-              "value": "menu"
-            },
-            {
-              "text": "Header",
-              "value": "header"
-            },
-            {
-              "text": "Ok/Cancel",
-              "value": "okCancelModal"
-            },
-            {
-              "text": "Img",
-              "value": "img"
-            },
-            {
-              "text": "Section",
-              "value": "section"
-            },
-            {
-              "text": "Password",
-              "value": "password"
-            },
-            {
-              "text": "Modal",
-              "value": "modal"
-            },
-            {
-              "text": "Div",
-              "value": "div"
-            },
-            {
-              "text": "Divider",
-              "value": "divider"
-            }
-          ],
-          "title": "Element Type"
-        }
+    "specs": [{
+      "env": "",
+      "value": {
+        "values": [
+          {
+            "text": "Button",
+            "value": "button"
+          },
+          {
+            "text": "Select",
+            "value": "select"
+          },
+          {
+            "text": "Textfield",
+            "value": "textfield"
+          },
+          {
+            "text": "Textarea",
+            "value": "textarea"
+          },
+          {
+            "text": "Menu",
+            "value": "menu"
+          },
+          {
+            "text": "Header",
+            "value": "header"
+          },
+          {
+            "text": "Ok/Cancel",
+            "value": "okCancelModal"
+          },
+          {
+            "text": "Img",
+            "value": "img"
+          },
+          {
+            "text": "Section",
+            "value": "section"
+          },
+          {
+            "text": "Password",
+            "value": "password"
+          },
+          {
+            "text": "Modal",
+            "value": "modal"
+          },
+          {
+            "text": "Div",
+            "value": "div"
+          },
+          {
+            "text": "Divider",
+            "value": "divider"
+          }
+        ],
+        "title": "Element Type"
       }
-    ],
+    }],
     "package": "org.abx.app.components",
     "name": "org.abx.app.components.ElementType",
     "isContainer": false,
-    "js": [
-      {
-        "env": "",
-        "value": "processElementType= function (elementType){ $(self).val(elementType);$(self).formSelect();$(self).trigger('change');}"
-      }
-    ],
+    "js": [{
+      "env": "",
+      "value": "processElementType= function (elementType){ $(self).val(elementType);$(self).formSelect();$(self).trigger('change');}"
+    }],
     "type": "select"
   }
 ]
