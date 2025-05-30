@@ -17,7 +17,7 @@ function processAction(x) {
 }
 
 function showPreviewModal(){
-
+    M.Modal.init($('#__top')[0]).open();
 }
 
 function hideSpecs() {

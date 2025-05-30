@@ -91,7 +91,7 @@ class PageContent {
                     PageContent.renderHeader(output, componentSpecs.specs);
                     break;
                 case "okCancelModal":
-                    PageContent.renderYesNoModal(output, js, componentSpecs.specs);
+                    PageContent.renderOkCancelModal(output, js, componentSpecs.specs);
                     break;
                 case "menu":
                     PageContent.renderMenu(output, js, componentSpecs.specs);
@@ -345,7 +345,7 @@ class PageContent {
         output.push(result)
     }
 
-    static renderYesNoModal(output, js, specs) {
+    static renderOkCancelModal(output, js, specs) {
         let html = `
     <div id="${specs.id}" class="modal">
     
@@ -353,8 +353,8 @@ class PageContent {
        <h5>${specs.title}</h5>
       <p>${specs.content}</p></div>
       <div class="modal-footer">
-        <button class="modal-close btn green" id="${specs.id}_ok">${specs.yes}</button>
-        <button class="modal-close btn red" id="${specs.id}_cancel">${specs.no}</button>
+        <button class="modal-close btn green" id="${specs.id}_ok">${specs.ok}</button>
+        <button class="modal-close btn red" id="${specs.id}_cancel">${specs.cancel}</button>
       </div>
     </div>
   `;
