@@ -167,6 +167,11 @@ function processSelect() {
     M.FormSelect.init(workingEnv.SpecsSelect);
 }
 
+
+function discardSpecs(){
+    processComponent(workingEnv.originalComponent);
+}
+
 function setSpecValue(type, newValue){
     var index = $(workingEnv.ComponentEnv).val();
     var component = workingEnv.component;
@@ -318,8 +323,8 @@ function renderCurrentComponent(){
 function processComponent(componentName) {
 
     $.get(`/page/components/${componentName}`, (componentSpecs) => {
-        workingEnv.originalSpecs = componentSpecs;
-        workingEnv.component = JSON.parse(JSON.stringify(componentSpecs));
+        workingEnv.originalComponent = componentSpecs.name;
+        workingEnv.component = componentSpecs;
         $(workingEnv.ComponentDetails).empty();
         $(workingEnv.ComponentDetails).append($('<option>', {
             value: "js",

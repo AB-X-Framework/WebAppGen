@@ -126,7 +126,8 @@
     "name": "org.abx.app.components.SpecsShowModal",
     "isContainer": false,
     "js": [
-      {"env": "",
+      {
+        "env": "",
         "value": "$(self).click(showPreviewModal)"
       }
     ],
@@ -358,8 +359,36 @@
     "package": "org.abx.app.components",
     "name": "org.abx.app.components.DiscardChanges",
     "isContainer": false,
-    "js": [],
+    "js": [
+      {
+        "env": "",
+        "value": ""
+      }
+    ],
     "type": "button"
+  },
+  {
+    "specs": [
+      {
+        "env": "",
+        "value": {
+          "title": "Discard Changes",
+          "content": "Are you sure you want to discard changes?",
+          "ok": "Discard",
+          "cancel": "Do not discard"
+        }
+      }
+    ],
+    "package": "org.abx.app.DiscardChangesModal",
+    "name": "org.abx.app.components.DiscardChangesModal",
+    "isContainer": false,
+    "js": [
+      {
+        "env": "",
+        "value": "$(self.ok).click(discardSpecs)"
+      }
+    ],
+    "type": "okCancelModal"
   },
   {
     "layout": "vertical",
@@ -635,6 +664,12 @@
         "env": ""
       },
       {
+        "innerId": "DiscardChangesModal",
+        "component": "org.abx.app.components.DiscardChangesModal",
+        "size": "l1",
+        "env": ""
+      },
+      {
         "innerId": "ConfirmChangesModal",
         "component": "org.abx.app.components.ConfirmChangesModal",
         "size": "l1",
@@ -660,6 +695,10 @@
       {
         "env": "",
         "value": "$(ConfirmChangesModal.yes).click(saveCurrentSpecs)"
+      },
+      {
+        "env": "",
+        "value": "$(DiscardChanges).click(()=> M.Modal.init(DiscardChangesModal).open())"
       }
     ]
   },
@@ -734,10 +773,12 @@
     "package": "org.abx.app.components",
     "name": "org.abx.app.components.SpecsSource",
     "isContainer": false,
-    "js": [{
-      "env": "",
-      "value": "$(self).on('input',()=>setSpecValue('src',$(self).val()))"
-    }],
+    "js": [
+      {
+        "env": "",
+        "value": "$(self).on('input',()=>setSpecValue('src',$(self).val()))"
+      }
+    ],
     "type": "textfield"
   },
   {
