@@ -68,11 +68,16 @@ function selectPackage(componentBox, packageName) {
 
 function processChildren() {
     hideSpecs();
+    let component = workingEnv.component;
+    if (component.layout === "popup"){
+        $(workingEnv.SpecsContent).closest('.input-field').parent().show();
+        $(workingEnv.SpecsShowModal).parent().show();
+    }
     $(workingEnv.ChildrenComponentClass).parent().show();
     $(workingEnv.ChildrenComponentDetails).parent().show();
     $(workingEnv.ComponentEnv).empty();
     $(workingEnv.ComponentEnv).closest('.input-field').children('label').text('Children');
-    workingEnv.component.components.forEach(function (item, index) {
+    component.components.forEach(function (item, index) {
         var line = JSON.stringify(item);
         if (line.length > maxLine) {
             line = line.substring(0, maxLine - 3) + "...";
@@ -119,10 +124,15 @@ function processJS() {
     workingEnv.editing=false;
     $(workingEnv.ComponentEnv).closest('.input-field').children('label').text('JS');
     hideSpecs();
+    let component = workingEnv.component;
+    if (component.layout === "popup"){
+        $(workingEnv.SpecsContent).closest('.input-field').parent().show();
+        $(workingEnv.SpecsShowModal).parent().show();
+    }
     $(workingEnv.SpecsJS).parent().parent().parent().show();
     $(workingEnv.ComponentEnv).empty();
     let first = false;
-    workingEnv.component.js.forEach(function (item, va) {
+    component.js.forEach(function (item, va) {
         let env = item.env;
         if (!first) {
             first = true;

@@ -367,12 +367,6 @@
         "env": ""
       },
       {
-        "innerId": "SpecsOkCancelContainer",
-        "component": "org.abx.app.components.SpecsOkCancelContainer",
-        "size": "l4",
-        "env": ""
-      },
-      {
         "innerId": "SpecsJSContainer",
         "component": "org.abx.app.components.SpecsJSContainer",
         "size": "l11",
@@ -387,6 +381,12 @@
       {
         "innerId": "ChildrenComponentDetails",
         "component": "org.abx.app.components.ChildrenComponentDetails",
+        "size": "l4",
+        "env": ""
+      },
+      {
+        "innerId": "SpecsOkCancelContainer",
+        "component": "org.abx.app.components.SpecsOkCancelContainer",
         "size": "l4",
         "env": ""
       },
