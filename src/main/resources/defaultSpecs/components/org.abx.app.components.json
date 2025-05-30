@@ -561,7 +561,7 @@
       },
       {
         "env": "",
-        "value": "$(InnerComponentEnv).on('input',()=>setChildValue('innerId',$(InnerComponentEnv).val()))"
+        "value": "$(InnerComponentEnv).on('input',()=>setChildValue('env',$(InnerComponentEnv).val()))"
       }
     ]
   },
