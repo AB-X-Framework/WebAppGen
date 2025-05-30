@@ -185,6 +185,18 @@ function setSpecValue(type, newValue) {
     var specs = component.specs[index];
     specs.value[type] = newValue;
     renderCurrentComponent()
+
+    let text = JSON.stringify(specs.value);
+    if (specs.env===""){
+        text = "Default -> "+text;
+    }else {
+        text = specs.env+" -> "+text;
+    }
+    if (text.length>maxLine){
+        text = text.substring(0,maxLine)+"...";
+    }
+    $(workingEnv.ComponentEnv).find('option:selected').text(text);
+    $(workingEnv.ComponentEnv).formSelect();
 }
 function setChildValue(type, newValue){
     let component = workingEnv.component;

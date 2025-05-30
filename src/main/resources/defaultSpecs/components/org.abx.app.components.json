@@ -676,7 +676,10 @@
     "package": "org.abx.app.components",
     "name": "org.abx.app.components.SpecsSize",
     "isContainer": false,
-    "js": [],
+    "js": [{
+      "env": "",
+      "value": "$(self).on('input',()=>setSpecValue('size',$(self).val()))"
+    }],
     "type": "textfield"
   },
   {
