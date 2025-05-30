@@ -691,6 +691,10 @@
             "value": "container"
           },
           {
+            "text": "Popup",
+            "value": "popup"
+          },
+          {
             "text": "Nav",
             "value": "nav"
           }
