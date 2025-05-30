@@ -255,7 +255,6 @@ public class PageModel {
                 sb.append("let ").append(entry.getKey()).append(" = ").append(entry.getValue()).append(";\n");
             }
         }
-
         return "{\n" + sb + source + "}";
     }
 
