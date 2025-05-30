@@ -153,6 +153,7 @@ function processSelect() {
     var component = workingEnv.component;
     let index = $(workingEnv.ComponentEnv).val();
     var specs = component.specs[index].value;
+
     specs.values.forEach(function (item, va) {
         var textLine = "value: " + item.value + ", text: " + item.text;
         if (textLine.length > maxLine) {
@@ -164,6 +165,14 @@ function processSelect() {
         }));
     });
     M.FormSelect.init(workingEnv.SpecsSelect);
+}
+
+function setSpecValue(type, newValue){
+    var index = $(workingEnv.ComponentEnv).val();
+    var component = workingEnv.component;
+    var specs = component.specs[index];
+    specs.value[type] = newValue;
+    renderCurrentComponent()
 }
 
 function processSpecs() {
@@ -287,6 +296,25 @@ function processElement() {
     }
 }
 
+function renderCurrentComponent(){
+    $.post(`/page/preview`,  {
+            componentSpecs: JSON.stringify(workingEnv.component),
+            env:""
+        },
+        (componentSpecs) => {
+            var output = [];
+            var js = [];
+            //Clear JS
+            componentSpecs.js = "";
+            PageContent.renderComponent(output, js, componentSpecs)
+            $(workingEnv.show).html(output.join(""));
+            M.updateTextFields();
+            for (var line of js) {
+                eval(line)
+            }
+        });
+}
+
 function processComponent(componentName) {
 
     $.get(`/page/components/${componentName}`, (componentSpecs) => {
@@ -329,22 +357,7 @@ function processComponent(componentName) {
         });
 
         M.FormSelect.init(workingEnv.ComponentDetails);
-        $.post(`/page/preview`,  {
-                componentSpecs: JSON.stringify(workingEnv.component),
-                env:""
-            },
-            (componentSpecs) => {
-            var output = [];
-            var js = [];
-            //Clear JS
-            componentSpecs.js = "";
-            PageContent.renderComponent(output, js, componentSpecs)
-            $(workingEnv.show).html(output.join(""));
-            M.updateTextFields();
-            for (var line of js) {
-                eval(line)
-            }
-        });
+        renderCurrentComponent()
     });
 
 }

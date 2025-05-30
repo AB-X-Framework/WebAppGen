@@ -734,7 +734,10 @@
     "package": "org.abx.app.components",
     "name": "org.abx.app.components.SpecsSource",
     "isContainer": false,
-    "js": [],
+    "js": [{
+      "env": "",
+      "value": "$(self).on('input',()=>setSpecValue('src',$(self).val()))"
+    }],
     "type": "textfield"
   },
   {
