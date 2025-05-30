@@ -118,6 +118,25 @@
       {
         "env": "",
         "value": {
+          "title": "Show Modal"
+        }
+      }
+    ],
+    "package": "org.abx.app.components",
+    "name": "org.abx.app.components.SpecsShowModal",
+    "isContainer": false,
+    "js": [
+      {"env": "",
+        "value": "$(self).click(showPreviewModal)"
+      }
+    ],
+    "type": "button"
+  },
+  {
+    "specs": [
+      {
+        "env": "",
+        "value": {
           "title": "Save Component"
         }
       }
@@ -149,8 +168,8 @@
       {
         "env": "",
         "value": {
-          "no": "Cancel",
-          "yes": "Save changes",
+          "cancel": "Cancel",
+          "ok": "Save changes",
           "title": "Save Changes",
           "content": "Do you want to save changes?"
         }
@@ -160,7 +179,7 @@
     "name": "org.abx.app.components.ConfirmChangesModal",
     "isContainer": false,
     "js": [],
-    "type": "yesNoModal"
+    "type": "okCancelModal"
   },
   {
     "layout": "horizontal",
@@ -388,8 +407,8 @@
         "env": ""
       },
       {
-        "innerId": "SpecsYesNoContainer",
-        "component": "org.abx.app.components.SpecsYesNoContainer",
+        "innerId": "SpecsOkCancelContainer",
+        "component": "org.abx.app.components.SpecsOkCancelContainer",
         "size": "l4",
         "env": ""
       },
@@ -878,7 +897,7 @@
             },
             {
               "text": "Yes/No",
-              "value": "yesNoModal"
+              "value": "okCancelModal"
             },
             {
               "text": "Img",
@@ -966,10 +985,16 @@
         "component": "org.abx.app.components.SpecsNo",
         "size": "l4",
         "env": ""
+      },
+      {
+        "innerId": "SpecsShowModal",
+        "component": "org.abx.app.components.SpecsShowModal",
+        "size": "l2",
+        "env": ""
       }
     ],
     "package": "org.abx.app.components",
-    "name": "org.abx.app.components.SpecsYesNoContainer",
+    "name": "org.abx.app.components.SpecsOkCancelContainer",
     "isContainer": true,
     "js": [
       {
@@ -979,6 +1004,10 @@
       {
         "env": "",
         "value": "workingEnv.SpecsNo=SpecsNo;"
+      },
+      {
+        "env": "",
+        "value": "workingEnv.SpecsShowModal=SpecsShowModal;"
       }
     ]
   }

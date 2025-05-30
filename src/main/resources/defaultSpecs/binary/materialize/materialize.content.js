@@ -90,7 +90,7 @@ class PageContent {
                 case "header":
                     PageContent.renderHeader(output, componentSpecs.specs);
                     break;
-                case "yesNoModal":
+                case "okCancelModal":
                     PageContent.renderYesNoModal(output, js, componentSpecs.specs);
                     break;
                 case "menu":
@@ -353,13 +353,13 @@ class PageContent {
        <h5>${specs.title}</h5>
       <p>${specs.content}</p></div>
       <div class="modal-footer">
-        <button class="modal-close btn green" id="${specs.id}_yes">${specs.yes}</button>
-        <button class="modal-close btn red" id="${specs.id}_no">${specs.no}</button>
+        <button class="modal-close btn green" id="${specs.id}_ok">${specs.yes}</button>
+        <button class="modal-close btn red" id="${specs.id}_cancel">${specs.no}</button>
       </div>
     </div>
   `;
-        js.push(`${specs.id}.yes=${specs.id}_yes`);
-        js.push(`${specs.id}.no=${specs.id}_no`);
+        js.push(`${specs.id}.ok=${specs.id}_ok`);
+        js.push(`${specs.id}.cancel=${specs.id}_cancel`);
         output.push(html);
     }
 

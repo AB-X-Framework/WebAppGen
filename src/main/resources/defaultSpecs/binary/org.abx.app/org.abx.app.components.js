@@ -16,11 +16,16 @@ function processAction(x) {
     selectPackage($(workingEnv.ComponentName), x);
 }
 
+function showPreviewModal(){
+
+}
+
 function hideSpecs() {
 
     $(workingEnv.SpecsSize).closest('.input-field').parent().hide();
     $(workingEnv.SpecsYes).closest('.input-field').parent().hide();
     $(workingEnv.SpecsNo).closest('.input-field').parent().hide();
+    $(workingEnv.SpecsShowModal).parent().hide();
     $(workingEnv.SpecsSource).closest('.input-field').parent().hide();
     $(workingEnv.SpecsTitle).closest('.input-field').parent().hide();
     $(workingEnv.SpecsContent).closest('.input-field').parent().hide();
@@ -208,11 +213,12 @@ function processSpecs() {
             $(workingEnv.SpecsTitle).closest('.input-field').parent().show();
             $(workingEnv.SpecsContent).closest('.input-field').parent().show();
             break
-        case "yesNoModal":
+        case "okCancelModal":
             $(workingEnv.SpecsTitle).closest('.input-field').parent().show();
             $(workingEnv.SpecsContent).closest('.input-field').parent().show();
             $(workingEnv.SpecsYes).closest('.input-field').parent().show();
             $(workingEnv.SpecsNo).closest('.input-field').parent().show();
+            $(workingEnv.SpecsShowModal).parent().show();
             break
         case "section":
             $(workingEnv.SpecsSize).closest('.input-field').parent().show();
@@ -256,12 +262,13 @@ function processElement() {
         case "modal":
             $(workingEnv.SpecsTitle).val(specs.title);
             $(workingEnv.SpecsContent).val(specs.content);
+            $(workingEnv.SpecsYes).val(specs.ok);
             break;
-        case "yesNoModal":
+        case "okCancelModal":
             $(workingEnv.SpecsTitle).val(specs.title);
             $(workingEnv.SpecsContent).val(specs.content);
-            $(workingEnv.SpecsYes).val(specs.yes);
-            $(workingEnv.SpecsNo).val(specs.no);
+            $(workingEnv.SpecsYes).val(specs.ok);
+            $(workingEnv.SpecsNo).val(specs.cancel);
             break;
         case "password":
             $(workingEnv.SpecsTitle).val(specs.title);
