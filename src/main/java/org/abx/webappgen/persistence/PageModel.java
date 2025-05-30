@@ -260,7 +260,7 @@ public class PageModel {
 
     private JSONObject previewComponent(JSONObject jsonComponent, String env) {
         boolean isContainer = jsonComponent.getBoolean("isContainer");
-        jsonComponent.put("name", "__top");
+        jsonComponent.put(Id, "__preview");
         if (isContainer) {
             addPreviewContainer(jsonComponent, env);
             jsonComponent.put(JS, "");

@@ -63,6 +63,7 @@
       "env": "",
       "value": {
         "title": "Invalid Credentials",
+        "ok": "Ok",
         "content": "Your username or password is incorrect. Please try again."
       }
     }],

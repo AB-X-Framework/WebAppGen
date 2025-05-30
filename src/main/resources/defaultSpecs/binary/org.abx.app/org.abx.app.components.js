@@ -17,7 +17,7 @@ function processAction(x) {
 }
 
 function showPreviewModal(){
-    M.Modal.init($('#__top')[0]).open();
+    M.Modal.init($('#__preview')[0]).open();
 }
 
 function hideSpecs() {
@@ -25,6 +25,9 @@ function hideSpecs() {
     $(workingEnv.SpecsSize).closest('.input-field').parent().hide();
     $(workingEnv.SpecsOk).closest('.input-field').parent().hide();
     $(workingEnv.SpecsNo).closest('.input-field').parent().hide();
+
+    $(workingEnv.SpecsOkCancelContainer).closest('.input-field').parent().hide();
+
     $(workingEnv.SpecsShowModal).parent().hide();
     $(workingEnv.SpecsSource).closest('.input-field').parent().hide();
     $(workingEnv.SpecsTitle).closest('.input-field').parent().hide();
@@ -224,10 +227,14 @@ function processSpecs() {
             processSelect();
             break
         case "modal":
+            $(workingEnv.SpecsOkCancelContainer).closest('.input-field').parent().show();
             $(workingEnv.SpecsTitle).closest('.input-field').parent().show();
             $(workingEnv.SpecsContent).closest('.input-field').parent().show();
+            $(workingEnv.SpecsOk).closest('.input-field').parent().show();
+            $(workingEnv.SpecsShowModal).parent().show();
             break
         case "okCancelModal":
+            $(workingEnv.SpecsOkCancelContainer).closest('.input-field').parent().show();
             $(workingEnv.SpecsTitle).closest('.input-field').parent().show();
             $(workingEnv.SpecsContent).closest('.input-field').parent().show();
             $(workingEnv.SpecsOk).closest('.input-field').parent().show();
