@@ -288,14 +288,16 @@ function processElement() {
 }
 
 function processComponent(componentName) {
-    $(workingEnv.ComponentDetails).empty();
-    $(workingEnv.ComponentDetails).append($('<option>', {
-        value: "js",
-        text: "JS"
-    }));
-    $(workingEnv.show).empty();
+
     $.get(`/page/components/${componentName}`, (componentSpecs) => {
-        workingEnv.component = componentSpecs;
+        workingEnv.originalSpecs = componentSpecs;
+        workingEnv.component = JSON.parse(JSON.stringify(componentSpecs));
+        $(workingEnv.ComponentDetails).empty();
+        $(workingEnv.ComponentDetails).append($('<option>', {
+            value: "js",
+            text: "JS"
+        }));
+        $(workingEnv.show).empty();
         if (componentSpecs.isContainer) {
             processComponentType("Container");
             processContainerLayout(componentSpecs.layout)
@@ -327,7 +329,11 @@ function processComponent(componentName) {
         });
 
         M.FormSelect.init(workingEnv.ComponentDetails);
-        $.get(`/page/component/${componentName}`, (componentSpecs) => {
+        $.post(`/page/preview`,  {
+                componentSpecs: JSON.stringify(workingEnv.component),
+                env:""
+            },
+            (componentSpecs) => {
             var output = [];
             var js = [];
             //Clear JS

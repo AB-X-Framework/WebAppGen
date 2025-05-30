@@ -16,7 +16,8 @@ public class PageModel {
     public static final String Id = "id";
     public static final String Title = "title";
     public static final String JS = "js";
-    public static final String Component = "component";;
+    public static final String Component = "component";
+    ;
     public static final String Components = "components";
     public static final String Layout = "layout";
     public static final String Type = "type";
@@ -260,11 +261,21 @@ public class PageModel {
 
     private JSONObject previewComponent(JSONObject jsonComponent, String env) {
         boolean isContainer = jsonComponent.getBoolean("isContainer");
-        jsonComponent.put("name","__top");
+        jsonComponent.put("name", "__top");
         if (isContainer) {
             addPreviewContainer(jsonComponent, env);
             jsonComponent.put(JS, "");
         } else {
+
+            JSONArray specs = jsonComponent.getJSONArray(Specs);
+            for (int i = 0; i < specs.length(); i++) {
+                JSONObject spec = specs.getJSONObject(i);
+                if (matchesEnv(spec.getString("env"), env)) {
+                    jsonComponent.put(Specs, spec.getJSONObject("value"));
+                    break;
+                }
+            }
+
             jsonComponent.put(JS, "");
         }
         return jsonComponent;
@@ -303,7 +314,7 @@ public class PageModel {
             String childName = childComponent.getString("name");
             org.abx.webappgen.persistence.model.Component child =
                     componentRepository.findByComponentId(elementHashCode(childName));
-            ComponentSpecs componentSpecs = new ComponentSpecs("",env);
+            ComponentSpecs componentSpecs = new ComponentSpecs("", env);
             componentSpecs.component = child;
             JSONObject innerComponent =
                     getComponentSpecsByComponent(componentSpecs);
