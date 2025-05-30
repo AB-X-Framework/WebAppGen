@@ -51,6 +51,8 @@ class PageContent {
                 PageContent.renderContainer(output, js, componentSpecs);
             } else if (componentSpecs.layout === "vertical") {
                 PageContent.renderVertical(output, js, componentSpecs);
+            } else  if (componentSpecs.layout === "popup") {
+                PageContent.renderPopup(output, js, componentSpecs);
             } else {
                 PageContent.renderTop(output, js, componentSpecs);
             }
@@ -146,6 +148,17 @@ class PageContent {
             PageContent.renderComponent(output, js, component)
             output.push('</div>');
         }
+        output.push('</div>');
+    }
+
+    static renderPopup(output, js, componentSpecs) {
+        output.push(`<div  id="${componentSpecs.id}" class="modal">
+    <div class="modal-content">`);
+        PageContent.renderComponent(output, js, componentSpecs.children[0]);
+        output.push('</div> <div class="modal-footer">');
+        PageContent.renderComponent(output, js, componentSpecs.children[1]);
+        output.push('</div>');
+        js.push(`M.Modal.init(${componentSpecs.id});`);
         output.push('</div>');
     }
 
