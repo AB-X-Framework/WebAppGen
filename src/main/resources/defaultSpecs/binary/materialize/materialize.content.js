@@ -84,8 +84,8 @@ class PageContent {
                 case "modal":
                     PageContent.renderModal(output, js, componentSpecs.specs);
                     break;
-                case "js":
-                    PageContent.renderJS(output, componentSpecs.specs);
+                case "jsEditor":
+                    PageContent.renderJsEditor(output, componentSpecs.specs);
                     break;
                 case "header":
                     PageContent.renderHeader(output, componentSpecs.specs);
@@ -308,7 +308,7 @@ class PageContent {
         }
     }
 
-    static renderJS(output, specs) {
+    static renderJsEditor(output, specs) {
         var result = `
     <script src="/resources/binary/ace.min.js"></script>
     <div id="${specs.id}" style="height: ${specs.height}; width: 100%">// Write your JavaScript here</div>
