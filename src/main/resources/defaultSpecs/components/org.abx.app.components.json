@@ -102,7 +102,10 @@
     "package": "org.abx.app.components",
     "name": "org.abx.app.components.ChildrenSize",
     "isContainer": false,
-    "js": [],
+    "js": [{
+      "env": "",
+      "value": "$(self).on('input',()=>setChildValue('size',$(self).val()))"
+    }],
     "type": "textfield"
   },
   {
@@ -555,6 +558,10 @@
       {
         "env": "",
         "value": "workingEnv.InnerComponentEnv=InnerComponentEnv"
+      },
+      {
+        "env": "",
+        "value": "$(InnerComponentEnv).on('input',()=>setChildValue('innerId',$(InnerComponentEnv).val()))"
       }
     ]
   },
