@@ -206,7 +206,6 @@ function processInnerComponent(index) {
             workingEnv.editing = true;
         });
     });
-
 }
 
 function processJS() {
@@ -305,7 +304,6 @@ function setChildValue(type, newValue) {
     }
     $(workingEnv.ComponentEnv).find('option:selected').text(text);
     $(workingEnv.ComponentEnv).formSelect();
-
 }
 
 function updateText(delta, text) {
