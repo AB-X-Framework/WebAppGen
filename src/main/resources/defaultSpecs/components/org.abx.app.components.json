@@ -193,10 +193,12 @@
       {
         "env": "",
         "value": "workingEnv.InnerComponentName=InnerComponentName"
-      },{
+      },
+      {
         "env": "",
         "value": "$(InnerComponentName).change(updateInnerElement)"
-      },{
+      },
+      {
         "env": "",
         "value": "$(InnerComponentPackage).change(updateInnerPackage)"
       }
