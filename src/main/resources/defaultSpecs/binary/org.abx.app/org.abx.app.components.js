@@ -102,6 +102,9 @@ function updateElementType() {
         case "modal":
             newValue.ok = "Ok";
             break;
+        case "menu":
+            newValue.items = [];
+            break;
         case "okCancelModal":
             newValue.ok = "Ok";
             newValue.cancel = "Cancel";
