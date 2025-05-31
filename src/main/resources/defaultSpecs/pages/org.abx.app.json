@@ -14,7 +14,11 @@
   },
   {
     "component": "org.abx.app.components.ComponentsPageComponent",
-    "css": [],
+    "css": [
+      {
+        "env": "",
+        "value": "/resources/binary/materialize.icons.css"
+      }],
     "role": "Admin",
     "name": "app.components.Components",
     "title": "Components Page",
