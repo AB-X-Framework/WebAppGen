@@ -1,4 +1,3 @@
-var processComponentType;
 var processContainerLayout;
 var workingEnv = {"editing": false};
 
@@ -61,13 +60,39 @@ function selectPackage(componentBox, packageName) {
     });
 }
 
+function processComponentType (componentType){
+    workingEnv.editing = false;
+    $(workingEnv.ComponentType).val(componentType);
+    $(workingEnv.ComponentType).formSelect()
+    workingEnv.editing = true;
+}
+
+function updateComponentType() {
+    if (workingEnv.editing === false) {
+        return;
+    }
+    let isContainer = $(workingEnv.ComponentType).val()==="Container";
+    let component = workingEnv.component;
+    component.specs =null;
+    component.isContainer=isContainer;
+    component.components = null;
+    component.layout = "vertical";
+    if (isContainer){
+        component.components=[];
+        processCurrentComponent();
+    }else {
+
+        updateElementType();
+        processCurrentComponent();
+    }
+}
+
 function processElementType(elementType) {
     workingEnv.editing = false;
     $(workingEnv.ElementType).val(elementType);
     $(workingEnv.ElementType).formSelect();
     workingEnv.editing = true;
 }
-
 function updateElementType() {
     if (workingEnv.editing === false) {
         return;
@@ -472,46 +497,50 @@ function renderCurrentComponent() {
         });
 }
 
+function processCurrentComponent(){
+    let componentSpecs = workingEnv.component;
+    $(workingEnv.ComponentDetails).empty();
+    $(workingEnv.ComponentDetails).append($('<option>', {
+        value: "js",
+        text: "JS"
+    }));
+    $(workingEnv.show).empty();
+    if (componentSpecs.isContainer) {
+        processComponentType("Container");
+        processContainerLayout(componentSpecs.layout)
+        $(workingEnv.ComponentDetails).append($('<option>', {
+            value: "children",
+            text: "Children",
+        }));
+        processJS();
+    } else {
+        $(workingEnv.ComponentDetails).append($('<option>', {
+            value: "specs",
+            text: "Specs",
+            selected: true
+        }));
+        processComponentType("Element");
+        processElementType(componentSpecs.type);
+        processSpecs();
+    }
+    $(workingEnv.ComponentDetails).change(() => {
+        if ($(workingEnv.ComponentDetails).val() === "specs") {
+            processSpecs();
+        } else if ($(workingEnv.ComponentDetails).val() === "js") {
+            processJS();
+        } else if ($(workingEnv.ComponentDetails).val() === "children") {
+            processChildren()
+        }
+    });
+
+    M.FormSelect.init(workingEnv.ComponentDetails);
+    renderCurrentComponent()
+}
 function processComponent(componentName) {
     $.get(`/page/components/${componentName}`, (componentSpecs) => {
         workingEnv.originalComponent = componentSpecs.name;
         workingEnv.component = componentSpecs;
-        $(workingEnv.ComponentDetails).empty();
-        $(workingEnv.ComponentDetails).append($('<option>', {
-            value: "js",
-            text: "JS"
-        }));
-        $(workingEnv.show).empty();
-        if (componentSpecs.isContainer) {
-            processComponentType("Container");
-            processContainerLayout(componentSpecs.layout)
-            $(workingEnv.ComponentDetails).append($('<option>', {
-                value: "children",
-                text: "Children",
-            }));
-            processJS();
-        } else {
-            $(workingEnv.ComponentDetails).append($('<option>', {
-                value: "specs",
-                text: "Specs",
-                selected: true
-            }));
-            processComponentType("Element");
-            processElementType(componentSpecs.type);
-            processSpecs();
-        }
-        $(workingEnv.ComponentDetails).change(() => {
-            if ($(workingEnv.ComponentDetails).val() === "specs") {
-                processSpecs();
-            } else if ($(workingEnv.ComponentDetails).val() === "js") {
-                processJS();
-            } else if ($(workingEnv.ComponentDetails).val() === "children") {
-                processChildren()
-            }
-        });
-
-        M.FormSelect.init(workingEnv.ComponentDetails);
-        renderCurrentComponent()
+        processCurrentComponent();
     });
 }
 
