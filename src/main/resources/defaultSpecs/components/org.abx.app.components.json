@@ -78,7 +78,7 @@
       },
       {
         "innerId": "ComponentAX",
-        "component": "org.abx.app.components.container",
+        "component": "org.abx.app.components.FullContainer",
         "size": "l10",
         "env": ""
       }
@@ -418,7 +418,7 @@
       }
     ],
     "package": "org.abx.app.components",
-    "name": "org.abx.app.components.container",
+    "name": "org.abx.app.components.FullContainer",
     "isContainer": true,
     "js": [
       {
