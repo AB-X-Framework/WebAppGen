@@ -642,7 +642,7 @@
       },
       {
         "env": "",
-        "value": "$(AddEnv).click(addNewEnv)"
+        "value": "$(AddEnv).click( ()=>M.Modal.init(AddPopUpEnv).open())"
       },
       {
         "env": "",
@@ -1035,7 +1035,7 @@
         "env": ""
       },
       {
-        "innerId": "AddEnv",
+        "innerId": "ConfirmAddEnv",
         "component": "org.abx.app.components.AddEnv",
         "size": "l12",
         "env": ""
@@ -1049,7 +1049,7 @@
       "value": "workingEnv.AddEnvValue=AddEnvValue"
     },{
       "env": "",
-      "value": "$(AddEnv).click(addNewEnv)"
+      "value": "$(ConfirmAddEnv).click(addNewEnv)"
     }]
   },
   {

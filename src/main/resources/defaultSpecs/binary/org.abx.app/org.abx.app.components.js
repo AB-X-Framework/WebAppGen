@@ -61,44 +61,43 @@ function selectPackage(componentBox, packageName) {
 }
 
 
-function defaultSpecs(value) {
-    let newValue = {};
-    let specs = [{"env": "", "value": newValue}];
-    switch (value) {
+function defaultSpecs(elementType) {
+    let newDefSpecs = {};
+    switch (elementType) {
         case "select":
-            newValue.title = "";
-            newValue.content = "";
-            newValue.values = [];
+            newDefSpecs.title = "";
+            newDefSpecs.content = "";
+            newDefSpecs.values = [];
             break;
         case "img":
-            newValue.src = "";
+            newDefSpecs.src = "";
         case "button":
-            newValue.title = "";
-            newValue.content = "";
+            newDefSpecs.title = "";
+            newDefSpecs.content = "";
             break;
         case "textfield":
         case "textarea":
-            newValue.title = "";
-            newValue.content = "";
+            newDefSpecs.title = "";
+            newDefSpecs.content = "";
             break;
         case "header":
-            newValue.src = "";
-            newValue.links = [];
+            newDefSpecs.src = "";
+            newDefSpecs.links = [];
             break;
         case "modal":
-            newValue.ok = "Ok";
+            newDefSpecs.ok = "Ok";
             break;
         case "menu":
-            newValue.items = [];
+            newDefSpecs.items = [];
             break;
         case "okCancelModal":
-            newValue.ok = "Ok";
-            newValue.cancel = "Cancel";
-            newValue.title = "title";
-            newValue.content = "content";
+            newDefSpecs.ok = "Ok";
+            newDefSpecs.cancel = "Cancel";
+            newDefSpecs.title = "title";
+            newDefSpecs.content = "content";
             break;
     }
-    return specs;
+    return newDefSpecs;
 }
 
 
@@ -125,7 +124,7 @@ function updateComponentType() {
         component.components = [];
     } else {
         component.type = "button";
-        component.specs = defaultSpecs(component.type);
+        component.specs = [defaultSpecs(component.type)];
     }
     setComponentTypeVisibility();
     processCurrentComponent(true);
@@ -145,7 +144,7 @@ function updateElementType() {
     let value = $(workingEnv.ElementType).val();
     let component = workingEnv.component;
     component.type = value;
-    component.specs = defaultSpecs(component.type)
+    component.specs = [defaultSpecs(component.type)];
     processSpecs();
     renderCurrentComponent();
 }
@@ -292,7 +291,7 @@ function processJS() {
 function addNewEnv() {
     console.log("HHHH")
     workingEnv.shouldUpdate=false;
-    var component = workingEnv.component;
+    let component = workingEnv.component;
     let index = $(workingEnv.ComponentEnv).val();
     if (typeof index !== "number"){
         index = 0;
@@ -308,7 +307,7 @@ function addNewEnv() {
                 "env": ""
             });
         } else {
-            component.specs.splice(index, 0, defaultSpecs($(workingEnv.ComponentType)));
+            component.specs.splice(index, 0, defaultSpecs($(workingEnv.ElementType).val()));
         }
         processCurrentComponent(false);
     } else {
