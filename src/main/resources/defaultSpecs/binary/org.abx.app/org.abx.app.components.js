@@ -1,5 +1,4 @@
 var processComponentType;
-var processElementType;
 var processContainerLayout;
 var workingEnv = {"editing": false};
 
@@ -20,7 +19,6 @@ function showPreviewModal() {
 }
 
 function hideSpecs() {
-    workingEnv.editing = false;
     $(workingEnv.SpecsSize).closest('.input-field').parent().hide();
     $(workingEnv.SpecsOk).closest('.input-field').parent().hide();
     $(workingEnv.SpecsCancel).closest('.input-field').parent().hide();
@@ -61,6 +59,47 @@ function selectPackage(componentBox, packageName) {
         hideElemContainer();
         M.FormSelect.init(componentBox);
     });
+}
+
+function processElementType(elementType) {
+    workingEnv.editing = false;
+    $(workingEnv.ElementType).val(elementType);
+    $(workingEnv.ElementType).formSelect();
+    workingEnv.editing = true;
+}
+
+function updateElementType() {
+    if (workingEnv.editing === false) {
+        return;
+    }
+    let value = $(workingEnv.ElementType).val();
+    let component = workingEnv.component;
+    component.type = value;
+    component.specs = [];
+    let newValue = {};
+    component.specs.push({"env":"","value":newValue});
+    switch (value){
+        case "select":
+            newValue.title = "";
+            newValue.content = "";
+            newValue.values = [];
+            break;
+        case "button":
+            newValue.title = "";
+            newValue.content = "";
+            break;
+        case "textfield":
+        case "textarea":
+            newValue.title = "";
+            newValue.content = "";
+            break;
+        case "header":
+            newValue.src = "";
+            newValue.links = [];
+            break;
+    }
+    processSpecs();
+    renderCurrentComponent();
 }
 
 function processChildren() {
@@ -104,7 +143,7 @@ function updateInnerPackage() {
     if (!workingEnv.editing) {
         return;
     }
-    workingEnv.editing=false;
+    workingEnv.editing = false;
     let componentBox = workingEnv.InnerComponentName;
     $(componentBox).empty();
     let package = $(workingEnv.InnerComponentPackage).val();
@@ -116,11 +155,11 @@ function updateInnerPackage() {
             $(componentBox).append($('<option>', {
                 value: item,
                 text: item,
-                selected:first
+                selected: first
             }));
-            if (first){
-                first=false;
-                component.components[index].component=item;
+            if (first) {
+                first = false;
+                component.components[index].component = item;
             }
         });
         workingEnv.editing = true;
@@ -397,6 +436,7 @@ function processElement() {
             $(workingEnv.SpecsContent).val(specs.content);
             break;
     }
+    workingEnv.editing=true;
 }
 
 function renderCurrentComponent() {

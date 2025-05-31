@@ -551,6 +551,10 @@
       {
         "env": "",
         "value": "$(AddEnv).click(()=>M.Modal.init(AddPopUpEnv).open())"
+      },
+      {
+        "env": "",
+        "value": "$(ElementType).change(updateElementType)"
       }
     ]
   },
@@ -1026,7 +1030,7 @@
     "isContainer": false,
     "js": [{
       "env": "",
-      "value": "processElementType= function (elementType){ $(self).val(elementType);$(self).formSelect();$(self).trigger('change');}"
+      "value": ""
     }],
     "type": "select"
   }
