@@ -306,7 +306,7 @@ function addNewEnv() {
         if (isContainer) {
             component.components.splice(index, 0, {
                 "innerId": `elem${index}`,
-                "component": "com.abx.app.base.div",
+                "component": "org.abx.app.base.div",
                 "size": "l12",
                 "env": env
             });
