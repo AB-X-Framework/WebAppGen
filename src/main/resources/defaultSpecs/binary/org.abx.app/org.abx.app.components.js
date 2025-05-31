@@ -289,11 +289,12 @@ function processJS() {
  * Adds new environment as JS, Specs or Children
  */
 function addNewEnv() {
-    console.log("HHHH")
-    workingEnv.shouldUpdate=false;
+    M.Modal.init(workingEnv.AddPopUpEnv).close();
+    workingEnv.shouldUpdate = false;
     let component = workingEnv.component;
+    let env = $(workingEnv.AddEnvValue).val();
     let index = $(workingEnv.ComponentEnv).val();
-    if (typeof index !== "number"){
+    if (typeof index !== "number") {
         index = 0;
     }
     let detailsType = $(workingEnv.shouldUpdateDetailType).val();
@@ -304,20 +305,22 @@ function addNewEnv() {
                 "innerId": `elem${index}`,
                 "component": "com.abx.app.base.div",
                 "size": "l12",
-                "env": ""
+                "env": env
             });
         } else {
-            component.specs.splice(index, 0, defaultSpecs($(workingEnv.ElementType).val()));
+            component.specs.splice(index, 0,
+                {"env":env,
+                    "value": defaultSpecs($(workingEnv.ElementType).val())});
         }
         processCurrentComponent(false);
     } else {
         component.js.splice(index, 0, {
-            "env": "",
+            "env": env,
             "value": `//New JS code ${index}`
         });
         processCurrentComponent(true);
     }
-    workingEnv.shouldUpdate=true;
+    workingEnv.shouldUpdate = true;
     renderCurrentComponent();
 }
 
@@ -567,7 +570,7 @@ function processCurrentComponent(showJS) {
         }));
         if (showJS) {
             processJS();
-        }else{
+        } else {
             processChildren();
         }
     } else {
@@ -580,7 +583,7 @@ function processCurrentComponent(showJS) {
         processElementType(componentSpecs.type);
         if (showJS) {
             processJS();
-        }else{
+        } else {
             processSpecs();
         }
     }

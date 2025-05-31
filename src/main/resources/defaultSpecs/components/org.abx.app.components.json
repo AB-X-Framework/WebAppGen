@@ -634,6 +634,10 @@
       },
       {
         "env": "",
+        "value": "workingEnv.AddPopUpEnv=AddPopUpEnv;"
+      },
+      {
+        "env": "",
         "value": "hideElemContainer();"
       },
       {
