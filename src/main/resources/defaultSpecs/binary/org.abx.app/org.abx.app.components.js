@@ -354,7 +354,16 @@ function discardSpecs() {
     processComponent(workingEnv.originalComponent);
 }
 
+/**
+ * Sets one of the specs value
+ * @param type
+ * @param newValue
+ */
 function setSpecValue(type, newValue) {
+    //Autofill protection
+    if ($(workingEnv.ComponentType).val()==="Container"){
+        return;
+    }
     var index = $(workingEnv.ComponentEnv).val();
     var component = workingEnv.component;
     var specs = component.specs[index];
