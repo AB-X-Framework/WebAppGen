@@ -6,8 +6,8 @@
   },
   {
     "role": "Anonymous",
-    "name": "materialize.icons.css",
-    "contentType": "text/css"
+    "name": "materialize.icons.woff2",
+    "contentType": "font/woff2"
   },
   {
     "role": "Anonymous",
@@ -21,7 +21,7 @@
   },
   {
     "role": "Anonymous",
-    "name": "materialize.icons.woff2",
-    "contentType": "font/woff2"
+    "name": "materialize.icons.css",
+    "contentType": "text/css"
   }
 ]

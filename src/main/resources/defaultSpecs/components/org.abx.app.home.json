@@ -34,12 +34,12 @@
         "src": "/resources/binary/org.abx.app.abx.png",
         "values": [
           {
-            "value": "/page/welcome",
-            "text": "Home"
+            "text": "Home",
+            "value": "/page/welcome"
           },
           {
-            "value": "/page/components",
-            "text": "Components"
+            "text": "Components",
+            "value": "/page/components"
           }
         ]
       }

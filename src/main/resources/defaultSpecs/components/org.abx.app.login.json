@@ -100,8 +100,8 @@
       "value": {
         "src": "/resources/binary/org.abx.app.abx.png",
         "values": [{
-          "value": "/help",
-          "text": "About us"
+          "text": "About us",
+          "value": "/help"
         }]
       }
     }],
