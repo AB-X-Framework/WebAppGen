@@ -196,6 +196,9 @@
       },{
         "env": "",
         "value": "$(InnerComponentName).change(updateInnerElement)"
+      },{
+        "env": "",
+        "value": "$(InnerComponentPackage).change(updateInnerPackage)"
       }
     ]
   },

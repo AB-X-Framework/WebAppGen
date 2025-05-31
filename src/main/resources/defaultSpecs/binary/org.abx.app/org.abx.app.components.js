@@ -1,4 +1,3 @@
-var processAction;
 var processComponentType;
 var processElementType;
 var processContainerLayout;
@@ -25,9 +24,7 @@ function hideSpecs() {
     $(workingEnv.SpecsSize).closest('.input-field').parent().hide();
     $(workingEnv.SpecsOk).closest('.input-field').parent().hide();
     $(workingEnv.SpecsCancel).closest('.input-field').parent().hide();
-
     $(workingEnv.SpecsOkCancelContainer).closest('.input-field').parent().hide();
-
     $(workingEnv.SpecsShowModal).parent().hide();
     $(workingEnv.SpecsSource).closest('.input-field').parent().hide();
     $(workingEnv.SpecsTitle).closest('.input-field').parent().hide();
@@ -67,11 +64,9 @@ function selectPackage(componentBox, packageName) {
 }
 
 function processChildren() {
-
-    $(workingEnv.InnerComponentName).empty();
     hideSpecs();
     let component = workingEnv.component;
-    if (component.layout === "popup"){
+    if (component.layout === "popup") {
         $(workingEnv.SpecsShowModal).parent().show();
     }
     $(workingEnv.ChildrenComponentClass).parent().show();
@@ -97,15 +92,45 @@ function processChildren() {
     M.FormSelect.init(workingEnv.ComponentEnv);
 }
 
-function updateInnerElement(){
+function updateInnerElement() {
     let index = $(workingEnv.ComponentEnv).val();
     let component = workingEnv.component;
     let inner = component.components[index];
-    inner.component=$(workingEnv.InnerComponentName).val();
+    inner.component = $(workingEnv.InnerComponentName).val();
     renderCurrentComponent()
 }
-function processInnerComponent(index) {
+
+function updateInnerPackage() {
+    if (!workingEnv.editing) {
+        return;
+    }
     workingEnv.editing=false;
+    let componentBox = workingEnv.InnerComponentName;
+    $(componentBox).empty();
+    let package = $(workingEnv.InnerComponentPackage).val();
+    let index = $(workingEnv.ComponentEnv).val();
+    let component = workingEnv.component;
+    $.get(`/page/packages/${package}/components`, (resultList) => {
+        let first = true;
+        resultList.forEach(function (item) {
+            $(componentBox).append($('<option>', {
+                value: item,
+                text: item,
+                selected:first
+            }));
+            if (first){
+                first=false;
+                component.components[index].component=item;
+            }
+        });
+        workingEnv.editing = true;
+        M.FormSelect.init(componentBox);
+        renderCurrentComponent()
+    });
+}
+
+function processInnerComponent(index) {
+    workingEnv.editing = false;
     let component = workingEnv.component;
     $(workingEnv.ChildrenInnerId).val(component.components[index].innerId);
     $(workingEnv.ChildrenSize).val(component.components[index].size);
@@ -113,8 +138,9 @@ function processInnerComponent(index) {
     var innerComponentName = component.components[index].component;
     $.get(`/page/components/${innerComponentName}`, (componentSpecs) => {
         $(workingEnv.InnerComponentPackage).val(componentSpecs.package);
-        let componentBox = workingEnv.InnerComponentName;
         M.FormSelect.init(workingEnv.InnerComponentPackage);
+        let componentBox = workingEnv.InnerComponentName;
+        $(componentBox).empty();
         $.get(`/page/packages/${componentSpecs.package}/components`, (resultList) => {
             resultList.forEach(function (item) {
                 $(componentBox).append($('<option>', {
@@ -124,18 +150,18 @@ function processInnerComponent(index) {
             });
             $(componentBox).val(innerComponentName);
             M.FormSelect.init(componentBox);
-            workingEnv.editing=true;
+            workingEnv.editing = true;
         });
     });
 
 }
 
 function processJS() {
-    workingEnv.editing=false;
+    workingEnv.editing = false;
     $(workingEnv.ComponentEnv).closest('.input-field').children('label').text('JS');
     hideSpecs();
     let component = workingEnv.component;
-    if (component.layout === "popup"){
+    if (component.layout === "popup") {
         $(workingEnv.SpecsShowModal).parent().show();
     }
     $(workingEnv.SpecsJS).parent().parent().parent().show();
@@ -148,7 +174,7 @@ function processJS() {
             $(workingEnv.Env).val(item.env);
             ace.edit(workingEnv.SpecsJS).setValue(item.value);
 
-            workingEnv.editing=true;
+            workingEnv.editing = true;
         }
         if (env === "") {
             env = "Default";
@@ -163,15 +189,13 @@ function processJS() {
         }));
     });
     M.FormSelect.init(workingEnv.ComponentEnv);
-
     $(workingEnv.ComponentEnv).change(() => {
-        workingEnv.editing=false;
+        workingEnv.editing = false;
         let index = $(workingEnv.ComponentEnv).val();
         var envValue = workingEnv.component.js[index];
         ace.edit(workingEnv.SpecsJS).setValue(envValue.value);
         $(workingEnv.Env).val(envValue.env);
-        workingEnv.editing=true;
-
+        workingEnv.editing = true;
     });
 }
 
@@ -179,7 +203,6 @@ function processSelect() {
     var component = workingEnv.component;
     let index = $(workingEnv.ComponentEnv).val();
     var specs = component.specs[index].value;
-
     specs.values.forEach(function (item, va) {
         var textLine = "value: " + item.value + ", text: " + item.text;
         if (textLine.length > maxLine) {
@@ -204,28 +227,28 @@ function setSpecValue(type, newValue) {
     var specs = component.specs[index];
     specs.value[type] = newValue;
     renderCurrentComponent()
-
     let text = JSON.stringify(specs.value);
-    if (specs.env===""){
-        text = "Default -> "+text;
-    }else {
-        text = specs.env+" -> "+text;
+    if (specs.env === "") {
+        text = "Default -> " + text;
+    } else {
+        text = specs.env + " -> " + text;
     }
-    if (text.length>maxLine){
-        text = text.substring(0,maxLine)+"...";
+    if (text.length > maxLine) {
+        text = text.substring(0, maxLine) + "...";
     }
     $(workingEnv.ComponentEnv).find('option:selected').text(text);
     $(workingEnv.ComponentEnv).formSelect();
 }
-function setChildValue(type, newValue){
+
+function setChildValue(type, newValue) {
     let component = workingEnv.component;
     let index = $(workingEnv.ComponentEnv).val();
     let child = component.components[index];
     child[type] = newValue;
     renderCurrentComponent();
     let text = JSON.stringify(child);
-    if (text.length>maxLine){
-        text = text.substring(0,maxLine)+"...";
+    if (text.length > maxLine) {
+        text = text.substring(0, maxLine) + "...";
     }
     $(workingEnv.ComponentEnv).find('option:selected').text(text);
     $(workingEnv.ComponentEnv).formSelect();
@@ -233,21 +256,21 @@ function setChildValue(type, newValue){
 }
 
 function updateText(delta, text) {
-    if (!workingEnv.editing){
+    if (!workingEnv.editing) {
         return;
     }
     let component = workingEnv.component;
     let index = $(workingEnv.ComponentEnv).val();
     let jsEnv = component.js[index]
     jsEnv.value = text;
-    if (jsEnv.env===""){
-        text = "Default -> "+text;
-    }else {
-        text = jsEnv.env+" -> "+text;
+    if (jsEnv.env === "") {
+        text = "Default -> " + text;
+    } else {
+        text = jsEnv.env + " -> " + text;
     }
     renderCurrentComponent()
-    if (text.length>maxLine){
-        text = text.substring(0,maxLine)+"...";
+    if (text.length > maxLine) {
+        text = text.substring(0, maxLine) + "...";
     }
     $(workingEnv.ComponentEnv).find('option:selected').text(text);
     $(workingEnv.ComponentEnv).formSelect();
@@ -331,9 +354,7 @@ function processSpecs() {
 }
 
 function processElement() {
-
     var component = workingEnv.component;
-
     var index = $(workingEnv.ComponentEnv).val();
     $(workingEnv.Env).val(component.specs[index].env);
     var specs = component.specs[index].value;
@@ -378,7 +399,6 @@ function processElement() {
     }
 }
 
-
 function renderCurrentComponent() {
     $.post(`/page/preview`, {
             componentSpecs: JSON.stringify(workingEnv.component),
@@ -399,7 +419,6 @@ function renderCurrentComponent() {
 }
 
 function processComponent(componentName) {
-
     $.get(`/page/components/${componentName}`, (componentSpecs) => {
         workingEnv.originalComponent = componentSpecs.name;
         workingEnv.component = componentSpecs;
@@ -423,11 +442,9 @@ function processComponent(componentName) {
                 text: "Specs",
                 selected: true
             }));
-
             processComponentType("Element");
             processElementType(componentSpecs.type);
             processSpecs();
-
         }
         $(workingEnv.ComponentDetails).change(() => {
             if ($(workingEnv.ComponentDetails).val() === "specs") {
@@ -442,7 +459,6 @@ function processComponent(componentName) {
         M.FormSelect.init(workingEnv.ComponentDetails);
         renderCurrentComponent()
     });
-
 }
 
 function saveCurrentSpecs() {
@@ -463,7 +479,6 @@ function saveCurrentSpecs() {
   `);
         M.Modal.init($('#okModal')[0]).open();
     });
-
 }
 
 function setComponentTypeVisibility(type) {
