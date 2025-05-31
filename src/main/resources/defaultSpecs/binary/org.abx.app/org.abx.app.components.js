@@ -290,6 +290,7 @@ function processJS() {
  * Adds new environment as JS, Specs or Children
  */
 function addNewEnv() {
+    console.log("HHHH")
     workingEnv.shouldUpdate=false;
     var component = workingEnv.component;
     let index = $(workingEnv.ComponentEnv).val();
@@ -297,25 +298,25 @@ function addNewEnv() {
         index = 0;
     }
     let detailsType = $(workingEnv.shouldUpdateDetailType).val();
-    if (detailsType === "js") {
-        component.js.splice(index,0, {
-            "env": "",
-            "value": `//New JS code ${index}`
-        });
-        processCurrentComponent(true);
-    } else {
+    if (detailsType !== "js") {
         let isContainer = $(workingEnv.ComponentType).val() === "Container";
         if (isContainer) {
-            component.components.splice(index,0, {
+            component.components.splice(index, 0, {
                 "innerId": `elem${index}`,
                 "component": "com.abx.app.base.div",
                 "size": "l12",
                 "env": ""
             });
         } else {
-            component.specs.splice(index,0, defaultSpecs($(workingEnv.ComponentType)));
+            component.specs.splice(index, 0, defaultSpecs($(workingEnv.ComponentType)));
         }
         processCurrentComponent(false);
+    } else {
+        component.js.splice(index, 0, {
+            "env": "",
+            "value": `//New JS code ${index}`
+        });
+        processCurrentComponent(true);
     }
     workingEnv.shouldUpdate=true;
     renderCurrentComponent();
