@@ -169,13 +169,13 @@ function processChildren() {
             value: index,
             text: line
         }));
-        $(workingEnv.ComponentEnv).change(() => {
-            processInnerComponent($(workingEnv.ComponentEnv).val());
-        });
     });
     if (workingEnv.component.components.length > 0) {
         processInnerComponent(0);
     }
+    $(workingEnv.ComponentEnv).change(() => {
+        processInnerComponent($(workingEnv.ComponentEnv).val());
+    });
     M.FormSelect.init(workingEnv.ComponentEnv);
 }
 
@@ -306,10 +306,11 @@ function addNewEnv() {
         if (isContainer) {
             component.components.splice(index, 0, {
                 "innerId": `elem${index}`,
-                "component": "org.abx.app.base.div",
+                "component": "org.abx.app.base.divider",
                 "size": "l12",
                 "env": env
             });
+            $(workingEnv.InnerComponentPackage).val("org.abx.app.base");
         } else {
             component.specs.splice(index, 0,
                 {"env":env,
@@ -323,12 +324,8 @@ function addNewEnv() {
         });
         processCurrentComponent(true);
     }
-    workingEnv.shouldUpdate = true;
     $(workingEnv.ComponentEnv).val(index);
     M.FormSelect.init(workingEnv.ComponentEnv);
-    $(workingEnv.ComponentEnv).change();
-
-    renderCurrentComponent();
 }
 
 function processSelect() {
