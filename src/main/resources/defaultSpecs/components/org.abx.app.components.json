@@ -67,12 +67,38 @@
     }],
     "type": "okCancelModal"
   },
+
+  {
+    "layout": "vertical",
+    "components": [
+      {
+        "innerId": "SaveComponent",
+        "component": "org.abx.app.components.SaveComponent",
+        "size": "l2",
+        "env": ""
+      },
+      {
+        "innerId": "ComponentPackage",
+        "component": "org.abx.app.components.ComponentPackage",
+        "size": "l2",
+        "env": ""
+      }
+    ],
+    "package": "org.abx.app.components",
+    "name": "org.abx.app.components.MenuContainer",
+    "isContainer": true,
+    "js": [{
+      "env": "",
+      "value": "$(ComponentPackage).on('change', ()=>{processAction( $(ComponentPackage).val());});"
+    }]
+  },
+
   {
     "layout": "horizontal",
     "components": [
       {
-        "innerId": "ComponentPackage",
-        "component": "org.abx.app.components.ComponentPackage",
+        "innerId": "MenuContainer",
+        "component": "org.abx.app.components.MenuContainer",
         "size": "l2",
         "env": ""
       },
@@ -88,7 +114,7 @@
     "isContainer": true,
     "js": [{
       "env": "",
-      "value": "$(ComponentPackage).on('change', ()=>{processAction( $(ComponentPackage).val());});"
+      "value": ""
     }]
   },
   {
