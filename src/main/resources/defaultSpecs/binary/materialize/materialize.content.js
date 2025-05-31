@@ -379,8 +379,9 @@ class PageContent {
     static renderMenuItems(items) {
         var line = "";
         for (var item of items) {
-            return line += ` <li><a href="${item}">${item.name}</a></li>`;
+             line += ` <li><a href="${item}">${item.name}</a></li>`;
         }
+        return line;
     }
 
     static renderMenu(output, js, specs) {
