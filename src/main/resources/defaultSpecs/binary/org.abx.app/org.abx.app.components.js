@@ -84,6 +84,8 @@ function updateElementType() {
             newValue.content = "";
             newValue.values = [];
             break;
+        case "img":
+            newValue.src = "";
         case "button":
             newValue.title = "";
             newValue.content = "";
@@ -96,6 +98,15 @@ function updateElementType() {
         case "header":
             newValue.src = "";
             newValue.links = [];
+            break;
+        case "modal":
+            newValue.ok = "Ok";
+            break;
+        case "okCancelModal":
+            newValue.ok = "Ok";
+            newValue.cancel = "Cancel";
+            newValue.title = "title";
+            newValue.content = "content";
             break;
     }
     processSpecs();
