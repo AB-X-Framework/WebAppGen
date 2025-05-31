@@ -71,6 +71,7 @@ function defaultSpecs(elementType) {
             break;
         case "img":
             newDefSpecs.src = "";
+            break;
         case "button":
             newDefSpecs.title = "";
             newDefSpecs.content = "";
@@ -294,8 +295,10 @@ function addNewEnv() {
     let component = workingEnv.component;
     let env = $(workingEnv.AddEnvValue).val();
     let index = $(workingEnv.ComponentEnv).val();
-    if (typeof index !== "number") {
+    if (index == null) {
         index = 0;
+    }else {
+        index = parseInt(index)+1;
     }
     let detailsType = $(workingEnv.shouldUpdateDetailType).val();
     if (detailsType !== "js") {
@@ -321,6 +324,10 @@ function addNewEnv() {
         processCurrentComponent(true);
     }
     workingEnv.shouldUpdate = true;
+    $(workingEnv.ComponentEnv).val(index);
+    M.FormSelect.init(workingEnv.ComponentEnv);
+    $(workingEnv.ComponentEnv).change();
+
     renderCurrentComponent();
 }
 
