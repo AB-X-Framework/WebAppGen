@@ -600,25 +600,25 @@
       {
         "innerId": "EditEnv",
         "component": "org.abx.app.components.EditEnv",
-        "size": "l1",
+        "size": "",
         "env": ""
       },
       {
         "innerId": "RemoveEnv",
         "component": "org.abx.app.components.RemoveEnv",
-        "size": "l1",
+        "size": "",
         "env": ""
       },
       {
         "innerId": "AddEnv",
         "component": "org.abx.app.components.AddEnv",
-        "size": "l1",
+        "size": "",
         "env": ""
       },
       {
         "innerId": "AddPopUpEnv",
         "component": "org.abx.app.components.AddPopUpEnv",
-        "size": "l1",
+        "size": "",
         "env": ""
       }
     ],
@@ -913,19 +913,19 @@
       {
         "innerId": "SpecsSelectEdit",
         "component": "org.abx.app.components.EditEnv",
-        "size": "l1",
+        "size": "",
         "env": ""
       },
       {
         "innerId": "SpecsSelectRemove",
         "component": "org.abx.app.components.RemoveEnv",
-        "size": "l1",
+        "size": "",
         "env": ""
       },
       {
         "innerId": "SpecsSelectAdd",
         "component": "org.abx.app.components.AddEnv",
-        "size": "l1",
+        "size": "",
         "env": ""
       }
     ],

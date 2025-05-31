@@ -343,8 +343,8 @@ class PageContent {
 
     static renderHeader(output, specs) {
         var links = "";
-        for (var link of specs.links) {
-            links += `<li><a href="${link.href}">${link.text}</li></a>`
+        for (var link of specs.values) {
+            links += `<li><a href="${link.value}">${link.text}</li></a>`
         }
         var result = `  <nav style="margin-bottom: 5px;">
     <div>

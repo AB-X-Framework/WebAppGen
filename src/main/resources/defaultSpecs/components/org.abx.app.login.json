@@ -99,8 +99,8 @@
       "env": "",
       "value": {
         "src": "/resources/binary/org.abx.app.abx.png",
-        "links": [{
-          "href": "/help",
+        "values": [{
+          "value": "/help",
           "text": "About us"
         }]
       }

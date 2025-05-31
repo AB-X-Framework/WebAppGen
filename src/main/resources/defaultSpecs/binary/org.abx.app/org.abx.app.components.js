@@ -286,6 +286,7 @@ function processJS() {
 }
 
 function processSelect() {
+    $(workingEnv.SpecsSelect).empty();
     var component = workingEnv.component;
     let index = $(workingEnv.ComponentEnv).val();
     var specs = component.specs[index].value;
@@ -391,7 +392,12 @@ function processSpecs() {
             $(workingEnv.SpecsSource).closest('.input-field').parent().show();
             break
         case "header":
+            $(workingEnv.SpecsSelect).closest('.input-field').parent().parent().parent().show();
             $(workingEnv.SpecsSource).closest('.input-field').parent().show();
+            $(workingEnv.SpecsSelectRemove).parent().show();
+            $(workingEnv.SpecsSelectAdd).parent().show();
+            $(workingEnv.SpecsSelectEdit).parent().show();
+            processSelect();
             break
         case "button":
             $(workingEnv.SpecsTitle).closest('.input-field').parent().show();

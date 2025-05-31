@@ -32,13 +32,13 @@
       "env": "",
       "value": {
         "src": "/resources/binary/org.abx.app.abx.png",
-        "links": [
+        "values": [
           {
-            "href": "/page/welcome",
+            "value": "/page/welcome",
             "text": "Home"
           },
           {
-            "href": "/page/components",
+            "value": "/page/components",
             "text": "Components"
           }
         ]
