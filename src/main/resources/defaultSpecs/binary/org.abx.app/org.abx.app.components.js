@@ -27,7 +27,7 @@ function hideSpecs() {
     $(workingEnv.SpecsTitle).closest('.input-field').parent().hide();
     $(workingEnv.SpecsContent).closest('.input-field').parent().hide();
     $(workingEnv.ChildrenComponentClass).parent().hide();
-    $(workingEnv.ChildrenComponentDetails).parent().hide();
+    $(workingEnv.ChildrenEditingDetailType).parent().hide();
     $(workingEnv.SpecsSelect).closest('.input-field').parent().parent().parent().hide();
     $(workingEnv.SpecsSelectRemove).parent().hide();
     $(workingEnv.SpecsSelectEdit).parent().hide();
@@ -61,10 +61,10 @@ function selectPackage(componentBox, packageName) {
 }
 
 
-function defaultSpecs(value){
+function defaultSpecs(value) {
     let newValue = {};
-    let specs = [{"env":"","value":newValue}];
-    switch (value){
+    let specs = [{"env": "", "value": newValue}];
+    switch (value) {
         case "select":
             newValue.title = "";
             newValue.content = "";
@@ -102,7 +102,7 @@ function defaultSpecs(value){
 }
 
 
-function processComponentType (componentType){
+function processComponentType(componentType) {
     workingEnv.editing = false;
     $(workingEnv.ComponentType).val(componentType);
     $(workingEnv.ComponentType).formSelect()
@@ -115,20 +115,20 @@ function updateComponentType() {
     if (workingEnv.editing === false) {
         return;
     }
-    let isContainer = $(workingEnv.ComponentType).val()==="Container";
+    let isContainer = $(workingEnv.ComponentType).val() === "Container";
     let component = workingEnv.component;
-    component.specs =null;
-    component.isContainer=isContainer;
+    component.specs = null;
+    component.isContainer = isContainer;
     component.components = null;
-    if (isContainer){
+    if (isContainer) {
         component.layout = "vertical";
-        component.components=[];
-    }else {
+        component.components = [];
+    } else {
         component.type = "button";
-        component.specs = defaultSpecs(component.type );
+        component.specs = defaultSpecs(component.type);
     }
     setComponentTypeVisibility();
-    processCurrentComponent();
+    processCurrentComponent(true);
 }
 
 function processElementType(elementType) {
@@ -137,6 +137,7 @@ function processElementType(elementType) {
     $(workingEnv.ElementType).formSelect();
     workingEnv.editing = true;
 }
+
 function updateElementType() {
     if (workingEnv.editing === false) {
         return;
@@ -156,7 +157,7 @@ function processChildren() {
         $(workingEnv.SpecsShowModal).parent().show();
     }
     $(workingEnv.ChildrenComponentClass).parent().show();
-    $(workingEnv.ChildrenComponentDetails).parent().show();
+    $(workingEnv.ChildrenEditingDetailType).parent().show();
     $(workingEnv.ComponentEnv).empty();
     $(workingEnv.ComponentEnv).closest('.input-field').children('label').text('Children');
     component.components.forEach(function (item, index) {
@@ -282,7 +283,42 @@ function processJS() {
         $(workingEnv.Env).val(envValue.env);
         workingEnv.editing = true;
     });
+    workingEnv.editing = true;
+}
+
+/**
+ * Adds new environment as JS, Specs or Children
+ */
+function addNewEnv() {
+    workingEnv.editing=false;
+    var component = workingEnv.component;
+    let index = $(workingEnv.ComponentEnv).val();
+    if (typeof index !== "number"){
+        index = 0;
+    }
+    let detailsType = $(workingEnv.EditingDetailType).val();
+    if (detailsType === "js") {
+        component.js.splice(index,0, {
+            "env": "",
+            "value": `//New JS code ${index}`
+        });
+        processCurrentComponent(true);
+    } else {
+        let isContainer = $(workingEnv.ComponentType).val() === "Container";
+        if (isContainer) {
+            component.components.splice(index,0, {
+                "innerId": `elem${index}`,
+                "component": "com.abx.app.base.div",
+                "size": "l12",
+                "env": ""
+            });
+        } else {
+            component.specs.splice(index,0, defaultSpecs($(workingEnv.ComponentType)));
+        }
+        processCurrentComponent(false);
+    }
     workingEnv.editing=true;
+    renderCurrentComponent();
 }
 
 function processSelect() {
@@ -490,7 +526,7 @@ function processElement() {
             $(workingEnv.SpecsContent).val(specs.content);
             break;
     }
-    workingEnv.editing=true;
+    workingEnv.editing = true;
 }
 
 function renderCurrentComponent() {
@@ -512,10 +548,10 @@ function renderCurrentComponent() {
         });
 }
 
-function processCurrentComponent(){
+function processCurrentComponent(showJS) {
     let componentSpecs = workingEnv.component;
-    $(workingEnv.ComponentDetails).empty();
-    $(workingEnv.ComponentDetails).append($('<option>', {
+    $(workingEnv.EditingDetailType).empty();
+    $(workingEnv.EditingDetailType).append($('<option>', {
         value: "js",
         text: "JS"
     }));
@@ -523,39 +559,48 @@ function processCurrentComponent(){
     if (componentSpecs.isContainer) {
         processComponentType("Container");
         processContainerLayout(componentSpecs.layout)
-        $(workingEnv.ComponentDetails).append($('<option>', {
+        $(workingEnv.EditingDetailType).append($('<option>', {
             value: "children",
             text: "Children",
         }));
-        processJS();
+        if (showJS) {
+            processJS();
+        }else{
+            processChildren();
+        }
     } else {
-        $(workingEnv.ComponentDetails).append($('<option>', {
+        $(workingEnv.EditingDetailType).append($('<option>', {
             value: "specs",
             text: "Specs",
             selected: true
         }));
         processComponentType("Element");
         processElementType(componentSpecs.type);
-        processSpecs();
-    }
-    $(workingEnv.ComponentDetails).change(() => {
-        if ($(workingEnv.ComponentDetails).val() === "specs") {
-            processSpecs();
-        } else if ($(workingEnv.ComponentDetails).val() === "js") {
+        if (showJS) {
             processJS();
-        } else if ($(workingEnv.ComponentDetails).val() === "children") {
+        }else{
+            processSpecs();
+        }
+    }
+    $(workingEnv.EditingDetailType).change(() => {
+        if ($(workingEnv.EditingDetailType).val() === "specs") {
+            processSpecs();
+        } else if ($(workingEnv.EditingDetailType).val() === "js") {
+            processJS();
+        } else if ($(workingEnv.EditingDetailType).val() === "children") {
             processChildren()
         }
     });
 
-    M.FormSelect.init(workingEnv.ComponentDetails);
+    M.FormSelect.init(workingEnv.EditingDetailType);
     renderCurrentComponent()
 }
+
 function processComponent(componentName) {
     $.get(`/page/components/${componentName}`, (componentSpecs) => {
         workingEnv.originalComponent = componentSpecs.name;
         workingEnv.component = componentSpecs;
-        processCurrentComponent();
+        processCurrentComponent(false);
     });
 }
 

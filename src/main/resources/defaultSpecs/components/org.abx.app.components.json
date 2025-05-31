@@ -375,10 +375,12 @@
     "package": "org.abx.app.components",
     "name": "org.abx.app.components.ComponentType",
     "isContainer": false,
-    "js": [{
-      "env": "",
-      "value": "$(self).change(updateComponentType)"
-    }],
+    "js": [
+      {
+        "env": "",
+        "value": "$(self).change(updateComponentType)"
+      }
+    ],
     "type": "select"
   },
   {
@@ -475,8 +477,8 @@
         "env": ""
       },
       {
-        "innerId": "ChildrenComponentDetails",
-        "component": "org.abx.app.components.ChildrenComponentDetails",
+        "innerId": "ChildrenEditingDetailType",
+        "component": "org.abx.app.components.ChildrenEditingDetailType",
         "size": "l4",
         "env": ""
       },
@@ -535,7 +537,7 @@
       },
       {
         "env": "",
-        "value": "workingEnv.ChildrenComponentDetails=ChildrenComponentDetails;"
+        "value": "workingEnv.ChildrenEditingDetailType=ChildrenEditingDetailType;"
       },
       {
         "env": "",
@@ -586,8 +588,8 @@
         "env": ""
       },
       {
-        "innerId": "ComponentDetails",
-        "component": "org.abx.app.components.ComponentDetails",
+        "innerId": "EditingDetailType",
+        "component": "org.abx.app.components.EditingDetailType",
         "size": "l1",
         "env": ""
       },
@@ -636,11 +638,11 @@
       },
       {
         "env": "",
-        "value": "workingEnv.ComponentDetails=ComponentDetails;workingEnv.ComponentEnv=ComponentEnv;"
+        "value": "workingEnv.EditingDetailType=EditingDetailType;workingEnv.ComponentEnv=ComponentEnv;"
       },
       {
         "env": "",
-        "value": "$(AddEnv).click(()=>M.Modal.init(AddPopUpEnv).open())"
+        "value": "$(AddEnv).click(addNewEnv)"
       },
       {
         "env": "",
@@ -675,7 +677,7 @@
       }
     ],
     "package": "org.abx.app.components",
-    "name": "org.abx.app.components.ChildrenComponentDetails",
+    "name": "org.abx.app.components.ChildrenEditingDetailType",
     "isContainer": true,
     "js": [
       {
@@ -1008,16 +1010,32 @@
     "type": "button"
   },
   {
+    "specs": [
+      {
+        "env": "",
+        "value": {
+          "content": "Empty for default",
+          "title": "Env value"
+        }
+      }
+    ],
+    "package": "org.abx.app.components",
+    "name": "org.abx.app.components.AddEnvValue",
+    "isContainer": false,
+    "js": [],
+    "type": "textfield"
+  },
+  {
     "layout": "popup",
     "components": [
       {
-        "innerId": "header",
-        "component": "org.abx.app.components.AddEnv",
+        "innerId": "AddEnvValue",
+        "component": "org.abx.app.components.AddEnvValue",
         "size": "l2",
         "env": ""
       },
       {
-        "innerId": "modelContainer",
+        "innerId": "AddEnv",
         "component": "org.abx.app.components.AddEnv",
         "size": "l12",
         "env": ""
@@ -1026,7 +1044,13 @@
     "package": "org.abx.app.components",
     "name": "org.abx.app.components.AddPopUpEnv",
     "isContainer": true,
-    "js": []
+    "js": [{
+      "env": "",
+      "value": "workingEnv.AddEnvValue=AddEnvValue"
+    },{
+      "env": "",
+      "value": "$(AddEnv).click(addNewEnv)"
+    }]
   },
   {
     "specs": [
@@ -1039,7 +1063,7 @@
       }
     ],
     "package": "org.abx.app.components",
-    "name": "org.abx.app.components.ComponentDetails",
+    "name": "org.abx.app.components.EditingDetailType",
     "isContainer": false,
     "js": [],
     "type": "select"
