@@ -60,49 +60,10 @@ function selectPackage(componentBox, packageName) {
     });
 }
 
-function processComponentType (componentType){
-    workingEnv.editing = false;
-    $(workingEnv.ComponentType).val(componentType);
-    $(workingEnv.ComponentType).formSelect()
-    workingEnv.editing = true;
-}
 
-function updateComponentType() {
-    if (workingEnv.editing === false) {
-        return;
-    }
-    let isContainer = $(workingEnv.ComponentType).val()==="Container";
-    let component = workingEnv.component;
-    component.specs =null;
-    component.isContainer=isContainer;
-    component.components = null;
-    component.layout = "vertical";
-    if (isContainer){
-        component.components=[];
-        processCurrentComponent();
-    }else {
-
-        updateElementType();
-        processCurrentComponent();
-    }
-}
-
-function processElementType(elementType) {
-    workingEnv.editing = false;
-    $(workingEnv.ElementType).val(elementType);
-    $(workingEnv.ElementType).formSelect();
-    workingEnv.editing = true;
-}
-function updateElementType() {
-    if (workingEnv.editing === false) {
-        return;
-    }
-    let value = $(workingEnv.ElementType).val();
-    let component = workingEnv.component;
-    component.type = value;
-    component.specs = [];
+function defaultSpecs(value){
     let newValue = {};
-    component.specs.push({"env":"","value":newValue});
+    let specs = [{"env":"","value":newValue}];
     switch (value){
         case "select":
             newValue.title = "";
@@ -137,6 +98,53 @@ function updateElementType() {
             newValue.content = "content";
             break;
     }
+    return specs;
+}
+
+
+function processComponentType (componentType){
+    workingEnv.editing = false;
+    $(workingEnv.ComponentType).val(componentType);
+    $(workingEnv.ComponentType).formSelect()
+    $(workingEnv.ComponentType).change();
+    setComponentTypeVisibility();
+    workingEnv.editing = true;
+}
+
+function updateComponentType() {
+    if (workingEnv.editing === false) {
+        return;
+    }
+    let isContainer = $(workingEnv.ComponentType).val()==="Container";
+    let component = workingEnv.component;
+    component.specs =null;
+    component.isContainer=isContainer;
+    component.components = null;
+    if (isContainer){
+        component.layout = "vertical";
+        component.components=[];
+    }else {
+        component.type = "button";
+        component.specs = defaultSpecs(component.type );
+    }
+    setComponentTypeVisibility();
+    processCurrentComponent();
+}
+
+function processElementType(elementType) {
+    workingEnv.editing = false;
+    $(workingEnv.ElementType).val(elementType);
+    $(workingEnv.ElementType).formSelect();
+    workingEnv.editing = true;
+}
+function updateElementType() {
+    if (workingEnv.editing === false) {
+        return;
+    }
+    let value = $(workingEnv.ElementType).val();
+    let component = workingEnv.component;
+    component.type = value;
+    component.specs = defaultSpecs(component.type)
     processSpecs();
     renderCurrentComponent();
 }
@@ -274,6 +282,7 @@ function processJS() {
         $(workingEnv.Env).val(envValue.env);
         workingEnv.editing = true;
     });
+    workingEnv.editing=true;
 }
 
 function processSelect() {
@@ -564,12 +573,11 @@ function saveCurrentSpecs() {
     });
 }
 
-function setComponentTypeVisibility(type) {
-    if (type === "Container") {
+function setComponentTypeVisibility() {
+    if ($(workingEnv.ComponentType).val() === "Container") {
         $(workingEnv.ElementType).closest('.input-field').parent().hide()
         $(workingEnv.ContainerLayout).closest('.input-field').parent().show();
     } else {
-
         $(workingEnv.ElementType).closest('.input-field').parent().show()
         $(workingEnv.ContainerLayout).closest('.input-field').parent().hide();
     }

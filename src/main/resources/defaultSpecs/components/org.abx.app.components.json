@@ -632,10 +632,6 @@
       },
       {
         "env": "",
-        "value": "$(ComponentType).on('change', ()=>{setComponentTypeVisibility( $(ComponentType).val());});"
-      },
-      {
-        "env": "",
         "value": "hideElemContainer();"
       },
       {
