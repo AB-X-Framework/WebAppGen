@@ -18,5 +18,10 @@
     "role": "Anonymous",
     "name": "materialize.content.js",
     "contentType": "text/javascript"
+  },
+  {
+    "role": "Anonymous",
+    "name": "materialize.icons.woff2",
+    "contentType": "font/woff2"
   }
 ]
