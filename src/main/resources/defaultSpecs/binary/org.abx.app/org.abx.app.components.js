@@ -103,16 +103,16 @@ function defaultSpecs(value) {
 
 
 function processComponentType(componentType) {
-    workingEnv.editing = false;
+    workingEnv.shouldUpdate = false;
     $(workingEnv.ComponentType).val(componentType);
     $(workingEnv.ComponentType).formSelect()
     $(workingEnv.ComponentType).change();
     setComponentTypeVisibility();
-    workingEnv.editing = true;
+    workingEnv.shouldUpdate = true;
 }
 
 function updateComponentType() {
-    if (workingEnv.editing === false) {
+    if (workingEnv.shouldUpdate === false) {
         return;
     }
     let isContainer = $(workingEnv.ComponentType).val() === "Container";
@@ -132,14 +132,14 @@ function updateComponentType() {
 }
 
 function processElementType(elementType) {
-    workingEnv.editing = false;
+    workingEnv.shouldUpdate = false;
     $(workingEnv.ElementType).val(elementType);
     $(workingEnv.ElementType).formSelect();
-    workingEnv.editing = true;
+    workingEnv.shouldUpdate = true;
 }
 
 function updateElementType() {
-    if (workingEnv.editing === false) {
+    if (workingEnv.shouldUpdate === false) {
         return;
     }
     let value = $(workingEnv.ElementType).val();
@@ -188,10 +188,10 @@ function updateInnerElement() {
 }
 
 function updateInnerPackage() {
-    if (!workingEnv.editing) {
+    if (!workingEnv.shouldUpdate) {
         return;
     }
-    workingEnv.editing = false;
+    workingEnv.shouldUpdate = false;
     let componentBox = workingEnv.InnerComponentName;
     $(componentBox).empty();
     let package = $(workingEnv.InnerComponentPackage).val();
@@ -210,14 +210,14 @@ function updateInnerPackage() {
                 component.components[index].component = item;
             }
         });
-        workingEnv.editing = true;
+        workingEnv.shouldUpdate = true;
         M.FormSelect.init(componentBox);
         renderCurrentComponent()
     });
 }
 
 function processInnerComponent(index) {
-    workingEnv.editing = false;
+    workingEnv.shouldUpdate = false;
     let component = workingEnv.component;
     $(workingEnv.ChildrenInnerId).val(component.components[index].innerId);
     $(workingEnv.ChildrenSize).val(component.components[index].size);
@@ -237,13 +237,13 @@ function processInnerComponent(index) {
             });
             $(componentBox).val(innerComponentName);
             M.FormSelect.init(componentBox);
-            workingEnv.editing = true;
+            workingEnv.shouldUpdate = true;
         });
     });
 }
 
 function processJS() {
-    workingEnv.editing = false;
+    workingEnv.shouldUpdate = false;
     $(workingEnv.ComponentEnv).closest('.input-field').children('label').text('JS');
     hideSpecs();
     let component = workingEnv.component;
@@ -260,7 +260,7 @@ function processJS() {
             $(workingEnv.Env).val(item.env);
             ace.edit(workingEnv.SpecsJS).setValue(item.value);
 
-            workingEnv.editing = true;
+            workingEnv.shouldUpdate = true;
         }
         if (env === "") {
             env = "Default";
@@ -276,27 +276,27 @@ function processJS() {
     });
     M.FormSelect.init(workingEnv.ComponentEnv);
     $(workingEnv.ComponentEnv).change(() => {
-        workingEnv.editing = false;
+        workingEnv.shouldUpdate = false;
         let index = $(workingEnv.ComponentEnv).val();
         var envValue = workingEnv.component.js[index];
         ace.edit(workingEnv.SpecsJS).setValue(envValue.value);
         $(workingEnv.Env).val(envValue.env);
-        workingEnv.editing = true;
+        workingEnv.shouldUpdate = true;
     });
-    workingEnv.editing = true;
+    workingEnv.shouldUpdate = true;
 }
 
 /**
  * Adds new environment as JS, Specs or Children
  */
 function addNewEnv() {
-    workingEnv.editing=false;
+    workingEnv.shouldUpdate=false;
     var component = workingEnv.component;
     let index = $(workingEnv.ComponentEnv).val();
     if (typeof index !== "number"){
         index = 0;
     }
-    let detailsType = $(workingEnv.EditingDetailType).val();
+    let detailsType = $(workingEnv.shouldUpdateDetailType).val();
     if (detailsType === "js") {
         component.js.splice(index,0, {
             "env": "",
@@ -317,7 +317,7 @@ function addNewEnv() {
         }
         processCurrentComponent(false);
     }
-    workingEnv.editing=true;
+    workingEnv.shouldUpdate=true;
     renderCurrentComponent();
 }
 
@@ -378,7 +378,7 @@ function setChildValue(type, newValue) {
 }
 
 function updateText(delta, text) {
-    if (!workingEnv.editing) {
+    if (!workingEnv.shouldUpdate) {
         return;
     }
     let component = workingEnv.component;
@@ -526,7 +526,7 @@ function processElement() {
             $(workingEnv.SpecsContent).val(specs.content);
             break;
     }
-    workingEnv.editing = true;
+    workingEnv.shouldUpdate = true;
 }
 
 function renderCurrentComponent() {
@@ -550,18 +550,20 @@ function renderCurrentComponent() {
 
 function processCurrentComponent(showJS) {
     let componentSpecs = workingEnv.component;
-    $(workingEnv.EditingDetailType).empty();
-    $(workingEnv.EditingDetailType).append($('<option>', {
+    $(workingEnv.shouldUpdateDetailType).empty();
+    $(workingEnv.shouldUpdateDetailType).append($('<option>', {
         value: "js",
-        text: "JS"
+        text: "JS",
+        selected: showJS
     }));
     $(workingEnv.show).empty();
     if (componentSpecs.isContainer) {
         processComponentType("Container");
         processContainerLayout(componentSpecs.layout)
-        $(workingEnv.EditingDetailType).append($('<option>', {
+        $(workingEnv.shouldUpdateDetailType).append($('<option>', {
             value: "children",
             text: "Children",
+            selected: !showJS
         }));
         if (showJS) {
             processJS();
@@ -569,10 +571,10 @@ function processCurrentComponent(showJS) {
             processChildren();
         }
     } else {
-        $(workingEnv.EditingDetailType).append($('<option>', {
+        $(workingEnv.shouldUpdateDetailType).append($('<option>', {
             value: "specs",
             text: "Specs",
-            selected: true
+            selected: !showJS
         }));
         processComponentType("Element");
         processElementType(componentSpecs.type);
@@ -582,17 +584,17 @@ function processCurrentComponent(showJS) {
             processSpecs();
         }
     }
-    $(workingEnv.EditingDetailType).change(() => {
-        if ($(workingEnv.EditingDetailType).val() === "specs") {
+    $(workingEnv.shouldUpdateDetailType).change(() => {
+        if ($(workingEnv.shouldUpdateDetailType).val() === "specs") {
             processSpecs();
-        } else if ($(workingEnv.EditingDetailType).val() === "js") {
+        } else if ($(workingEnv.shouldUpdateDetailType).val() === "js") {
             processJS();
-        } else if ($(workingEnv.EditingDetailType).val() === "children") {
+        } else if ($(workingEnv.shouldUpdateDetailType).val() === "children") {
             processChildren()
         }
     });
 
-    M.FormSelect.init(workingEnv.EditingDetailType);
+    M.FormSelect.init(workingEnv.shouldUpdateDetailType);
     renderCurrentComponent()
 }
 

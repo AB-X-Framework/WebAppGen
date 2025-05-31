@@ -638,7 +638,7 @@
       },
       {
         "env": "",
-        "value": "workingEnv.EditingDetailType=EditingDetailType;workingEnv.ComponentEnv=ComponentEnv;"
+        "value": "workingEnv.shouldUpdateDetailType=EditingDetailType;workingEnv.ComponentEnv=ComponentEnv;"
       },
       {
         "env": "",
