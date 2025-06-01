@@ -392,7 +392,7 @@ public class PageModel {
         component.packageName = packageName;
         component.componentName = name;
         component.isContainer = true;
-        saveComponent(js, component);
+        elementUtils.saveComponent(js, component);
         Container container = new Container();
         container.component = componentRepository.findByComponentId(id);
         container.containerId = id;
@@ -417,15 +417,6 @@ public class PageModel {
         }
         containerRepository.save(container);
     }
-
-    private void saveComponent(JSONArray js, Component component) {
-        componentRepository.save(component);
-        componentRepository.flush();
-        component.js =  elementUtils.createEnvValues(js);
-        componentRepository.save(component);
-    }
-
-
     @Transactional
     public void createElement(String name, String packageName, JSONArray js, String type, JSONArray specs) {
         long id = elementHashCode(name);
@@ -434,7 +425,7 @@ public class PageModel {
         component.componentId = id;
         component.componentName = name;
         component.isContainer = false;
-        saveComponent(js, component);
+        elementUtils.saveComponent(js, component);
         Element element = new Element();
         element.component = componentRepository.findByComponentId(id);
         element.elementId = id;
