@@ -512,6 +512,10 @@
       {
         "env": "",
         "value": "$(ProcessRenameComponent).click(  ()=>  M.Modal.init(RenameComponentPopup).open() );"
+      },
+      {
+        "env": "",
+        "value": "$(ProcessRenameComponent).click(()=>  RenameComponentPopup.setName($(workingEnv.ComponentName).val()) );"
       }
     ]
   },

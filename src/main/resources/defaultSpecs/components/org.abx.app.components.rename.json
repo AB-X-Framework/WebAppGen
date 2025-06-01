@@ -36,7 +36,11 @@
     "js": [{
       "env": "",
       "value": "$(RenameComponentButton).click(()=>{renameComponent($(CloneComponentName).val())})\n"
-    }]
+    },
+      {
+        "env": "",
+        "value": "self.setName=(name)=>$(CloneComponentName).val(name)"
+      }]
   },
   {
     "specs": [{

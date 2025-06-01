@@ -114,11 +114,11 @@ public class PageController extends RoleController {
     @Secured("Admin")
     public String cloneComponent(@RequestParam String componentSpecs, @RequestParam String newName) {
         JSONObject specs = new JSONObject(componentSpecs);
-        return cloneComponent(specs,newName);
+        return cloneComponent(specs, newName);
 
     }
 
-    private String cloneComponent(JSONObject specs,  String newName) {
+    private String cloneComponent(JSONObject specs, String newName) {
         JSONObject status = new JSONObject();
         String packageName = newName.substring(0, newName.lastIndexOf("."));
         try {
@@ -139,7 +139,7 @@ public class PageController extends RoleController {
     public String renameComponent(@RequestParam String componentSpecs, @RequestParam String newName) {
         JSONObject specs = new JSONObject(componentSpecs);
         String oldName = specs.getString("name");
-       String status= cloneComponent(specs,newName);
+        String status = cloneComponent(specs, newName);
         try {
             pageModel.rename(oldName, newName);
         } catch (Exception e) {
