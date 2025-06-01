@@ -1,6 +1,4 @@
-var processContainerLayout;
 var workingEnv = {"editing": false};
-
 var maxLine = 73;
 
 function hideElemContainer() {
@@ -171,10 +169,10 @@ function processChildren(chooseChildren) {
         }));
     });
     let index;
-    if (typeof chooseChildren !== "undefined"){
+    if (typeof chooseChildren !== "undefined") {
         index = parseInt(chooseChildren);
-    }else {
-        index=0;
+    } else {
+        index = 0;
     }
     if (workingEnv.component.components.length > 0) {
         processInnerComponent(index);
@@ -303,8 +301,8 @@ function addNewEnv() {
     let index = $(workingEnv.ComponentEnv).val();
     if (index == null) {
         index = 0;
-    }else {
-        index = parseInt(index)+1;
+    } else {
+        index = parseInt(index) + 1;
     }
     let detailsType = $(workingEnv.shouldUpdateDetailType).val();
     if (detailsType !== "js") {
@@ -317,11 +315,13 @@ function addNewEnv() {
                 "env": env
             });
             //$(workingEnv.InnerComponentPackage).val("org.abx.app.base");
-            processCurrentComponent(false,index);
+            processCurrentComponent(false, index);
         } else {
             component.specs.splice(index, 0,
-                {"env":env,
-                    "value": defaultSpecs($(workingEnv.ElementType).val())});
+                {
+                    "env": env,
+                    "value": defaultSpecs($(workingEnv.ElementType).val())
+                });
             processCurrentComponent(false);
         }
     } else {
@@ -365,7 +365,7 @@ function discardSpecs() {
  */
 function setSpecValue(type, newValue) {
     //Autofill protection
-    if ($(workingEnv.ComponentType).val()==="Container"){
+    if ($(workingEnv.ComponentType).val() === "Container") {
         return;
     }
     var index = $(workingEnv.ComponentEnv).val();
@@ -570,6 +570,27 @@ function renderCurrentComponent() {
             }
         });
 }
+
+function processContainerLayout  (layout) {
+    $(workingEnv.ContainerLayout).val(layout);
+    $(workingEnv.ContainerLayout).formSelect();
+}
+
+function updateContainerLayout(){
+    if (workingEnv.shouldUpdate===false){
+        return;
+    }
+    let layout = $(workingEnv.ContainerLayout).val();
+    workingEnv.component.layout=layout;
+    renderCurrentComponent();
+    if (layout==="popup"){
+        $(workingEnv.SpecsShowModal).parent().show();
+    }else {
+
+        $(workingEnv.SpecsShowModal).parent().hide();
+    }
+}
+
 
 /**
  * After is for the select package which is a request

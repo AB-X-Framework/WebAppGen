@@ -510,15 +510,21 @@
       },
       {
         "env": "",
-        "value": "$(AddEnv).click( ()=>M.Modal.init(AddPopUpEnv).open())"
+        "value": "$(AddEnv).click( ()=>M.Modal.init(AddPopUpEnv).open());"
       },
       {
         "env": "",
-        "value": "$(ElementType).change(updateElementType)"
+        "value": "$(ElementType).change(updateElementType);"
       },
       {
         "env": "",
-        "value": "workingEnv.ComponentType=ComponentType"
+        "value": "workingEnv.ComponentType=ComponentType;"
+      },{
+        "env": "",
+        "value": "workingEnv.ContainerLayout = ContainerLayout;"
+      },{
+        "env": "",
+        "value": "$(ContainerLayout).change(updateContainerLayout);"
       }
     ]
   },
@@ -668,10 +674,6 @@
     "name": "org.abx.app.components.ContainerLayout",
     "isContainer": false,
     "js": [
-      {
-        "env": "",
-        "value": "processContainerLayout= function (layout){ $(self).val(layout);$(self).formSelect();}"
-      }
     ],
     "type": "select"
   },
