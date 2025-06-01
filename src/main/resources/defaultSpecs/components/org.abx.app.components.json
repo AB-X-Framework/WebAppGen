@@ -508,6 +508,10 @@
       {
         "env": "",
         "value": "$(ProcessCloneComponent).click(  ()=>  M.Modal.init(CloneComponentPopup).open() );"
+      },
+      {
+        "env": "",
+        "value": "$(ProcessRenameComponent).click(  ()=>  M.Modal.init(CloneRenamePopup).open() );"
       }
     ]
   },
