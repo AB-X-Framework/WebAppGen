@@ -14,7 +14,6 @@ import java.util.ArrayList;
 public class ElementUtils {
 
     public static final String Component = "component";
-    public static final String Size = "size";
     @Autowired
     public ComponentRepository componentRepository;
 
@@ -25,7 +24,7 @@ public class ElementUtils {
         return element.hashCode();
     }
 
-    public  ArrayList<EnvValue> createEnvValues(JSONArray envValues) {
+    public ArrayList<EnvValue> createEnvValues(JSONArray envValues) {
         ArrayList<EnvValue> env = new ArrayList<>();
         for (int i = 0; i < envValues.length(); i++) {
             JSONObject jsEnvValue = envValues.getJSONObject(i);
@@ -33,7 +32,8 @@ public class ElementUtils {
         }
         return env;
     }
-    public   EnvValue createEnvValue(JSONObject jsonEnvValue) {
+
+    public EnvValue createEnvValue(JSONObject jsonEnvValue) {
         EnvValue envValue = new EnvValue();
         envValue.env = jsonEnvValue.getString("env");
         envValue.value = jsonEnvValue.get("value").toString();

@@ -2,6 +2,7 @@ package org.abx.webappgen.persistence;
 
 import org.abx.webappgen.persistence.dao.*;
 import org.abx.webappgen.persistence.model.*;
+import org.abx.webappgen.utils.ElementUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,6 @@ public class PageModel {
     public static final String Id = "id";
     public static final String Title = "title";
     public static final String JS = "js";
-    public static final String Component = "component";
     public static final String Components = "components";
     public static final String Layout = "layout";
     public static final String Type = "type";
@@ -177,7 +177,7 @@ public class PageModel {
                 css.put(cssValue.value);
             }
         }
-        jsonPage.put(Component, processTop("top", page.component, env));
+        jsonPage.put(ElementUtils.Component, processTop("top", page.component, env));
         return jsonPage;
     }
 
@@ -318,7 +318,7 @@ public class PageModel {
             if (!matchesEnv(childEnv, env)) {
                 continue;
             }
-            String childName = childComponent.getString(Component);
+            String childName = childComponent.getString(ElementUtils.Component);
             org.abx.webappgen.persistence.model.Component child =
                     componentRepository.findByComponentId(elementHashCode(childName));
             ComponentSpecs componentSpecs = new ComponentSpecs("", env);
@@ -399,7 +399,7 @@ public class PageModel {
         containerRepository.flush();
         for (int i = 0; i < children.length(); i++) {
             JSONObject jsonChild = children.getJSONObject(i);
-            String childComponent = jsonChild.getString(Component);
+            String childComponent = jsonChild.getString(ElementUtils.Component);
             long childId = elementHashCode(childComponent);
             Component child = componentRepository.findByComponentId(childId);
             InnerComponent inner = new InnerComponent();
