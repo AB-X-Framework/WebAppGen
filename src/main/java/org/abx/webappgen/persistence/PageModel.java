@@ -37,6 +37,9 @@ public class PageModel {
     public PageRepository pageRepository;
 
     @Autowired
+    public ElementUtils elementUtils;
+
+    @Autowired
     public ComponentRepository componentRepository;
 
     @Autowired
@@ -241,8 +244,8 @@ public class PageModel {
         page.matches = matches;
         page.matchesId = elementHashCode(matches);
         page.pageTitle = pageTitle;
-        page.css = createEnvValues(css);
-        page.scripts = createEnvValues(scripts);
+        page.css = elementUtils.createEnvValues(css);
+        page.scripts =  elementUtils.createEnvValues(scripts);
         pageRepository.save(page);
         pageRepository.flush();
         page.component = componentRepository.findByComponentId(elementHashCode(componentName));
@@ -418,18 +421,10 @@ public class PageModel {
     private void saveComponent(JSONArray js, Component component) {
         componentRepository.save(component);
         componentRepository.flush();
-        component.js = createEnvValues(js);
+        component.js =  elementUtils.createEnvValues(js);
         componentRepository.save(component);
     }
 
-    private ArrayList<EnvValue> createEnvValues(JSONArray envValues) {
-        ArrayList<EnvValue> env = new ArrayList<>();
-        for (int i = 0; i < envValues.length(); i++) {
-            JSONObject jsEnvValue = envValues.getJSONObject(i);
-            env.add(createEnvValue(jsEnvValue));
-        }
-        return env;
-    }
 
     @Transactional
     public void createElement(String name, String packageName, JSONArray js, String type, JSONArray specs) {
