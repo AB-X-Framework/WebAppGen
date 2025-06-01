@@ -136,6 +136,15 @@ public class PageModel {
         envValueRepository.deleteAll(jsValues);
         envValueRepository.flush();
         if (oldCo.isContainer) {
+            Container container = oldCo.container;
+            Collection<InnerComponent> innerC = new HashSet<>(container.innerComponent);
+            container.innerComponent.clear();
+            containerRepository.save(container);
+            containerRepository.flush();
+            innerComponentRepository.deleteAll(innerC);
+            innerComponentRepository.flush();
+            containerRepository.delete(container);
+            containerRepository.flush();
         } else {
             Element elem = oldCo.element;
             Collection<EnvValue> children = new HashSet<>(elem.specs);
