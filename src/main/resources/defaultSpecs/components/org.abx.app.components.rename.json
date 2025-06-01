@@ -25,7 +25,7 @@
         "env": ""
       },
       {
-        "innerId": "CloneComponentButton",
+        "innerId": "RenameComponentButton",
         "component": "org.abx.app.components.rename.RenameComponentButton",
         "size": "l12",
         "env": ""
@@ -35,7 +35,7 @@
     "isContainer": true,
     "js": [{
       "env": "",
-      "value": "$(CloneComponentButton).click(()=>{cloneComponent($(CloneComponentName).val())})"
+      "value": "$(RenameComponentButton).click(()=>{renameComponent($(CloneComponentName).val())})\n"
     }]
   },
   {
