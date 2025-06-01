@@ -71,7 +71,7 @@ public class PageController extends RoleController {
     @GetMapping(value = "/components/{componentName}", produces = MediaType.APPLICATION_JSON_VALUE)
     @Secured("Admin")
     public String getComponentDetails(@PathVariable String componentName) {
-        return specsExporter.getComponentDetails(componentName).toString(2);
+        return specsExporter.getComponentDetails(componentName,true).toString(2);
     }
 
 

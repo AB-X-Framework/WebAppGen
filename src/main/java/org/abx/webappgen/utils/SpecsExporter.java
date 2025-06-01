@@ -48,7 +48,6 @@ public class SpecsExporter {
     public MethodSpecRepository methodSpecRepository;
 
 
-
     /**
      * Create specs and saves it in
      *
@@ -129,7 +128,7 @@ public class SpecsExporter {
             jsonComponents.put(packageName);
             JSONArray componentsByPackage = new JSONArray();
             for (org.abx.webappgen.persistence.model.Component component : componentRepository.findAllByPackageName(packageName)) {
-                JSONObject jsonComponent = getComponentDetails(component);
+                JSONObject jsonComponent = getComponentDetails(component, false);
                 componentsByPackage.put(jsonComponent);
             }
             new FileOutputStream(specsFolder + "/components/" + packageName + ".json").
@@ -139,15 +138,20 @@ public class SpecsExporter {
     }
 
     @Transactional
-    public JSONObject getComponentDetails(String componentName) {
+    public JSONObject getComponentDetails(String componentName, boolean includePackage) {
         return getComponentDetails(componentRepository.findByComponentId(
-                elementHashCode(componentName)   ));
+                elementHashCode(componentName)), includePackage);
     }
 
-    private JSONObject getComponentDetails(org.abx.webappgen.persistence.model.Component component) {
+    private JSONObject getComponentDetails(
+            org.abx.webappgen.persistence.model.Component component,
+            boolean includePackage) {
         JSONObject jsonComponent = new JSONObject();
         jsonComponent.put("name", component.componentName);
         jsonComponent.put("isContainer", component.isContainer);
+        if (includePackage) {
+            jsonComponent.put("package", component.packageName);
+        }
         jsonComponent.put("js", envValue(component.js));
         if (component.isContainer) {
             processContainer(jsonComponent, component.container);
