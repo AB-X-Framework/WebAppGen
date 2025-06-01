@@ -13,6 +13,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ConfigurableApplicationContext;
 
+import static org.abx.webappgen.utils.ElementUtils.elementHashCode;
+
 @SpringBootTest(classes = org.abx.webappgen.spring.ABXWebAppGen.class)
 class BinaryResourceTest {
 
@@ -41,7 +43,7 @@ class BinaryResourceTest {
                 addPart("data", "abcd".getBytes(), filename);
         ServiceResponse res = servicesClient.process(req);
         System.out.println(res.asString());
-        Assertions.assertEquals(PageModel.elementHashCode(filename), res.asLong());
+        Assertions.assertEquals(elementHashCode(filename), res.asLong());
 
         req = servicesClient.get("app", "/resources/binary/"+filename);
         res = servicesClient.process(req);

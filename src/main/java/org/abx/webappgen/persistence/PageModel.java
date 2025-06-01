@@ -2,14 +2,14 @@ package org.abx.webappgen.persistence;
 
 import org.abx.webappgen.persistence.dao.*;
 import org.abx.webappgen.persistence.model.*;
-import org.abx.webappgen.utils.SpecsExporter;
-import org.abx.webappgen.utils.SpecsImporter;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
+
+import static org.abx.webappgen.utils.ElementUtils.elementHashCode;
 
 @org.springframework.stereotype.Component
 public class PageModel {
@@ -19,7 +19,6 @@ public class PageModel {
     public static final String Title = "title";
     public static final String JS = "js";
     public static final String Component = "component";
-    ;
     public static final String Components = "components";
     public static final String Layout = "layout";
     public static final String Type = "type";
@@ -75,10 +74,6 @@ public class PageModel {
 
     @Autowired
     private UserRepository userRepository;
-    @Autowired
-    private SpecsExporter specsExporter;
-    @Autowired
-    private SpecsImporter specsImporter;
 
     public PageModel() {
         envId = PageModel.mapHashCode("org.abx.app.Env", "home");
@@ -196,14 +191,14 @@ public class PageModel {
     public JSONObject preview(JSONObject specs, String env) {
         return previewComponent(specs, env);
     }
-
+/*
     @Transactional
     public void cloneComponent(JSONObject specs, String newName) {
         specs.put("name", newName);
         specs.put("package",newName.substring(0, newName.lastIndexOf(".")));
         specsImporter.processComponent(specs);
 
-    }
+    }*/
 
 
     private JSONObject processTop(String name, Component component, String env) {
@@ -227,9 +222,6 @@ public class PageModel {
         return currEnv.contains(targetEnv);
     }
 
-    public static long elementHashCode(String element) {
-        return element.hashCode();
-    }
 
     public static long mapHashCode(String map, String key) {
         return elementHashCode(map + "." + key);

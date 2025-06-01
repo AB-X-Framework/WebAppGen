@@ -12,6 +12,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.Set;
 
+import static org.abx.webappgen.utils.ElementUtils.elementHashCode;
+
 @Component
 public class ResourceModel {
     @Autowired
@@ -32,9 +34,9 @@ public class ResourceModel {
     @Autowired
     private MapEntryRepository mapEntryRepository;
 
-    public String getTextResource(Set<String> roles,String resourceName) {
+    public String getTextResource(Set<String> roles, String resourceName) {
         TextResource text = textResourceRepository.findByTextResourceId(
-                PageModel.elementHashCode(resourceName)
+                elementHashCode(resourceName)
         );
 
         if (text == null) {
@@ -51,7 +53,7 @@ public class ResourceModel {
 
     public Pair<String, byte[]> getBinaryResource(Set<String> roles, String resourceName) {
         BinaryResource binaryResource = binaryResourceRepository.findByBinaryResourceId(
-                PageModel.elementHashCode(resourceName));
+                elementHashCode(resourceName));
         if (binaryResource == null) {
             return null;
         }
@@ -64,15 +66,15 @@ public class ResourceModel {
         return new Pair<>(binaryResource.contentType, binaryResource.resourceValue);
     }
 
-    public long saveBinaryResource(String resourceName,String packageName,String contentType, byte[] data,String role) {
-        long id =   PageModel.elementHashCode(resourceName);
+    public long saveBinaryResource(String resourceName, String packageName, String contentType, byte[] data, String role) {
+        long id = elementHashCode(resourceName);
         BinaryResource binaryResource = new BinaryResource();
-        binaryResource.binaryResourceId=id;
-        binaryResource.contentType=contentType;
-        binaryResource.resourceValue=data;
-        binaryResource.role=role;
-        binaryResource.packageName=packageName;
-        binaryResource.resourceName=resourceName;
+        binaryResource.binaryResourceId = id;
+        binaryResource.contentType = contentType;
+        binaryResource.resourceValue = data;
+        binaryResource.role = role;
+        binaryResource.packageName = packageName;
+        binaryResource.resourceName = resourceName;
         binaryResourceRepository.save(binaryResource);
         return id;
 
@@ -80,20 +82,20 @@ public class ResourceModel {
 
     public String getMapResource(String resourceName, String key) {
         return mapEntryRepository.findByMapEntryId(
-                PageModel.elementHashCode(resourceName+"."+key)).value;
+                elementHashCode(resourceName + "." + key)).value;
     }
 
-    public long saveMapResource(String resourceName, String packageName,JSONObject data) {
-        long id =   PageModel.elementHashCode(resourceName);
+    public long saveMapResource(String resourceName, String packageName, JSONObject data) {
+        long id = elementHashCode(resourceName);
         MapResource mapResource = new MapResource();
-        mapResource.mapResourceId=id;
-        mapResource.resourceName=resourceName;
-        mapResource.packageName=packageName;
+        mapResource.mapResourceId = id;
+        mapResource.resourceName = resourceName;
+        mapResource.packageName = packageName;
         mapResourceRepository.save(mapResource);
         for (String key : data.keySet()) {
-            MapEntry entry  = new MapEntry();
+            MapEntry entry = new MapEntry();
             entry.entryName = key;
-            entry.mapEntryId=PageModel.elementHashCode(mapResource.resourceName+"."+entry.entryName);
+            entry.mapEntryId = elementHashCode(mapResource.resourceName + "." + entry.entryName);
             entry.value = data.getString(key);
             entry.mapResource = mapResource;
             mapEntryRepository.save(entry);
@@ -101,16 +103,16 @@ public class ResourceModel {
         return id;
     }
 
-    public long saveArrayResource(String resourceName, String packageName,JSONArray data) {
-        long id =   PageModel.elementHashCode(resourceName);
+    public long saveArrayResource(String resourceName, String packageName, JSONArray data) {
+        long id = elementHashCode(resourceName);
         ArrayResource arrayResource = new ArrayResource();
-        arrayResource.arrayResourceId=id;
-        arrayResource.resourceName=resourceName;
-        arrayResource.packageName=packageName;
+        arrayResource.arrayResourceId = id;
+        arrayResource.resourceName = resourceName;
+        arrayResource.packageName = packageName;
         arrayResourceRepository.save(arrayResource);
         for (int i = 0; i < data.length(); i++) {
             String value = data.getString(i);
-            ArrayEntry entry  = new ArrayEntry();
+            ArrayEntry entry = new ArrayEntry();
             entry.value = value;
             entry.arrayResource = arrayResource;
             arrayEntryRepository.save(entry);
@@ -118,14 +120,14 @@ public class ResourceModel {
         return id;
     }
 
-    public long saveTextResource(String resourceName,String packageName,String data,String role) {
-        long id =   PageModel.elementHashCode(resourceName);
+    public long saveTextResource(String resourceName, String packageName, String data, String role) {
+        long id = elementHashCode(resourceName);
         TextResource textResource = new TextResource();
-        textResource.textResourceId=id;
-        textResource.resourceValue=data;
-        textResource.role=role;
-        textResource.packageName=packageName;
-        textResource.resourceName=resourceName;
+        textResource.textResourceId = id;
+        textResource.resourceValue = data;
+        textResource.role = role;
+        textResource.packageName = packageName;
+        textResource.resourceName = resourceName;
         textResourceRepository.save(textResource);
         return id;
 

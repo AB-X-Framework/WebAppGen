@@ -8,6 +8,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import static org.abx.webappgen.utils.ElementUtils.elementHashCode;
+
 
 @Component
 public class UserModel {
@@ -30,7 +32,7 @@ public class UserModel {
             user.password=passwordEncoder.encode(password);
             user.enabled=true;
         }
-        user.userId = PageModel.elementHashCode(username);
+        user.userId = elementHashCode(username);
         user.role=role;
         userRepository.save(user);
     }

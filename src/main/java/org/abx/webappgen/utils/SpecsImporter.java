@@ -21,6 +21,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.HashSet;
 
+import static org.abx.webappgen.utils.ElementUtils.elementHashCode;
+
 @Component
 public class SpecsImporter {
     @Autowired
@@ -89,7 +91,7 @@ public class SpecsImporter {
             JSONObject jsonUser = users.getJSONObject(i);
             User user = new User();
             user.username = jsonUser.getString("username");
-            user.userId = PageModel.elementHashCode(user.username);
+            user.userId = elementHashCode(user.username);
             user.password = jsonUser.getString("password");
             user.enabled = jsonUser.getBoolean("enabled");
             user.role = jsonUser.getString("role");
@@ -142,7 +144,7 @@ public class SpecsImporter {
         specs.methodName = method.getString("name");
         specs.packageName = packageName;
         specs.description = method.getString("description");
-        specs.methodSpecId = PageModel.elementHashCode(specs.methodName);
+        specs.methodSpecId = elementHashCode(specs.methodName);
         specs.methodJS = StreamUtils.readStream(new FileInputStream(
                 specsFolder + "/methods/" + packageName + "/" + specs.methodName + ".js"));
         specs.type = method.getString("type");

@@ -1,7 +1,6 @@
 package org.abx.webappgen.utils;
 
 
-import org.abx.webappgen.persistence.PageModel;
 import org.abx.webappgen.persistence.dao.*;
 import org.abx.webappgen.persistence.model.*;
 import org.json.JSONArray;
@@ -19,6 +18,8 @@ import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+
+import static org.abx.webappgen.utils.ElementUtils.elementHashCode;
 
 @Component
 public class SpecsExporter {
@@ -45,8 +46,7 @@ public class SpecsExporter {
 
     @Autowired
     public MethodSpecRepository methodSpecRepository;
-    @Autowired
-    private PageModel pageModel;
+
 
 
     /**
@@ -141,7 +141,7 @@ public class SpecsExporter {
     @Transactional
     public JSONObject getComponentDetails(String componentName) {
         return getComponentDetails(componentRepository.findByComponentId(
-                PageModel.elementHashCode(componentName)   ));
+                elementHashCode(componentName)   ));
     }
 
     private JSONObject getComponentDetails(org.abx.webappgen.persistence.model.Component component) {

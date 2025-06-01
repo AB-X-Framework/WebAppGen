@@ -6,7 +6,7 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import static org.abx.webappgen.persistence.PageModel.elementHashCode;
+import static org.abx.webappgen.utils.ElementUtils.elementHashCode;
 
 
 @Component

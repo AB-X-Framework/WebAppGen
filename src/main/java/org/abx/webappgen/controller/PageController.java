@@ -16,6 +16,8 @@ import org.stringtemplate.v4.ST;
 import java.io.IOException;
 import java.util.Set;
 
+import static org.abx.webappgen.utils.ElementUtils.elementHashCode;
+
 @RestController
 @RequestMapping("/page")
 public class PageController extends RoleController{
@@ -44,7 +46,7 @@ public class PageController extends RoleController{
     @GetMapping(value = "/{pagename}", produces = MediaType.TEXT_HTML_VALUE)
     @PreAuthorize("permitAll()")
     public String page(@PathVariable String pagename) {
-        if (!pageModel.validPage(getRoles(), pageModel.elementHashCode(pagename))){
+        if (!pageModel.validPage(getRoles(), elementHashCode(pagename))){
             pagename= pageModel.getHome();
         }
         ST st1 = new ST(pageTemplate);
@@ -93,7 +95,7 @@ public class PageController extends RoleController{
     public String pageSpecs(@PathVariable String pagename, HttpSession session) {
         Set<String> roles = getRoles();
         return pageModel.getPageByPageMatchesId(roles, env(session),
-                pageModel.elementHashCode(pagename)).toString(2);
+                elementHashCode(pagename)).toString(2);
     }
 
     @GetMapping(value = "/component/{componentName}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -109,7 +111,7 @@ public class PageController extends RoleController{
     }
 
 
-    @PostMapping(value = "/clone", produces = MediaType.APPLICATION_JSON_VALUE)
+    /*@PostMapping(value = "/clone", produces = MediaType.APPLICATION_JSON_VALUE)
     @Secured("Admin")
     public String cloneComponent(@RequestParam String componentSpecs, @RequestParam String newName) {
         JSONObject status = new JSONObject();
@@ -121,7 +123,7 @@ public class PageController extends RoleController{
             status.put("error", e.getMessage());
         }
         return status.toString(2);
-    }
+    }*/
 
     private String env(HttpSession session) {
         StringBuilder env = new StringBuilder();
