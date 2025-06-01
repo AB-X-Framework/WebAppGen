@@ -694,7 +694,7 @@ function setComponentTypeVisibility() {
  * @param newName
  */
 function cloneComponent(newName) {
-    $.post("page/clone", {
+    $.post("/page/clone", {
             "componentSpecs": JSON.stringify(workingEnv.component),
             "newName": newName
         }, () => {
