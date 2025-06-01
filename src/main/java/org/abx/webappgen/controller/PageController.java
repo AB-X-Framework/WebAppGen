@@ -142,13 +142,13 @@ public class PageController extends RoleController {
         String status = cloneComponent(specs, newName);
         try {
             pageModel.rename(oldName, newName);
+            return status;
         } catch (Exception e) {
             JSONObject newStatus = new JSONObject();
             newStatus.put("success", "false");
             newStatus.put("error", e.getMessage());
             return newStatus.toString(2);
         }
-        return status;
     }
 
 

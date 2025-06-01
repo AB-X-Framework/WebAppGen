@@ -742,7 +742,6 @@ function renameComponent(newName) {
             "componentSpecs": JSON.stringify(workingEnv.component),
             "newName": newName
         }, (status) => {
-            M.Modal.init(workingEnv.RenameComponentPopup).close();
             let exists = selectOrAddValue($(workingEnv.ComponentPackage), status.package);
             if (!exists) {
                 $(workingEnv.ComponentName).empty();
