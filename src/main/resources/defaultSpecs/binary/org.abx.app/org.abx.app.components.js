@@ -691,6 +691,7 @@ function setComponentTypeVisibility() {
 
 /**
  * Check if the value exists otherwise add it and select it
+ * Return true if it exist
  * @param PackageContainer
  * @param valueToSelect
  */
@@ -724,6 +725,7 @@ function selectOrAddValue(PackageContainer, valueToSelect) {
     }
     // Re-initialize Materialize select to update UI
     PackageContainer.formSelect();
+    return exists;
 }
 
 
@@ -736,9 +738,11 @@ function cloneComponent(newName) {
             "componentSpecs": JSON.stringify(workingEnv.component),
             "newName": newName
         }, (status) => {
-        M.Modal.init(workingEnv.CloneComponentPopup).close()
-
-            selectOrAddValue($(workingEnv.ComponentPackage), status.package);
+            M.Modal.init(workingEnv.CloneComponentPopup).close();
+           let exists =  selectOrAddValue($(workingEnv.ComponentPackage), status.package);
+           if (!exists){
+               $(workingEnv.ComponentName).empty();
+           }
             selectOrAddValue($(workingEnv.ComponentName), newName);
         }
     )
