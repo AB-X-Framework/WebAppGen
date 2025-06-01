@@ -737,6 +737,21 @@ function selectOrAddValue(PackageContainer, valueToSelect) {
  *
  * @param newName
  */
+function renameComponent(newName) {
+    $.post("/page/rename", {
+            "componentSpecs": JSON.stringify(workingEnv.component),
+            "newName": newName
+        }, (status) => {
+            M.Modal.init(workingEnv.RenameComponentPopup).close();
+            let exists = selectOrAddValue($(workingEnv.ComponentPackage), status.package);
+            if (!exists) {
+                $(workingEnv.ComponentName).empty();
+            }
+            selectOrAddValue($(workingEnv.ComponentName), newName);
+        }
+    )
+}
+
 function cloneComponent(newName) {
     $.post("/page/clone", {
             "componentSpecs": JSON.stringify(workingEnv.component),

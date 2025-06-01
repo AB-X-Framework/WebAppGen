@@ -115,6 +115,20 @@ public class PageModel {
     }
 
     @Transactional
+    public void rename(String oldName, String newName) {
+        long newComponentId = elementHashCode(newName);
+        org.abx.webappgen.persistence.model.Component oldCo =
+                componentRepository.findByComponentId(elementHashCode(oldName));
+        org.abx.webappgen.persistence.model.Component newCo =
+                componentRepository.findByComponentId(newComponentId);
+       List<InnerComponent> inner = innerComponentRepository.findAllByChild(oldCo);
+       for (InnerComponent c : inner) {
+           c.innerComponentId = newComponentId;
+           innerComponentRepository.save(c);
+       }
+    }
+
+    @Transactional
     public JSONArray getPackages() {
         JSONArray packages = new JSONArray();
         List<String> packageList = componentRepository.findDistinctPackageNames();

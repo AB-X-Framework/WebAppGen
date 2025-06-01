@@ -71,7 +71,7 @@ public class PageController extends RoleController {
     @GetMapping(value = "/components/{componentName}", produces = MediaType.APPLICATION_JSON_VALUE)
     @Secured("Admin")
     public String getComponentDetails(@PathVariable String componentName) {
-        return specsExporter.getComponentDetails(componentName,true).toString(2);
+        return specsExporter.getComponentDetails(componentName, true).toString(2);
     }
 
 
@@ -113,10 +113,15 @@ public class PageController extends RoleController {
     @PostMapping(value = "/clone", produces = MediaType.APPLICATION_JSON_VALUE)
     @Secured("Admin")
     public String cloneComponent(@RequestParam String componentSpecs, @RequestParam String newName) {
+        JSONObject specs = new JSONObject(componentSpecs);
+        return cloneComponent(specs,newName);
+
+    }
+
+    private String cloneComponent(JSONObject specs,  String newName) {
         JSONObject status = new JSONObject();
         String packageName = newName.substring(0, newName.lastIndexOf("."));
         try {
-            JSONObject specs = new JSONObject(componentSpecs);
             specs.put("name", newName);
             specs.put("package", packageName);
             specsImporter.save(specs);
@@ -128,6 +133,24 @@ public class PageController extends RoleController {
         }
         return status.toString(2);
     }
+
+    @PostMapping(value = "/rename", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Secured("Admin")
+    public String renameComponent(@RequestParam String componentSpecs, @RequestParam String newName) {
+        JSONObject specs = new JSONObject(componentSpecs);
+        String oldName = specs.getString("name");
+       String status= cloneComponent(specs,newName);
+        try {
+            pageModel.rename(oldName, newName);
+        } catch (Exception e) {
+            JSONObject newStatus = new JSONObject();
+            newStatus.put("success", "false");
+            newStatus.put("error", e.getMessage());
+            return newStatus.toString(2);
+        }
+        return status;
+    }
+
 
     private String env(HttpSession session) {
         StringBuilder env = new StringBuilder();
