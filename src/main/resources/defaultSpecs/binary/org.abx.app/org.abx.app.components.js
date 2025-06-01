@@ -150,7 +150,7 @@ function updateElementType() {
     renderCurrentComponent();
 }
 
-function processChildren() {
+function processChildren(chooseChildren) {
     hideSpecs();
     let component = workingEnv.component;
     if (component.layout === "popup") {
@@ -170,8 +170,14 @@ function processChildren() {
             text: line
         }));
     });
+    let index;
+    if (typeof chooseChildren !== "undefined"){
+        index = parseInt(chooseChildren);
+    }else {
+        index=0;
+    }
     if (workingEnv.component.components.length > 0) {
-        processInnerComponent(0);
+        processInnerComponent(index);
     }
     $(workingEnv.ComponentEnv).change(() => {
         processInnerComponent($(workingEnv.ComponentEnv).val());
@@ -310,13 +316,14 @@ function addNewEnv() {
                 "size": "l12",
                 "env": env
             });
-            $(workingEnv.InnerComponentPackage).val("org.abx.app.base");
+            //$(workingEnv.InnerComponentPackage).val("org.abx.app.base");
+            processCurrentComponent(false,index);
         } else {
             component.specs.splice(index, 0,
                 {"env":env,
                     "value": defaultSpecs($(workingEnv.ElementType).val())});
+            processCurrentComponent(false);
         }
-        processCurrentComponent(false);
     } else {
         component.js.splice(index, 0, {
             "env": env,
@@ -564,7 +571,12 @@ function renderCurrentComponent() {
         });
 }
 
-function processCurrentComponent(showJS) {
+/**
+ * After is for the select package which is a request
+ * @param showJS
+ * @param after
+ */
+function processCurrentComponent(showJS, chooseChildren) {
     let componentSpecs = workingEnv.component;
     $(workingEnv.shouldUpdateDetailType).empty();
     $(workingEnv.shouldUpdateDetailType).append($('<option>', {
@@ -584,7 +596,7 @@ function processCurrentComponent(showJS) {
         if (showJS) {
             processJS();
         } else {
-            processChildren();
+            processChildren(chooseChildren);
         }
     } else {
         $(workingEnv.shouldUpdateDetailType).append($('<option>', {
