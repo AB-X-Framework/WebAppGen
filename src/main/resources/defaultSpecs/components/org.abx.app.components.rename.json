@@ -1,10 +1,41 @@
-[{
-  "specs": [{
-    "env": "",
-    "value": {"title": "Rename Component"}
-  }],
-  "name": "org.abx.app.components.rename.ProcessRenameComponent",
-  "isContainer": false,
-  "js": [],
-  "type": "button"
-}]
+[
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "Rename Component"}
+    }],
+    "name": "org.abx.app.components.rename.ProcessRenameComponent",
+    "isContainer": false,
+    "js": [],
+    "type": "button"
+  },
+  {
+    "layout": "popup",
+    "components": [
+      {
+        "innerId": "CloneComponentText",
+        "component": "org.abx.app.components.CloneComponentText",
+        "size": "l2",
+        "env": ""
+      },
+      {
+        "innerId": "CloneComponentName",
+        "component": "org.abx.app.components.CloneComponentName",
+        "size": "l2",
+        "env": ""
+      },
+      {
+        "innerId": "CloneComponentButton",
+        "component": "org.abx.app.components.CloneComponentButton",
+        "size": "l12",
+        "env": ""
+      }
+    ],
+    "name": "org.abx.app.components.rename.RenameComponentPopup",
+    "isContainer": true,
+    "js": [{
+      "env": "",
+      "value": "$(CloneComponentButton).click(()=>{cloneComponent($(CloneComponentName).val())})"
+    }]
+  }
+]
