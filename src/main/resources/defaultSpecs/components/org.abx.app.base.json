@@ -4,7 +4,6 @@
       "env": "",
       "value": {}
     }],
-    "package": "org.abx.app.base",
     "name": "org.abx.app.base.divider",
     "isContainer": false,
     "js": [],
@@ -15,7 +14,6 @@
       "env": "",
       "value": {"src": "/resources/binary/org.abx.app.abx.png"}
     }],
-    "package": "org.abx.app.base",
     "name": "org.abx.app.base.abxImg",
     "isContainer": false,
     "js": [],
@@ -26,7 +24,6 @@
       "env": "",
       "value": {}
     }],
-    "package": "org.abx.app.base",
     "name": "org.abx.app.base.div",
     "isContainer": false,
     "js": [],
