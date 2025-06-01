@@ -172,12 +172,27 @@
       {
         "env": "",
         "value": {
-          "title": "Clone Component"
+          "title": "Save"
         }
       }
     ],
     "package": "org.abx.app.components",
     "name": "org.abx.app.components.SaveComponent",
+    "isContainer": false,
+    "js": [],
+    "type": "button"
+  },
+  {
+    "specs": [
+      {
+        "env": "",
+        "value": {
+          "title": "Clone Component"
+        }
+      }
+    ],
+    "package": "org.abx.app.components",
+    "name": "org.abx.app.components.ProcessCloneComponent",
     "isContainer": false,
     "js": [],
     "type": "button"
@@ -551,8 +566,8 @@
     "layout": "vertical",
     "components": [
       {
-        "innerId": "SaveComponent",
-        "component": "org.abx.app.components.SaveComponent",
+        "innerId": "ProcessCloneComponent",
+        "component": "org.abx.app.components.ProcessCloneComponent",
         "size": "l2",
         "env": ""
       },
