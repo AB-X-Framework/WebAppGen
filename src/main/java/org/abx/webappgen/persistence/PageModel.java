@@ -121,11 +121,34 @@ public class PageModel {
                 componentRepository.findByComponentId(elementHashCode(oldName));
         org.abx.webappgen.persistence.model.Component newCo =
                 componentRepository.findByComponentId(newComponentId);
-       List<InnerComponent> inner = innerComponentRepository.findAllByChild(oldCo);
-       for (InnerComponent c : inner) {
-           c.innerComponentId = newComponentId;
-           innerComponentRepository.save(c);
-       }
+        List<InnerComponent> inner = innerComponentRepository.findAllByChild(oldCo);
+        for (InnerComponent c : inner) {
+            c.child = newCo;
+            innerComponentRepository.save(c);
+        }
+        innerComponentRepository.flush();
+
+
+        Collection<EnvValue> jsValues = new HashSet<>(oldCo.js);
+        oldCo.js.clear();
+        componentRepository.save(oldCo);
+        componentRepository.flush();
+        envValueRepository.deleteAll(jsValues);
+        envValueRepository.flush();
+        if (oldCo.isContainer) {
+        } else {
+            Element elem = oldCo.element;
+            Collection<EnvValue> children = new HashSet<>(elem.specs);
+            elem.specs.clear();
+            elementRepository.save(elem);
+            elementRepository.flush();
+            envValueRepository.deleteAll(children);
+            envValueRepository.flush();
+            elementRepository.delete(elem);
+            elementRepository.flush();
+        }
+        componentRepository.delete(oldCo);
+        componentRepository.flush();
     }
 
     @Transactional
