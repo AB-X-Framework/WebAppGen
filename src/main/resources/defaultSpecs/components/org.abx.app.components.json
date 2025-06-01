@@ -594,6 +594,10 @@
       },
       {
         "env": "",
+        "value": "workingEnv.CloneComponentPopup=CloneComponentPopup;"
+      },
+      {
+        "env": "",
         "value": "$(ProcessCloneComponent).click(  ()=>  M.Modal.init(CloneComponentPopup).open() );"
       }
     ]

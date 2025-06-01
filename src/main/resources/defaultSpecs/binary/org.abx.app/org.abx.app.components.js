@@ -37,7 +37,7 @@ function hideSpecs() {
  * @param packageName
  * @param afterCall
  */
-function selectPackage(packageName, selectValue) {
+function selectPackage(packageName, componentName) {
     let componentBox = $(workingEnv.ComponentName);
     $(componentBox).empty();
     $(componentBox).append($('<option>', {
@@ -47,8 +47,8 @@ function selectPackage(packageName, selectValue) {
     $(workingEnv.ComponentEnv).empty();
     M.FormSelect.init(workingEnv.ComponentEnv);
     $.get(`/page/packages/${packageName}/components`, (resultList) => {
-        if (typeof selectValue === "undefined") {
-            selectValue = resultList[0];
+        if (typeof componentName === "undefined") {
+            componentName = resultList[0];
         }
         resultList.forEach(function (item) {
             $(componentBox).append($('<option>', {
@@ -690,6 +690,44 @@ function setComponentTypeVisibility() {
 }
 
 /**
+ * Check if the value exists otherwise add it and select it
+ * @param PackageContainer
+ * @param valueToSelect
+ */
+function selectOrAddValue(PackageContainer, valueToSelect) {
+    // Check if the value already exists
+    let exists = PackageContainer.find('option').is(function () {
+        return $(this).val() === valueToSelect;
+    });
+    if (!exists) {
+        let inserted = false;
+        let newOption = $('<option>', {
+            value: valueToSelect,
+            text: valueToSelect,
+            selected: true
+        });
+        // Find correct alphabetical insert point
+        PackageContainer.find('option').each(function () {
+            if (!inserted && $(this).val().localeCompare(valueToSelect) > 0) {
+                $(this).before(newOption);
+                inserted = true;
+                return false; // Break the loop
+            }
+        });
+        // If not inserted, append at the end
+        if (!inserted) {
+            PackageContainer.append(newOption);
+        }
+    } else {
+        // Just select the existing value
+        PackageContainer.val(valueToSelect);
+    }
+    // Re-initialize Materialize select to update UI
+    PackageContainer.formSelect();
+}
+
+
+/**
  *
  * @param newName
  */
@@ -697,9 +735,10 @@ function cloneComponent(newName) {
     $.post("/page/clone", {
             "componentSpecs": JSON.stringify(workingEnv.component),
             "newName": newName
-        }, () => {
-            let package = newName.substring(0, newName.lastIndexOf('.'));
-            selectPackage(package, newName);
+        }, (status) => {
+        M.Modal.init(workingEnv.CloneComponentPopup).close()
+            selectOrAddValue($(workingEnv.ComponentPackage), status.packageName);
+            selectOrAddValue($(workingEnv.ComponentName), newName);
         }
     )
 }

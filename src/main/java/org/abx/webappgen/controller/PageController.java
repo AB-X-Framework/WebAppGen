@@ -20,7 +20,7 @@ import static org.abx.webappgen.utils.ElementUtils.elementHashCode;
 
 @RestController
 @RequestMapping("/page")
-public class PageController extends RoleController{
+public class PageController extends RoleController {
     public final static String LANG = "lang";
 
     private ST pageTemplate;
@@ -46,8 +46,8 @@ public class PageController extends RoleController{
     @GetMapping(value = "/{pagename}", produces = MediaType.TEXT_HTML_VALUE)
     @PreAuthorize("permitAll()")
     public String page(@PathVariable String pagename) {
-        if (!pageModel.validPage(getRoles(), elementHashCode(pagename))){
-            pagename= pageModel.getHome();
+        if (!pageModel.validPage(getRoles(), elementHashCode(pagename))) {
+            pagename = pageModel.getHome();
         }
         ST st1 = new ST(pageTemplate);
         String output = st1.add("pagename", pagename).render();
@@ -62,7 +62,6 @@ public class PageController extends RoleController{
     }
 
 
-
     @GetMapping(value = "/packages/{packageName}/components", produces = MediaType.APPLICATION_JSON_VALUE)
     @Secured("Admin")
     public String byPackage(@PathVariable String packageName) {
@@ -71,20 +70,20 @@ public class PageController extends RoleController{
 
     @GetMapping(value = "/components/{componentName}", produces = MediaType.APPLICATION_JSON_VALUE)
     @Secured("Admin")
-    public String getComponentDetails(@PathVariable String componentName)  {
+    public String getComponentDetails(@PathVariable String componentName) {
         return specsExporter.getComponentDetails(componentName).toString(2);
     }
 
 
     @PostMapping(value = "/components", produces = MediaType.APPLICATION_JSON_VALUE)
     @Secured("Admin")
-    public String saveComponent(@RequestParam String  component)  {
-        JSONObject status=new JSONObject();
+    public String saveComponent(@RequestParam String component) {
+        JSONObject status = new JSONObject();
         try {
             specsImporter.save(new JSONObject(component));
-            status.put("success","true");
-        }catch (Exception e){
-            status.put("success","false");
+            status.put("success", "true");
+        } catch (Exception e) {
+            status.put("success", "false");
             status.put("error", e.getMessage());
         }
         return status.toString(2);
@@ -107,7 +106,7 @@ public class PageController extends RoleController{
     @PostMapping(value = "/preview", produces = MediaType.APPLICATION_JSON_VALUE)
     @Secured("Admin")
     public String component(@RequestParam String componentSpecs, @RequestParam String env) {
-        return pageModel.preview(new JSONObject(componentSpecs),env).toString(2);
+        return pageModel.preview(new JSONObject(componentSpecs), env).toString(2);
     }
 
 
@@ -115,14 +114,16 @@ public class PageController extends RoleController{
     @Secured("Admin")
     public String cloneComponent(@RequestParam String componentSpecs, @RequestParam String newName) {
         JSONObject status = new JSONObject();
-        try{
+        String packageName = newName.substring(0, newName.lastIndexOf("."));
+        try {
             JSONObject specs = new JSONObject(componentSpecs);
             specs.put("name", newName);
-            specs.put("package",newName.substring(0, newName.lastIndexOf(".")));
+            specs.put("package", packageName);
             specsImporter.save(specs);
-            status.put("success","true");
-        }catch (Exception e){
-            status.put("success","false");
+            status.put("success", "true");
+            status.put("package", packageName);
+        } catch (Exception e) {
+            status.put("success", "false");
             status.put("error", e.getMessage());
         }
         return status.toString(2);
@@ -131,7 +132,7 @@ public class PageController extends RoleController{
     private String env(HttpSession session) {
         StringBuilder env = new StringBuilder();
         if (session.getAttribute(LANG) != null) {
-            env .append((String) session.getAttribute(LANG));
+            env.append((String) session.getAttribute(LANG));
         }
         for (String role : getRoles()) {
             env.append("|").append(role);
