@@ -2,6 +2,7 @@
   "components": [
     "org.abx.app.base",
     "org.abx.app.components",
+    "org.abx.app.components.rename",
     "org.abx.app.home",
     "org.abx.app.login"
   ],

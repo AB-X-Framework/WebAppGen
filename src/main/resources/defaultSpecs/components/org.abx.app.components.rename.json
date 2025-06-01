@@ -1,0 +1,11 @@
+[{
+  "specs": [{
+    "env": "",
+    "value": {"title": "Clone Component"}
+  }],
+  "package": "org.abx.app.components.rename",
+  "name": "org.abx.app.components.rename.ProcessRenameComponent",
+  "isContainer": false,
+  "js": [],
+  "type": "button"
+}]
