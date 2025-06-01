@@ -571,21 +571,21 @@ function renderCurrentComponent() {
         });
 }
 
-function processContainerLayout  (layout) {
+function processContainerLayout(layout) {
     $(workingEnv.ContainerLayout).val(layout);
     $(workingEnv.ContainerLayout).formSelect();
 }
 
-function updateContainerLayout(){
-    if (workingEnv.shouldUpdate===false){
+function updateContainerLayout() {
+    if (workingEnv.shouldUpdate === false) {
         return;
     }
     let layout = $(workingEnv.ContainerLayout).val();
-    workingEnv.component.layout=layout;
+    workingEnv.component.layout = layout;
     renderCurrentComponent();
-    if (layout==="popup"){
+    if (layout === "popup") {
         $(workingEnv.SpecsShowModal).parent().show();
-    }else {
+    } else {
         $(workingEnv.SpecsShowModal).parent().hide();
     }
 }
@@ -682,6 +682,20 @@ function setComponentTypeVisibility() {
         $(workingEnv.ElementType).closest('.input-field').parent().show()
         $(workingEnv.ContainerLayout).closest('.input-field').parent().hide();
     }
+}
+
+/**
+ *
+ * @param newName
+ */
+function cloneComponent(newName) {
+    $.post("page/clone", {
+            "componentSpecs": JSON.stringify(workingEnv.component),
+            "newName": newName
+        }, () => {
+
+        }
+    )
 }
 
 $(document).ready(hideSpecs);
