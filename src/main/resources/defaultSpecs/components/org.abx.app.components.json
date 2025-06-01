@@ -444,6 +444,10 @@
       },
       {
         "env": "",
+        "value": "workingEnv.EditingDetailType=EditingDetailType;"
+      },
+      {
+        "env": "",
         "value": "workingEnv.ContainerLayout = ContainerLayout;"
       },
       {

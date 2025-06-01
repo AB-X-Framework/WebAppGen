@@ -406,13 +406,16 @@ function setChildValue(type, newValue) {
 }
 
 function updateText(delta, text) {
+    if ($(workingEnv.EditingDetailType).val() !== "js") {
+        return;
+    }
     if (!workingEnv.shouldUpdate) {
         return;
     }
     let component = workingEnv.component;
     let index = $(workingEnv.ComponentEnv).val();
     let jsEnv = component.js[index]
-    jsEnv.value = text;
+    jsEnv["value"] = text;
     if (jsEnv.env === "") {
         text = "Default -> " + text;
     } else {
@@ -739,10 +742,10 @@ function cloneComponent(newName) {
             "newName": newName
         }, (status) => {
             M.Modal.init(workingEnv.CloneComponentPopup).close();
-           let exists =  selectOrAddValue($(workingEnv.ComponentPackage), status.package);
-           if (!exists){
-               $(workingEnv.ComponentName).empty();
-           }
+            let exists = selectOrAddValue($(workingEnv.ComponentPackage), status.package);
+            if (!exists) {
+                $(workingEnv.ComponentName).empty();
+            }
             selectOrAddValue($(workingEnv.ComponentName), newName);
         }
     )
