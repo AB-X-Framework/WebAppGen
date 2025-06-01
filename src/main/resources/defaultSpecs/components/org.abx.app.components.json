@@ -572,6 +572,12 @@
         "env": ""
       },
       {
+        "innerId": "CloneComponentPopup",
+        "component": "org.abx.app.components.CloneComponentPopup",
+        "size": "l2",
+        "env": ""
+      },
+      {
         "innerId": "ComponentPackage",
         "component": "org.abx.app.components.ComponentPackage",
         "size": "l2",
@@ -585,6 +591,10 @@
       {
         "env": "",
         "value": "$(ComponentPackage).on('change', ()=>{selectPackage( $(ComponentPackage).val());});"
+      },
+      {
+        "env": "",
+        "value": "$(ProcessCloneComponent).click(  ()=>  M.Modal.init(CloneComponentPopup).open() );"
       }
     ]
   },
@@ -1338,7 +1348,7 @@
     "js": [
       {
         "env": "",
-        "value": "$(CloneComponentButton).click(()=>{cloneComponent($(CloneComponentName).val())}"
+        "value": "$(CloneComponentButton).click(()=>{cloneComponent($(CloneComponentName).val())})"
       }
     ]
   }
