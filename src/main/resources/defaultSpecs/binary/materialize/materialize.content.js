@@ -154,9 +154,12 @@ class PageContent {
     static renderPopup(output, js, componentSpecs) {
         output.push(`<div  id="${componentSpecs.id}" class="modal">
     <div class="modal-content">`);
-        PageContent.renderComponent(output, js, componentSpecs.children[0]);
+        let finalIndex = componentSpecs.children.length-1;
+        for (var i = 0; i< finalIndex;++i) {
+            PageContent.renderComponent(output, js, componentSpecs.children[i]);
+        }
         output.push('</div> <div class="modal-footer">');
-        PageContent.renderComponent(output, js, componentSpecs.children[1]);
+        PageContent.renderComponent(output, js, componentSpecs.children[finalIndex]);
         output.push('</div>');
         js.push(`M.Modal.init(${componentSpecs.id});`);
         output.push('</div>');
