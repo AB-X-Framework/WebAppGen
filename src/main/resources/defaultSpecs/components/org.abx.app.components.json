@@ -1318,7 +1318,7 @@
       }
     ],
     "package": "org.abx.app.components",
-    "name": "org.abx.app.components.AddPopUpEnv",
+    "name": "org.abx.app.components.CloneComponentPopup",
     "isContainer": true,
     "js": [
       {
