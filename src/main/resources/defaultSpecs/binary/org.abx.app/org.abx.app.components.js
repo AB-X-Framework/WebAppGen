@@ -7,10 +7,6 @@ function hideElemContainer() {
     hideSpecs();
 }
 
-function processAction(x) {
-    selectPackage($(workingEnv.ComponentName), x);
-}
-
 function showPreviewModal() {
     M.Modal.init($('#__preview')[0]).open();
 }
@@ -36,7 +32,13 @@ function hideSpecs() {
     $(workingEnv.SpecsSource).closest('.input-field').children("label").text("Source");
 }
 
-function selectPackage(componentBox, packageName) {
+/**
+ * Select packages with aftercall
+ * @param packageName
+ * @param afterCall
+ */
+function selectPackage(packageName, selectValue) {
+    let componentBox = $(workingEnv.ComponentName);
     $(componentBox).empty();
     $(componentBox).append($('<option>', {
         value: "",
@@ -45,6 +47,9 @@ function selectPackage(componentBox, packageName) {
     $(workingEnv.ComponentEnv).empty();
     M.FormSelect.init(workingEnv.ComponentEnv);
     $.get(`/page/packages/${packageName}/components`, (resultList) => {
+        if (typeof selectValue === "undefined") {
+            selectValue = resultList[0];
+        }
         resultList.forEach(function (item) {
             $(componentBox).append($('<option>', {
                 value: item,
@@ -693,7 +698,8 @@ function cloneComponent(newName) {
             "componentSpecs": JSON.stringify(workingEnv.component),
             "newName": newName
         }, () => {
-
+            let package = newName.substring(0, newName.lastIndexOf('.'));
+            selectPackage(package, newName);
         }
     )
 }

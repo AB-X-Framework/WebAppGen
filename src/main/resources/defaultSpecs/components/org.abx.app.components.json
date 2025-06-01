@@ -569,7 +569,7 @@
     "js": [
       {
         "env": "",
-        "value": "$(ComponentPackage).on('change', ()=>{processAction( $(ComponentPackage).val());});"
+        "value": "$(ComponentPackage).on('change', ()=>{selectPackage( $(ComponentPackage).val());});"
       }
     ]
   },
