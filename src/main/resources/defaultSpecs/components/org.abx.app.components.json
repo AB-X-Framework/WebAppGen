@@ -594,6 +594,10 @@
       },
       {
         "env": "",
+        "value": "workingEnv.ComponentPackage=ComponentPackage;"
+      },
+      {
+        "env": "",
         "value": "workingEnv.CloneComponentPopup=CloneComponentPopup;"
       },
       {

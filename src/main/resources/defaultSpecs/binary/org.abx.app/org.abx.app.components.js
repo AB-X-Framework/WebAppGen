@@ -737,7 +737,8 @@ function cloneComponent(newName) {
             "newName": newName
         }, (status) => {
         M.Modal.init(workingEnv.CloneComponentPopup).close()
-            selectOrAddValue($(workingEnv.ComponentPackage), status.packageName);
+
+            selectOrAddValue($(workingEnv.ComponentPackage), status.package);
             selectOrAddValue($(workingEnv.ComponentName), newName);
         }
     )
