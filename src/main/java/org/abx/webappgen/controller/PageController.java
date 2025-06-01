@@ -111,19 +111,22 @@ public class PageController extends RoleController{
     }
 
 
-    /*@PostMapping(value = "/clone", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/clone", produces = MediaType.APPLICATION_JSON_VALUE)
     @Secured("Admin")
     public String cloneComponent(@RequestParam String componentSpecs, @RequestParam String newName) {
         JSONObject status = new JSONObject();
         try{
-            pageModel.cloneComponent(new JSONObject(componentSpecs),newName);
+            JSONObject specs = new JSONObject(componentSpecs);
+            specs.put("name", newName);
+            specs.put("package",newName.substring(0, newName.lastIndexOf(".")));
+            specsImporter.save(specs);
             status.put("success","true");
         }catch (Exception e){
             status.put("success","false");
             status.put("error", e.getMessage());
         }
         return status.toString(2);
-    }*/
+    }
 
     private String env(HttpSession session) {
         StringBuilder env = new StringBuilder();

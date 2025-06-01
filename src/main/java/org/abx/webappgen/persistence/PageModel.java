@@ -30,14 +30,11 @@ public class PageModel {
     public static final String Children = "children";
     public static final String Package = "package";
     public static final String IsContainer = "isContainer";
-
+    public static final String Component = "component";
     long envId;
 
     @Autowired
     public PageRepository pageRepository;
-
-    @Autowired
-    public ElementUtils elementUtils;
 
     @Autowired
     public ComponentRepository componentRepository;
@@ -180,7 +177,7 @@ public class PageModel {
                 css.put(cssValue.value);
             }
         }
-        jsonPage.put(ElementUtils.Component, processTop("top", page.component, env));
+        jsonPage.put(Component, processTop("top", page.component, env));
         return jsonPage;
     }
 
@@ -194,15 +191,6 @@ public class PageModel {
     public JSONObject preview(JSONObject specs, String env) {
         return previewComponent(specs, env);
     }
-/*
-    @Transactional
-    public void cloneComponent(JSONObject specs, String newName) {
-        specs.put("name", newName);
-        specs.put("package",newName.substring(0, newName.lastIndexOf(".")));
-        specsImporter.processComponent(specs);
-
-    }*/
-
 
     private JSONObject processTop(String name, Component component, String env) {
         ComponentSpecs topSpecs = new ComponentSpecs(name, env);
@@ -244,8 +232,8 @@ public class PageModel {
         page.matches = matches;
         page.matchesId = elementHashCode(matches);
         page.pageTitle = pageTitle;
-        page.css = elementUtils.createEnvValues(css);
-        page.scripts =  elementUtils.createEnvValues(scripts);
+        page.css = createEnvValues(css);
+        page.scripts = createEnvValues(scripts);
         pageRepository.save(page);
         pageRepository.flush();
         page.component = componentRepository.findByComponentId(elementHashCode(componentName));
@@ -321,7 +309,7 @@ public class PageModel {
             if (!matchesEnv(childEnv, env)) {
                 continue;
             }
-            String childName = childComponent.getString(ElementUtils.Component);
+            String childName = childComponent.getString(Component);
             org.abx.webappgen.persistence.model.Component child =
                     componentRepository.findByComponentId(elementHashCode(childName));
             ComponentSpecs componentSpecs = new ComponentSpecs("", env);
@@ -392,7 +380,7 @@ public class PageModel {
         component.packageName = packageName;
         component.componentName = name;
         component.isContainer = true;
-        elementUtils.saveComponent(js, component);
+        saveComponent(js, component);
         Container container = new Container();
         container.component = componentRepository.findByComponentId(id);
         container.containerId = id;
@@ -402,7 +390,7 @@ public class PageModel {
         containerRepository.flush();
         for (int i = 0; i < children.length(); i++) {
             JSONObject jsonChild = children.getJSONObject(i);
-            String childComponent = jsonChild.getString(ElementUtils.Component);
+            String childComponent = jsonChild.getString(Component);
             long childId = elementHashCode(childComponent);
             Component child = componentRepository.findByComponentId(childId);
             InnerComponent inner = new InnerComponent();
@@ -417,6 +405,7 @@ public class PageModel {
         }
         containerRepository.save(container);
     }
+
     @Transactional
     public void createElement(String name, String packageName, JSONArray js, String type, JSONArray specs) {
         long id = elementHashCode(name);
@@ -425,7 +414,7 @@ public class PageModel {
         component.componentId = id;
         component.componentName = name;
         component.isContainer = false;
-        elementUtils.saveComponent(js, component);
+        saveComponent(js, component);
         Element element = new Element();
         element.component = componentRepository.findByComponentId(id);
         element.elementId = id;
@@ -441,11 +430,28 @@ public class PageModel {
 
     }
 
-    private EnvValue createEnvValue(JSONObject jsonEnvValue) {
+    public ArrayList<EnvValue> createEnvValues(JSONArray envValues) {
+        ArrayList<EnvValue> env = new ArrayList<>();
+        for (int i = 0; i < envValues.length(); i++) {
+            JSONObject jsEnvValue = envValues.getJSONObject(i);
+            env.add(createEnvValue(jsEnvValue));
+        }
+        return env;
+    }
+
+    public EnvValue createEnvValue(JSONObject jsonEnvValue) {
         EnvValue envValue = new EnvValue();
         envValue.env = jsonEnvValue.getString("env");
         envValue.value = jsonEnvValue.get("value").toString();
         envValueRepository.save(envValue);
         return envValue;
     }
+
+    public void saveComponent(JSONArray js, org.abx.webappgen.persistence.model.Component component) {
+        componentRepository.save(component);
+        componentRepository.flush();
+        component.js = createEnvValues(js);
+        componentRepository.save(component);
+    }
+
 }
