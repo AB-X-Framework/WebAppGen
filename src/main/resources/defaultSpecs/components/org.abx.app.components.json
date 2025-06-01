@@ -462,6 +462,12 @@
         "env": ""
       },
       {
+        "innerId": "RenameComponentPopup",
+        "component": "org.abx.app.components.rename.RenameComponentPopup",
+        "size": "l12",
+        "env": ""
+      },
+      {
         "innerId": "CloneComponentPopup",
         "component": "org.abx.app.components.CloneComponentPopup",
         "size": "l2",
