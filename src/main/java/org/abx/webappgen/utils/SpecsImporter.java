@@ -276,7 +276,7 @@ public class SpecsImporter {
         return missing;
     }
 
-    private void processComponent(JSONObject component) {
+    public void processComponent(JSONObject component) {
         boolean isContainer = component.getBoolean("isContainer");
         String name = component.getString("name");
         if (isContainer) {

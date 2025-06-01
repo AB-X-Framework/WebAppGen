@@ -2,6 +2,8 @@ package org.abx.webappgen.persistence;
 
 import org.abx.webappgen.persistence.dao.*;
 import org.abx.webappgen.persistence.model.*;
+import org.abx.webappgen.utils.SpecsExporter;
+import org.abx.webappgen.utils.SpecsImporter;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,6 +75,10 @@ public class PageModel {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private SpecsExporter specsExporter;
+    @Autowired
+    private SpecsImporter specsImporter;
 
     public PageModel() {
         envId = PageModel.mapHashCode("org.abx.app.Env", "home");
@@ -189,6 +195,14 @@ public class PageModel {
     @Transactional
     public JSONObject preview(JSONObject specs, String env) {
         return previewComponent(specs, env);
+    }
+
+    @Transactional
+    public void cloneComponent(JSONObject specs, String newName) {
+        specs.put("name", newName);
+        specs.put("package",newName.substring(0, newName.lastIndexOf(".")));
+        specsImporter.processComponent(specs);
+
     }
 
 

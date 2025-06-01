@@ -586,7 +586,6 @@ function updateContainerLayout(){
     if (layout==="popup"){
         $(workingEnv.SpecsShowModal).parent().show();
     }else {
-
         $(workingEnv.SpecsShowModal).parent().hide();
     }
 }
