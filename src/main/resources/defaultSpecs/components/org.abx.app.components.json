@@ -511,7 +511,7 @@
       },
       {
         "env": "",
-        "value": "$(ProcessRenameComponent).click(  ()=>  M.Modal.init(CloneRenamePopup).open() );"
+        "value": "$(ProcessRenameComponent).click(  ()=>  M.Modal.init(RenameComponentPopup).open() );"
       }
     ]
   },
@@ -787,7 +787,7 @@
   {
     "specs": [{
       "env": "",
-      "value": {"title": "Clone"}
+      "value": {"title": "Rename"}
     }],
     "name": "org.abx.app.components.CloneComponentButton",
     "isContainer": false,
