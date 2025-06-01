@@ -334,6 +334,7 @@ function addNewEnv() {
             "env": env,
             "value": `//New JS code ${index}`
         });
+        ace.edit(workingEnv.SpecsJS).setValue(`//New JS code ${index}`);
         processCurrentComponent(true);
     }
     $(workingEnv.ComponentEnv).val(index);
