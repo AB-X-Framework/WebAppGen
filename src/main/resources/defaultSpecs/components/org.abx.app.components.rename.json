@@ -1,13 +1,9 @@
 [
   {
-    "specs": [
-      {
-        "env": "",
-        "value": {
-          "title": "Rename Component"
-        }
-      }
-    ],
+    "specs": [{
+      "env": "",
+      "value": {"title": "Rename Component"}
+    }],
     "name": "org.abx.app.components.rename.ProcessRenameComponent",
     "isContainer": false,
     "js": [],
@@ -49,14 +45,10 @@
     ]
   },
   {
-    "specs": [
-      {
-        "env": "",
-        "value": {
-          "title": "Rename"
-        }
-      }
-    ],
+    "specs": [{
+      "env": "",
+      "value": {"title": "Rename"}
+    }],
     "name": "org.abx.app.components.rename.RenameComponentButton",
     "isContainer": false,
     "js": [],

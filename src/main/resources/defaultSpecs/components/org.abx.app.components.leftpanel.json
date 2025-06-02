@@ -1,0 +1,63 @@
+[{
+  "layout": "vertical",
+  "components": [
+    {
+      "innerId": "ProcessCloneComponent",
+      "component": "org.abx.app.components.ProcessCloneComponent",
+      "size": "l2",
+      "env": ""
+    },
+    {
+      "innerId": "RenameComponentPopup",
+      "component": "org.abx.app.components.rename.RenameComponentPopup",
+      "size": "l12",
+      "env": ""
+    },
+    {
+      "innerId": "CloneComponentPopup",
+      "component": "org.abx.app.components.CloneComponentPopup",
+      "size": "l2",
+      "env": ""
+    },
+    {
+      "innerId": "ProcessRenameComponent",
+      "component": "org.abx.app.components.rename.ProcessRenameComponent",
+      "size": "l12",
+      "env": ""
+    },
+    {
+      "innerId": "ComponentPackage",
+      "component": "org.abx.app.components.ComponentPackage",
+      "size": "l2",
+      "env": ""
+    }
+  ],
+  "name": "org.abx.app.components.leftpanel.MenuContainer",
+  "isContainer": true,
+  "js": [
+    {
+      "env": "",
+      "value": "$(ComponentPackage).on('change', ()=>{selectPackage( $(ComponentPackage).val());});"
+    },
+    {
+      "env": "",
+      "value": "workingEnv.ComponentPackage=ComponentPackage;"
+    },
+    {
+      "env": "",
+      "value": "workingEnv.CloneComponentPopup=CloneComponentPopup;"
+    },
+    {
+      "env": "",
+      "value": "$(ProcessCloneComponent).click(  ()=>  M.Modal.init(CloneComponentPopup).open() );"
+    },
+    {
+      "env": "",
+      "value": "$(ProcessRenameComponent).click(  ()=>  M.Modal.init(RenameComponentPopup).open() );"
+    },
+    {
+      "env": "",
+      "value": "$(ProcessRenameComponent).click(()=>  RenameComponentPopup.setName($(workingEnv.ComponentName).val()) );"
+    }
+  ]
+}]
