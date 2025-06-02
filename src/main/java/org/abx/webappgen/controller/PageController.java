@@ -68,19 +68,6 @@ public class PageController extends RoleController {
     }
 
 
-    @PostMapping(value = "/components", produces = MediaType.APPLICATION_JSON_VALUE)
-    @Secured("Admin")
-    public String saveComponent(@RequestParam String component) {
-        JSONObject status = new JSONObject();
-        try {
-            specsImporter.save(new JSONObject(component));
-            status.put("success", "true");
-        } catch (Exception e) {
-            status.put("success", "false");
-            status.put("error", e.getMessage());
-        }
-        return status.toString(2);
-    }
 
     @GetMapping(value = "/specs/{pagename}", produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("permitAll()")

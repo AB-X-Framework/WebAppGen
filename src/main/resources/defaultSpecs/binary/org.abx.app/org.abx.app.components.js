@@ -46,7 +46,7 @@ function selectPackage(packageName, afterCall) {
     }));
     $(workingEnv.ComponentEnv).empty();
     M.FormSelect.init(workingEnv.ComponentEnv);
-    $.get(`/page/packages/${packageName}/components`, (resultList) => {
+    $.get(`/components/packages/${packageName}/components`, (resultList) => {
         resultList.forEach(function (item) {
             $(componentBox).append($('<option>', {
                 value: item,
@@ -208,7 +208,7 @@ function updateInnerPackage() {
     let package = $(workingEnv.InnerComponentPackage).val();
     let index = $(workingEnv.ComponentEnv).val();
     let component = workingEnv.component;
-    $.get(`/page/packages/${package}/components`, (resultList) => {
+    $.get(`/components/packages/${package}/components`, (resultList) => {
         let first = true;
         resultList.forEach(function (item) {
             $(componentBox).append($('<option>', {
@@ -239,7 +239,7 @@ function processInnerComponent(index) {
         M.FormSelect.init(workingEnv.InnerComponentPackage);
         let componentBox = workingEnv.InnerComponentName;
         $(componentBox).empty();
-        $.get(`/page/packages/${componentSpecs.package}/components`, (resultList) => {
+        $.get(`/components/packages/${componentSpecs.package}/components`, (resultList) => {
             resultList.forEach(function (item) {
                 $(componentBox).append($('<option>', {
                     value: item,
