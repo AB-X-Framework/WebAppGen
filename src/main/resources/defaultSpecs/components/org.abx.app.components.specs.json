@@ -134,6 +134,22 @@
     "type": "select"
   },
   {
+    "specs": [{
+      "env": "",
+      "value": {
+        "title": "Source",
+        "content": "Source"
+      }
+    }],
+    "name": "org.abx.app.components.specs.SpecsSource",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "$(self).on('input',()=>setSpecValue('src',$(self).val()))"
+    }],
+    "type": "textfield"
+  },
+  {
     "layout": "horizontal",
     "components": [
       {

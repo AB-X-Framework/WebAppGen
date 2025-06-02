@@ -496,22 +496,6 @@
   {
     "specs": [{
       "env": "",
-      "value": {
-        "title": "Source",
-        "content": "Source"
-      }
-    }],
-    "name": "org.abx.app.components.SpecsSource",
-    "isContainer": false,
-    "js": [{
-      "env": "",
-      "value": "$(self).on('input',()=>setSpecValue('src',$(self).val()))"
-    }],
-    "type": "textfield"
-  },
-  {
-    "specs": [{
-      "env": "",
       "value": {"title": "Clone Component"}
     }],
     "name": "org.abx.app.components.ProcessCloneComponent",
@@ -569,7 +553,7 @@
       },
       {
         "innerId": "SpecsSource",
-        "component": "org.abx.app.components.SpecsSource",
+        "component": "org.abx.app.components.specs.SpecsSource",
         "size": "l2",
         "env": ""
       },
