@@ -15,7 +15,7 @@
     },
     {
       "innerId": "CloneComponentPopup",
-      "component": "org.abx.app.components.CloneComponentPopup",
+      "component": "org.abx.app.components.clone.CloneComponentPopup",
       "size": "l2",
       "env": ""
     },
