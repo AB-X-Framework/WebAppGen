@@ -141,6 +141,61 @@
     "type": "textfield"
   },
   {
+    "layout": "horizontal",
+    "components": [
+      {
+        "innerId": "SpecsSelect",
+        "component": "org.abx.app.components.specs.SpecsSelect",
+        "size": "l4",
+        "env": ""
+      },
+      {
+        "innerId": "SpecsSelectEdit",
+        "component": "org.abx.app.components.env.EditEnv",
+        "size": "",
+        "env": ""
+      },
+      {
+        "innerId": "SpecsSelectRemove",
+        "component": "org.abx.app.components.env.RemoveEnv",
+        "size": "",
+        "env": ""
+      },
+      {
+        "innerId": "SpecsSelectAdd",
+        "component": "org.abx.app.components.env.AddEnv",
+        "size": "",
+        "env": ""
+      },
+      {
+        "innerId": "SelectTextValue",
+        "component": "org.abx.app.components.specs.SelectTextValue",
+        "size": "l12",
+        "env": ""
+      }
+    ],
+    "name": "org.abx.app.components.specs.SelectContainer",
+    "isContainer": true,
+    "js": [
+      {
+        "env": "",
+        "value": "workingEnv.SpecsSelect=SpecsSelect"
+      },
+      {
+        "env": "",
+        "value": "workingEnv.SpecsSelectRemove=SpecsSelectRemove"
+      },
+      {
+        "env": "",
+        "value": "workingEnv.SpecsSelectAdd=SpecsSelectAdd;\n\n$(SpecsSelectAdd).click(()=>{\n    M.Modal.init(SelectTextValue).open();\n});"
+      },
+      {
+        "env": "",
+        "value": "workingEnv.SpecsSelectEdit=SpecsSelectEdit"
+      }
+    ]
+  },
+  {
     "specs": [{
       "env": "",
       "value": {
@@ -240,6 +295,12 @@
         "component": "org.abx.app.components.env.AddEnv",
         "size": "",
         "env": ""
+      },
+      {
+        "innerId": "SelectTextValue",
+        "component": "org.abx.app.components.specs.SelectTextValue",
+        "size": "l12",
+        "env": ""
       }
     ],
     "name": "org.abx.app.components.specs.SpecsSelectContainer",
@@ -255,7 +316,7 @@
       },
       {
         "env": "",
-        "value": "workingEnv.SpecsSelectAdd=SpecsSelectAdd"
+        "value": "workingEnv.SpecsSelectAdd=SpecsSelectAdd;\n\n$(SpecsSelectAdd).click(()=>{\n    M.Modal.init(SelectTextValue).open();\n});"
       },
       {
         "env": "",
