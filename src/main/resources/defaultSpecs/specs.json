@@ -5,6 +5,7 @@
     "org.abx.app.components.clone",
     "org.abx.app.components.leftpanel",
     "org.abx.app.components.rename",
+    "org.abx.app.components.specs",
     "org.abx.app.home",
     "org.abx.app.login"
   ],

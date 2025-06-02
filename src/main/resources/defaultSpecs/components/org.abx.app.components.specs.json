@@ -1,0 +1,16 @@
+[{
+  "specs": [{
+    "env": "",
+    "value": {
+      "title": "Cancel text",
+      "content": "Cancel text"
+    }
+  }],
+  "name": "org.abx.app.components.specs.SpecsCancel",
+  "isContainer": false,
+  "js": [{
+    "env": "",
+    "value": "$(self).on('input',()=>setSpecValue('cancel',$(self).val()))"
+  }],
+  "type": "textfield"
+}]
