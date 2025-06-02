@@ -38,7 +38,7 @@ function hideSpecs() {
  * @param afterCall
  */
 function selectPackage(packageName, componentName) {
-    workingEnv.shouldUpdate=false;
+    workingEnv.shouldUpdate = false;
     let componentBox = $(workingEnv.ComponentName);
     $(componentBox).empty();
     $(componentBox).append($('<option>', {
@@ -49,19 +49,20 @@ function selectPackage(packageName, componentName) {
     M.FormSelect.init(workingEnv.ComponentEnv);
     $.get(`/page/packages/${packageName}/components`, (resultList) => {
         if (typeof componentName === "undefined") {
-            componentName = resultList[0];
+            componentName = "";
         }
         resultList.forEach(function (item) {
             $(componentBox).append($('<option>', {
                 value: item,
-                text: item
+                text: item,
+                selected: item === componentName
             }));
         });
         $(workingEnv.show).empty();
         $(workingEnv.div).empty();
         hideElemContainer();
         M.FormSelect.init(componentBox);
-        workingEnv.shouldUpdate=true;
+        workingEnv.shouldUpdate = true;
     });
 }
 
@@ -740,18 +741,27 @@ function selectOrAddValue(PackageContainer, valueToSelect) {
  * @param newName
  */
 function renameComponent(newName) {
+    let originalPackage = workingEnv.component.package;
     let originalName = workingEnv.component.name;
     $.post("/page/rename", {
             "componentSpecs": JSON.stringify(workingEnv.component),
             "newName": newName
         }, (status) => {
-            let exists = selectOrAddValue($(workingEnv.ComponentPackage), status.package);
-            if (!exists) {
-                $(workingEnv.ComponentName).empty();
+            workingEnv.component.name = newName;
+            workingEnv.component.package = status.package;
+            if (status.package !== originalPackage) {
+                let exists = selectOrAddValue($(workingEnv.ComponentPackage), status.package);
+                if (!exists) {
+                    $(workingEnv.ComponentName).empty();
+                    selectOrAddValue($(workingEnv.ComponentName), newName);
+                } else {
+                    selectPackage(status.package, newName);
+                }
+            } else {
+                selectOrAddValue($(workingEnv.ComponentName), newName);
+                $(workingEnv.ComponentName).find(`option[value="${originalName}"]`).remove();
+                $(workingEnv.ComponentName).formSelect();
             }
-            selectOrAddValue($(workingEnv.ComponentName), newName);
-            $(workingEnv.ComponentName).find(`option[value="${originalName}"]`).remove();
-            $(workingEnv.ComponentName).formSelect();
         }
     )
 }
