@@ -1,7 +1,8 @@
-var workingEnv = {"shouldUpdate": false};
-var maxLine = 73;
+var M;
+let workingEnv = {"shouldUpdate": false};
+const maxLine = 73;
 
-function selectPackage(packageName, afterCall) {
+function selectPackage(packageName) {
     workingEnv.shouldUpdate = false;
     let pageNameBox = $(workingEnv.PageName);
     $(pageNameBox).empty();
@@ -9,21 +10,14 @@ function selectPackage(packageName, afterCall) {
         value: "",
         text: ""
     }));
-    $.get(`/pages/packages/${packageName}/components`, (resultList) => {
+    $.get(`/pages/packages/${packageName}/pages`, (resultList) => {
         resultList.forEach(function (item) {
-            $(componentBox).append($('<option>', {
+            $(pageNameBox).append($('<option>', {
                 value: item,
                 text: item
             }));
 
         });
-        $(workingEnv.show).empty();
-        $(workingEnv.div).empty();
-        hideElemContainer();
-        M.FormSelect.init(componentBox);
-        workingEnv.shouldUpdate = true;
-        if (typeof afterCall !== "undefined") {
-            afterCall();
-        }
+        M.FormSelect.init(pageNameBox);
     });
 }

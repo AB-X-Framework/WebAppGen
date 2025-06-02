@@ -216,7 +216,7 @@ public class PageModel {
     public JSONArray getPageNames(String packageName) {
         List<String> components = new ArrayList<>();
         for (Page page : pageRepository.findAllByPackageName(packageName)) {
-            components.add(page.packageName);
+            components.add(page.pageName);
         }
         Collections.sort(components);
         JSONArray componentsArray = new JSONArray();

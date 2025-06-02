@@ -45,7 +45,7 @@
     "isContainer": false,
     "js": [{
       "env": "",
-      "value": "$(self).change(()=>{\n    let pageName = workingEnv.PageName ;\n});"
+      "value": "$(self).change(()=>{\n    selectPackage($(self).val());\n});"
     }],
     "type": "select"
   },
