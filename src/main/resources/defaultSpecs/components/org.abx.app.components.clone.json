@@ -16,7 +16,7 @@
   {
     "specs": [{
       "env": "",
-      "value": {"title": "Rename"}
+      "value": {"title": "Clone"}
     }],
     "name": "org.abx.app.components.clone.CloneComponentButton",
     "isContainer": false,
