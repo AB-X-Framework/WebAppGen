@@ -3,6 +3,19 @@
     "specs": [{
       "env": "",
       "value": {
+        "title": "",
+        "content": "Please add new env"
+      }
+    }],
+    "name": "org.abx.app.components.clone.CloneComponentName",
+    "isContainer": false,
+    "js": [],
+    "type": "textfield"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
         "size": "div",
         "title": "",
         "content": "Please set the cloned component name"
@@ -34,7 +47,7 @@
       },
       {
         "innerId": "CloneComponentName",
-        "component": "org.abx.app.components.CloneComponentName",
+        "component": "org.abx.app.components.clone.CloneComponentName",
         "size": "l2",
         "env": ""
       },

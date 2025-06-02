@@ -1,37 +1,55 @@
-[{
-  "layout": "horizontal",
-  "components": [
-    {
-      "innerId": "InnerComponentPackage",
-      "component": "org.abx.app.components.leftpanel.ComponentPackage",
-      "size": "l3",
-      "env": ""
-    },
-    {
-      "innerId": "InnerComponentName",
-      "component": "org.abx.app.components.ComponentName",
-      "size": "l7",
-      "env": ""
-    }
-  ],
-  "name": "org.abx.app.components.container.ChildrenComponentClass",
-  "isContainer": true,
-  "js": [
-    {
+[
+  {
+    "specs": [{
       "env": "",
-      "value": "workingEnv.InnerComponentPackage=InnerComponentPackage"
-    },
-    {
+      "value": {
+        "title": "InnerId",
+        "content": "Children Component InnerId"
+      }
+    }],
+    "name": "org.abx.app.components.container.ChildrenInnerId",
+    "isContainer": false,
+    "js": [{
       "env": "",
-      "value": "workingEnv.InnerComponentName=InnerComponentName"
-    },
-    {
-      "env": "",
-      "value": "$(InnerComponentName).change(updateInnerElement)"
-    },
-    {
-      "env": "",
-      "value": "$(InnerComponentPackage).change(updateInnerPackage)"
-    }
-  ]
-}]
+      "value": "$(self).on('input',()=>setChildValue('innerId',$(self).val()))"
+    }],
+    "type": "textfield"
+  },
+  {
+    "layout": "horizontal",
+    "components": [
+      {
+        "innerId": "InnerComponentPackage",
+        "component": "org.abx.app.components.leftpanel.ComponentPackage",
+        "size": "l3",
+        "env": ""
+      },
+      {
+        "innerId": "InnerComponentName",
+        "component": "org.abx.app.components.ComponentName",
+        "size": "l7",
+        "env": ""
+      }
+    ],
+    "name": "org.abx.app.components.container.ChildrenComponentClass",
+    "isContainer": true,
+    "js": [
+      {
+        "env": "",
+        "value": "workingEnv.InnerComponentPackage=InnerComponentPackage"
+      },
+      {
+        "env": "",
+        "value": "workingEnv.InnerComponentName=InnerComponentName"
+      },
+      {
+        "env": "",
+        "value": "$(InnerComponentName).change(updateInnerElement)"
+      },
+      {
+        "env": "",
+        "value": "$(InnerComponentPackage).change(updateInnerPackage)"
+      }
+    ]
+  }
+]

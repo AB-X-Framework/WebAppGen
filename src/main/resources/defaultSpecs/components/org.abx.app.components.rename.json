@@ -20,7 +20,7 @@
       },
       {
         "innerId": "CloneComponentName",
-        "component": "org.abx.app.components.CloneComponentName",
+        "component": "org.abx.app.components.clone.CloneComponentName",
         "size": "l2",
         "env": ""
       },
