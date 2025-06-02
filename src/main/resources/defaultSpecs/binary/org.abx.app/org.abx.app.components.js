@@ -38,6 +38,7 @@ function hideSpecs() {
  * @param afterCall
  */
 function selectPackage(packageName, componentName) {
+    workingEnv.shouldUpdate=false;
     let componentBox = $(workingEnv.ComponentName);
     $(componentBox).empty();
     $(componentBox).append($('<option>', {
@@ -60,6 +61,7 @@ function selectPackage(packageName, componentName) {
         $(workingEnv.div).empty();
         hideElemContainer();
         M.FormSelect.init(componentBox);
+        workingEnv.shouldUpdate=true;
     });
 }
 
