@@ -38,6 +38,10 @@
           {
             "text": "Components",
             "value": "/page/components"
+          },
+          {
+            "text": "Pages",
+            "value": "/page/pages"
           }
         ]
       }
