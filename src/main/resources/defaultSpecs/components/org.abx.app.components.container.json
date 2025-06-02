@@ -1,0 +1,37 @@
+[{
+  "layout": "horizontal",
+  "components": [
+    {
+      "innerId": "InnerComponentPackage",
+      "component": "org.abx.app.components.leftpanel.ComponentPackage",
+      "size": "l3",
+      "env": ""
+    },
+    {
+      "innerId": "InnerComponentName",
+      "component": "org.abx.app.components.ComponentName",
+      "size": "l7",
+      "env": ""
+    }
+  ],
+  "name": "org.abx.app.components.container.ChildrenComponentClass",
+  "isContainer": true,
+  "js": [
+    {
+      "env": "",
+      "value": "workingEnv.InnerComponentPackage=InnerComponentPackage"
+    },
+    {
+      "env": "",
+      "value": "workingEnv.InnerComponentName=InnerComponentName"
+    },
+    {
+      "env": "",
+      "value": "$(InnerComponentName).change(updateInnerElement)"
+    },
+    {
+      "env": "",
+      "value": "$(InnerComponentPackage).change(updateInnerPackage)"
+    }
+  ]
+}]

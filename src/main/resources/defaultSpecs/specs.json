@@ -3,6 +3,7 @@
     "org.abx.app.base",
     "org.abx.app.components",
     "org.abx.app.components.clone",
+    "org.abx.app.components.container",
     "org.abx.app.components.leftpanel",
     "org.abx.app.components.rename",
     "org.abx.app.components.specs",
