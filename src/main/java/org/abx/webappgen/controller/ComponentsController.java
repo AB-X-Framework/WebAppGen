@@ -54,11 +54,21 @@ public class ComponentsController extends RoleController {
         return specsExporter.getComponentDetails(componentName, true).toString(2);
     }
 
-    @GetMapping(value = "/component/{componentName}", produces = MediaType.APPLICATION_JSON_VALUE)
+
+    @GetMapping(value = "/delete/{componentName}", produces = MediaType.APPLICATION_JSON_VALUE)
     @Secured("Admin")
-    public String component(@PathVariable String componentName, HttpSession session) {
-        return pageModel.getComponentByName(componentName, env(session)).toString(2);
+    public String component(@PathVariable String componentName ) {
+        JSONObject status = new JSONObject();
+        try {
+            pageModel.delete(componentName);
+            status.put("success", "true");
+        } catch (Exception e) {
+            status.put("success", "false");
+            status.put("error", e.getMessage());
+        }
+        return status.toString(2);
     }
+
 
     @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
     @Secured("Admin")

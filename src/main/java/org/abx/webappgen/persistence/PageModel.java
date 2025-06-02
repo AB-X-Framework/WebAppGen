@@ -115,6 +115,52 @@ public class PageModel {
     }
 
     @Transactional
+    public void delete(String component){
+        long componentId = elementHashCode(component);
+        org.abx.webappgen.persistence.model.Component toDelete =
+                componentRepository.findByComponentId(componentId);
+        List<Page> x= pageRepository.findAllByComponent(toDelete);
+        if (!x.isEmpty()) {
+            throw new RuntimeException("Component is used in a page");
+        }
+        innerComponentRepository.deleteAll(innerComponentRepository.findAllByChild(toDelete));
+        deleteComponent(toDelete);
+
+    }
+
+    private void deleteComponent(Component toDelete) {
+        Collection<EnvValue> jsValues = new HashSet<>(toDelete.js);
+        toDelete.js.clear();
+        componentRepository.save(toDelete);
+        componentRepository.flush();
+        envValueRepository.deleteAll(jsValues);
+        envValueRepository.flush();
+        if (toDelete.isContainer) {
+            Container container = toDelete.container;
+            Collection<InnerComponent> innerC = new HashSet<>(container.innerComponent);
+            container.innerComponent.clear();
+            containerRepository.save(container);
+            containerRepository.flush();
+            innerComponentRepository.deleteAll(innerC);
+            innerComponentRepository.flush();
+            containerRepository.delete(container);
+            containerRepository.flush();
+        } else {
+            Element elem = toDelete.element;
+            Collection<EnvValue> children = new HashSet<>(elem.specs);
+            elem.specs.clear();
+            elementRepository.save(elem);
+            elementRepository.flush();
+            envValueRepository.deleteAll(children);
+            envValueRepository.flush();
+            elementRepository.delete(elem);
+            elementRepository.flush();
+        }
+        componentRepository.delete(toDelete);
+        componentRepository.flush();
+    }
+
+    @Transactional
     public void rename(String oldName, String newName) {
         long newComponentId = elementHashCode(newName);
         org.abx.webappgen.persistence.model.Component oldCo =
@@ -134,35 +180,7 @@ public class PageModel {
             pageRepository.flush();
         }) ;
 
-        Collection<EnvValue> jsValues = new HashSet<>(oldCo.js);
-        oldCo.js.clear();
-        componentRepository.save(oldCo);
-        componentRepository.flush();
-        envValueRepository.deleteAll(jsValues);
-        envValueRepository.flush();
-        if (oldCo.isContainer) {
-            Container container = oldCo.container;
-            Collection<InnerComponent> innerC = new HashSet<>(container.innerComponent);
-            container.innerComponent.clear();
-            containerRepository.save(container);
-            containerRepository.flush();
-            innerComponentRepository.deleteAll(innerC);
-            innerComponentRepository.flush();
-            containerRepository.delete(container);
-            containerRepository.flush();
-        } else {
-            Element elem = oldCo.element;
-            Collection<EnvValue> children = new HashSet<>(elem.specs);
-            elem.specs.clear();
-            elementRepository.save(elem);
-            elementRepository.flush();
-            envValueRepository.deleteAll(children);
-            envValueRepository.flush();
-            elementRepository.delete(elem);
-            elementRepository.flush();
-        }
-        componentRepository.delete(oldCo);
-        componentRepository.flush();
+        deleteComponent(oldCo);
     }
 
     @Transactional

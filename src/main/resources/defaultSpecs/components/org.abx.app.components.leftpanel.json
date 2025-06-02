@@ -31,6 +31,18 @@
         "component": "org.abx.app.components.rename.ProcessRenameComponent",
         "size": "l12",
         "env": ""
+      },
+      {
+        "innerId": "elem5",
+        "component": "org.abx.app.components.leftpanel.DeleteComponentButton",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "DeleteComponentConfirm",
+        "component": "org.abx.app.components.leftpanel.DeleteComponentConfirm",
+        "size": "l12",
+        "env": ""
       }
     ],
     "name": "org.abx.app.components.leftpanel.MenuContainer",
@@ -70,6 +82,24 @@
     "specs": [{
       "env": "",
       "value": {
+        "cancel": "Cancel",
+        "ok": "Delete",
+        "title": "Confirm Delete",
+        "content": "Do you want to delete element?"
+      }
+    }],
+    "name": "org.abx.app.components.leftpanel.DeleteComponentConfirm",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "$(self).click(()=>{\n   $.get(`/components/delete/${workingEnv.component.name}`,\n   \n   ) \n});"
+    }],
+    "type": "okCancelModal"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
         "src": "/components/packages",
         "title": "Component Package"
       }
@@ -78,5 +108,18 @@
     "isContainer": false,
     "js": [],
     "type": "select"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "Delete Component"}
+    }],
+    "name": "org.abx.app.components.leftpanel.DeleteComponentButton",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "$(self).click(()=>{\n   M.Modal.init(DeleteComponentConfirm).open();\n});"
+    }],
+    "type": "button"
   }
 ]
