@@ -1028,6 +1028,10 @@
           {
             "text": "Divider",
             "value": "divider"
+          },
+          {
+            "text": "JS Editor",
+            "value": "jsEditor"
           }
         ],
         "title": "Element Type"
