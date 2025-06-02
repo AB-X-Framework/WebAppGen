@@ -1,20 +1,5 @@
 [
   {
-    "layout": "horizontal",
-    "components": [{
-      "innerId": "SpecsJS",
-      "component": "org.abx.app.components.specs.SpecsJS",
-      "size": "l11",
-      "env": ""
-    }],
-    "name": "org.abx.app.components.SpecsJSContainer",
-    "isContainer": true,
-    "js": [{
-      "env": "",
-      "value": "workingEnv.SpecsJS=SpecsJS;"
-    }]
-  },
-  {
     "specs": [{
       "env": "",
       "value": {
@@ -724,7 +709,7 @@
       },
       {
         "innerId": "SpecsJSContainer",
-        "component": "org.abx.app.components.SpecsJSContainer",
+        "component": "org.abx.app.components.specs.SpecsJSContainer",
         "size": "l11",
         "env": ""
       },
