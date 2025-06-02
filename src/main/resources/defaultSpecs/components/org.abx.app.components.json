@@ -542,7 +542,7 @@
       },
       {
         "innerId": "ChildrenEditingDetailType",
-        "component": "org.abx.app.components.ChildrenEditingDetailType",
+        "component": "org.abx.app.components.container.ChildrenEditingDetailType",
         "size": "l4",
         "env": ""
       },
@@ -605,49 +605,6 @@
       {
         "env": "",
         "value": "workingEnv.SpecsOkCancelContainer=SpecsOkCancelContainer;"
-      }
-    ]
-  },
-  {
-    "layout": "horizontal",
-    "components": [
-      {
-        "innerId": "ChildrenInnerId",
-        "component": "org.abx.app.components.container.ChildrenInnerId",
-        "size": "l4",
-        "env": ""
-      },
-      {
-        "innerId": "ChildrenSize",
-        "component": "org.abx.app.components.ChildrenSize",
-        "size": "l3",
-        "env": ""
-      },
-      {
-        "innerId": "InnerComponentEnv",
-        "component": "org.abx.app.components.Env",
-        "size": "l2",
-        "env": ""
-      }
-    ],
-    "name": "org.abx.app.components.ChildrenEditingDetailType",
-    "isContainer": true,
-    "js": [
-      {
-        "env": "",
-        "value": "workingEnv.ChildrenInnerId=ChildrenInnerId"
-      },
-      {
-        "env": "",
-        "value": "workingEnv.ChildrenSize=ChildrenSize"
-      },
-      {
-        "env": "",
-        "value": "workingEnv.InnerComponentEnv=InnerComponentEnv"
-      },
-      {
-        "env": "",
-        "value": "$(InnerComponentEnv).on('input',()=>setChildValue('env',$(InnerComponentEnv).val()))"
       }
     ]
   },
