@@ -29,6 +29,16 @@
   {
     "specs": [{
       "env": "",
+      "value": {"title": "Clone Component"}
+    }],
+    "name": "org.abx.app.components.clone.ProcessCloneComponent",
+    "isContainer": false,
+    "js": [],
+    "type": "button"
+  },
+  {
+    "specs": [{
+      "env": "",
       "value": {"title": "Clone"}
     }],
     "name": "org.abx.app.components.clone.CloneComponentButton",

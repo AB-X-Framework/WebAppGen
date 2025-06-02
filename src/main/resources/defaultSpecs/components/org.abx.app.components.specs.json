@@ -166,7 +166,7 @@
       },
       {
         "innerId": "SpecsSelectRemove",
-        "component": "org.abx.app.components.RemoveEnv",
+        "component": "org.abx.app.components.env.RemoveEnv",
         "size": "",
         "env": ""
       },

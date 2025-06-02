@@ -66,16 +66,6 @@
     "type": "okCancelModal"
   },
   {
-    "specs": [{
-      "env": "",
-      "value": {"title": "Remove"}
-    }],
-    "name": "org.abx.app.components.RemoveEnv",
-    "isContainer": false,
-    "js": [],
-    "type": "button"
-  },
-  {
     "layout": "top",
     "components": [
       {
@@ -188,7 +178,7 @@
       },
       {
         "innerId": "ComponentEnv",
-        "component": "org.abx.app.components.ComponentEnv",
+        "component": "org.abx.app.components.env.ComponentEnv",
         "size": "l5",
         "env": ""
       },
@@ -200,7 +190,7 @@
       },
       {
         "innerId": "RemoveEnv",
-        "component": "org.abx.app.components.RemoveEnv",
+        "component": "org.abx.app.components.env.RemoveEnv",
         "size": "",
         "env": ""
       },
@@ -358,16 +348,6 @@
     "isContainer": false,
     "js": [],
     "type": "select"
-  },
-  {
-    "specs": [{
-      "env": "",
-      "value": {"title": "Clone Component"}
-    }],
-    "name": "org.abx.app.components.ProcessCloneComponent",
-    "isContainer": false,
-    "js": [],
-    "type": "button"
   },
   {
     "layout": "vertical",
@@ -545,19 +525,6 @@
         "value": "workingEnv.SpecsShowModal=SpecsShowModal;"
       }
     ]
-  },
-  {
-    "specs": [{
-      "env": "",
-      "value": {
-        "values": [],
-        "title": "Environment"
-      }
-    }],
-    "name": "org.abx.app.components.ComponentEnv",
-    "isContainer": false,
-    "js": [],
-    "type": "select"
   },
   {
     "specs": [{

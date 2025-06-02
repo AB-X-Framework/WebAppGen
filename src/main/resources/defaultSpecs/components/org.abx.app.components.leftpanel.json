@@ -4,7 +4,7 @@
     "components": [
       {
         "innerId": "ProcessCloneComponent",
-        "component": "org.abx.app.components.ProcessCloneComponent",
+        "component": "org.abx.app.components.clone.ProcessCloneComponent",
         "size": "l2",
         "env": ""
       },
