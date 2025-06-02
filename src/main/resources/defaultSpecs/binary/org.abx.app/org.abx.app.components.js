@@ -693,6 +693,10 @@ function setComponentTypeVisibility() {
     }
 }
 
+function removeCurrentEnv(){
+
+}
+
 /**
  * Check if the value exists otherwise add it and select it
  * Return true if it exist

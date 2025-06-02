@@ -249,6 +249,10 @@
       {
         "env": "",
         "value": "$(ContainerLayout).change(updateContainerLayout);"
+      },
+      {
+        "env": "",
+        "value": "$(RemoveEnv).click(()=>{ M.Modal.init(ConfirmRemoveModal).open();});"
       }
     ]
   },
