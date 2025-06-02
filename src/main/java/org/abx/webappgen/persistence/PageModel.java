@@ -2,7 +2,6 @@ package org.abx.webappgen.persistence;
 
 import org.abx.webappgen.persistence.dao.*;
 import org.abx.webappgen.persistence.model.*;
-import org.abx.webappgen.utils.ElementUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -167,7 +166,16 @@ public class PageModel {
     }
 
     @Transactional
-    public JSONArray getPackages() {
+    public JSONArray getPagePackages() {
+        JSONArray packages = new JSONArray();
+        List<String> packageList = pageRepository.findDistinctPackageNames();
+        Collections.sort(packageList);
+        packages.putAll(packageList);
+        return packages;
+    }
+
+    @Transactional
+    public JSONArray getComponentPackages() {
         JSONArray packages = new JSONArray();
         List<String> packageList = componentRepository.findDistinctPackageNames();
         Collections.sort(packageList);

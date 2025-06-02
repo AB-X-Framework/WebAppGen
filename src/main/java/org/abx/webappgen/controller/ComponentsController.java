@@ -19,8 +19,8 @@ import java.util.Set;
 import static org.abx.webappgen.utils.ElementUtils.elementHashCode;
 
 @RestController
-@RequestMapping("/page")
-public class PageController extends RoleController {
+@RequestMapping("/components")
+public class ComponentsController extends RoleController {
     public final static String LANG = "lang";
 
     private ST pageTemplate;
@@ -34,7 +34,7 @@ public class PageController extends RoleController {
     @Autowired
     public PageModel pageModel;
 
-    public PageController() {
+    public ComponentsController() {
         try {
             String data = StreamUtils.readResource("org/abx/webappgen/page.html");
             pageTemplate = new ST(data, '{', '}');
