@@ -47,6 +47,22 @@
     "specs": [{
       "env": "",
       "value": {
+        "title": "Ok text",
+        "content": "Ok text"
+      }
+    }],
+    "name": "org.abx.app.components.specs.SpecsOk",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "$(self).on('input',()=>setSpecValue('ok',$(self).val()))"
+    }],
+    "type": "textfield"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
         "title": "Cancel text",
         "content": "Cancel text"
       }

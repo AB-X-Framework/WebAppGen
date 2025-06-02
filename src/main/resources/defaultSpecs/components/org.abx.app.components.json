@@ -565,22 +565,6 @@
     "type": "button"
   },
   {
-    "specs": [{
-      "env": "",
-      "value": {
-        "title": "Ok text",
-        "content": "Ok text"
-      }
-    }],
-    "name": "org.abx.app.components.SpecsOk",
-    "isContainer": false,
-    "js": [{
-      "env": "",
-      "value": "$(self).on('input',()=>setSpecValue('ok',$(self).val()))"
-    }],
-    "type": "textfield"
-  },
-  {
     "layout": "horizontal",
     "components": [
       {
@@ -897,7 +881,7 @@
     "components": [
       {
         "innerId": "SpecsOk",
-        "component": "org.abx.app.components.SpecsOk",
+        "component": "org.abx.app.components.specs.SpecsOk",
         "size": "l4",
         "env": ""
       },
