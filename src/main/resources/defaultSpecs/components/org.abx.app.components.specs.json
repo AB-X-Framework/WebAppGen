@@ -13,6 +13,19 @@
     "type": "button"
   },
   {
+    "specs": [{
+      "env": "",
+      "value": {
+        "title": "Value",
+        "content": "value"
+      }
+    }],
+    "name": "org.abx.app.components.specs.SelectValue",
+    "isContainer": false,
+    "js": [],
+    "type": "textfield"
+  },
+  {
     "layout": "horizontal",
     "components": [{
       "innerId": "SpecsJS",
@@ -26,6 +39,19 @@
       "env": "",
       "value": "workingEnv.SpecsJS=SpecsJS;"
     }]
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "title": "Text",
+        "content": "text"
+      }
+    }],
+    "name": "org.abx.app.components.specs.SelectText",
+    "isContainer": false,
+    "js": [],
+    "type": "textfield"
   },
   {
     "specs": [{
