@@ -57,6 +57,7 @@ public class PageModel {
     @Autowired
     public BinaryResourceRepository binaryResourceRepository;
 
+
     @Autowired
     public ArrayResourceRepository arrayResourceRepository;
 
@@ -156,6 +157,11 @@ public class PageModel {
             elementRepository.delete(elem);
             elementRepository.flush();
         }
+        pageRepository.findAllByComponent(oldCo).forEach(p -> {
+            p.component = newCo;
+            pageRepository.save(p);
+            pageRepository.flush();
+        }) ;
         componentRepository.delete(oldCo);
         componentRepository.flush();
     }
