@@ -16,6 +16,22 @@
     "type": "textfield"
   },
   {
+    "specs": [{
+      "env": "",
+      "value": {
+        "title": "Size",
+        "content": "Children Component Size"
+      }
+    }],
+    "name": "org.abx.app.components.container.ChildrenSize",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "$(self).on('input',()=>setChildValue('size',$(self).val()))"
+    }],
+    "type": "textfield"
+  },
+  {
     "layout": "horizontal",
     "components": [
       {
@@ -63,7 +79,7 @@
       },
       {
         "innerId": "ChildrenSize",
-        "component": "org.abx.app.components.ChildrenSize",
+        "component": "org.abx.app.components.container.ChildrenSize",
         "size": "l3",
         "env": ""
       },
