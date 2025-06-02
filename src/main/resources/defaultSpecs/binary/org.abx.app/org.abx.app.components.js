@@ -804,7 +804,7 @@ function cloneComponent(newName) {
 }
 
 function addSelectValueText(value, text){
-    let values = workingEnv.component.specs[$(workingEnv.ComponentEnv).val()].values;
+    let values = workingEnv.component.specs[$(workingEnv.ComponentEnv).val()].value.values;
     values.push({value: value, text: text});
     selectOrAddValue($(workingEnv.SpecsSelect ), value,text);
     renderCurrentComponent();
