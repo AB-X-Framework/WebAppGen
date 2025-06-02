@@ -77,7 +77,10 @@
     ],
     "name": "org.abx.app.components.specs.SelectTextValue",
     "isContainer": true,
-    "js": []
+    "js": [{
+      "env": "",
+      "value": "$(SelectOkButton).click(()=>{\n   M.Modal.init(self).close()\n   addSelectValueText($(SelectValue).val(),$(SelectText).val());\n   \n});"
+    }]
   },
   {
     "specs": [{
