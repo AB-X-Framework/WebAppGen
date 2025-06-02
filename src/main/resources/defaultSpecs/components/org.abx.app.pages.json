@@ -1,0 +1,20 @@
+[{
+  "layout": "vertical",
+  "components": [
+    {
+      "innerId": "header",
+      "component": "org.abx.app.home.header",
+      "size": "l12",
+      "env": ""
+    },
+    {
+      "innerId": "modelContainer",
+      "component": "org.abx.app.home.container",
+      "size": "",
+      "env": ""
+    }
+  ],
+  "name": "org.abx.app.pages.MainPageComponent",
+  "isContainer": true,
+  "js": []
+}]

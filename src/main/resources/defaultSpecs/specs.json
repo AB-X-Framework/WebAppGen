@@ -9,7 +9,8 @@
     "org.abx.app.components.rename",
     "org.abx.app.components.specs",
     "org.abx.app.home",
-    "org.abx.app.login"
+    "org.abx.app.login",
+    "org.abx.app.pages"
   ],
   "pages": ["org.abx.app"],
   "methods": ["org.abx.app"],
