@@ -659,7 +659,6 @@ function processCurrentComponent(showJS, chooseChildren) {
 }
 
 function processComponent(componentName) {
-    console.log(`processComponent(${componentName})`);
     $.get(`/page/components/${componentName}`, (componentSpecs) => {
         workingEnv.originalComponent = componentSpecs.name;
         workingEnv.component = componentSpecs;

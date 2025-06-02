@@ -1,5 +1,18 @@
 [
   {
+    "specs": [{
+      "env": "",
+      "value": {"title": "Show Modal"}
+    }],
+    "name": "org.abx.app.components.specs.SpecsShowModal",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "$(self).click(showPreviewModal)"
+    }],
+    "type": "button"
+  },
+  {
     "layout": "horizontal",
     "components": [{
       "innerId": "SpecsJS",
