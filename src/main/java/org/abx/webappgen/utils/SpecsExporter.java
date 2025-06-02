@@ -201,14 +201,7 @@ public class SpecsExporter {
         JSONArray jsonPages = new JSONArray();
         HashMap<String, JSONArray> pages = new HashMap<>();
         for (Page page : pageRepository.findAll()) {
-            JSONObject jsonPage = new JSONObject();
-            jsonPage.put("name", page.pageName);
-            jsonPage.put("matches", page.matches);
-            jsonPage.put("title", page.pageTitle);
-            jsonPage.put("role", page.role);
-            jsonPage.put("component", page.component.componentName);
-            jsonPage.put("css", envValue(page.css));
-            jsonPage.put("scripts", envValue(page.scripts));
+            JSONObject jsonPage = getPageDetails(page,false);
             if (!pages.containsKey(page.packageName)) {
                 jsonPages.put(page.packageName);
                 pages.put(page.packageName, new JSONArray());
@@ -221,6 +214,27 @@ public class SpecsExporter {
         }
         return jsonPages;
 
+    }
+
+    @Transactional
+    public JSONObject getPageDetails(String page){
+        return getPageDetails(pageRepository.findByPageId(elementHashCode(page)),true);
+    }
+
+    private JSONObject getPageDetails(Page page,boolean packageName) {
+        JSONObject jsonPage = new JSONObject();
+        jsonPage.put("name", page.pageName);
+        jsonPage.put("matches", page.matches);
+        jsonPage.put("title", page.pageTitle);
+        jsonPage.put("role", page.role);
+        jsonPage.put("component", page.component.componentName);
+        jsonPage.put("css", envValue(page.css));
+        jsonPage.put("scripts", envValue(page.scripts));
+        if (packageName){
+            jsonPage.put("componentPackage", page.component.packageName);
+            jsonPage.put("package", page.packageName);
+        }
+        return jsonPage;
     }
 
     public JSONArray getMethods(String specsFolder) throws IOException {

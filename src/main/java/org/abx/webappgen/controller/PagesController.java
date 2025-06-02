@@ -47,4 +47,10 @@ public class PagesController extends RoleController {
     public String byPackage(@PathVariable String packageName) {
         return pageModel.getPageNames(packageName).toString(2);
     }
+
+    @GetMapping(value = "/details/{pageName}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Secured("Admin")
+    public String getPageDetails(@PathVariable String pageName) {
+        return specsExporter.getPageDetails(pageName).toString(2);
+    }
 }
