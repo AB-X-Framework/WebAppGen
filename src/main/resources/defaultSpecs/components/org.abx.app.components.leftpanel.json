@@ -70,8 +70,8 @@
     "specs": [{
       "env": "",
       "value": {
-        "title": "Component Package",
-        "src": "/components/packages"
+        "src": "/components/packages",
+        "title": "Component Package"
       }
     }],
     "name": "org.abx.app.components.leftpanel.ComponentPackage",

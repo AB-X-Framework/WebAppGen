@@ -43,6 +43,7 @@
     "specs": [{
       "env": "",
       "value": {
+        "src": "/pages/packages",
         "values": [],
         "title": "Pages Package",
         "content": ""
