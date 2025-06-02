@@ -191,10 +191,6 @@
       {
         "env": "",
         "value": "workingEnv.SpecsSelectAdd=SpecsSelectAdd;\n\n$(SpecsSelectAdd).click(()=>{\n    M.Modal.init(SelectTextValue).open();\n});"
-      },
-      {
-        "env": "",
-        "value": "workingEnv.SpecsSelectEdit=SpecsSelectEdit"
       }
     ]
   },
@@ -311,19 +307,15 @@
     "js": [
       {
         "env": "",
-        "value": "workingEnv.SpecsSelect=SpecsSelect"
+        "value": "workingEnv.SpecsSelect=SpecsSelect;"
       },
       {
         "env": "",
-        "value": "workingEnv.SpecsSelectRemove=SpecsSelectRemove"
+        "value": "workingEnv.SpecsSelectRemove=SpecsSelectRemove;"
       },
       {
         "env": "",
         "value": "workingEnv.SpecsSelectAdd=SpecsSelectAdd;\n\n$(SpecsSelectAdd).click(()=>{\n    M.Modal.init(SelectTextValue).open();\n});"
-      },
-      {
-        "env": "",
-        "value": "workingEnv.SpecsSelectEdit=SpecsSelectEdit"
       }
     ]
   }

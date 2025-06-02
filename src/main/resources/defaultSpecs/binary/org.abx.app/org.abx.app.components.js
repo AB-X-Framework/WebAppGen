@@ -24,7 +24,6 @@ function hideSpecs() {
     $(workingEnv.ChildrenEditingDetailType).parent().hide();
     $(workingEnv.SpecsSelect).closest('.input-field').parent().parent().parent().hide();
     $(workingEnv.SpecsSelectRemove).parent().hide();
-    $(workingEnv.SpecsSelectEdit).parent().hide();
     $(workingEnv.SpecsSelectAdd).parent().hide();
     $(workingEnv.SpecsJS).parent().parent().parent().hide();
     $(workingEnv.ComponentEnv).off("change")
@@ -467,7 +466,6 @@ function processSpecs() {
             $(workingEnv.SpecsSource).closest('.input-field').parent().show();
             $(workingEnv.SpecsSelectRemove).parent().show();
             $(workingEnv.SpecsSelectAdd).parent().show();
-            $(workingEnv.SpecsSelectEdit).parent().show();
             processSelect();
             break
         case "button":
@@ -478,7 +476,6 @@ function processSpecs() {
             $(workingEnv.SpecsSelect).closest('.input-field').parent().parent().parent().show();
             $(workingEnv.SpecsSelectRemove).parent().show();
             $(workingEnv.SpecsSelectAdd).parent().show();
-            $(workingEnv.SpecsSelectEdit).parent().show();
             processSelect();
             break
         case "modal":
