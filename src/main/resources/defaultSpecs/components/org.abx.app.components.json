@@ -174,7 +174,7 @@
     "components": [
       {
         "innerId": "InnerComponentPackage",
-        "component": "org.abx.app.components.ComponentPackage",
+        "component": "org.abx.app.components.leftpanel.ComponentPackage",
         "size": "l3",
         "env": ""
       },
@@ -295,19 +295,6 @@
       "env": "",
       "value": "$(self).change(updateComponentType)"
     }],
-    "type": "select"
-  },
-  {
-    "specs": [{
-      "env": "",
-      "value": {
-        "title": "Component Package",
-        "list": "/page/packages"
-      }
-    }],
-    "name": "org.abx.app.components.ComponentPackage",
-    "isContainer": false,
-    "js": [],
     "type": "select"
   },
   {
