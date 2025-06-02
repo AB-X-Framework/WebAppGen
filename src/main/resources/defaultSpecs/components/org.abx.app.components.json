@@ -668,22 +668,6 @@
     "type": "button"
   },
   {
-    "specs": [{
-      "env": "",
-      "value": {
-        "title": "Content",
-        "content": "Content"
-      }
-    }],
-    "name": "org.abx.app.components.SpecsContent",
-    "isContainer": false,
-    "js": [{
-      "env": "",
-      "value": "$(self).on('input',()=>setSpecValue('content',$(self).val()))"
-    }],
-    "type": "textfield"
-  },
-  {
     "layout": "vertical",
     "components": [
       {
@@ -735,7 +719,7 @@
       },
       {
         "innerId": "SpecsContent",
-        "component": "org.abx.app.components.SpecsContent",
+        "component": "org.abx.app.components.specs.SpecsContent",
         "size": "l2",
         "env": ""
       },

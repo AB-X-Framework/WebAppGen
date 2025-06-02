@@ -1,16 +1,34 @@
-[{
-  "specs": [{
-    "env": "",
-    "value": {
-      "title": "Cancel text",
-      "content": "Cancel text"
-    }
-  }],
-  "name": "org.abx.app.components.specs.SpecsCancel",
-  "isContainer": false,
-  "js": [{
-    "env": "",
-    "value": "$(self).on('input',()=>setSpecValue('cancel',$(self).val()))"
-  }],
-  "type": "textfield"
-}]
+[
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "title": "Content",
+        "content": "Content"
+      }
+    }],
+    "name": "org.abx.app.components.specs.SpecsContent",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "$(self).on('input',()=>setSpecValue('content',$(self).val()))"
+    }],
+    "type": "textfield"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "title": "Cancel text",
+        "content": "Cancel text"
+      }
+    }],
+    "name": "org.abx.app.components.specs.SpecsCancel",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "$(self).on('input',()=>setSpecValue('cancel',$(self).val()))"
+    }],
+    "type": "textfield"
+  }
+]
