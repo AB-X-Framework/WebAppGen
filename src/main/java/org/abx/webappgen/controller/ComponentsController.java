@@ -23,7 +23,6 @@ import static org.abx.webappgen.utils.ElementUtils.elementHashCode;
 public class ComponentsController extends RoleController {
     public final static String LANG = "lang";
 
-    private ST pageTemplate;
 
     @Autowired
     private SpecsExporter specsExporter;
@@ -34,25 +33,6 @@ public class ComponentsController extends RoleController {
     @Autowired
     public PageModel pageModel;
 
-    public ComponentsController() {
-        try {
-            String data = StreamUtils.readResource("org/abx/webappgen/page.html");
-            pageTemplate = new ST(data, '{', '}');
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @GetMapping(value = "/{pagename}", produces = MediaType.TEXT_HTML_VALUE)
-    @PreAuthorize("permitAll()")
-    public String page(@PathVariable String pagename) {
-        if (!pageModel.validPage(getRoles(), elementHashCode(pagename))) {
-            pagename = pageModel.getHome();
-        }
-        ST st1 = new ST(pageTemplate);
-        String output = st1.add("pagename", pagename).render();
-        return output;
-    }
 
 
     @GetMapping(value = "/packages", produces = MediaType.APPLICATION_JSON_VALUE)

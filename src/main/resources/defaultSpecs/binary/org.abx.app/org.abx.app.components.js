@@ -70,6 +70,7 @@ function defaultSpecs(elementType) {
     let newDefSpecs = {};
     switch (elementType) {
         case "select":
+            newDefSpecs.src = "";
             newDefSpecs.title = "";
             newDefSpecs.content = "";
             newDefSpecs.values = [];
@@ -347,16 +348,18 @@ function processSelect() {
     var component = workingEnv.component;
     let index = $(workingEnv.ComponentEnv).val();
     var specs = component.specs[index].value;
-    specs.values.forEach(function (item, va) {
-        var textLine = "value: " + item.value + ", text: " + item.text;
-        if (textLine.length > maxLine) {
-            textLine = textLine.substring(0, maxLine - 3) + "...";
-        }
-        $(workingEnv.SpecsSelect).append($('<option>', {
-            value: item,
-            text: textLine
-        }));
-    });
+    if (typeof specs.values != "undefined") {
+        specs.values.forEach(function (item, va) {
+            var textLine = "value: " + item.value + ", text: " + item.text;
+            if (textLine.length > maxLine) {
+                textLine = textLine.substring(0, maxLine - 3) + "...";
+            }
+            $(workingEnv.SpecsSelect).append($('<option>', {
+                value: item,
+                text: textLine
+            }));
+        });
+    }
     M.FormSelect.init(workingEnv.SpecsSelect);
 }
 
@@ -471,6 +474,7 @@ function processSpecs() {
             $(workingEnv.SpecsTitle).closest('.input-field').parent().show();
             break
         case "select":
+            $(workingEnv.SpecsSource).closest('.input-field').parent().show();
             $(workingEnv.SpecsTitle).closest('.input-field').parent().show();
             $(workingEnv.SpecsSelect).closest('.input-field').parent().parent().parent().show();
             $(workingEnv.SpecsSelectRemove).parent().show();
@@ -528,6 +532,9 @@ function processElement() {
             $(workingEnv.SpecsTitle).val(specs.title);
             break;
         case "select":
+            if (typeof specs.src != "undefined") {
+                $(workingEnv.SpecsSource).val(specs.src);
+            }
             $(workingEnv.SpecsTitle).val(specs.title);
             break;
         case "modal":

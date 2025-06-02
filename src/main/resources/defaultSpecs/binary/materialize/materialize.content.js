@@ -280,7 +280,7 @@ class PageContent {
     }
 
     static renderSelect(output, js, specs) {
-        if (typeof specs.list !== "undefined") {
+        if (typeof specs.src !== "undefined" && specs.src.trim() !== "") {
             var results =
                 `<div   class="input-field">
             <select id="${specs.id}">
@@ -288,7 +288,7 @@ class PageContent {
             </select>
              <label>${specs.title}</label>
             </div>`;
-            js.push(`$.get("${specs.list}",(resultList)=>{resultList.forEach(function(item) {
+            js.push(`$.get("${specs.src}",(resultList)=>{resultList.forEach(function(item) {
                 $(${specs.id}).append($('<option>', {
                     value: item,
                     text: item

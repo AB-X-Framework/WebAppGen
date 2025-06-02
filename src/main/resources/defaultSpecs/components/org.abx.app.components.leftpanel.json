@@ -71,7 +71,7 @@
       "env": "",
       "value": {
         "title": "Component Package",
-        "list": "/page/packages"
+        "src": "/components/packages"
       }
     }],
     "name": "org.abx.app.components.leftpanel.ComponentPackage",
