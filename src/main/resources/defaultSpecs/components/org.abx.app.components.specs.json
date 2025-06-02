@@ -18,6 +18,19 @@
   {
     "specs": [{
       "env": "",
+      "value": {"height": "200px"}
+    }],
+    "name": "org.abx.app.components.specs.SpecsJS",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "  var editor = ace.edit(self); editor.getSession().on('change', (delta)=>{updateText(delta,editor.getValue())});"
+    }],
+    "type": "jsEditor"
+  },
+  {
+    "specs": [{
+      "env": "",
       "value": {
         "title": "Cancel text",
         "content": "Cancel text"
