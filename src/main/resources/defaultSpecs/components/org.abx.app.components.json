@@ -529,19 +529,6 @@
     "specs": [{
       "env": "",
       "value": {
-        "values": [],
-        "title": "Values"
-      }
-    }],
-    "name": "org.abx.app.components.SpecsSelect",
-    "isContainer": false,
-    "js": [],
-    "type": "select"
-  },
-  {
-    "specs": [{
-      "env": "",
-      "value": {
         "title": "Source",
         "content": "Source"
       }
@@ -569,7 +556,7 @@
     "components": [
       {
         "innerId": "SpecsSelect",
-        "component": "org.abx.app.components.SpecsSelect",
+        "component": "org.abx.app.components.specs.SpecsSelect",
         "size": "l4",
         "env": ""
       },

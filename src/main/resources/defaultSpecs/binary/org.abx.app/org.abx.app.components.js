@@ -37,7 +37,7 @@ function hideSpecs() {
  * @param packageName
  * @param afterCall
  */
-function selectPackage(packageName, componentName) {
+function selectPackage(packageName) {
     workingEnv.shouldUpdate = false;
     let componentBox = $(workingEnv.ComponentName);
     $(componentBox).empty();
@@ -48,14 +48,10 @@ function selectPackage(packageName, componentName) {
     $(workingEnv.ComponentEnv).empty();
     M.FormSelect.init(workingEnv.ComponentEnv);
     $.get(`/page/packages/${packageName}/components`, (resultList) => {
-        if (typeof componentName === "undefined") {
-            componentName = "";
-        }
         resultList.forEach(function (item) {
             $(componentBox).append($('<option>', {
                 value: item,
-                text: item,
-                selected: item === componentName
+                text: item
             }));
         });
         $(workingEnv.show).empty();
@@ -755,7 +751,9 @@ function renameComponent(newName) {
                     $(workingEnv.ComponentName).empty();
                     selectOrAddValue($(workingEnv.ComponentName), newName);
                 } else {
-                    selectPackage(status.package, newName);
+                    selectPackage(status.package);
+                    selectOrAddValue($(workingEnv.ComponentName), newName);
+                    processComponent(newName);
                 }
             } else {
                 selectOrAddValue($(workingEnv.ComponentName), newName);

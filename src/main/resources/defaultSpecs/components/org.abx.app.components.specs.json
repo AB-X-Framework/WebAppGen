@@ -74,5 +74,18 @@
       "value": "$(self).on('input',()=>setSpecValue('cancel',$(self).val()))"
     }],
     "type": "textfield"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "values": [],
+        "title": "Values"
+      }
+    }],
+    "name": "org.abx.app.components.specs.SpecsSelect",
+    "isContainer": false,
+    "js": [],
+    "type": "select"
   }
 ]
