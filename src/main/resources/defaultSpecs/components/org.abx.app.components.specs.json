@@ -54,6 +54,32 @@
     "type": "textfield"
   },
   {
+    "layout": "popup",
+    "components": [
+      {
+        "innerId": "SelectValue",
+        "component": "org.abx.app.components.specs.SelectValue",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "SelectText",
+        "component": "org.abx.app.components.specs.SelectText",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "SelectOkButton",
+        "component": "org.abx.app.components.specs.SelectOkButton",
+        "size": "l12",
+        "env": ""
+      }
+    ],
+    "name": "org.abx.app.components.specs.SelectTextValue",
+    "isContainer": true,
+    "js": []
+  },
+  {
     "specs": [{
       "env": "",
       "value": {
@@ -113,6 +139,19 @@
       "value": "$(self).on('input',()=>setSpecValue('ok',$(self).val()))"
     }],
     "type": "textfield"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "title": "Ok",
+        "content": ""
+      }
+    }],
+    "name": "org.abx.app.components.specs.SelectOkButton",
+    "isContainer": false,
+    "js": [],
+    "type": "button"
   },
   {
     "specs": [{

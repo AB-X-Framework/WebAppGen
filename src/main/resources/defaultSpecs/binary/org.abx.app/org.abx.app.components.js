@@ -151,7 +151,7 @@ function updateElementType() {
     let value = $(workingEnv.ElementType).val();
     let component = workingEnv.component;
     component.type = value;
-    component.specs = [defaultSpecs(component.type)];
+    component.specs = [{"env":"","value":defaultSpecs(component.type)}];
     processSpecs();
     renderCurrentComponent();
 }
