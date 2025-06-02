@@ -734,10 +734,11 @@ function selectOrAddValue(PackageContainer, valueToSelect) {
 
 
 /**
- *
+ * Renames a component
  * @param newName
  */
 function renameComponent(newName) {
+    let originalName = workingEnv.component.name;
     $.post("/page/rename", {
             "componentSpecs": JSON.stringify(workingEnv.component),
             "newName": newName
@@ -747,10 +748,16 @@ function renameComponent(newName) {
                 $(workingEnv.ComponentName).empty();
             }
             selectOrAddValue($(workingEnv.ComponentName), newName);
+            $(workingEnv.ComponentName).find(`option[value="${originalName}"]`).remove();
+            $(workingEnv.ComponentName).formSelect();
         }
     )
 }
 
+/**
+ * Clones a component
+ * @param newName
+ */
 function cloneComponent(newName) {
     $.post("/page/clone", {
             "componentSpecs": JSON.stringify(workingEnv.component),
