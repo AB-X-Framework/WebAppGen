@@ -183,8 +183,8 @@
         "env": ""
       },
       {
-        "innerId": "EditEnv",
-        "component": "org.abx.app.components.env.EditEnv",
+        "innerId": "ConfirmRemoveModal",
+        "component": "org.abx.app.components.env.ConfirmRemoveModal",
         "size": "",
         "env": ""
       },
