@@ -303,9 +303,14 @@ class PageContent {
       });`);
             }
         } else {
-            const optionsHtml = specs.values.map(item =>
-                `<option value="${item.value}">${item.text}</option>`
-            ).join('');
+            let optionsHtml;
+            if (typeof  specs.values !== "undefined" ) {
+                optionsHtml = specs.values.map(item =>
+                    `<option value="${item.value}">${item.text}</option>`
+                ).join('');
+            }else {
+                optionsHtml = "";
+            }
             var results =
                 `<div   class="input-field">
             <select id="${specs.id}">

@@ -36,21 +36,24 @@
     "layout": "horizontal",
     "components": [
       {
-        "innerId": "elem0",
+        "innerId": "ComponentPackage",
         "component": "org.abx.app.pages.ComponentPackage",
-        "size": "l12",
+        "size": "l3",
         "env": ""
       },
       {
-        "innerId": "elem1",
+        "innerId": "ComponentName",
         "component": "org.abx.app.pages.ComponentClass",
-        "size": "l12",
+        "size": "l8",
         "env": ""
       }
     ],
     "name": "org.abx.app.pages.ComponentSelector",
     "isContainer": true,
-    "js": []
+    "js": [{
+      "env": "",
+      "value": "$(ComponentPackage).change(()=>{\n    let $ComponentName = $(ComponentName);\n    $ComponentName.empty();\n    $.get(`/components/packages/${$(ComponentPackage).val()}/components`, (resultList) => {\n        resultList.forEach(function (item) {\n            $ComponentName.append($('<option>', {\n                value: item,\n                text: item\n            }));\n\n        });\n        M.FormSelect.init(ComponentName);\n    });\n});"
+    }]
   },
   {
     "layout": "vertical",
@@ -63,7 +66,7 @@
       },
       {
         "innerId": "elem1",
-        "component": "org.abx.app.pages.ComponentPackage",
+        "component": "org.abx.app.pages.ComponentSelector",
         "size": "l12",
         "env": ""
       }
@@ -152,18 +155,6 @@
     "isContainer": false,
     "js": [],
     "type": "select"
-  },
-  {
-    "layout": "horizontal",
-    "components": [{
-      "innerId": "elem0",
-      "component": "org.abx.app.pages.ComponentPackage",
-      "size": "l12",
-      "env": ""
-    }],
-    "name": "org.abx.app.pages.PageComponentSelector",
-    "isContainer": true,
-    "js": []
   },
   {
     "layout": "vertical",
