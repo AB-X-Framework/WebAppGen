@@ -87,5 +87,54 @@
     "isContainer": false,
     "js": [],
     "type": "select"
+  },
+  {
+    "layout": "horizontal",
+    "components": [
+      {
+        "innerId": "SpecsSelect",
+        "component": "org.abx.app.components.specs.SpecsSelect",
+        "size": "l4",
+        "env": ""
+      },
+      {
+        "innerId": "SpecsSelectEdit",
+        "component": "org.abx.app.components.EditEnv",
+        "size": "",
+        "env": ""
+      },
+      {
+        "innerId": "SpecsSelectRemove",
+        "component": "org.abx.app.components.RemoveEnv",
+        "size": "",
+        "env": ""
+      },
+      {
+        "innerId": "SpecsSelectAdd",
+        "component": "org.abx.app.components.AddEnv",
+        "size": "",
+        "env": ""
+      }
+    ],
+    "name": "org.abx.app.components.specs.SpecsSelectContainer",
+    "isContainer": true,
+    "js": [
+      {
+        "env": "",
+        "value": "workingEnv.SpecsSelect=SpecsSelect"
+      },
+      {
+        "env": "",
+        "value": "workingEnv.SpecsSelectRemove=SpecsSelectRemove"
+      },
+      {
+        "env": "",
+        "value": "workingEnv.SpecsSelectAdd=SpecsSelectAdd"
+      },
+      {
+        "env": "",
+        "value": "workingEnv.SpecsSelectEdit=SpecsSelectEdit"
+      }
+    ]
   }
 ]
