@@ -124,6 +124,7 @@ public class PageModel {
             throw new RuntimeException("Component is used in a page");
         }
         innerComponentRepository.deleteAll(innerComponentRepository.findAllByChild(toDelete));
+        innerComponentRepository.flush();
         deleteComponent(toDelete);
 
     }

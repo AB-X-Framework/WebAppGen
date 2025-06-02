@@ -20,13 +20,54 @@
     "js": []
   },
   {
-    "layout": "vertical",
-    "components": [{
-      "innerId": "header",
-      "component": "org.abx.app.pages.PageName",
-      "size": "l12",
-      "env": ""
+    "specs": [{
+      "env": "",
+      "value": {
+        "src": "",
+        "title": "Component Class"
+      }
     }],
+    "name": "org.abx.app.pages.ComponentClass",
+    "isContainer": false,
+    "js": [],
+    "type": "select"
+  },
+  {
+    "layout": "horizontal",
+    "components": [
+      {
+        "innerId": "elem0",
+        "component": "org.abx.app.pages.ComponentPackage",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "elem1",
+        "component": "org.abx.app.pages.ComponentClass",
+        "size": "l12",
+        "env": ""
+      }
+    ],
+    "name": "org.abx.app.pages.ComponentSelector",
+    "isContainer": true,
+    "js": []
+  },
+  {
+    "layout": "vertical",
+    "components": [
+      {
+        "innerId": "header",
+        "component": "org.abx.app.pages.PageName",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "elem1",
+        "component": "org.abx.app.pages.ComponentPackage",
+        "size": "l12",
+        "env": ""
+      }
+    ],
     "name": "org.abx.app.pages.RightPanel",
     "isContainer": true,
     "js": []
@@ -96,6 +137,31 @@
       }
     ],
     "name": "org.abx.app.pages.PagesBody",
+    "isContainer": true,
+    "js": []
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "src": "/components/packages",
+        "title": "Component Package"
+      }
+    }],
+    "name": "org.abx.app.pages.ComponentPackage",
+    "isContainer": false,
+    "js": [],
+    "type": "select"
+  },
+  {
+    "layout": "horizontal",
+    "components": [{
+      "innerId": "elem0",
+      "component": "org.abx.app.pages.ComponentPackage",
+      "size": "l12",
+      "env": ""
+    }],
+    "name": "org.abx.app.pages.PageComponentSelector",
     "isContainer": true,
     "js": []
   },
