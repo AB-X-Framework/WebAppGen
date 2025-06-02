@@ -701,8 +701,9 @@ function setComponentTypeVisibility() {
  * Return true if it exist
  * @param PackageContainer
  * @param valueToSelect
+ * @param label
  */
-function selectOrAddValue(PackageContainer, valueToSelect) {
+function selectOrAddValue(PackageContainer, valueToSelect, label = valueToSelect) {
     // Check if the value already exists
     let exists = PackageContainer.find('option').is(function () {
         return $(this).val() === valueToSelect;
@@ -711,7 +712,7 @@ function selectOrAddValue(PackageContainer, valueToSelect) {
         let inserted = false;
         let newOption = $('<option>', {
             value: valueToSelect,
-            text: valueToSelect,
+            text: label,
             selected: true
         });
         // Find correct alphabetical insert point
@@ -800,6 +801,13 @@ function cloneComponent(newName) {
             }
         }
     )
+}
+
+function addSelectValueText(value, text){
+    let values = workingEnv.component.specs.values;
+    values.push({value: value, text: text});
+    selectOrAddValue($(workingEnv.SpecsSelect ), newName);
+    renderCurrentComponent();
 }
 
 $(document).ready(hideSpecs);
