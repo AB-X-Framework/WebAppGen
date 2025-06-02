@@ -60,7 +60,7 @@ function selectPackage(packageName, afterCall) {
         hideElemContainer();
         M.FormSelect.init(componentBox);
         workingEnv.shouldUpdate = true;
-        if (typeof afterCall !== "undefined"){
+        if (typeof afterCall !== "undefined") {
             afterCall();
         }
     });
@@ -756,7 +756,7 @@ function renameComponent(newName) {
                     $(workingEnv.ComponentName).empty();
                     selectOrAddValue($(workingEnv.ComponentName), newName);
                 } else {
-                    selectPackage(status.package,()=>{
+                    selectPackage(status.package, () => {
                         selectOrAddValue($(workingEnv.ComponentName), newName);
                         processComponent(newName);
                     });
@@ -776,16 +776,31 @@ function renameComponent(newName) {
  * @param newName
  */
 function cloneComponent(newName) {
+    let originalPackage = workingEnv.component.package;
+    let originalName = workingEnv.component.name;
     $.post("/page/clone", {
             "componentSpecs": JSON.stringify(workingEnv.component),
             "newName": newName
         }, (status) => {
-            M.Modal.init(workingEnv.CloneComponentPopup).close();
-            let exists = selectOrAddValue($(workingEnv.ComponentPackage), status.package);
-            if (!exists) {
-                $(workingEnv.ComponentName).empty();
+            workingEnv.component.name = newName;
+            workingEnv.component.package = status.package;
+            if (status.package !== originalPackage) {
+                let exists = selectOrAddValue($(workingEnv.ComponentPackage), status.package);
+                if (!exists) {
+                    $(workingEnv.ComponentName).empty();
+                    selectOrAddValue($(workingEnv.ComponentName), newName);
+                } else {
+                    selectPackage(status.package, () => {
+                        selectOrAddValue($(workingEnv.ComponentName), newName);
+                        processComponent(newName);
+                    });
+
+                }
+            } else {
+                selectOrAddValue($(workingEnv.ComponentName), newName);
+                $(workingEnv.ComponentName).find(`option[value="${originalName}"]`).remove();
+                $(workingEnv.ComponentName).formSelect();
             }
-            selectOrAddValue($(workingEnv.ComponentName), newName);
         }
     )
 }

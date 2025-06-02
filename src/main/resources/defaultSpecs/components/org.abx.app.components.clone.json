@@ -47,9 +47,15 @@
     ],
     "name": "org.abx.app.components.clone.CloneComponentPopup",
     "isContainer": true,
-    "js": [{
-      "env": "",
-      "value": "$(CloneComponentButton).click(()=>{cloneComponent($(CloneComponentName).val())})\n//Set Name action\nself.setName=(name)=>$(CloneComponentName).val(name)"
-    }]
+    "js": [
+      {
+        "env": "",
+        "value": "//Set Name action\nself.setName=(name)=>$(CloneComponentName).val(name)"
+      },
+      {
+        "env": "",
+        "value": "$(CloneComponentButton).click(()=>{\n    cloneComponent($(CloneComponentName).val());\n    M.Modal.init(self).close();\n});"
+      }
+    ]
   }
 ]
