@@ -81,12 +81,36 @@
     "type": "button"
   },
   {
+    "specs": [{
+      "env": "",
+      "value": {
+        "cancel": "Cancel",
+        "ok": "Save model",
+        "title": "Save Changes",
+        "content": "Do you want to save model?"
+      }
+    }],
+    "name": "org.abx.app.home.ConfirmSaveModal",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "$(self.ok).click(()=>saveModel($(modelPath).val())) "
+    }],
+    "type": "okCancelModal"
+  },
+  {
     "layout": "container",
     "components": [
       {
         "innerId": "modelPath",
         "component": "org.abx.app.home.model",
         "size": "l6",
+        "env": ""
+      },
+      {
+        "innerId": "ConfirmSaveModal",
+        "component": "org.abx.app.home.ConfirmSaveModal",
+        "size": "l12",
         "env": ""
       },
       {
@@ -117,7 +141,7 @@
       },
       {
         "env": "",
-        "value": "$(save).click(()=>saveModel($(modelPath).val())) "
+        "value": "//$(save).click(()=>saveModel($(modelPath).val())) \n$(save).click(()=>{M.Modal.init(ConfirmSaveModal).open();})"
       },
       {
         "env": "",

@@ -3,6 +3,12 @@
     "layout": "vertical",
     "components": [
       {
+        "innerId": "ComponentPackage",
+        "component": "org.abx.app.components.leftpanel.ComponentPackage",
+        "size": "l2",
+        "env": ""
+      },
+      {
         "innerId": "ProcessCloneComponent",
         "component": "org.abx.app.components.clone.ProcessCloneComponent",
         "size": "l2",
@@ -24,12 +30,6 @@
         "innerId": "ProcessRenameComponent",
         "component": "org.abx.app.components.rename.ProcessRenameComponent",
         "size": "l12",
-        "env": ""
-      },
-      {
-        "innerId": "ComponentPackage",
-        "component": "org.abx.app.components.leftpanel.ComponentPackage",
-        "size": "l2",
         "env": ""
       }
     ],
