@@ -129,6 +129,11 @@ public class PageModel {
         }
         innerComponentRepository.flush();
 
+        pageRepository.findAllByComponent(oldCo).forEach(p -> {
+            p.component = newCo;
+            pageRepository.save(p);
+            pageRepository.flush();
+        }) ;
 
         Collection<EnvValue> jsValues = new HashSet<>(oldCo.js);
         oldCo.js.clear();
@@ -157,11 +162,6 @@ public class PageModel {
             elementRepository.delete(elem);
             elementRepository.flush();
         }
-        pageRepository.findAllByComponent(oldCo).forEach(p -> {
-            p.component = newCo;
-            pageRepository.save(p);
-            pageRepository.flush();
-        }) ;
         componentRepository.delete(oldCo);
         componentRepository.flush();
     }
