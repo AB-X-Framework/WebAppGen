@@ -1,20 +1,124 @@
-[{
-  "layout": "vertical",
-  "components": [
-    {
-      "innerId": "header",
-      "component": "org.abx.app.home.header",
-      "size": "l12",
-      "env": ""
-    },
-    {
-      "innerId": "modelContainer",
-      "component": "org.abx.app.home.container",
-      "size": "",
-      "env": ""
-    }
-  ],
-  "name": "org.abx.app.pages.MainPageComponent",
-  "isContainer": true,
-  "js": []
-}]
+[
+  {
+    "layout": "vertical",
+    "components": [
+      {
+        "innerId": "header",
+        "component": "org.abx.app.pages.PagesPackages",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "modelContainer",
+        "component": "org.abx.app.pages.PagesPackages",
+        "size": "",
+        "env": ""
+      }
+    ],
+    "name": "org.abx.app.pages.LeftPanel",
+    "isContainer": true,
+    "js": []
+  },
+  {
+    "layout": "vertical",
+    "components": [
+      {
+        "innerId": "header",
+        "component": "org.abx.app.pages.PagesPackages",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "modelContainer",
+        "component": "org.abx.app.pages.PagesPackages",
+        "size": "",
+        "env": ""
+      }
+    ],
+    "name": "org.abx.app.pages.RightPanel",
+    "isContainer": true,
+    "js": []
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "values": [],
+        "title": "Pages Package",
+        "content": ""
+      }
+    }],
+    "name": "org.abx.app.pages.PagePackage",
+    "isContainer": false,
+    "js": [],
+    "type": "select"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "values": [],
+        "title": "Pages Package",
+        "content": ""
+      }
+    }],
+    "name": "org.abx.app.pages.PageName",
+    "isContainer": false,
+    "js": [],
+    "type": "select"
+  },
+  {
+    "layout": "horizontal",
+    "components": [
+      {
+        "innerId": "LeftPanel",
+        "component": "org.abx.app.pages.LeftPanel",
+        "size": "l2",
+        "env": ""
+      },
+      {
+        "innerId": "RigthPanel",
+        "component": "org.abx.app.pages.RightPanel",
+        "size": "l10",
+        "env": ""
+      }
+    ],
+    "name": "org.abx.app.pages.PagesBody",
+    "isContainer": true,
+    "js": []
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "values": [],
+        "title": "Pages Package",
+        "content": ""
+      }
+    }],
+    "name": "org.abx.app.pages.PagesPackages",
+    "isContainer": false,
+    "js": [],
+    "type": "select"
+  },
+  {
+    "layout": "vertical",
+    "components": [
+      {
+        "innerId": "header",
+        "component": "org.abx.app.home.header",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "modelContainer",
+        "component": "org.abx.app.home.container",
+        "size": "",
+        "env": ""
+      }
+    ],
+    "name": "org.abx.app.pages.MainPageComponent",
+    "isContainer": true,
+    "js": []
+  }
+]
