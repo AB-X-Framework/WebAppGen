@@ -750,6 +750,7 @@ function renameComponent(newName) {
             selectOrAddValue($(workingEnv.ComponentName), newName);
             $(workingEnv.ComponentName).find(`option[value="${originalName}"]`).remove();
             $(workingEnv.ComponentName).formSelect();
+            workingEnv.component.name = newName;
         }
     )
 }
@@ -769,6 +770,7 @@ function cloneComponent(newName) {
                 $(workingEnv.ComponentName).empty();
             }
             selectOrAddValue($(workingEnv.ComponentName), newName);
+            workingEnv.component.name = newName;
         }
     )
 }
