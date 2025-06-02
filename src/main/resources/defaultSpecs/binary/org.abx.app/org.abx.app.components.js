@@ -798,8 +798,6 @@ function cloneComponent(newName) {
                 }
             } else {
                 selectOrAddValue($(workingEnv.ComponentName), newName);
-                $(workingEnv.ComponentName).find(`option[value="${originalName}"]`).remove();
-                $(workingEnv.ComponentName).formSelect();
             }
         }
     )
