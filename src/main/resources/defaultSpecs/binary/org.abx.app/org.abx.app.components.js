@@ -150,7 +150,7 @@ function updateElementType() {
     let value = $(workingEnv.ElementType).val();
     let component = workingEnv.component;
     component.type = value;
-    component.specs = [{"env":"","value":defaultSpecs(component.type)}];
+    component.specs = [{"env": "", "value": defaultSpecs(component.type)}];
     processSpecs();
     renderCurrentComponent();
 }
@@ -693,8 +693,16 @@ function setComponentTypeVisibility() {
     }
 }
 
-function removeCurrentEnv(){
-
+function removeCurrentEnv() {
+    if ($(workingEnv.EditingDetailType).val() === "js") {
+        console.log("Remove Component JS");
+    } else {
+        if ($(workingEnv.ComponentType).val() === "Container") {
+            console.log("Remove Container children");
+        } else {
+            console.log("Remove element specs");
+        }
+    }
 }
 
 /**
@@ -804,14 +812,14 @@ function cloneComponent(newName) {
     )
 }
 
-function addSelectValueText(value, text){
+function addSelectValueText(value, text) {
     let values = workingEnv.component.specs[$(workingEnv.ComponentEnv).val()].value.values;
     values.push({value: value, text: text});
     var textLine = "value: " + value + ", text: " + text;
     if (textLine.length > maxLine) {
         textLine = textLine.substring(0, maxLine - 3) + "...";
     }
-    selectOrAddValue($(workingEnv.SpecsSelect ), value,textLine);
+    selectOrAddValue($(workingEnv.SpecsSelect), value, textLine);
     renderCurrentComponent();
 }
 
