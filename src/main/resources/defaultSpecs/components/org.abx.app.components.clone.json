@@ -5,7 +5,7 @@
       "value": {
         "size": "div",
         "title": "",
-        "content": "Please add new component name"
+        "content": "Please set the cloned component name"
       }
     }],
     "name": "org.abx.app.components.clone.CloneComponentText",
@@ -49,7 +49,7 @@
     "isContainer": true,
     "js": [{
       "env": "",
-      "value": "$(CloneComponentButton).click(()=>{cloneComponent($(CloneComponentName).val())})"
+      "value": "$(CloneComponentButton).click(()=>{cloneComponent($(CloneComponentName).val())})\n//Set Name action\nself.setName=(name)=>$(CloneComponentName).val(name)"
     }]
   }
 ]

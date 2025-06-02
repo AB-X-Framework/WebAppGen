@@ -47,6 +47,20 @@
   {
     "specs": [{
       "env": "",
+      "value": {
+        "size": "div",
+        "title": "",
+        "content": "Please set new component name"
+      }
+    }],
+    "name": "org.abx.app.components.rename.RenameComponentText",
+    "isContainer": false,
+    "js": [],
+    "type": "section"
+  },
+  {
+    "specs": [{
+      "env": "",
       "value": {"title": "Rename"}
     }],
     "name": "org.abx.app.components.rename.RenameComponentButton",

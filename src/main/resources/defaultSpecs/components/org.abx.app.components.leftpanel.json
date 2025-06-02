@@ -58,6 +58,10 @@
     {
       "env": "",
       "value": "$(ProcessRenameComponent).click(()=>  RenameComponentPopup.setName($(workingEnv.ComponentName).val()) );"
+    },
+    {
+      "env": "",
+      "value": "$(ProcessCloneComponent).click(()=>  CloneComponentPopup.setName($(workingEnv.ComponentName).val()+\"_2\") );"
     }
   ]
 }]
