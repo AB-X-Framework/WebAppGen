@@ -46,6 +46,22 @@
   {
     "specs": [{
       "env": "",
+      "value": {
+        "title": "Title",
+        "content": "Title"
+      }
+    }],
+    "name": "org.abx.app.components.specs.SpecsTitle",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "$(self).on('input',()=>setSpecValue('title',$(self).val()))"
+    }],
+    "type": "textfield"
+  },
+  {
+    "specs": [{
+      "env": "",
       "value": {"height": "200px"}
     }],
     "name": "org.abx.app.components.specs.SpecsJS",
@@ -85,6 +101,22 @@
     "js": [{
       "env": "",
       "value": "$(self).on('input',()=>setSpecValue('cancel',$(self).val()))"
+    }],
+    "type": "textfield"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "title": "Size",
+        "content": "Size"
+      }
+    }],
+    "name": "org.abx.app.components.specs.SpecsSize",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "$(self).on('input',()=>setSpecValue('size',$(self).val()))"
     }],
     "type": "textfield"
   },
