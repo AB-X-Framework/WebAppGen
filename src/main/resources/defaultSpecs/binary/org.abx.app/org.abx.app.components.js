@@ -234,7 +234,7 @@ function processInnerComponent(index) {
     $(workingEnv.ChildrenSize).val(component.components[index].size);
     $(workingEnv.InnerComponentEnv).val(component.components[index].env);
     var innerComponentName = component.components[index].component;
-    $.get(`/page/components/${innerComponentName}`, (componentSpecs) => {
+    $.get(`/components/details/${innerComponentName}`, (componentSpecs) => {
         $(workingEnv.InnerComponentPackage).val(componentSpecs.package);
         M.FormSelect.init(workingEnv.InnerComponentPackage);
         let componentBox = workingEnv.InnerComponentName;
@@ -662,7 +662,7 @@ function processCurrentComponent(showJS, chooseChildren) {
 }
 
 function processComponent(componentName) {
-    $.get(`/page/components/${componentName}`, (componentSpecs) => {
+    $.get(`/components/details/${componentName}`, (componentSpecs) => {
         workingEnv.originalComponent = componentSpecs.name;
         workingEnv.component = componentSpecs;
         processCurrentComponent(false);
@@ -670,7 +670,7 @@ function processComponent(componentName) {
 }
 
 function saveCurrentSpecs() {
-    $.post("/page/components", {component: JSON.stringify(workingEnv.component)}, function (response) {
+    $.post("/components/", {component: JSON.stringify(workingEnv.component)}, function (response) {
         let message = "";
         if (response.success) {
             message = "Component saved successfully";

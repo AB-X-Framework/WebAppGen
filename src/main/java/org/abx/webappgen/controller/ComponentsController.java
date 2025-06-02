@@ -48,14 +48,19 @@ public class ComponentsController extends RoleController {
         return pageModel.getComponentNames(packageName).toString(2);
     }
 
-    @GetMapping(value = "/components/{componentName}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/details/{componentName}", produces = MediaType.APPLICATION_JSON_VALUE)
     @Secured("Admin")
     public String getComponentDetails(@PathVariable String componentName) {
         return specsExporter.getComponentDetails(componentName, true).toString(2);
     }
 
+    @GetMapping(value = "/component/{componentName}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Secured("Admin")
+    public String component(@PathVariable String componentName, HttpSession session) {
+        return pageModel.getComponentByName(componentName, env(session)).toString(2);
+    }
 
-    @PostMapping(value = "/components", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
     @Secured("Admin")
     public String saveComponent(@RequestParam String component) {
         JSONObject status = new JSONObject();
@@ -77,11 +82,6 @@ public class ComponentsController extends RoleController {
                 elementHashCode(pagename)).toString(2);
     }
 
-    @GetMapping(value = "/component/{componentName}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @Secured("Admin")
-    public String component(@PathVariable String componentName, HttpSession session) {
-        return pageModel.getComponentByName(componentName, env(session)).toString(2);
-    }
 
     @PostMapping(value = "/preview", produces = MediaType.APPLICATION_JSON_VALUE)
     @Secured("Admin")
