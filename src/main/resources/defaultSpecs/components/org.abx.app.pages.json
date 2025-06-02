@@ -3,15 +3,15 @@
     "layout": "vertical",
     "components": [
       {
-        "innerId": "header",
-        "component": "org.abx.app.pages.PagesPackages",
-        "size": "l12",
+        "innerId": "Clone",
+        "component": "org.abx.app.pages.PagePackage",
+        "size": "",
         "env": ""
       },
       {
-        "innerId": "Clone",
+        "innerId": "elem1",
         "component": "org.abx.app.pages.Clone",
-        "size": "",
+        "size": "l12",
         "env": ""
       }
     ],
@@ -21,20 +21,12 @@
   },
   {
     "layout": "vertical",
-    "components": [
-      {
-        "innerId": "header",
-        "component": "org.abx.app.pages.PageName",
-        "size": "l12",
-        "env": ""
-      },
-      {
-        "innerId": "modelContainer",
-        "component": "org.abx.app.pages.PagesPackages",
-        "size": "",
-        "env": ""
-      }
-    ],
+    "components": [{
+      "innerId": "header",
+      "component": "org.abx.app.pages.PageName",
+      "size": "l12",
+      "env": ""
+    }],
     "name": "org.abx.app.pages.RightPanel",
     "isContainer": true,
     "js": []
@@ -51,7 +43,10 @@
     }],
     "name": "org.abx.app.pages.PagePackage",
     "isContainer": false,
-    "js": [],
+    "js": [{
+      "env": "",
+      "value": "$(self).change(()=>{\n    let pageName = workingEnv.PageName ;\n});"
+    }],
     "type": "select"
   },
   {
@@ -65,7 +60,10 @@
     }],
     "name": "org.abx.app.pages.PageName",
     "isContainer": false,
-    "js": [],
+    "js": [{
+      "env": "",
+      "value": "workingEnv.PageName = self;"
+    }],
     "type": "select"
   },
   {
@@ -100,20 +98,6 @@
     "name": "org.abx.app.pages.PagesBody",
     "isContainer": true,
     "js": []
-  },
-  {
-    "specs": [{
-      "env": "",
-      "value": {
-        "values": [],
-        "title": "Pages Package",
-        "content": ""
-      }
-    }],
-    "name": "org.abx.app.pages.PagesPackages",
-    "isContainer": false,
-    "js": [],
-    "type": "select"
   },
   {
     "layout": "vertical",

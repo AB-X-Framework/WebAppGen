@@ -20,4 +20,7 @@ public interface PageRepository extends JpaRepository<Page, Long> {
 
     @Query("SELECT DISTINCT c.packageName FROM Page c")
     List<String> findDistinctPackageNames();
+
+
+    List<Page> findAllByPackageName(String name);
 }

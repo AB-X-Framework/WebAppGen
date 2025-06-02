@@ -212,6 +212,17 @@ public class PageModel {
         componentsArray.putAll(components);
         return componentsArray;
     }
+    @Transactional
+    public JSONArray getPageNames(String packageName) {
+        List<String> components = new ArrayList<>();
+        for (Page page : pageRepository.findAllByPackageName(packageName)) {
+            components.add(page.packageName);
+        }
+        Collections.sort(components);
+        JSONArray componentsArray = new JSONArray();
+        componentsArray.putAll(components);
+        return componentsArray;
+    }
 
 
     @Transactional
