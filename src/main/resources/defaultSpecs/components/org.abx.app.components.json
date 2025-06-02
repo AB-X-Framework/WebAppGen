@@ -1,20 +1,5 @@
 [
   {
-    "layout": "horizontal",
-    "components": [{
-      "innerId": "EnvData",
-      "component": "org.abx.app.components.Env",
-      "size": "l5",
-      "env": ""
-    }],
-    "name": "org.abx.app.components.EnvContainer",
-    "isContainer": true,
-    "js": [{
-      "env": "",
-      "value": "workingEnv.Env=EnvData;"
-    }]
-  },
-  {
     "specs": [{
       "env": "",
       "value": {
@@ -58,38 +43,12 @@
   {
     "specs": [{
       "env": "",
-      "value": {
-        "title": "Env value",
-        "content": "Empty for default"
-      }
-    }],
-    "name": "org.abx.app.components.AddEnvValue",
-    "isContainer": false,
-    "js": [],
-    "type": "textfield"
-  },
-  {
-    "specs": [{
-      "env": "",
       "value": {"title": "Save"}
     }],
     "name": "org.abx.app.components.SaveComponent",
     "isContainer": false,
     "js": [],
     "type": "button"
-  },
-  {
-    "specs": [{
-      "env": "",
-      "value": {
-        "title": "Env",
-        "content": "Empty is Default"
-      }
-    }],
-    "name": "org.abx.app.components.Env",
-    "isContainer": false,
-    "js": [],
-    "type": "textfield"
   },
   {
     "specs": [{
@@ -135,16 +94,6 @@
     "name": "org.abx.app.components.ComponentsPageComponent",
     "isContainer": true,
     "js": []
-  },
-  {
-    "specs": [{
-      "env": "",
-      "value": {"title": "Add"}
-    }],
-    "name": "org.abx.app.components.AddEnv",
-    "isContainer": false,
-    "js": [],
-    "type": "button"
   },
   {
     "specs": [{
@@ -211,20 +160,6 @@
     "type": "button"
   },
   {
-    "specs": [{
-      "env": "",
-      "value": {
-        "size": "div",
-        "title": "",
-        "content": "Please add new env"
-      }
-    }],
-    "name": "org.abx.app.components.AddEnvText",
-    "isContainer": false,
-    "js": [],
-    "type": "section"
-  },
-  {
     "layout": "horizontal",
     "components": [
       {
@@ -259,7 +194,7 @@
       },
       {
         "innerId": "EditEnv",
-        "component": "org.abx.app.components.EditEnv",
+        "component": "org.abx.app.components.env.EditEnv",
         "size": "",
         "env": ""
       },
@@ -271,13 +206,13 @@
       },
       {
         "innerId": "AddEnv",
-        "component": "org.abx.app.components.AddEnv",
+        "component": "org.abx.app.components.env.AddEnv",
         "size": "",
         "env": ""
       },
       {
         "innerId": "AddPopUpEnv",
-        "component": "org.abx.app.components.AddPopUpEnv",
+        "component": "org.abx.app.components.env.AddPopUpEnv",
         "size": "",
         "env": ""
       }
@@ -435,39 +370,6 @@
     "type": "button"
   },
   {
-    "specs": [{
-      "env": "",
-      "value": {"title": "Edit"}
-    }],
-    "name": "org.abx.app.components.EditEnv",
-    "isContainer": false,
-    "js": [],
-    "type": "button"
-  },
-  {
-    "layout": "vertical",
-    "components": [
-      {
-        "innerId": "AddEnvText",
-        "component": "org.abx.app.components.AddEnvText",
-        "size": "l2",
-        "env": ""
-      },
-      {
-        "innerId": "AddEnvValue",
-        "component": "org.abx.app.components.AddEnvValue",
-        "size": "l2",
-        "env": ""
-      }
-    ],
-    "name": "org.abx.app.components.AddEnvValueSection",
-    "isContainer": true,
-    "js": [{
-      "env": "",
-      "value": "workingEnv.AddEnvValue=AddEnvValue"
-    }]
-  },
-  {
     "layout": "vertical",
     "components": [
       {
@@ -591,29 +493,6 @@
         "value": "workingEnv.SpecsOkCancelContainer=SpecsOkCancelContainer;"
       }
     ]
-  },
-  {
-    "layout": "popup",
-    "components": [
-      {
-        "innerId": "AddEnvValueSection",
-        "component": "org.abx.app.components.AddEnvValueSection",
-        "size": "l2",
-        "env": ""
-      },
-      {
-        "innerId": "ConfirmAddEnv",
-        "component": "org.abx.app.components.AddEnv",
-        "size": "l12",
-        "env": ""
-      }
-    ],
-    "name": "org.abx.app.components.AddPopUpEnv",
-    "isContainer": true,
-    "js": [{
-      "env": "",
-      "value": "$(ConfirmAddEnv).click(addNewEnv)"
-    }]
   },
   {
     "specs": [{

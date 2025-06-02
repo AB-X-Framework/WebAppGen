@@ -85,7 +85,7 @@
       },
       {
         "innerId": "InnerComponentEnv",
-        "component": "org.abx.app.components.Env",
+        "component": "org.abx.app.components.env.Env",
         "size": "l2",
         "env": ""
       }

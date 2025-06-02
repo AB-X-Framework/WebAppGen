@@ -160,7 +160,7 @@
       },
       {
         "innerId": "SpecsSelectEdit",
-        "component": "org.abx.app.components.EditEnv",
+        "component": "org.abx.app.components.env.EditEnv",
         "size": "",
         "env": ""
       },
@@ -172,7 +172,7 @@
       },
       {
         "innerId": "SpecsSelectAdd",
-        "component": "org.abx.app.components.AddEnv",
+        "component": "org.abx.app.components.env.AddEnv",
         "size": "",
         "env": ""
       }
