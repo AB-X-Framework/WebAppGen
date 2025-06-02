@@ -694,20 +694,22 @@ function setComponentTypeVisibility() {
 }
 
 function removeCurrentEnv() {
+    let component = workingEnv.component;
+    let indexToRemove = $(workingEnv.ComponentEnv).val();
     if ($(workingEnv.EditingDetailType).val() === "js") {
-        console.log("Remove Component JS");
+        component.js.splice(indexToRemove, 1);
     } else {
         if ($(workingEnv.ComponentType).val() === "Container") {
-            console.log("Remove Container children");
+            component.components.splice(indexToRemove, 1);
         } else {
-            console.log("Remove element specs");
+            component.specs.splice(indexToRemove, 1);
         }
     }
 }
 
 /**
  * Check if the value exists otherwise add it and select it
- * Return true if it exist
+ * Return true if it exists
  * @param PackageContainer
  * @param valueToSelect
  * @param label
