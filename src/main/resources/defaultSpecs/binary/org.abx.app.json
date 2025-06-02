@@ -28,5 +28,10 @@
     "role": "Admin",
     "name": "org.abx.app.components.js",
     "contentType": "text/javascript"
+  },
+  {
+    "role": "Admin",
+    "name": "org.abx.app.pages.js",
+    "contentType": "text/javascript"
   }
 ]
