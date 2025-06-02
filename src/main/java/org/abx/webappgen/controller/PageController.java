@@ -55,13 +55,6 @@ public class PageController extends RoleController {
     }
 
 
-    @GetMapping(value = "/packages", produces = MediaType.APPLICATION_JSON_VALUE)
-    @Secured("Admin")
-    public String packages() {
-        return pageModel.getComponentPackages().toString(2);
-    }
-
-
     @GetMapping(value = "/packages/{packageName}/components", produces = MediaType.APPLICATION_JSON_VALUE)
     @Secured("Admin")
     public String byPackage(@PathVariable String packageName) {
@@ -102,55 +95,6 @@ public class PageController extends RoleController {
     public String component(@PathVariable String componentName, HttpSession session) {
         return pageModel.getComponentByName(componentName, env(session)).toString(2);
     }
-
-    @PostMapping(value = "/preview", produces = MediaType.APPLICATION_JSON_VALUE)
-    @Secured("Admin")
-    public String component(@RequestParam String componentSpecs, @RequestParam String env) {
-        return pageModel.preview(new JSONObject(componentSpecs), env).toString(2);
-    }
-
-
-    @PostMapping(value = "/clone", produces = MediaType.APPLICATION_JSON_VALUE)
-    @Secured("Admin")
-    public String cloneComponent(@RequestParam String componentSpecs, @RequestParam String newName) {
-        JSONObject specs = new JSONObject(componentSpecs);
-        return cloneComponent(specs, newName);
-
-    }
-
-    private String cloneComponent(JSONObject specs, String newName) {
-        JSONObject status = new JSONObject();
-        String packageName = newName.substring(0, newName.lastIndexOf("."));
-        try {
-            specs.put("name", newName);
-            specs.put("package", packageName);
-            specsImporter.save(specs);
-            status.put("success", "true");
-            status.put("package", packageName);
-        } catch (Exception e) {
-            status.put("success", "false");
-            status.put("error", e.getMessage());
-        }
-        return status.toString(2);
-    }
-
-    @PostMapping(value = "/rename", produces = MediaType.APPLICATION_JSON_VALUE)
-    @Secured("Admin")
-    public String renameComponent(@RequestParam String componentSpecs, @RequestParam String newName) {
-        JSONObject specs = new JSONObject(componentSpecs);
-        String oldName = specs.getString("name");
-        String status = cloneComponent(specs, newName);
-        try {
-            pageModel.rename(oldName, newName);
-            return status;
-        } catch (Exception e) {
-            JSONObject newStatus = new JSONObject();
-            newStatus.put("success", "false");
-            newStatus.put("error", e.getMessage());
-            return newStatus.toString(2);
-        }
-    }
-
 
     private String env(HttpSession session) {
         StringBuilder env = new StringBuilder();

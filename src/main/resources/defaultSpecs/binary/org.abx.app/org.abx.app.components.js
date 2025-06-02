@@ -568,7 +568,7 @@ function processElement() {
 }
 
 function renderCurrentComponent() {
-    $.post(`/page/preview`, {
+    $.post(`/components/preview`, {
             componentSpecs: JSON.stringify(workingEnv.component),
             env: ""
         },
@@ -764,7 +764,7 @@ function selectOrAddValue(PackageContainer, valueToSelect, label = valueToSelect
 function renameComponent(newName) {
     let originalPackage = workingEnv.component.package;
     let originalName = workingEnv.component.name;
-    $.post("/page/rename", {
+    $.post("/components/rename", {
             "componentSpecs": JSON.stringify(workingEnv.component),
             "newName": newName
         }, (status) => {
@@ -797,8 +797,7 @@ function renameComponent(newName) {
  */
 function cloneComponent(newName) {
     let originalPackage = workingEnv.component.package;
-    let originalName = workingEnv.component.name;
-    $.post("/page/clone", {
+    $.post("/components/clone", {
             "componentSpecs": JSON.stringify(workingEnv.component),
             "newName": newName
         }, (status) => {
