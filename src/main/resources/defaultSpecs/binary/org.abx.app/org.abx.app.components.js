@@ -79,7 +79,6 @@ function defaultSpecs(elementType) {
             break;
         case "button":
             newDefSpecs.title = "";
-            newDefSpecs.content = "";
             break;
         case "textfield":
         case "textarea":
@@ -702,9 +701,12 @@ function removeCurrentEnv() {
         if ($(workingEnv.ComponentType).val() === "Container") {
             component.components.splice(indexToRemove, 1);
         } else {
-            component.specs.splice(indexToRemove, 1);
+            if (component.specs.length>1) {
+                component.specs.splice(indexToRemove, 1);
+            }
         }
     }
+    processCurrentComponent();
 }
 
 /**
