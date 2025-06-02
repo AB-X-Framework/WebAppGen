@@ -54,7 +54,7 @@ class PageContent {
             } else  if (componentSpecs.layout === "popup") {
                 PageContent.renderPopup(output, js, componentSpecs);
             } else {
-                PageContent.renderTop(output, js, componentSpecs);
+                PageContent.renderTopLayout(output, js, componentSpecs);
             }
         } else {
             componentSpecs.specs.id = componentSpecs.id;
@@ -165,7 +165,7 @@ class PageContent {
         output.push('</div>');
     }
 
-    static renderTop(output, js, componentSpecs) {
+    static renderTopLayout(output, js, componentSpecs) {
         output.push(`<div  id="${componentSpecs.id}">`);
         let first = false;
         for (var component of componentSpecs.children) {
