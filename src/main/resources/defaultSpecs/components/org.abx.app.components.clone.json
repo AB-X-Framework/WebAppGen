@@ -2,6 +2,20 @@
   {
     "specs": [{
       "env": "",
+      "value": {
+        "size": "div",
+        "title": "",
+        "content": "Please add new component name"
+      }
+    }],
+    "name": "org.abx.app.components.clone.CloneComponentText",
+    "isContainer": false,
+    "js": [],
+    "type": "section"
+  },
+  {
+    "specs": [{
+      "env": "",
       "value": {"title": "Rename"}
     }],
     "name": "org.abx.app.components.clone.CloneComponentButton",
@@ -14,7 +28,7 @@
     "components": [
       {
         "innerId": "CloneComponentText",
-        "component": "org.abx.app.components.CloneComponentText",
+        "component": "org.abx.app.components.clone.CloneComponentText",
         "size": "l2",
         "env": ""
       },

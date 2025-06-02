@@ -966,20 +966,6 @@
     "type": "textfield"
   },
   {
-    "specs": [{
-      "env": "",
-      "value": {
-        "size": "div",
-        "title": "",
-        "content": "Please add new component name"
-      }
-    }],
-    "name": "org.abx.app.components.CloneComponentText",
-    "isContainer": false,
-    "js": [],
-    "type": "section"
-  },
-  {
     "layout": "horizontal",
     "components": [
       {
