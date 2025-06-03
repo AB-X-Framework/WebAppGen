@@ -75,7 +75,7 @@
     "isContainer": true,
     "js": [{
       "env": "",
-      "value": "$(PageName).change(()=>{\n    $.get(`/pages/details/${$(PageName).val()}`,\n        (pageDetails)=>{\n         $(ComponentSelector.ComponentPackage).val(pageDetails.componentPackage);\n         $(ComponentSelector.ComponentPackage).formSelect();\n         \n         $(ComponentSelector.ComponentName).val(pageDetails.component);\n         $(ComponentSelector.ComponentName).formSelect();\n        }\n    )\n});"
+      "value": "$(PageName).change(()=>{\n    $.get(`/pages/details/${$(PageName).val()}`,\n        (pageDetails)=>{\n            ComponentSelector.ComponentPackage.selectPackage(pageDetials.componentPackage,()=>{\n                $(ComponentSelector.ComponentName).val(pageDetails.component);\n                $(ComponentSelector.ComponentName).formSelect();\n            }); \n        }\n    )\n});"
     }]
   },
   {
@@ -156,7 +156,10 @@
     }],
     "name": "org.abx.app.pages.ComponentPackage",
     "isContainer": false,
-    "js": [],
+    "js": [{
+      "env": "",
+      "value": "self.selectPackage=(packageName,afterCall) {\n    workingEnv.shouldUpdate = false;\n    let pageNameBox = $(workingEnv.PageName);\n    $(pageNameBox).empty();\n    $(pageNameBox).append($('<option>', {\n        value: \"\",\n        text: \"\"\n    }));\n    $.get(`/pages/packages/${packageName}/pages`, (resultList) => {\n        resultList.forEach(function (item) {\n            $(pageNameBox).append($('<option>', {\n                value: item,\n                text: item\n            }));\n\n        });\n        M.FormSelect.init(pageNameBox);\n        if (typeof afterCall !== \"undefined\"){\n            afterCall();\n        }\n    });\n}"
+    }],
     "type": "select"
   },
   {

@@ -23,6 +23,7 @@ class PageContent {
             $("#body-content").html(output.join(""));
             M.updateTextFields();
             for (var line of js) {
+                console.log(line);
                 eval(line)
             }
         })
@@ -396,15 +397,17 @@ class PageContent {
     }
 
     static renderSwitch(output,js,specs){
-        let result =`<div class="switch">
+        let result =`<div class="input-field">
+  <p>${specs.title}</p>
+  <div class="switch">
   <label>
     ${specs.cancel}
     <input id="${specs.id}" type="checkbox">
     <span class="lever"></span>
     ${spesc.ok}
   </label>
-</div>`;
-        output.push(results);
+</div></div>`;
+        output.push(result);
     }
 
     static renderMenu(output, js, specs) {

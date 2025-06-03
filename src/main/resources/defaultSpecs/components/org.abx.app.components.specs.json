@@ -117,7 +117,7 @@
   {
     "specs": [{
       "env": "",
-      "value": {"height": "200px"}
+      "value": {"height": "300px"}
     }],
     "name": "org.abx.app.components.specs.SpecsJS",
     "isContainer": false,

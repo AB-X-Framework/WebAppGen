@@ -558,6 +558,10 @@
             "value": "button"
           },
           {
+            "text": "Switch",
+            "value": "switch"
+          },
+          {
             "text": "Select",
             "value": "select"
           },

@@ -96,6 +96,11 @@ function defaultSpecs(elementType) {
         case "menu":
             newDefSpecs.items = [];
             break;
+        case "switch":
+            newDefSpecs.ok = "On";
+            newDefSpecs.cancel = "Off";
+            newDefSpecs.title = "title";
+            break;
         case "okCancelModal":
             newDefSpecs.ok = "Ok";
             newDefSpecs.cancel = "Cancel";
