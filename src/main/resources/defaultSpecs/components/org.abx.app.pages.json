@@ -75,7 +75,7 @@
     "isContainer": true,
     "js": [{
       "env": "",
-      "value": "$(PageName).change(()=>{\n    $.get(`/pages/details/${$(PageName).val()}`,\n        (pageDetails)=>{\n         $(ComponentSelector.ComponentPackage).val(pageDetails.componentPackage);\n        }\n    )\n});"
+      "value": "$(PageName).change(()=>{\n    $.get(`/pages/details/${$(PageName).val()}`,\n        (pageDetails)=>{\n         $(ComponentSelector.ComponentPackage).val(pageDetails.componentPackage);\n         $(ComponentSelector.ComponentPackage).formSelect();\n         \n         $(ComponentSelector.ComponentName).val(pageDetails.component);\n         $(ComponentSelector.ComponentName).formSelect();\n        }\n    )\n});"
     }]
   },
   {
