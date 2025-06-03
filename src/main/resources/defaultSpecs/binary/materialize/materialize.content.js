@@ -89,6 +89,9 @@ class PageContent {
                 case "jsEditor":
                     PageContent.renderJsEditor(output, componentSpecs.specs);
                     break;
+                case "switch":
+                    PageContent.renderSwitch(output,js, componentSpecs.specs);
+                    break;
                 case "header":
                     PageContent.renderHeader(output, componentSpecs.specs);
                     break;
@@ -390,6 +393,18 @@ class PageContent {
              line += ` <li><a href="${item}">${item.name}</a></li>`;
         }
         return line;
+    }
+
+    static renderSwitch(output,js,specs){
+        let result =`<div class="switch">
+  <label>
+    ${specs.cancel}
+    <input id="${specs.id}" type="checkbox">
+    <span class="lever"></span>
+    ${spesc.ok}
+  </label>
+</div>`;
+        output.push(results);
     }
 
     static renderMenu(output, js, specs) {
