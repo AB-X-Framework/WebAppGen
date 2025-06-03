@@ -59,13 +59,13 @@
     "layout": "vertical",
     "components": [
       {
-        "innerId": "header",
+        "innerId": "PageName",
         "component": "org.abx.app.pages.PageName",
-        "size": "l12",
+        "size": "l10",
         "env": ""
       },
       {
-        "innerId": "elem1",
+        "innerId": "ComponentSelector",
         "component": "org.abx.app.pages.ComponentSelector",
         "size": "l12",
         "env": ""
@@ -73,7 +73,10 @@
     ],
     "name": "org.abx.app.pages.RightPanel",
     "isContainer": true,
-    "js": []
+    "js": [{
+      "env": "",
+      "value": "$(PageName).change(()=>{\n    $.get(`/pages/details/${$(PageName).val()}`,\n        (pageDetails)=>{\n         $(ComponentSelector.ComponentPackage).val(pageDetails.componentPackage);\n        }\n    )\n});"
+    }]
   },
   {
     "specs": [{

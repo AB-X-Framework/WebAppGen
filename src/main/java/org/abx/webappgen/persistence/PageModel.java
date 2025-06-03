@@ -333,14 +333,14 @@ public class PageModel {
 
 
     private String addTempVariables(String source, Map<String, String> replacements) {
-        if (source.isBlank() || replacements.isEmpty()) {
-            return source;
-        }
         StringBuilder sb = new StringBuilder();
         for (Map.Entry<String, String> entry : replacements.entrySet()) {
-            if (source.contains(entry.getKey())) {
                 sb.append("let ").append(entry.getKey()).append(" = ").append(entry.getValue()).append(";\n");
-            }
+
+        }
+        for (Map.Entry<String, String> entry : replacements.entrySet()) {
+                sb.append("self.").append(entry.getKey()).append(" = ").append(entry.getKey()).append(";\n");
+
         }
         return "{\n" + sb + source + "}";
     }
@@ -422,7 +422,6 @@ public class PageModel {
         Map<String, String> childrenInnerIds = new HashMap<>();
         for (InnerComponent inner : container.innerComponent) {
             childrenInnerIds.put(inner.innerId, specs.parent + "_" + inner.innerId);
-            childrenInnerIds.put(inner.child.componentName, specs.parent + "_" + inner.innerId);
         }
         for (InnerComponent inner : container.innerComponent) {
             String innerId = specs.parent + "_" + inner.innerId;

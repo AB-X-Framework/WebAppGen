@@ -354,7 +354,7 @@ class PageContent {
         for (var link of specs.values) {
             links += `<li><a href="${link.value}">${link.text}</li></a>`
         }
-        var result = `  <nav style="margin-bottom: 5px;">
+        var result = `  <nav id="${specs.id}" style="margin-bottom: 5px;">
     <div>
       <a href="#" class="left" style="height: 64px; ">
       <img src="${specs.src}" alt="Logo" style="height: 60px; padding: 2px;">
