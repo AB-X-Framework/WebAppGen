@@ -100,6 +100,9 @@ class PageContent {
                 case "img":
                     PageContent.renderImg(output, componentSpecs.specs);
                     break;
+                case "canva":
+                    PageContent.renderCanvas(output,js ,componentSpecs.specs);
+                    break;
                 case "textfield":
                     PageContent.renderTextfield(output, js, componentSpecs.specs);
                     break;
@@ -244,6 +247,13 @@ class PageContent {
         var results =
             `<img id="${specs.id}"  src="${specs.src}" class="responsive-img" style="max-height: 100%" alt="example">`
         output.push(results);
+    }
+
+    static renderCanvas(output,js,specs){
+        var results =
+            `<canvas id="${specs.id}" width="100%" height="${specs.height}"></canvas>`
+        output.push(results);
+
     }
 
     static renderDiv(output, specs) {
