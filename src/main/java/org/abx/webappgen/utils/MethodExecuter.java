@@ -93,15 +93,15 @@ public class MethodExecuter {
                 return obj.toString().getBytes();
             case "png":
             case "jpg":
-                return toBytes((BufferedImage) obj, type);
+                return toBytes((Value) obj, type);
             default:
                 return ((Value) obj).as(byte[].class);
         }
     }
 
-    public static byte[] toBytes(BufferedImage image, String format) throws IOException {
+    public static byte[] toBytes(Value image, String format) throws IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        boolean result = ImageIO.write(image, format, baos);
+        boolean result = ImageIO.write(image.as(BufferedImage.class), format, baos);
         if (!result) {
             throw new IOException("Unsupported image format: " + format);
         }
