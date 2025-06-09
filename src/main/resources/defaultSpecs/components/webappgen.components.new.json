@@ -1,0 +1,84 @@
+[
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "title": "",
+        "content": "Please add new env"
+      }
+    }],
+    "name": "webappgen.components.new.NewComponentName",
+    "isContainer": false,
+    "js": [],
+    "type": "textfield"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "size": "div",
+        "title": "",
+        "content": "Please set the new component name"
+      }
+    }],
+    "name": "webappgen.components.new.NewComponentText",
+    "isContainer": false,
+    "js": [],
+    "type": "section"
+  },
+  {
+    "layout": "popup",
+    "components": [
+      {
+        "innerId": "NewComponentText",
+        "component": "webappgen.components.new.NewComponentText",
+        "size": "l2",
+        "env": ""
+      },
+      {
+        "innerId": "NewComponentName",
+        "component": "webappgen.components.new.NewComponentName",
+        "size": "l2",
+        "env": ""
+      },
+      {
+        "innerId": "NewComponentButton",
+        "component": "webappgen.components.new.NewComponentButton",
+        "size": "l12",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.components.new.NewComponentPopup",
+    "isContainer": true,
+    "js": [
+      {
+        "env": "",
+        "value": "//Set Name action\nself.setName=(name)=>$(NewComponentName).val(name)"
+      },
+      {
+        "env": "",
+        "value": "$(NewComponentButton).click(()=>{\n    newComponent($(NewComponentName).val());\n    M.Modal.init(self).close();\n});"
+      }
+    ]
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "New Component"}
+    }],
+    "name": "webappgen.components.new.ProcessNewComponent",
+    "isContainer": false,
+    "js": [],
+    "type": "button"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "New"}
+    }],
+    "name": "webappgen.components.new.NewComponentButton",
+    "isContainer": false,
+    "js": [],
+    "type": "button"
+  }
+]

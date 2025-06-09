@@ -1,0 +1,184 @@
+[
+  {
+    "layout": "horizontal",
+    "components": [
+      {
+        "innerId": "abxImg",
+        "component": "webappgen.base.abxImg",
+        "size": "l6 hide-on-small-only ",
+        "env": ""
+      },
+      {
+        "innerId": "loginForm",
+        "component": "webappgen.login.form",
+        "size": "s12 l6",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.login.LoginPageComponent",
+    "isContainer": true,
+    "js": []
+  },
+  {
+    "specs": [
+      {
+        "env": "ES",
+        "value": {
+          "title": "Su contraseña",
+          "content": "Contraseña"
+        }
+      },
+      {
+        "env": "",
+        "value": {
+          "title": "Password",
+          "content": "Your password"
+        }
+      }
+    ],
+    "name": "webappgen.login.password",
+    "isContainer": false,
+    "js": [{
+      "env": "ES",
+      "value": "()=>{}"
+    }],
+    "type": "password"
+  },
+  {
+    "layout": "container",
+    "components": [
+      {
+        "innerId": "welcome",
+        "component": "webappgen.login.welcome",
+        "size": "s12",
+        "env": ""
+      },
+      {
+        "innerId": "username",
+        "component": "webappgen.login.username",
+        "size": "s12",
+        "env": ""
+      },
+      {
+        "innerId": "password",
+        "component": "webappgen.login.password",
+        "size": "s12",
+        "env": ""
+      },
+      {
+        "innerId": "login",
+        "component": "webappgen.login.submit",
+        "size": "s12",
+        "env": ""
+      },
+      {
+        "innerId": "invalidCreds",
+        "component": "webappgen.login.invalidCreds",
+        "size": "",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.login.formChild",
+    "isContainer": true,
+    "js": [{
+      "env": "",
+      "value": "$(login).click(()=>processLogIn($(username).val(),$(password).val(),invalidCreds))"
+    }]
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "title": "Invalid Credentials",
+        "ok": "Ok",
+        "content": "Your username or password is incorrect. Please try again."
+      }
+    }],
+    "name": "webappgen.login.invalidCreds",
+    "isContainer": false,
+    "js": [],
+    "type": "modal"
+  },
+  {
+    "layout": "vertical",
+    "components": [
+      {
+        "innerId": "header",
+        "component": "webappgen.login.header",
+        "size": "s12",
+        "env": ""
+      },
+      {
+        "innerId": "welcome",
+        "component": "webappgen.login.formChild",
+        "size": "s12",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.login.form",
+    "isContainer": true,
+    "js": []
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "src": "/resources/binary/webappgen.abx.png",
+        "values": [{
+          "text": "About us",
+          "value": "/help"
+        }]
+      }
+    }],
+    "name": "webappgen.login.header",
+    "isContainer": false,
+    "js": [],
+    "type": "header"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "Log in"}
+    }],
+    "name": "webappgen.login.submit",
+    "isContainer": false,
+    "js": [],
+    "type": "button"
+  },
+  {
+    "specs": [
+      {
+        "env": "ES",
+        "value": {
+          "title": "Su nombre de usuario",
+          "content": "Usuario"
+        }
+      },
+      {
+        "env": "",
+        "value": {
+          "title": "Username",
+          "content": "Your username"
+        }
+      }
+    ],
+    "name": "webappgen.login.username",
+    "isContainer": false,
+    "js": [],
+    "type": "textfield"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "size": "h2",
+        "title": "ABX WebApp Gen",
+        "content": "Please type your credentials to log in"
+      }
+    }],
+    "name": "webappgen.login.welcome",
+    "isContainer": false,
+    "js": [],
+    "type": "section"
+  }
+]

@@ -1,0 +1,155 @@
+[
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "cancel": "Cancel",
+        "ok": "Delete",
+        "title": "Confirm Delete",
+        "content": "Do you want to delete element?"
+      }
+    }],
+    "name": "webappgen.components.leftpanel.DeleteComponentConfirm",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "$(self).click(()=>{\n   $.get(`/components/delete/${workingEnv.component.name}`,\n   ()=>{location.reload();}) \n});"
+    }],
+    "type": "okCancelModal"
+  },
+  {
+    "layout": "vertical",
+    "components": [
+      {
+        "innerId": "ComponentPackage",
+        "component": "webappgen.components.leftpanel.ComponentPackage",
+        "size": "l2",
+        "env": ""
+      },
+      {
+        "innerId": "ProcessNewComponent",
+        "component": "webappgen.components.new.ProcessNewComponent",
+        "size": "l2",
+        "env": ""
+      },
+      {
+        "innerId": "ProcessCloneComponent",
+        "component": "webappgen.components.clone.ProcessCloneComponent",
+        "size": "l2",
+        "env": ""
+      },
+      {
+        "innerId": "ProcessRenameComponent",
+        "component": "webappgen.components.rename.ProcessRenameComponent",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "elem5",
+        "component": "webappgen.components.leftpanel.DeleteComponentButton",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "CloneComponentPopup",
+        "component": "webappgen.components.clone.CloneComponentPopup",
+        "size": "l2",
+        "env": ""
+      },
+      {
+        "innerId": "DeleteComponentConfirm",
+        "component": "webappgen.components.leftpanel.DeleteComponentConfirm",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "RenameComponentPopup",
+        "component": "webappgen.components.rename.RenameComponentPopup",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "NewComponentPopup",
+        "component": "webappgen.components.new.NewComponentPopup",
+        "size": "l12",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.components.leftpanel.MenuContainer",
+    "isContainer": true,
+    "js": [
+      {
+        "env": "",
+        "value": "$(ComponentPackage).on('change', ()=>{selectPackage( $(ComponentPackage).val());});"
+      },
+      {
+        "env": "",
+        "value": "workingEnv.ComponentPackage=ComponentPackage;"
+      },
+      {
+        "env": "",
+        "value": "workingEnv.CloneComponentPopup=CloneComponentPopup;"
+      },
+      {
+        "env": "",
+        "value": "$(ProcessCloneComponent).click(  ()=>  M.Modal.init(CloneComponentPopup).open() );"
+      },
+      {
+        "env": "",
+        "value": "$(ProcessNewComponent).click(  ()=>  M.Modal.init(NewComponentPopup).open() );"
+      },
+      {
+        "env": "",
+        "value": "$(ProcessRenameComponent).click(  ()=>  M.Modal.init(RenameComponentPopup).open() );"
+      },
+      {
+        "env": "",
+        "value": "$(ProcessRenameComponent).click(()=>  RenameComponentPopup.setName($(workingEnv.ComponentName).val()) );"
+      },
+      {
+        "env": "",
+        "value": "$(ProcessCloneComponent).click(()=>  CloneComponentPopup.setName($(workingEnv.ComponentName).val()+\"_2\") );"
+      }
+    ]
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "Delete Component"}
+    }],
+    "name": "webappgen.components.leftpanel.DeleteComponentButton",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "$(self).click(()=>{\n   M.Modal.init(DeleteComponentConfirm).open();\n});"
+    }],
+    "type": "button"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "cancel": "Off",
+        "ok": "On",
+        "title": "title"
+      }
+    }],
+    "name": "webappgen.components.leftpanel.ShowDefaults",
+    "isContainer": false,
+    "js": [],
+    "type": "switch"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "src": "/components/packages",
+        "title": "Component Package"
+      }
+    }],
+    "name": "webappgen.components.leftpanel.ComponentPackage",
+    "isContainer": false,
+    "js": [],
+    "type": "autocomplete"
+  }
+]

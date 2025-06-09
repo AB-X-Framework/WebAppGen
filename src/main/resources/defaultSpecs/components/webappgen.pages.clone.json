@@ -1,0 +1,84 @@
+[
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "title": "",
+        "content": "Please add new env"
+      }
+    }],
+    "name": "webappgen.pages.clone.ClonePageName",
+    "isContainer": false,
+    "js": [],
+    "type": "textfield"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "size": "div",
+        "title": "",
+        "content": "Please set the cloned page name"
+      }
+    }],
+    "name": "webappgen.pages.clone.ClonePageText",
+    "isContainer": false,
+    "js": [],
+    "type": "section"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "Clone"}
+    }],
+    "name": "webappgen.pages.clone.ClonePageButton",
+    "isContainer": false,
+    "js": [],
+    "type": "button"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "Clone Page"}
+    }],
+    "name": "webappgen.pages.clone.ProcessClonePage",
+    "isContainer": false,
+    "js": [],
+    "type": "button"
+  },
+  {
+    "layout": "popup",
+    "components": [
+      {
+        "innerId": "ClonePageText",
+        "component": "webappgen.pages.clone.ClonePageText",
+        "size": "l2",
+        "env": ""
+      },
+      {
+        "innerId": "ClonePageName",
+        "component": "webappgen.pages.clone.ClonePageName",
+        "size": "l2",
+        "env": ""
+      },
+      {
+        "innerId": "ClonePageButton",
+        "component": "webappgen.pages.clone.ClonePageButton",
+        "size": "l12",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.pages.clone.ClonePagePopup",
+    "isContainer": true,
+    "js": [
+      {
+        "env": "",
+        "value": "//Set Name action\nself.setName=(name)=>$(ClonePageName).val(name)"
+      },
+      {
+        "env": "",
+        "value": "$(ClonePageButton).click(()=>{\n    clonePage($(ClonePageName).val());\n    M.Modal.init(self).close();\n});"
+      }
+    ]
+  }
+]

@@ -1,0 +1,369 @@
+[
+  {
+    "layout": "horizontal",
+    "components": [
+      {
+        "innerId": "Matches",
+        "component": "webappgen.pages.Matches",
+        "size": "l4",
+        "env": ""
+      },
+      {
+        "innerId": "Title",
+        "component": "webappgen.pages.Title",
+        "size": "l4",
+        "env": ""
+      },
+      {
+        "innerId": "RoleType",
+        "component": "webappgen.components.RoleType",
+        "size": "l2",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.pages.BasicDetails",
+    "isContainer": true,
+    "js": []
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "values": [],
+        "title": "Page Name",
+        "content": ""
+      }
+    }],
+    "name": "webappgen.pages.PageName",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "workingEnv.PageName = self;"
+    }],
+    "type": "select"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "src": "",
+        "title": "Component Class"
+      }
+    }],
+    "name": "webappgen.pages.ComponentClass",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "$(self).change(()=>{\n    workingEnv.page.component = $(self).val();\n})"
+    }],
+    "type": "select"
+  },
+  {
+    "layout": "vertical",
+    "components": [
+      {
+        "innerId": "header",
+        "component": "webappgen.home.header",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "modelContainer",
+        "component": "webappgen.pages.PagesBody",
+        "size": "",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.pages.MainPageComponent",
+    "isContainer": true,
+    "js": []
+  },
+  {
+    "layout": "horizontal",
+    "components": [
+      {
+        "innerId": "LeftPanel",
+        "component": "webappgen.pages.LeftPanel",
+        "size": "l2",
+        "env": ""
+      },
+      {
+        "innerId": "RigthPanel",
+        "component": "webappgen.pages.RightPanel",
+        "size": "l10",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.pages.PagesBody",
+    "isContainer": true,
+    "js": []
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "title": "Clone",
+        "content": ""
+      }
+    }],
+    "name": "webappgen.pages.Clone",
+    "isContainer": false,
+    "js": [],
+    "type": "button"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "title": "Title",
+        "content": "Title"
+      }
+    }],
+    "name": "webappgen.pages.Title",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "$(self).on('input',()=>{workingEnv.page.title=$(self).val();})"
+    }],
+    "type": "textfield"
+  },
+  {
+    "layout": "vertical",
+    "components": [
+      {
+        "innerId": "PagePackage",
+        "component": "webappgen.pages.PagePackage",
+        "size": "",
+        "env": ""
+      },
+      {
+        "innerId": "Clone",
+        "component": "webappgen.pages.Clone",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "ProcessNewPage",
+        "component": "webappgen.pages.new.ProcessNewPage",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "NewPagePopup",
+        "component": "webappgen.pages.new.NewPagePopup",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "ClonePagePopup",
+        "component": "webappgen.pages.clone.ClonePagePopup",
+        "size": "l12",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.pages.LeftPanel",
+    "isContainer": true,
+    "js": [
+      {
+        "env": "",
+        "value": "$(ProcessNewPage).click(  ()=>  M.Modal.init(NewPagePopup).open() );"
+      },
+      {
+        "env": "",
+        "value": "$(Clone).click(()=>{\n    $(ClonePagePopup.ClonePageName).val(workingEnv.page.name+\"_2\");\n   PageContent.openModal(ClonePagePopup);\n});"
+      },
+      {
+        "env": "",
+        "value": "workingEnv.PagePackage = PagePackage;"
+      }
+    ]
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "title": "Save",
+        "content": ""
+      }
+    }],
+    "name": "webappgen.pages.Save",
+    "isContainer": false,
+    "js": [],
+    "type": "button"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "src": "",
+        "title": "Matches",
+        "content": "Matches"
+      }
+    }],
+    "name": "webappgen.pages.Matches",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "$(self).on('input',()=>{workingEnv.page.matches=$(self).val();})"
+    }],
+    "type": "textfield"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "cancel": "Cancel",
+        "ok": "Save",
+        "title": "Save Page",
+        "content": "Do you want to save?"
+      }
+    }],
+    "name": "webappgen.pages.ConfirmSaveModal",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "$(self.ok).click(()=>{saveCurrentSpecs();})"
+    }],
+    "type": "okCancelModal"
+  },
+  {
+    "layout": "horizontal",
+    "components": [
+      {
+        "innerId": "ComponentPackage",
+        "component": "webappgen.pages.ComponentPackage",
+        "size": "l3",
+        "env": ""
+      },
+      {
+        "innerId": "ComponentName",
+        "component": "webappgen.pages.ComponentClass",
+        "size": "l8",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.pages.ComponentSelector",
+    "isContainer": true,
+    "js": [
+      {
+        "env": "",
+        "value": "$(ComponentPackage).change(()=>{\n    let $ComponentName = $(ComponentName);\n    let packageName = $(ComponentPackage).val();\n    $ComponentName.empty();\n    $.get(`/components/packages/${packageName}/components`, (resultList) => {\n        resultList.forEach(function (item) {\n            $ComponentName.append($('<option>', {\n                value: item,\n                text: item\n            }));\n\n        });\n        workingEnv.page.componentPackage = packageName;\n        workingEnv.page.component = $ComponentName.val();\n        M.FormSelect.init(ComponentName);\n    });\n});"
+      },
+      {
+        "env": "",
+        "value": "self.selectPackage=(packageName,component)=> {\n    let $ComponentPackage = $(ComponentPackage);\n    $ComponentPackage.val(packageName);\n    $ComponentPackage.formSelect();\n    $.get(`/components/packages/${$(ComponentPackage).val()}/components`, (resultList) => {\n        resultList.forEach(function (item) {\n            $(ComponentName).append($('<option>', {\n                value: item,\n                text: item,\n                selected: item === component\n            }));\n\n        });\n        M.FormSelect.init(ComponentName);\n    });\n}"
+      }
+    ]
+  },
+  {
+    "layout": "vertical",
+    "components": [
+      {
+        "innerId": "NameSection",
+        "component": "webappgen.pages.NameSection",
+        "size": "l10",
+        "env": ""
+      },
+      {
+        "innerId": "ComponentSelector",
+        "component": "webappgen.pages.ComponentSelector",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "ConfirmSaveModal",
+        "component": "webappgen.pages.ConfirmSaveModal",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "Details",
+        "component": "webappgen.pages.BasicDetails",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "CSS",
+        "component": "webappgen.pages.env.EnvContainer",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "Scripts",
+        "component": "webappgen.pages.env.EnvContainer",
+        "size": "l12",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.pages.RightPanel",
+    "isContainer": true,
+    "js": [
+      {
+        "env": "",
+        "value": "$(NameSection.PageName).change(()=>{\n    $.get(`/pages/details/${$(NameSection.PageName).val()}`,\n        (pageDetails)=>{\n            workingEnv.page = pageDetails;\n            ComponentSelector.selectPackage(pageDetails.componentPackage,pageDetails.component);\n            $(Details.Title).val(pageDetails.title);\n            $(Details.Matches).val(pageDetails.matches);\n            $(Details.RoleType).val(pageDetails.role);\n            $(Details.RoleType).formSelect();\n            \n            CSS.process(\"css\");\n            Scripts.process(\"scripts\");\n        }\n    )\n});\nCSS.setType(\"CSS List\")\nScripts.setType(\"Script List\")"
+      },
+      {
+        "env": "",
+        "value": "$(Details.RoleType).change(()=>{\n    workingEnv.page.role=$(Details.RoleType).val();\n});"
+      },
+      {
+        "env": "",
+        "value": "$(NameSection.Save).click(()=>{\n    M.Modal.init(ConfirmSaveModal).open();\n});"
+      }
+    ]
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "src": "/components/packages",
+        "title": "Component Package"
+      }
+    }],
+    "name": "webappgen.pages.ComponentPackage",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": ""
+    }],
+    "type": "select"
+  },
+  {
+    "layout": "horizontal",
+    "components": [
+      {
+        "innerId": "PageName",
+        "component": "webappgen.pages.PageName",
+        "size": "l8",
+        "env": ""
+      },
+      {
+        "innerId": "Save",
+        "component": "webappgen.pages.Save",
+        "size": "l2",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.pages.NameSection",
+    "isContainer": true,
+    "js": []
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "src": "/pages/packages",
+        "values": [],
+        "title": "Pages Package",
+        "content": ""
+      }
+    }],
+    "name": "webappgen.pages.PagePackage",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "$(self).change(()=>{\n    selectPackage($(self).val());\n});"
+    }],
+    "type": "select"
+  }
+]

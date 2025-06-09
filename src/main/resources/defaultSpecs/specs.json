@@ -1,34 +1,40 @@
 {
   "components": [
-    "org.abx.app.base",
-    "org.abx.app.components",
-    "org.abx.app.components.clone",
-    "org.abx.app.components.container",
-    "org.abx.app.components.env",
-    "org.abx.app.components.leftpanel",
-    "org.abx.app.components.rename",
-    "org.abx.app.components.specs",
-    "org.abx.app.home",
-    "org.abx.app.login",
-    "org.abx.app.pages"
+    "app",
+    "webappgen.base",
+    "webappgen.components",
+    "webappgen.components.clone",
+    "webappgen.components.container",
+    "webappgen.components.env",
+    "webappgen.components.leftpanel",
+    "webappgen.components.new",
+    "webappgen.components.rename",
+    "webappgen.components.specs",
+    "webappgen.home",
+    "webappgen.login",
+    "webappgen.pages",
+    "webappgen.pages.clone",
+    "webappgen.pages.env",
+    "webappgen.pages.new"
   ],
-  "pages": ["org.abx.app"],
-  "methods": ["org.abx.app"],
+  "pages": ["webappgen"],
+  "methods": [
+    "demo",
+    "webappgen"
+  ],
   "resources": {
     "array": [{
-      "package": "demo",
-      "name": "demo.basicarray"
+      "package": "webappgen",
+      "name": "webappgen.basicarray"
     }],
     "binary": [
       "ace",
-      "jquery",
-      "materialize",
-      "org.abx.app"
+      "webappgen"
     ],
     "text": ["demo"],
     "map": [{
-      "package": "org.abx.app",
-      "name": "org.abx.app.Env"
+      "package": "app",
+      "name": "app.Env"
     }]
   },
   "users": "users.json"

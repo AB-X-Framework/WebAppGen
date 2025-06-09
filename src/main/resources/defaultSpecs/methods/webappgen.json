@@ -1,0 +1,23 @@
+[
+  {
+    "outputName": "response",
+    "role": "Admin",
+    "name": "webappgen.saveModel",
+    "description": "Save model",
+    "type": "json"
+  },
+  {
+    "outputName": "model.zip",
+    "role": "Admin",
+    "name": "webappgen.downloadModel",
+    "description": "Download model",
+    "type": "zip"
+  },
+  {
+    "outputName": "response",
+    "role": "Admin",
+    "name": "webappgen.loadModel",
+    "description": "Load model",
+    "type": "json"
+  }
+]

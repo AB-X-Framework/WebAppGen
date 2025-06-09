@@ -1,0 +1,114 @@
+[
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "title": "Size",
+        "content": "Children Component Size"
+      }
+    }],
+    "name": "webappgen.components.container.ChildrenSize",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "$(self).on('input',()=>setChildValue('size',$(self).val()))"
+    }],
+    "type": "textfield"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "title": "InnerId",
+        "content": "Children Component InnerId"
+      }
+    }],
+    "name": "webappgen.components.container.ChildrenInnerId",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "$(self).on('input',()=>setChildValue('innerId',$(self).val()))"
+    }],
+    "type": "textfield"
+  },
+  {
+    "layout": "horizontal",
+    "components": [
+      {
+        "innerId": "InnerComponentPackage",
+        "component": "webappgen.components.leftpanel.ComponentPackage",
+        "size": "l3",
+        "env": ""
+      },
+      {
+        "innerId": "InnerComponentName",
+        "component": "webappgen.components.ComponentName",
+        "size": "l7",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.components.container.ChildrenComponentClass",
+    "isContainer": true,
+    "js": [
+      {
+        "env": "",
+        "value": "workingEnv.InnerComponentPackage=InnerComponentPackage"
+      },
+      {
+        "env": "",
+        "value": "workingEnv.InnerComponentName=InnerComponentName"
+      },
+      {
+        "env": "",
+        "value": "$(InnerComponentName).change(updateInnerElement)"
+      },
+      {
+        "env": "",
+        "value": "$(InnerComponentPackage).change(updateInnerPackage)"
+      }
+    ]
+  },
+  {
+    "layout": "horizontal",
+    "components": [
+      {
+        "innerId": "ChildrenInnerId",
+        "component": "webappgen.components.container.ChildrenInnerId",
+        "size": "l4",
+        "env": ""
+      },
+      {
+        "innerId": "ChildrenSize",
+        "component": "webappgen.components.container.ChildrenSize",
+        "size": "l3",
+        "env": ""
+      },
+      {
+        "innerId": "InnerComponentEnv",
+        "component": "webappgen.components.env.Env",
+        "size": "l2",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.components.container.ChildrenEditingDetailType",
+    "isContainer": true,
+    "js": [
+      {
+        "env": "",
+        "value": "workingEnv.ChildrenInnerId=ChildrenInnerId"
+      },
+      {
+        "env": "",
+        "value": "workingEnv.ChildrenSize=ChildrenSize"
+      },
+      {
+        "env": "",
+        "value": "workingEnv.InnerComponentEnv=InnerComponentEnv"
+      },
+      {
+        "env": "",
+        "value": "$(InnerComponentEnv).on('input',()=>setChildValue('env',$(InnerComponentEnv).val()))"
+      }
+    ]
+  }
+]

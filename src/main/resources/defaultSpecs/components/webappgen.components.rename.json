@@ -1,0 +1,71 @@
+[
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "Rename Component"}
+    }],
+    "name": "webappgen.components.rename.ProcessRenameComponent",
+    "isContainer": false,
+    "js": [],
+    "type": "button"
+  },
+  {
+    "layout": "popup",
+    "components": [
+      {
+        "innerId": "CloneComponentText",
+        "component": "webappgen.components.rename.RenameComponentText",
+        "size": "l2",
+        "env": ""
+      },
+      {
+        "innerId": "CloneComponentName",
+        "component": "webappgen.components.clone.CloneComponentName",
+        "size": "l2",
+        "env": ""
+      },
+      {
+        "innerId": "RenameComponentButton",
+        "component": "webappgen.components.rename.RenameComponentButton",
+        "size": "l12",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.components.rename.RenameComponentPopup",
+    "isContainer": true,
+    "js": [
+      {
+        "env": "",
+        "value": "$(RenameComponentButton).click(()=>{\n    renameComponent($(CloneComponentName).val());\n    M.Modal.init(self).close();\n});\n"
+      },
+      {
+        "env": "",
+        "value": "self.setName=(name)=>$(CloneComponentName).val(name)"
+      }
+    ]
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "Rename"}
+    }],
+    "name": "webappgen.components.rename.RenameComponentButton",
+    "isContainer": false,
+    "js": [],
+    "type": "button"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "size": "div",
+        "title": "",
+        "content": "Please set new component name"
+      }
+    }],
+    "name": "webappgen.components.rename.RenameComponentText",
+    "isContainer": false,
+    "js": [],
+    "type": "section"
+  }
+]

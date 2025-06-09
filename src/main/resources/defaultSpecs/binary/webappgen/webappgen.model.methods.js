@@ -1,0 +1,33 @@
+function loadModel(modelPath) {
+    App.process('webappgen.loadModel', {"modelPath": modelPath},
+        (result) => {
+            PageContent.showModal("Load Model", "New model loaded successfully.");
+        },
+        (result) => {
+            PageContent.showModal("Load Model", "Cannot load model. "+JSON.stringify(result));
+        });
+}
+
+
+function downloadModel() {
+    App.processDownload('webappgen.downloadModel', {},
+        undefined,
+        (result) => {
+            PageContent.showModal("Download Mode", "Cannot download model. "+result);
+        });
+}
+function saveModel(modelPath,removeDefaults) {
+    App.process('webappgen.saveModel', {"modelPath": modelPath,
+        "removeDefaults":removeDefaults},
+        (result) => {
+            if (result.success) {
+                PageContent.showModal("Save Model", "Model saved successfully.");
+            }else {
+                PageContent.showModal("Save Model", "Cannot save model. "+JSON.stringify(result.error));
+            }
+        },
+        (result) => {
+            PageContent.showModal("Save Model", "Cannot save model. "+JSON.stringify(result));
+        });
+}
+

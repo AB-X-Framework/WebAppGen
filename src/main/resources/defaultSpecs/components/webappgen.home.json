@@ -1,0 +1,218 @@
+[
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "cancel": "Don't remove",
+        "src": "/resources/map/app.Env/hideDefaults",
+        "ok": "Remove",
+        "title": "Remove defaults"
+      }
+    }],
+    "name": "webappgen.home.defaults",
+    "isContainer": false,
+    "js": [],
+    "type": "switch"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "src": "/resources/map/app.Env/modelPath",
+        "title": "Project path",
+        "content": ""
+      }
+    }],
+    "name": "webappgen.home.model",
+    "isContainer": false,
+    "js": [],
+    "type": "textfield"
+  },
+  {
+    "layout": "vertical",
+    "components": [
+      {
+        "innerId": "header",
+        "component": "webappgen.home.header",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "modelContainer",
+        "component": "webappgen.home.container",
+        "size": "",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.home.WelcomePageComponent",
+    "isContainer": true,
+    "js": []
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "Download Model"}
+    }],
+    "name": "webappgen.home.download",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": ""
+    }],
+    "type": "button"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "cancel": "Cancel",
+        "ok": "Save model",
+        "title": "Save Changes",
+        "content": "Do you want to save model?"
+      }
+    }],
+    "name": "webappgen.home.ConfirmSaveModal",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "$(self.ok).click(()=>saveModel($(modelPath).val(),removeDefaults.checked)) "
+    }],
+    "type": "okCancelModal"
+  },
+  {
+    "layout": "container",
+    "components": [
+      {
+        "innerId": "modelPath",
+        "component": "webappgen.home.model",
+        "size": "l6",
+        "env": ""
+      },
+      {
+        "innerId": "removeDefaults",
+        "component": "webappgen.home.defaults",
+        "size": "l6",
+        "env": ""
+      },
+      {
+        "innerId": "ConfirmSaveModal",
+        "component": "webappgen.home.ConfirmSaveModal",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "load",
+        "component": "webappgen.home.load",
+        "size": "",
+        "env": ""
+      },
+      {
+        "innerId": "save",
+        "component": "webappgen.home.save",
+        "size": "",
+        "env": ""
+      },
+      {
+        "innerId": "download",
+        "component": "webappgen.home.download",
+        "size": "l3",
+        "env": ""
+      },
+      {
+        "innerId": "ConfirmLoadModal",
+        "component": "webappgen.home.ConfirmLoadModal",
+        "size": "l12",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.home.container",
+    "isContainer": true,
+    "js": [
+      {
+        "env": "",
+        "value": "$(load).click(()=>{M.Modal.init(ConfirmLoadModal).open();})"
+      },
+      {
+        "env": "",
+        "value": "$(save).click(()=>{M.Modal.init(ConfirmSaveModal).open();})"
+      },
+      {
+        "env": "",
+        "value": "$(download).click(()=>downloadModel()) "
+      }
+    ]
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "Load Model"}
+    }],
+    "name": "webappgen.home.load",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": ""
+    }],
+    "type": "button"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "Save Model"}
+    }],
+    "name": "webappgen.home.save",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": ""
+    }],
+    "type": "button"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "cancel": "Cancel",
+        "ok": "Load model",
+        "title": "Load Model ",
+        "content": "Do you want to load model?"
+      }
+    }],
+    "name": "webappgen.home.ConfirmLoadModal",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "$(self.ok).click(()=>loadModel($(modelPath).val())) "
+    }],
+    "type": "okCancelModal"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "src": "/resources/binary/webappgen.abx.png",
+        "values": [
+          {
+            "text": "Home",
+            "value": "/page/Home"
+          },
+          {
+            "text": "Components",
+            "value": "/page/Components"
+          },
+          {
+            "text": "Pages",
+            "value": "/page/Pages"
+          }
+        ]
+      }
+    }],
+    "name": "webappgen.home.header",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "let url = document.location.href ;\nlet lastSegment = url.substring(url.lastIndexOf(\"/\") + 1);\nPageContent.setActiveMenuItemText(self,lastSegment); "
+    }],
+    "type": "header"
+  }
+]

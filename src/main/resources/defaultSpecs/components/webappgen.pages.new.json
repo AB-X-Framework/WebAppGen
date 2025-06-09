@@ -1,0 +1,78 @@
+[
+  {
+    "layout": "popup",
+    "components": [
+      {
+        "innerId": "NewPageText",
+        "component": "webappgen.pages.new.NewPageText",
+        "size": "l2",
+        "env": ""
+      },
+      {
+        "innerId": "NewPageName",
+        "component": "webappgen.pages.new.NewPageName",
+        "size": "l2",
+        "env": ""
+      },
+      {
+        "innerId": "NewPageButton",
+        "component": "webappgen.pages.new.NewPageButton",
+        "size": "l12",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.pages.new.NewPagePopup",
+    "isContainer": true,
+    "js": [{
+      "env": "",
+      "value": "$(NewPageButton).click(()=>{\n    newPage($(NewPageName).val());\n    M.Modal.init(self).close();\n});"
+    }]
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "title": "",
+        "content": "Please add new env"
+      }
+    }],
+    "name": "webappgen.pages.new.NewPageName",
+    "isContainer": false,
+    "js": [],
+    "type": "textfield"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "size": "div",
+        "title": "",
+        "content": "Please set the new page name"
+      }
+    }],
+    "name": "webappgen.pages.new.NewPageText",
+    "isContainer": false,
+    "js": [],
+    "type": "section"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "New"}
+    }],
+    "name": "webappgen.pages.new.NewPageButton",
+    "isContainer": false,
+    "js": [],
+    "type": "button"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "New Page"}
+    }],
+    "name": "webappgen.pages.new.ProcessNewPage",
+    "isContainer": false,
+    "js": [],
+    "type": "button"
+  }
+]

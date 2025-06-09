@@ -1,0 +1,354 @@
+[
+  {
+    "layout": "popup",
+    "components": [
+      {
+        "innerId": "SelectValue",
+        "component": "webappgen.components.specs.SelectValue",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "SelectText",
+        "component": "webappgen.components.specs.SelectText",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "SelectOkButton",
+        "component": "webappgen.components.specs.SelectOkButton",
+        "size": "l12",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.components.specs.SelectTextValue",
+    "isContainer": true,
+    "js": [{
+      "env": "",
+      "value": "$(SelectOkButton).click(()=>{\n   M.Modal.init(self).close()\n   addSelectValueText($(SelectValue).val(),$(SelectText).val());\n   \n});"
+    }]
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "title": "Value",
+        "content": "value"
+      }
+    }],
+    "name": "webappgen.components.specs.SelectValue",
+    "isContainer": false,
+    "js": [],
+    "type": "textfield"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "title": "Ok",
+        "content": ""
+      }
+    }],
+    "name": "webappgen.components.specs.SelectOkButton",
+    "isContainer": false,
+    "js": [],
+    "type": "button"
+  },
+  {
+    "layout": "horizontal",
+    "components": [
+      {
+        "innerId": "SpecsSelect",
+        "component": "webappgen.components.specs.SpecsSelect",
+        "size": "l4",
+        "env": ""
+      },
+      {
+        "innerId": "ConfirmRemoveModal",
+        "component": "webappgen.components.env.ConfirmRemoveModal",
+        "size": "",
+        "env": ""
+      },
+      {
+        "innerId": "SpecsSelectRemove",
+        "component": "webappgen.components.env.RemoveEnv",
+        "size": "",
+        "env": ""
+      },
+      {
+        "innerId": "SpecsSelectAdd",
+        "component": "webappgen.components.env.AddEnv",
+        "size": "",
+        "env": ""
+      },
+      {
+        "innerId": "SelectTextValue",
+        "component": "webappgen.components.specs.SelectTextValue",
+        "size": "l12",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.components.specs.SelectContainer",
+    "isContainer": true,
+    "js": [
+      {
+        "env": "",
+        "value": "workingEnv.SpecsSelect=SpecsSelect"
+      },
+      {
+        "env": "",
+        "value": "workingEnv.SpecsSelectRemove=SpecsSelectRemove"
+      },
+      {
+        "env": "",
+        "value": "workingEnv.SpecsSelectAdd=SpecsSelectAdd;\n\n$(SpecsSelectAdd).click(()=>{\n    M.Modal.init(SelectTextValue).open();\n});"
+      }
+    ]
+  },
+  {
+    "layout": "horizontal",
+    "components": [
+      {
+        "innerId": "SpecsSelect",
+        "component": "webappgen.components.specs.SpecsSelect",
+        "size": "l4",
+        "env": ""
+      },
+      {
+        "innerId": "ConfirmRemoveModal",
+        "component": "webappgen.components.env.ConfirmRemoveModal",
+        "size": "",
+        "env": ""
+      },
+      {
+        "innerId": "SpecsSelectRemove",
+        "component": "webappgen.components.env.RemoveEnv",
+        "size": "",
+        "env": ""
+      },
+      {
+        "innerId": "SpecsSelectAdd",
+        "component": "webappgen.components.env.AddEnv",
+        "size": "",
+        "env": ""
+      },
+      {
+        "innerId": "SelectTextValue",
+        "component": "webappgen.components.specs.SelectTextValue",
+        "size": "l12",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.components.specs.SpecsSelectContainer",
+    "isContainer": true,
+    "js": [
+      {
+        "env": "",
+        "value": "workingEnv.SpecsSelect=SpecsSelect;"
+      },
+      {
+        "env": "",
+        "value": "workingEnv.SpecsSelectRemove=SpecsSelectRemove;"
+      },
+      {
+        "env": "",
+        "value": "workingEnv.SpecsSelectAdd=SpecsSelectAdd;\n\n$(SpecsSelectAdd).click(()=>{\n    M.Modal.init(SelectTextValue).open();\n});"
+      }
+    ]
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "title": "Height",
+        "content": "Height"
+      }
+    }],
+    "name": "webappgen.components.specs.SpecsHeight",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "$(self).on('input',()=>setSpecValue('height',$(self).val()))"
+    }],
+    "type": "textfield"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "title": "Content",
+        "content": "Content"
+      }
+    }],
+    "name": "webappgen.components.specs.SpecsContent",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "$(self).on('input',()=>setSpecValue('content',$(self).val()))"
+    }],
+    "type": "textfield"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "Show Modal"}
+    }],
+    "name": "webappgen.components.specs.SpecsShowModal",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "$(self).click(showPreviewModal)"
+    }],
+    "type": "button"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "title": "Size",
+        "content": "Size"
+      }
+    }],
+    "name": "webappgen.components.specs.SpecsSize",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "$(self).on('input',()=>setSpecValue('size',$(self).val()))"
+    }],
+    "type": "textfield"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"height": "300px"}
+    }],
+    "name": "webappgen.components.specs.SpecsJS",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "  var editor = ace.edit(self); editor.getSession().on('change', (delta)=>{updateText(delta,editor.getValue())});"
+    }],
+    "type": "jsEditor"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "title": "Ok text",
+        "content": "Ok text"
+      }
+    }],
+    "name": "webappgen.components.specs.SpecsOk",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "$(self).on('input',()=>setSpecValue('ok',$(self).val()))"
+    }],
+    "type": "textfield"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "title": "Text",
+        "content": "text"
+      }
+    }],
+    "name": "webappgen.components.specs.SelectText",
+    "isContainer": false,
+    "js": [],
+    "type": "textfield"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "title": "Content",
+        "content": "Please type"
+      }
+    }],
+    "name": "webappgen.components.specs.SpecsContentArea",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "$(self).on('input',()=>setSpecValue('content',$(self).val()))"
+    }],
+    "type": "textarea"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "title": "Cancel text",
+        "content": "Cancel text"
+      }
+    }],
+    "name": "webappgen.components.specs.SpecsCancel",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "$(self).on('input',()=>setSpecValue('cancel',$(self).val()))"
+    }],
+    "type": "textfield"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "values": [],
+        "title": "Values"
+      }
+    }],
+    "name": "webappgen.components.specs.SpecsSelect",
+    "isContainer": false,
+    "js": [],
+    "type": "select"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "title": "Source",
+        "content": "Source"
+      }
+    }],
+    "name": "webappgen.components.specs.SpecsSource",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "$(self).on('input',()=>setSpecValue('src',$(self).val()))"
+    }],
+    "type": "textfield"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "title": "Title",
+        "content": "Title"
+      }
+    }],
+    "name": "webappgen.components.specs.SpecsTitle",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "$(self).on('input',()=>setSpecValue('title',$(self).val()))"
+    }],
+    "type": "textfield"
+  },
+  {
+    "layout": "horizontal",
+    "components": [{
+      "innerId": "SpecsJS",
+      "component": "webappgen.components.specs.SpecsJS",
+      "size": "l11",
+      "env": ""
+    }],
+    "name": "webappgen.components.specs.SpecsJSContainer",
+    "isContainer": true,
+    "js": [{
+      "env": "",
+      "value": "workingEnv.SpecsJS=SpecsJS;"
+    }]
+  }
+]

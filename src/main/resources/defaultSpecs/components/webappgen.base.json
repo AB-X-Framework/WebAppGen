@@ -1,0 +1,32 @@
+[
+  {
+    "specs": [{
+      "env": "",
+      "value": {}
+    }],
+    "name": "webappgen.base.div",
+    "isContainer": false,
+    "js": [],
+    "type": "div"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"src": "/resources/binary/webappgen.abx.png"}
+    }],
+    "name": "webappgen.base.abxImg",
+    "isContainer": false,
+    "js": [],
+    "type": "img"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {}
+    }],
+    "name": "webappgen.base.divider",
+    "isContainer": false,
+    "js": [],
+    "type": "divider"
+  }
+]
