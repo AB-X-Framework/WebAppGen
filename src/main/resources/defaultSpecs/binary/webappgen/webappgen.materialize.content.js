@@ -572,7 +572,7 @@ class App {
         }
         formData.append("args", JSON.stringify(args));
         if (typeof dataFiles !== "undefined") {
-            Object.entries(jsonObject).forEach(([key, value]) => {
+            Object.entries(dataFiles).forEach(([key, value]) => {
                 formData.append(key, value);
             });
 
