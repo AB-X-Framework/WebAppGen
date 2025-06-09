@@ -19,10 +19,12 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import static org.abx.webappgen.utils.ElementUtils.defaultPackage;
 import static org.abx.webappgen.utils.ElementUtils.elementHashCode;
 
 @Component
 public class SpecsExporter {
+
     @Autowired
     public UserRepository userRepository;
 
@@ -54,20 +56,22 @@ public class SpecsExporter {
      * @return
      */
     @Transactional
-    public void createSpecs(String specsFolder) throws IOException {
+    public void createSpecs(String specsFolder, boolean removeDefaults) throws IOException {
+        new File(specsFolder).mkdirs();
         deleteFolderRecursively(new File(specsFolder));
+        new File(specsFolder).mkdirs();
         JSONObject specs = new JSONObject();
-        specs.put("methods", getMethods(specsFolder));
+        specs.put("methods", getMethods(specsFolder, removeDefaults));
         specs.put("users", createUsers(specsFolder));
-        specs.put("resources", createResources(specsFolder));
-        specs.put("components", createComponents(specsFolder));
-        specs.put("pages", createPages(specsFolder));
+        specs.put("resources", createResources(specsFolder, removeDefaults));
+        specs.put("components", createComponents(specsFolder, removeDefaults));
+        specs.put("pages", createPages(specsFolder, removeDefaults));
         new FileOutputStream(specsFolder + "/specs.json").write(specs.toString(2).getBytes());
     }
 
-    public byte[] exportSpecs() throws IOException {
+    public byte[] exportSpecs(boolean removeDefault) throws IOException {
         Path p = Files.createTempDirectory("temp-");
-        createSpecs(p.toString());
+        createSpecs(p.toString(), removeDefault);
         byte[] bytes = ZipUtils.zipFolderToByteArray(p);
         ZipUtils.delete(p);
         return bytes;
@@ -100,9 +104,9 @@ public class SpecsExporter {
         }
     }
 
-    public void saveSpecs(String name) throws IOException {
+    public void saveSpecs(String name, boolean removeDefauls) throws IOException {
         Path p = Paths.get(name);
-        createSpecs(p.toString());
+        createSpecs(p.toString(), removeDefauls);
     }
 
     public String createUsers(String specsFolder) throws IOException {
@@ -121,10 +125,13 @@ public class SpecsExporter {
     }
 
 
-    public JSONArray createComponents(String specsFolder) throws IOException {
+    public JSONArray createComponents(String specsFolder, boolean removeDefaults) throws IOException {
         new File(specsFolder + "/components").mkdirs();
         JSONArray jsonComponents = new JSONArray();
         for (String packageName : componentRepository.findDistinctPackageNames()) {
+            if (removeDefaults && packageName.startsWith(defaultPackage)) {
+                continue;
+            }
             jsonComponents.put(packageName);
             JSONArray componentsByPackage = new JSONArray();
             for (org.abx.webappgen.persistence.model.Component component : componentRepository.findAllByPackageName(packageName)) {
@@ -196,12 +203,15 @@ public class SpecsExporter {
         return jsonValues;
     }
 
-    public JSONArray createPages(String specsFolder) throws IOException {
+    public JSONArray createPages(String specsFolder, boolean removeDefaults) throws IOException {
         new File(specsFolder + "/pages").mkdirs();
         JSONArray jsonPages = new JSONArray();
         HashMap<String, JSONArray> pages = new HashMap<>();
         for (Page page : pageRepository.findAll()) {
-            JSONObject jsonPage = getPageDetails(page,false);
+            if (removeDefaults && page.packageName.startsWith(defaultPackage)) {
+                continue;
+            }
+            JSONObject jsonPage = getPageDetails(page, false);
             if (!pages.containsKey(page.packageName)) {
                 jsonPages.put(page.packageName);
                 pages.put(page.packageName, new JSONArray());
@@ -217,11 +227,11 @@ public class SpecsExporter {
     }
 
     @Transactional
-    public JSONObject getPageDetails(String page){
-        return getPageDetails(pageRepository.findByPageId(elementHashCode(page)),true);
+    public JSONObject getPageDetails(String page) {
+        return getPageDetails(pageRepository.findByPageId(elementHashCode(page)), true);
     }
 
-    private JSONObject getPageDetails(Page page,boolean packageName) {
+    private JSONObject getPageDetails(Page page, boolean packageName) {
         JSONObject jsonPage = new JSONObject();
         jsonPage.put("name", page.pageName);
         jsonPage.put("matches", page.matches);
@@ -230,22 +240,24 @@ public class SpecsExporter {
         jsonPage.put("component", page.component.componentName);
         jsonPage.put("css", envValue(page.css));
         jsonPage.put("scripts", envValue(page.scripts));
-        if (packageName){
+        if (packageName) {
             jsonPage.put("componentPackage", page.component.packageName);
             jsonPage.put("package", page.packageName);
         }
         return jsonPage;
     }
 
-    public JSONArray getMethods(String specsFolder) throws IOException {
+    public JSONArray getMethods(String specsFolder, boolean removeDefaults) throws IOException {
         new File(specsFolder + "/methods").mkdirs();
-
         JSONArray methods = new JSONArray();
         for (String packageName : methodSpecRepository.findDistinctPackageNames()) {
+            if (removeDefaults && packageName.startsWith(defaultPackage)) {
+                continue;
+            }
             methods.put(packageName);
             new File(specsFolder + "/methods/" + packageName).mkdirs();
             JSONArray jsonMethodsPerPackage = new JSONArray();
-            for (MethodSpec method : methodSpecRepository.findAll()) {
+            for (MethodSpec method : methodSpecRepository.findAllByPackageName(packageName)) {
                 JSONObject jsonMethod = new JSONObject();
                 jsonMethodsPerPackage.put(jsonMethod);
                 jsonMethod.put("name", method.methodName);
@@ -263,20 +275,23 @@ public class SpecsExporter {
         return methods;
     }
 
-    public JSONObject createResources(String specsFolder) throws IOException {
+    public JSONObject createResources(String specsFolder, boolean removeDefaults) throws IOException {
         JSONObject object = new JSONObject();
-        object.put("binary", createBinaryResources(specsFolder));
-        object.put("text", createTextResources(specsFolder));
-        object.put("array", createArrayResources(specsFolder));
-        object.put("map", createMapResources(specsFolder));
+        object.put("binary", createBinaryResources(specsFolder, removeDefaults));
+        object.put("text", createTextResources(specsFolder, removeDefaults));
+        object.put("array", createArrayResources(specsFolder, removeDefaults));
+        object.put("map", createMapResources(specsFolder, removeDefaults));
         return object;
     }
 
-    public JSONArray createBinaryResources(String specsFolder) throws IOException {
+    public JSONArray createBinaryResources(String specsFolder, boolean removeDefaults) throws IOException {
         new File(specsFolder + "/binary").mkdirs();
         JSONArray binaryResources = new JSONArray();
 
         for (String packageName : binaryResourceRepository.findDistinctPackageNames()) {
+            if (removeDefaults && packageName.startsWith(defaultPackage)) {
+                continue;
+            }
             binaryResources.put(packageName);
             JSONArray packageResources = new JSONArray();
             new File(specsFolder + "/binary/" + packageName).mkdirs();
@@ -295,10 +310,13 @@ public class SpecsExporter {
         return binaryResources;
     }
 
-    public JSONArray createTextResources(String specsFolder) throws IOException {
+    public JSONArray createTextResources(String specsFolder, boolean removeDefaults) throws IOException {
         new File(specsFolder + "/text").mkdirs();
         JSONArray textResources = new JSONArray();
         for (String packageName : textResourceRepository.findDistinctPackageNames()) {
+            if (removeDefaults && packageName.startsWith(defaultPackage)) {
+                continue;
+            }
             new File(specsFolder + "/text/" + packageName).mkdirs();
             textResources.put(packageName);
             JSONArray packageResources = new JSONArray();
@@ -319,10 +337,13 @@ public class SpecsExporter {
     }
 
 
-    public JSONArray createArrayResources(String specsFolder) throws IOException {
+    public JSONArray createArrayResources(String specsFolder, boolean removeDefaults) throws IOException {
         new File(specsFolder + "/array").mkdirs();
         JSONArray arrayResources = new JSONArray();
         for (ArrayResource arrayResource : arrayResourceRepository.findAll()) {
+            if (removeDefaults && arrayResource.packageName.startsWith(defaultPackage)) {
+                continue;
+            }
             JSONObject jsonArrayResource = new JSONObject();
             arrayResources.put(jsonArrayResource);
             String name = arrayResource.resourceName;
@@ -338,10 +359,13 @@ public class SpecsExporter {
         return arrayResources;
     }
 
-    public JSONArray createMapResources(String specsFolder) throws IOException {
+    public JSONArray createMapResources(String specsFolder, boolean removeDefaults) throws IOException {
         new File(specsFolder + "/map").mkdirs();
         JSONArray mapResources = new JSONArray();
         for (MapResource mapResource : mapResourceRepository.findAll()) {
+            if (removeDefaults && mapResource.packageName.startsWith(defaultPackage)) {
+                continue;
+            }
             JSONObject jsonMapResource = new JSONObject();
             mapResources.put(jsonMapResource);
             String name = mapResource.resourceName;

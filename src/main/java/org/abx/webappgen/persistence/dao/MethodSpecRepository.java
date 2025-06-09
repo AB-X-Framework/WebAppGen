@@ -11,6 +11,8 @@ import java.util.List;
 public interface MethodSpecRepository extends JpaRepository<MethodSpec, Long> {
     MethodSpec findByMethodSpecId(long methodSpecId);
 
+    List<MethodSpec> findAllByPackageName(String name);
+
     @Override
     void delete(MethodSpec methodSpec);
 

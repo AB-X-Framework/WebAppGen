@@ -1,6 +1,7 @@
 package org.abx.webappgen;
 
 import org.abx.util.StreamUtils;
+import org.abx.webappgen.spring.ABXWebAppGen;
 import org.abx.webappgen.utils.SpecsExporter;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,7 +30,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@SpringBootTest(classes = org.abx.webappgen.spring.ABXWebAppGen.class)
+@SpringBootTest(classes = ABXWebAppGen.class)
 class ExportTest {
 
     private static ConfigurableApplicationContext context;
@@ -37,12 +38,12 @@ class ExportTest {
     SpecsExporter specsExporter;
 
 
-    @Value("${app.specs}")
+    @Value("${app.specsFolder}")
     public String appSpecsPath;
 
     @BeforeAll
     public static void setup() {
-        context = SpringApplication.run(org.abx.webappgen.spring.ABXWebAppGen.class);
+        context = SpringApplication.run(ABXWebAppGen.class);
     }
 
     @Test
@@ -52,17 +53,17 @@ class ExportTest {
         Assertions.assertFalse(specsFolder.exists());
         try {
             specsFolder.mkdirs();
-            specsExporter.createSpecs(folderName);
+            specsExporter.createSpecs(folderName, false);
             JSONObject generated =
                     new JSONObject(StreamUtils.readStream(new FileInputStream(folderName + "/specs.json")));
             JSONObject original =
                     new JSONObject(StreamUtils.readStream(new FileInputStream(appSpecsPath + "/specs.json")));
             assertJsonEquals("", generated, original);
-            compareFolders(folderName+"/binary",appSpecsPath+"/binary");
-            compareFolders(folderName+"/text",appSpecsPath+"/text");
-            compareFolders(folderName+"/methods",appSpecsPath+"/methods");
-            compareJsonStringArraysInFolders(folderName+"/array",appSpecsPath+"/array");
-            compareJsonStringObjectsInFolders(folderName+"/map",appSpecsPath+"/map");
+            compareFolders(folderName + "/binary", appSpecsPath + "/binary");
+            compareFolders(folderName + "/text", appSpecsPath + "/text");
+            compareFolders(folderName + "/methods", appSpecsPath + "/methods");
+            compareJsonStringArraysInFolders(folderName + "/array", appSpecsPath + "/array");
+            compareJsonStringObjectsInFolders(folderName + "/map", appSpecsPath + "/map");
         } finally {
             deleteDir(specsFolder);
         }
@@ -164,7 +165,7 @@ class ExportTest {
             Path file2 = dir2.resolve(relative);
 
             //No checksum for .json files
-            if (file1.toString().endsWith(".json")){
+            if (file1.toString().endsWith(".json")) {
                 continue;
             }
             String hash1 = sha256(file1);
@@ -179,10 +180,11 @@ class ExportTest {
         System.out.println("Folders match: structure and contents are identical.");
     }
 
-    private  String sha256(Path path) throws IOException {
+    private String sha256(Path path) throws IOException {
         try (DigestInputStream dis = new DigestInputStream(Files.newInputStream(path), MessageDigest.getInstance("SHA-256"))) {
             byte[] buffer = new byte[8192];
-            while (dis.read(buffer) != -1) {}
+            while (dis.read(buffer) != -1) {
+            }
             byte[] digest = dis.getMessageDigest().digest();
             return bytesToHex(digest);
         } catch (Exception e) {
@@ -190,13 +192,13 @@ class ExportTest {
         }
     }
 
-    private  String bytesToHex(byte[] bytes) {
+    private String bytesToHex(byte[] bytes) {
         StringBuilder sb = new StringBuilder();
         for (byte b : bytes) sb.append(String.format("%02x", b));
         return sb.toString();
     }
 
-    private  Set<Path> diff(Set<Path> a, Set<Path> b) {
+    private Set<Path> diff(Set<Path> a, Set<Path> b) {
         return a.stream().filter(p -> !b.contains(p)).collect(Collectors.toSet());
     }
 
@@ -267,6 +269,7 @@ class ExportTest {
         result.removeAll(b);
         return result;
     }
+
     public static void compareJsonStringObjectsInFolders(String folderPath1, String folderPath2) throws IOException {
         Path dir1 = Paths.get(folderPath1);
         Path dir2 = Paths.get(folderPath2);
@@ -316,6 +319,5 @@ class ExportTest {
             throw new RuntimeException("Invalid JSON object in file: " + path, e);
         }
     }
-
 
 }
