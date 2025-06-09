@@ -1,22 +1,26 @@
 package org.abx.webappgen.utils;
 
 
+import jakarta.annotation.PostConstruct;
+import jakarta.transaction.Transactional;
+import org.abx.util.StreamUtils;
+import org.abx.webappgen.persistence.PageModel;
+import org.abx.webappgen.persistence.ResourceModel;
 import org.abx.webappgen.persistence.dao.*;
 import org.abx.webappgen.persistence.model.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 import static org.abx.webappgen.utils.ElementUtils.elementHashCode;
@@ -24,338 +28,324 @@ import static org.abx.webappgen.utils.ElementUtils.elementHashCode;
 @Component
 public class SpecsImporter {
     @Autowired
-    public UserRepository userRepository;
+    private PageModel pageModel;
 
     @Autowired
-    public PageRepository pageRepository;
+    private ResourceModel resourceModel;
 
     @Autowired
-    public ComponentRepository componentRepository;
+    private MethodSpecRepository methodSpecRepository;
+
+    @Value("${load.appFolder}")
+    public boolean loadAppFolder;
+
+    @Value("${load.appResources}")
+    public boolean loadAppResources;
+
+    @Value("${drop.app}")
+    public boolean dropApp;
+
+    @Value("${app.specsFolder}")
+    public String specsFolder;
+
+
+    @Value("${app.specsResources}")
+    public String specsResources;
 
     @Autowired
-    public TextResourceRepository textResourceRepository;
+    private UserRepository userRepository;
 
-    @Autowired
-    public BinaryResourceRepository binaryResourceRepository;
+    @PostConstruct
+    public void init() throws Exception {
+        if (dropApp) {
+            pageModel.clean();
+        }
+        if (loadAppResources) {
+            JSONArray resources = new JSONArray(specsResources);
+            for (int i = 0; i < resources.length(); i++) {
+                loadSpecsResources(resources.getString(i));
+            }
+        }
+        if (loadAppFolder) {
+            loadSpecsFolder(specsFolder);
+        }
+    }
 
-    @Autowired
-    public ArrayResourceRepository arrayResourceRepository;
+    public boolean uploadBinarySpecs(byte[] zipFolder) throws Exception {
+        String path = ZipUtils.unzipToTempFolder(zipFolder);
+        loadSpecsFolder(path);
+        return true;
+    }
 
-    @Autowired
-    public MapResourceRepository mapResourceRepository;
 
-    @Autowired
-    public MethodSpecRepository methodSpecRepository;
+    public void loadSpecsFolder(String specsFolder) throws Exception {
+        loadSpecs(specsFolder, true);
+    }
 
+
+    public void loadSpecsResources(String specsFolder) throws Exception {
+        loadSpecs(specsFolder, false);
+    }
+
+    public String getData(String resource, boolean fs) throws Exception {
+        InputStream inputStream;
+        if (fs) {
+            File resourceFile = new File(resource);
+            inputStream = new FileInputStream(resourceFile);
+        } else {
+            inputStream = getClass().getClassLoader().getResourceAsStream(resource);
+        }
+        return StreamUtils.readStream(inputStream);
+    }
+
+
+    public byte[] getBinaryData(String resource, boolean fs) throws Exception {
+        InputStream inputStream;
+        if (fs) {
+            File resourceFile = new File(resource);
+            inputStream = new FileInputStream(resourceFile);
+        } else {
+            inputStream = getClass().getClassLoader().getResourceAsStream(resource);
+        }
+        return StreamUtils.readByteArrayStream(inputStream);
+    }
 
     /**
-     * Create specs and saves it in
+     * Uploads spe
      *
-     * @return
+     * @param specsPath
+     * @throws Exception
      */
-    @org.springframework.transaction.annotation.Transactional
-    public void createSpecs(String specsFolder) throws IOException {
-        deleteFolderRecursively(new File(specsFolder));
-        JSONObject specs = new JSONObject();
-        specs.put("methods", getMethods(specsFolder));
-        specs.put("users", createUsers(specsFolder));
-        specs.put("resources", createResources(specsFolder));
-        specs.put("components", createComponents(specsFolder));
-        specs.put("pages", createPages(specsFolder));
-        new FileOutputStream(specsFolder + "/specs.json").write(specs.toString(2).getBytes());
+    public void loadSpecs(String specsPath, boolean fs) throws Exception {
+        String data = getData(specsPath + "/specs.json", fs);
+        JSONObject obj = new JSONObject(data);
+        processUsers(specsPath, obj.getString("users"), fs);
+        JSONArray methods = obj.getJSONArray("methods");
+        for (int i = 0; i < methods.length(); i++) {
+            String packageName = methods.getString(i);
+            processPackageMethods(specsPath, packageName, fs);
+        }
+        JSONObject resources = obj.getJSONObject("resources");
+        processResource(specsPath, resources, fs);
+        JSONArray components = obj.getJSONArray("components");
+        processComponents(specsPath, components, fs);
+        JSONArray pages = obj.getJSONArray("pages");
+        processPages(specsPath, pages, fs);
     }
 
-    public byte[] exportSpecs() throws IOException {
-        Path p = Files.createTempDirectory("temp-");
-        createSpecs(p.toString());
-        byte[] bytes = ZipUtils.zipFolderToByteArray(p);
-        ZipUtils.delete(p);
-        return bytes;
+    private void processUsers(String specsFolder, String userfile, boolean fs) throws Exception {
+        String users = getData(specsFolder + "/" + userfile, fs);
+        JSONArray jsonUsers = new JSONArray(users);
+        for (int i = 0; i < jsonUsers.length(); i++) {
+            JSONObject jsonUser = jsonUsers.getJSONObject(i);
+            User user = new User();
+            user.username = jsonUser.getString("username");
+            user.userId = elementHashCode(user.username);
+            user.password = jsonUser.getString("password");
+            user.enabled = jsonUser.getBoolean("enabled");
+            user.role = jsonUser.getString("role");
+            userRepository.save(user);
+        }
     }
 
-    public static void deleteFolderRecursively(File folder) throws IOException {
-        if (!folder.exists()) {
-            throw new IOException("Folder does not exist: " + folder.getAbsolutePath());
+    private void processPages(String specsFolder, JSONArray pages, boolean fs) throws Exception {
+        String pagesFolder = specsFolder + "/pages";
+        for (int i = 0; i < pages.length(); i++) {
+            String packageName = pages.getString(i);
+            processPagePackage(pagesFolder, packageName, fs);
         }
+    }
 
-        if (!folder.isDirectory()) {
-            throw new IOException("Not a directory: " + folder.getAbsolutePath());
+    private void processPagePackage(String pagesFolder, String packageName, boolean fs) throws Exception {
+        String pagesText = getData(pagesFolder + "/" + packageName + ".json", fs);
+        JSONArray pages = new JSONArray(pagesText);
+        for (int i = 0; i < pages.length(); ++i) {
+            processPage(packageName, pages.getJSONObject(i));
         }
+    }
 
-        File[] files = folder.listFiles();
-        if (files != null) { // folder is not empty
-            for (File file : files) {
-                if (file.isDirectory()) {
-                    deleteFolderRecursively(file);
-                } else {
-                    if (!file.delete()) {
-                        throw new IOException("Failed to delete file: " + file.getAbsolutePath());
-                    }
-                }
+    private void processPage(String packageName, JSONObject page) {
+        pageModel.createPageWithPageName(
+                page.getString("name"),
+                packageName,
+                page.getString("matches"),
+                page.getString("title"),
+                page.getString("role"),
+                page.getString("component"),
+                page.getJSONArray("css"),
+                page.getJSONArray("scripts"));
+
+    }
+
+    private void processPackageMethods(String specsFolder, String packageName, boolean fs) throws Exception {
+        String methods = getData(specsFolder + "/methods/" + packageName + ".json", fs);
+        JSONArray jsonMethods = new JSONArray(methods);
+        for (int i = 0; i < jsonMethods.length(); i++) {
+            JSONObject method = jsonMethods.getJSONObject(i);
+            processMethods(specsFolder, packageName, method, fs);
+        }
+    }
+
+    private void processMethods(String specsFolder, String packageName, JSONObject method, boolean fs)
+            throws Exception {
+        MethodSpec specs = new MethodSpec();
+        specs.methodName = method.getString("name");
+        specs.packageName = packageName;
+        specs.description = method.getString("description");
+        specs.methodSpecId = elementHashCode(specs.methodName);
+        specs.methodJS = getData(specsFolder + "/methods/" +
+                packageName + "/" + specs.methodName + ".js", fs);
+        specs.type = method.getString("type");
+        specs.outputName = method.getString("outputName");
+        specs.role = method.getString("role");
+        methodSpecRepository.save(specs);
+    }
+
+    private void processArrayResource(String specsPath, JSONArray arrayResources, boolean fs) throws Exception {
+        for (int i = 0; i < arrayResources.length(); i++) {
+            JSONObject arrayResource = arrayResources.getJSONObject(i);
+            String arrayName = arrayResource.getString("name");
+            String arrayData = getData(specsPath + "/array/" + arrayName + ".json", fs);
+            resourceModel.saveArrayResource(arrayName, arrayResource.getString("package"), new JSONArray(arrayData));
+        }
+    }
+
+    private void processMapResource(String specsPath, JSONArray mapResources, boolean fs) throws Exception {
+        for (int i = 0; i < mapResources.length(); i++) {
+            JSONObject mapResource = mapResources.getJSONObject(i);
+            String mapName = mapResource.getString("name");
+            String arrayData = getData(specsPath + "/map/" + mapName + ".json", fs);
+            resourceModel.saveMapResource(mapName, mapResource.getString("package"), new JSONObject(arrayData));
+        }
+    }
+
+    private void processBinaryResource(String specsPath, JSONArray packageNames, boolean fs) throws Exception {
+        for (int packageNameIndex = 0; packageNameIndex < packageNames.length(); packageNameIndex++) {
+            String packageName = packageNames.getString(packageNameIndex);
+            String specsText = getData(specsPath + "/binary/" + packageName + ".json", fs);
+            JSONArray specs = new JSONArray(specsText);
+            for (int i = 0; i < specs.length(); i++) {
+                JSONObject jsonResource = specs.getJSONObject(i);
+                String name = jsonResource.getString("name");
+                String file = specsPath + "/binary/" + packageName + "/" + name;
+                byte[] data = getBinaryData(file, fs);
+                resourceModel.saveBinaryResource(name, packageName,
+                        jsonResource.getString("contentType"), data, jsonResource.getString("role"));
             }
         }
 
-        if (!folder.delete()) {
-            throw new IOException("Failed to delete folder: " + folder.getAbsolutePath());
-        }
     }
 
-    public void saveSpecs(String name) throws IOException {
-        Path p = Paths.get(name);
-        createSpecs(p.toString());
-    }
-
-    public String createUsers(String specsFolder) throws IOException {
-        JSONArray users = new JSONArray();
-        for (User user : userRepository.findAll()) {
-            JSONObject jsonUser = new JSONObject();
-            users.put(jsonUser);
-            jsonUser.put("username", user.username);
-            jsonUser.put("role", user.role);
-            jsonUser.put("enabled", user.enabled);
-            jsonUser.put("password", user.password);
-        }
-        String usersFile = "users.json";
-        new FileOutputStream(specsFolder + "/" + usersFile).write(users.toString(2).getBytes());
-        return usersFile;
-    }
-
-
-    public JSONArray createComponents(String specsFolder) throws IOException {
-        new File(specsFolder + "/components").mkdirs();
-        JSONArray jsonComponents = new JSONArray();
-        for (String packageName : componentRepository.findDistinctPackageNames()) {
-            jsonComponents.put(packageName);
-            JSONArray componentsByPackage = new JSONArray();
-            for (org.abx.webappgen.persistence.model.Component component : componentRepository.findAllByPackageName(packageName)) {
-                JSONObject jsonComponent = getComponentDetails(component, false);
-                componentsByPackage.put(jsonComponent);
-            }
-            new FileOutputStream(specsFolder + "/components/" + packageName + ".json").
-                    write(componentsByPackage.toString(2).getBytes());
-        }
-        return jsonComponents;
-    }
-
-    @org.springframework.transaction.annotation.Transactional
-    public JSONObject getComponentDetails(String componentName, boolean includePackage) {
-        return getComponentDetails(componentRepository.findByComponentId(
-                elementHashCode(componentName)), includePackage);
-    }
-
-    private JSONObject getComponentDetails(
-            org.abx.webappgen.persistence.model.Component component,
-            boolean includePackage) {
-        JSONObject jsonComponent = new JSONObject();
-        jsonComponent.put("name", component.componentName);
-        jsonComponent.put("isContainer", component.isContainer);
-        if (includePackage) {
-            jsonComponent.put("package", component.packageName);
-        }
-        jsonComponent.put("js", envValue(component.js));
-        if (component.isContainer) {
-            processContainer(jsonComponent, component.container);
-        } else {
-            Element element = component.element;
-            jsonComponent.put("type", element.type);
-            JSONArray jsonSpecs = new JSONArray();
-            jsonComponent.put("specs", jsonSpecs);
-            for (EnvValue envValue : element.specs) {
-                JSONObject jsonEnvValue = new JSONObject();
-                jsonSpecs.put(jsonEnvValue);
-                jsonEnvValue.put("env", envValue.env);
-                jsonEnvValue.put("value", new JSONObject(envValue.envValue));
+    private void processTextResource(String specsPath, JSONArray specs, boolean fs) throws Exception {
+        for (int i = 0; i < specs.length(); i++) {
+            String packageName = specs.getString(i);
+            JSONArray textPackages = new JSONArray(
+                    getData(specsPath + "/text/" + packageName + ".json", fs));
+            for (int j = 0; j < textPackages.length(); j++) {
+                JSONObject jsonResource = textPackages.getJSONObject(j);
+                String name = jsonResource.getString("name");
+                String file = specsPath + "/text/" + packageName + "/" + name;
+                String data = getData(file,fs);
+                resourceModel.saveTextResource(name, packageName,
+                        data, jsonResource.getString("role"));
 
             }
         }
-        return jsonComponent;
     }
 
-    private void processContainer(JSONObject jsonComponent, Container container) {
-        jsonComponent.put("layout", container.layout);
-        JSONArray components = new JSONArray();
-        jsonComponent.put("components", components);
-        for (InnerComponent inner : container.innerComponent) {
-            JSONObject jsonInner = new JSONObject();
-            components.put(jsonInner);
-            jsonInner.put("env", inner.env);
-            jsonInner.put("size", inner.size);
-            jsonInner.put("innerId", inner.innerId);
-            jsonInner.put("component", inner.child.componentName);
-        }
+    private void processResource(String specsPath, JSONObject resource, boolean fs) throws Exception {
+        processBinaryResource(specsPath, resource.getJSONArray("binary"), fs);
+        processTextResource(specsPath, resource.getJSONArray("text"), fs);
+        processArrayResource(specsPath, resource.getJSONArray("array"), fs);
+        processMapResource(specsPath, resource.getJSONArray("map"), fs);
     }
 
-    private JSONArray envValue(Collection<EnvValue> values) {
-        JSONArray jsonValues = new JSONArray();
-        for (EnvValue envValue : values) {
-            JSONObject jsonEnvValue = new JSONObject();
-            jsonValues.put(jsonEnvValue);
-            jsonEnvValue.put("env", envValue.env);
-            jsonEnvValue.put("value", envValue.envValue);
-        }
-        return jsonValues;
-    }
-
-    public JSONArray createPages(String specsFolder) throws IOException {
-        new File(specsFolder + "/pages").mkdirs();
-        JSONArray jsonPages = new JSONArray();
-        HashMap<String, JSONArray> pages = new HashMap<>();
-        for (Page page : pageRepository.findAll()) {
-            JSONObject jsonPage = getPageDetails(page,false);
-            if (!pages.containsKey(page.packageName)) {
-                jsonPages.put(page.packageName);
-                pages.put(page.packageName, new JSONArray());
+    private void processComponents(String specsPath, JSONArray componentPackages, boolean fs) throws Exception {
+        JSONArray missing = new JSONArray();
+        HashSet<String> saved = new HashSet<>();
+        for (int i = 0; i < componentPackages.length(); i++) {
+            String componentPackage = componentPackages.getString(i);
+            String packages = getData(specsPath + "/components/" + componentPackage + ".json", fs);
+            JSONArray packageComponents = new JSONArray(packages);
+            for (int j = 0; j < packageComponents.length(); j++) {
+                packageComponents.getJSONObject(j).put("package", componentPackage);
             }
-            pages.get(page.packageName).put(jsonPage);
+            missing.putAll(packageComponents);
+            missing = processComponentsAux(missing, saved);
         }
-        for (Map.Entry<String, JSONArray> page : pages.entrySet()) {
-            new FileOutputStream(specsFolder + "/pages/" + page.getKey() + ".json").
-                    write(page.getValue().toString(2).getBytes());
+        int totalMissing = missing.length();
+        while (true) {
+            missing = processComponentsAux(missing, saved);
+            if (missing.isEmpty()) {
+                return;
+            }
+            if (missing.length() == totalMissing) {
+                throw new Exception("Could not resolve all components " + missing.toString(2));
+            }
         }
-        return jsonPages;
-
     }
+
+    @jakarta.transaction.Transactional
+    public void saveComponent(JSONObject component) {
+        processComponent(component);
+    }
+
 
     @Transactional
-    public JSONObject getPageDetails(String page){
-        return getPageDetails(pageRepository.findByPageId(elementHashCode(page)),true);
+    public void savePage(JSONObject page) {
+        processPage(page.getString("package"), page);
     }
 
-    private JSONObject getPageDetails(Page page,boolean packageName) {
-        JSONObject jsonPage = new JSONObject();
-        jsonPage.put("name", page.pageName);
-        jsonPage.put("matches", page.matches);
-        jsonPage.put("title", page.pageTitle);
-        jsonPage.put("role", page.role);
-        jsonPage.put("component", page.component.componentName);
-        jsonPage.put("css", envValue(page.css));
-        jsonPage.put("scripts", envValue(page.scripts));
-        if (packageName){
-            jsonPage.put("componentPackage", page.component.packageName);
-            jsonPage.put("package", page.packageName);
+    private JSONArray processComponentsAux(JSONArray components, HashSet<String> saved) throws Exception {
+        if (components.isEmpty()) {
+            return components;
         }
-        return jsonPage;
-    }
-
-    public JSONArray getMethods(String specsFolder) throws IOException {
-        new File(specsFolder + "/methods").mkdirs();
-
-        JSONArray methods = new JSONArray();
-        for (String packageName : methodSpecRepository.findDistinctPackageNames()) {
-            methods.put(packageName);
-            new File(specsFolder + "/methods/" + packageName).mkdirs();
-            JSONArray jsonMethodsPerPackage = new JSONArray();
-            for (MethodSpec method : methodSpecRepository.findAll()) {
-                JSONObject jsonMethod = new JSONObject();
-                jsonMethodsPerPackage.put(jsonMethod);
-                jsonMethod.put("name", method.methodName);
-                jsonMethod.put("type", method.type);
-                jsonMethod.put("outputName", method.outputName);
-                jsonMethod.put("role", method.role);
-                jsonMethod.put("description", method.description);
-                new FileOutputStream(specsFolder + "/methods/" +
-                        packageName + "/" + method.methodName + ".js").write(method.methodJS.getBytes());
+        JSONArray missing = new JSONArray();
+        for (int i = 0; i < components.length(); i++) {
+            JSONObject component = components.getJSONObject(i);
+            String name = component.getString("name");
+            boolean isContainer = component.getBoolean("isContainer");
+            if (isContainer) {
+                JSONArray children = component.getJSONArray("components");
+                boolean valid = true;
+                for (int j = 0; j < children.length(); j++) {
+                    JSONObject child = children.getJSONObject(j);
+                    String childComponent = child.getString("component");
+                    if (!saved.contains(childComponent)) {
+                        missing.put(component);
+                        valid = false;
+                        break;
+                    }
+                }
+                if (valid) {
+                    processComponent(component);
+                    saved.add(name);
+                }
+            } else {
+                saved.add(name);
+                processComponent(component);
             }
-            new FileOutputStream(specsFolder + "/methods/" +
-                    packageName + ".json").write(jsonMethodsPerPackage.toString(2).getBytes());
         }
-
-        return methods;
+        return missing;
     }
 
-    public JSONObject createResources(String specsFolder) throws IOException {
-        JSONObject object = new JSONObject();
-        object.put("binary", createBinaryResources(specsFolder));
-        object.put("text", createTextResources(specsFolder));
-        object.put("array", createArrayResources(specsFolder));
-        object.put("map", createMapResources(specsFolder));
-        return object;
-    }
-
-    public JSONArray createBinaryResources(String specsFolder) throws IOException {
-        new File(specsFolder + "/binary").mkdirs();
-        JSONArray binaryResources = new JSONArray();
-
-        for (String packageName : binaryResourceRepository.findDistinctPackageNames()) {
-            binaryResources.put(packageName);
-            JSONArray packageResources = new JSONArray();
-            new File(specsFolder + "/binary/" + packageName).mkdirs();
-            for (BinaryResource binaryResource : binaryResourceRepository.findAllByPackageName(packageName)) {
-                JSONObject jsonBinaryResource = new JSONObject();
-                packageResources.put(jsonBinaryResource);
-                jsonBinaryResource.put("name", binaryResource.resourceName);
-                jsonBinaryResource.put("contentType", binaryResource.contentType);
-                jsonBinaryResource.put("role", binaryResource.role);
-                new FileOutputStream(specsFolder + "/binary/" + packageName + "/" + binaryResource.resourceName).
-                        write(binaryResource.resourceValue);
-            }
-            new FileOutputStream(specsFolder + "/binary/" + packageName + ".json").
-                    write(packageResources.toString(2).getBytes());
+    public void processComponent(JSONObject component) {
+        boolean isContainer = component.getBoolean("isContainer");
+        String name = component.getString("name");
+        if (isContainer) {
+            pageModel.createContainer(name,
+                    component.getString("package"),
+                    component.getJSONArray("js"),
+                    component.getString("layout"),
+                    component.getJSONArray("components"));
+        } else {
+            JSONArray specs = component.getJSONArray("specs");
+            pageModel.createElement(name,
+                    component.getString("package"),
+                    component.getJSONArray("js"),
+                    component.getString("type"),
+                    specs);
         }
-        return binaryResources;
     }
-
-    public JSONArray createTextResources(String specsFolder) throws IOException {
-        new File(specsFolder + "/text").mkdirs();
-        JSONArray textResources = new JSONArray();
-        for (String packageName : textResourceRepository.findDistinctPackageNames()) {
-            new File(specsFolder + "/text/" + packageName).mkdirs();
-            textResources.put(packageName);
-            JSONArray packageResources = new JSONArray();
-            for (TextResource textResource : textResourceRepository.findAllByPackageName(packageName)) {
-                JSONObject jsonTextResource = new JSONObject();
-                packageResources.put(jsonTextResource);
-                jsonTextResource.put("name", textResource.resourceName);
-                jsonTextResource.put("package", packageName);
-                jsonTextResource.put("role", textResource.role);
-                new FileOutputStream(specsFolder + "/text/" + packageName + "/" + textResource.resourceName).
-                        write(textResource.resourceValue.getBytes());
-            }
-
-            new FileOutputStream(specsFolder + "/text/" + packageName + ".json").
-                    write(packageResources.toString(2).getBytes());
-        }
-        return textResources;
-    }
-
-
-    public JSONArray createArrayResources(String specsFolder) throws IOException {
-        new File(specsFolder + "/array").mkdirs();
-        JSONArray arrayResources = new JSONArray();
-        for (ArrayResource arrayResource : arrayResourceRepository.findAll()) {
-            JSONObject jsonArrayResource = new JSONObject();
-            arrayResources.put(jsonArrayResource);
-            String name = arrayResource.resourceName;
-            jsonArrayResource.put("name", name);
-            jsonArrayResource.put("package", arrayResource.packageName);
-            JSONArray values = new JSONArray();
-            for (ArrayEntry entry : arrayResource.resourceEntries) {
-                values.put(entry.arrayValue);
-            }
-            new FileOutputStream(specsFolder + "/array/" + name + ".json").
-                    write(values.toString().getBytes());
-        }
-        return arrayResources;
-    }
-
-    public JSONArray createMapResources(String specsFolder) throws IOException {
-        new File(specsFolder + "/map").mkdirs();
-        JSONArray mapResources = new JSONArray();
-        for (MapResource mapResource : mapResourceRepository.findAll()) {
-            JSONObject jsonMapResource = new JSONObject();
-            mapResources.put(jsonMapResource);
-            String name = mapResource.resourceName;
-            jsonMapResource.put("name", name);
-            jsonMapResource.put("package", mapResource.packageName);
-            JSONObject values = new JSONObject();
-            for (MapEntry entry : mapResource.resourceEntries) {
-                values.put(entry.entryName, entry.mapValue);
-            }
-            new FileOutputStream(specsFolder + "/map/" + name + ".json").
-                    write(values.toString().getBytes());
-        }
-        return mapResources;
-    }
-
 
 }
