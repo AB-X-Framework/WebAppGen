@@ -100,7 +100,7 @@ class PageContent {
                 case "img":
                     PageContent.renderImg(output, componentSpecs.specs);
                     break;
-                case "canva":
+                case "canvas":
                     PageContent.renderCanvas(output,js ,componentSpecs.specs);
                     break;
                 case "textfield":

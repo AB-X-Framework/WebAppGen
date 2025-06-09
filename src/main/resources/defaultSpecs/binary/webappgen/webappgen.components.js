@@ -75,6 +75,9 @@ function selectPackage(packageName, afterCall) {
 function defaultSpecs(elementType) {
     let newDefSpecs = {};
     switch (elementType) {
+        case "canvas":
+            newDefSpecs.height = "100px";
+            break;
         case "jsEditor":
             newDefSpecs.height = "100px";
             newDefSpecs.content = "//Your JS Here";
@@ -568,9 +571,14 @@ function processSpecs() {
     hideSpecs();
     $(workingEnv.SpecsEnv).closest('.input-field').parent().show();
     switch (component.type) {
+        case "canvas":
+            $(workingEnv.SpecsHeight).closest('.input-field').parent().show();
+            break
         case "jsEditor":
             $(workingEnv.SpecsHeight).closest('.input-field').parent().show();
             $(workingEnv.SpecsContentArea).closest('.input-field').parent().show();
+            $(workingEnv.SpecsSource).closest('.input-field').parent().show();
+            break;
         case "img":
             $(workingEnv.SpecsSource).closest('.input-field').parent().show();
             break;
@@ -645,12 +653,17 @@ function processElement() {
     $(workingEnv.Env).val(component.specs[index].env);
     var specs = component.specs[index].value;
     switch (component.type) {
+        case "canvas":
+            $(workingEnv.SpecsHeight).val(specs.height);
+            break;
         case "jsEditor":
             $(workingEnv.SpecsHeight).val(specs.height);
             $(workingEnv.SpecsContentArea).val(specs.content);
+            break;
         case "file":
             $(workingEnv.SpecsTitle).val(specs.title);
             $(workingEnv.SpecsContent).val(specs.content);
+            break;
         case "header":
             $(workingEnv.SpecsSource).val(specs.src);
             break;

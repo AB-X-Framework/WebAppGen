@@ -543,6 +543,10 @@
             "value": "jsEditor"
           },
           {
+            "text": "Canvas",
+            "value": "canvas"
+          },
+          {
             "text": "File",
             "value": "file"
           }
