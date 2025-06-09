@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
+import static org.abx.webappgen.utils.ElementUtils.defaultPackage;
 import static org.abx.webappgen.utils.ElementUtils.elementHashCode;
 
 @org.springframework.stereotype.Component
@@ -32,6 +33,7 @@ public class PageModel {
     public static final String Component = "component";
     long envId;
 
+    long hideDefaultsId;
     @Autowired
     public PageRepository pageRepository;
 
@@ -76,7 +78,8 @@ public class PageModel {
     private UserRepository userRepository;
 
     public PageModel() {
-        envId = PageModel.mapHashCode("org.abx.app.Env", "home");
+        envId = PageModel.mapHashCode("app.Env", "home");
+        hideDefaultsId = PageModel.mapHashCode("app.Env", "hideDefaults");
     }
 
     @Transactional
@@ -115,11 +118,11 @@ public class PageModel {
     }
 
     @Transactional
-    public void delete(String component){
+    public void delete(String component) {
         long componentId = elementHashCode(component);
-        org.abx.webappgen.persistence.model.Component toDelete =
+        Component toDelete =
                 componentRepository.findByComponentId(componentId);
-        List<Page> x= pageRepository.findAllByComponent(toDelete);
+        List<Page> x = pageRepository.findAllByComponent(toDelete);
         if (!x.isEmpty()) {
             throw new RuntimeException("Component is used in a page");
         }
@@ -164,9 +167,9 @@ public class PageModel {
     @Transactional
     public void rename(String oldName, String newName) {
         long newComponentId = elementHashCode(newName);
-        org.abx.webappgen.persistence.model.Component oldCo =
+        Component oldCo =
                 componentRepository.findByComponentId(elementHashCode(oldName));
-        org.abx.webappgen.persistence.model.Component newCo =
+        Component newCo =
                 componentRepository.findByComponentId(newComponentId);
         List<InnerComponent> inner = innerComponentRepository.findAllByChild(oldCo);
         for (InnerComponent c : inner) {
@@ -179,7 +182,7 @@ public class PageModel {
             p.component = newCo;
             pageRepository.save(p);
             pageRepository.flush();
-        }) ;
+        });
 
         deleteComponent(oldCo);
     }
@@ -198,7 +201,16 @@ public class PageModel {
         JSONArray packages = new JSONArray();
         List<String> packageList = componentRepository.findDistinctPackageNames();
         Collections.sort(packageList);
-        packages.putAll(packageList);
+        if (Boolean.parseBoolean(mapEntryRepository.findByMapEntryId(hideDefaultsId).mapValue)) {
+            for (String p : packageList) {
+                if (p.startsWith(defaultPackage)) {
+                    continue;
+                }
+                packages.put(p);
+            }
+        } else {
+            packages.putAll(packageList);
+        }
         return packages;
     }
 
@@ -213,6 +225,7 @@ public class PageModel {
         componentsArray.putAll(components);
         return componentsArray;
     }
+
     @Transactional
     public JSONArray getPageNames(String packageName) {
         List<String> components = new ArrayList<>();
@@ -335,11 +348,11 @@ public class PageModel {
     private String addTempVariables(String source, Map<String, String> replacements) {
         StringBuilder sb = new StringBuilder();
         for (Map.Entry<String, String> entry : replacements.entrySet()) {
-                sb.append("let ").append(entry.getKey()).append(" = ").append(entry.getValue()).append(";\n");
+            sb.append("let ").append(entry.getKey()).append(" = ").append(entry.getValue()).append(";\n");
 
         }
         for (Map.Entry<String, String> entry : replacements.entrySet()) {
-                sb.append("self.").append(entry.getKey()).append(" = ").append(entry.getKey()).append(";\n");
+            sb.append("self.").append(entry.getKey()).append(" = ").append(entry.getKey()).append(";\n");
 
         }
         return "{\n" + sb + source + "}";
@@ -400,7 +413,7 @@ public class PageModel {
                 continue;
             }
             String childName = childComponent.getString(Component);
-            org.abx.webappgen.persistence.model.Component child =
+            Component child =
                     componentRepository.findByComponentId(elementHashCode(childName));
             ComponentSpecs componentSpecs = new ComponentSpecs("", env);
             Map<String, String> childrenInnerIds = new HashMap<>();
@@ -536,7 +549,7 @@ public class PageModel {
         return envValue;
     }
 
-    public void saveComponent(JSONArray js, org.abx.webappgen.persistence.model.Component component) {
+    public void saveComponent(JSONArray js, Component component) {
         componentRepository.save(component);
         componentRepository.flush();
         component.js = createEnvValues(js);
