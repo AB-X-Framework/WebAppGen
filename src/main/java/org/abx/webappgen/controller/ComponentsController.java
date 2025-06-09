@@ -1,5 +1,6 @@
 package org.abx.webappgen.controller;
 
+import com.mysql.cj.xdevapi.JsonArray;
 import jakarta.servlet.http.HttpSession;
 import org.abx.util.StreamUtils;
 import org.abx.webappgen.persistence.PageModel;
@@ -75,7 +76,7 @@ public class ComponentsController extends RoleController {
     public String saveComponent(@RequestParam String component) {
         JSONObject status = new JSONObject();
         try {
-            specsImporter.save(new JSONObject(component));
+            specsImporter.saveComponent(new JSONObject(component));
             status.put("success", "true");
         } catch (Exception e) {
             status.put("success", "false");
@@ -108,13 +109,35 @@ public class ComponentsController extends RoleController {
 
     }
 
+    @PostMapping(value = "/new", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Secured("Admin")
+    public String newComponent(@RequestParam String newName) {
+        JSONObject status = new JSONObject();
+        String packageName = newName.substring(0, newName.lastIndexOf("."));
+        try {
+            JSONObject specs = new JSONObject();
+            specs.put("name", newName);
+            specs.put("package", packageName);
+            specs.put("isContainer",true);
+            specs.put("js",new JsonArray());
+            specs.put("components",new JsonArray());
+            specs.put("layout","vertical");
+            specsImporter.saveComponent(specs);
+            status.put("success", "true");
+            status.put("component", specs);
+        } catch (Exception e) {
+            status.put("success", "false");
+            status.put("error", e.getMessage());
+        }
+        return status.toString(2);
+    }
     private String cloneComponent(JSONObject specs, String newName) {
         JSONObject status = new JSONObject();
         String packageName = newName.substring(0, newName.lastIndexOf("."));
         try {
             specs.put("name", newName);
             specs.put("package", packageName);
-            specsImporter.save(specs);
+            specsImporter.saveComponent(specs);
             status.put("success", "true");
             status.put("package", packageName);
         } catch (Exception e) {
