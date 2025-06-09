@@ -99,7 +99,7 @@ public class PageModel {
 
     @Transactional
     public String getHome() {
-        return mapEntryRepository.findByMapEntryId(envId).value;
+        return mapEntryRepository.findByMapEntryId(envId).mapValue;
     }
 
     @Transactional
@@ -257,14 +257,14 @@ public class PageModel {
         jsonPage.put(Scripts, scripts);
         for (EnvValue scriptValue : page.scripts) {
             if (matchesEnv(scriptValue.env, env)) {
-                scripts.put(scriptValue.value);
+                scripts.put(scriptValue.envValue);
             }
         }
         JSONArray css = new JSONArray();
         jsonPage.put(CSS, css);
         for (EnvValue cssValue : page.css) {
             if (matchesEnv(cssValue.env, env)) {
-                css.put(cssValue.value);
+                css.put(cssValue.envValue);
             }
         }
         jsonPage.put(Component, processTop("top", page.component, env));
@@ -371,7 +371,7 @@ public class PageModel {
         StringBuilder sb = new StringBuilder();
         for (EnvValue jsValue : component.js) {
             if (matchesEnv(jsValue.env, specs.env)) {
-                sb.append(jsValue.value).append("\n");
+                sb.append(jsValue.envValue).append("\n");
             }
         }
         boolean isContainer = component.isContainer;
@@ -446,9 +446,9 @@ public class PageModel {
         for (EnvValue envValue : element.specs) {
             if (matchesEnv(envValue.env, specs.env)) {
                 if (specs.env.isEmpty()) {
-                    emptyEnv = envValue.value;
+                    emptyEnv = envValue.envValue;
                 } else {
-                    jsonComponent.put(Specs, new JSONObject(envValue.value));
+                    jsonComponent.put(Specs, new JSONObject(envValue.envValue));
                     found = true;
                     break;
                 }
@@ -531,7 +531,7 @@ public class PageModel {
     public EnvValue createEnvValue(JSONObject jsonEnvValue) {
         EnvValue envValue = new EnvValue();
         envValue.env = jsonEnvValue.getString("env");
-        envValue.value = jsonEnvValue.get("value").toString();
+        envValue.envValue = jsonEnvValue.get("value").toString();
         envValueRepository.save(envValue);
         return envValue;
     }

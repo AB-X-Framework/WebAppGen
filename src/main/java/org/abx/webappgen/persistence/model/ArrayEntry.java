@@ -11,7 +11,7 @@ public class ArrayEntry {
     public Long arrayEntryId;
 
     @Column(length = 2048, nullable = false)
-    public String value;
+    public String arrayValue;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "arrayResourceId", nullable = false)

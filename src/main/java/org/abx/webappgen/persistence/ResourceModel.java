@@ -6,8 +6,6 @@ import org.abx.webappgen.persistence.model.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.Set;
@@ -82,7 +80,7 @@ public class ResourceModel {
 
     public String getMapResource(String resourceName, String key) {
         return mapEntryRepository.findByMapEntryId(
-                elementHashCode(resourceName + "." + key)).value;
+                elementHashCode(resourceName + "." + key)).mapValue;
     }
 
     public long saveMapResource(String resourceName, String packageName, JSONObject data) {
@@ -96,7 +94,7 @@ public class ResourceModel {
             MapEntry entry = new MapEntry();
             entry.entryName = key;
             entry.mapEntryId = elementHashCode(mapResource.resourceName + "." + entry.entryName);
-            entry.value = data.getString(key);
+            entry.mapValue = data.getString(key);
             entry.mapResource = mapResource;
             mapEntryRepository.save(entry);
         }
@@ -113,7 +111,7 @@ public class ResourceModel {
         for (int i = 0; i < data.length(); i++) {
             String value = data.getString(i);
             ArrayEntry entry = new ArrayEntry();
-            entry.value = value;
+            entry.arrayValue = value;
             entry.arrayResource = arrayResource;
             arrayEntryRepository.save(entry);
         }

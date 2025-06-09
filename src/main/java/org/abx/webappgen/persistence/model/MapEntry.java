@@ -13,7 +13,7 @@ public class MapEntry {
     public String entryName;
 
     @Column(length = 2048, nullable = false)
-    public String value;
+    public String mapValue;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "mapResourceId")

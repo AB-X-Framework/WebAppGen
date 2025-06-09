@@ -14,5 +14,5 @@ public class EnvValue {
     public String env;
 
     @Column(nullable = false,length = 4096)
-    public String value;
+    public String envValue;
 }

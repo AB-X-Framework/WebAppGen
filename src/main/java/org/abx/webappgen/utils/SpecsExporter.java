@@ -164,7 +164,7 @@ public class SpecsExporter {
                 JSONObject jsonEnvValue = new JSONObject();
                 jsonSpecs.put(jsonEnvValue);
                 jsonEnvValue.put("env", envValue.env);
-                jsonEnvValue.put("value", new JSONObject(envValue.value));
+                jsonEnvValue.put("value", new JSONObject(envValue.envValue));
 
             }
         }
@@ -191,7 +191,7 @@ public class SpecsExporter {
             JSONObject jsonEnvValue = new JSONObject();
             jsonValues.put(jsonEnvValue);
             jsonEnvValue.put("env", envValue.env);
-            jsonEnvValue.put("value", envValue.value);
+            jsonEnvValue.put("value", envValue.envValue);
         }
         return jsonValues;
     }
@@ -330,7 +330,7 @@ public class SpecsExporter {
             jsonArrayResource.put("package", arrayResource.packageName);
             JSONArray values = new JSONArray();
             for (ArrayEntry entry : arrayResource.resourceEntries) {
-                values.put(entry.value);
+                values.put(entry.arrayValue);
             }
             new FileOutputStream(specsFolder + "/array/" + name + ".json").
                     write(values.toString().getBytes());
@@ -349,7 +349,7 @@ public class SpecsExporter {
             jsonMapResource.put("package", mapResource.packageName);
             JSONObject values = new JSONObject();
             for (MapEntry entry : mapResource.resourceEntries) {
-                values.put(entry.entryName, entry.value);
+                values.put(entry.entryName, entry.mapValue);
             }
             new FileOutputStream(specsFolder + "/map/" + name + ".json").
                     write(values.toString().getBytes());
