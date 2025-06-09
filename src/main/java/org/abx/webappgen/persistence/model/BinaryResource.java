@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "BinaryResource",
-        indexes = {@Index(name = "idx_packageName", columnList = "packageName")})
+        indexes = {@Index(name = "BinaryResource_packageName", columnList = "packageName")})
 public class BinaryResource {
     @Id
     @Column(unique = true, nullable = false)

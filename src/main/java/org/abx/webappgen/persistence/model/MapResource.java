@@ -7,7 +7,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "MapResource",
-        indexes = {@Index(name = "idx_packageName", columnList = "packageName")}) // Index for better query performance)
+        indexes = {@Index(name = "MapResource_packageName", columnList = "packageName")}) // Index for better query performance)
 public class MapResource {
 
     @Id

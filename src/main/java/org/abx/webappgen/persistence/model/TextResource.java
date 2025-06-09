@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "TextResource",
-        indexes = {@Index(name = "idx_packageName", columnList = "packageName")})
+        indexes = {@Index(name = "TextResource_packageName", columnList = "packageName")})
 public class TextResource {
     @Id
     @Column(unique = true, nullable = false)

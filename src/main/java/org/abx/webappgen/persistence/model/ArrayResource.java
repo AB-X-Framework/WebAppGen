@@ -7,7 +7,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "ArrayResource",
-        indexes = {@Index(name = "idx_packageName", columnList = "packageName")})
+        indexes = {@Index(name = "ArrayResource_packageName", columnList = "packageName")})
 public class ArrayResource {
 
     @Id

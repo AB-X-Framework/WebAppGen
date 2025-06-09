@@ -6,7 +6,7 @@ import java.util.Collection;
 
 @Entity
 @Table(name = "Component" , indexes = {
-        @Index(name = "idx_packageName", columnList = "packageName") // Index for better query performance
+        @Index(name = "Component_packageName", columnList = "packageName") // Index for better query performance
 })
 public class Component {
 

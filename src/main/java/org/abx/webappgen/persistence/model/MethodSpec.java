@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "MethodSpec",
-        indexes = {@Index(name = "idx_packageName", columnList = "packageName")})
+        indexes = {@Index(name = "MethodSpec_packageName", columnList = "packageName")})
 public class MethodSpec {
     @Id
     @Column(unique = true, nullable = false)
