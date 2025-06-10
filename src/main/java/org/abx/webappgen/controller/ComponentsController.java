@@ -21,9 +21,8 @@ import static org.abx.webappgen.utils.ElementUtils.elementHashCode;
 
 @RestController
 @RequestMapping("/components")
-public class ComponentsController extends RoleController {
+public class ComponentsController extends RoleController implements EnvListener {
     public final static String LANG = "lang";
-
 
     @Autowired
     private SpecsExporter specsExporter;
@@ -35,6 +34,10 @@ public class ComponentsController extends RoleController {
     public PageModel pageModel;
 
 
+    @Override
+    public void envChanged() {
+
+    }
 
     @GetMapping(value = "/packages", produces = MediaType.APPLICATION_JSON_VALUE)
     @Secured("Admin")

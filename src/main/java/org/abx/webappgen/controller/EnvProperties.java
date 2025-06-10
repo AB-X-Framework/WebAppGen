@@ -5,6 +5,7 @@ import java.util.Map;
 
 public class EnvProperties {
 
+    private int version;
     private final Map<String, String> baseline;
 
     private final Map<String, String> session;
@@ -24,7 +25,11 @@ public class EnvProperties {
         str = sb.toString();
     }
 
-    public String asString() {
+    public String asString(int version) {
+        if (version != this.version) {
+            recompile();
+            this.version = version;
+        }
         return str;
     }
 
@@ -36,6 +41,6 @@ public class EnvProperties {
 
     public void addProperty(String prop, String value) {
         session.put(prop, value);
-        asString();
+        recompile();
     }
 }
