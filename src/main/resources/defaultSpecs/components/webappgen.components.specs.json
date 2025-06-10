@@ -160,22 +160,6 @@
     "specs": [{
       "env": "",
       "value": {
-        "title": "Height",
-        "content": "Height"
-      }
-    }],
-    "name": "webappgen.components.specs.SpecsHeight",
-    "isContainer": false,
-    "js": [{
-      "env": "",
-      "value": "$(self).on('input',()=>setSpecValue('height',$(self).val()))"
-    }],
-    "type": "textfield"
-  },
-  {
-    "specs": [{
-      "env": "",
-      "value": {
         "title": "Content",
         "content": "Content"
       }
@@ -288,6 +272,22 @@
     "js": [{
       "env": "",
       "value": "$(self).on('input',()=>setSpecValue('cancel',$(self).val()))"
+    }],
+    "type": "textfield"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "title": "Height",
+        "content": "Height"
+      }
+    }],
+    "name": "webappgen.components.specs.SpecsHeight",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "$(self).on('input',()=>setSpecValue('height',$(self).val()))"
     }],
     "type": "textfield"
   },
