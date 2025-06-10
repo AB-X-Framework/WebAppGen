@@ -148,7 +148,7 @@
       },
       {
         "env": "",
-        "value": "workingEnv.SpecsSelectRemove=SpecsSelectRemove;"
+        "value": "workingEnv.SpecsSelectRemove=SpecsSelectRemove;\n$(SpecsSelectRemove).click(()=>{\n    PageContent.openModal(ConfirmRemoveModal);\n});"
       },
       {
         "env": "",
