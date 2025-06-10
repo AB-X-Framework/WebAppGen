@@ -1,4 +1,4 @@
-package org.abx.webappgen.controller;
+package org.abx.webappgen.persistence;
 
 import java.util.HashSet;
 import java.util.Set;
