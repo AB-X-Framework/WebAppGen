@@ -101,8 +101,13 @@ public class ResourceModel {
         return id;
     }
 
-    public long saveArrayResource(String resourceName, String packageName, JSONArray data) {
+    public void saveArrayResource(String resourceName, String packageName, JSONArray data) {
         long id = elementHashCode(resourceName);
+        ArrayResource previous= arrayResourceRepository.findByArrayResourceId(id);
+        if (previous != null) {
+            arrayResourceRepository.delete(previous);
+            arrayResourceRepository.flush();
+        }
         ArrayResource arrayResource = new ArrayResource();
         arrayResource.arrayResourceId = id;
         arrayResource.resourceName = resourceName;
@@ -115,7 +120,6 @@ public class ResourceModel {
             entry.arrayResource = arrayResource;
             arrayEntryRepository.save(entry);
         }
-        return id;
     }
 
     public long saveTextResource(String resourceName, String packageName, String data, String role) {
