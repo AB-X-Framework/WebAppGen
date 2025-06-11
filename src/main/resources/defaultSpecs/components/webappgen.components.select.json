@@ -72,7 +72,7 @@
     "isContainer": true,
     "js": [{
       "env": "",
-      "value": "$(SelectOkButton).click(()=>{\n   M.Modal.init(self).close()\n   addSelectValueText($(SelectValue).val(),$(SelectText).val());\n   \n});"
+      "value": "$(SelectOkButton).click(()=>{\n   M.Modal.init(self).close()\n   const value = $(SelectValue).val();\n   const text = $(SelectText).val();\n   let values = workingEnv.component.specs[$(workingEnv.ComponentEnv).val()].value.values;\n   values.push({value: value, text: text});\n   self.setValues(values.length-1);\n});"
     }]
   },
   {
@@ -118,12 +118,6 @@
         "env": ""
       },
       {
-        "innerId": "ConfirmRemoveModal",
-        "component": "webappgen.components.env.ConfirmRemoveModal",
-        "size": "",
-        "env": ""
-      },
-      {
         "innerId": "SpecsSelectRemove",
         "component": "webappgen.components.env.RemoveEnv",
         "size": "",
@@ -140,6 +134,12 @@
         "component": "webappgen.components.select.NewOptionPopup",
         "size": "l12",
         "env": ""
+      },
+      {
+        "innerId": "ConfirmRemoveModal",
+        "component": "webappgen.components.env.ConfirmRemoveModal",
+        "size": "",
+        "env": ""
       }
     ],
     "name": "webappgen.components.select.ContainerTop",
@@ -147,27 +147,13 @@
     "js": [
       {
         "env": "",
-        "value": "workingEnv.SpecsSelect=SpecsSelect;"
+        "value": "$(SpecsSelectRemove).click(()=>{\n    PageContent.openModal(ConfirmRemoveModal);\n});"
       },
       {
         "env": "",
-        "value": "workingEnv.SpecsSelectRemove=SpecsSelectRemove;\n$(SpecsSelectRemove).click(()=>{\n    PageContent.openModal(ConfirmRemoveModal);\n});\n\n$(ConfirmRemoveModal.ok).click(()=>{\n   console.log(JSON.stringify($(SpecsSelect) .val()));\n});"
-      },
-      {
-        "env": "",
-        "value": "workingEnv.SpecsSelectAdd=SpecsSelectAdd;\n\n$(SpecsSelectAdd).click(()=>{\n    M.Modal.init(SelectTextValue).open();\n});"
+        "value": "$(SpecsSelectAdd).click(()=>{\n    PageContent.openModal(NewOptionPopup);\n});"
       }
     ]
-  },
-  {
-    "specs": [{
-      "env": "",
-      "value": {"title": "Add"}
-    }],
-    "name": "webappgen.components.select.StartAdd",
-    "isContainer": false,
-    "js": [],
-    "type": "button"
   },
   {
     "layout": "horizontal",
