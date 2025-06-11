@@ -10,12 +10,12 @@ function loadModel(modelPath) {
 
 
 function downloadModel() {
-    App.processDownload('webappgen.downloadModel', {},
-        undefined,
+    App.processDownload('webappgen.downloadModel', {"removeDefaults":removeDefaults},
         (result) => {
-            PageContent.showModal("Download Mode", "Cannot download model. "+result);
+            PageContent.showModal("Download Mode", "Cannot download model. "+JSON.stringify(result));
         });
 }
+
 function saveModel(modelPath,removeDefaults) {
     App.process('webappgen.saveModel', {"modelPath": modelPath,
         "removeDefaults":removeDefaults},

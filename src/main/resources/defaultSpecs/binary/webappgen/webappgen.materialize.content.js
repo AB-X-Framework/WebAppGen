@@ -20,6 +20,7 @@ class PageContent {
             }
         });
     }
+
     static setActiveMenuItemHref(containerElement, textToMatch) {
         // Find all <li> elements that have <a> inside
         $(containerElement).find('li').each(function () {
@@ -31,6 +32,7 @@ class PageContent {
             }
         });
     }
+
     static openModal(modal) {
         M.Modal.init(modal).open();
     }
@@ -110,7 +112,7 @@ class PageContent {
                     PageContent.renderImg(output, componentSpecs.specs);
                     break;
                 case "canvas":
-                    PageContent.renderCanvas(output,js ,componentSpecs.specs);
+                    PageContent.renderCanvas(output, js, componentSpecs.specs);
                     break;
                 case "textfield":
                     PageContent.renderTextfield(output, js, componentSpecs.specs);
@@ -258,7 +260,7 @@ class PageContent {
         output.push(results);
     }
 
-    static renderCanvas(output,js,specs){
+    static renderCanvas(output, js, specs) {
         var results =
             `<canvas id="${specs.id}" width="100%" height="${specs.height}"></canvas>`
         output.push(results);
@@ -326,7 +328,7 @@ class PageContent {
             <div class="row ">
             <${specs.size} class="header">${specs.title}</${specs.size}>
              <p class="grey-text text-darken-3">
-             ${specs.content.replaceAll("\n","</><p class=\"grey-text text-darken-3\">")}
+             ${specs.content.replaceAll("\n", "</><p class=\"grey-text text-darken-3\">")}
              </p>
           </div></div>`;
         output.push(results);
@@ -608,11 +610,11 @@ class App {
         });
     }
 
-    static processDownload(method, args,) {
-        App.processBinaryDownload(method, args, undefined);
+    static processDownload(method, args, error) {
+        App.processBinaryDownload(method, args, undefined, error);
     }
 
-    static processBinaryDownload(method, args, dataFiles) {
+    static processBinaryDownload(method, args, dataFiles, error) {
         const formData = new FormData();
         if (typeof args === "undefined") {
             args = {};
@@ -652,7 +654,13 @@ class App {
                 a.remove();
                 window.URL.revokeObjectURL(url);
             })
-            .catch(err => console.error("Download failed:", err));
+            .catch((err) => {
+                if (typeof error === "undefined") {
+                    console.error("Download failed:", err)
+                } else {
+                    error(err);
+                }
+            });
     }
 
 }
