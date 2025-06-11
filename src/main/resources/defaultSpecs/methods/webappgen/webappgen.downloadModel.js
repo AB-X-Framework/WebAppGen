@@ -1,3 +1,5 @@
+var removeDefaults
+
 function downloadModel() {
-    return specsExporter.exportSpecs();
+    return specsExporter.exportSpecs(removeDefaults);
 }
