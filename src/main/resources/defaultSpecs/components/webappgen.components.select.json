@@ -116,13 +116,13 @@
       },
       {
         "innerId": "SpecsSelectRemove",
-        "component": "webappgen.components.env.RemoveEnv",
+        "component": "webappgen.components.basic.RemoveBtn",
         "size": "",
         "env": ""
       },
       {
         "innerId": "SpecsSelectAdd",
-        "component": "webappgen.components.env.AddEnv",
+        "component": "webappgen.components.basic.AddBtn",
         "size": "",
         "env": ""
       },

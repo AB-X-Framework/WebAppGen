@@ -3,6 +3,7 @@
     "app",
     "webappgen.base",
     "webappgen.components",
+    "webappgen.components.basic",
     "webappgen.components.clone",
     "webappgen.components.container",
     "webappgen.components.env",

@@ -607,13 +607,13 @@
       },
       {
         "innerId": "RemoveEnv",
-        "component": "webappgen.components.env.RemoveEnv",
+        "component": "webappgen.components.basic.RemoveBtn",
         "size": "",
         "env": ""
       },
       {
         "innerId": "AddEnv",
-        "component": "webappgen.components.env.AddEnv",
+        "component": "webappgen.components.basic.AddBtn",
         "size": "",
         "env": ""
       },

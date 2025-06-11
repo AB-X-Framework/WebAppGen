@@ -1,0 +1,22 @@
+[
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "Add"}
+    }],
+    "name": "webappgen.components.basic.AddBtn",
+    "isContainer": false,
+    "js": [],
+    "type": "button"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "Remove"}
+    }],
+    "name": "webappgen.components.basic.RemoveBtn",
+    "isContainer": false,
+    "js": [],
+    "type": "button"
+  }
+]
