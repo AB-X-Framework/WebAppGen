@@ -198,7 +198,7 @@
       },
       {
         "env": "",
-        "value": "$(ConfirmChangesModal.ok).click(()=>{\n    saveCurrentSpecs();\n    SaveComponent.markSaved();\n});"
+        "value": "$(ConfirmChangesModal.ok).click(()=>{\n    saveCurrentSpecs();});"
       },
       {
         "env": "",

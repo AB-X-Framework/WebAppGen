@@ -47,7 +47,7 @@ function selectPackage(packageName, afterCall) {
     }));
     $(workingEnv.ComponentEnv).empty();
     M.FormSelect.init(workingEnv.ComponentEnv);
-    if (packageName === ""){
+    if (packageName === "") {
         return;
     }
     $.get(`/components/packages/${packageName}/components`, (resultList) => {
@@ -145,6 +145,7 @@ function updateComponentType() {
     if (workingEnv.shouldUpdate === false) {
         return;
     }
+    markChanged();
     let isContainer = $(workingEnv.ComponentType).val() === "Container";
     let component = workingEnv.component;
     component.specs = null;
@@ -168,6 +169,7 @@ function processElementType(elementType) {
 }
 
 function updateElementType() {
+    markChanged();
     if (workingEnv.shouldUpdate === false) {
         return;
     }
@@ -229,7 +231,7 @@ function updateInnerPackage() {
     let componentBox = workingEnv.InnerComponentName;
     $(componentBox).empty();
     let package = $(workingEnv.InnerComponentPackage).val();
-    if (package ===""){
+    if (package === "") {
         workingEnv.shouldUpdate = true;
         return;
     }
@@ -280,8 +282,8 @@ function processInnerComponent(index) {
 }
 
 function processJS(envIndex) {
-    if (typeof envIndex === "undefined"){
-        envIndex=0;
+    if (typeof envIndex === "undefined") {
+        envIndex = 0;
     }
     workingEnv.shouldUpdate = false;
     $(workingEnv.ComponentEnv).closest('.input-field').children('label').text('JS');
@@ -295,7 +297,7 @@ function processJS(envIndex) {
     $(workingEnv.ComponentEnv).empty();
     component.js.forEach(function (item, currIndex) {
         let env = item.env;
-        if (envIndex==currIndex) {
+        if (envIndex == currIndex) {
             $(workingEnv.SpecsEnv).val(item.env);
             ace.edit(workingEnv.SpecsJS).setValue(item.value);
             workingEnv.shouldUpdate = true;
@@ -336,11 +338,13 @@ function updateSelectedOptionText(selectElement, newText) {
         M.FormSelect.init(selectElement);
     }
 }
+
 /**
  * Adds new environment as JS, Specs or Children
  */
 
 function addNewEnv() {
+    markChanged();
     M.Modal.init(workingEnv.AddPopUpEnv).close();
     workingEnv.shouldUpdate = false;
     let component = workingEnv.component;
@@ -376,12 +380,12 @@ function addNewEnv() {
         }
 
     } else {
-        let newCode =  `//New JS code ${index}`;
+        let newCode = `//New JS code ${index}`;
         component.js.splice(index, 0, {
             "env": env,
             "value": newCode
         });
-        processCurrentComponent(true,index);
+        processCurrentComponent(true, index);
         //ace.edit(workingEnv.SpecsJS).setValue(newCode);
     }
     $(workingEnv.SpecsEnv).val(env);
@@ -430,6 +434,7 @@ function moveDown() {
 }
 
 function movePos(offset) {
+    markChanged();
     let component = workingEnv.component;
     let detailsType = $(workingEnv.shouldUpdateDetailType).val();
     let shouldChange;
@@ -450,8 +455,12 @@ function movePos(offset) {
     renderCurrentComponent()
 }
 
-function markChanged(){
+function markChanged() {
     workingEnv.SaveComponent.markChanged();
+}
+
+function markSaved() {
+    workingEnv.SaveComponent.markSaved();
 }
 
 function processSelect(index) {
@@ -461,6 +470,7 @@ function processSelect(index) {
 
 function discardSpecs() {
     processComponent(workingEnv.originalComponent);
+    markSaved();
 }
 
 /**
@@ -469,6 +479,7 @@ function discardSpecs() {
  * @param newValue
  */
 function setSpecValue(type, newValue) {
+    markChanged();
     //Autofill protection
     if ($(workingEnv.ComponentType).val() === "Container") {
         return;
@@ -512,6 +523,7 @@ function updateText(delta, text) {
     if (!workingEnv.shouldUpdate) {
         return;
     }
+    markChanged();
     let component = workingEnv.component;
     let index = $(workingEnv.ComponentEnv).val();
     let jsEnv = component.js[index]
@@ -543,13 +555,13 @@ function processSpecs() {
         if (env === "") {
             env = "Default";
         }
-        var lineValue =  env + " -> " + JSON.stringify(item.value);
+        var lineValue = env + " -> " + JSON.stringify(item.value);
         if (lineValue.length > maxLine) {
             lineValue = lineValue.substring(0, maxLine - 3) + "...";
         }
         $(workingEnv.ComponentEnv).append($('<option>', {
             value: va,
-            text:lineValue
+            text: lineValue
         }));
     });
     M.FormSelect.init(workingEnv.ComponentEnv);
@@ -722,6 +734,7 @@ function processContainerLayout(layout) {
 }
 
 function updateContainerLayout() {
+    markChanged();
     if (workingEnv.shouldUpdate === false) {
         return;
     }
@@ -804,6 +817,7 @@ function saveCurrentSpecs() {
         let message = "";
         if (response.success) {
             message = "Component saved successfully";
+            markSaved();
         } else {
             message = "Error saving component " + message.error;
         }
@@ -830,6 +844,7 @@ function setComponentTypeVisibility() {
 }
 
 function removeCurrentEnv() {
+    markChanged();
     let component = workingEnv.component;
     let indexToRemove = $(workingEnv.ComponentEnv).val();
     if ($(workingEnv.EditingDetailType).val() === "js") {
@@ -843,6 +858,7 @@ function removeCurrentEnv() {
             }
         }
     }
+    markChanged();
     processCurrentComponent();
 }
 
@@ -877,6 +893,7 @@ function renameComponent(newName) {
                 $(workingEnv.ComponentName).find(`option[value="${originalName}"]`).remove();
                 $(workingEnv.ComponentName).formSelect();
             }
+            markSaved();
         }
     )
 }
@@ -907,6 +924,7 @@ function cloneComponent(newName) {
             } else {
                 selectOrAddValue($(workingEnv.ComponentName), newName);
             }
+            markSaved();
         }
     )
 }
@@ -932,6 +950,8 @@ function newComponent(newName) {
                 selectOrAddValue($(workingEnv.ComponentName), newName);
             }
             processCurrentComponent(true);
+            markSaved();
+
         }
     )
 }
