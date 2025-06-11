@@ -1,3 +1,12 @@
+function parseBoolean(value) {
+    if (typeof value === 'boolean') return value;
+    if (typeof value === 'string') {
+        const lower = value.trim().toLowerCase();
+        return lower === 'true';
+    }
+    return Boolean(value);
+}
+
 class PageContent {
 
     static setActiveMenuItemText(containerElement, textToMatch) {
@@ -497,7 +506,7 @@ class PageContent {
                ${specs.id}.checked = true;
         }else if ("${specs.src}" != "false"){
             $.get("${specs.src}",(result)=>{
-                ${specs.id}.checked = result;
+                ${specs.id}.checked = parseBoolean(result);
             });
         }`)
         output.push(result);

@@ -119,6 +119,12 @@
         "env": ""
       },
       {
+        "innerId": "Upload",
+        "component": "webappgen.home.Upload",
+        "size": "l12",
+        "env": ""
+      },
+      {
         "innerId": "ConfirmLoadModal",
         "component": "webappgen.home.ConfirmLoadModal",
         "size": "l12",
@@ -205,6 +211,22 @@
       "value": "let url = document.location.href ;\nlet lastSegment = url.substring(url.lastIndexOf(\"/\") + 1);\nPageContent.setActiveMenuItemText(self,lastSegment); "
     }],
     "type": "select"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "title": "Upload",
+        "content": "Select model to upload"
+      }
+    }],
+    "name": "webappgen.home.Upload",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": ""
+    }],
+    "type": "file"
   },
   {
     "specs": [{
