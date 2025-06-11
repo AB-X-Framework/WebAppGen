@@ -16,6 +16,18 @@ function downloadModel(removeDefaults) {
         });
 }
 
+
+
+function uploadModel(model) {
+    App.processBinary('webappgen.uploadModel', {},{"model":model},
+        (result) => {
+            PageContent.showModal("Load Model", "New model loaded successfully.");
+        },
+        (result) => {
+            PageContent.showModal("Load Model", "Cannot load model. "+JSON.stringify(result));
+        });
+}
+
 function saveModel(modelPath,removeDefaults) {
     App.process('webappgen.saveModel', {"modelPath": modelPath,
         "removeDefaults":removeDefaults},

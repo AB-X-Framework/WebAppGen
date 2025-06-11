@@ -1,4 +1,4 @@
-var data;
+var model;
 function uploadModel() {
-    return specsImporter.uploadBinarySpecs(data);
+    return specsImporter.uploadBinarySpecs(model);
 }
