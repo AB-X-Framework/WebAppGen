@@ -11,10 +11,7 @@
     }],
     "name": "webappgen.components.select.ConfirmRemoveModal",
     "isContainer": false,
-    "js": [{
-      "env": "",
-      "value": "$(self.ok).click(()=>{removeCurrentEnv();})"
-    }],
+    "js": [],
     "type": "okCancelModal"
   },
   {
@@ -137,7 +134,7 @@
       },
       {
         "innerId": "ConfirmRemoveModal",
-        "component": "webappgen.components.env.ConfirmRemoveModal",
+        "component": "webappgen.components.select.ConfirmRemoveModal",
         "size": "",
         "env": ""
       }
@@ -147,7 +144,7 @@
     "js": [
       {
         "env": "",
-        "value": "$(SpecsSelectRemove).click(()=>{\n    PageContent.openModal(ConfirmRemoveModal);\n});"
+        "value": "$(SpecsSelectRemove).click(()=>{\n    PageContent.openModal(ConfirmRemoveModal);\n});\n$(ConfirmRemoveModal.ok).click(()=>{\n    let values = workingEnv.component.specs[$(workingEnv.ComponentEnv).val()].value.values;\n    values.splice($(SpecsSelect).val(),1);\n    processSelect(0);\n})"
       },
       {
         "env": "",
