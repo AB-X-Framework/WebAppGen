@@ -328,7 +328,7 @@
         "env": ""
       },
       {
-        "innerId": "SpecsSelectContainer",
+        "innerId": "SelectContainer",
         "component": "webappgen.components.select.Container",
         "size": "l2",
         "env": ""
@@ -410,6 +410,10 @@
       {
         "env": "",
         "value": "workingEnv.SpecsEnv=SpecsEnv"
+      },
+      {
+        "env": "",
+        "value": "workingEnv.SelectContainer=SelectContainer"
       },
       {
         "env": "",
