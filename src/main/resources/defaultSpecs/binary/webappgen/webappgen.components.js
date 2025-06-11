@@ -450,6 +450,9 @@ function movePos(offset) {
     renderCurrentComponent()
 }
 
+function markChanged(){
+    workingEnv.SaveComponent.markChanged();
+}
 
 function processSelect(index) {
     workingEnv.SelectContainer.setValues(index);

@@ -194,11 +194,11 @@
       },
       {
         "env": "",
-        "value": "$(SaveComponent).click(()=> M.Modal.init(ConfirmChangesModal).open())"
+        "value": "$(SaveComponent).click(()=> M.Modal.init(ConfirmChangesModal).open())\nworkingEnv.SaveComponent = SaveComponent;"
       },
       {
         "env": "",
-        "value": "$(ConfirmChangesModal.ok).click(saveCurrentSpecs)"
+        "value": "$(ConfirmChangesModal.ok).click(()=>{\n    saveCurrentSpecs();\n    SaveComponent.markSaved();\n});"
       },
       {
         "env": "",
