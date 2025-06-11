@@ -39,7 +39,7 @@
       },
       {
         "env": "",
-        "value": " $(ContainerBottom.OptionValue).on('input',()=>{\n    const index = parseInt($(ContainerTop.SpecsSelect).val());\n    const options =  workingEnv.component.specs[$(workingEnv.ComponentEnv).val()].value.values;\n    options[index].value= $(ContainerBottom.OptionValue).val();\n    self.setValues(index);\n });\n $(ContainerBottom.OptionText).on('input',()=>{\n    const index = parseInt($(ContainerTop.SpecsSelect).val());\n    const options =  workingEnv.component.specs[$(workingEnv.ComponentEnv).val()].value.values;\n    options[index].text=$(ContainerBottom.OptionText).val();\n    self.setValues(index);\n });"
+        "value": " $(ContainerBottom.OptionValue).on('input',()=>{\n    const index = parseInt($(ContainerTop.SpecsSelect).val());\n    const options =  workingEnv.component.specs[$(workingEnv.ComponentEnv).val()].value.values;\n    options[index].value= $(ContainerBottom.OptionValue).val();\n    self.setValues(index);\n    markChanged();\n });\n $(ContainerBottom.OptionText).on('input',()=>{\n    const index = parseInt($(ContainerTop.SpecsSelect).val());\n    const options =  workingEnv.component.specs[$(workingEnv.ComponentEnv).val()].value.values;\n    options[index].text=$(ContainerBottom.OptionText).val();\n    self.setValues(index);\n    markChanged();\n });"
       }
     ]
   },
@@ -69,7 +69,7 @@
     "isContainer": true,
     "js": [{
       "env": "",
-      "value": "$(SelectOkButton).click(()=>{\n   M.Modal.init(self).close()\n   const value = $(SelectValue).val();\n   const text = $(SelectText).val();\n   let values = workingEnv.component.specs[$(workingEnv.ComponentEnv).val()].value.values;\n   values.push({value: value, text: text});\n   processSelect(values.length-1);\n});"
+      "value": "$(SelectOkButton).click(()=>{\n   M.Modal.init(self).close()\n   const value = $(SelectValue).val();\n   const text = $(SelectText).val();\n   let values = workingEnv.component.specs[$(workingEnv.ComponentEnv).val()].value.values;\n   values.push({value: value, text: text});\n   processSelect(values.length-1);\n   markChanged();\n});"
     }]
   },
   {
@@ -144,7 +144,7 @@
     "js": [
       {
         "env": "",
-        "value": "$(SpecsSelectRemove).click(()=>{\n    PageContent.openModal(ConfirmRemoveModal);\n});\n$(ConfirmRemoveModal.ok).click(()=>{\n    let values = workingEnv.component.specs[$(workingEnv.ComponentEnv).val()].value.values;\n    values.splice($(SpecsSelect).val(),1);\n    processSelect(0);\n})"
+        "value": "$(SpecsSelectRemove).click(()=>{\n    PageContent.openModal(ConfirmRemoveModal);\n});\n$(ConfirmRemoveModal.ok).click(()=>{\n    let values = workingEnv.component.specs[$(workingEnv.ComponentEnv).val()].value.values;\n    values.splice($(SpecsSelect).val(),1);\n    processSelect(0);\n    markChanged();\n})"
       },
       {
         "env": "",
