@@ -37,7 +37,7 @@
     "isContainer": true,
     "js": [{
       "env": "",
-      "value": "//New JS code 0\nself.setValues=(values)=>{\n    $(ContainerTop.SpecsSelect).empty();\n    if (typeof values != \"undefined\") {\n        values.forEach(function (item, va) {\n            var textLine = \"value: \" + item.value + \", text: \" + item.text;\n            if (textLine.length > maxLine) {\n                textLine = textLine.substring(0, maxLine - 3) + \"...\";\n            }\n            $(ContainerTop.SpecsSelect).append($('<option>', {\n                value: item,\n                text: textLine\n            }));\n        });\n    }  \n    M.FormSelect.init(ContainerTop.SpecsSelect);\n};"
+      "value": "//New JS code 0\nself.setValues=(values)=>{\n    $(ContainerTop.SpecsSelect).empty();\n    if (typeof values != \"undefined\") {\n        let missing= true;\n        \n        values.forEach(function (item, va) {\n            if (missing){\n                $(ContainerBottom.OptionValue).val(item.value);\n                $(ContainerBottom.OptionText).val(item.text);\n                missing = false;\n            }\n            var textLine = \"value: \" + item.value + \", text: \" + item.text;\n            if (textLine.length > maxLine) {\n                textLine = textLine.substring(0, maxLine - 3) + \"...\";\n            }\n            $(ContainerTop.SpecsSelect).append($('<option>', {\n                value: item,\n                text: textLine\n            }));\n        });\n    }  \n    M.FormSelect.init(ContainerTop.SpecsSelect);\n};"
     }]
   },
   {
