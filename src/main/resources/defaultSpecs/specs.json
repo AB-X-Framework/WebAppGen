@@ -21,7 +21,6 @@
   ],
   "pages": ["webappgen"],
   "methods": [
-    "demo",
     "webappgen"
   ],
   "resources": {

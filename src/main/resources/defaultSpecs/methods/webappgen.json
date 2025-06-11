@@ -19,5 +19,19 @@
     "name": "webappgen.loadModel",
     "description": "Load model",
     "type": "json"
+  },
+  {
+    "outputName": "response",
+    "role": "Anonymous",
+    "name": "webappgen.uploadModel",
+    "description": "Upload model",
+    "type": "text"
+  },
+  {
+    "outputName": "uppercase",
+    "role": "Anonymous",
+    "name": "webappgen.uppercase",
+    "description": "say hi",
+    "type": "text"
   }
 ]
