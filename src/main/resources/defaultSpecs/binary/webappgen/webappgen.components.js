@@ -169,10 +169,10 @@ function processElementType(elementType) {
 }
 
 function updateElementType() {
-    markChanged();
     if (workingEnv.shouldUpdate === false) {
         return;
     }
+    markChanged();
     let value = $(workingEnv.ElementType).val();
     let component = workingEnv.component;
     component.type = value;
