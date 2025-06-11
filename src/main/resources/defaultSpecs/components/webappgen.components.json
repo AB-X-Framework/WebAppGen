@@ -6,7 +6,10 @@
     }],
     "name": "webappgen.components.SaveComponent",
     "isContainer": false,
-    "js": [],
+    "js": [{
+      "env": "",
+      "value": "self.markChanged=()=>{\n    $(self).addClass(\"yellow darken-2\");\n}\n\nself.markSaved=()=>{\n    $(self).removeClass(\"yellow darken-2\");\n}"
+    }],
     "type": "button"
   },
   {
