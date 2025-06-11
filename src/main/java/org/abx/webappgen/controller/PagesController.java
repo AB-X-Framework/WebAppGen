@@ -54,7 +54,7 @@ public class PagesController extends RoleController {
             JSONObject jsonPage = new JSONObject(page);
             jsonPage.put("packageName", packageName);
             jsonPage.put("name", newName);
-            specsImporter.processPage(page, jsonPage);
+            specsImporter.processPage(packageName, jsonPage);
             status.put("success", true);
         } catch (Exception e) {
             status.put("success", true);
