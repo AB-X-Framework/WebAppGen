@@ -11,7 +11,7 @@
     "isContainer": false,
     "js": [{
       "env": "",
-      "value": "$(self).on('input',()=>setChildValue('size',$(self).val()))"
+      "value": "workingEnv.ChildrenSize = self;\n$(self).on('input',()=>setChildValue('size',$(self).val()))"
     }],
     "type": "textfield"
   },
@@ -27,7 +27,7 @@
     "isContainer": false,
     "js": [{
       "env": "",
-      "value": "$(self).on('input',()=>setChildValue('innerId',$(self).val()))"
+      "value": "workingEnv.ChildrenInnerId = self;\n$(self).on('input',()=>setChildValue('innerId',$(self).val()))"
     }],
     "type": "textfield"
   },

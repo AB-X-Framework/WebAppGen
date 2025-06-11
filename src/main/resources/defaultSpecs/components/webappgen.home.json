@@ -80,6 +80,19 @@
     "type": "okCancelModal"
   },
   {
+    "specs": [{
+      "env": "",
+      "value": {"title": "Upload Model"}
+    }],
+    "name": "webappgen.home.UploadBtn",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": ""
+    }],
+    "type": "button"
+  },
+  {
     "layout": "container",
     "components": [
       {
@@ -92,12 +105,6 @@
         "innerId": "removeDefaults",
         "component": "webappgen.home.defaults",
         "size": "l6",
-        "env": ""
-      },
-      {
-        "innerId": "ConfirmSaveModal",
-        "component": "webappgen.home.ConfirmSaveModal",
-        "size": "l12",
         "env": ""
       },
       {
@@ -125,8 +132,20 @@
         "env": ""
       },
       {
+        "innerId": "elem6",
+        "component": "webappgen.home.UploadBtn",
+        "size": "l12",
+        "env": ""
+      },
+      {
         "innerId": "ConfirmLoadModal",
         "component": "webappgen.home.ConfirmLoadModal",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "ConfirmSaveModal",
+        "component": "webappgen.home.ConfirmSaveModal",
         "size": "l12",
         "env": ""
       }

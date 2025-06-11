@@ -7,18 +7,18 @@
     "type": "json"
   },
   {
+    "outputName": "uppercase",
+    "role": "Anonymous",
+    "name": "webappgen.uppercase",
+    "description": "say hi",
+    "type": "text"
+  },
+  {
     "outputName": "model.zip",
     "role": "Admin",
     "name": "webappgen.downloadModel",
     "description": "Download model",
     "type": "zip"
-  },
-  {
-    "outputName": "response",
-    "role": "Admin",
-    "name": "webappgen.loadModel",
-    "description": "Load model",
-    "type": "json"
   },
   {
     "outputName": "response",
@@ -28,10 +28,10 @@
     "type": "text"
   },
   {
-    "outputName": "uppercase",
-    "role": "Anonymous",
-    "name": "webappgen.uppercase",
-    "description": "say hi",
-    "type": "text"
+    "outputName": "response",
+    "role": "Admin",
+    "name": "webappgen.loadModel",
+    "description": "Load model",
+    "type": "json"
   }
 ]

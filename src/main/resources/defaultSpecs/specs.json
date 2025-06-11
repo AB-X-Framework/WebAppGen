@@ -20,9 +20,7 @@
     "webappgen.pages.new"
   ],
   "pages": ["webappgen"],
-  "methods": [
-    "webappgen"
-  ],
+  "methods": ["webappgen"],
   "resources": {
     "array": [{
       "package": "webappgen",
