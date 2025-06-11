@@ -9,7 +9,7 @@ function loadModel(modelPath) {
 }
 
 
-function downloadModel() {
+function downloadModel(removeDefaults) {
     App.processDownload('webappgen.downloadModel', {"removeDefaults":removeDefaults},
         (result) => {
             PageContent.showModal("Download Mode", "Cannot download model. "+JSON.stringify(result));
