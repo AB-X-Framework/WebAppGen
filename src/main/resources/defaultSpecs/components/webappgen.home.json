@@ -190,6 +190,26 @@
     "specs": [{
       "env": "",
       "value": {
+        "src": "",
+        "values": [{
+          "text": "b",
+          "value": "a"
+        }],
+        "title": "The select"
+      }
+    }],
+    "name": "webappgen.home.Select",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "let url = document.location.href ;\nlet lastSegment = url.substring(url.lastIndexOf(\"/\") + 1);\nPageContent.setActiveMenuItemText(self,lastSegment); "
+    }],
+    "type": "select"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
         "src": "/resources/binary/webappgen.abx.png",
         "values": [
           {

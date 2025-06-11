@@ -9,6 +9,7 @@
     "webappgen.components.leftpanel",
     "webappgen.components.new",
     "webappgen.components.rename",
+    "webappgen.components.select",
     "webappgen.components.specs",
     "webappgen.home",
     "webappgen.login",

@@ -1,0 +1,235 @@
+[
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "cancel": "Cancel",
+        "ok": "Remove",
+        "title": "Remove",
+        "content": "Do you want to remove?"
+      }
+    }],
+    "name": "webappgen.components.select.ConfirmRemoveModal",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "$(self.ok).click(()=>{removeCurrentEnv();})"
+    }],
+    "type": "okCancelModal"
+  },
+  {
+    "layout": "popup",
+    "components": [
+      {
+        "innerId": "SelectValue",
+        "component": "webappgen.components.select.OptionValue",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "SelectText",
+        "component": "webappgen.components.select.OptionText",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "SelectOkButton",
+        "component": "webappgen.components.specs.SelectOkButton",
+        "size": "l12",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.components.select.NewOption",
+    "isContainer": true,
+    "js": [{
+      "env": "",
+      "value": "$(SelectOkButton).click(()=>{\n   M.Modal.init(self).close()\n   addSelectValueText($(SelectValue).val(),$(SelectText).val());\n   \n});"
+    }]
+  },
+  {
+    "layout": "horizontal",
+    "components": [
+      {
+        "innerId": "Selector",
+        "component": "webappgen.components.select.Selector",
+        "size": "l4",
+        "env": ""
+      },
+      {
+        "innerId": "SpecsSelectRemove",
+        "component": "webappgen.components.env.RemoveEnv",
+        "size": "",
+        "env": ""
+      },
+      {
+        "innerId": "StartAdd",
+        "component": "webappgen.components.select.StartAdd",
+        "size": "",
+        "env": ""
+      },
+      {
+        "innerId": "SelectTextValue",
+        "component": "webappgen.components.select.NewOption",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "ConfirmRemoveModal",
+        "component": "webappgen.components.env.ConfirmRemoveModal",
+        "size": "",
+        "env": ""
+      },
+      {
+        "innerId": "elem5",
+        "component": "webappgen.components.select.NewOption",
+        "size": "l12",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.components.select.Container",
+    "isContainer": true,
+    "js": [
+      {
+        "env": "",
+        "value": "workingEnv.SpecsSelect=SpecsSelect"
+      },
+      {
+        "env": "",
+        "value": "workingEnv.SpecsSelectRemove=SpecsSelectRemove"
+      },
+      {
+        "env": "",
+        "value": "workingEnv.SpecsSelectAdd=SpecsSelectAdd;\n\n$(SpecsSelectAdd).click(()=>{\n    M.Modal.init(SelectTextValue).open();\n});"
+      }
+    ]
+  },
+  {
+    "layout": "horizontal",
+    "components": [
+      {
+        "innerId": "SpecsSelect",
+        "component": "webappgen.components.select.Selector",
+        "size": "l4",
+        "env": ""
+      },
+      {
+        "innerId": "ConfirmRemoveModal",
+        "component": "webappgen.components.env.ConfirmRemoveModal",
+        "size": "",
+        "env": ""
+      },
+      {
+        "innerId": "SpecsSelectRemove",
+        "component": "webappgen.components.env.RemoveEnv",
+        "size": "",
+        "env": ""
+      },
+      {
+        "innerId": "SpecsSelectAdd",
+        "component": "webappgen.components.env.AddEnv",
+        "size": "",
+        "env": ""
+      },
+      {
+        "innerId": "SelectTextValue",
+        "component": "webappgen.components.select.NewOptionPopup",
+        "size": "l12",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.components.select.SelectContainer",
+    "isContainer": true,
+    "js": [
+      {
+        "env": "",
+        "value": "workingEnv.SpecsSelect=SpecsSelect;"
+      },
+      {
+        "env": "",
+        "value": "workingEnv.SpecsSelectRemove=SpecsSelectRemove;\n$(SpecsSelectRemove).click(()=>{\n    PageContent.openModal(ConfirmRemoveModal);\n});\n\n$(ConfirmRemoveModal.ok).click(()=>{\n   console.log(JSON.stringify($(SpecsSelect) .val()));\n});"
+      },
+      {
+        "env": "",
+        "value": "workingEnv.SpecsSelectAdd=SpecsSelectAdd;\n\n$(SpecsSelectAdd).click(()=>{\n    M.Modal.init(SelectTextValue).open();\n});"
+      }
+    ]
+  },
+  {
+    "layout": "popup",
+    "components": [
+      {
+        "innerId": "SelectValue",
+        "component": "webappgen.components.select.OptionValue",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "SelectText",
+        "component": "webappgen.components.select.OptionText",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "SelectOkButton",
+        "component": "webappgen.components.specs.SelectOkButton",
+        "size": "l12",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.components.select.NewOptionPopup",
+    "isContainer": true,
+    "js": [{
+      "env": "",
+      "value": "$(SelectOkButton).click(()=>{\n   M.Modal.init(self).close()\n   addSelectValueText($(SelectValue).val(),$(SelectText).val());\n   \n});"
+    }]
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "values": [],
+        "title": "Values"
+      }
+    }],
+    "name": "webappgen.components.select.Selector",
+    "isContainer": false,
+    "js": [],
+    "type": "select"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "Add"}
+    }],
+    "name": "webappgen.components.select.StartAdd",
+    "isContainer": false,
+    "js": [],
+    "type": "button"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "title": "Text",
+        "content": "text"
+      }
+    }],
+    "name": "webappgen.components.select.OptionText",
+    "isContainer": false,
+    "js": [],
+    "type": "textfield"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "title": "Value",
+        "content": "value"
+      }
+    }],
+    "name": "webappgen.components.select.OptionValue",
+    "isContainer": false,
+    "js": [],
+    "type": "textfield"
+  }
+]

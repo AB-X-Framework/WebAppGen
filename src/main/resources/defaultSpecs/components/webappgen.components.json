@@ -329,7 +329,7 @@
       },
       {
         "innerId": "SpecsSelectContainer",
-        "component": "webappgen.components.specs.SpecsSelectContainer",
+        "component": "webappgen.components.select.SelectContainer",
         "size": "l2",
         "env": ""
       },

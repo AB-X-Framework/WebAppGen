@@ -1,47 +1,5 @@
 [
   {
-    "layout": "popup",
-    "components": [
-      {
-        "innerId": "SelectValue",
-        "component": "webappgen.components.specs.SelectValue",
-        "size": "l12",
-        "env": ""
-      },
-      {
-        "innerId": "SelectText",
-        "component": "webappgen.components.specs.SelectText",
-        "size": "l12",
-        "env": ""
-      },
-      {
-        "innerId": "SelectOkButton",
-        "component": "webappgen.components.specs.SelectOkButton",
-        "size": "l12",
-        "env": ""
-      }
-    ],
-    "name": "webappgen.components.specs.SelectTextValue",
-    "isContainer": true,
-    "js": [{
-      "env": "",
-      "value": "$(SelectOkButton).click(()=>{\n   M.Modal.init(self).close()\n   addSelectValueText($(SelectValue).val(),$(SelectText).val());\n   \n});"
-    }]
-  },
-  {
-    "specs": [{
-      "env": "",
-      "value": {
-        "title": "Value",
-        "content": "value"
-      }
-    }],
-    "name": "webappgen.components.specs.SelectValue",
-    "isContainer": false,
-    "js": [],
-    "type": "textfield"
-  },
-  {
     "specs": [{
       "env": "",
       "value": {
@@ -53,108 +11,6 @@
     "isContainer": false,
     "js": [],
     "type": "button"
-  },
-  {
-    "layout": "horizontal",
-    "components": [
-      {
-        "innerId": "SpecsSelect",
-        "component": "webappgen.components.specs.SpecsSelect",
-        "size": "l4",
-        "env": ""
-      },
-      {
-        "innerId": "ConfirmRemoveModal",
-        "component": "webappgen.components.env.ConfirmRemoveModal",
-        "size": "",
-        "env": ""
-      },
-      {
-        "innerId": "SpecsSelectRemove",
-        "component": "webappgen.components.env.RemoveEnv",
-        "size": "",
-        "env": ""
-      },
-      {
-        "innerId": "SpecsSelectAdd",
-        "component": "webappgen.components.env.AddEnv",
-        "size": "",
-        "env": ""
-      },
-      {
-        "innerId": "SelectTextValue",
-        "component": "webappgen.components.specs.SelectTextValue",
-        "size": "l12",
-        "env": ""
-      }
-    ],
-    "name": "webappgen.components.specs.SelectContainer",
-    "isContainer": true,
-    "js": [
-      {
-        "env": "",
-        "value": "workingEnv.SpecsSelect=SpecsSelect"
-      },
-      {
-        "env": "",
-        "value": "workingEnv.SpecsSelectRemove=SpecsSelectRemove"
-      },
-      {
-        "env": "",
-        "value": "workingEnv.SpecsSelectAdd=SpecsSelectAdd;\n\n$(SpecsSelectAdd).click(()=>{\n    M.Modal.init(SelectTextValue).open();\n});"
-      }
-    ]
-  },
-  {
-    "layout": "horizontal",
-    "components": [
-      {
-        "innerId": "SpecsSelect",
-        "component": "webappgen.components.specs.SpecsSelect",
-        "size": "l4",
-        "env": ""
-      },
-      {
-        "innerId": "ConfirmRemoveModal",
-        "component": "webappgen.components.env.ConfirmRemoveModal",
-        "size": "",
-        "env": ""
-      },
-      {
-        "innerId": "SpecsSelectRemove",
-        "component": "webappgen.components.env.RemoveEnv",
-        "size": "",
-        "env": ""
-      },
-      {
-        "innerId": "SpecsSelectAdd",
-        "component": "webappgen.components.env.AddEnv",
-        "size": "",
-        "env": ""
-      },
-      {
-        "innerId": "SelectTextValue",
-        "component": "webappgen.components.specs.SelectTextValue",
-        "size": "l12",
-        "env": ""
-      }
-    ],
-    "name": "webappgen.components.specs.SpecsSelectContainer",
-    "isContainer": true,
-    "js": [
-      {
-        "env": "",
-        "value": "workingEnv.SpecsSelect=SpecsSelect;"
-      },
-      {
-        "env": "",
-        "value": "workingEnv.SpecsSelectRemove=SpecsSelectRemove;\n$(SpecsSelectRemove).click(()=>{\n    PageContent.openModal(ConfirmRemoveModal);\n});\n\n$(ConfirmRemoveModal.ok).click(()=>{\n   console.log(JSON.stringify($(SpecsSelect) .val()));\n});"
-      },
-      {
-        "env": "",
-        "value": "workingEnv.SpecsSelectAdd=SpecsSelectAdd;\n\n$(SpecsSelectAdd).click(()=>{\n    M.Modal.init(SelectTextValue).open();\n});"
-      }
-    ]
   },
   {
     "specs": [{
@@ -234,19 +90,6 @@
     "specs": [{
       "env": "",
       "value": {
-        "title": "Text",
-        "content": "text"
-      }
-    }],
-    "name": "webappgen.components.specs.SelectText",
-    "isContainer": false,
-    "js": [],
-    "type": "textfield"
-  },
-  {
-    "specs": [{
-      "env": "",
-      "value": {
         "title": "Content",
         "content": "Please type"
       }
@@ -290,19 +133,6 @@
       "value": "$(self).on('input',()=>setSpecValue('height',$(self).val()))"
     }],
     "type": "textfield"
-  },
-  {
-    "specs": [{
-      "env": "",
-      "value": {
-        "values": [],
-        "title": "Values"
-      }
-    }],
-    "name": "webappgen.components.specs.SpecsSelect",
-    "isContainer": false,
-    "js": [],
-    "type": "select"
   },
   {
     "specs": [{
