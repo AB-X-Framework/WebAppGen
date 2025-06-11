@@ -18,7 +18,7 @@
     "type": "okCancelModal"
   },
   {
-    "layout": "horizontal",
+    "layout": "vertical",
     "components": [
       {
         "innerId": "ContainerTop",
@@ -84,8 +84,7 @@
     ],
     "name": "webappgen.components.select.ContainerBottom",
     "isContainer": true,
-    "js": [
-    ]
+    "js": []
   },
   {
     "specs": [{
