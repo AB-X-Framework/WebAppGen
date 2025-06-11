@@ -451,8 +451,8 @@ function movePos(offset) {
 }
 
 
-function processSelect() {
-    workingEnv.SelectContainer.setValues();
+function processSelect(index) {
+    workingEnv.SelectContainer.setValues(index);
 }
 
 

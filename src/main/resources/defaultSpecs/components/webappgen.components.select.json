@@ -72,7 +72,7 @@
     "isContainer": true,
     "js": [{
       "env": "",
-      "value": "$(SelectOkButton).click(()=>{\n   M.Modal.init(self).close()\n   const value = $(SelectValue).val();\n   const text = $(SelectText).val();\n   let values = workingEnv.component.specs[$(workingEnv.ComponentEnv).val()].value.values;\n   values.push({value: value, text: text});\n   self.setValues(values.length-1);\n});"
+      "value": "$(SelectOkButton).click(()=>{\n   M.Modal.init(self).close()\n   const value = $(SelectValue).val();\n   const text = $(SelectText).val();\n   let values = workingEnv.component.specs[$(workingEnv.ComponentEnv).val()].value.values;\n   values.push({value: value, text: text});\n   processSelect(values.length-1);\n});"
     }]
   },
   {
