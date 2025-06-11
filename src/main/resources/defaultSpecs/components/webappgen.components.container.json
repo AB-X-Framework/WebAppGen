@@ -95,14 +95,6 @@
     "js": [
       {
         "env": "",
-        "value": "workingEnv.ChildrenInnerId=ChildrenInnerId"
-      },
-      {
-        "env": "",
-        "value": "workingEnv.ChildrenSize=ChildrenSize"
-      },
-      {
-        "env": "",
         "value": "workingEnv.InnerComponentEnv=InnerComponentEnv"
       },
       {

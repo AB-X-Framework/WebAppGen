@@ -503,6 +503,7 @@ function setSpecValue(type, newValue) {
 }
 
 function setChildValue(type, newValue) {
+    markChanged();
     let component = workingEnv.component;
     let index = $(workingEnv.ComponentEnv).val();
     let child = component.components[index];
