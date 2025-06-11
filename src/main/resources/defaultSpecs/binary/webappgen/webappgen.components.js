@@ -452,10 +452,7 @@ function movePos(offset) {
 
 
 function processSelect() {
-    var component = workingEnv.component;
-    let index = $(workingEnv.ComponentEnv).val  ();
-    var specs = component.specs[index].value;
-    workingEnv.SelectContainer.setValues(specs.values);
+    workingEnv.SelectContainer.setValues();
 }
 
 
