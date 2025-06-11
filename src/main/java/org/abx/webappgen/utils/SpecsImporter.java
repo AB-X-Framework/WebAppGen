@@ -164,7 +164,7 @@ public class SpecsImporter {
         }
     }
 
-    private void processPage(String packageName, JSONObject page) {
+    public void processPage(String packageName, JSONObject page) {
         pageModel.createPageWithPageName(
                 page.getString("name"),
                 packageName,

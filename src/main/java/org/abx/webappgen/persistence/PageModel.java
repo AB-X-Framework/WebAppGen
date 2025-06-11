@@ -252,7 +252,6 @@ public class PageModel {
     }
 
     private JSONObject getPageByPageId(Set<String> roles, String env, Page page) {
-
         JSONObject jsonPage = new JSONObject();
         if (page == null) {
             jsonPage.put(Title, "Not found");

@@ -1,7 +1,5 @@
 package org.abx.webappgen.controller;
 
-import jakarta.servlet.http.HttpSession;
-import org.abx.util.StreamUtils;
 import org.abx.webappgen.persistence.PageModel;
 import org.abx.webappgen.utils.SpecsExporter;
 import org.abx.webappgen.utils.SpecsImporter;
@@ -9,14 +7,7 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import org.stringtemplate.v4.ST;
-
-import java.io.IOException;
-import java.util.Set;
-
-import static org.abx.webappgen.utils.ElementUtils.elementHashCode;
 
 @RestController
 @RequestMapping("/pages")
@@ -33,7 +24,6 @@ public class PagesController extends RoleController {
     public PagesController() {
 
     }
-
 
 
     @GetMapping(value = "/packages", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -53,4 +43,24 @@ public class PagesController extends RoleController {
     public String getPageDetails(@PathVariable String pageName) {
         return specsExporter.getPageDetails(pageName).toString(2);
     }
+
+
+    @PostMapping(value = "/clone", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Secured("Admin")
+    public String clonePage(@RequestParam String page, @RequestParam String newName) {
+        JSONObject status = new JSONObject();
+        try {
+            String packageName = newName.substring(0, newName.lastIndexOf("."));
+            JSONObject jsonPage = new JSONObject(page);
+            jsonPage.put("packageName", packageName);
+            jsonPage.put("name", newName);
+            specsImporter.processPage(page, jsonPage);
+            status.put("success", true);
+        } catch (Exception e) {
+            status.put("success", true);
+            status.put("message", e.getMessage());
+        }
+        return status.toString();
+    }
+
 }
