@@ -734,10 +734,10 @@ function processContainerLayout(layout) {
 }
 
 function updateContainerLayout() {
-    markChanged();
     if (workingEnv.shouldUpdate === false) {
         return;
     }
+    markChanged();
     let layout = $(workingEnv.ContainerLayout).val();
     workingEnv.component.layout = layout;
     renderCurrentComponent();
@@ -859,7 +859,6 @@ function removeCurrentEnv() {
             }
         }
     }
-    markChanged();
     processCurrentComponent();
 }
 
