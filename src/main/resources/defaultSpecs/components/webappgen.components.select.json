@@ -65,7 +65,7 @@
         "env": ""
       }
     ],
-    "name": "webappgen.components.select.NewOptionPopup",
+    "name": "webappgen.components.select.NewOptionModal",
     "isContainer": true,
     "js": [{
       "env": "",
@@ -128,7 +128,7 @@
       },
       {
         "innerId": "NewOptionPopup",
-        "component": "webappgen.components.select.NewOptionPopup",
+        "component": "webappgen.components.select.NewOptionModal",
         "size": "l12",
         "env": ""
       },
