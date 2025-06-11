@@ -28,7 +28,7 @@
       },
       {
         "innerId": "ContainerBottom",
-        "component": "webappgen.components.select.ContainerButton",
+        "component": "webappgen.components.select.ContainerBottom",
         "size": "",
         "env": ""
       }
@@ -36,57 +36,6 @@
     "name": "webappgen.components.select.Container",
     "isContainer": true,
     "js": []
-  },
-  {
-    "layout": "horizontal",
-    "components": [
-      {
-        "innerId": "SpecsSelect",
-        "component": "webappgen.components.select.Selector",
-        "size": "l4",
-        "env": ""
-      },
-      {
-        "innerId": "ConfirmRemoveModal",
-        "component": "webappgen.components.env.ConfirmRemoveModal",
-        "size": "",
-        "env": ""
-      },
-      {
-        "innerId": "SpecsSelectRemove",
-        "component": "webappgen.components.env.RemoveEnv",
-        "size": "",
-        "env": ""
-      },
-      {
-        "innerId": "SpecsSelectAdd",
-        "component": "webappgen.components.env.AddEnv",
-        "size": "",
-        "env": ""
-      },
-      {
-        "innerId": "SelectTextValue",
-        "component": "webappgen.components.select.NewOptionPopup",
-        "size": "l12",
-        "env": ""
-      }
-    ],
-    "name": "webappgen.components.select.SelectContainer",
-    "isContainer": true,
-    "js": [
-      {
-        "env": "",
-        "value": "workingEnv.SpecsSelect=SpecsSelect;"
-      },
-      {
-        "env": "",
-        "value": "workingEnv.SpecsSelectRemove=SpecsSelectRemove;\n$(SpecsSelectRemove).click(()=>{\n    PageContent.openModal(ConfirmRemoveModal);\n});\n\n$(ConfirmRemoveModal.ok).click(()=>{\n   console.log(JSON.stringify($(SpecsSelect) .val()));\n});"
-      },
-      {
-        "env": "",
-        "value": "workingEnv.SpecsSelectAdd=SpecsSelectAdd;\n\n$(SpecsSelectAdd).click(()=>{\n    M.Modal.init(SelectTextValue).open();\n});"
-      }
-    ]
   },
   {
     "layout": "popup",
@@ -136,51 +85,6 @@
     "name": "webappgen.components.select.ContainerBottom",
     "isContainer": true,
     "js": [
-      {
-        "env": "",
-        "value": "workingEnv.SpecsSelect=SpecsSelect;"
-      },
-      {
-        "env": "",
-        "value": "workingEnv.SpecsSelectRemove=SpecsSelectRemove;\n$(SpecsSelectRemove).click(()=>{\n    PageContent.openModal(ConfirmRemoveModal);\n});\n\n$(ConfirmRemoveModal.ok).click(()=>{\n   console.log(JSON.stringify($(SpecsSelect) .val()));\n});"
-      },
-      {
-        "env": "",
-        "value": "workingEnv.SpecsSelectAdd=SpecsSelectAdd;\n\n$(SpecsSelectAdd).click(()=>{\n    M.Modal.init(SelectTextValue).open();\n});"
-      }
-    ]
-  },
-  {
-    "layout": "horizontal",
-    "components": [
-      {
-        "innerId": "OptionValue",
-        "component": "webappgen.components.select.OptionValue",
-        "size": "l4",
-        "env": ""
-      },
-      {
-        "innerId": "OptionText",
-        "component": "webappgen.components.select.OptionText",
-        "size": "l4",
-        "env": ""
-      }
-    ],
-    "name": "webappgen.components.select.ContainerButton",
-    "isContainer": true,
-    "js": [
-      {
-        "env": "",
-        "value": "workingEnv.SpecsSelect=SpecsSelect;"
-      },
-      {
-        "env": "",
-        "value": "workingEnv.SpecsSelectRemove=SpecsSelectRemove;\n$(SpecsSelectRemove).click(()=>{\n    PageContent.openModal(ConfirmRemoveModal);\n});\n\n$(ConfirmRemoveModal.ok).click(()=>{\n   console.log(JSON.stringify($(SpecsSelect) .val()));\n});"
-      },
-      {
-        "env": "",
-        "value": "workingEnv.SpecsSelectAdd=SpecsSelectAdd;\n\n$(SpecsSelectAdd).click(()=>{\n    M.Modal.init(SelectTextValue).open();\n});"
-      }
     ]
   },
   {
