@@ -15,18 +15,18 @@
     "type": "okCancelModal"
   },
   {
-    "layout": "vertical",
+    "layout": "horizontal",
     "components": [
       {
         "innerId": "ContainerTop",
         "component": "webappgen.components.select.ContainerTop",
-        "size": "l4",
+        "size": "l12",
         "env": ""
       },
       {
         "innerId": "ContainerBottom",
         "component": "webappgen.components.select.ContainerBottom",
-        "size": "",
+        "size": "l12",
         "env": ""
       }
     ],
@@ -129,7 +129,7 @@
       {
         "innerId": "NewOptionPopup",
         "component": "webappgen.components.select.NewOptionModal",
-        "size": "l12",
+        "size": "",
         "env": ""
       },
       {
