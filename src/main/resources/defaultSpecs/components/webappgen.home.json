@@ -132,7 +132,7 @@
         "env": ""
       },
       {
-        "innerId": "elem6",
+        "innerId": "UploadBtn",
         "component": "webappgen.home.UploadBtn",
         "size": "l12",
         "env": ""
@@ -159,11 +159,15 @@
       },
       {
         "env": "",
-        "value": "$(save).click(()=>{M.Modal.init(ConfirmSaveModal).open();})"
+        "value": "$(download).click(()=>{\n    downloadModel(removeDefaults.checked);\n}) ;"
       },
       {
         "env": "",
-        "value": "$(download).click(()=>{\n    downloadModel(removeDefaults.checked);\n}) ;"
+        "value": "$(UploadBtn).click(()=>{\n   uploadModel(Upload.files[0]); \n});"
+      },
+      {
+        "env": "",
+        "value": "$(save).click(()=>{M.Modal.init(ConfirmSaveModal).open();})"
       }
     ]
   },
