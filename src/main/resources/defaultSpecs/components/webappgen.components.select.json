@@ -18,35 +18,6 @@
     "type": "okCancelModal"
   },
   {
-    "layout": "popup",
-    "components": [
-      {
-        "innerId": "SelectValue",
-        "component": "webappgen.components.select.OptionValue",
-        "size": "l12",
-        "env": ""
-      },
-      {
-        "innerId": "SelectText",
-        "component": "webappgen.components.select.OptionText",
-        "size": "l12",
-        "env": ""
-      },
-      {
-        "innerId": "SelectOkButton",
-        "component": "webappgen.components.specs.SelectOkButton",
-        "size": "l12",
-        "env": ""
-      }
-    ],
-    "name": "webappgen.components.select.NewOption",
-    "isContainer": true,
-    "js": [{
-      "env": "",
-      "value": "$(SelectOkButton).click(()=>{\n   M.Modal.init(self).close()\n   addSelectValueText($(SelectValue).val(),$(SelectText).val());\n   \n});"
-    }]
-  },
-  {
     "layout": "horizontal",
     "components": [
       {
@@ -68,21 +39,9 @@
         "env": ""
       },
       {
-        "innerId": "SelectTextValue",
-        "component": "webappgen.components.select.NewOption",
-        "size": "l12",
-        "env": ""
-      },
-      {
         "innerId": "ConfirmRemoveModal",
         "component": "webappgen.components.env.ConfirmRemoveModal",
         "size": "",
-        "env": ""
-      },
-      {
-        "innerId": "elem5",
-        "component": "webappgen.components.select.NewOption",
-        "size": "l12",
         "env": ""
       }
     ],
