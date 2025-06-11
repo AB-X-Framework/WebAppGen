@@ -809,6 +809,7 @@ function processComponent(componentName) {
         workingEnv.originalComponent = componentSpecs.name;
         workingEnv.component = componentSpecs;
         processCurrentComponent(false);
+        markSaved();
     });
 }
 
