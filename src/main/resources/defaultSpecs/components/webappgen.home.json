@@ -144,7 +144,7 @@
       },
       {
         "env": "",
-        "value": "$(download).click(()=>downloadModel()) "
+        "value": "$(download).click(()=>{\n    downloadModel(removeDefaults.checked);\n}) ;"
       }
     ]
   },
