@@ -452,23 +452,10 @@ function movePos(offset) {
 
 
 function processSelect() {
-    $(workingEnv.SpecsSelect).empty();
     var component = workingEnv.component;
-    let index = $(workingEnv.ComponentEnv).val();
+    let index = $(workingEnv.ComponentEnv).val  ();
     var specs = component.specs[index].value;
-    if (typeof specs.values != "undefined") {
-        specs.values.forEach(function (item, va) {
-            var textLine = "value: " + item.value + ", text: " + item.text;
-            if (textLine.length > maxLine) {
-                textLine = textLine.substring(0, maxLine - 3) + "...";
-            }
-            $(workingEnv.SpecsSelect).append($('<option>', {
-                value: item,
-                text: textLine
-            }));
-        });
-    }
-    M.FormSelect.init(workingEnv.SpecsSelect);
+    workingEnv.SelectContainer.setValues(specs.values);
 }
 
 
