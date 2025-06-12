@@ -298,7 +298,7 @@ public class SpecsImporter {
     public void savePage(JSONObject page) {
 
         if (pageRepository.findByMatchesId(elementHashCode(page.getString("matches"))) != null) {
-            throw new RuntimeException("Matching " + elementHashCode(page.getString("matches")) + " already exists.");
+            throw new RuntimeException("Page matching " + page.getString("matches") + " already exists.");
         }
         processPage(page.getString("package"), page);
     }

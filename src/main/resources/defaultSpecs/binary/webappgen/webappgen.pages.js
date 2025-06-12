@@ -85,7 +85,7 @@ function clonePage(newName) {
                 processNewPage(originalPackage,status.page);
             } else {
                 PageContent.showModal("Clone Page", "Cannot clone page. " +
-                    JSON.stringify(result.error));
+                    JSON.stringify(status.error));
             }
         }
     )
