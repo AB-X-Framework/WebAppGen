@@ -3,6 +3,7 @@ package org.abx.webappgen.controller;
 import org.abx.webappgen.persistence.PageModel;
 import org.abx.webappgen.utils.SpecsExporter;
 import org.abx.webappgen.utils.SpecsImporter;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -26,6 +27,66 @@ public class PagesController extends RoleController {
     }
 
 
+    @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Secured("Admin")
+    public String savePage(@RequestParam String page) {
+        JSONObject status = new JSONObject();
+        try {
+            specsImporter.savePage(new JSONObject(page));
+            status.put("success", "true");
+        } catch (Exception e) {
+            status.put("success", "false");
+            status.put("error", e.getMessage());
+        }
+        return status.toString(2);
+    }
+
+    @PostMapping(value = "/clone", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Secured("Admin")
+    public String clone(@RequestParam String newName, @RequestParam String page) {
+        JSONObject jsonPage = new JSONObject(page);
+        String packageName = newName.substring(0, newName.lastIndexOf("."));
+        jsonPage.put("package", packageName);
+        jsonPage.put("name", newName);
+        JSONObject status = new JSONObject();
+        try {
+            specsImporter.savePage(jsonPage);
+            status.put("page", jsonPage);
+            status.put("success", "true");
+        } catch (Exception e) {
+            status.put("success", "false");
+            status.put("error", e.getMessage());
+        }
+        return status.toString(2);
+    }
+
+
+    @PostMapping(value = "/new", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Secured("Admin")
+    public String newPage(@RequestParam String newName) {
+        String packageName = newName.substring(0, newName.lastIndexOf("."));
+        JSONObject status = new JSONObject();
+        try {
+            JSONObject page = new JSONObject();
+            page.put("name", newName);
+            page.put("title", "New Page");
+            page.put("package", packageName);
+            page.put("matches","/Page"+((int)(Math.random()*900000)));
+            page.put("css",new JSONArray());
+            page.put("scripts",new JSONArray());
+            page.put("component","app.Default");
+            page.put("role","Admin");
+
+            specsImporter.savePage(page);
+            status.put("success", "true");
+            status.put("page", page);
+        } catch (Exception e) {
+            status.put("success", "false");
+            status.put("error", e.getMessage());
+        }
+        return status.toString(2);
+    }
+
     @GetMapping(value = "/packages", produces = MediaType.APPLICATION_JSON_VALUE)
     @Secured("Admin")
     public String packages() {
@@ -42,25 +103,6 @@ public class PagesController extends RoleController {
     @Secured("Admin")
     public String getPageDetails(@PathVariable String pageName) {
         return specsExporter.getPageDetails(pageName).toString(2);
-    }
-
-
-    @PostMapping(value = "/clone", produces = MediaType.APPLICATION_JSON_VALUE)
-    @Secured("Admin")
-    public String clonePage(@RequestParam String page, @RequestParam String newName) {
-        JSONObject status = new JSONObject();
-        try {
-            String packageName = newName.substring(0, newName.lastIndexOf("."));
-            JSONObject jsonPage = new JSONObject(page);
-            jsonPage.put("packageName", packageName);
-            jsonPage.put("name", newName);
-            specsImporter.processPage(packageName, jsonPage);
-            status.put("success", true);
-        } catch (Exception e) {
-            status.put("success", true);
-            status.put("message", e.getMessage());
-        }
-        return status.toString();
     }
 
 }
