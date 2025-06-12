@@ -96,6 +96,9 @@ function defaultSpecs(elementType) {
             newDefSpecs.title = "Text field";
             newDefSpecs.content = "Please type";
             break;
+        case "autocomplete":
+            newDefSpecs.src = "";
+            newDefSpecs.title = "Autocomplete";
         case "header":
             newDefSpecs.src = "";
             newDefSpecs.values = [];
