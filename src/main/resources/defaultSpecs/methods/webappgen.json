@@ -21,6 +21,13 @@
     "type": "zip"
   },
   {
+    "outputName": "mapValues",
+    "role": "Admin",
+    "name": "webappgen.mapValues",
+    "description": "Map values",
+    "type": "json"
+  },
+  {
     "outputName": "response",
     "role": "Anonymous",
     "name": "webappgen.uploadModel",
