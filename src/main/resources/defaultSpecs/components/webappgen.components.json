@@ -556,6 +556,10 @@
           {
             "text": "File",
             "value": "file"
+          },
+          {
+            "text": "Autocomplete",
+            "value": "autocomplete"
           }
         ],
         "title": "Element Type"

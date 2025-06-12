@@ -12,6 +12,7 @@
     "webappgen.components.rename",
     "webappgen.components.select",
     "webappgen.components.specs",
+    "webappgen.env",
     "webappgen.home",
     "webappgen.login",
     "webappgen.pages",

@@ -18,7 +18,7 @@
     "name": "webappgen.Env",
     "title": "New Page",
     "scripts": [],
-    "matches": "/Env"
+    "matches": "Env"
   },
   {
     "component": "webappgen.login.LoginPageComponent",
