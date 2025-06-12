@@ -20,6 +20,18 @@
     "js": []
   },
   {
+    "layout": "horizontal",
+    "components": [{
+      "innerId": "elem0",
+      "component": "webappgen.base.div",
+      "size": "l12",
+      "env": ""
+    }],
+    "name": "webappgen.maps.DetailsPanel",
+    "isContainer": true,
+    "js": []
+  },
+  {
     "specs": [{
       "env": "",
       "value": {
@@ -32,6 +44,52 @@
     "isContainer": false,
     "js": [],
     "type": "autocomplete"
+  },
+  {
+    "layout": "horizontal",
+    "components": [
+      {
+        "innerId": "Map",
+        "component": "webappgen.components.basic.AddBtn",
+        "size": "",
+        "env": ""
+      },
+      {
+        "innerId": "elem1",
+        "component": "webappgen.maps.Prev",
+        "size": "",
+        "env": ""
+      },
+      {
+        "innerId": "elem1",
+        "component": "webappgen.maps.Next",
+        "size": "l1",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.maps.MenuPanel",
+    "isContainer": true,
+    "js": []
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "Next"}
+    }],
+    "name": "webappgen.maps.Next",
+    "isContainer": false,
+    "js": [],
+    "type": "button"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "Previous"}
+    }],
+    "name": "webappgen.maps.Prev",
+    "isContainer": false,
+    "js": [],
+    "type": "button"
   },
   {
     "layout": "horizontal",
@@ -51,10 +109,16 @@
     ],
     "name": "webappgen.maps.MapBody",
     "isContainer": true,
-    "js": [{
-      "env": "",
-      "value": "$(LeftPanel.MapsPackage).change(()=>{\n    $(LeftPanel.MapName).empty();\n    const packageName = $(LeftPanel.MapsPackage).val();\n    \n    $.get(`/resources/maps/packages/${packageName}`,(packages)=>{\n        packages.forEach((packageName)=>{\n            addAutocompleteValue(LeftPanel.MapName,packages)\n        });\n         $(LeftPanel.MapName).val(\"\");\n    });\n});"
-    }]
+    "js": [
+      {
+        "env": "",
+        "value": "$(LeftPanel.MapsPackage).change(()=>{\n    $(LeftPanel.MapName).empty();\n    const packageName = $(LeftPanel.MapsPackage).val();\n    \n    $.get(`/resources/maps/packages/${packageName}`,(packages)=>{\n        packages.forEach((packageName)=>{\n            addAutocompleteValue(LeftPanel.MapName,packages)\n        });\n         $(LeftPanel.MapName).val(\"\");\n    });\n});"
+      },
+      {
+        "env": "",
+        "value": "self.currPage = 0;\n$(LeftPanel.MapName).change(()=>{\n    self.currPage = 0;\n    $.get(\"/methods/\")\n});"
+      }
+    ]
   },
   {
     "specs": [{
@@ -81,13 +145,21 @@
     "type": "button"
   },
   {
-    "layout": "horizontal",
-    "components": [{
-      "innerId": "Map",
-      "component": "webappgen.base.div",
-      "size": "",
-      "env": ""
-    }],
+    "layout": "vertical",
+    "components": [
+      {
+        "innerId": "MenuPanel",
+        "component": "webappgen.maps.MenuPanel",
+        "size": "",
+        "env": ""
+      },
+      {
+        "innerId": "DetailsPanel",
+        "component": "webappgen.maps.DetailsPanel",
+        "size": "l12",
+        "env": ""
+      }
+    ],
     "name": "webappgen.maps.RightPanel",
     "isContainer": true,
     "js": []
