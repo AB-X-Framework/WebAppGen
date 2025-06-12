@@ -16,7 +16,7 @@ public interface MapEntryRepository extends JpaRepository<MapEntry, Long> {
     void delete(MapEntry mapEntry);
 
     // Paging support: fetch a page of MapEntry
-    Page<MapEntry> findAll(Pageable pageable);
+    Page<MapEntry> findByMapResource(MapResource mapResource, Pageable pageable);
 
     long countByMapResource(MapResource mapResource);
 }

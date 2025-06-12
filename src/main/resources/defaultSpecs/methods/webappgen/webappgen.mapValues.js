@@ -1,6 +1,9 @@
 var map;
+var page;
+var size;
 
 function mapValues() {
+    return resourceModel.getMapEntries(map,page,size);
     return JSON.stringify({
         "specs": {},
         "package": "webappgen.base",

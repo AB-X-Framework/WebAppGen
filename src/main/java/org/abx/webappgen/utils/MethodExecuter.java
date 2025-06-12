@@ -3,6 +3,7 @@ package org.abx.webappgen.utils;
 import org.abx.webappgen.controller.MethodUtils;
 import org.abx.webappgen.persistence.MethodModel;
 import org.abx.webappgen.persistence.PageModel;
+import org.abx.webappgen.persistence.ResourceModel;
 import org.abx.webappgen.persistence.UserModel;
 import org.graalvm.polyglot.Context;
 import org.graalvm.polyglot.Source;
@@ -32,6 +33,9 @@ public class MethodExecuter {
 
     @Autowired
     public PageModel pageModel;
+
+    @Autowired
+    public ResourceModel resourceModel;
 
     @Autowired
     public UserModel userModel;
@@ -167,6 +171,7 @@ public class MethodExecuter {
         jsBindings.putMember("utils", new MethodUtils());
         jsBindings.putMember("specsExporter", specsExporter);
         jsBindings.putMember("specsImporter", specsImporter);
+        jsBindings.putMember("resourceModel", resourceModel);
         for (String arg : jsonArgs.keySet()) {
             jsBindings.putMember(arg, jsonArgs.get(arg));
         }

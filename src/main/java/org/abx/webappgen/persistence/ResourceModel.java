@@ -6,8 +6,11 @@ import org.abx.webappgen.persistence.model.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Set;
 
 import static org.abx.webappgen.utils.ElementUtils.elementHashCode;
@@ -31,6 +34,26 @@ public class ResourceModel {
 
     @Autowired
     private MapEntryRepository mapEntryRepository;
+
+
+
+    public JSONArray getMapEntries(String mapResourceName, int page, int size) {
+        // Assuming elementHashCode returns the ID of the resource
+        long resourceId = elementHashCode(mapResourceName);
+        // Get the MapResource or throw if not found
+        MapResource mapResource = mapResourceRepository.findByMapResourceId(resourceId);
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.by("mapEntryId").ascending());
+        // Use the custom query
+        org.springframework.data.domain.Page<MapEntry> pageResult = mapEntryRepository.findByMapResource(mapResource, pageRequest);
+        JSONArray jsonArray = new JSONArray();
+        for (MapEntry entry : pageResult.getContent()) {
+            JSONObject jsonObject = new JSONObject();
+            jsonArray.put(jsonObject);
+            jsonObject.put(entry.entryName,entry.mapValue);
+        }
+        return jsonArray;
+    }
+
 
     public String getTextResource(Set<String> roles, String resourceName) {
         TextResource text = textResourceRepository.findByTextResourceId(
