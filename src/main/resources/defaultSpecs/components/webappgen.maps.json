@@ -15,7 +15,7 @@
     "specs": [{
       "env": "",
       "value": {
-        "src": "",
+        "src": "/resources/maps/packages",
         "values": [],
         "title": "Maps Package"
       }
