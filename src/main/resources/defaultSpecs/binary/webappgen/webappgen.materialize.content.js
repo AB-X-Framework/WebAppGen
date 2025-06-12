@@ -125,6 +125,8 @@ class PageContent {
                     break;
                 case "section":
                     PageContent.renderSection(output, componentSpecs.specs);
+                case "label":
+                    PageContent.renderLabel(output, componentSpecs.specs);
                     break;
                 case "autocomplete":
                     PageContent.renderAutocomplete(output, js, componentSpecs.specs);
@@ -333,7 +335,16 @@ class PageContent {
           </div></div>`;
         output.push(results);
     }
-
+    static renderLabel(output, specs) {
+        var results =
+            `<div id="${specs.id}"  class="section white section-content">
+            <div class="row ">
+            <p class="grey-text text-darken-3">
+             ${specs.content.replaceAll("\n", "</><p class=\"grey-text text-darken-3\">")}
+             </p>
+          </div></div>`;
+        output.push(results);
+    }
 
     static renderFile(output, specs) {
         var results =
