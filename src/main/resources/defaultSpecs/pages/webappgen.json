@@ -7,7 +7,7 @@
     "title": "Home Page",
     "scripts": [{
       "env": "",
-      "value": "/resources/binary/webappgen.model.methods.js"
+      "value": "/resources/binaries/get/webappgen.model.methods.js"
     }],
     "matches": "Home"
   },
@@ -28,7 +28,7 @@
     "title": "Login Page",
     "scripts": [{
       "env": "",
-      "value": "/resources/binary/webappgen.login.js"
+      "value": "/resources/binaries/get/webappgen.login.js"
     }],
     "matches": "main"
   },
@@ -36,7 +36,7 @@
     "component": "webappgen.pages.MainPageComponent",
     "css": [{
       "env": "",
-      "value": "/resources/binary/webappgen.materialize.icons.css"
+      "value": "/resources/binaries/get/webappgen.materialize.icons.css"
     }],
     "role": "Admin",
     "name": "webappgen.Pages",
@@ -44,11 +44,11 @@
     "scripts": [
       {
         "env": "",
-        "value": "/resources/binary/webappgen.pages.js"
+        "value": "/resources/binaries/get/webappgen.pages.js"
       },
       {
         "env": "",
-        "value": "/resources/binary/webappgen.utils.js"
+        "value": "/resources/binaries/get/webappgen.utils.js"
       }
     ],
     "matches": "Pages"
@@ -57,7 +57,7 @@
     "component": "webappgen.components.ComponentsPageComponent",
     "css": [{
       "env": "",
-      "value": "/resources/binary/webappgen.materialize.icons.css"
+      "value": "/resources/binaries/get/webappgen.materialize.icons.css"
     }],
     "role": "Admin",
     "name": "webappgen.Components",
@@ -65,11 +65,11 @@
     "scripts": [
       {
         "env": "",
-        "value": "/resources/binary/webappgen.components.js"
+        "value": "/resources/binaries/get/webappgen.components.js"
       },
       {
         "env": "",
-        "value": "/resources/binary/webappgen.utils.js"
+        "value": "/resources/binaries/get/webappgen.utils.js"
       }
     ],
     "matches": "Components"

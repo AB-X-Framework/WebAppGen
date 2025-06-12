@@ -4,7 +4,7 @@
       "env": "",
       "value": {
         "cancel": "Don't remove",
-        "src": "/maps/get/app.Env/hideDefaults",
+        "src": "/resources/maps/get/app.Env/hideDefaults",
         "ok": "Remove",
         "title": "Remove defaults"
       }
@@ -18,7 +18,7 @@
     "specs": [{
       "env": "",
       "value": {
-        "src": "/maps/get/app.Env/modelPath",
+        "src": "/resources/maps/get/app.Env/modelPath",
         "title": "Project path",
         "content": ""
       }
@@ -255,7 +255,7 @@
     "specs": [{
       "env": "",
       "value": {
-        "src": "/resources/binary/webappgen.abx.png",
+        "src": "/resources/binaries/get/webappgen.abx.png",
         "values": [
           {
             "text": "Home",

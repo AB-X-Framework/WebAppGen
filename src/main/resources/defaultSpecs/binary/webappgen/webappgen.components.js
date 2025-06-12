@@ -667,6 +667,12 @@ function processElement() {
             $(workingEnv.SpecsTitle).val(specs.title);
             $(workingEnv.SpecsContent).val(specs.content);
             break;
+        case "autocomplete":
+            if (typeof specs.src != "undefined") {
+                $(workingEnv.SpecsSource).val(specs.src);
+            }
+            $(workingEnv.SpecsTitle).val(specs.title);
+            break;
         case "header":
             $(workingEnv.SpecsSource).val(specs.src);
             break;

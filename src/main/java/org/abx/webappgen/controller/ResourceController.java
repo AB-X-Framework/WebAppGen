@@ -23,7 +23,7 @@ public class ResourceController extends RoleController {
     @Autowired
     private ResourceModel resourceModel;
 
-    @GetMapping(value = "/text/{resource}", produces = MediaType.TEXT_PLAIN_VALUE)
+    @GetMapping(value = "/texts/get/{resource}", produces = MediaType.TEXT_PLAIN_VALUE)
     @PreAuthorize("permitAll()")
     public ResponseEntity<String>  textResource(@PathVariable String resource) {
         Set<String> roles = getRoles();
@@ -38,7 +38,22 @@ public class ResourceController extends RoleController {
         return new ResponseEntity<>(data, headers, HttpStatus.OK);
     }
 
-    @GetMapping("/binary/{resource}")
+
+    @Secured("Admin")
+    @GetMapping(value = "/maps/get/{resource}/{key}")
+    public String downloadMapValue(
+            @PathVariable String resource,
+            @PathVariable String key)  {
+        return resourceModel.getMapResource(resource,key);
+    }
+
+    @Secured("Admin")
+    @GetMapping(value = "/maps/packages",produces  = MediaType.APPLICATION_JSON_VALUE)
+    public String downloadMaps()  {
+        return resourceModel.getMapPackages().toString();
+    }
+
+    @GetMapping("/binaries/get/{resource}")
     public ResponseEntity<byte[]> downloadFile(@PathVariable String resource) {
         Set<String> roles = getRoles();
         Pair<String, byte[]> fileContent = resourceModel.getBinaryResource(roles, resource);
@@ -53,7 +68,7 @@ public class ResourceController extends RoleController {
     }
 
     @Secured("Admin")
-    @PostMapping(value = "/binary", consumes = "multipart/form-data")
+    @PostMapping(value = "/binaries", consumes = "multipart/form-data")
     public long handleUpload(
             @RequestPart MultipartFile data,
             @RequestPart String packageName,

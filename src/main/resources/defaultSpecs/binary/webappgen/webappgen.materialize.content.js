@@ -429,7 +429,7 @@ class PageContent {
 
     static renderJsEditor(output, specs) {
         var result = `
-    <script src="/resources/binary/ace.min.js"></script>
+    <script src="/resources/binaries/get/ace.min.js"></script>
     <div id="${specs.id}" style="height: ${specs.height}; width: 100%">${specs.content}</div>
         
 <script>
