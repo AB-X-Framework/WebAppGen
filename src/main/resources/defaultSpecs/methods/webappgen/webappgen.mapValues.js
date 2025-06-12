@@ -1,4 +1,4 @@
-var removeDefaults
+var map;
 
 function mapValues() {
     return JSON.stringify({
