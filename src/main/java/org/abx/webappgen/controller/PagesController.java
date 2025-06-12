@@ -60,7 +60,7 @@ public class PagesController extends RoleController {
         return status.toString(2);
     }
 
-    @PostMapping(value = "/clone", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/rename", produces = MediaType.APPLICATION_JSON_VALUE)
     @Secured("Admin")
     public String rename(@RequestParam String newName, @RequestParam String page) {
         JSONObject jsonPage = new JSONObject(page);
@@ -69,7 +69,7 @@ public class PagesController extends RoleController {
         jsonPage.put("name", newName);
         JSONObject status = new JSONObject();
         try {
-            specsImporter.rename(jsonPage);
+            specsImporter.renamePage(newName, jsonPage);
             status.put("page", jsonPage);
             status.put("success", true);
         } catch (Exception e) {

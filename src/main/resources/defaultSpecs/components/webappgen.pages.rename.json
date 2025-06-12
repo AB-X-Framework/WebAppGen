@@ -1,10 +1,61 @@
-[{
-  "specs": [{
-    "env": "",
-    "value": {"title": "Rename Page"}
-  }],
-  "name": "webappgen.pages.rename.ProcessRenamePage",
-  "isContainer": false,
-  "js": [],
-  "type": "button"
-}]
+[
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "Rename Page"}
+    }],
+    "name": "webappgen.pages.rename.ProcessRenamePage",
+    "isContainer": false,
+    "js": [],
+    "type": "button"
+  },
+  {
+    "layout": "popup",
+    "components": [
+      {
+        "innerId": "RenamePageText",
+        "component": "webappgen.pages.rename.RenamePageText",
+        "size": "l2",
+        "env": ""
+      },
+      {
+        "innerId": "RenamePageName",
+        "component": "webappgen.components.clone.CloneComponentName",
+        "size": "l2",
+        "env": ""
+      },
+      {
+        "innerId": "RenameComponentButton",
+        "component": "webappgen.base.RenameComponentButton",
+        "size": "l12",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.pages.rename.RenamePagePopup",
+    "isContainer": true,
+    "js": [
+      {
+        "env": "",
+        "value": "$(RenameComponentButton).click(()=>{\n    renamePages($(RenamePageName).val());\n    PageContents.closeModal(self);\n});\n"
+      },
+      {
+        "env": "",
+        "value": "self.setName=(name)=>$(CloneComponentName).val(name)"
+      }
+    ]
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "size": "div",
+        "title": "",
+        "content": "Please set new page name"
+      }
+    }],
+    "name": "webappgen.pages.rename.RenamePageText",
+    "isContainer": false,
+    "js": [],
+    "type": "section"
+  }
+]

@@ -28,5 +28,15 @@
     "isContainer": false,
     "js": [],
     "type": "divider"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "Rename"}
+    }],
+    "name": "webappgen.base.RenameComponentButton",
+    "isContainer": false,
+    "js": [],
+    "type": "button"
   }
 ]

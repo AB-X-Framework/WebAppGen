@@ -26,7 +26,7 @@
       },
       {
         "innerId": "RenameComponentButton",
-        "component": "webappgen.components.rename.RenameComponentButton",
+        "component": "webappgen.base.RenameComponentButton",
         "size": "l12",
         "env": ""
       }
@@ -43,16 +43,6 @@
         "value": "self.setName=(name)=>$(CloneComponentName).val(name)"
       }
     ]
-  },
-  {
-    "specs": [{
-      "env": "",
-      "value": {"title": "Rename"}
-    }],
-    "name": "webappgen.components.rename.RenameComponentButton",
-    "isContainer": false,
-    "js": [],
-    "type": "button"
   },
   {
     "specs": [{

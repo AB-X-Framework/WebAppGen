@@ -168,6 +168,12 @@
         "component": "webappgen.pages.clone.ClonePagePopup",
         "size": "l12",
         "env": ""
+      },
+      {
+        "innerId": "RenamePagePopup",
+        "component": "webappgen.pages.rename.RenamePagePopup",
+        "size": "l12",
+        "env": ""
       }
     ],
     "name": "webappgen.pages.LeftPanel",
@@ -176,6 +182,10 @@
       {
         "env": "",
         "value": "$(ProcessNewPage).click(  ()=>  M.Modal.init(NewPagePopup).open() );"
+      },
+      {
+        "env": "",
+        "value": "$(ProcessRenamePage).click(()=>{\n    $(RenamePagePopup.RenamePageName).val($(workingEnv.PageName).val());\n   PageContent.openModal(RenamePagePopup); \n});"
       },
       {
         "env": "",
