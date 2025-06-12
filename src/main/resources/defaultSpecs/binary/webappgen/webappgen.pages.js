@@ -38,6 +38,7 @@ function saveCurrentSpecs() {
         } else {
             message = "Error saving page " + message.error;
         }
+        markSaved();
         PageContent.showModal("Save page",message);
     });
 }
@@ -67,6 +68,7 @@ function processNewPage(originalPackage,page){
         selectOrAddValue($(workingEnv.PageName), workingEnv.page.name);
     }
     $(workingEnv.PageName).change();
+    markSaved();
 }
 
 function newPage(newName) {
@@ -76,8 +78,9 @@ function newPage(newName) {
         }, (status) => {
             if (status.success) {
                 processNewPage(originalPackage,status.page);
+                markSaved();
             } else {
-                PageContent.showModal("Clone Page", "Cannot clone page. " +
+                PageContent.showModal("Clone Page", "Cannot create new page. " +
                     JSON.stringify(result.error));
             }
         }
@@ -92,6 +95,7 @@ function clonePage(newName) {
         }, (status) => {
             if (status.success) {
                 processNewPage(originalPackage,status.page);
+                markSaved();
             } else {
                 PageContent.showModal("Clone Page", "Cannot clone page. " +
                     JSON.stringify(status.error));
