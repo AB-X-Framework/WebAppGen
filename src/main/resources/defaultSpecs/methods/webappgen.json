@@ -7,13 +7,6 @@
     "type": "json"
   },
   {
-    "outputName": "hello",
-    "role": "Anonymous",
-    "name": "webappgen.hello",
-    "description": "say hi",
-    "type": "text"
-  },
-  {
     "outputName": "uppercase",
     "role": "Anonymous",
     "name": "webappgen.uppercase",
@@ -32,6 +25,13 @@
     "role": "Anonymous",
     "name": "webappgen.uploadModel",
     "description": "Upload model",
+    "type": "text"
+  },
+  {
+    "outputName": "hello",
+    "role": "Anonymous",
+    "name": "webappgen.hello",
+    "description": "say hi",
     "type": "text"
   },
   {

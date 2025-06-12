@@ -12,6 +12,15 @@
     "matches": "Home"
   },
   {
+    "component": "app.Default",
+    "css": [],
+    "role": "Admin",
+    "name": "webappgen.Env",
+    "title": "New Page",
+    "scripts": [],
+    "matches": "/Env"
+  },
+  {
     "component": "webappgen.login.LoginPageComponent",
     "css": [],
     "role": "Anonymous",
