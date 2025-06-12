@@ -33,9 +33,9 @@ public class PagesController extends RoleController {
         JSONObject status = new JSONObject();
         try {
             specsImporter.savePage(new JSONObject(page));
-            status.put("success", "true");
+            status.put("success", true);
         } catch (Exception e) {
-            status.put("success", "false");
+            status.put("success", false);
             status.put("error", e.getMessage());
         }
         return status.toString(2);

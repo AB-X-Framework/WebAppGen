@@ -23,7 +23,10 @@
     ],
     "name": "webappgen.pages.BasicDetails",
     "isContainer": true,
-    "js": []
+    "js": [{
+      "env": "",
+      "value": "$(RoleType).change(()=>{\n   workingEnv.page.role = $(RoleType).val();\n   markChanged();\n});"
+    }]
   },
   {
     "specs": [{
