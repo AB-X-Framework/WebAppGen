@@ -22,7 +22,7 @@
   {
     "layout": "horizontal",
     "components": [{
-      "innerId": "elem0",
+      "innerId": "DetailsContainer",
       "component": "webappgen.base.div",
       "size": "l12",
       "env": ""
@@ -116,7 +116,7 @@
       },
       {
         "env": "",
-        "value": "self.currPage = 0;\n$(LeftPanel.MapName).change(()=>{\n    self.currPage = 0;\n    $.get(\"/methods/\")\n});"
+        "value": "self.currPage = 0;\n$(LeftPanel.MapName).change(()=>{\n    self.currPage = 0;\n    App.process(\"webappgen.mapValues\",{},(componentSpecs)=>{\n        componentSpecs.js = \"\";\n        const output = [];\n        PageContent.renderComponent(output, js, componentSpecs);\n        $(RightPanel.DetailsPanel.DetailsContainer).html(output.join(\"\"));\n        M.updateTextFields();\n    })\n});"
       }
     ]
   },

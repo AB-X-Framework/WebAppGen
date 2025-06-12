@@ -14,18 +14,18 @@
     "type": "text"
   },
   {
-    "outputName": "model.zip",
-    "role": "Admin",
-    "name": "webappgen.downloadModel",
-    "description": "Download model",
-    "type": "zip"
-  },
-  {
     "outputName": "mapValues",
     "role": "Admin",
     "name": "webappgen.mapValues",
     "description": "Map values",
     "type": "json"
+  },
+  {
+    "outputName": "model.zip",
+    "role": "Admin",
+    "name": "webappgen.downloadModel",
+    "description": "Download model",
+    "type": "zip"
   },
   {
     "outputName": "response",

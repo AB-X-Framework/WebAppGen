@@ -16,7 +16,7 @@
     "css": [],
     "role": "Admin",
     "name": "webappgen.Maps",
-    "title": "New Page",
+    "title": "Maps",
     "scripts": [{
       "env": "",
       "value": "/resources/binaries/get/webappgen.utils.js"
