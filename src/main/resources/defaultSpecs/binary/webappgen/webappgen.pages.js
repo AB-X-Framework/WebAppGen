@@ -27,6 +27,7 @@ function selectPackage(packageName) {
             }));
         });
         M.FormSelect.init(pageNameBox);
+        markSaved();
     });
 }
 
