@@ -86,7 +86,9 @@ public class ResourceModel {
 
     public JSONArray getMapsByPackageName(String packageName) {
         JSONArray array = new JSONArray();
-        mapResourceRepository.findAllByPackageName(packageName).forEach(array::put);
+        mapResourceRepository.findAllByPackageName(packageName).forEach((mapResource)->{
+            array.put(mapResource.resourceName);
+        });
         return array;
     }
 

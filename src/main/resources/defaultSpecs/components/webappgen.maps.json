@@ -53,7 +53,7 @@
     "isContainer": true,
     "js": [{
       "env": "",
-      "value": "$(LeftPanel.MapsPackage).change(()=>{\n    $(LeftPanel.MapsPackage).empty();\n    const packageName = $(LeftPanel.MapsPackage).val();\n    \n    $.get(`/resources/maps/packages/${packageName}`,(packages)=>{\n        packages.each((packageName)=>{\n            addAutocompleteValue(LeftPanel.MapName,packages)\n        });\n    });\n});"
+      "value": "$(LeftPanel.MapsPackage).change(()=>{\n    $(LeftPanel.MapsPackage).empty();\n    const packageName = $(LeftPanel.MapsPackage).val();\n    \n    $.get(`/resources/maps/packages/${packageName}`,(packages)=>{\n        packages.forEach((packageName)=>{\n            addAutocompleteValue(LeftPanel.MapName,packages)\n        });\n    });\n});"
     }]
   },
   {
