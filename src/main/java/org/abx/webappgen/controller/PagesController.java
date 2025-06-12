@@ -52,9 +52,9 @@ public class PagesController extends RoleController {
         try {
             specsImporter.savePage(jsonPage);
             status.put("page", jsonPage);
-            status.put("success", "true");
+            status.put("success", true);
         } catch (Exception e) {
-            status.put("success", "false");
+            status.put("success", false);
             status.put("error", e.getMessage());
         }
         return status.toString(2);
