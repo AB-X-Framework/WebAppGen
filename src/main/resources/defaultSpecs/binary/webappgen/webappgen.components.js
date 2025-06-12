@@ -582,6 +582,10 @@ function processSpecs() {
             $(workingEnv.SpecsContentArea).closest('.input-field').parent().show();
             $(workingEnv.SpecsSource).closest('.input-field').parent().show();
             break;
+        case "autocomplete":
+            $(workingEnv.SpecsTitle).closest('.input-field').parent().show();
+            $(workingEnv.SpecsSource).closest('.input-field').parent().show();
+            break;
         case "img":
             $(workingEnv.SpecsSource).closest('.input-field').parent().show();
             break;
