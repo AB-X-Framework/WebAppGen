@@ -105,3 +105,23 @@ function clonePage(newName) {
     )
 }
 
+
+
+
+function renamePage(newName) {
+    let originalPackage = $(workingEnv.PagePackage).val();
+    $.post("/pages/rename", {
+            "page": JSON.stringify(workingEnv.page),
+            "newName": newName
+        }, (status) => {
+            if (status.success) {
+                processNewPage(originalPackage,status.page);
+                markSaved();
+            } else {
+                PageContent.showModal("Clone Page", "Cannot clone page. " +
+                    JSON.stringify(status.error));
+            }
+        }
+    )
+}
+

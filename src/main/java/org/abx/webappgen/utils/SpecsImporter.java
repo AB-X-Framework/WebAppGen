@@ -307,6 +307,22 @@ public class SpecsImporter {
         processPage(page.getString("package"), page);
     }
 
+    @Transactional
+    public void renamePage(String newName, JSONObject page) {
+        String originalName =  page.getString("name");
+        Page exitingPage = pageRepository.findByMatchesId(elementHashCode(page.getString("matches")));
+        if (exitingPage != null) {
+            long pageId = elementHashCode(originalName);
+            //CHeck if different pages
+            if (pageId != exitingPage.pageId) {
+                throw new RuntimeException("Page matching " + page.getString("matches") + " already exists.");
+            }
+        }
+        page.put("name", newName);
+        processPage(page.getString("package"), page);
+        pageRepository.delete(exitingPage);
+    }
+
     private JSONArray processComponentsAux(JSONArray components, HashSet<String> saved) throws Exception {
         if (components.isEmpty()) {
             return components;

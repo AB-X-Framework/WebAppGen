@@ -60,7 +60,24 @@ public class PagesController extends RoleController {
         return status.toString(2);
     }
 
-
+    @PostMapping(value = "/clone", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Secured("Admin")
+    public String rename(@RequestParam String newName, @RequestParam String page) {
+        JSONObject jsonPage = new JSONObject(page);
+        String packageName = newName.substring(0, newName.lastIndexOf("."));
+        jsonPage.put("package", packageName);
+        jsonPage.put("name", newName);
+        JSONObject status = new JSONObject();
+        try {
+            specsImporter.rename(jsonPage);
+            status.put("page", jsonPage);
+            status.put("success", true);
+        } catch (Exception e) {
+            status.put("success", false);
+            status.put("error", e.getMessage());
+        }
+        return status.toString(2);
+    }
     @PostMapping(value = "/new", produces = MediaType.APPLICATION_JSON_VALUE)
     @Secured("Admin")
     public String newPage(@RequestParam String newName) {
