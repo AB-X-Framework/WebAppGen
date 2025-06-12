@@ -54,6 +54,8 @@ public class SpecsImporter {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private PageRepository pageRepository;
 
     @PostConstruct
     public void init() throws Exception {
@@ -294,6 +296,10 @@ public class SpecsImporter {
 
     @Transactional
     public void savePage(JSONObject page) {
+
+        if (pageRepository.findByMatchesId(elementHashCode(page.getString("matches"))) != null) {
+            throw new RuntimeException("Matching " + elementHashCode(page.getString("matches")) + " already exists.");
+        }
         processPage(page.getString("package"), page);
     }
 
