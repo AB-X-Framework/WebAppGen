@@ -25,9 +25,9 @@ public class ResourceController extends RoleController {
 
     @GetMapping(value = "/texts/get/{resource}", produces = MediaType.TEXT_PLAIN_VALUE)
     @PreAuthorize("permitAll()")
-    public ResponseEntity<String>  textResource(@PathVariable String resource) {
+    public ResponseEntity<String> textResource(@PathVariable String resource) {
         Set<String> roles = getRoles();
-        String data = resourceModel.getTextResource(roles,resource);
+        String data = resourceModel.getTextResource(roles, resource);
         if (data == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -43,14 +43,20 @@ public class ResourceController extends RoleController {
     @GetMapping(value = "/maps/get/{resource}/{key}")
     public String downloadMapValue(
             @PathVariable String resource,
-            @PathVariable String key)  {
-        return resourceModel.getMapResource(resource,key);
+            @PathVariable String key) {
+        return resourceModel.getMapResource(resource, key);
     }
 
     @Secured("Admin")
-    @GetMapping(value = "/maps/packages",produces  = MediaType.APPLICATION_JSON_VALUE)
-    public String downloadMaps()  {
+    @GetMapping(value = "/maps/packages", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String mapPackages() {
         return resourceModel.getMapPackages().toString();
+    }
+
+    @Secured("Admin")
+    @GetMapping(value = "/maps/packages/{packageName}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String mapsByPackage(@RequestParam String packageName) {
+        return resourceModel.getMapsByPackageName(packageName).toString();
     }
 
     @GetMapping("/binaries/get/{resource}")
@@ -76,7 +82,7 @@ public class ResourceController extends RoleController {
             @RequestPart String contentType) throws IOException {
         byte[] fileBytes = data.getBytes();
         String name = data.getOriginalFilename();
-        return resourceModel.saveBinaryResource(name, packageName,contentType, fileBytes, role);
+        return resourceModel.saveBinaryResource(name, packageName, contentType, fileBytes, role);
     }
 
 }

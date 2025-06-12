@@ -1,7 +1,7 @@
 package org.abx.webappgen.persistence;
 
-import org.abx.webappgen.persistence.dao.*;
 import org.abx.util.Pair;
+import org.abx.webappgen.persistence.dao.*;
 import org.abx.webappgen.persistence.model.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -83,6 +83,13 @@ public class ResourceModel {
         array.putAll(mapResourceRepository.findDistinctPackageNames());
         return array;
     }
+
+    public JSONArray getMapsByPackageName(String packageName) {
+        JSONArray array = new JSONArray();
+        mapResourceRepository.findAllByPackageName(packageName).forEach(array::put);
+        return array;
+    }
+
 
     public String getMapResource(String resourceName, String key) {
         return mapEntryRepository.findByMapEntryId(
