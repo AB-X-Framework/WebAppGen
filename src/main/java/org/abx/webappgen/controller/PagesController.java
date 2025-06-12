@@ -66,7 +66,6 @@ public class PagesController extends RoleController {
         JSONObject jsonPage = new JSONObject(page);
         String packageName = newName.substring(0, newName.lastIndexOf("."));
         jsonPage.put("package", packageName);
-        jsonPage.put("name", newName);
         JSONObject status = new JSONObject();
         try {
             specsImporter.renamePage(newName, jsonPage);

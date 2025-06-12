@@ -36,7 +36,7 @@
     "js": [
       {
         "env": "",
-        "value": "$(RenameComponentButton).click(()=>{\n    renamePage($(RenamePageName).val());\n    PageContents.closeModal(self);\n});\n"
+        "value": "$(RenameComponentButton).click(()=>{\n    renamePage($(RenamePageName).val());\n    PageContent.closeModal(self);\n});\n"
       },
       {
         "env": "",

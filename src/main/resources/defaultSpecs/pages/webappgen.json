@@ -15,7 +15,7 @@
     "component": "webappgen.maps.MainMapComponent",
     "css": [],
     "role": "Admin",
-    "name": "webappgen.Env",
+    "name": "webappgen.Maps",
     "title": "New Page",
     "scripts": [],
     "matches": "Maps"
