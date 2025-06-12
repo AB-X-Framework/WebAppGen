@@ -4,7 +4,7 @@
       "env": "",
       "value": {
         "cancel": "Don't remove",
-        "src": "/resources/map/app.Env/hideDefaults",
+        "src": "/maps/get/app.Env/hideDefaults",
         "ok": "Remove",
         "title": "Remove defaults"
       }
@@ -18,7 +18,7 @@
     "specs": [{
       "env": "",
       "value": {
-        "src": "/resources/map/app.Env/modelPath",
+        "src": "/maps/get/app.Env/modelPath",
         "title": "Project path",
         "content": ""
       }

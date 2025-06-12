@@ -64,11 +64,4 @@ public class ResourceController extends RoleController {
         return resourceModel.saveBinaryResource(name, packageName,contentType, fileBytes, role);
     }
 
-    @Secured("Admin")
-    @GetMapping(value = "/map/{resource}/{key}")
-    public String downloadMapValue(
-            @PathVariable String resource,
-            @PathVariable String key)  {
-        return resourceModel.getMapResource(resource,key);
-    }
 }

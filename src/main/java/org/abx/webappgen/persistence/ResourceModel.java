@@ -78,6 +78,12 @@ public class ResourceModel {
 
     }
 
+    public JSONArray getMapPackages() {
+        JSONArray array = new JSONArray();
+        array.putAll(mapResourceRepository.findDistinctPackageNames());
+        return array;
+    }
+
     public String getMapResource(String resourceName, String key) {
         return mapEntryRepository.findByMapEntryId(
                 elementHashCode(resourceName + "." + key)).mapValue;
@@ -103,7 +109,7 @@ public class ResourceModel {
 
     public void saveArrayResource(String resourceName, String packageName, JSONArray data) {
         long id = elementHashCode(resourceName);
-        ArrayResource previous= arrayResourceRepository.findByArrayResourceId(id);
+        ArrayResource previous = arrayResourceRepository.findByArrayResourceId(id);
         if (previous != null) {
             arrayResourceRepository.delete(previous);
             arrayResourceRepository.flush();
