@@ -1,0 +1,10 @@
+[{
+  "specs": [{
+    "env": "",
+    "value": {"title": "Rename Page"}
+  }],
+  "name": "webappgen.pages.rename.ProcessRenamePage",
+  "isContainer": false,
+  "js": [],
+  "type": "button"
+}]

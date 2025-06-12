@@ -140,14 +140,20 @@
         "env": ""
       },
       {
+        "innerId": "ProcessNewPage",
+        "component": "webappgen.pages.new.ProcessNewPage",
+        "size": "l12",
+        "env": ""
+      },
+      {
         "innerId": "Clone",
         "component": "webappgen.pages.Clone",
         "size": "l12",
         "env": ""
       },
       {
-        "innerId": "ProcessNewPage",
-        "component": "webappgen.pages.new.ProcessNewPage",
+        "innerId": "ProcessRenamePage",
+        "component": "webappgen.pages.rename.ProcessRenamePage",
         "size": "l12",
         "env": ""
       },
