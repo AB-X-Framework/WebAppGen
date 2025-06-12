@@ -56,7 +56,7 @@ public class ResourceController extends RoleController {
     @Secured("Admin")
     @GetMapping(value = "/maps/packages/{packageName}", produces = MediaType.APPLICATION_JSON_VALUE)
     public String mapsByPackage(@RequestParam String packageName) {
-        return resourceModel.getMapsByPackageName(packageName).toString();
+        return resourceModel.getMapsByPackageName(packageName).toString(2);
     }
 
     @GetMapping("/binaries/get/{resource}")
