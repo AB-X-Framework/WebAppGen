@@ -188,7 +188,10 @@
     }],
     "name": "webappgen.pages.Save",
     "isContainer": false,
-    "js": [],
+    "js": [{
+      "env": "",
+      "value": "workingEnv.SavePage=self;"
+    }],
     "type": "button"
   },
   {
