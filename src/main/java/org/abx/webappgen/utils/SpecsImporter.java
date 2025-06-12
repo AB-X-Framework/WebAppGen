@@ -6,22 +6,22 @@ import jakarta.transaction.Transactional;
 import org.abx.util.StreamUtils;
 import org.abx.webappgen.persistence.PageModel;
 import org.abx.webappgen.persistence.ResourceModel;
-import org.abx.webappgen.persistence.dao.*;
-import org.abx.webappgen.persistence.model.*;
+import org.abx.webappgen.persistence.dao.MethodSpecRepository;
+import org.abx.webappgen.persistence.dao.PageRepository;
+import org.abx.webappgen.persistence.dao.UserRepository;
+import org.abx.webappgen.persistence.model.MethodSpec;
+import org.abx.webappgen.persistence.model.Page;
+import org.abx.webappgen.persistence.model.User;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Collection;
-import java.util.HashMap;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.HashSet;
-import java.util.Map;
 
 import static org.abx.webappgen.utils.ElementUtils.elementHashCode;
 
@@ -248,7 +248,7 @@ public class SpecsImporter {
                 JSONObject jsonResource = textPackages.getJSONObject(j);
                 String name = jsonResource.getString("name");
                 String file = specsPath + "/text/" + packageName + "/" + name;
-                String data = getData(file,fs);
+                String data = getData(file, fs);
                 resourceModel.saveTextResource(name, packageName,
                         data, jsonResource.getString("role"));
 
@@ -309,7 +309,7 @@ public class SpecsImporter {
 
     @Transactional
     public void renamePage(String newName, JSONObject page) {
-        String originalName =  page.getString("name");
+        String originalName = page.getString("name");
         Page exitingPage = pageRepository.findByMatchesId(elementHashCode(page.getString("matches")));
         if (exitingPage != null) {
             long pageId = elementHashCode(originalName);
@@ -320,6 +320,7 @@ public class SpecsImporter {
         }
         page.put("name", newName);
         processPage(page.getString("package"), page);
+        exitingPage = pageRepository.findByPageId(elementHashCode(originalName));
         pageRepository.delete(exitingPage);
     }
 
