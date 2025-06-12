@@ -306,7 +306,7 @@
     "js": [
       {
         "env": "",
-        "value": "$(NameSection.PageName).change(()=>{\n    $.get(`/pages/details/${$(NameSection.PageName).val()}`,\n        (pageDetails)=>{\n            workingEnv.page = pageDetails;\n            ComponentSelector.selectPackage(pageDetails.componentPackage,pageDetails.component);\n            $(Details.Title).val(pageDetails.title);\n            $(Details.Matches).val(pageDetails.matches);\n            $(Details.RoleType).val(pageDetails.role);\n            $(Details.RoleType).formSelect();\n            \n            CSS.process(\"css\");\n            Scripts.process(\"scripts\");\n        }\n    )\n});\nCSS.setType(\"CSS List\")\nScripts.setType(\"Script List\")"
+        "value": "$(NameSection.PageName).change(()=>{\n    $.get(`/pages/details/${$(NameSection.PageName).val()}`,\n        (pageDetails)=>{\n            workingEnv.page = pageDetails;\n            ComponentSelector.selectPackage(pageDetails.componentPackage,pageDetails.component);\n            $(Details.Title).val(pageDetails.title);\n            $(Details.Matches).val(pageDetails.matches);\n            $(Details.RoleType).val(pageDetails.role);\n            $(Details.RoleType).formSelect();\n            \n            CSS.process(\"css\");\n            Scripts.process(\"scripts\");\n        }\n    )\n});\nCSS.setType(\"css\",\"CSS List\")\nScripts.setType(\"script\",\"Script List\")"
       },
       {
         "env": "",
