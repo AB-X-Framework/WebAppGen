@@ -15,6 +15,7 @@
     "webappgen.env",
     "webappgen.home",
     "webappgen.login",
+    "webappgen.maps",
     "webappgen.pages",
     "webappgen.pages.clone",
     "webappgen.pages.env",
