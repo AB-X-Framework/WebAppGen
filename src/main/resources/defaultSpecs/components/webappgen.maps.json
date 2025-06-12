@@ -53,7 +53,7 @@
     "isContainer": true,
     "js": [{
       "env": "",
-      "value": "$(LeftPanel.MapsPackage).change(()=>{\n    $(LeftPanel.MapsPackage).empty();\n    const packageName = $(LeftPanel.MapsPackage).val();\n    \n    $.get(`/resources/maps/packages/${packageName}`,(packages)=>{\n        packages.forEach((packageName)=>{\n            addAutocompleteValue(LeftPanel.MapName,packages)\n        });\n    });\n});"
+      "value": "$(LeftPanel.MapsPackage).change(()=>{\n    $(LeftPanel.MapName).empty();\n    const packageName = $(LeftPanel.MapsPackage).val();\n    \n    $.get(`/resources/maps/packages/${packageName}`,(packages)=>{\n        packages.forEach((packageName)=>{\n            addAutocompleteValue(LeftPanel.MapName,packages)\n        });\n         $(LeftPanel.MapName).val(\"\");\n    });\n});"
     }]
   },
   {
@@ -82,20 +82,12 @@
   },
   {
     "layout": "horizontal",
-    "components": [
-      {
-        "innerId": "header",
-        "component": "webappgen.home.header",
-        "size": "l12",
-        "env": ""
-      },
-      {
-        "innerId": "modelContainer",
-        "component": "webappgen.env.EnvBody",
-        "size": "",
-        "env": ""
-      }
-    ],
+    "components": [{
+      "innerId": "Map",
+      "component": "webappgen.base.div",
+      "size": "",
+      "env": ""
+    }],
     "name": "webappgen.maps.RightPanel",
     "isContainer": true,
     "js": []

@@ -3,7 +3,9 @@ package org.abx.webappgen.persistence.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "ArrayEntry")
+@Table(name = "ArrayEntry",indexes = {
+        @Index(name = "ArrayEntry_arrayEntryId", columnList = "arrayEntryId") // Index for better query performance
+})
 public class ArrayEntry {
 
     @Id

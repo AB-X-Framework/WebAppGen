@@ -3,7 +3,9 @@ package org.abx.webappgen.persistence.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "MapEntry")
+@Table(name = "MapEntry",indexes = {
+        @Index(name = "MapEntry_mapEntryId", columnList = "mapEntryId") // Index for better query performance
+})
 public class MapEntry {
 
     @Id

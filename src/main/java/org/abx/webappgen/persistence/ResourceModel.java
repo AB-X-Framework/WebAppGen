@@ -92,17 +92,22 @@ public class ResourceModel {
         return array;
     }
 
-
-    public String getMapResource(String resourceName, String key) {
-        return mapEntryRepository.findByMapEntryId(
-                elementHashCode(resourceName + "." + key)).mapValue;
+    public long getMapEntriesCount(String mapName) {
+        MapResource mapResource = mapResourceRepository.findByMapResourceId(elementHashCode(mapName));
+        return mapEntryRepository.countByMapResource(mapResource);
     }
 
-    public long saveMapResource(String resourceName, String packageName, JSONObject data) {
-        long id = elementHashCode(resourceName);
+
+    public String getMapResource(String mapName, String key) {
+        return mapEntryRepository.findByMapEntryId(
+                elementHashCode(mapName + "." + key)).mapValue;
+    }
+
+    public long saveMapResource(String mapName, String packageName, JSONObject data) {
+        long id = elementHashCode(mapName);
         MapResource mapResource = new MapResource();
         mapResource.mapResourceId = id;
-        mapResource.resourceName = resourceName;
+        mapResource.resourceName = mapName;
         mapResource.packageName = packageName;
         mapResourceRepository.save(mapResource);
         for (String key : data.keySet()) {

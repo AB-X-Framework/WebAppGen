@@ -40,11 +40,11 @@ public class ResourceController extends RoleController {
 
 
     @Secured("Admin")
-    @GetMapping(value = "/maps/get/{resource}/{key}")
+    @GetMapping(value = "/maps/get/{mapName}/{key}")
     public String downloadMapValue(
-            @PathVariable String resource,
+            @PathVariable String mapName,
             @PathVariable String key) {
-        return resourceModel.getMapResource(resource, key);
+        return resourceModel.getMapResource(mapName, key);
     }
 
     @Secured("Admin")
@@ -57,6 +57,12 @@ public class ResourceController extends RoleController {
     @GetMapping(value = "/maps/packages/{packageName}", produces = MediaType.APPLICATION_JSON_VALUE)
     public String mapsByPackage(@PathVariable String packageName) {
         return resourceModel.getMapsByPackageName(packageName).toString(2);
+    }
+
+    @Secured("Admin")
+    @GetMapping(value = "/maps/count/{mapName}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public long getMapEntriesCount(@PathVariable String mapName) {
+        return resourceModel.getMapEntriesCount(mapName);
     }
 
     @GetMapping("/binaries/get/{resource}")
