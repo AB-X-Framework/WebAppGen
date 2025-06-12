@@ -123,7 +123,7 @@
     "isContainer": false,
     "js": [{
       "env": "",
-      "value": "$(self).on('input',()=>{workingEnv.page.title=$(self).val();})"
+      "value": "$(self).on('input',()=>{\n    workingEnv.page.title=$(self).val();\n    markChanged();\n})"
     }],
     "type": "textfield"
   },
@@ -190,7 +190,7 @@
     "isContainer": false,
     "js": [{
       "env": "",
-      "value": "workingEnv.SavePage=self;"
+      "value": "workingEnv.SavePage=self;\nself.markChanged=()=>{\n    $(self).addClass(\"yellow darken-2\");\n}\n\nself.markSaved=()=>{\n    $(self).removeClass(\"yellow darken-2\");\n}"
     }],
     "type": "button"
   },
@@ -207,7 +207,7 @@
     "isContainer": false,
     "js": [{
       "env": "",
-      "value": "$(self).on('input',()=>{workingEnv.page.matches=$(self).val();})"
+      "value": "$(self).on('input',()=>{\n    workingEnv.page.matches=$(self).val();\n    markChanged();\n});"
     }],
     "type": "textfield"
   },
@@ -274,12 +274,6 @@
         "env": ""
       },
       {
-        "innerId": "ConfirmSaveModal",
-        "component": "webappgen.pages.ConfirmSaveModal",
-        "size": "l12",
-        "env": ""
-      },
-      {
         "innerId": "Details",
         "component": "webappgen.pages.BasicDetails",
         "size": "l12",
@@ -294,6 +288,12 @@
       {
         "innerId": "Scripts",
         "component": "webappgen.pages.env.EnvContainer",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "ConfirmSaveModal",
+        "component": "webappgen.pages.ConfirmSaveModal",
         "size": "l12",
         "env": ""
       }
