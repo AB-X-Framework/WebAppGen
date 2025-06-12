@@ -14,6 +14,6 @@ public interface MapResourceRepository extends JpaRepository<MapResource, Long> 
     @Override
     void delete(MapResource arrayEntry);
 
-    @Query("SELECT DISTINCT c.packageName FROM Component c")
-    List<MapResource> findDistinctPackageNames();
+    @Query("SELECT DISTINCT c.packageName FROM MapResource c")
+    List<String> findDistinctPackageNames();
 }
