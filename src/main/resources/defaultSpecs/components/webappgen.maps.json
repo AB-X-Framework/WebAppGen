@@ -1,20 +1,88 @@
-[{
-  "layout": "vertical",
-  "components": [
-    {
+[
+  {
+    "layout": "horizontal",
+    "components": [{
       "innerId": "header",
-      "component": "webappgen.home.header",
+      "component": "webappgen.maps.MapsPackage",
       "size": "l12",
       "env": ""
-    },
-    {
-      "innerId": "modelContainer",
-      "component": "webappgen.env.EnvBody",
-      "size": "",
-      "env": ""
-    }
-  ],
-  "name": "webappgen.maps.MainMapComponent",
-  "isContainer": true,
-  "js": []
-}]
+    }],
+    "name": "webappgen.maps.LeftPanel",
+    "isContainer": true,
+    "js": []
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "src": "",
+        "values": [],
+        "title": "Autocomplete"
+      }
+    }],
+    "name": "webappgen.maps.MapsPackage",
+    "isContainer": false,
+    "js": [],
+    "type": "autocomplete"
+  },
+  {
+    "layout": "horizontal",
+    "components": [
+      {
+        "innerId": "header",
+        "component": "webappgen.maps.LeftPanel",
+        "size": "l3",
+        "env": ""
+      },
+      {
+        "innerId": "modelContainer",
+        "component": "webappgen.maps.RightPanel",
+        "size": "",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.maps.MapBody",
+    "isContainer": true,
+    "js": []
+  },
+  {
+    "layout": "horizontal",
+    "components": [
+      {
+        "innerId": "header",
+        "component": "webappgen.home.header",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "modelContainer",
+        "component": "webappgen.env.EnvBody",
+        "size": "",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.maps.RightPanel",
+    "isContainer": true,
+    "js": []
+  },
+  {
+    "layout": "vertical",
+    "components": [
+      {
+        "innerId": "header",
+        "component": "webappgen.home.header",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "modelContainer",
+        "component": "webappgen.maps.MapBody",
+        "size": "",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.maps.MainMapComponent",
+    "isContainer": true,
+    "js": []
+  }
+]

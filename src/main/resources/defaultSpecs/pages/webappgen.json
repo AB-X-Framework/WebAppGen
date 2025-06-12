@@ -12,7 +12,7 @@
     "matches": "Home"
   },
   {
-    "component": "app.Default",
+    "component": "webappgen.maps.MainMapComponent",
     "css": [],
     "role": "Admin",
     "name": "webappgen.Env",
