@@ -2,6 +2,15 @@ var M;
 var maxLine = 73;
 let workingEnv = {"shouldUpdate": false};
 
+function markChanged() {
+    workingEnv.SavePage.markChanged();
+}
+
+function markSaved() {
+    workingEnv.SavePage.markSaved();
+}
+
+
 function selectPackage(packageName) {
     workingEnv.shouldUpdate = false;
     let pageNameBox = $(workingEnv.PageName);
