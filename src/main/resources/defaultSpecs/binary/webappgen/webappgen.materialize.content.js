@@ -482,13 +482,6 @@ class PageContent {
         output.push(html);
     }
 
-    static renderMenuItems(items) {
-        var line = "";
-        for (var item of items) {
-            line += ` <li><a href="${item}">${item.name}</a></li>`;
-        }
-        return line;
-    }
 
 
     static renderSwitch(output, js, specs) {
@@ -512,6 +505,14 @@ class PageContent {
             });
         }`)
         output.push(result);
+    }
+
+    static renderMenuItems(items) {
+        var line = "";
+        for (var item of items) {
+            line += ` <li><a href="${item}">${item.name}</a></li>`;
+        }
+        return line;
     }
 
     static renderMenu(output, js, specs) {

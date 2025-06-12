@@ -223,7 +223,8 @@ function updateInnerElement() {
     let component = workingEnv.component;
     let inner = component.components[index];
     inner.component = $(workingEnv.InnerComponentName).val();
-    renderCurrentComponent()
+    markChanged();
+    renderCurrentComponent();
 }
 
 function updateInnerPackage() {
@@ -251,6 +252,7 @@ function updateInnerPackage() {
             if (first) {
                 first = false;
                 component.components[index].component = item;
+                markChanged();
             }
         });
         workingEnv.shouldUpdate = true;
