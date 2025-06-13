@@ -5,7 +5,7 @@ function handleDelete(key){
                 PageContent.closeModal(workingEnv.DeletePopup);
                 workingEnv.renderMap();
             }else {
-                PageContent.showModal(`Cannot delete ${key}. ${JSON.stringify(success.error)}`)
+                PageContent.showModal(`Cannot delete ${key}. ${JSON.stringify(status.error)}`)
             }
         })
     });
