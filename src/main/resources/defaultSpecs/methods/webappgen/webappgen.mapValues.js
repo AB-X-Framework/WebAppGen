@@ -8,8 +8,10 @@ function mapValues() {
     const len = entries.length();
     for (let i = 0; i< len;++i){
         const elem = entries.get(i);
+        const key = elem.get("key");
+        const value = elem.get("value");
         children.push({
-            "specs":{"title":elem.get("key"),"content":elem.get("value")},
+            "specs":{"title":key,"content":value},
             js:"$(self).on('input',()=>{workingEnv.SaveMap.markChanged();})",
             "isContainer":false,
             "type":"textarea",
