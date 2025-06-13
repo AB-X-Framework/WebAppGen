@@ -16,7 +16,7 @@ function mapValues() {
         }
         const deleteBtn={
             "specs": {"title": "delete"},
-            js: `$(${delId}).click(()=>{handleDelete(${id})})`,
+            js: `$(${delId}).click(()=>{handleDelete(${escapedKey})})`,
             "isContainer": false,
             "type": "button",
             "size": "l1",
