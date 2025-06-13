@@ -109,7 +109,7 @@
       {
         "innerId": "RightPanel",
         "component": "webappgen.maps.RightPanel",
-        "size": "",
+        "size": "l10",
         "env": ""
       }
     ],

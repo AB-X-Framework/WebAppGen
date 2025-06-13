@@ -9,10 +9,11 @@ function mapValues() {
     for (let i = 0; i< len;++i){
         const elem = entries.get(i);
         children.push({
-            "specs":{"env":"","value":""},
+            "specs":{"title":elem.get("key"),"content":elem.get("value")},
             js:"",
             "isContainer":false,
-            "type":"divider",
+            "type":"textfield",
+            "size":"l12",
             "id":`map_${elem.id}`
         });
     }
@@ -20,7 +21,7 @@ function mapValues() {
         "isContainer": true,
         "js": "",
         "id": "__map",
-        "layout": "vertical",
+        "layout": "container",
         "children":children
     });
 }

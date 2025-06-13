@@ -49,7 +49,8 @@ public class ResourceModel {
         for (MapEntry entry : pageResult.getContent()) {
             JSONObject jsonObject = new JSONObject();
             jsonArray.put(jsonObject);
-            jsonObject.put(entry.entryName,entry.mapValue);
+            jsonObject.put("key",entry.entryName);
+            jsonObject.put("value",entry.mapValue);
         }
         return jsonArray;
     }
