@@ -50,7 +50,7 @@ public class ResourceController extends RoleController {
     }
 
     @Secured("Admin")
-    @PostMapping(value = "/maps/save/{mapName}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/maps/{mapName}", produces = MediaType.APPLICATION_JSON_VALUE)
     public String saveMapValue(
             @PathVariable String mapName,
             @RequestParam String values) {
