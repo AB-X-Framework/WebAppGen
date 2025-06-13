@@ -52,9 +52,11 @@ function addAutocompleteValue(autocomplete, newValue) {
         M.Autocomplete.getInstance(autocomplete)
             .updateData(autocomplete._data);
         $(autocomplete).val(newValue);
+        M.updateTextFields();
         return false;
     } else {
         $(autocomplete).val(newValue);
+        M.updateTextFields();
         return true;
     }
 }
