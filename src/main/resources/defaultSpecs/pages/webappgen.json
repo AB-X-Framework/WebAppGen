@@ -17,13 +17,16 @@
     "role": "Admin",
     "name": "webappgen.Maps",
     "title": "Maps",
-    "scripts": [{
-      "env": "",
-      "value": "/resources/binaries/get/webappgen.utils.js"
-    },{
-      "env": "",
-      "value": "/resources/binaries/get/webappgen.maps.js"
-    }],
+    "scripts": [
+      {
+        "env": "",
+        "value": "/resources/binaries/get/webappgen.utils.js"
+      },
+      {
+        "env": "",
+        "value": "/resources/binaries/get/webappgen.maps.js"
+      }
+    ],
     "matches": "Maps"
   },
   {

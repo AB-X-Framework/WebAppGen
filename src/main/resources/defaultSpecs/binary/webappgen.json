@@ -40,6 +40,11 @@
     "contentType": "font/woff2"
   },
   {
+    "role": "Admin",
+    "name": "webappgen.maps.js",
+    "contentType": "text/javascript"
+  },
+  {
     "role": "Anonymous",
     "name": "webappgen.materialize.icons.css",
     "contentType": "text/css"
@@ -62,11 +67,6 @@
   {
     "role": "Admin",
     "name": "webappgen.pages.js",
-    "contentType": "text/javascript"
-  },
-  {
-    "role": "Admin",
-    "name": "webappgen.maps.js",
     "contentType": "text/javascript"
   },
   {
