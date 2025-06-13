@@ -7,7 +7,7 @@
     "title": "Home Page",
     "scripts": [{
       "env": "",
-      "value": "/resources/binaries/get/webappgen.model.methods.js"
+      "value": "/resources/binaries/webappgen.model.methods.js"
     }],
     "matches": "Home"
   },
@@ -20,11 +20,11 @@
     "scripts": [
       {
         "env": "",
-        "value": "/resources/binaries/get/webappgen.utils.js"
+        "value": "/resources/binaries/webappgen.utils.js"
       },
       {
         "env": "",
-        "value": "/resources/binaries/get/webappgen.maps.js"
+        "value": "/resources/binaries/webappgen.maps.js"
       }
     ],
     "matches": "Maps"
@@ -37,7 +37,7 @@
     "title": "Login Page",
     "scripts": [{
       "env": "",
-      "value": "/resources/binaries/get/webappgen.login.js"
+      "value": "/resources/binaries/webappgen.login.js"
     }],
     "matches": "main"
   },
@@ -45,7 +45,7 @@
     "component": "webappgen.pages.MainPageComponent",
     "css": [{
       "env": "",
-      "value": "/resources/binaries/get/webappgen.materialize.icons.css"
+      "value": "/resources/binaries/webappgen.materialize.icons.css"
     }],
     "role": "Admin",
     "name": "webappgen.Pages",
@@ -53,11 +53,11 @@
     "scripts": [
       {
         "env": "",
-        "value": "/resources/binaries/get/webappgen.utils.js"
+        "value": "/resources/binaries/webappgen.utils.js"
       },
       {
         "env": "",
-        "value": "/resources/binaries/get/webappgen.pages.js"
+        "value": "/resources/binaries/webappgen.pages.js"
       }
     ],
     "matches": "Pages"
@@ -66,7 +66,7 @@
     "component": "webappgen.components.ComponentsPageComponent",
     "css": [{
       "env": "",
-      "value": "/resources/binaries/get/webappgen.materialize.icons.css"
+      "value": "/resources/binaries/webappgen.materialize.icons.css"
     }],
     "role": "Admin",
     "name": "webappgen.Components",
@@ -74,11 +74,11 @@
     "scripts": [
       {
         "env": "",
-        "value": "/resources/binaries/get/webappgen.utils.js"
+        "value": "/resources/binaries/webappgen.utils.js"
       },
       {
         "env": "",
-        "value": "/resources/binaries/get/webappgen.components.js"
+        "value": "/resources/binaries/webappgen.components.js"
       }
     ],
     "matches": "Components"

@@ -25,7 +25,7 @@ public class ResourceController extends RoleController {
     @Autowired
     private ResourceModel resourceModel;
 
-    @GetMapping(value = "/texts/get/{resource}", produces = MediaType.TEXT_PLAIN_VALUE)
+    @GetMapping(value = "/texts/{resource}", produces = MediaType.TEXT_PLAIN_VALUE)
     @PreAuthorize("permitAll()")
     public ResponseEntity<String> textResource(@PathVariable String resource) {
         Set<String> roles = getRoles();
@@ -42,7 +42,7 @@ public class ResourceController extends RoleController {
 
 
     @Secured("Admin")
-    @GetMapping(value = "/maps/get/{mapName}/{key}")
+    @GetMapping(value = "/maps/{mapName}/entries/{key}")
     public String downloadMapValue(
             @PathVariable String mapName,
             @PathVariable String key) {
@@ -50,7 +50,7 @@ public class ResourceController extends RoleController {
     }
 
     @Secured("Admin")
-    @GetMapping(value = "/maps/delete/{mapName}/{key}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = "/maps/{mapName}/entries/{key}", produces = MediaType.APPLICATION_JSON_VALUE)
     public String deleteMapValue(
             @PathVariable String mapName,
             @PathVariable String key) {
@@ -66,7 +66,7 @@ public class ResourceController extends RoleController {
 
 
     @Secured("Admin")
-    @PostMapping(value = "/maps/{mapName}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/maps/{mapName}/entries", produces = MediaType.APPLICATION_JSON_VALUE)
     public String saveMapValue(
             @PathVariable String mapName,
             @RequestParam String values) {
@@ -82,24 +82,24 @@ public class ResourceController extends RoleController {
     }
 
     @Secured("Admin")
-    @GetMapping(value = "/maps/packages", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/packages/maps", produces = MediaType.APPLICATION_JSON_VALUE)
     public String mapPackages() {
         return resourceModel.getMapPackages().toString();
     }
 
     @Secured("Admin")
-    @GetMapping(value = "/maps/packages/{packageName}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/packages/maps/{packageName}", produces = MediaType.APPLICATION_JSON_VALUE)
     public String mapsByPackage(@PathVariable String packageName) {
         return resourceModel.getMapsByPackageName(packageName).toString(2);
     }
 
     @Secured("Admin")
-    @GetMapping(value = "/maps/count/{mapName}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/maps/{mapName}/count", produces = MediaType.APPLICATION_JSON_VALUE)
     public long getMapEntriesCount(@PathVariable String mapName) {
         return resourceModel.getMapEntriesCount(mapName);
     }
 
-    @GetMapping("/binaries/get/{resource}")
+    @GetMapping("/binaries/{resource}")
     public ResponseEntity<byte[]> downloadFile(@PathVariable String resource) {
         Set<String> roles = getRoles();
         Pair<String, byte[]> fileContent = resourceModel.getBinaryResource(roles, resource);
