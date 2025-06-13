@@ -1,5 +1,4 @@
 function handleDelete(key){
-    key = eval(`(${key})`);
     $(workingEnv.DeletePopup.ok).click(()=>{
         $.get(`/resources/maps/delete/${workingEnv.mapName}/${key}`,(status)=>{
             if (status.success){
