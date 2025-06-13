@@ -112,6 +112,19 @@
   {
     "specs": [{
       "env": "",
+      "value": {"title": "Add New Entry"}
+    }],
+    "name": "webappgen.maps.NewEntryBtn",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "$(self).click(()=>{\n});"
+    }],
+    "type": "button"
+  },
+  {
+    "specs": [{
+      "env": "",
       "value": {"title": "New Map"}
     }],
     "name": "webappgen.maps.ProcessAddMap",
@@ -257,6 +270,20 @@
     "specs": [{
       "env": "",
       "value": {
+        "label": "New entry name",
+        "title": "Text field",
+        "content": ""
+      }
+    }],
+    "name": "webappgen.maps.NewEntryName",
+    "isContainer": false,
+    "js": [],
+    "type": "textfield"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
         "src": "",
         "content": "Entries"
       }
@@ -265,5 +292,39 @@
     "isContainer": false,
     "js": [],
     "type": "label"
+  },
+  {
+    "layout": "popup",
+    "components": [
+      {
+        "innerId": "elem0",
+        "component": "webappgen.maps.NewEntryName",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "elem1",
+        "component": "webappgen.maps.NewEntryValue",
+        "size": "l12",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.maps.NewEntryModal",
+    "isContainer": true,
+    "js": []
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "label": "New entry value",
+        "title": "Text field",
+        "content": ""
+      }
+    }],
+    "name": "webappgen.maps.NewEntryValue",
+    "isContainer": false,
+    "js": [],
+    "type": "textfield"
   }
 ]
