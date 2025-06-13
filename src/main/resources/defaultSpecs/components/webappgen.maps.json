@@ -111,8 +111,14 @@
         "env": ""
       },
       {
-        "innerId": "elem6",
+        "innerId": "DeletePopup",
         "component": "webappgen.maps.DeletePopup",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "SaveMapConfirm",
+        "component": "webappgen.maps.SaveMapConfirm",
         "size": "l12",
         "env": ""
       }
@@ -121,7 +127,7 @@
     "isContainer": true,
     "js": [{
       "env": "",
-      "value": "$(NewEntry).click(()=>{\n    PageContent.openModal(NewEntryModal);\n})"
+      "value": "$(SaveMap).click(()=>{\n    PageContent.openModal(SaveMapConfirm);\n});"
     }]
   },
   {
@@ -295,6 +301,24 @@
     "name": "webappgen.maps.MainMapComponent",
     "isContainer": true,
     "js": []
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "cancel": "Cancel",
+        "ok": "Save",
+        "title": "Save Map Values",
+        "content": "Are you sure you want to save map values?"
+      }
+    }],
+    "name": "webappgen.maps.SaveMapConfirm",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "$(self.ok).click(()=>{\n   $.post(`/resources/maps/${workingEnv.mapName}`,{\n       values : JSON.stringify(workingEnv.currentMap) \n    },(status)=>{\n        if (status.success){\n            PageContent.closeModal(self);\n            workingEnv.renderMap();\n        }else {\n            PageContent.showModal(\"Cannot save values \"+JSON.stringify(status.error));\n        }\n    }); \n});"
+    }],
+    "type": "okCancelModal"
   },
   {
     "specs": [{
