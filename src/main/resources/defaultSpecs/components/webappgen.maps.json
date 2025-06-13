@@ -325,7 +325,7 @@
     "isContainer": true,
     "js": [{
       "env": "",
-      "value": "$(NewEntryConfrim).click(()=>{\n    const key = $(NewEntryName).val();\n    const value = $(NewEntryValue).val();\n    $.post(`/resources/maps/${workingEnv.mapName}`,{\n       values : JSON.stringify([{\n          \"key\":\"a\",\n          \"value\":\"b\" \n       }]) \n    },(status)=>{\n        if (status.success){\n            PageConent.closeModal(self);\n            workingEnv.renderMap();\n        }else {\n            PageContent.showModal(\"Cannot add value \"+JSON.stringify(status.error));\n        }\n    });\n});"
+      "value": "$(NewEntryConfrim).click(()=>{\n    const key = $(NewEntryName).val();\n    const value = $(NewEntryValue).val();\n    $.post(`/resources/maps/${workingEnv.mapName}`,{\n       values : JSON.stringify([{\n          \"key\":key,\n          \"value\":value \n       }]) \n    },(status)=>{\n        if (status.success){\n            PageContent.closeModal(self);\n            workingEnv.renderMap();\n        }else {\n            PageContent.showModal(\"Cannot add value \"+JSON.stringify(status.error));\n        }\n    });\n});"
     }]
   },
   {
