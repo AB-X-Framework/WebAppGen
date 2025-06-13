@@ -121,6 +121,12 @@
         "component": "webappgen.maps.SaveMapConfirm",
         "size": "l12",
         "env": ""
+      },
+      {
+        "innerId": "NewMapModal",
+        "component": "webappgen.maps.NewMapModal",
+        "size": "l12",
+        "env": ""
       }
     ],
     "name": "webappgen.maps.MenuPanel",
@@ -133,6 +139,10 @@
       {
         "env": "",
         "value": "$(NewEntry).click(()=>{\n    PageContent.openModal(NewEntryModal);\n});"
+      },
+      {
+        "env": "",
+        "value": "$(NewMap).click(()=>{\n    PageContent.openModal(NewMapModal);\n});"
       }
     ]
   },
@@ -371,7 +381,7 @@
     "layout": "popup",
     "components": [
       {
-        "innerId": "NewEntryName",
+        "innerId": "NewMapName",
         "component": "webappgen.maps.NewMapName",
         "size": "l12",
         "env": ""
@@ -387,7 +397,7 @@
     "isContainer": true,
     "js": [{
       "env": "",
-      "value": "$(NewMapConfrim).click(()=>{\n    const name = $(NewMapName).val();\n});"
+      "value": "$(self.ok).click(()=>{\n    const name = $(NewMapName).val();\n    $.post(`/resources/maps/${name}`,(status)=>{\n       if (status.success){\n           \n       } \n    });\n});"
     }]
   },
   {

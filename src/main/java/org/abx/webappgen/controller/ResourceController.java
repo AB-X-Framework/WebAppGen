@@ -49,6 +49,7 @@ public class ResourceController extends RoleController {
         try {
             resourceModel.createMap(packageName, mapName);
             result.put("success",true);
+            result.put("package",packageName);
         }catch (Exception e){
             result.put("success",false);
             result.put("error", e.getMessage());
