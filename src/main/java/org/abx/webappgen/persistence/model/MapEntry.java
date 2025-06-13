@@ -4,7 +4,8 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "MapEntry",indexes = {
-        @Index(name = "MapEntry_mapEntryId", columnList = "mapEntryId") // Index for better query performance
+        @Index(name = "MapEntry_mapEntryId", columnList = "mapEntryId"), // Index for better query performance
+        @Index(name = "MapEntry_entryName", columnList = "entryName"), // Index for better query performance
 })
 public class MapEntry {
 
