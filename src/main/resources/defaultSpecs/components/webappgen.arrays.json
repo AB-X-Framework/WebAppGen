@@ -29,7 +29,7 @@
     "isContainer": true,
     "js": [{
       "env": "",
-      "value": "$(NewMapConfirm).click(()=>{\n    const name = $(NewMapName).val();\n    $.post(`/resources/maps/${name}`,(status)=>{\n       if (status.success){\n           PageContent.closeModal(self);\n           addAutocompleteValue(workingEnv.PackageName,status.package)\n           addAutocompleteValue(workingEnv.MapName,name);\n       } else {\n           PageContent.showModal(\"Cannot create map\"+JSON.stringify(status.error))\n       }\n    });\n});"
+      "value": "$(NewMapConfirm).click(()=>{\n    const name = $(NewMapName).val();\n    $.post(`/resources/arrays/${name}`,(status)=>{\n       if (status.success){\n           PageContent.closeModal(self);\n           addAutocompleteValue(workingEnv.PackageName,status.package)\n           addAutocompleteValue(workingEnv.MapName,name);\n       } else {\n           PageContent.showModal(\"Cannot create map\"+JSON.stringify(status.error))\n       }\n    });\n});"
     }]
   },
   {
@@ -91,15 +91,15 @@
       "value": {
         "cancel": "Cancel",
         "ok": "Save",
-        "title": "Save Map Values",
-        "content": "Are you sure you want to save map values?"
+        "title": "Save Array Values",
+        "content": "Are you sure you want to save array values?"
       }
     }],
     "name": "webappgen.arrays.SaveMapConfirm",
     "isContainer": false,
     "js": [{
       "env": "",
-      "value": "$(self.ok).click(()=>{\n    const values = Object.entries(workingEnv.updatedMap).map(([key, value]) => ({ key, value }));\n\n   $.post(`/resources/maps/${workingEnv.mapName}/entries`,{\n       \"values\" : JSON.stringify(values) \n    },(status)=>{\n        if (status.success){\n            PageContent.closeModal(self);\n            workingEnv.renderMap();\n            workingEnv.SaveMap.markSaved();\n        }else {\n            PageContent.showModal(\"Cannot save values \"+JSON.stringify(status.error));\n        }\n    }); \n});"
+      "value": "$(self.ok).click(()=>{\n    const values = Object.entries(workingEnv.updatedMap).map(([key, value]) => ({ key, value }));\n\n   $.post(`/resources/arrays/${workingEnv.arrayName}/entries`,{\n       \"values\" : JSON.stringify(values) \n    },(status)=>{\n        if (status.success){\n            PageContent.closeModal(self);\n            workingEnv.renderMap();\n            workingEnv.SaveMap.markSaved();\n        }else {\n            PageContent.showModal(\"Cannot save values \"+JSON.stringify(status.error));\n        }\n    }); \n});"
     }],
     "type": "okCancelModal"
   },
@@ -129,7 +129,7 @@
     "isContainer": true,
     "js": [{
       "env": "",
-      "value": "$(NewEntryConfrim).click(()=>{\n    const key = $(NewEntryName).val();\n    const value = $(NewEntryValue).val();\n    $.post(`/resources/maps/${workingEnv.mapName}/entries`,{\n       values : JSON.stringify([{\n          \"key\":key,\n          \"value\":value \n       }]) \n    },(status)=>{\n        if (status.success){\n            PageContent.closeModal(self);\n            workingEnv.renderMap();\n        }else {\n            PageContent.showModal(\"Cannot add value \"+JSON.stringify(status.error));\n        }\n    });\n});"
+      "value": "$(NewEntryConfrim).click(()=>{\n    const key = $(NewEntryName).val();\n    const value = $(NewEntryValue).val();\n    $.post(`/resources/arrays/${workingEnv.arrayName}/entries`,{\n       values : JSON.stringify([{\n          \"key\":key,\n          \"value\":value \n       }]) \n    },(status)=>{\n        if (status.success){\n            PageContent.closeModal(self);\n            workingEnv.renderMap();\n        }else {\n            PageContent.showModal(\"Cannot add value \"+JSON.stringify(status.error));\n        }\n    });\n});"
     }]
   },
   {
@@ -218,11 +218,11 @@
     "js": [
       {
         "env": "",
-        "value": "$(LeftPanel.ArraysPackage).change(()=>{\n    clearAutocomplete(LeftPanel.MapName);\n    \n    const packageName = $(LeftPanel.ArraysPackage).val();\n    if (packageName !== \"\"){\n        $.get(`/resources/packages/maps/${packageName}`,(mapsPerPackage)=>{\n            mapsPerPackage.forEach((mapName)=>{\n                addAutocompleteValue(LeftPanel.MapName,mapName)\n            });\n             $(LeftPanel.MapName).val(\"\");\n        });\n    }\n});"
+        "value": "$(LeftPanel.ArraysPackage).change(()=>{\n    clearAutocomplete(LeftPanel.MapName);\n    \n    const packageName = $(LeftPanel.ArraysPackage).val();\n    if (packageName !== \"\"){\n        $.get(`/resources/packages/arrays/${packageName}`,(mapsPerPackage)=>{\n            mapsPerPackage.forEach((arrayName)=>{\n                addAutocompleteValue(LeftPanel.MapName,arrayName)\n            });\n             $(LeftPanel.MapName).val(\"\");\n        });\n    }\n});"
       },
       {
         "env": "",
-        "value": "workingEnv.currPage = 0;\nworkingEnv.MapBody = self;\nworkingEnv.updatedMap = {};\nworkingEnv.entriesPerPage = 2;\nworkingEnv.entryCount=0;\nworkingEnv.renderNextValues = ()=>{\n    if (workingEnv.mapName === \"\"){\n        return;\n    }\n    App.process(\"webappgen.mapValues\",{\n        \"map\":workingEnv.mapName,\n        \"page\":workingEnv.currPage,\n        \"size\":workingEnv.entriesPerPage\n    },(componentSpecs)=>{\n        workingEnv.SaveMap.markSaved();\n        const init = (workingEnv.currPage*workingEnv.entriesPerPage)+1;\n        let end = ((workingEnv.currPage+1)*workingEnv.entriesPerPage);\n        end = Math.min(workingEnv.entryCount,end);\n        $(LeftPanel.MenuPanel.Label).text(`Entries ${init} - ${end} of ${workingEnv.entryCount}`);\n        workingEnv.updatedMap = {};\n        componentSpecs.js = \"\";\n        const output = [];\n        const js =[];\n        PageContent.renderComponent(output, js, componentSpecs);\n        $(RightPanel.DetailsPanel.DetailsContainer).html(output.join(\"\"));\n        M.updateTextFields();\n        PageContent.processJS(js);\n    });\n};\nworkingEnv.renderMap = ()=> {\n    workingEnv.mapName = $(LeftPanel.MapName).val();\n    if (workingEnv.mapName !== \"\"){\n        $.get(`/resources/maps/${workingEnv.mapName}/count`,(total)=>{\n            workingEnv.entryCount = total;\n        });\n        workingEnv.currPage = 0;\n        workingEnv.renderNextValues();\n    }\n}\n$(LeftPanel.MapName).change(workingEnv.renderMap);"
+        "value": "workingEnv.currPage = 0;\nworkingEnv.MapBody = self;\nworkingEnv.updatedArray = {};\nworkingEnv.entriesPerPage = 2;\nworkingEnv.entryCount=0;\nworkingEnv.renderNextValues = ()=>{\n    if (workingEnv.arrayName === \"\"){\n        return;\n    }\n    App.process(\"webappgen.mapValues\",{\n        \"map\":workingEnv.arrayName,\n        \"page\":workingEnv.currPage,\n        \"size\":workingEnv.entriesPerPage\n    },(componentSpecs)=>{\n        workingEnv.SaveMap.markSaved();\n        const init = (workingEnv.currPage*workingEnv.entriesPerPage)+1;\n        let end = ((workingEnv.currPage+1)*workingEnv.entriesPerPage);\n        end = Math.min(workingEnv.entryCount,end);\n        $(LeftPanel.MenuPanel.Label).text(`Entries ${init} - ${end} of ${workingEnv.entryCount}`);\n        workingEnv.updatedArray = {};\n        componentSpecs.js = \"\";\n        const output = [];\n        const js =[];\n        PageContent.renderComponent(output, js, componentSpecs);\n        $(RightPanel.DetailsPanel.DetailsContainer).html(output.join(\"\"));\n        M.updateTextFields();\n        PageContent.processJS(js);\n    });\n};\nworkingEnv.renderArray = ()=> {\n    workingEnv.arrayName = $(LeftPanel.MapName).val();\n    if (workingEnv.arrayName !== \"\"){\n        $.get(`/resources/arrays/${workingEnv.arrayName}/count`,(total)=>{\n            workingEnv.entryCount = total;\n        });\n        workingEnv.currPage = 0;\n        workingEnv.renderNextValues();\n    }\n}\n$(LeftPanel.MapName).change(workingEnv.renderMap);"
       }
     ]
   },
@@ -232,7 +232,7 @@
       "value": {
         "src": "",
         "values": [],
-        "title": "Map Name"
+        "title": "Array Name"
       }
     }],
     "name": "webappgen.arrays.MapName",
@@ -249,7 +249,7 @@
       "value": {
         "cancel": "Cancel",
         "ok": "Ok",
-        "title": "Delete Map Entry",
+        "title": "Delete Array Entry",
         "content": "Do you want to delete this entry?"
       }
     }],
@@ -257,7 +257,7 @@
     "isContainer": false,
     "js": [{
       "env": "",
-      "value": "workingEnv.DeletePopup = self;\n\n$(self.ok).click(()=>{\n    const responseFx = (status)=>{\n            if (status.success){\n                PageContent.closeModal(workingEnv.DeletePopup);\n                workingEnv.renderMap();\n            } else {\n                PageContent.showModal(`Cannot delete ${self.key}. ${JSON.stringify(status.error)}`)\n            }\n        };\n    \n    $.ajax({\n        \"type\": 'DELETE',\n        \"url\":`/resources/maps/${workingEnv.mapName}/entries/${self.key}`,\n        \"success\":responseFx\n    });\n});\n\nself.setKey=(key)=>{\n    self.key = key;\n}"
+      "value": "workingEnv.DeletePopup = self;\n\n$(self.ok).click(()=>{\n    const responseFx = (status)=>{\n            if (status.success){\n                PageContent.closeModal(workingEnv.DeletePopup);\n                workingEnv.renderMap();\n            } else {\n                PageContent.showModal(`Cannot delete ${self.key}. ${JSON.stringify(status.error)}`)\n            }\n        };\n    \n    $.ajax({\n        \"type\": 'DELETE',\n        \"url\":`/resources/arrays/${workingEnv.arrayName}/entries/${self.key}`,\n        \"success\":responseFx\n    });\n});\n\nself.setKey=(key)=>{\n    self.key = key;\n}"
     }],
     "type": "okCancelModal"
   },
@@ -321,7 +321,7 @@
     "isContainer": false,
     "js": [{
       "env": "",
-      "value": "$(self.ok).click(()=>{\n    $.ajax({\n        url: `/resources/maps/${workingEnv.mapName}`, // the resource to delete\n        type: 'DELETE',\n        success: (result)=> {\n            if (result.success){\n                location.reload();    \n            }else {\n                PageContent.showModal(\"Cannot delete map \"+JSON.stringify(result.error));\n            }\n            \n        }\n});\n});"
+      "value": "$(self.ok).click(()=>{\n    $.ajax({\n        url: `/resources/arrays/${workingEnv.arrayName}`, // the resource to delete\n        type: 'DELETE',\n        success: (result)=> {\n            if (result.success){\n                location.reload();    \n            }else {\n                PageContent.showModal(\"Cannot delete array \"+JSON.stringify(result.error));\n            }\n            \n        }\n});\n});"
     }],
     "type": "okCancelModal"
   },
@@ -463,8 +463,8 @@
     "specs": [{
       "env": "",
       "value": {
-        "label": "New map name",
-        "title": "Map name",
+        "label": "New array name",
+        "title": "Array name",
         "content": ""
       }
     }],

@@ -138,6 +138,20 @@ public class ResourceModel {
 
 
     @Transactional
+    public void createArray(String packageName, String arrayName) throws Exception {
+        long id = elementHashCode(arrayName);
+        ArrayResource arrayResource = arrayResourceRepository.findByArrayResourceId(elementHashCode(arrayName));
+        if (arrayResource != null) {
+            throw new Exception("Duplicate map entry");
+        }
+        arrayResource = new ArrayResource();
+        arrayResource.packageName = packageName;
+        arrayResource.arrayResourceId = id;
+        arrayResource.resourceName = arrayName;
+        arrayResourceRepository.save(arrayResource);
+    }
+
+    @Transactional
     public void deleteMap(String mapName) throws Exception {
         long id = elementHashCode(mapName);
         MapResource mapResource = mapResourceRepository.findByMapResourceId(id);
@@ -150,6 +164,21 @@ public class ResourceModel {
         mapEntryRepository.flush();
         mapResourceRepository.delete(mapResource);
     }
+
+    @Transactional
+    public void deleteArray(String arrayName) throws Exception {
+        long id = elementHashCode(arrayName);
+        ArrayResource arrayResource = arrayResourceRepository.findByArrayResourceId(id);
+        if (arrayResource == null) {
+            throw new Exception("Map not found");
+        }
+        for (ArrayEntry arrayEntry:arrayResource.resourceEntries){
+            arrayEntryRepository.delete(arrayEntry);
+        }
+        arrayEntryRepository.flush();
+        arrayResourceRepository.delete(arrayResource);
+    }
+
 
     public String getMapResource(String mapName, String key) {
         return mapEntryRepository.findByMapEntryId(

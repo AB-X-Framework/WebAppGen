@@ -57,6 +57,8 @@ public class ResourceController extends RoleController {
         return result.toString();
     }
 
+
+
     @Secured("Admin")
     @DeleteMapping(value = "/maps/{mapName}", produces = MediaType.APPLICATION_JSON_VALUE)
     public String deleteMap(
