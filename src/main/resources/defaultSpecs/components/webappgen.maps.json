@@ -93,7 +93,7 @@
         "env": ""
       },
       {
-        "innerId": "elem2",
+        "innerId": "NewEntry",
         "component": "webappgen.maps.NewEntry",
         "size": "l12",
         "env": ""
@@ -103,11 +103,20 @@
         "component": "webappgen.maps.NewMap",
         "size": "",
         "env": ""
+      },
+      {
+        "innerId": "NewEntryModal",
+        "component": "webappgen.maps.NewEntryModal",
+        "size": "l12",
+        "env": ""
       }
     ],
     "name": "webappgen.maps.MenuPanel",
     "isContainer": true,
-    "js": []
+    "js": [{
+      "env": "",
+      "value": "$(NewEntry).click(()=>{\n    PageContent.openModal(NewEntryModal);\n})"
+    }]
   },
   {
     "specs": [{
@@ -170,7 +179,7 @@
       },
       {
         "env": "",
-        "value": "workingEnv.currPage = 0;\nworkingEnv.MapBody = self;\nworkingEnv.updatedMap = {};\nworkingEnv.entriesPerPage = 2;\nworkingEnv.entryCount=0;\nworkingEnv.renderNextValues = ()=>{\n    App.process(\"webappgen.mapValues\",{\n        \"map\":$(LeftPanel.MapName).val(),\n        \"page\":workingEnv.currPage,\n        \"size\":workingEnv.entriesPerPage\n    },(componentSpecs)=>{\n        const init = (workingEnv.currPage*workingEnv.entriesPerPage)+1;\n        let end = ((workingEnv.currPage+1)*workingEnv.entriesPerPage);\n        end = Math.min(workingEnv.entryCount,end);\n        $(LeftPanel.MenuPanel.Label).text(`Entries ${init} - ${end} of ${workingEnv.entryCount}`);\n        workingEnv.updatedMap = {};\n        componentSpecs.js = \"\";\n        const output = [];\n        const js =[];\n        PageContent.renderComponent(output, js, componentSpecs);\n        $(RightPanel.DetailsPanel.DetailsContainer).html(output.join(\"\"));\n        M.updateTextFields();\n        PageContent.processJS(js);\n    });\n};\n\n$(LeftPanel.MapName).change(()=> {\n    $.get(`/resources/maps/count/${$(LeftPanel.MapName).val()}`,(total)=>{\n        workingEnv.entryCount = total;\n    });\n    workingEnv.currPage = 0;\n    workingEnv.renderNextValues();\n});"
+        "value": "workingEnv.currPage = 0;\nworkingEnv.MapBody = self;\nworkingEnv.updatedMap = {};\nworkingEnv.entriesPerPage = 2;\nworkingEnv.entryCount=0;\nworkingEnv.renderNextValues = ()=>{\n    App.process(\"webappgen.mapValues\",{\n        \"map\":workingEnv.mapName,\n        \"page\":workingEnv.currPage,\n        \"size\":workingEnv.entriesPerPage\n    },(componentSpecs)=>{\n        const init = (workingEnv.currPage*workingEnv.entriesPerPage)+1;\n        let end = ((workingEnv.currPage+1)*workingEnv.entriesPerPage);\n        end = Math.min(workingEnv.entryCount,end);\n        $(LeftPanel.MenuPanel.Label).text(`Entries ${init} - ${end} of ${workingEnv.entryCount}`);\n        workingEnv.updatedMap = {};\n        componentSpecs.js = \"\";\n        const output = [];\n        const js =[];\n        PageContent.renderComponent(output, js, componentSpecs);\n        $(RightPanel.DetailsPanel.DetailsContainer).html(output.join(\"\"));\n        M.updateTextFields();\n        PageContent.processJS(js);\n    });\n};\n\n$(LeftPanel.MapName).change(()=> {\n    workingEnv.mapName = $(LeftPanel.MapName).val();\n    $.get(`/resources/maps/count/${workingEnv.mapName}`,(total)=>{\n        workingEnv.entryCount = total;\n    });\n    workingEnv.currPage = 0;\n    workingEnv.renderNextValues();\n});"
       }
     ]
   },
@@ -316,7 +325,7 @@
     "isContainer": true,
     "js": [{
       "env": "",
-      "value": "$(NewEntryConfrim).click(()=>{\n    const key = $(NewEntryName).val();\n    const value = $(NewEntryValue).val();\n});"
+      "value": "$(NewEntryConfrim).click(()=>{\n    const key = $(NewEntryName).val();\n    const value = $(NewEntryValue).val();\n    $.post(`/resources/maps/${workingEnv.mapName}`,{\n       values : JSON.stringify([{\n          \"key\":\"a\",\n          \"value\":\"b\" \n       }]) \n    });\n});"
     }]
   },
   {
