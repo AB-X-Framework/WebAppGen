@@ -1,6 +1,7 @@
 {
   "components": [
     "app",
+    "webappgen.arrays",
     "webappgen.base",
     "webappgen.components",
     "webappgen.components.basic",

@@ -84,7 +84,7 @@
     "matches": "Components"
   },
   {
-    "component": "webappgen.maps.MainMapComponent",
+    "component": "webappgen.arrays.ArraysPackage",
     "css": [],
     "role": "Admin",
     "name": "webappgen.Arrays",

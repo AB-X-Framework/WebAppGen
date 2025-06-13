@@ -1,0 +1,506 @@
+[
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "Create New Map"}
+    }],
+    "name": "webappgen.arrays.NewMapConfirm",
+    "isContainer": false,
+    "js": [],
+    "type": "button"
+  },
+  {
+    "layout": "popup",
+    "components": [
+      {
+        "innerId": "NewMapName",
+        "component": "webappgen.arrays.NewMapName",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "NewMapConfirm",
+        "component": "webappgen.arrays.NewMapConfirm",
+        "size": "l12",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.arrays.NewMapModal",
+    "isContainer": true,
+    "js": [{
+      "env": "",
+      "value": "$(NewMapConfirm).click(()=>{\n    const name = $(NewMapName).val();\n    $.post(`/resources/maps/${name}`,(status)=>{\n       if (status.success){\n           PageContent.closeModal(self);\n           addAutocompleteValue(workingEnv.PackageName,status.package)\n           addAutocompleteValue(workingEnv.MapName,name);\n       } else {\n           PageContent.showModal(\"Cannot create map\"+JSON.stringify(status.error))\n       }\n    });\n});"
+    }]
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "label": "New entry name",
+        "title": "Entry name",
+        "content": ""
+      }
+    }],
+    "name": "webappgen.arrays.NewEntryName",
+    "isContainer": false,
+    "js": [],
+    "type": "textfield"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "Add New Entry"}
+    }],
+    "name": "webappgen.arrays.NewEntryConfirm",
+    "isContainer": false,
+    "js": [],
+    "type": "button"
+  },
+  {
+    "layout": "horizontal",
+    "components": [{
+      "innerId": "DetailsPanel",
+      "component": "webappgen.arrays.DetailsPanel",
+      "size": "l12",
+      "env": ""
+    }],
+    "name": "webappgen.arrays.RightPanel",
+    "isContainer": true,
+    "js": []
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "src": "/resources/packages/maps",
+        "values": [],
+        "title": "Arrays Package"
+      }
+    }],
+    "name": "webappgen.arrays.ArraysPackage",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "workingEnv.PackageName=self;"
+    }],
+    "type": "autocomplete"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "cancel": "Cancel",
+        "ok": "Save",
+        "title": "Save Map Values",
+        "content": "Are you sure you want to save map values?"
+      }
+    }],
+    "name": "webappgen.arrays.SaveMapConfirm",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "$(self.ok).click(()=>{\n    const values = Object.entries(workingEnv.updatedMap).map(([key, value]) => ({ key, value }));\n\n   $.post(`/resources/maps/${workingEnv.mapName}/entries`,{\n       \"values\" : JSON.stringify(values) \n    },(status)=>{\n        if (status.success){\n            PageContent.closeModal(self);\n            workingEnv.renderMap();\n            workingEnv.SaveMap.markSaved();\n        }else {\n            PageContent.showModal(\"Cannot save values \"+JSON.stringify(status.error));\n        }\n    }); \n});"
+    }],
+    "type": "okCancelModal"
+  },
+  {
+    "layout": "popup",
+    "components": [
+      {
+        "innerId": "NewEntryName",
+        "component": "webappgen.arrays.NewEntryName",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "NewEntryValue",
+        "component": "webappgen.arrays.NewEntryValue",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "NewEntryConfrim",
+        "component": "webappgen.arrays.NewEntryConfirm",
+        "size": "l12",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.arrays.NewEntryModal",
+    "isContainer": true,
+    "js": [{
+      "env": "",
+      "value": "$(NewEntryConfrim).click(()=>{\n    const key = $(NewEntryName).val();\n    const value = $(NewEntryValue).val();\n    $.post(`/resources/maps/${workingEnv.mapName}/entries`,{\n       values : JSON.stringify([{\n          \"key\":key,\n          \"value\":value \n       }]) \n    },(status)=>{\n        if (status.success){\n            PageContent.closeModal(self);\n            workingEnv.renderMap();\n        }else {\n            PageContent.showModal(\"Cannot add value \"+JSON.stringify(status.error));\n        }\n    });\n});"
+    }]
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "label": "New entry value",
+        "title": "Entry value",
+        "content": ""
+      }
+    }],
+    "name": "webappgen.arrays.NewEntryValue",
+    "isContainer": false,
+    "js": [],
+    "type": "textfield"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "src": "",
+        "content": "Entries"
+      }
+    }],
+    "name": "webappgen.arrays.Label",
+    "isContainer": false,
+    "js": [],
+    "type": "label"
+  },
+  {
+    "layout": "horizontal",
+    "components": [{
+      "innerId": "DetailsContainer",
+      "component": "webappgen.base.div",
+      "size": "l12",
+      "env": ""
+    }],
+    "name": "webappgen.arrays.DetailsPanel",
+    "isContainer": true,
+    "js": []
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": ">"}
+    }],
+    "name": "webappgen.arrays.Next",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "$(self).click(()=>{\n    workingEnv.currPage+=1;\n    workingEnv.renderNextValues();\n});"
+    }],
+    "type": "button"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "<"}
+    }],
+    "name": "webappgen.arrays.Prev",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "$(self).click(()=>{\n    workingEnv.currPage=Math.max( workingEnv.currPage-1,0);\n    workingEnv.renderNextValues();\n});"
+    }],
+    "type": "button"
+  },
+  {
+    "layout": "horizontal",
+    "components": [
+      {
+        "innerId": "LeftPanel",
+        "component": "webappgen.arrays.LeftPanel",
+        "size": "l2",
+        "env": ""
+      },
+      {
+        "innerId": "RightPanel",
+        "component": "webappgen.arrays.RightPanel",
+        "size": "l10",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.arrays.MapBody",
+    "isContainer": true,
+    "js": [
+      {
+        "env": "",
+        "value": "$(LeftPanel.ArraysPackage).change(()=>{\n    clearAutocomplete(LeftPanel.MapName);\n    \n    const packageName = $(LeftPanel.ArraysPackage).val();\n    if (packageName !== \"\"){\n        $.get(`/resources/packages/maps/${packageName}`,(mapsPerPackage)=>{\n            mapsPerPackage.forEach((mapName)=>{\n                addAutocompleteValue(LeftPanel.MapName,mapName)\n            });\n             $(LeftPanel.MapName).val(\"\");\n        });\n    }\n});"
+      },
+      {
+        "env": "",
+        "value": "workingEnv.currPage = 0;\nworkingEnv.MapBody = self;\nworkingEnv.updatedMap = {};\nworkingEnv.entriesPerPage = 2;\nworkingEnv.entryCount=0;\nworkingEnv.renderNextValues = ()=>{\n    if (workingEnv.mapName === \"\"){\n        return;\n    }\n    App.process(\"webappgen.mapValues\",{\n        \"map\":workingEnv.mapName,\n        \"page\":workingEnv.currPage,\n        \"size\":workingEnv.entriesPerPage\n    },(componentSpecs)=>{\n        workingEnv.SaveMap.markSaved();\n        const init = (workingEnv.currPage*workingEnv.entriesPerPage)+1;\n        let end = ((workingEnv.currPage+1)*workingEnv.entriesPerPage);\n        end = Math.min(workingEnv.entryCount,end);\n        $(LeftPanel.MenuPanel.Label).text(`Entries ${init} - ${end} of ${workingEnv.entryCount}`);\n        workingEnv.updatedMap = {};\n        componentSpecs.js = \"\";\n        const output = [];\n        const js =[];\n        PageContent.renderComponent(output, js, componentSpecs);\n        $(RightPanel.DetailsPanel.DetailsContainer).html(output.join(\"\"));\n        M.updateTextFields();\n        PageContent.processJS(js);\n    });\n};\nworkingEnv.renderMap = ()=> {\n    workingEnv.mapName = $(LeftPanel.MapName).val();\n    if (workingEnv.mapName !== \"\"){\n        $.get(`/resources/maps/${workingEnv.mapName}/count`,(total)=>{\n            workingEnv.entryCount = total;\n        });\n        workingEnv.currPage = 0;\n        workingEnv.renderNextValues();\n    }\n}\n$(LeftPanel.MapName).change(workingEnv.renderMap);"
+      }
+    ]
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "src": "",
+        "values": [],
+        "title": "Map Name"
+      }
+    }],
+    "name": "webappgen.arrays.MapName",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "workingEnv.MapName = self;"
+    }],
+    "type": "autocomplete"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "cancel": "Cancel",
+        "ok": "Ok",
+        "title": "Delete Map Entry",
+        "content": "Do you want to delete this entry?"
+      }
+    }],
+    "name": "webappgen.arrays.DeletePopup",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "workingEnv.DeletePopup = self;\n\n$(self.ok).click(()=>{\n    const responseFx = (status)=>{\n            if (status.success){\n                PageContent.closeModal(workingEnv.DeletePopup);\n                workingEnv.renderMap();\n            } else {\n                PageContent.showModal(`Cannot delete ${self.key}. ${JSON.stringify(status.error)}`)\n            }\n        };\n    \n    $.ajax({\n        \"type\": 'DELETE',\n        \"url\":`/resources/maps/${workingEnv.mapName}/entries/${self.key}`,\n        \"success\":responseFx\n    });\n});\n\nself.setKey=(key)=>{\n    self.key = key;\n}"
+    }],
+    "type": "okCancelModal"
+  },
+  {
+    "layout": "vertical",
+    "components": [
+      {
+        "innerId": "header",
+        "component": "webappgen.home.header",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "modelContainer",
+        "component": "webappgen.arrays.MapBody",
+        "size": "",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.arrays.MainMapComponent",
+    "isContainer": true,
+    "js": []
+  },
+  {
+    "layout": "vertical",
+    "components": [
+      {
+        "innerId": "ArraysPackage",
+        "component": "webappgen.arrays.ArraysPackage",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "MapName",
+        "component": "webappgen.arrays.MapName",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "MenuPanel",
+        "component": "webappgen.arrays.MenuPanel",
+        "size": "l12",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.arrays.LeftPanel",
+    "isContainer": true,
+    "js": []
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "cancel": "Cancel",
+        "ok": "Delete",
+        "title": "Confirm Delete",
+        "content": "Are you sure to delete this map?"
+      }
+    }],
+    "name": "webappgen.arrays.ConfirmDeleteMap",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "$(self.ok).click(()=>{\n    $.ajax({\n        url: `/resources/maps/${workingEnv.mapName}`, // the resource to delete\n        type: 'DELETE',\n        success: (result)=> {\n            if (result.success){\n                location.reload();    \n            }else {\n                PageContent.showModal(\"Cannot delete map \"+JSON.stringify(result.error));\n            }\n            \n        }\n});\n});"
+    }],
+    "type": "okCancelModal"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "Save Map"}
+    }],
+    "name": "webappgen.arrays.SaveMap",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "workingEnv.SaveMap=self;\nself.markChanged=()=>{\n    $(self).addClass(\"yellow darken-2\");\n}\n\nself.markSaved=()=>{\n    $(self).removeClass(\"yellow darken-2\");\n}"
+    }],
+    "type": "button"
+  },
+  {
+    "layout": "container",
+    "components": [
+      {
+        "innerId": "SaveMap",
+        "component": "webappgen.arrays.SaveMap",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "Pagination",
+        "component": "webappgen.arrays.Pagination",
+        "size": "",
+        "env": ""
+      },
+      {
+        "innerId": "Label",
+        "component": "webappgen.arrays.Label",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "NewEntry",
+        "component": "webappgen.arrays.NewEntry",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "NewMap",
+        "component": "webappgen.arrays.NewMap",
+        "size": "",
+        "env": ""
+      },
+      {
+        "innerId": "DeleteMap",
+        "component": "webappgen.arrays.DeleteMap",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "ConfirmDeteleMap",
+        "component": "webappgen.arrays.ConfirmDeleteMap",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "NewEntryModal",
+        "component": "webappgen.arrays.NewEntryModal",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "DeletePopup",
+        "component": "webappgen.arrays.DeletePopup",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "SaveMapConfirm",
+        "component": "webappgen.arrays.SaveMapConfirm",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "NewMapModal",
+        "component": "webappgen.arrays.NewMapModal",
+        "size": "l12",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.arrays.MenuPanel",
+    "isContainer": true,
+    "js": [
+      {
+        "env": "",
+        "value": "$(SaveMap).click(()=>{\n    PageContent.openModal(SaveMapConfirm);\n});"
+      },
+      {
+        "env": "",
+        "value": "$(NewEntry).click(()=>{\n    PageContent.openModal(NewEntryModal);\n});"
+      },
+      {
+        "env": "",
+        "value": "$(NewMap).click(()=>{\n    PageContent.openModal(NewMapModal);\n});"
+      },
+      {
+        "env": "",
+        "value": "$(DeleteMap).click(()=>{\n    PageContent.openModal(ConfirmDeteleMap);\n})"
+      }
+    ]
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "New Map"}
+    }],
+    "name": "webappgen.arrays.NewMap",
+    "isContainer": false,
+    "js": [],
+    "type": "button"
+  },
+  {
+    "layout": "horizontal",
+    "components": [
+      {
+        "innerId": "Prev",
+        "component": "webappgen.arrays.Prev",
+        "size": "",
+        "env": ""
+      },
+      {
+        "innerId": "Next",
+        "component": "webappgen.arrays.Next",
+        "size": "l1",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.arrays.Pagination",
+    "isContainer": true,
+    "js": []
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "label": "New map name",
+        "title": "Map name",
+        "content": ""
+      }
+    }],
+    "name": "webappgen.arrays.NewMapName",
+    "isContainer": false,
+    "js": [],
+    "type": "textfield"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "New Map"}
+    }],
+    "name": "webappgen.arrays.ProcessAddMap",
+    "isContainer": false,
+    "js": [],
+    "type": "button"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "New Entry"}
+    }],
+    "name": "webappgen.arrays.NewEntry",
+    "isContainer": false,
+    "js": [],
+    "type": "button"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "Delete Map"}
+    }],
+    "name": "webappgen.arrays.DeleteMap",
+    "isContainer": false,
+    "js": [],
+    "type": "button"
+  }
+]
