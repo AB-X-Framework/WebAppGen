@@ -3,7 +3,6 @@ var page;
 var size;
 
 function mapValues() {
-    return resourceModel.getMapEntries(map,page,size);
     return JSON.stringify({
         "specs": {},
         "package": "webappgen.base",
@@ -11,6 +10,7 @@ function mapValues() {
         "isContainer": false,
         "js": "",
         "id": "__preview",
-        "type": "divider"
+        "type": "divider",
+        "Ddata":resourceModel.getMapEntries(map,page,size)
     });
 }
