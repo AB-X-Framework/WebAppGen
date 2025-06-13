@@ -130,6 +130,18 @@ public class ResourceModel {
 
 
     @Transactional
+    public boolean deleteMapEntry(String mapName, String key) {
+        MapEntry entry =  mapEntryRepository.findByMapEntryId(
+                elementHashCode(mapName + "." + key));
+        if (entry == null) {
+            return false;
+        }
+        mapEntryRepository.delete(entry);
+        mapEntryRepository.flush();
+        return true;
+    }
+
+    @Transactional
     public void saveMapEntries(String mapName, JSONArray values) {
         long id = elementHashCode(mapName);
         MapResource mapResource = mapResourceRepository.findByMapResourceId(id);

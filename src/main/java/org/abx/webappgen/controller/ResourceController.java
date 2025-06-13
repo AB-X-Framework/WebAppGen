@@ -50,6 +50,22 @@ public class ResourceController extends RoleController {
     }
 
     @Secured("Admin")
+    @GetMapping(value = "/maps/delete/{mapName}/{key}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String deleteMapValue(
+            @PathVariable String mapName,
+            @PathVariable String key) {
+        JSONObject status = new JSONObject();
+        try {
+            status.put("success", resourceModel.deleteMapEntry(mapName, key));
+        } catch (Exception e) {
+            status.put("success", false);
+            status.put("error", e.getMessage());
+        }
+        return status.toString();
+    }
+
+
+    @Secured("Admin")
     @PostMapping(value = "/maps/{mapName}", produces = MediaType.APPLICATION_JSON_VALUE)
     public String saveMapValue(
             @PathVariable String mapName,
@@ -58,9 +74,9 @@ public class ResourceController extends RoleController {
         try {
             resourceModel.saveMapEntries(mapName, new JSONArray(values));
             status.put("success", true);
-        }catch (Exception e) {
+        } catch (Exception e) {
             status.put("success", false);
-            status.put("message", "Failed to save map entry "+e.getMessage());
+            status.put("message", "Failed to save map entry " + e.getMessage());
         }
         return status.toString();
     }
