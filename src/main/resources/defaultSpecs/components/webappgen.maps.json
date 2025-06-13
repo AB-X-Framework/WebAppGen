@@ -322,7 +322,7 @@
     "isContainer": false,
     "js": [{
       "env": "",
-      "value": "$(self.ok).click(()=>{\n   $.post(`/resources/maps/${workingEnv.mapName}`,{\n       values : JSON.stringify(workingEnv.currentMap) \n    },(status)=>{\n        if (status.success){\n            PageContent.closeModal(self);\n            workingEnv.renderMap();\n        }else {\n            PageContent.showModal(\"Cannot save values \"+JSON.stringify(status.error));\n        }\n    }); \n});"
+      "value": "$(self.ok).click(()=>{\n   $.post(`/resources/maps/${workingEnv.mapName}`,{\n       values : JSON.stringify(workingEnv.updateMap) \n    },(status)=>{\n        if (status.success){\n            PageContent.closeModal(self);\n            workingEnv.renderMap();\n        }else {\n            PageContent.showModal(\"Cannot save values \"+JSON.stringify(status.error));\n        }\n    }); \n});"
     }],
     "type": "okCancelModal"
   },
