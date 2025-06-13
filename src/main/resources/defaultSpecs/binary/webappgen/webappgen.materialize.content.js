@@ -53,6 +53,17 @@ class PageContent {
         document.title = specs.title;
     }
 
+    static processJS(js){
+        for (var line of js) {
+            try {
+                eval(line);
+            } catch (e) {
+                console.log(line);
+                throw e;
+            }
+        }
+    }
+
     static renderPage(name) {
         $.get(`/page/specs/${name}`, (specs) => {
             PageContent.processTile(specs);
@@ -63,14 +74,7 @@ class PageContent {
             PageContent.renderComponent(output, js, specs.component)
             $("#body-content").html(output.join(""));
             M.updateTextFields();
-            for (var line of js) {
-                try {
-                    eval(line);
-                } catch (e) {
-                    console.log(line);
-                    throw e;
-                }
-            }
+            PageContent.processJS(js);
         });
     }
 
