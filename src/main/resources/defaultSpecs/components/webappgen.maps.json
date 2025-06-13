@@ -138,7 +138,7 @@
     "isContainer": false,
     "js": [{
       "env": "",
-      "value": "workingEnv.DeletePopup = self;"
+      "value": "workingEnv.DeletePopup = self;\n\n$(ok).click(()=>{\n    $.get(`/resources/maps/delete/${workingEnv.mapName}/${self.key}`,(status)=>{\n        if (status.success){\n                PageContent.closeModal(workingEnv.DeletePopup);\n                workingEnv.renderMap();\n        }else {\n            PageContent.showModal(`Cannot delete ${self.key}. ${JSON.stringify(status.error)}`)\n        }\n    })\n});\n\nself.setKey=(key)=>{\n    self.key = key;\n}"
     }],
     "type": "okCancelModal"
   },
