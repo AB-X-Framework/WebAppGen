@@ -68,7 +68,10 @@
     }],
     "name": "webappgen.maps.MapsPackage",
     "isContainer": false,
-    "js": [],
+    "js": [{
+      "env": "",
+      "value": "workingEnv.PackageName=self;"
+    }],
     "type": "autocomplete"
   },
   {
@@ -254,7 +257,10 @@
     }],
     "name": "webappgen.maps.MapName",
     "isContainer": false,
-    "js": [],
+    "js": [{
+      "env": "",
+      "value": "workingEnv.MapName = self;"
+    }],
     "type": "autocomplete"
   },
   {
@@ -310,6 +316,16 @@
       "env": "",
       "value": "workingEnv.SaveMap=self;\nself.markChanged=()=>{\n    $(self).addClass(\"yellow darken-2\");\n}\n\nself.markSaved=()=>{\n    $(self).removeClass(\"yellow darken-2\");\n}"
     }],
+    "type": "button"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "Create New Map"}
+    }],
+    "name": "webappgen.maps.NewMapConfirm",
+    "isContainer": false,
+    "js": [],
     "type": "button"
   },
   {
@@ -387,8 +403,8 @@
         "env": ""
       },
       {
-        "innerId": "NewEntryConfrim",
-        "component": "webappgen.maps.NewEntryConfirm",
+        "innerId": "NewMapConfirm",
+        "component": "webappgen.maps.NewMapConfirm",
         "size": "l12",
         "env": ""
       }
@@ -397,7 +413,7 @@
     "isContainer": true,
     "js": [{
       "env": "",
-      "value": "$(self.ok).click(()=>{\n    const name = $(NewMapName).val();\n    $.post(`/resources/maps/${name}`,(status)=>{\n       if (status.success){\n           \n       } \n    });\n});"
+      "value": "$(NewMapConfirm).click(()=>{\n    const name = $(NewMapName).val();\n    $.post(`/resources/maps/${name}`,(status)=>{\n       if (status.success){\n           PageContent.closeModal(self);\n           addAutocompleteValue(workingEnv.PackageName,status.package)\n           addAutocompleteValue(workingEnv.MapName,name);\n       } else {\n           PageContent.showModal(\"Cannot create map\"+JSON.stringify(status.error))\n       }\n    });\n});"
     }]
   },
   {

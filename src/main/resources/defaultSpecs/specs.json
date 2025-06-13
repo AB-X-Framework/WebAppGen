@@ -34,10 +34,24 @@
       "webappgen"
     ],
     "text": ["demo"],
-    "map": [{
-      "package": "app",
-      "name": "app.Env"
-    }]
+    "map": [
+      {
+        "package": "app",
+        "name": "app.Env"
+      },
+      {
+        "package": "x",
+        "name": "x.y"
+      },
+      {
+        "package": "xp",
+        "name": "xp.q"
+      },
+      {
+        "package": "a.b",
+        "name": "a.b.c"
+      }
+    ]
   },
   "users": "users.json"
 }
