@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Set;
@@ -125,6 +126,19 @@ public class ResourceModel {
     public String getMapResource(String mapName, String key) {
         return mapEntryRepository.findByMapEntryId(
                 elementHashCode(mapName + "." + key)).mapValue;
+    }
+
+
+    @Transactional
+    public void saveMapEntry(String mapName, String key,String value) {
+        long id = elementHashCode(mapName);
+        MapResource mapResource = mapResourceRepository.findByMapResourceId(id);
+        MapEntry entry = new MapEntry();
+        entry.entryName = key;
+        entry.mapEntryId = elementHashCode(mapName + "." + key);
+        entry.mapValue = value;
+        entry.mapResource = mapResource;
+        mapEntryRepository.save(entry);
     }
 
     public long saveMapResource(String mapName, String packageName, JSONObject data) {
