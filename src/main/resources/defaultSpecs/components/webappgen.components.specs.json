@@ -122,8 +122,8 @@
     "specs": [{
       "env": "",
       "value": {
-        "title": "Height",
-        "label": "Height"
+        "label": "Height",
+        "title": "Height"
       }
     }],
     "name": "webappgen.components.specs.SpecsHeight",
@@ -138,8 +138,8 @@
     "specs": [{
       "env": "",
       "value": {
-        "title": "Source",
-        "label": "Source"
+        "label": "Source",
+        "title": "Source"
       }
     }],
     "name": "webappgen.components.specs.SpecsSource",
@@ -154,8 +154,8 @@
     "specs": [{
       "env": "",
       "value": {
-        "title": "Label",
-        "label": "Label"
+        "label": "Label",
+        "title": "Label"
       }
     }],
     "name": "webappgen.components.specs.SpecsLabel",
@@ -170,8 +170,8 @@
     "specs": [{
       "env": "",
       "value": {
-        "title": "Title",
-        "label": "Title"
+        "label": "Title",
+        "title": "Title"
       }
     }],
     "name": "webappgen.components.specs.SpecsTitle",

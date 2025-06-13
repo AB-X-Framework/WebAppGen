@@ -61,13 +61,13 @@
         "env": ""
       },
       {
-        "innerId": "elem1",
+        "innerId": "Prev",
         "component": "webappgen.maps.Prev",
         "size": "",
         "env": ""
       },
       {
-        "innerId": "elem1",
+        "innerId": "Next",
         "component": "webappgen.maps.Next",
         "size": "l1",
         "env": ""

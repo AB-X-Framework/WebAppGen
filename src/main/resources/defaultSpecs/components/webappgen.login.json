@@ -150,15 +150,15 @@
       {
         "env": "ES",
         "value": {
-          "title": "Su nombre de usuario",
-          "label": "Usuario"
+          "label": "Usuario",
+          "title": "Su nombre de usuario"
         }
       },
       {
         "env": "",
         "value": {
-          "title": "Username",
-          "label": "Your username"
+          "label": "Your username",
+          "title": "Username"
         }
       }
     ],

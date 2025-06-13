@@ -3,8 +3,8 @@
     "specs": [{
       "env": "",
       "value": {
-        "title": "Size",
-        "label": "Children Component Size"
+        "label": "Children Component Size",
+        "title": "Size"
       }
     }],
     "name": "webappgen.components.container.ChildrenSize",
@@ -19,8 +19,8 @@
     "specs": [{
       "env": "",
       "value": {
-        "title": "InnerId",
-        "label": "Children Component InnerId"
+        "label": "Children Component InnerId",
+        "title": "InnerId"
       }
     }],
     "name": "webappgen.components.container.ChildrenInnerId",

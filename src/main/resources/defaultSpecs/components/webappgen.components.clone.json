@@ -13,8 +13,8 @@
     "specs": [{
       "env": "",
       "value": {
-        "title": "",
-        "content": "Please add new env"
+        "label": "Please add new name",
+        "title": ""
       }
     }],
     "name": "webappgen.components.clone.CloneComponentName",
@@ -34,7 +34,7 @@
     "name": "webappgen.components.clone.CloneComponentText",
     "isContainer": false,
     "js": [],
-    "type": "section"
+    "type": "label"
   },
   {
     "layout": "popup",

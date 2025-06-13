@@ -118,8 +118,8 @@
     "specs": [{
       "env": "",
       "value": {
-        "title": "Title",
-        "label": "Title"
+        "label": "Title",
+        "title": "Title"
       }
     }],
     "name": "webappgen.pages.Title",
@@ -218,8 +218,8 @@
       "env": "",
       "value": {
         "src": "",
-        "title": "Matches",
-        "label": "Matches"
+        "label": "Matches",
+        "title": "Matches"
       }
     }],
     "name": "webappgen.pages.Matches",
