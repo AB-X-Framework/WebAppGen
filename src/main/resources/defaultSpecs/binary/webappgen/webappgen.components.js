@@ -90,6 +90,7 @@ function defaultSpecs(elementType) {
             newDefSpecs.src = "";
             break;
         case "label":
+            newDefSpecs.src = "";
             newDefSpecs.content = "Hello world";
             break;
         case "button":
@@ -596,6 +597,7 @@ function processSpecs() {
             break;
         case "label":
             $(workingEnv.SpecsContent).closest('.input-field').parent().show();
+            $(workingEnv.SpecsSource).closest('.input-field').parent().show();
             break;
         case "header":
             $(workingEnv.SelectContainer).parent().show();
@@ -675,6 +677,10 @@ function processElement() {
             break;
         case "file":
             $(workingEnv.SpecsTitle).val(specs.title);
+            $(workingEnv.SpecsContent).val(specs.content);
+            break;
+        case "label":
+            $(workingEnv.SpecsSource).val(specs.src);
             $(workingEnv.SpecsContent).val(specs.content);
             break;
         case "autocomplete":
