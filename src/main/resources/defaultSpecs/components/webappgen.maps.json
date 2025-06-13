@@ -13,6 +13,12 @@
         "component": "webappgen.maps.MapName",
         "size": "l12",
         "env": ""
+      },
+      {
+        "innerId": "elem2",
+        "component": "webappgen.maps.MenuPanel",
+        "size": "l12",
+        "env": ""
       }
     ],
     "name": "webappgen.maps.LeftPanel",
@@ -74,7 +80,7 @@
   {
     "specs": [{
       "env": "",
-      "value": {"title": "Next"}
+      "value": {"title": ">"}
     }],
     "name": "webappgen.maps.Next",
     "isContainer": false,
@@ -84,7 +90,7 @@
   {
     "specs": [{
       "env": "",
-      "value": {"title": "Previous"}
+      "value": {"title": "<"}
     }],
     "name": "webappgen.maps.Prev",
     "isContainer": false,
@@ -145,21 +151,13 @@
     "type": "button"
   },
   {
-    "layout": "vertical",
-    "components": [
-      {
-        "innerId": "MenuPanel",
-        "component": "webappgen.maps.MenuPanel",
-        "size": "",
-        "env": ""
-      },
-      {
-        "innerId": "DetailsPanel",
-        "component": "webappgen.maps.DetailsPanel",
-        "size": "l12",
-        "env": ""
-      }
-    ],
+    "layout": "horizontal",
+    "components": [{
+      "innerId": "DetailsPanel",
+      "component": "webappgen.maps.DetailsPanel",
+      "size": "l12",
+      "env": ""
+    }],
     "name": "webappgen.maps.RightPanel",
     "isContainer": true,
     "js": []
