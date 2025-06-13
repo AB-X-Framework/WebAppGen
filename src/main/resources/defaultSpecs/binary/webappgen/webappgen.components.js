@@ -89,6 +89,9 @@ function defaultSpecs(elementType) {
         case "img":
             newDefSpecs.src = "";
             break;
+        case "label":
+            newDefSpecs.content = "Hello world";
+            break;
         case "button":
             newDefSpecs.title = "Click me";
             break;
@@ -590,6 +593,9 @@ function processSpecs() {
             break;
         case "img":
             $(workingEnv.SpecsSource).closest('.input-field').parent().show();
+            break;
+        case "label":
+            $(workingEnv.SpecsContent).closest('.input-field').parent().show();
             break;
         case "header":
             $(workingEnv.SelectContainer).parent().show();
