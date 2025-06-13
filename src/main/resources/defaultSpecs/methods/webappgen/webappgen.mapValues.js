@@ -4,14 +4,30 @@ var size;
 
 function mapValues() {
     function createChild(key, value, id) {
+        const delId= `d_{id}`;
         const escapedKey = JSON.stringify(key);
-        return {
+        const textfield= {
             "specs": {"title": key, "content": value},
             js: `$(${id}).on('input',()=>{workingEnv.SaveMap.markChanged();workingEnv.updatedMap[(${escapedKey})]=$(${id}).val()})`,
             "isContainer": false,
             "type": "textarea",
-            "size": "l12",
+            "size": "l11",
             "id": id
+        }
+        const deleteBtn={
+            "specs": {"title": "delete"},
+            js: `$(${delId}).click(()=>{})`,
+            "isContainer": false,
+            "type": "button",
+            "size": "l1",
+            "id": delId
+        }
+        return {
+            "isContainer": true,
+            "js": "",
+            "id": "__map",
+            "layout": "horizontal",
+            "children": [textfield,deleteBtn]
         }
     }
 
