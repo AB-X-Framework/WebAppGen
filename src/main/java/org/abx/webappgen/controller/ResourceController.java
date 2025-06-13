@@ -57,9 +57,9 @@ public class ResourceController extends RoleController {
         JSONObject status = new JSONObject();
         try {
             resourceModel.saveMapEntries(mapName, new JSONArray(values));
-            status.put("status", "success");
+            status.put("success", true);
         }catch (Exception e) {
-            status.put("status", "failed");
+            status.put("success", false);
             status.put("message", "Failed to save map entry "+e.getMessage());
         }
         return status.toString();
