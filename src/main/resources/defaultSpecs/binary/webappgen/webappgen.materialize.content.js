@@ -284,7 +284,7 @@ class PageContent {
     static renderTextfield(output, js, specs) {
         var results =
             `<div  class="input-field">
-            <input placeholder="${specs.content}" id="${specs.id}"  type="text" class="validate">
+            <input placeholder="${specs.label}" id="${specs.id}"  type="text" class="validate" value="${specs.content}">
           <label for="${specs.id}">${specs.title}</label></div>`;
         output.push(results);
         if (typeof specs.src !== "undefined" && specs.src !== "") {
@@ -318,7 +318,7 @@ class PageContent {
     static renderTextarea(output, specs) {
         var results =
             `<div class="input-field">
-            <textarea placeholder="${specs.content}" id="${specs.id}"  type="text" class="materialize-textarea"></textarea>
+            <textarea placeholder="${specs.label}" id="${specs.id}"  type="text" class="materialize-textarea">${specs.content}</textarea>
           <label for="${specs.id}">${specs.title}</label></div>`;
         output.push(results);
     }
