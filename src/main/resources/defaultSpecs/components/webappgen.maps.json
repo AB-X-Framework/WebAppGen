@@ -254,7 +254,7 @@
     "js": [
       {
         "env": "",
-        "value": "$(LeftPanel.MapsPackage).change(()=>{\n    M.Autocomplete.getInstance(LeftPanel.MapName).updateData({});\n    $(LeftPanel.MapName).val(\"\").trigger(\"change\");\n    M.updateTextFields();\n    \n    const packageName = $(LeftPanel.MapsPackage).val();\n    if (packageName !== \"\"){\n        $.get(`/resources/packages/maps/${packageName}`,(mapsPerPackage)=>{\n            mapsPerPackage.forEach((mapName)=>{\n                addAutocompleteValue(LeftPanel.MapName,mapName)\n            });\n             $(LeftPanel.MapName).val(\"\");\n        });\n    }\n});"
+        "value": "$(LeftPanel.MapsPackage).change(()=>{\n    clearAutocomplete(LeftPanel.MapName);\n    \n    const packageName = $(LeftPanel.MapsPackage).val();\n    if (packageName !== \"\"){\n        $.get(`/resources/packages/maps/${packageName}`,(mapsPerPackage)=>{\n            mapsPerPackage.forEach((mapName)=>{\n                addAutocompleteValue(LeftPanel.MapName,mapName)\n            });\n             $(LeftPanel.MapName).val(\"\");\n        });\n    }\n});"
       },
       {
         "env": "",

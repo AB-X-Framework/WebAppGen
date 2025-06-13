@@ -34,20 +34,10 @@
       "webappgen"
     ],
     "text": ["demo"],
-    "map": [
-      {
-        "package": "asdfad",
-        "name": "asdfad.dfghdfg"
-      },
-      {
-        "package": "app",
-        "name": "app.Env"
-      },
-      {
-        "package": "x",
-        "name": "x.y"
-      }
-    ]
+    "map": [{
+      "package": "app",
+      "name": "app.Env"
+    }]
   },
   "users": "users.json"
 }
