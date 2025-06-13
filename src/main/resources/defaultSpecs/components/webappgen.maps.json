@@ -112,19 +112,6 @@
   {
     "specs": [{
       "env": "",
-      "value": {"title": "Add New Entry"}
-    }],
-    "name": "webappgen.maps.NewEntryBtn",
-    "isContainer": false,
-    "js": [{
-      "env": "",
-      "value": "$(self).click(()=>{\n});"
-    }],
-    "type": "button"
-  },
-  {
-    "specs": [{
-      "env": "",
       "value": {"title": "New Map"}
     }],
     "name": "webappgen.maps.ProcessAddMap",
@@ -204,6 +191,19 @@
   {
     "specs": [{
       "env": "",
+      "value": {"title": "Add New Entry"}
+    }],
+    "name": "webappgen.maps.NewEntryConfirm",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "$(self).click(()=>{\n});"
+    }],
+    "type": "button"
+  },
+  {
+    "specs": [{
+      "env": "",
       "value": {"title": "New Entry"}
     }],
     "name": "webappgen.maps.NewEntry",
@@ -271,7 +271,7 @@
       "env": "",
       "value": {
         "label": "New entry name",
-        "title": "Text field",
+        "title": "Entry name",
         "content": ""
       }
     }],
@@ -294,7 +294,7 @@
     "type": "label"
   },
   {
-    "layout": "popup",
+    "layout": "vertical",
     "components": [
       {
         "innerId": "elem0",
@@ -309,6 +309,32 @@
         "env": ""
       }
     ],
+    "name": "webappgen.maps.NewEntryModalBody",
+    "isContainer": true,
+    "js": []
+  },
+  {
+    "layout": "popup",
+    "components": [
+      {
+        "innerId": "elem0",
+        "component": "webappgen.maps.NewEntryName",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "elem1",
+        "component": "webappgen.maps.NewEntryValue",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "elem2",
+        "component": "webappgen.maps.NewEntryConfirm",
+        "size": "l12",
+        "env": ""
+      }
+    ],
     "name": "webappgen.maps.NewEntryModal",
     "isContainer": true,
     "js": []
@@ -318,7 +344,7 @@
       "env": "",
       "value": {
         "label": "New entry value",
-        "title": "Text field",
+        "title": "Entry value",
         "content": ""
       }
     }],
