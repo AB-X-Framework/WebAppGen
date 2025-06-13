@@ -1,3 +1,5 @@
+
+let workingEnv = {"shouldUpdate": false};
 /**
  * Check if the value exists otherwise add it and select it
  * Return true if it exists

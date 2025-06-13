@@ -1,4 +1,3 @@
-var workingEnv = {"shouldUpdate": false};
 var maxLine = 73;
 
 function hideElemContainer() {

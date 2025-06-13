@@ -1,6 +1,5 @@
 var M;
 var maxLine = 73;
-let workingEnv = {"shouldUpdate": false};
 
 function markChanged() {
     workingEnv.SavePage.markChanged();
