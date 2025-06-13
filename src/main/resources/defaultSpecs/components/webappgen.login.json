@@ -151,14 +151,14 @@
         "env": "ES",
         "value": {
           "title": "Su nombre de usuario",
-          "content": "Usuario"
+          "label": "Usuario"
         }
       },
       {
         "env": "",
         "value": {
           "title": "Username",
-          "content": "Your username"
+          "label": "Your username"
         }
       }
     ],

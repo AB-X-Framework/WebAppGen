@@ -123,7 +123,7 @@
       "env": "",
       "value": {
         "title": "Height",
-        "content": "Height"
+        "label": "Height"
       }
     }],
     "name": "webappgen.components.specs.SpecsHeight",
@@ -139,7 +139,7 @@
       "env": "",
       "value": {
         "title": "Source",
-        "content": "Source"
+        "label": "Source"
       }
     }],
     "name": "webappgen.components.specs.SpecsSource",
@@ -155,14 +155,14 @@
       "env": "",
       "value": {
         "title": "Label",
-        "content": "Label"
+        "label": "Label"
       }
     }],
     "name": "webappgen.components.specs.SpecsLabel",
     "isContainer": false,
     "js": [{
       "env": "",
-      "value": "workingEnv.Label = self;\n$(self).on('input',()=>setSpecValue('label',$(self).val()))"
+      "value": "workingEnv.SpecsLabel = self;\n$(self).on('input',()=>setSpecValue('label',$(self).val()))"
     }],
     "type": "textfield"
   },
@@ -171,7 +171,7 @@
       "env": "",
       "value": {
         "title": "Title",
-        "content": "Title"
+        "label": "Title"
       }
     }],
     "name": "webappgen.components.specs.SpecsTitle",

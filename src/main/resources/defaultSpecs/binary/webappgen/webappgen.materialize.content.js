@@ -282,9 +282,15 @@ class PageContent {
     }
 
     static renderTextfield(output, js, specs) {
+        let content;
+        if (typeof specs.content === "undefined") {
+            content = "";
+        } else {
+            content = specs.content;
+        }
         var results =
             `<div  class="input-field">
-            <input placeholder="${specs.label}" id="${specs.id}"  type="text" class="validate" value="${specs.content}">
+            <input placeholder="${specs.label}" id="${specs.id}"  type="text" class="validate" value="${content}">
           <label for="${specs.id}">${specs.title}</label></div>`;
         output.push(results);
         if (typeof specs.src !== "undefined" && specs.src !== "") {
@@ -316,9 +322,15 @@ class PageContent {
     }
 
     static renderTextarea(output, specs) {
+        let content;
+        if (typeof specs.content === "undefined") {
+            content = "";
+        } else {
+            content = specs.content;
+        }
         var results =
             `<div class="input-field">
-            <textarea placeholder="${specs.label}" id="${specs.id}"  type="text" class="materialize-textarea">${specs.content}</textarea>
+            <textarea placeholder="${specs.label}" id="${specs.id}"  type="text" class="materialize-textarea">${content}</textarea>
           <label for="${specs.id}">${specs.title}</label></div>`;
         output.push(results);
     }
@@ -335,6 +347,7 @@ class PageContent {
           </div></div>`;
         output.push(results);
     }
+
     static renderLabel(output, specs) {
         var results =
             `<div id="${specs.id}"  class="section white section-content">
@@ -492,7 +505,6 @@ class PageContent {
         js.push(`${specs.id}.cancel=${specs.id}_cancel`);
         output.push(html);
     }
-
 
 
     static renderSwitch(output, js, specs) {

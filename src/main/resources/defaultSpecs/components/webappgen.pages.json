@@ -119,7 +119,7 @@
       "env": "",
       "value": {
         "title": "Title",
-        "content": "Title"
+        "label": "Title"
       }
     }],
     "name": "webappgen.pages.Title",
@@ -219,7 +219,7 @@
       "value": {
         "src": "",
         "title": "Matches",
-        "content": "Matches"
+        "label": "Matches"
       }
     }],
     "name": "webappgen.pages.Matches",

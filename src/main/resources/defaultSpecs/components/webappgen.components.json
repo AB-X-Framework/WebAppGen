@@ -301,7 +301,7 @@
         "env": ""
       },
       {
-        "innerId": "elem4",
+        "innerId": "SpecsLabel",
         "component": "webappgen.components.specs.SpecsLabel",
         "size": "l12",
         "env": ""
