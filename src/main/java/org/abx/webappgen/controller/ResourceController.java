@@ -64,7 +64,7 @@ public class ResourceController extends RoleController {
 
         JSONObject result = new JSONObject();
         try {
-            resourceModel.deleteMap( mapN   ame);
+            resourceModel.deleteMap( mapName);
             result.put("success",true);
         }catch (Exception e){
             result.put("success",false);
