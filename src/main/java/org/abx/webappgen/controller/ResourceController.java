@@ -2,6 +2,7 @@ package org.abx.webappgen.controller;
 
 import org.abx.util.Pair;
 import org.abx.webappgen.persistence.ResourceModel;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -49,14 +50,13 @@ public class ResourceController extends RoleController {
     }
 
     @Secured("Admin")
-    @PostMapping(value = "/maps/{mapName}/{key}/{value}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/maps/save/{mapName}", produces = MediaType.APPLICATION_JSON_VALUE)
     public String saveMapValue(
             @PathVariable String mapName,
-            @PathVariable String key,
-            @PathVariable String value) {
+            @RequestParam String values) {
         JSONObject status = new JSONObject();
         try {
-            resourceModel.saveMapEntry(mapName, key,value);
+            resourceModel.saveMapEntries(mapName, new JSONArray(values));
             status.put("status", "success");
         }catch (Exception e) {
             status.put("status", "failed");

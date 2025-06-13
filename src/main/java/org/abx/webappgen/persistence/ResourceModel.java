@@ -130,15 +130,21 @@ public class ResourceModel {
 
 
     @Transactional
-    public void saveMapEntry(String mapName, String key,String value) {
+    public void saveMapEntries(String mapName, JSONArray values) {
         long id = elementHashCode(mapName);
         MapResource mapResource = mapResourceRepository.findByMapResourceId(id);
-        MapEntry entry = new MapEntry();
-        entry.entryName = key;
-        entry.mapEntryId = elementHashCode(mapName + "." + key);
-        entry.mapValue = value;
-        entry.mapResource = mapResource;
-        mapEntryRepository.save(entry);
+        for (int i = 0; i < values.length(); i++) {
+            JSONObject object = (JSONObject) values.get(i);
+            String key = object.getString("key");
+            String value = object.getString("value");
+            MapEntry entry = new MapEntry();
+            entry.entryName = key;
+            entry.mapEntryId = elementHashCode(mapName + "." + key);
+            entry.mapValue = value;
+            entry.mapResource = mapResource;
+            mapEntryRepository.save(entry);
+        }
+        mapEntryRepository.flush();
     }
 
     public long saveMapResource(String mapName, String packageName, JSONObject data) {
