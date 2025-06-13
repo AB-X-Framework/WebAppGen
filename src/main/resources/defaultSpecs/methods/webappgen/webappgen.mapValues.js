@@ -12,11 +12,11 @@ function mapValues() {
         const value = elem.get("value");
         children.push({
             "specs":{"title":key,"content":value},
-            js:`$(self).on('input',()=>{workingEnv.SaveMap.markChanged();workingEnv.map["${key}"]=$(${self}).val())`,
+            js:`$(self).on('input',()=>{workingEnv.SaveMap.markChanged();workingEnv.updatedMap["${key}"]=$(${self}).val())`,
             "isContainer":false,
             "type":"textarea",
             "size":"l12",
-            "id":`map_${elem.id}`
+            "id":`map_${key}`
         });
     }
     return JSON.stringify({

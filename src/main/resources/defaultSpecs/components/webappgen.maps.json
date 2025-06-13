@@ -158,7 +158,7 @@
       },
       {
         "env": "",
-        "value": "workingEnv.currPage = 0;\nworkingEnv.MapBody = self;\nworkingEnv.updatedMap = {};\n\nworkingEnv.renderNextValues = ()=>{\n    App.process(\"webappgen.mapValues\",{\n        \"map\":$(LeftPanel.MapName).val(),\n        \"page\":workingEnv.currPage,\n        \"size\":10\n    },(componentSpecs)=>{\n        workingEnv.updatedMap = {};\n        componentSpecs.js = \"\";\n        const output = [];\n        const js =[];\n        PageContent.renderComponent(output, js, componentSpecs);\n        $(RightPanel.DetailsPanel.DetailsContainer).html(output.join(\"\"));\n        M.updateTextFields();\n        PageContent.processJS(js);\n    })\n};\n\n$(LeftPanel.MapName).change(()=> {\n    workingEnv.currPage = 0;\n    workingEnv.renderNextValues();\n});"
+        "value": "workingEnv.currPage = 0;\nworkingEnv.MapBody = self;\nworkingEnv.updatedMap = {};\n\nworkingEnv.renderNextValues = ()=>{\n    App.process(\"webappgen.mapValues\",{\n        \"map\":$(LeftPanel.MapName).val(),\n        \"page\":workingEnv.currPage,\n        \"size\":10\n    },(componentSpecs)=>{\n        workingEnv.updatedMap = {};\n        componentSpecs.js = \"\";\n        const output = [];\n        const js =[];\n        PageContent.renderComponent(output, js, componentSpecs);\n        $(RightPanel.DetailsPanel.DetailsContainer).html(output.join(\"\"));\n        M.updateTextFields();\n        PageContent.processJS(js);\n    });\n};\n\n$(LeftPanel.MapName).change(()=> {\n    workingEnv.currPage = 0;\n    workingEnv.renderNextValues();\n});"
       }
     ]
   },
