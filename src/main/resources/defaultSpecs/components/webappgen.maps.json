@@ -38,6 +38,26 @@
     "js": []
   },
   {
+    "layout": "horizontal",
+    "components": [
+      {
+        "innerId": "Prev",
+        "component": "webappgen.maps.Prev",
+        "size": "",
+        "env": ""
+      },
+      {
+        "innerId": "Next",
+        "component": "webappgen.maps.Next",
+        "size": "l1",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.maps.Pagination",
+    "isContainer": true,
+    "js": []
+  },
+  {
     "specs": [{
       "env": "",
       "value": {
@@ -52,30 +72,40 @@
     "type": "autocomplete"
   },
   {
-    "layout": "horizontal",
+    "layout": "vertical",
     "components": [
       {
-        "innerId": "Map",
-        "component": "webappgen.components.basic.AddBtn",
+        "innerId": "SaveMap",
+        "component": "webappgen.maps.SaveMap",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "Pagination",
+        "component": "webappgen.maps.Pagination",
         "size": "",
         "env": ""
       },
       {
-        "innerId": "Prev",
-        "component": "webappgen.maps.Prev",
+        "innerId": "NewMap",
+        "component": "webappgen.maps.NewMap",
         "size": "",
-        "env": ""
-      },
-      {
-        "innerId": "Next",
-        "component": "webappgen.maps.Next",
-        "size": "l1",
         "env": ""
       }
     ],
     "name": "webappgen.maps.MenuPanel",
     "isContainer": true,
     "js": []
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "New Map"}
+    }],
+    "name": "webappgen.maps.ProcessAddMap",
+    "isContainer": false,
+    "js": [],
+    "type": "button"
   },
   {
     "specs": [{
@@ -161,6 +191,16 @@
     "name": "webappgen.maps.RightPanel",
     "isContainer": true,
     "js": []
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "Save Map"}
+    }],
+    "name": "webappgen.maps.SaveMap",
+    "isContainer": false,
+    "js": [],
+    "type": "button"
   },
   {
     "layout": "vertical",
