@@ -22,7 +22,7 @@
       "value": "/resources/binaries/get/webappgen.utils.js"
     },{
       "env": "",
-      "value": "/resources/binaries/get/webappgen.pages.js"
+      "value": "/resources/binaries/get/webappgen.maps.js"
     }],
     "matches": "Maps"
   },
