@@ -8,7 +8,7 @@ function mapValues() {
         const escapedKey = JSON.stringify(key);
         const textfield= {
             "specs": {"title": key, "content": value},
-            js: `$(${id}).on('input',()=>{workingEnv.SaveMap.markChanged();workingEnv.updatedMap.push({key:${escapedKey},"value":$(${id}).val()})})`,
+            js: `$(${id}).on('input',()=>{workingEnv.SaveMap.markChanged();workingEnv.updatedMap[(${escapedKey})]=$(${id}).val()})`,
             "isContainer": false,
             "type": "textarea",
             "size": "l11",
