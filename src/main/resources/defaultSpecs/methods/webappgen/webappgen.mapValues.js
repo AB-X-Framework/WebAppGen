@@ -4,7 +4,7 @@ var size;
 
 function mapValues() {
     function createChild(key, value, id) {
-        const delId= `d_{id}`;
+        const delId= `d_${id}`;
         const escapedKey = JSON.stringify(key);
         const textfield= {
             "specs": {"title": key, "content": value},
