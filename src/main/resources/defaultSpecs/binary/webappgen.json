@@ -65,6 +65,11 @@
     "contentType": "text/javascript"
   },
   {
+    "role": "Admin",
+    "name": "webappgen.maps.js",
+    "contentType": "text/javascript"
+  },
+  {
     "role": "Anonymous",
     "name": "webappgen.model.methods.js",
     "contentType": "text/javascript"
