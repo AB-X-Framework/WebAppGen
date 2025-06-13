@@ -154,6 +154,22 @@
     "specs": [{
       "env": "",
       "value": {
+        "title": "Label",
+        "content": "Label"
+      }
+    }],
+    "name": "webappgen.components.specs.SpecsLabel",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "workingEnv.Label = self;\n$(self).on('input',()=>setSpecValue('label',$(self).val()))"
+    }],
+    "type": "textfield"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
         "title": "Title",
         "content": "Title"
       }

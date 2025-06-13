@@ -13,6 +13,7 @@ function showPreviewModal() {
 
 function hideSpecs() {
     $(workingEnv.SpecsSize).closest('.input-field').parent().hide();
+    $(workingEnv.SpecsLabel).closest('.input-field').parent().hide();
     $(workingEnv.SpecsOk).closest('.input-field').parent().hide();
     $(workingEnv.SpecsCancel).closest('.input-field').parent().hide();
     $(workingEnv.SpecsOkCancelContainer).parent().hide();
@@ -93,8 +94,9 @@ function defaultSpecs(elementType) {
             break;
         case "textfield":
         case "textarea":
-            newDefSpecs.title = "Text field";
-            newDefSpecs.content = "Please type";
+            newDefSpecs.title = "Text field"
+            newDefSpecs.label = "Please type";
+            newDefSpecs.content = "";
             break;
         case "autocomplete":
             newDefSpecs.src = "";
@@ -636,11 +638,13 @@ function processSpecs() {
             $(workingEnv.SpecsContent).closest('.input-field').parent().show();
             break;
         case "textfield":
+            $(workingEnv.SpecsLabel).closest('.input-field').parent().show();
             $(workingEnv.SpecsSource).closest('.input-field').parent().show();
             $(workingEnv.SpecsTitle).closest('.input-field').parent().show();
             $(workingEnv.SpecsContent).closest('.input-field').parent().show();
             break;
         case "textarea":
+            $(workingEnv.SpecsLabel).closest('.input-field').parent().show();
             $(workingEnv.SpecsSource).closest('.input-field').parent().show();
             $(workingEnv.SpecsTitle).closest('.input-field').parent().show();
             $(workingEnv.SpecsContentArea).closest('.input-field').parent().show();
@@ -710,11 +714,13 @@ function processElement() {
             $(workingEnv.SpecsContent).val(specs.content);
             break;
         case "textarea":
+            $(workingEnv.SpecsLabel).val(specs.label);
             $(workingEnv.SpecsSource).val(specs.src);
             $(workingEnv.SpecsTitle).val(specs.title);
             $(workingEnv.SpecsContentArea).val(specs.content);
             break;
         case "textfield":
+            $(workingEnv.SpecsLabel).val(specs.label);
             $(workingEnv.SpecsSource).val(specs.src);
             $(workingEnv.SpecsTitle).val(specs.title);
             $(workingEnv.SpecsContent).val(specs.content);

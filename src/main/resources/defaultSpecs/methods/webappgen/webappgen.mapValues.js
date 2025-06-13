@@ -12,7 +12,7 @@ function mapValues() {
             "specs":{"title":elem.get("key"),"content":elem.get("value")},
             js:"",
             "isContainer":false,
-            "type":"textfield",
+            "type":"textarea",
             "size":"l12",
             "id":`map_${elem.id}`
         });
