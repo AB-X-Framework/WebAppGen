@@ -62,7 +62,8 @@ function addAutocompleteValue(autocomplete, newValue) {
 }
 
 function clearAutocomplete(autocomplete){
+    autocomplete._data={};
     M.Autocomplete.getInstance(autocomplete).updateData({});
-    $(LeftPanel.MapName).val("").trigger("change");
+    $(autocomplete).val("").trigger("change");
     M.updateTextFields();
 }
