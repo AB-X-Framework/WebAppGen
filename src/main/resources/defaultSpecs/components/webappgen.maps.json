@@ -72,7 +72,7 @@
     "type": "autocomplete"
   },
   {
-    "layout": "vertical",
+    "layout": "container",
     "components": [
       {
         "innerId": "SaveMap",
@@ -84,6 +84,18 @@
         "innerId": "Pagination",
         "component": "webappgen.maps.Pagination",
         "size": "",
+        "env": ""
+      },
+      {
+        "innerId": "elem2",
+        "component": "webappgen.maps.Label",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "elem2",
+        "component": "webappgen.maps.NewEntry",
+        "size": "l12",
         "env": ""
       },
       {
@@ -179,6 +191,16 @@
   {
     "specs": [{
       "env": "",
+      "value": {"title": "New Entry"}
+    }],
+    "name": "webappgen.maps.NewEntry",
+    "isContainer": false,
+    "js": [],
+    "type": "button"
+  },
+  {
+    "specs": [{
+      "env": "",
       "value": {"title": "New Map"}
     }],
     "name": "webappgen.maps.NewMap",
@@ -230,5 +252,18 @@
     "name": "webappgen.maps.MainMapComponent",
     "isContainer": true,
     "js": []
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "src": "",
+        "content": "Entries"
+      }
+    }],
+    "name": "webappgen.maps.Label",
+    "isContainer": false,
+    "js": [],
+    "type": "label"
   }
 ]
