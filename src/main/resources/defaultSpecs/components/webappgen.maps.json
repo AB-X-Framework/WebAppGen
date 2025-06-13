@@ -15,7 +15,7 @@
         "env": ""
       },
       {
-        "innerId": "elem2",
+        "innerId": "MenuPanel",
         "component": "webappgen.maps.MenuPanel",
         "size": "l12",
         "env": ""
@@ -87,7 +87,7 @@
         "env": ""
       },
       {
-        "innerId": "elem2",
+        "innerId": "Label",
         "component": "webappgen.maps.Label",
         "size": "l12",
         "env": ""
@@ -170,7 +170,7 @@
       },
       {
         "env": "",
-        "value": "workingEnv.currPage = 0;\nworkingEnv.MapBody = self;\nworkingEnv.updatedMap = {};\n\nworkingEnv.renderNextValues = ()=>{\n    App.process(\"webappgen.mapValues\",{\n        \"map\":$(LeftPanel.MapName).val(),\n        \"page\":workingEnv.currPage,\n        \"size\":10\n    },(componentSpecs)=>{\n        workingEnv.updatedMap = {};\n        componentSpecs.js = \"\";\n        const output = [];\n        const js =[];\n        PageContent.renderComponent(output, js, componentSpecs);\n        $(RightPanel.DetailsPanel.DetailsContainer).html(output.join(\"\"));\n        M.updateTextFields();\n        PageContent.processJS(js);\n    });\n};\n\n$(LeftPanel.MapName).change(()=> {\n    workingEnv.currPage = 0;\n    workingEnv.renderNextValues();\n});"
+        "value": "workingEnv.currPage = 0;\nworkingEnv.MapBody = self;\nworkingEnv.updatedMap = {};\nworkingEnv.entriesPerPage = 10;\n\nworkingEnv.renderNextValues = ()=>{\n    App.process(\"webappgen.mapValues\",{\n        \"map\":$(LeftPanel.MapName).val(),\n        \"page\":workingEnv.currPage,\n        \"size\":workingEnv.entriesPerPage\n    },(componentSpecs)=>{\n        const init = workingEnv.currPage*workingEnv.entriesPerPage;\n        const end = ((workingEnv.currPage+1)*workingEnv.entriesPerPage)-1;\n        console.log(LeftPanel.MenuPanel.Label)\n        $(LeftPanel.MenuPanel.Label).text(`Entries ${init} - ${end}`);\n        workingEnv.updatedMap = {};\n        componentSpecs.js = \"\";\n        const output = [];\n        const js =[];\n        PageContent.renderComponent(output, js, componentSpecs);\n        $(RightPanel.DetailsPanel.DetailsContainer).html(output.join(\"\"));\n        M.updateTextFields();\n        PageContent.processJS(js);\n    });\n};\n\n$(LeftPanel.MapName).change(()=> {\n    workingEnv.currPage = 0;\n    workingEnv.renderNextValues();\n});"
       }
     ]
   },

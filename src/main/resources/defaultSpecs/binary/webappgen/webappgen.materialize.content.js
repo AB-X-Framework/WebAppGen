@@ -354,12 +354,9 @@ class PageContent {
 
     static renderLabel(output, specs) {
         var results =
-            `<div id="${specs.id}"  class="section white section-content">
-            <div class="row ">
-            <p class="grey-text text-darken-3">
+            `<p id="${specs.id}" class="grey-text text-darken-3">
              ${specs.content.replaceAll("\n", "</><p class=\"grey-text text-darken-3\">")}
-             </p>
-          </div></div>`;
+             </p>`;
         output.push(results);
     }
 
