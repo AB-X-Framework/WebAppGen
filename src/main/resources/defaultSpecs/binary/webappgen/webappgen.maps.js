@@ -1,4 +1,4 @@
 function handleDelete(key){
-    workingEnv.setKey(key);
+    workingEnv.DeletePopup.setKey(key);
     PageContent.openModal(workingEnv.DeletePopup);
 }
