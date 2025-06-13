@@ -195,10 +195,7 @@
     }],
     "name": "webappgen.maps.NewEntryConfirm",
     "isContainer": false,
-    "js": [{
-      "env": "",
-      "value": "$(self).click(()=>{\n});"
-    }],
+    "js": [],
     "type": "button"
   },
   {
@@ -294,42 +291,22 @@
     "type": "label"
   },
   {
-    "layout": "vertical",
-    "components": [
-      {
-        "innerId": "elem0",
-        "component": "webappgen.maps.NewEntryName",
-        "size": "l12",
-        "env": ""
-      },
-      {
-        "innerId": "elem1",
-        "component": "webappgen.maps.NewEntryValue",
-        "size": "l12",
-        "env": ""
-      }
-    ],
-    "name": "webappgen.maps.NewEntryModalBody",
-    "isContainer": true,
-    "js": []
-  },
-  {
     "layout": "popup",
     "components": [
       {
-        "innerId": "elem0",
+        "innerId": "NewEntryName",
         "component": "webappgen.maps.NewEntryName",
         "size": "l12",
         "env": ""
       },
       {
-        "innerId": "elem1",
+        "innerId": "NewEntryValue",
         "component": "webappgen.maps.NewEntryValue",
         "size": "l12",
         "env": ""
       },
       {
-        "innerId": "elem2",
+        "innerId": "NewEntryConfrim",
         "component": "webappgen.maps.NewEntryConfirm",
         "size": "l12",
         "env": ""
@@ -337,7 +314,10 @@
     ],
     "name": "webappgen.maps.NewEntryModal",
     "isContainer": true,
-    "js": []
+    "js": [{
+      "env": "",
+      "value": "$(NewEntryConfrim).click(()=>{\n    const key = $(NewEntryName).val();\n    const value = $(NewEntryValue).val();\n});"
+    }]
   },
   {
     "specs": [{
