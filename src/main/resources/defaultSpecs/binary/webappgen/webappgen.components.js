@@ -16,7 +16,7 @@ function hideSpecs() {
     $(workingEnv.SpecsOk).closest('.input-field').parent().hide();
     $(workingEnv.SpecsCancel).closest('.input-field').parent().hide();
     $(workingEnv.SpecsOkCancelContainer).parent().hide();
-    $(workingEnv.SpecsShowModal).parent().hide();
+    $(workingEnv.SpecsShowModal).parent().parent().parent().hide();
     $(workingEnv.SpecsEnv).closest('.input-field').parent().hide();
     $(workingEnv.SpecsSource).closest('.input-field').parent().hide();
     $(workingEnv.SpecsTitle).closest('.input-field').parent().hide();
@@ -192,7 +192,7 @@ function processChildren(chooseChildren) {
     hideSpecs();
     let component = workingEnv.component;
     if (component.layout === "popup") {
-        $(workingEnv.SpecsShowModal).parent().show();
+        $(workingEnv.SpecsShowModal).parent().parent().parent().show();
     }
     $(workingEnv.ChildrenComponentClass).parent().show();
     $(workingEnv.ChildrenEditingDetailType).parent().show();
@@ -301,7 +301,7 @@ function processJS(envIndex) {
     $(workingEnv.SpecsEnv).closest('.input-field').parent().show();
     let component = workingEnv.component;
     if (component.layout === "popup") {
-        $(workingEnv.SpecsShowModal).parent().show();
+        $(workingEnv.SpecsShowModal).parent().parent().parent().show();
     }
     $(workingEnv.SpecsJS).parent().parent().parent().show();
     $(workingEnv.ComponentEnv).empty();
@@ -619,7 +619,7 @@ function processSpecs() {
             $(workingEnv.SpecsTitle).closest('.input-field').parent().show();
             $(workingEnv.SpecsContent).closest('.input-field').parent().show();
             $(workingEnv.SpecsOk).closest('.input-field').parent().show();
-            $(workingEnv.SpecsShowModal).parent().show();
+            $(workingEnv.SpecsShowModal).parent().parent().parent().show();
             break;
         case "okCancelModal":
             $(workingEnv.SpecsOkCancelContainer).parent().show();
@@ -627,7 +627,7 @@ function processSpecs() {
             $(workingEnv.SpecsContent).closest('.input-field').parent().show();
             $(workingEnv.SpecsOk).closest('.input-field').parent().show();
             $(workingEnv.SpecsCancel).closest('.input-field').parent().show();
-            $(workingEnv.SpecsShowModal).parent().show();
+            $(workingEnv.SpecsShowModal).parent().parent().parent().show();
             break;
         case "switch":
             $(workingEnv.SpecsSource).closest('.input-field').parent().show();
@@ -775,9 +775,8 @@ function updateContainerLayout() {
     workingEnv.component.layout = layout;
     renderCurrentComponent();
     if (layout === "popup") {
-        $(workingEnv.SpecsShowModal).parent().show();
-    } else {
-        $(workingEnv.SpecsShowModal).parent().hide();
+        $(workingEnv.SpecsShowModal).parent().parent().parent().show();
+    } else {$(workingEnv.SpecsShowModal).parent().parent().parent().hide();
     }
 }
 
