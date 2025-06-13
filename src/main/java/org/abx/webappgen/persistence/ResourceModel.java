@@ -122,6 +122,19 @@ public class ResourceModel {
         return mapEntryRepository.countByMapResource(mapResource);
     }
 
+    @Transactional
+    public void createMap(String packageName, String mapName) throws Exception {
+        long id = elementHashCode(mapName);
+        MapResource mapResource = mapResourceRepository.findByMapResourceId(elementHashCode(mapName));
+        if (mapResource != null) {
+            throw new Exception("Duplicate map entry");
+        }
+        mapResource = new MapResource();
+        mapResource.packageName = packageName;
+        mapResource.mapResourceId = id;
+        mapResource.resourceName = mapName;
+        mapResourceRepository.save(mapResource);
+    }
 
     public String getMapResource(String mapName, String key) {
         return mapEntryRepository.findByMapEntryId(

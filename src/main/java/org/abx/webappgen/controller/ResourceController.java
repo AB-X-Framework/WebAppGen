@@ -40,6 +40,21 @@ public class ResourceController extends RoleController {
         return new ResponseEntity<>(data, headers, HttpStatus.OK);
     }
 
+    @Secured("Admin")
+    @PostMapping(value = "/maps/{mapName}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String downloadMapValue(
+            @PathVariable String mapName) {
+        String packageName = mapName.substring(0, mapName.lastIndexOf('.'));
+        JSONObject result = new JSONObject();
+        try {
+            resourceModel.createMap(packageName, mapName);
+            result.put("success",true);
+        }catch (Exception e){
+            result.put("success",false);
+            result.put("error", e.getMessage());
+        }
+        return result.toString();
+    }
 
     @Secured("Admin")
     @GetMapping(value = "/maps/{mapName}/entries/{key}")
