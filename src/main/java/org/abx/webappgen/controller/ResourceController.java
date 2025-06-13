@@ -58,6 +58,22 @@ public class ResourceController extends RoleController {
     }
 
     @Secured("Admin")
+    @DeleteMapping(value = "/maps/{mapName}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String deleteMap(
+            @PathVariable String mapName) {
+
+        JSONObject result = new JSONObject();
+        try {
+            resourceModel.deleteMap( mapN   ame);
+            result.put("success",true);
+        }catch (Exception e){
+            result.put("success",false);
+            result.put("error", e.getMessage());
+        }
+        return result.toString();
+    }
+
+    @Secured("Admin")
     @GetMapping(value = "/maps/{mapName}/entries/{key}")
     public String downloadMapValue(
             @PathVariable String mapName,

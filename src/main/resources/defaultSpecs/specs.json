@@ -36,20 +36,16 @@
     "text": ["demo"],
     "map": [
       {
+        "package": "asdfad",
+        "name": "asdfad.dfghdfg"
+      },
+      {
         "package": "app",
         "name": "app.Env"
       },
       {
         "package": "x",
         "name": "x.y"
-      },
-      {
-        "package": "xp",
-        "name": "xp.q"
-      },
-      {
-        "package": "a.b",
-        "name": "a.b.c"
       }
     ]
   },

@@ -108,6 +108,18 @@
         "env": ""
       },
       {
+        "innerId": "DeleteMap",
+        "component": "webappgen.maps.DeleteMap",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "ConfirmDeteleMap",
+        "component": "webappgen.maps.ConfirmDeleteMap",
+        "size": "l12",
+        "env": ""
+      },
+      {
         "innerId": "NewEntryModal",
         "component": "webappgen.maps.NewEntryModal",
         "size": "l12",
@@ -146,6 +158,10 @@
       {
         "env": "",
         "value": "$(NewMap).click(()=>{\n    PageContent.openModal(NewMapModal);\n});"
+      },
+      {
+        "env": "",
+        "value": "$(DeleteMap).click(()=>{\n    PageContent.openModal(ConfirmDeteleMap);\n})"
       }
     ]
   },
@@ -238,11 +254,11 @@
     "js": [
       {
         "env": "",
-        "value": "$(LeftPanel.MapsPackage).change(()=>{\n    $(LeftPanel.MapName).empty();\n    const packageName = $(LeftPanel.MapsPackage).val();\n    \n    $.get(`/resources/packages/maps/${packageName}`,(packages)=>{\n        packages.forEach((packageName)=>{\n            addAutocompleteValue(LeftPanel.MapName,packages)\n        });\n         $(LeftPanel.MapName).val(\"\");\n    });\n});"
+        "value": "$(LeftPanel.MapsPackage).change(()=>{\n    M.Autocomplete.getInstance(LeftPanel.MapName).updateData({});\n    $(LeftPanel.MapName).val(\"\").trigger(\"change\");\n    M.updateTextFields();\n    \n    const packageName = $(LeftPanel.MapsPackage).val();\n    if (packageName !== \"\"){\n        $.get(`/resources/packages/maps/${packageName}`,(mapsPerPackage)=>{\n            mapsPerPackage.forEach((mapName)=>{\n                addAutocompleteValue(LeftPanel.MapName,mapName)\n            });\n             $(LeftPanel.MapName).val(\"\");\n        });\n    }\n});"
       },
       {
         "env": "",
-        "value": "workingEnv.currPage = 0;\nworkingEnv.MapBody = self;\nworkingEnv.updatedMap = {};\nworkingEnv.entriesPerPage = 2;\nworkingEnv.entryCount=0;\nworkingEnv.renderNextValues = ()=>{\n    App.process(\"webappgen.mapValues\",{\n        \"map\":workingEnv.mapName,\n        \"page\":workingEnv.currPage,\n        \"size\":workingEnv.entriesPerPage\n    },(componentSpecs)=>{\n        workingEnv.SaveMap.markSaved();\n        const init = (workingEnv.currPage*workingEnv.entriesPerPage)+1;\n        let end = ((workingEnv.currPage+1)*workingEnv.entriesPerPage);\n        end = Math.min(workingEnv.entryCount,end);\n        $(LeftPanel.MenuPanel.Label).text(`Entries ${init} - ${end} of ${workingEnv.entryCount}`);\n        workingEnv.updatedMap = {};\n        componentSpecs.js = \"\";\n        const output = [];\n        const js =[];\n        PageContent.renderComponent(output, js, componentSpecs);\n        $(RightPanel.DetailsPanel.DetailsContainer).html(output.join(\"\"));\n        M.updateTextFields();\n        PageContent.processJS(js);\n    });\n};\nworkingEnv.renderMap = ()=> {\n    workingEnv.mapName = $(LeftPanel.MapName).val();\n    $.get(`/resources/maps/${workingEnv.mapName}/count`,(total)=>{\n        workingEnv.entryCount = total;\n    });\n    workingEnv.currPage = 0;\n    workingEnv.renderNextValues();\n}\n$(LeftPanel.MapName).change(workingEnv.renderMap);"
+        "value": "workingEnv.currPage = 0;\nworkingEnv.MapBody = self;\nworkingEnv.updatedMap = {};\nworkingEnv.entriesPerPage = 2;\nworkingEnv.entryCount=0;\nworkingEnv.renderNextValues = ()=>{\n    if (workingEnv.mapName === \"\"){\n        return;\n    }\n    App.process(\"webappgen.mapValues\",{\n        \"map\":workingEnv.mapName,\n        \"page\":workingEnv.currPage,\n        \"size\":workingEnv.entriesPerPage\n    },(componentSpecs)=>{\n        workingEnv.SaveMap.markSaved();\n        const init = (workingEnv.currPage*workingEnv.entriesPerPage)+1;\n        let end = ((workingEnv.currPage+1)*workingEnv.entriesPerPage);\n        end = Math.min(workingEnv.entryCount,end);\n        $(LeftPanel.MenuPanel.Label).text(`Entries ${init} - ${end} of ${workingEnv.entryCount}`);\n        workingEnv.updatedMap = {};\n        componentSpecs.js = \"\";\n        const output = [];\n        const js =[];\n        PageContent.renderComponent(output, js, componentSpecs);\n        $(RightPanel.DetailsPanel.DetailsContainer).html(output.join(\"\"));\n        M.updateTextFields();\n        PageContent.processJS(js);\n    });\n};\nworkingEnv.renderMap = ()=> {\n    workingEnv.mapName = $(LeftPanel.MapName).val();\n    if (workingEnv.mapName !== \"\"){\n        $.get(`/resources/maps/${workingEnv.mapName}/count`,(total)=>{\n            workingEnv.entryCount = total;\n        });\n        workingEnv.currPage = 0;\n        workingEnv.renderNextValues();\n    }\n}\n$(LeftPanel.MapName).change(workingEnv.renderMap);"
       }
     ]
   },
@@ -269,6 +285,16 @@
       "value": {"title": "Add New Entry"}
     }],
     "name": "webappgen.maps.NewEntryConfirm",
+    "isContainer": false,
+    "js": [],
+    "type": "button"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "Delete Map"}
+    }],
+    "name": "webappgen.maps.DeleteMap",
     "isContainer": false,
     "js": [],
     "type": "button"
@@ -415,6 +441,24 @@
       "env": "",
       "value": "$(NewMapConfirm).click(()=>{\n    const name = $(NewMapName).val();\n    $.post(`/resources/maps/${name}`,(status)=>{\n       if (status.success){\n           PageContent.closeModal(self);\n           addAutocompleteValue(workingEnv.PackageName,status.package)\n           addAutocompleteValue(workingEnv.MapName,name);\n       } else {\n           PageContent.showModal(\"Cannot create map\"+JSON.stringify(status.error))\n       }\n    });\n});"
     }]
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "cancel": "Cancel",
+        "ok": "Delete",
+        "title": "Confirm Delete",
+        "content": "Are you sure to delete this map?"
+      }
+    }],
+    "name": "webappgen.maps.ConfirmDeleteMap",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "$(self.ok).click(()=>{\n    $.ajax({\n        url: `/resources/maps/${workingEnv.mapName}`, // the resource to delete\n        type: 'DELETE',\n        success: (result)=> {\n            if (result.success){\n                location.reload();    \n            }else {\n                PageContent.showModal(\"Cannot delete map \"+JSON.stringify(result.error));\n            }\n            \n        }\n});\n});"
+    }],
+    "type": "okCancelModal"
   },
   {
     "layout": "popup",

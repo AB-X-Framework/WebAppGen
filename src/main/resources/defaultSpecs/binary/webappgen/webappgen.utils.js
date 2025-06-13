@@ -60,3 +60,9 @@ function addAutocompleteValue(autocomplete, newValue) {
         return true;
     }
 }
+
+function clearAutocomplete(autocomplete){
+    M.Autocomplete.getInstance(autocomplete).updateData({});
+    $(LeftPanel.MapName).val("").trigger("change");
+    M.updateTextFields();
+}

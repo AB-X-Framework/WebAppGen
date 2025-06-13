@@ -136,6 +136,21 @@ public class ResourceModel {
         mapResourceRepository.save(mapResource);
     }
 
+
+    @Transactional
+    public void deleteMap(String mapName) throws Exception {
+        long id = elementHashCode(mapName);
+        MapResource mapResource = mapResourceRepository.findByMapResourceId(id);
+        if (mapResource == null) {
+            throw new Exception("Map not found");
+        }
+        for (MapEntry mapEntry:mapResource.resourceEntries){
+             mapEntryRepository.delete(mapEntry);
+        }
+        mapEntryRepository.flush();
+        mapResourceRepository.delete(mapResource);
+    }
+
     public String getMapResource(String mapName, String key) {
         return mapEntryRepository.findByMapEntryId(
                 elementHashCode(mapName + "." + key)).mapValue;
