@@ -82,5 +82,23 @@
       }
     ],
     "matches": "Components"
+  },
+  {
+    "component": "webappgen.maps.MainMapComponent",
+    "css": [],
+    "role": "Admin",
+    "name": "webappgen.Arrays",
+    "title": "Arrays",
+    "scripts": [
+      {
+        "env": "",
+        "value": "/resources/binaries/webappgen.utils.js"
+      },
+      {
+        "env": "",
+        "value": "/resources/binaries/webappgen.maps.js"
+      }
+    ],
+    "matches": "Arrays"
   }
 ]

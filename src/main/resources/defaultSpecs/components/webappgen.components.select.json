@@ -189,8 +189,8 @@
     "specs": [{
       "env": "",
       "value": {
-        "title": "Text",
-        "content": "text"
+        "label": "text",
+        "title": "Text"
       }
     }],
     "name": "webappgen.components.select.OptionText",
@@ -202,8 +202,8 @@
     "specs": [{
       "env": "",
       "value": {
-        "title": "Value",
-        "content": "value"
+        "label": "value",
+        "title": "Value"
       }
     }],
     "name": "webappgen.components.select.OptionValue",

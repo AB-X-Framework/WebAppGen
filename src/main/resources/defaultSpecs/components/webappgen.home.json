@@ -272,6 +272,10 @@
           {
             "text": " Maps",
             "value": "/page/Maps"
+          },
+          {
+            "text": "Arrays",
+            "value": "/page/Arrays"
           }
         ]
       }
