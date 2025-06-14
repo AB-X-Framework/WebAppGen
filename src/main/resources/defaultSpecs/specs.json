@@ -26,10 +26,16 @@
   "pages": ["webappgen"],
   "methods": ["webappgen"],
   "resources": {
-    "array": [{
-      "package": "webappgen",
-      "name": "webappgen.basicarray"
-    }],
+    "array": [
+      {
+        "package": "app",
+        "name": "app.Envs"
+      },
+      {
+        "package": "webappgen",
+        "name": "webappgen.basicarray"
+      }
+    ],
     "binary": [
       "ace",
       "webappgen"

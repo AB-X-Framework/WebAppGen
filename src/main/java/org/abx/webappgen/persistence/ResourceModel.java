@@ -240,7 +240,7 @@ public class ResourceModel {
         if (entry == null) {
             return false;
         }
-        if (entry.arrayResourceId!=elementHashCode(arrayName)) {
+        if (entry.arrayResourceId != elementHashCode(arrayName)) {
             return false;
         }
         arrayEntryRepository.delete(entry);
@@ -249,17 +249,34 @@ public class ResourceModel {
     }
 
     @Transactional
-    public void saveArrayEntries(String arrayMap, JSONArray values) {
+    public void updateArrayEntries(String arrayMap, JSONArray values) throws Exception {
         long id = elementHashCode(arrayMap);
-        ArrayResource arrayResource = arrayResourceRepository.findByArrayResourceId(id);
         for (int i = 0; i < values.length(); i++) {
             JSONObject object = (JSONObject) values.get(i);
-            String key = object.getString("value");
-            ArrayEntry entry = new ArrayEntry();
-            entry.arrayValue = key;
+            long key = object.getLong("key");
+
+            String value = object.getString("value");
+            ArrayEntry entry = arrayEntryRepository.findByArrayEntryId(id);
+            if (entry == null) {
+                throw new Exception("Entry not found");
+            }
+            if (entry.arrayResourceId != id) {
+                throw new Exception("Values does not belong to resource");
+            }
+            entry.arrayValue = value;
             entry.arrayResourceId = id;
             arrayEntryRepository.save(entry);
         }
+        arrayEntryRepository.flush();
+    }
+
+    @Transactional
+    public void addArrayEntry(String arrayMap, String value) {
+        long id = elementHashCode(arrayMap);
+        ArrayEntry entry = new ArrayEntry();
+        entry.arrayValue = value;
+        entry.arrayResourceId = id;
+        arrayEntryRepository.save(entry);
         arrayEntryRepository.flush();
     }
 

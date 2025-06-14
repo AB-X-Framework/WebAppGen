@@ -20,20 +20,6 @@
   {
     "specs": [{
       "env": "",
-      "value": {
-        "label": "New entry name",
-        "title": "Entry name",
-        "content": ""
-      }
-    }],
-    "name": "webappgen.arrays.NewEntryName",
-    "isContainer": false,
-    "js": [],
-    "type": "textfield"
-  },
-  {
-    "specs": [{
-      "env": "",
       "value": {"title": "Add New Entry"}
     }],
     "name": "webappgen.arrays.NewEntryConfirm",
@@ -97,12 +83,6 @@
     "layout": "popup",
     "components": [
       {
-        "innerId": "NewEntryName",
-        "component": "webappgen.arrays.NewEntryName",
-        "size": "l12",
-        "env": ""
-      },
-      {
         "innerId": "NewEntryValue",
         "component": "webappgen.arrays.NewEntryValue",
         "size": "l12",
@@ -119,7 +99,7 @@
     "isContainer": true,
     "js": [{
       "env": "",
-      "value": "$(NewEntryConfrim).click(()=>{\n    const key = $(NewEntryName).val();\n    const value = $(NewEntryValue).val();\n    $.post(`/resources/arrays/${workingEnv.arrayName}/entries`,{\n       values : JSON.stringify([{\n          \"key\":key,\n          \"value\":value \n       }]) \n    },(status)=>{\n        if (status.success){\n            PageContent.closeModal(self);\n            workingEnv.renderArray();\n        }else {\n            PageContent.showModal(\"Cannot add value \"+JSON.stringify(status.error));\n        }\n    });\n});"
+      "value": "$(NewEntryConfrim).click(()=>{\n    const value = $(NewEntryValue).val();\n    $.post(`/resources/arrays/${workingEnv.arrayName}/add`,{\n       values : JSON.stringify(value) \n    },(status)=>{\n        if (status.success){\n            PageContent.closeModal(self);\n            workingEnv.renderArray();\n        }else {\n            PageContent.showModal(\"Cannot add value \"+JSON.stringify(status.error));\n        }\n    });\n});"
     }]
   },
   {

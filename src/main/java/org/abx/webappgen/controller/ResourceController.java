@@ -163,16 +163,33 @@ public class ResourceController extends RoleController {
 
     @Secured("Admin")
     @PostMapping(value = "/arrays/{arrayName}/entries", produces = MediaType.APPLICATION_JSON_VALUE)
-    public String saveArrayEntries(
+    public String updateArrayEntries(
             @PathVariable String arrayName,
             @RequestParam String values) {
         JSONObject status = new JSONObject();
         try {
-            resourceModel.saveArrayEntries(arrayName, new JSONArray(values));
+            resourceModel.updateArrayEntries(arrayName, new JSONArray(values));
             status.put("success", true);
         } catch (Exception e) {
             status.put("success", false);
-            status.put("message", "Failed to save map entry " + e.getMessage());
+            status.put("message", "Failed to updates array entries " + e.getMessage());
+        }
+        return status.toString();
+    }
+
+
+    @Secured("Admin")
+    @PostMapping(value = "/arrays/{arrayName}/add", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String addArrayEntries(
+            @PathVariable String arrayName,
+            @RequestParam String value) {
+        JSONObject status = new JSONObject();
+        try {
+            resourceModel.addArrayEntry(arrayName, value);
+            status.put("success", true);
+        } catch (Exception e) {
+            status.put("success", false);
+            status.put("message", "Failed to add array entry " + e.getMessage());
         }
         return status.toString();
     }
