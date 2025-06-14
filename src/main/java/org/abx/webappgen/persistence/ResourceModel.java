@@ -37,7 +37,7 @@ public class ResourceModel {
     private MapEntryRepository mapEntryRepository;
 
 
-
+    @Transactional
     public JSONArray getMapEntries(String mapResourceName, int page, int size) {
         // Assuming elementHashCode returns the ID of the resource
         long resourceId = elementHashCode(mapResourceName);
@@ -50,12 +50,30 @@ public class ResourceModel {
         for (MapEntry entry : pageResult.getContent()) {
             JSONObject jsonObject = new JSONObject();
             jsonArray.put(jsonObject);
-            jsonObject.put("key",entry.entryName);
-            jsonObject.put("value",entry.mapValue);
+            jsonObject.put("key", entry.entryName);
+            jsonObject.put("value", entry.mapValue);
         }
         return jsonArray;
     }
 
+    @Transactional
+    public JSONArray getArrayEntries(String arrayResourceName, int page, int size) {
+        // Assuming elementHashCode returns the ID of the resource
+        long resourceId = elementHashCode(arrayResourceName);
+        // Get the MapResource or throw if not found
+        ArrayResource arrayResource = arrayResourceRepository.findByArrayResourceId(resourceId);
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.by("arrayResourceId").ascending());
+        // Use the custom query
+        org.springframework.data.domain.Page<ArrayEntry> pageResult = arrayEntryRepository.findByArrayResource(arrayResource, pageRequest);
+        JSONArray jsonArray = new JSONArray();
+        for (ArrayEntry entry : pageResult.getContent()) {
+            JSONObject jsonObject = new JSONObject();
+            jsonArray.put(jsonObject);
+            jsonObject.put("key", entry.arrayEntryId);
+            jsonObject.put("value", entry.arrayValue);
+        }
+        return jsonArray;
+    }
 
     public String getTextResource(Set<String> roles, String resourceName) {
         TextResource text = textResourceRepository.findByTextResourceId(
@@ -118,7 +136,7 @@ public class ResourceModel {
 
     public JSONArray getMapsByPackageName(String packageName) {
         JSONArray array = new JSONArray();
-        mapResourceRepository.findAllByPackageName(packageName).forEach((mapResource)->{
+        mapResourceRepository.findAllByPackageName(packageName).forEach((mapResource) -> {
             array.put(mapResource.resourceName);
         });
         return array;
@@ -127,7 +145,7 @@ public class ResourceModel {
 
     public JSONArray getArraysByPackageName(String packageName) {
         JSONArray array = new JSONArray();
-        arrayResourceRepository.findAllByPackageName(packageName).forEach((mapResource)->{
+        arrayResourceRepository.findAllByPackageName(packageName).forEach((mapResource) -> {
             array.put(mapResource.resourceName);
         });
         return array;
@@ -138,7 +156,6 @@ public class ResourceModel {
         MapResource mapResource = mapResourceRepository.findByMapResourceId(elementHashCode(mapName));
         return mapEntryRepository.countByMapResource(mapResource);
     }
-
 
 
     public long getArrayEntriesCount(String arrayName) {
@@ -209,7 +226,7 @@ public class ResourceModel {
 
     @Transactional
     public boolean deleteMapEntry(String mapName, String key) {
-        MapEntry entry =  mapEntryRepository.findByMapEntryId(
+        MapEntry entry = mapEntryRepository.findByMapEntryId(
                 elementHashCode(mapName + "." + key));
         if (entry == null) {
             return false;
@@ -221,7 +238,7 @@ public class ResourceModel {
 
     @Transactional
     public boolean deleteArrayIndex(String mapName, long key) {
-        ArrayEntry entry =  arrayEntryRepository.findByArrayEntryId(
+        ArrayEntry entry = arrayEntryRepository.findByArrayEntryId(
                 elementHashCode(mapName + "." + key));
         if (entry == null) {
             return false;
