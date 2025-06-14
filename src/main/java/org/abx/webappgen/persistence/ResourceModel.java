@@ -56,6 +56,19 @@ public class ResourceModel {
     }
 
     @Transactional
+    public JSONArray getEntireArrayEntries(String arrayResourceName) {
+        // Assuming elementHashCode returns the ID of the resource
+        long resourceId = elementHashCode(arrayResourceName);
+        // Get the MapResource or throw if not found
+        JSONArray jsonArray = new JSONArray();
+        for (ArrayEntry entry : arrayEntryRepository.findAllByArrayResourceId(resourceId)) {
+
+            jsonArray.put(entry.arrayValue);
+        }
+        return jsonArray;
+    }
+
+    @Transactional
     public JSONArray getArrayEntries(String arrayResourceName, int page, int size) {
         // Assuming elementHashCode returns the ID of the resource
         long resourceId = elementHashCode(arrayResourceName);

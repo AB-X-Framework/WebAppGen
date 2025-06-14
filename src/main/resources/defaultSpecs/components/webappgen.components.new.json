@@ -4,7 +4,7 @@
       "env": "",
       "value": {
         "title": "",
-        "content": "Please add new env"
+        "label": "Please add new env"
       }
     }],
     "name": "webappgen.components.new.NewComponentName",

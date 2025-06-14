@@ -231,6 +231,12 @@ public class ResourceController extends RoleController {
     public long getArrayEntriesCount(@PathVariable String arrayName) {
         return resourceModel.getArrayEntriesCount(arrayName);
     }
+
+    @Secured("Admin")
+    @GetMapping(value = "/arrays/{arrayName}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String getEntireArrayEntries(@PathVariable String arrayName) {
+        return resourceModel.getEntireArrayEntries(arrayName).toString();
+    }
     @GetMapping("/binaries/**")
     public ResponseEntity<?> getBinary(HttpServletRequest request) {
         String path = (String) request.getAttribute(
