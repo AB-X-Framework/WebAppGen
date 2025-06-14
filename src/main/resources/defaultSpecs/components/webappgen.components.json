@@ -56,7 +56,10 @@
     }],
     "name": "webappgen.components.ChooseEnv",
     "isContainer": false,
-    "js": [],
+    "js": [{
+      "env": "",
+      "value": "workingEnv.ChooseEnv = self;\n$(self).change(()=>{\n   renderCurrentComponent(); \n});"
+    }],
     "type": "select"
   },
   {
@@ -381,8 +384,8 @@
         "env": ""
       },
       {
-        "innerId": "divider",
-        "component": "webappgen.base.divider",
+        "innerId": "ChooseEnv",
+        "component": "webappgen.components.ChooseEnv",
         "size": "l12",
         "env": ""
       },

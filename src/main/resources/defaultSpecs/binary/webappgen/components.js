@@ -748,7 +748,7 @@ function processElement() {
 function renderCurrentComponent() {
     $.post(`/components/preview`, {
             componentSpecs: JSON.stringify(workingEnv.component),
-            env: ""
+            env: $(workingEnv.ChooseEnv).val()
         },
         (componentSpecs) => {
             var output = [];
