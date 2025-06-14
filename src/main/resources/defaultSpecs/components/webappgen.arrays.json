@@ -317,7 +317,7 @@
         "content": "Are you sure to delete this map?"
       }
     }],
-    "name": "webappgen.arrays.ConfirmDeleteMap",
+    "name": "webappgen.arrays.ConfirmDeleteArray",
     "isContainer": false,
     "js": [{
       "env": "",
@@ -372,14 +372,14 @@
         "env": ""
       },
       {
-        "innerId": "DeleteMap",
-        "component": "webappgen.arrays.DeleteMap",
+        "innerId": "DeleteArray",
+        "component": "webappgen.arrays.DeleteArray",
         "size": "l12",
         "env": ""
       },
       {
         "innerId": "ConfirmDeteleMap",
-        "component": "webappgen.arrays.ConfirmDeleteMap",
+        "component": "webappgen.arrays.ConfirmDeleteArray",
         "size": "l12",
         "env": ""
       },
@@ -425,7 +425,7 @@
       },
       {
         "env": "",
-        "value": "$(DeleteMap).click(()=>{\n    PageContent.openModal(ConfirmDeteleMap);\n})"
+        "value": "$(DeleteArray).click(()=>{\n    PageContent.openModal(ConfirmDeteleMap);\n})"
       }
     ]
   },
@@ -496,9 +496,9 @@
   {
     "specs": [{
       "env": "",
-      "value": {"title": "Delete Map"}
+      "value": {"title": "Delete Array"}
     }],
-    "name": "webappgen.arrays.DeleteMap",
+    "name": "webappgen.arrays.DeleteArray",
     "isContainer": false,
     "js": [],
     "type": "button"
