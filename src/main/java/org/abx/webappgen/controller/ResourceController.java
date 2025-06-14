@@ -196,7 +196,7 @@ public class ResourceController extends RoleController {
     }
 
     @Secured("Admin")
-    @GetMapping(value = "/packages/maps/{packageName}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/packages/arrays/{packageName}", produces = MediaType.APPLICATION_JSON_VALUE)
     public String arrayByPackage(@PathVariable String packageName) {
         return resourceModel.getArraysByPackageName(packageName).toString(2);
     }
@@ -208,7 +208,7 @@ public class ResourceController extends RoleController {
     }
 
     @Secured("Admin")
-    @GetMapping(value = "/maps/{arrayName}/count", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/arrays/{arrayName}/count", produces = MediaType.APPLICATION_JSON_VALUE)
     public long getArrayEntriesCount(@PathVariable String arrayName) {
         return resourceModel.getMapEntriesCount(arrayName);
     }
