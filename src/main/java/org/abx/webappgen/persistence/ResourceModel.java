@@ -158,9 +158,7 @@ public class ResourceModel {
         if (mapResource == null) {
             throw new Exception("Map not found");
         }
-        for (MapEntry mapEntry:mapResource.resourceEntries){
-             mapEntryRepository.delete(mapEntry);
-        }
+        mapEntryRepository.deleteAll(mapResource.resourceEntries);
         mapEntryRepository.flush();
         mapResourceRepository.delete(mapResource);
     }
@@ -172,9 +170,7 @@ public class ResourceModel {
         if (arrayResource == null) {
             throw new Exception("Map not found");
         }
-        for (ArrayEntry arrayEntry:arrayResource.resourceEntries){
-            arrayEntryRepository.delete(arrayEntry);
-        }
+        arrayEntryRepository.deleteAll(arrayResource.resourceEntries);
         arrayEntryRepository.flush();
         arrayResourceRepository.delete(arrayResource);
     }
