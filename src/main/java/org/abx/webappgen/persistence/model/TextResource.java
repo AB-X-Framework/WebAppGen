@@ -17,6 +17,9 @@ public class TextResource {
     public String resourceName;
 
     @Column(nullable = false)
+    public String resourceTitle;
+
+    @Column(nullable = false)
     public String role;
 
     @Column(columnDefinition = "MEDIUMTEXT", nullable = false)
