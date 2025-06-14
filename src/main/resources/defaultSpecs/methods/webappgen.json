@@ -21,6 +21,13 @@
     "type": "json"
   },
   {
+    "outputName": "arrayValues",
+    "role": "Admin",
+    "name": "webappgen.arrayValues",
+    "description": "Map values",
+    "type": "json"
+  },
+  {
     "outputName": "model.zip",
     "role": "Admin",
     "name": "webappgen.downloadModel",
