@@ -439,7 +439,7 @@
     "isContainer": true,
     "js": [{
       "env": "",
-      "value": "$(NewMapConfirm).click(()=>{\n    const name = $(NewMapName).val();\n    $.post(`/resources/maps/${name}`,(status)=>{\n       if (status.success){\n           PageContent.closeModal(self);\n           addAutocompleteValue(workingEnv.PackageName,status.package)\n           addAutocompleteValue(workingEnv.MapName,name);\n       } else {\n           PageContent.showModal(\"Cannot create map\"+JSON.stringify(status.error))\n       }\n    });\n});"
+      "value": "$(NewMapConfirm).click(()=>{\n    const name = $(NewMapName).val();\n    $.post(`/resources/maps/${name}`,(status)=>{\n       if (status.success){\n           PageContent.closeModal(self);\n           addAutocompleteValue(workingEnv.PackageName,status.package);\n           addAutocompleteValue(workingEnv.MapName,name);\n           $(workingEnv.MapName).change();\n       } else {\n           PageContent.showModal(\"Cannot create map\"+JSON.stringify(status.error))\n       }\n    });\n});"
     }]
   },
   {
