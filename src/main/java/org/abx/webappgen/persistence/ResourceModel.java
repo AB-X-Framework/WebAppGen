@@ -11,7 +11,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Set;
 
 import static org.abx.webappgen.utils.ElementUtils.elementHashCode;
@@ -64,7 +63,7 @@ public class ResourceModel {
         ArrayResource arrayResource = arrayResourceRepository.findByArrayResourceId(resourceId);
         PageRequest pageRequest = PageRequest.of(page, size, Sort.by("arrayEntryId").ascending());
         // Use the custom query
-        org.springframework.data.domain.Page<ArrayEntry> pageResult = arrayEntryRepository.findByArrayResource(arrayResource, pageRequest);
+        org.springframework.data.domain.Page<ArrayEntry> pageResult = arrayEntryRepository.findByArrayResourceId(resourceId, pageRequest);
         JSONArray jsonArray = new JSONArray();
         for (ArrayEntry entry : pageResult.getContent()) {
             JSONObject jsonObject = new JSONObject();
@@ -159,8 +158,7 @@ public class ResourceModel {
 
 
     public long getArrayEntriesCount(String arrayName) {
-        ArrayResource arrayResource = arrayResourceRepository.findByArrayResourceId(elementHashCode(arrayName));
-        return arrayEntryRepository.countByArrayResource(arrayResource);
+        return arrayEntryRepository.countByArrayResourceId(elementHashCode(arrayName));
     }
 
 
@@ -212,7 +210,7 @@ public class ResourceModel {
         if (arrayResource == null) {
             throw new Exception("Map not found");
         }
-        arrayEntryRepository.deleteAll(arrayResource.resourceEntries);
+        arrayEntryRepository.deleteAll(arrayEntryRepository.findAllByArrayResourceId(id));
         arrayEntryRepository.flush();
         arrayResourceRepository.delete(arrayResource);
     }
@@ -237,10 +235,12 @@ public class ResourceModel {
     }
 
     @Transactional
-    public boolean deleteArrayIndex(String mapName, long key) {
-        ArrayEntry entry = arrayEntryRepository.findByArrayEntryId(
-                elementHashCode(mapName + "." + key));
+    public boolean deleteArrayIndex(String arrayName, long key) {
+        ArrayEntry entry = arrayEntryRepository.findByArrayEntryId(key);
         if (entry == null) {
+            return false;
+        }
+        if (entry.arrayResourceId!=elementHashCode(arrayName)) {
             return false;
         }
         arrayEntryRepository.delete(entry);
@@ -254,11 +254,10 @@ public class ResourceModel {
         ArrayResource arrayResource = arrayResourceRepository.findByArrayResourceId(id);
         for (int i = 0; i < values.length(); i++) {
             JSONObject object = (JSONObject) values.get(i);
-            String key = object.getString("key");
-            String value = object.getString("value");
+            String key = object.getString("value");
             ArrayEntry entry = new ArrayEntry();
             entry.arrayValue = key;
-            entry.arrayResource = arrayResource;
+            entry.arrayResourceId = id;
             arrayEntryRepository.save(entry);
         }
         arrayEntryRepository.flush();
@@ -317,7 +316,7 @@ public class ResourceModel {
             String value = data.getString(i);
             ArrayEntry entry = new ArrayEntry();
             entry.arrayValue = value;
-            entry.arrayResource = arrayResource;
+            entry.arrayResourceId = id;
             arrayEntryRepository.save(entry);
         }
     }

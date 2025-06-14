@@ -2,11 +2,11 @@ package org.abx.webappgen.persistence.dao;
 
 import org.abx.webappgen.persistence.model.ArrayEntry;
 import org.abx.webappgen.persistence.model.ArrayResource;
-import org.abx.webappgen.persistence.model.MapEntry;
-import org.abx.webappgen.persistence.model.MapResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.lang.reflect.Array;
 
 
 public interface ArrayEntryRepository extends JpaRepository<ArrayEntry, Long> {
@@ -17,8 +17,10 @@ public interface ArrayEntryRepository extends JpaRepository<ArrayEntry, Long> {
 
 
     // Paging support: fetch a page of ArrayResource
-    Page<ArrayEntry> findByArrayResource(ArrayResource mapResource, Pageable pageable);
+    java.util.ArrayList<ArrayEntry> findAllByArrayResourceId(long arrayResourceId);
+
+    Page<ArrayEntry> findByArrayResourceId(long arrayResourceId, Pageable pageable);
 
 
-    long countByArrayResource(ArrayResource arrayResource);
+    long countByArrayResourceId(long arrayResourceId);
 }

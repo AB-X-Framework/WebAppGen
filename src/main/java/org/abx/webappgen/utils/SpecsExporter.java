@@ -49,6 +49,9 @@ public class SpecsExporter {
     @Autowired
     public MethodSpecRepository methodSpecRepository;
 
+    @Autowired
+    private ArrayEntryRepository arrayEntryRepository;
+
 
     /**
      * Create specs and saves it in
@@ -347,10 +350,11 @@ public class SpecsExporter {
             JSONObject jsonArrayResource = new JSONObject();
             arrayResources.put(jsonArrayResource);
             String name = arrayResource.resourceName;
+            long id = elementHashCode(name);
             jsonArrayResource.put("name", name);
             jsonArrayResource.put("package", arrayResource.packageName);
             JSONArray values = new JSONArray();
-            for (ArrayEntry entry : arrayResource.resourceEntries) {
+            for (ArrayEntry entry : arrayEntryRepository.findAllByArrayResourceId(id)) {
                 values.put(entry.arrayValue);
             }
             new FileOutputStream(specsFolder + "/array/" + name + ".json").

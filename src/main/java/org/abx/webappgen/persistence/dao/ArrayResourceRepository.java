@@ -19,4 +19,6 @@ public interface ArrayResourceRepository extends JpaRepository<ArrayResource, Lo
 
     @Query("SELECT DISTINCT c.packageName FROM ArrayResource c")
     List<String> findDistinctPackageNames();
+
+    List<ArrayResource> findAllByArrayResourceId(Long arrayResourceId);
 }

@@ -4,7 +4,8 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "ArrayEntry",indexes = {
-        @Index(name = "ArrayEntry_arrayEntryId", columnList = "arrayEntryId") // Index for better query performance
+        @Index(name = "ArrayEntry_arrayEntryId", columnList = "arrayEntryId"), // Index for better query performance
+        @Index(name = "ArrayEntry_arrayResourceId", columnList = "arrayResourceId"), // Index for better query performance
 })
 public class ArrayEntry {
 
@@ -15,8 +16,7 @@ public class ArrayEntry {
     @Column(length = 2048, nullable = false)
     public String arrayValue;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "arrayResourceId", nullable = false)
-    public ArrayResource arrayResource;
+    @Column
+    public Long arrayResourceId;
 
 }
