@@ -1,117 +1,37 @@
 [
   {
-    "specs": [{
-      "env": "",
-      "value": {
-        "cancel": "Cancel",
-        "ok": "Save",
-        "title": "Save Array Values",
-        "content": "Are you sure you want to save array values?"
-      }
-    }],
-    "name": "webappgen.arrays.SaveArrayConfirm",
-    "isContainer": false,
-    "js": [{
-      "env": "",
-      "value": "$(self.ok).click(()=>{\n    const values = Object.entries(workingEnv.updatedArray).map(([key, value]) => ({ key, value }));\n\n   $.post(`/resources/arrays/${workingEnv.arrayName}/entries`,{\n       \"values\" : JSON.stringify(values) \n    },(status)=>{\n        if (status.success){\n            PageContent.closeModal(self);\n            workingEnv.renderArray();\n            workingEnv.SaveArray.markSaved();\n        }else {\n            PageContent.showModal(\"Cannot save values \"+JSON.stringify(status.error));\n        }\n    }); \n});"
-    }],
-    "type": "okCancelModal"
-  },
-  {
-    "specs": [{
-      "env": "",
-      "value": {"title": "Add New Entry"}
-    }],
-    "name": "webappgen.arrays.NewEntryConfirm",
-    "isContainer": false,
-    "js": [],
-    "type": "button"
-  },
-  {
-    "specs": [{
-      "env": "",
-      "value": {"title": "New Array"}
-    }],
-    "name": "webappgen.arrays.ProcessAddArray",
-    "isContainer": false,
-    "js": [],
-    "type": "button"
-  },
-  {
-    "specs": [{
-      "env": "",
-      "value": {"title": "Save Array"}
-    }],
-    "name": "webappgen.arrays.SaveArray",
-    "isContainer": false,
-    "js": [{
-      "env": "",
-      "value": "workingEnv.SaveArray=self;\nself.markChanged=()=>{\n    $(self).addClass(\"yellow darken-2\");\n}\n\nself.markSaved=()=>{\n    $(self).removeClass(\"yellow darken-2\");\n}"
-    }],
-    "type": "button"
-  },
-  {
-    "layout": "horizontal",
-    "components": [{
-      "innerId": "DetailsPanel",
-      "component": "webappgen.arrays.DetailsPanel",
-      "size": "l12",
-      "env": ""
-    }],
-    "name": "webappgen.arrays.RightPanel",
-    "isContainer": true,
-    "js": []
-  },
-  {
-    "specs": [{
-      "env": "",
-      "value": {
-        "src": "/resources/packages/arrays",
-        "values": [],
-        "title": "Arrays Package"
-      }
-    }],
-    "name": "webappgen.arrays.ArraysPackage",
-    "isContainer": false,
-    "js": [{
-      "env": "",
-      "value": "workingEnv.PackageName=self;"
-    }],
-    "type": "autocomplete"
-  },
-  {
     "layout": "popup",
     "components": [
       {
         "innerId": "NewEntryValue",
-        "component": "webappgen.arrays.NewEntryValue",
+        "component": "webappgen.texts.NewEntryValue",
         "size": "l12",
         "env": ""
       },
       {
         "innerId": "NewEntryConfrim",
-        "component": "webappgen.arrays.NewEntryConfirm",
+        "component": "webappgen.texts.NewEntryConfirm",
         "size": "l12",
         "env": ""
       }
     ],
-    "name": "webappgen.arrays.NewEntryModal",
+    "name": "webappgen.texts.NewEntryModal",
     "isContainer": true,
     "js": [{
       "env": "",
-      "value": "$(NewEntryConfrim).click(()=>{\n    const value = $(NewEntryValue).val();\n    $.post(`/resources/arrays/${workingEnv.arrayName}/add`,{\n       value :value\n    },(status)=>{\n        if (status.success){\n            PageContent.closeModal(self);\n            workingEnv.renderArray();\n        }else {\n            PageContent.showModal(\"Cannot add value \"+JSON.stringify(status.error));\n        }\n    });\n});"
+      "value": "$(NewEntryConfrim).click(()=>{\n    const value = $(NewEntryValue).val();\n    $.post(`/resources/texts/${workingEnv.textName}/add`,{\n       value :value\n    },(status)=>{\n        if (status.success){\n            PageContent.closeModal(self);\n            workingEnv.renderText();\n        }else {\n            PageContent.showModal(\"Cannot add value \"+JSON.stringify(status.error));\n        }\n    });\n});"
     }]
   },
   {
     "specs": [{
       "env": "",
       "value": {
-        "label": "Array value",
+        "label": "Text value",
         "title": "New value",
         "content": ""
       }
     }],
-    "name": "webappgen.arrays.NewEntryValue",
+    "name": "webappgen.texts.NewEntryValue",
     "isContainer": false,
     "js": [],
     "type": "textarea"
@@ -120,80 +40,166 @@
     "specs": [{
       "env": "",
       "value": {
-        "src": "",
-        "content": "Entries"
+        "cancel": "Cancel",
+        "ok": "Ok",
+        "title": "Delete Text Entry",
+        "content": "Do you want to delete this entry?"
       }
     }],
-    "name": "webappgen.arrays.Label",
+    "name": "webappgen.texts.DeletePopup",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "workingEnv.DeletePopup = self;\n\n$(self.ok).click(()=>{\n    const responseFx = (status)=>{\n            if (status.success){\n                PageContent.closeModal(workingEnv.DeletePopup);\n                workingEnv.renderText();\n            } else {\n                PageContent.showModal(`Cannot delete ${self.key}. ${JSON.stringify(status.error)}`)\n            }\n        };\n    \n    $.ajax({\n        \"type\": 'DELETE',\n        \"url\":`/resources/texts/${workingEnv.textName}/entries/${self.key}`,\n        \"success\":responseFx\n    });\n});\n\nself.setKey=(key)=>{\n    self.key = key;\n}"
+    }],
+    "type": "okCancelModal"
+  },
+  {
+    "layout": "container",
+    "components": [
+      {
+        "innerId": "SaveText",
+        "component": "webappgen.texts.SaveText",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "Pagination",
+        "component": "webappgen.texts.Pagination",
+        "size": "",
+        "env": ""
+      },
+      {
+        "innerId": "Label",
+        "component": "webappgen.texts.Label",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "NewEntry",
+        "component": "webappgen.texts.NewEntry",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "NewText",
+        "component": "webappgen.texts.NewText",
+        "size": "",
+        "env": ""
+      },
+      {
+        "innerId": "DeleteText",
+        "component": "webappgen.texts.DeleteText",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "ConfirmDeleteText",
+        "component": "webappgen.texts.ConfirmDeleteText",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "NewEntryModal",
+        "component": "webappgen.texts.NewEntryModal",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "DeletePopup",
+        "component": "webappgen.texts.DeletePopup",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "SaveTextConfirm",
+        "component": "webappgen.texts.SaveTextConfirm",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "NewTextModal",
+        "component": "webappgen.texts.NewTextModal",
+        "size": "l12",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.texts.MenuPanel",
+    "isContainer": true,
+    "js": [
+      {
+        "env": "",
+        "value": "$(SaveText).click(()=>{\n    PageContent.openModal(SaveTextConfirm);\n});"
+      },
+      {
+        "env": "",
+        "value": "$(NewEntry).click(()=>{\n    PageContent.openModal(NewEntryModal);\n});"
+      },
+      {
+        "env": "",
+        "value": "$(NewText).click(()=>{\n    PageContent.openModal(NewTextModal);\n});"
+      },
+      {
+        "env": "",
+        "value": "$(DeleteText).click(()=>{\n    PageContent.openModal(ConfirmDeleteText);\n})"
+      }
+    ]
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "New Text"}
+    }],
+    "name": "webappgen.texts.ProcessAddText",
     "isContainer": false,
     "js": [],
-    "type": "label"
+    "type": "button"
   },
   {
     "layout": "horizontal",
-    "components": [{
-      "innerId": "DetailsContainer",
-      "component": "webappgen.base.div",
-      "size": "l12",
-      "env": ""
-    }],
-    "name": "webappgen.arrays.DetailsPanel",
+    "components": [
+      {
+        "innerId": "LeftPanel",
+        "component": "webappgen.texts.LeftPanel",
+        "size": "l2",
+        "env": ""
+      },
+      {
+        "innerId": "RightPanel",
+        "component": "webappgen.texts.RightPanel",
+        "size": "l10",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.texts.TextBody",
     "isContainer": true,
-    "js": []
-  },
-  {
-    "specs": [{
-      "env": "",
-      "value": {"title": ">"}
-    }],
-    "name": "webappgen.arrays.Next",
-    "isContainer": false,
-    "js": [{
-      "env": "",
-      "value": "$(self).click(()=>{\n    workingEnv.currPage+=1;\n    workingEnv.renderNextValues();\n});"
-    }],
-    "type": "button"
-  },
-  {
-    "specs": [{
-      "env": "",
-      "value": {"title": "<"}
-    }],
-    "name": "webappgen.arrays.Prev",
-    "isContainer": false,
-    "js": [{
-      "env": "",
-      "value": "$(self).click(()=>{\n    workingEnv.currPage=Math.max( workingEnv.currPage-1,0);\n    workingEnv.renderNextValues();\n});"
-    }],
-    "type": "button"
-  },
-  {
-    "specs": [{
-      "env": "",
-      "value": {"title": "Delete Array"}
-    }],
-    "name": "webappgen.arrays.DeleteArray",
-    "isContainer": false,
-    "js": [],
-    "type": "button"
+    "js": [
+      {
+        "env": "",
+        "value": "$(LeftPanel.TextsPackage).change(()=>{\n    clearAutocomplete(LeftPanel.TextName);\n    \n    const packageName = $(LeftPanel.TextsPackage).val();\n    if (packageName !== \"\"){\n        $.get(`/resources/packages/texts/${packageName}`,(textsPerPackage)=>{\n            textsPerPackage.forEach((textName)=>{\n                addAutocompleteValue(LeftPanel.TextName,textName)\n            });\n             $(LeftPanel.TextName).val(\"\");\n        });\n    }\n});"
+      },
+      {
+        "env": "",
+        "value": "workingEnv.currPage = 0;\nworkingEnv.TextBody = self;\nworkingEnv.updatedText = {};\nworkingEnv.entriesPerPage = 10;\nworkingEnv.entryCount=0;\nworkingEnv.renderNextValues = ()=>{\n    if (workingEnv.textName === \"\"){\n        return;\n    }\n    App.process(\"webappgen.textValues\",{\n        \"text\":workingEnv.textName,\n        \"page\":workingEnv.currPage,\n        \"size\":workingEnv.entriesPerPage\n    },(componentSpecs)=>{\n        workingEnv.SaveText.markSaved();\n        const init = (workingEnv.currPage*workingEnv.entriesPerPage)+1;\n        let end = ((workingEnv.currPage+1)*workingEnv.entriesPerPage);\n        end = Math.min(workingEnv.entryCount,end);\n        $(LeftPanel.MenuPanel.Label).text(`Entries ${init} - ${end} of ${workingEnv.entryCount}`);\n        workingEnv.updatedText = {};\n        componentSpecs.js = \"\";\n        const output = [];\n        const js =[];\n        PageContent.renderComponent(output, js, componentSpecs);\n        $(RightPanel.DetailsPanel.DetailsContainer).html(output.join(\"\"));\n        M.updateTextFields();\n        PageContent.processJS(js);\n    });\n};\nworkingEnv.renderText = ()=> {\n    workingEnv.textName = $(LeftPanel.TextName).val();\n    if (workingEnv.textName !== \"\"){\n        $.get(`/resources/texts/${workingEnv.textName}/count`,(total)=>{\n            workingEnv.entryCount = total;\n        });\n        workingEnv.currPage = 0;\n        workingEnv.renderNextValues();\n    }\n}\n$(LeftPanel.TextName).change(workingEnv.renderText);"
+      }
+    ]
   },
   {
     "specs": [{
       "env": "",
       "value": {
-        "cancel": "Cancel",
-        "ok": "Ok",
-        "title": "Delete Array Entry",
-        "content": "Do you want to delete this entry?"
+        "src": "",
+        "values": [],
+        "title": "Text Name"
       }
     }],
-    "name": "webappgen.arrays.DeletePopup",
+    "name": "webappgen.texts.TextName",
     "isContainer": false,
     "js": [{
       "env": "",
-      "value": "workingEnv.DeletePopup = self;\n\n$(self.ok).click(()=>{\n    const responseFx = (status)=>{\n            if (status.success){\n                PageContent.closeModal(workingEnv.DeletePopup);\n                workingEnv.renderArray();\n            } else {\n                PageContent.showModal(`Cannot delete ${self.key}. ${JSON.stringify(status.error)}`)\n            }\n        };\n    \n    $.ajax({\n        \"type\": 'DELETE',\n        \"url\":`/resources/arrays/${workingEnv.arrayName}/entries/${self.key}`,\n        \"success\":responseFx\n    });\n});\n\nself.setKey=(key)=>{\n    self.key = key;\n}"
+      "value": "workingEnv.TextName = self;"
     }],
-    "type": "okCancelModal"
+    "type": "autocomplete"
   },
   {
     "layout": "vertical",
@@ -206,244 +212,121 @@
       },
       {
         "innerId": "modelContainer",
-        "component": "webappgen.arrays.ArrayBody",
+        "component": "webappgen.texts.TextBody",
         "size": "",
         "env": ""
       }
     ],
-    "name": "webappgen.arrays.MainMapComponent",
+    "name": "webappgen.texts.MainMapComponent",
     "isContainer": true,
     "js": []
   },
   {
-    "layout": "vertical",
-    "components": [
-      {
-        "innerId": "ArraysPackage",
-        "component": "webappgen.arrays.ArraysPackage",
-        "size": "l12",
-        "env": ""
-      },
-      {
-        "innerId": "ArrayName",
-        "component": "webappgen.arrays.ArrayName",
-        "size": "l12",
-        "env": ""
-      },
-      {
-        "innerId": "MenuPanel",
-        "component": "webappgen.arrays.MenuPanel",
-        "size": "l12",
-        "env": ""
-      }
-    ],
-    "name": "webappgen.arrays.LeftPanel",
+    "layout": "horizontal",
+    "components": [{
+      "innerId": "DetailsContainer",
+      "component": "webappgen.base.div",
+      "size": "l12",
+      "env": ""
+    }],
+    "name": "webappgen.texts.DetailsPanel",
     "isContainer": true,
     "js": []
-  },
-  {
-    "layout": "popup",
-    "components": [
-      {
-        "innerId": "NewArrayName",
-        "component": "webappgen.arrays.NewArrayName",
-        "size": "l12",
-        "env": ""
-      },
-      {
-        "innerId": "NewArrayConfirm",
-        "component": "webappgen.arrays.NewArrayConfirm",
-        "size": "l12",
-        "env": ""
-      }
-    ],
-    "name": "webappgen.arrays.NewArrayModal",
-    "isContainer": true,
-    "js": [{
-      "env": "",
-      "value": "$(NewArrayConfirm).click(()=>{\n    const name = $(NewArrayName).val();\n    $.post(`/resources/arrays/${name}`,(status)=>{\n       if (status.success){\n           PageContent.closeModal(self);\n           addAutocompleteValue(workingEnv.PackageName,status.package)\n           addAutocompleteValue(workingEnv.ArrayName,name);\n       } else {\n           PageContent.showModal(\"Cannot create array\"+JSON.stringify(status.error))\n       }\n    });\n});"
-    }]
   },
   {
     "specs": [{
       "env": "",
-      "value": {"title": "Create New Array"}
+      "value": {"title": "Add New Entry"}
     }],
-    "name": "webappgen.arrays.NewArrayConfirm",
+    "name": "webappgen.texts.NewEntryConfirm",
     "isContainer": false,
     "js": [],
     "type": "button"
-  },
-  {
-    "layout": "container",
-    "components": [
-      {
-        "innerId": "SaveArray",
-        "component": "webappgen.arrays.SaveArray",
-        "size": "l12",
-        "env": ""
-      },
-      {
-        "innerId": "Pagination",
-        "component": "webappgen.arrays.Pagination",
-        "size": "",
-        "env": ""
-      },
-      {
-        "innerId": "Label",
-        "component": "webappgen.arrays.Label",
-        "size": "l12",
-        "env": ""
-      },
-      {
-        "innerId": "NewEntry",
-        "component": "webappgen.arrays.NewEntry",
-        "size": "l12",
-        "env": ""
-      },
-      {
-        "innerId": "NewArray",
-        "component": "webappgen.arrays.NewArray",
-        "size": "",
-        "env": ""
-      },
-      {
-        "innerId": "DeleteArray",
-        "component": "webappgen.arrays.DeleteArray",
-        "size": "l12",
-        "env": ""
-      },
-      {
-        "innerId": "ConfirmDeleteArray",
-        "component": "webappgen.arrays.ConfirmDeleteArray",
-        "size": "l12",
-        "env": ""
-      },
-      {
-        "innerId": "NewEntryModal",
-        "component": "webappgen.arrays.NewEntryModal",
-        "size": "l12",
-        "env": ""
-      },
-      {
-        "innerId": "DeletePopup",
-        "component": "webappgen.arrays.DeletePopup",
-        "size": "l12",
-        "env": ""
-      },
-      {
-        "innerId": "SaveArrayConfirm",
-        "component": "webappgen.arrays.SaveArrayConfirm",
-        "size": "l12",
-        "env": ""
-      },
-      {
-        "innerId": "NewArrayModal",
-        "component": "webappgen.arrays.NewArrayModal",
-        "size": "l12",
-        "env": ""
-      }
-    ],
-    "name": "webappgen.arrays.MenuPanel",
-    "isContainer": true,
-    "js": [
-      {
-        "env": "",
-        "value": "$(SaveArray).click(()=>{\n    PageContent.openModal(SaveArrayConfirm);\n});"
-      },
-      {
-        "env": "",
-        "value": "$(NewEntry).click(()=>{\n    PageContent.openModal(NewEntryModal);\n});"
-      },
-      {
-        "env": "",
-        "value": "$(NewArray).click(()=>{\n    PageContent.openModal(NewArrayModal);\n});"
-      },
-      {
-        "env": "",
-        "value": "$(DeleteArray).click(()=>{\n    PageContent.openModal(ConfirmDeleteArray);\n})"
-      }
-    ]
   },
   {
     "layout": "horizontal",
     "components": [
       {
         "innerId": "Prev",
-        "component": "webappgen.arrays.Prev",
+        "component": "webappgen.texts.Prev",
         "size": "",
         "env": ""
       },
       {
         "innerId": "Next",
-        "component": "webappgen.arrays.Next",
+        "component": "webappgen.texts.Next",
         "size": "l1",
         "env": ""
       }
     ],
-    "name": "webappgen.arrays.Pagination",
+    "name": "webappgen.texts.Pagination",
     "isContainer": true,
     "js": []
   },
   {
-    "layout": "horizontal",
-    "components": [
-      {
-        "innerId": "LeftPanel",
-        "component": "webappgen.arrays.LeftPanel",
-        "size": "l2",
-        "env": ""
-      },
-      {
-        "innerId": "RightPanel",
-        "component": "webappgen.arrays.RightPanel",
-        "size": "l10",
-        "env": ""
+    "specs": [{
+      "env": "",
+      "value": {
+        "label": "New text name",
+        "title": "Text name",
+        "content": ""
       }
-    ],
-    "name": "webappgen.arrays.ArrayBody",
-    "isContainer": true,
-    "js": [
-      {
-        "env": "",
-        "value": "$(LeftPanel.ArraysPackage).change(()=>{\n    clearAutocomplete(LeftPanel.ArrayName);\n    \n    const packageName = $(LeftPanel.ArraysPackage).val();\n    if (packageName !== \"\"){\n        $.get(`/resources/packages/arrays/${packageName}`,(arraysPerPackage)=>{\n            arraysPerPackage.forEach((arrayName)=>{\n                addAutocompleteValue(LeftPanel.ArrayName,arrayName)\n            });\n             $(LeftPanel.ArrayName).val(\"\");\n        });\n    }\n});"
-      },
-      {
-        "env": "",
-        "value": "workingEnv.currPage = 0;\nworkingEnv.ArrayBody = self;\nworkingEnv.updatedArray = {};\nworkingEnv.entriesPerPage = 10;\nworkingEnv.entryCount=0;\nworkingEnv.renderNextValues = ()=>{\n    if (workingEnv.arrayName === \"\"){\n        return;\n    }\n    App.process(\"webappgen.arrayValues\",{\n        \"array\":workingEnv.arrayName,\n        \"page\":workingEnv.currPage,\n        \"size\":workingEnv.entriesPerPage\n    },(componentSpecs)=>{\n        workingEnv.SaveArray.markSaved();\n        const init = (workingEnv.currPage*workingEnv.entriesPerPage)+1;\n        let end = ((workingEnv.currPage+1)*workingEnv.entriesPerPage);\n        end = Math.min(workingEnv.entryCount,end);\n        $(LeftPanel.MenuPanel.Label).text(`Entries ${init} - ${end} of ${workingEnv.entryCount}`);\n        workingEnv.updatedArray = {};\n        componentSpecs.js = \"\";\n        const output = [];\n        const js =[];\n        PageContent.renderComponent(output, js, componentSpecs);\n        $(RightPanel.DetailsPanel.DetailsContainer).html(output.join(\"\"));\n        M.updateTextFields();\n        PageContent.processJS(js);\n    });\n};\nworkingEnv.renderArray = ()=> {\n    workingEnv.arrayName = $(LeftPanel.ArrayName).val();\n    if (workingEnv.arrayName !== \"\"){\n        $.get(`/resources/arrays/${workingEnv.arrayName}/count`,(total)=>{\n            workingEnv.entryCount = total;\n        });\n        workingEnv.currPage = 0;\n        workingEnv.renderNextValues();\n    }\n}\n$(LeftPanel.ArrayName).change(workingEnv.renderArray);"
+    }],
+    "name": "webappgen.texts.NewTextName",
+    "isContainer": false,
+    "js": [],
+    "type": "textfield"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "Delete Text"}
+    }],
+    "name": "webappgen.texts.DeleteText",
+    "isContainer": false,
+    "js": [],
+    "type": "button"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "cancel": "Cancel",
+        "ok": "Save",
+        "title": "Save Text Values",
+        "content": "Are you sure you want to save text values?"
       }
-    ]
+    }],
+    "name": "webappgen.texts.SaveTextConfirm",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "$(self.ok).click(()=>{\n    const values = Object.entries(workingEnv.updatedText).map(([key, value]) => ({ key, value }));\n\n   $.post(`/resources/texts/${workingEnv.textName}/entries`,{\n       \"values\" : JSON.stringify(values) \n    },(status)=>{\n        if (status.success){\n            PageContent.closeModal(self);\n            workingEnv.renderText();\n            workingEnv.SaveText.markSaved();\n        }else {\n            PageContent.showModal(\"Cannot save values \"+JSON.stringify(status.error));\n        }\n    }); \n});"
+    }],
+    "type": "okCancelModal"
   },
   {
     "specs": [{
       "env": "",
       "value": {
         "src": "",
-        "values": [],
-        "title": "Array Name"
+        "content": "Entries"
       }
     }],
-    "name": "webappgen.arrays.ArrayName",
+    "name": "webappgen.texts.Label",
     "isContainer": false,
-    "js": [{
-      "env": "",
-      "value": "workingEnv.ArrayName = self;"
-    }],
-    "type": "autocomplete"
+    "js": [],
+    "type": "label"
   },
   {
     "specs": [{
       "env": "",
-      "value": {
-        "label": "New array name",
-        "title": "Array name",
-        "content": ""
-      }
+      "value": {"title": "Create New Text"}
     }],
-    "name": "webappgen.arrays.NewArrayName",
+    "name": "webappgen.texts.NewTextConfirm",
     "isContainer": false,
     "js": [],
-    "type": "textfield"
+    "type": "button"
   },
   {
     "specs": [{
@@ -452,33 +335,150 @@
         "cancel": "Cancel",
         "ok": "Delete",
         "title": "Confirm Delete",
-        "content": "Are you sure to delete this array?"
+        "content": "Are you sure to delete this text?"
       }
     }],
-    "name": "webappgen.arrays.ConfirmDeleteArray",
+    "name": "webappgen.texts.ConfirmDeleteText",
     "isContainer": false,
     "js": [{
       "env": "",
-      "value": "$(self.ok).click(()=>{\n    $.ajax({\n        url: `/resources/arrays/${workingEnv.arrayName}`, // the resource to delete\n        type: 'DELETE',\n        success: (result)=> {\n            if (result.success){\n                location.reload();    \n            }else {\n                PageContent.showModal(\"Cannot delete array \"+JSON.stringify(result.error));\n            }\n            \n        }\n});\n});"
+      "value": "$(self.ok).click(()=>{\n    $.ajax({\n        url: `/resources/texts/${workingEnv.textName}`, // the resource to delete\n        type: 'DELETE',\n        success: (result)=> {\n            if (result.success){\n                location.reload();    \n            }else {\n                PageContent.showModal(\"Cannot delete text \"+JSON.stringify(result.error));\n            }\n            \n        }\n});\n});"
     }],
     "type": "okCancelModal"
   },
   {
     "specs": [{
       "env": "",
-      "value": {"title": "New Array"}
+      "value": {
+        "src": "/resources/packages/texts",
+        "values": [],
+        "title": "Texts Package"
+      }
     }],
-    "name": "webappgen.arrays.NewArray",
+    "name": "webappgen.texts.TextsPackage",
     "isContainer": false,
-    "js": [],
-    "type": "button"
+    "js": [{
+      "env": "",
+      "value": "workingEnv.PackageName=self;"
+    }],
+    "type": "autocomplete"
+  },
+  {
+    "layout": "popup",
+    "components": [
+      {
+        "innerId": "NewTextName",
+        "component": "webappgen.texts.NewTextName",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "NewTextConfirm",
+        "component": "webappgen.texts.NewTextConfirm",
+        "size": "l12",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.texts.NewTextModal",
+    "isContainer": true,
+    "js": [{
+      "env": "",
+      "value": "$(NewTextConfirm).click(()=>{\n    const name = $(NewTextName).val();\n    $.post(`/resources/texts/${name}`,(status)=>{\n       if (status.success){\n           PageContent.closeModal(self);\n           addAutocompleteValue(workingEnv.PackageName,status.package)\n           addAutocompleteValue(workingEnv.TextName,name);\n       } else {\n           PageContent.showModal(\"Cannot create text\"+JSON.stringify(status.error))\n       }\n    });\n});"
+    }]
   },
   {
     "specs": [{
       "env": "",
       "value": {"title": "New Entry"}
     }],
-    "name": "webappgen.arrays.NewEntry",
+    "name": "webappgen.texts.NewEntry",
+    "isContainer": false,
+    "js": [],
+    "type": "button"
+  },
+  {
+    "layout": "horizontal",
+    "components": [{
+      "innerId": "DetailsPanel",
+      "component": "webappgen.texts.DetailsPanel",
+      "size": "l12",
+      "env": ""
+    }],
+    "name": "webappgen.texts.RightPanel",
+    "isContainer": true,
+    "js": []
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": ">"}
+    }],
+    "name": "webappgen.texts.Next",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "$(self).click(()=>{\n    workingEnv.currPage+=1;\n    workingEnv.renderNextValues();\n});"
+    }],
+    "type": "button"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "<"}
+    }],
+    "name": "webappgen.texts.Prev",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "$(self).click(()=>{\n    workingEnv.currPage=Math.max( workingEnv.currPage-1,0);\n    workingEnv.renderNextValues();\n});"
+    }],
+    "type": "button"
+  },
+  {
+    "layout": "vertical",
+    "components": [
+      {
+        "innerId": "TextsPackage",
+        "component": "webappgen.texts.TextsPackage",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "TextName",
+        "component": "webappgen.texts.TextName",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "MenuPanel",
+        "component": "webappgen.texts.MenuPanel",
+        "size": "l12",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.texts.LeftPanel",
+    "isContainer": true,
+    "js": []
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "Save Text"}
+    }],
+    "name": "webappgen.texts.SaveText",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "workingEnv.SaveText=self;\nself.markChanged=()=>{\n    $(self).addClass(\"yellow darken-2\");\n}\n\nself.markSaved=()=>{\n    $(self).removeClass(\"yellow darken-2\");\n}"
+    }],
+    "type": "button"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "New Text"}
+    }],
+    "name": "webappgen.texts.NewText",
     "isContainer": false,
     "js": [],
     "type": "button"

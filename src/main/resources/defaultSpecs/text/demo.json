@@ -1,6 +1,5 @@
 [{
+  "package": "demo",
   "role": "Anonymous",
-  "name": "demo.loren",
-  "title": "Some text",
-  "owner": "root@abxwebappgen.org"
+  "name": "demo.loren"
 }]

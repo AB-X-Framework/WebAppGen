@@ -21,7 +21,8 @@
     "webappgen.pages.clone",
     "webappgen.pages.env",
     "webappgen.pages.new",
-    "webappgen.pages.rename"
+    "webappgen.pages.rename",
+    "webappgen.texts"
   ],
   "pages": ["webappgen"],
   "methods": ["webappgen"],
