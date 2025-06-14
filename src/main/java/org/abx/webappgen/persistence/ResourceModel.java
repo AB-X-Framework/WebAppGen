@@ -109,6 +109,13 @@ public class ResourceModel {
         return array;
     }
 
+
+    public JSONArray getArrayPackages() {
+        JSONArray array = new JSONArray();
+        array.putAll(arrayResourceRepository.findDistinctPackageNames());
+        return array;
+    }
+
     public JSONArray getMapsByPackageName(String packageName) {
         JSONArray array = new JSONArray();
         mapResourceRepository.findAllByPackageName(packageName).forEach((mapResource)->{
@@ -117,10 +124,28 @@ public class ResourceModel {
         return array;
     }
 
+
+    public JSONArray getArraysByPackageName(String packageName) {
+        JSONArray array = new JSONArray();
+        arrayResourceRepository.findAllByPackageName(packageName).forEach((mapResource)->{
+            array.put(mapResource.resourceName);
+        });
+        return array;
+    }
+
+
     public long getMapEntriesCount(String mapName) {
         MapResource mapResource = mapResourceRepository.findByMapResourceId(elementHashCode(mapName));
         return mapEntryRepository.countByMapResource(mapResource);
     }
+
+
+
+    public long getArrayEntriesCount(String arrayName) {
+        ArrayResource arrayResource = arrayResourceRepository.findByArrayResourceId(elementHashCode(arrayName));
+        return arrayEntryRepository.countByArrayResource(arrayResource);
+    }
+
 
     @Transactional
     public void createMap(String packageName, String mapName) throws Exception {
@@ -195,6 +220,34 @@ public class ResourceModel {
     }
 
     @Transactional
+    public boolean deleteArrayIndex(String mapName, long key) {
+        ArrayEntry entry =  arrayEntryRepository.findByArrayEntryId(
+                elementHashCode(mapName + "." + key));
+        if (entry == null) {
+            return false;
+        }
+        arrayEntryRepository.delete(entry);
+        mapEntryRepository.flush();
+        return true;
+    }
+
+    @Transactional
+    public void saveArrayEntries(String arrayMap, JSONArray values) {
+        long id = elementHashCode(arrayMap);
+        ArrayResource arrayResource = arrayResourceRepository.findByArrayResourceId(id);
+        for (int i = 0; i < values.length(); i++) {
+            JSONObject object = (JSONObject) values.get(i);
+            String key = object.getString("key");
+            String value = object.getString("value");
+            ArrayEntry entry = new ArrayEntry();
+            entry.arrayValue = key;
+            entry.arrayResource = arrayResource;
+            arrayEntryRepository.save(entry);
+        }
+        arrayEntryRepository.flush();
+    }
+
+    @Transactional
     public void saveMapEntries(String mapName, JSONArray values) {
         long id = elementHashCode(mapName);
         MapResource mapResource = mapResourceRepository.findByMapResourceId(id);
@@ -211,6 +264,7 @@ public class ResourceModel {
         }
         mapEntryRepository.flush();
     }
+
 
     public long saveMapResource(String mapName, String packageName, JSONObject data) {
         long id = elementHashCode(mapName);

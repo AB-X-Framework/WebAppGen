@@ -42,38 +42,69 @@ public class ResourceController extends RoleController {
 
     @Secured("Admin")
     @PostMapping(value = "/maps/{mapName}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public String downloadMapValue(
+    public String createMap(
             @PathVariable String mapName) {
         String packageName = mapName.substring(0, mapName.lastIndexOf('.'));
         JSONObject result = new JSONObject();
         try {
             resourceModel.createMap(packageName, mapName);
-            result.put("success",true);
-            result.put("package",packageName);
-        }catch (Exception e){
-            result.put("success",false);
+            result.put("success", true);
+            result.put("package", packageName);
+        } catch (Exception e) {
+            result.put("success", false);
             result.put("error", e.getMessage());
         }
         return result.toString();
     }
 
-
+    @Secured("Admin")
+    @PostMapping(value = "/maps/{arrayName}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String createArray(
+            @PathVariable String arrayName) {
+        String packageName = arrayName.substring(0, arrayName.lastIndexOf('.'));
+        JSONObject result = new JSONObject();
+        try {
+            resourceModel.createArray(packageName, arrayName);
+            result.put("success", true);
+            result.put("package", packageName);
+        } catch (Exception e) {
+            result.put("success", false);
+            result.put("error", e.getMessage());
+        }
+        return result.toString();
+    }
 
     @Secured("Admin")
     @DeleteMapping(value = "/maps/{mapName}", produces = MediaType.APPLICATION_JSON_VALUE)
     public String deleteMap(
             @PathVariable String mapName) {
-
         JSONObject result = new JSONObject();
         try {
-            resourceModel.deleteMap( mapName);
-            result.put("success",true);
-        }catch (Exception e){
-            result.put("success",false);
+            resourceModel.deleteMap(mapName);
+            result.put("success", true);
+        } catch (Exception e) {
+            result.put("success", false);
             result.put("error", e.getMessage());
         }
         return result.toString();
     }
+
+
+    @Secured("Admin")
+    @DeleteMapping(value = "/maps/{arrayName}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String deleteArray(
+            @PathVariable String arrayName) {
+        JSONObject result = new JSONObject();
+        try {
+            resourceModel.deleteArray(arrayName);
+            result.put("success", true);
+        } catch (Exception e) {
+            result.put("success", false);
+            result.put("error", e.getMessage());
+        }
+        return result.toString();
+    }
+
 
     @Secured("Admin")
     @GetMapping(value = "/maps/{mapName}/entries/{key}")
@@ -98,15 +129,46 @@ public class ResourceController extends RoleController {
         return status.toString();
     }
 
+    @Secured("Admin")
+    @DeleteMapping(value = "/maps/{mapName}/entries/{key}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String deleteArrayIndex(
+            @PathVariable String mapName,
+            @PathVariable long key) {
+        JSONObject status = new JSONObject();
+        try {
+            status.put("success", resourceModel.deleteArrayIndex(mapName, key));
+        } catch (Exception e) {
+            status.put("success", false);
+            status.put("error", e.getMessage());
+        }
+        return status.toString();
+    }
+
 
     @Secured("Admin")
     @PostMapping(value = "/maps/{mapName}/entries", produces = MediaType.APPLICATION_JSON_VALUE)
-    public String saveMapValue(
+    public String saveMapEntries(
             @PathVariable String mapName,
             @RequestParam String values) {
         JSONObject status = new JSONObject();
         try {
             resourceModel.saveMapEntries(mapName, new JSONArray(values));
+            status.put("success", true);
+        } catch (Exception e) {
+            status.put("success", false);
+            status.put("message", "Failed to save map entry " + e.getMessage());
+        }
+        return status.toString();
+    }
+
+    @Secured("Admin")
+    @PostMapping(value = "/maps/{arrayName}/entries", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String saveArrayEntries(
+            @PathVariable String arrayName,
+            @RequestParam String values) {
+        JSONObject status = new JSONObject();
+        try {
+            resourceModel.saveArrayEntries(arrayName, new JSONArray(values));
             status.put("success", true);
         } catch (Exception e) {
             status.put("success", false);
@@ -122,15 +184,33 @@ public class ResourceController extends RoleController {
     }
 
     @Secured("Admin")
+    @GetMapping(value = "/packages/array", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String arrayPackages() {
+        return resourceModel.getArrayPackages().toString();
+    }
+
+    @Secured("Admin")
     @GetMapping(value = "/packages/maps/{packageName}", produces = MediaType.APPLICATION_JSON_VALUE)
     public String mapsByPackage(@PathVariable String packageName) {
         return resourceModel.getMapsByPackageName(packageName).toString(2);
     }
 
     @Secured("Admin")
+    @GetMapping(value = "/packages/maps/{packageName}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String arrayByPackage(@PathVariable String packageName) {
+        return resourceModel.getArraysByPackageName(packageName).toString(2);
+    }
+
+    @Secured("Admin")
     @GetMapping(value = "/maps/{mapName}/count", produces = MediaType.APPLICATION_JSON_VALUE)
     public long getMapEntriesCount(@PathVariable String mapName) {
         return resourceModel.getMapEntriesCount(mapName);
+    }
+
+    @Secured("Admin")
+    @GetMapping(value = "/maps/{arrayName}/count", produces = MediaType.APPLICATION_JSON_VALUE)
+    public long getArrayEntriesCount(@PathVariable String arrayName) {
+        return resourceModel.getMapEntriesCount(arrayName);
     }
 
     @GetMapping("/binaries/{resource}")
