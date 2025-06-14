@@ -123,7 +123,7 @@
     "specs": [{
       "env": "",
       "value": {
-        "src": "/resources/binaries/webappgen.abx.png",
+        "src": "/resources/binaries/webappgen/abx.png",
         "values": [{
           "text": "About us",
           "value": "/help"

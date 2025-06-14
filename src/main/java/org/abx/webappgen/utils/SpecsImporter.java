@@ -231,7 +231,7 @@ public class SpecsImporter {
             for (int i = 0; i < specs.length(); i++) {
                 JSONObject jsonResource = specs.getJSONObject(i);
                 String name = jsonResource.getString("name");
-                String file = specsPath + "/binary/" + packageName + "/" + name;
+                String file = specsPath + "/binary/" + name;
                 byte[] data = getBinaryData(file, fs);
                 resourceModel.saveBinaryResource(name, packageName,
                         jsonResource.getString("contentType"), data, jsonResource.getString("role"));

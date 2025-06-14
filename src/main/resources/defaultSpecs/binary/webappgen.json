@@ -1,77 +1,77 @@
 [
   {
     "role": "Anonymous",
-    "name": "webappgen.jquery.3.6.0.min.js",
+    "name": "webappgen/jquery.3.6.0.min.js",
     "contentType": "text/javascript"
   },
   {
     "role": "Admin",
-    "name": "webappgen.defaultEnv.properties",
+    "name": "webappgen/defaultEnv.properties",
     "contentType": "text/plain"
   },
   {
     "role": "Anonymous",
-    "name": "webappgen.abx.png",
+    "name": "webappgen/abx.png",
     "contentType": "application/png"
   },
   {
     "role": "Anonymous",
-    "name": "webappgen.materialize.min.css",
+    "name": "webappgen/materialize.min.css",
     "contentType": "text/css"
   },
   {
     "role": "Anonymous",
-    "name": "webappgen.login.js",
+    "name": "webappgen/login.js",
     "contentType": "text/javascript"
   },
   {
     "role": "Anonymous",
-    "name": "webappgen.materialize.content.js",
+    "name": "webappgen/materialize.content.js",
     "contentType": "text/javascript"
   },
   {
     "role": "Anonymous",
-    "name": "webappgen.materialize.min.js",
+    "name": "webappgen/materialize.min.js",
     "contentType": "text/javascript"
   },
   {
     "role": "Anonymous",
-    "name": "webappgen.materialize.icons.woff2",
+    "name": "webappgen/materialize.icons.woff2",
     "contentType": "font/woff2"
   },
   {
     "role": "Admin",
-    "name": "webappgen.maps.js",
+    "name": "webappgen/maps.js",
     "contentType": "text/javascript"
   },
   {
     "role": "Anonymous",
-    "name": "webappgen.materialize.icons.css",
+    "name": "webappgen/materialize.icons.css",
     "contentType": "text/css"
   },
   {
     "role": "Admin",
-    "name": "webappgen.components.js",
+    "name": "webappgen/components.js",
     "contentType": "text/javascript"
   },
   {
     "role": "Anonymous",
-    "name": "webappgen.icons.css",
+    "name": "webappgen/icons.css",
     "contentType": "text/css"
   },
   {
     "role": "Admin",
-    "name": "webappgen.utils.js",
+    "name": "webappgen/utils.js",
     "contentType": "text/javascript"
   },
   {
     "role": "Admin",
-    "name": "webappgen.pages.js",
+    "name": "webappgen/pages.js",
     "contentType": "text/javascript"
   },
   {
     "role": "Anonymous",
-    "name": "webappgen.model.methods.js",
+    "name": "webappgen/model.methods.js",
     "contentType": "text/javascript"
   }
 ]

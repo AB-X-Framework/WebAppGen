@@ -1,5 +1,6 @@
 package org.abx.webappgen.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.abx.util.Pair;
 import org.abx.webappgen.persistence.ResourceModel;
 import org.json.JSONArray;
@@ -13,6 +14,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.HandlerMapping;
 
 import java.io.IOException;
 import java.util.Set;
@@ -229,9 +231,14 @@ public class ResourceController extends RoleController {
     public long getArrayEntriesCount(@PathVariable String arrayName) {
         return resourceModel.getArrayEntriesCount(arrayName);
     }
+    @GetMapping("/binaries/**")
+    public ResponseEntity<?> getBinary(HttpServletRequest request) {
+        String path = (String) request.getAttribute(
+                HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE
+        );
 
-    @GetMapping("/binaries/{resource}")
-    public ResponseEntity<byte[]> downloadFile(@PathVariable String resource) {
+        // Remove the prefix "/binaries/"
+        String resource = path.replaceFirst("/resources/binaries/", "");
         Set<String> roles = getRoles();
         Pair<String, byte[]> fileContent = resourceModel.getBinaryResource(roles, resource);
         if (fileContent == null) {
