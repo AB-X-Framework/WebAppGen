@@ -49,6 +49,20 @@
     "specs": [{
       "env": "",
       "value": {
+        "src": "/resources/arrays/app.Envs",
+        "values": [],
+        "title": "The Env"
+      }
+    }],
+    "name": "webappgen.components.ChooseEnv",
+    "isContainer": false,
+    "js": [],
+    "type": "select"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
         "values": [
           {
             "text": "Horizontal",

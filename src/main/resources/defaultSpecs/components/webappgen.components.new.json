@@ -3,8 +3,8 @@
     "specs": [{
       "env": "",
       "value": {
-        "title": "",
-        "label": "Please add new env"
+        "label": "Please add new env",
+        "title": ""
       }
     }],
     "name": "webappgen.components.new.NewComponentName",

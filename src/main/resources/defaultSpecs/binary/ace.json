@@ -1,22 +1,22 @@
 [
   {
     "role": "Anonymous",
-    "name": "ace/theme-monokai.js",
-    "contentType": "text/javascript"
-  },
-  {
-    "role": "Anonymous",
-    "name": "ace/worker-javascript.js",
-    "contentType": "text/javascript"
-  },
-  {
-    "role": "Anonymous",
     "name": "ace/mode-javascript.js",
     "contentType": "text/javascript"
   },
   {
     "role": "Anonymous",
+    "name": "ace/theme-monokai.js",
+    "contentType": "text/javascript"
+  },
+  {
+    "role": "Anonymous",
     "name": "ace/ace.js",
+    "contentType": "text/javascript"
+  },
+  {
+    "role": "Anonymous",
+    "name": "ace/worker-javascript.js",
     "contentType": "text/javascript"
   }
 ]
