@@ -72,7 +72,7 @@
     "specs": [{
       "env": "",
       "value": {
-        "src": "/resources/packages/maps",
+        "src": "/resources/packages/arrays",
         "values": [],
         "title": "Arrays Package"
       }
