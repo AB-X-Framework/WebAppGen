@@ -351,12 +351,14 @@ public class ResourceModel {
         }
     }
 
-    public long saveTextResource(String resourceName, String packageName, String data, String role) {
+    public long saveTextResource(String resourceName, String owner,String title, String packageName, String data, String role) {
         long id = elementHashCode(resourceName);
         TextResource textResource = new TextResource();
         textResource.textResourceId = id;
         textResource.resourceValue = data;
         textResource.role = role;
+        textResource.title = role;
+        textResource.owner = elementHashCode(owner);
         textResource.packageName = packageName;
         textResource.resourceName = resourceName;
         textResourceRepository.save(textResource);

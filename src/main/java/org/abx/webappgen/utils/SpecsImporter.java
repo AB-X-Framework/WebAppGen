@@ -197,7 +197,7 @@ public class SpecsImporter {
         specs.description = method.getString("description");
         specs.methodSpecId = elementHashCode(specs.methodName);
         specs.methodJS = getData(specsFolder + "/methods/" +
-               specs.methodName.replace('.','/') + ".js", fs);
+                specs.methodName.replace('.', '/') + ".js", fs);
         specs.type = method.getString("type");
         specs.outputName = method.getString("outputName");
         specs.role = method.getString("role");
@@ -226,8 +226,8 @@ public class SpecsImporter {
     private void processBinaryResource(String specsPath, JSONArray packageNames, boolean fs) throws Exception {
         for (int packageNameIndex = 0; packageNameIndex < packageNames.length(); packageNameIndex++) {
             String packageName = packageNames.getString(packageNameIndex);
-            String specsText = getData(specsPath + "/binary/" + packageName + ".json", fs);
-            JSONArray specs = new JSONArray(specsText);
+            String specsBinary = getData(specsPath + "/binary/" + packageName + ".json", fs);
+            JSONArray specs = new JSONArray(specsBinary);
             for (int i = 0; i < specs.length(); i++) {
                 JSONObject jsonResource = specs.getJSONObject(i);
                 String name = jsonResource.getString("name");
@@ -248,9 +248,11 @@ public class SpecsImporter {
             for (int j = 0; j < textPackages.length(); j++) {
                 JSONObject jsonResource = textPackages.getJSONObject(j);
                 String name = jsonResource.getString("name");
-                String file = specsPath + "/text/"  + "/" + name.replace('.','/') + ".txt";
+                String owner = jsonResource.getString("owner");
+                String title = jsonResource.getString("title");
+                String file = specsPath + "/text/" + "/" + name.replace('.', '/') + ".txt";
                 String data = getData(file, fs);
-                resourceModel.saveTextResource(name, packageName,
+                resourceModel.saveTextResource(name, owner, title, packageName,
                         data, jsonResource.getString("role"));
 
             }
