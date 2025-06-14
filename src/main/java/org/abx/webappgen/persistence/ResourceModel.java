@@ -62,7 +62,7 @@ public class ResourceModel {
         long resourceId = elementHashCode(arrayResourceName);
         // Get the MapResource or throw if not found
         ArrayResource arrayResource = arrayResourceRepository.findByArrayResourceId(resourceId);
-        PageRequest pageRequest = PageRequest.of(page, size, Sort.by("arrayResourceId").ascending());
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.by("arrayEntryId").ascending());
         // Use the custom query
         org.springframework.data.domain.Page<ArrayEntry> pageResult = arrayEntryRepository.findByArrayResource(arrayResource, pageRequest);
         JSONArray jsonArray = new JSONArray();
