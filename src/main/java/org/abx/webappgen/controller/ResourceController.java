@@ -210,7 +210,7 @@ public class ResourceController extends RoleController {
     @Secured("Admin")
     @GetMapping(value = "/arrays/{arrayName}/count", produces = MediaType.APPLICATION_JSON_VALUE)
     public long getArrayEntriesCount(@PathVariable String arrayName) {
-        return resourceModel.getMapEntriesCount(arrayName);
+        return resourceModel.getArrayEntriesCount(arrayName);
     }
 
     @GetMapping("/binaries/{resource}")
