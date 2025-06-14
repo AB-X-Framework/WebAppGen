@@ -197,7 +197,7 @@ public class SpecsImporter {
         specs.description = method.getString("description");
         specs.methodSpecId = elementHashCode(specs.methodName);
         specs.methodJS = getData(specsFolder + "/methods/" +
-                packageName + "/" + specs.methodName.replace('.','/') + ".js", fs);
+               specs.methodName.replace('.','/') + ".js", fs);
         specs.type = method.getString("type");
         specs.outputName = method.getString("outputName");
         specs.role = method.getString("role");
