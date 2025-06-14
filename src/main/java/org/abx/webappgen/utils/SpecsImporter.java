@@ -180,6 +180,7 @@ public class SpecsImporter {
     }
 
     private void processPackageMethods(String specsFolder, String packageName, boolean fs) throws Exception {
+
         String methods = getData(specsFolder + "/methods/" + packageName + ".json", fs);
         JSONArray jsonMethods = new JSONArray(methods);
         for (int i = 0; i < jsonMethods.length(); i++) {
@@ -196,7 +197,7 @@ public class SpecsImporter {
         specs.description = method.getString("description");
         specs.methodSpecId = elementHashCode(specs.methodName);
         specs.methodJS = getData(specsFolder + "/methods/" +
-                packageName + "/" + specs.methodName + ".js", fs);
+                packageName + "/" + specs.methodName.replace('.','/') + ".js", fs);
         specs.type = method.getString("type");
         specs.outputName = method.getString("outputName");
         specs.role = method.getString("role");
