@@ -99,22 +99,22 @@
     "isContainer": true,
     "js": [{
       "env": "",
-      "value": "$(NewEntryConfrim).click(()=>{\n    const value = $(NewEntryValue).val();\n    $.post(`/resources/arrays/${workingEnv.arrayName}/add`,{\n       values : JSON.stringify(value) \n    },(status)=>{\n        if (status.success){\n            PageContent.closeModal(self);\n            workingEnv.renderArray();\n        }else {\n            PageContent.showModal(\"Cannot add value \"+JSON.stringify(status.error));\n        }\n    });\n});"
+      "value": "$(NewEntryConfrim).click(()=>{\n    const value = $(NewEntryValue).val();\n    $.post(`/resources/arrays/${workingEnv.arrayName}/add`,{\n       value :value\n    },(status)=>{\n        if (status.success){\n            PageContent.closeModal(self);\n            workingEnv.renderArray();\n        }else {\n            PageContent.showModal(\"Cannot add value \"+JSON.stringify(status.error));\n        }\n    });\n});"
     }]
   },
   {
     "specs": [{
       "env": "",
       "value": {
-        "label": "New entry value",
-        "title": "Entry value",
+        "label": "Array value",
+        "title": "New value",
         "content": ""
       }
     }],
     "name": "webappgen.arrays.NewEntryValue",
     "isContainer": false,
     "js": [],
-    "type": "textfield"
+    "type": "textarea"
   },
   {
     "specs": [{
