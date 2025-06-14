@@ -36,7 +36,7 @@ class BinaryResourceTest {
         req.addPart("username", "root@abxwebappgen.org");
         req.addPart("password", "12345");
         System.out.println("STATUS "+servicesClient.process(req).asString());
-        req = servicesClient.post("app", "/resources/binary").
+        req = servicesClient.post("app", "/resources/binaries").
                 addPart("contentType", "application/octet-stream").
                 addPart("role", "Admin").
                 addPart("packageName", "myPackage").
@@ -45,7 +45,7 @@ class BinaryResourceTest {
         System.out.println(res.asString());
         Assertions.assertEquals(elementHashCode(filename), res.asLong());
 
-        req = servicesClient.get("app", "/resources/binary/"+filename);
+        req = servicesClient.get("app", "/resources/binaries/"+filename);
         res = servicesClient.process(req);
         Assertions.assertEquals(res.headers().get("Content-Type").getFirst(), "application/octet-stream");
         Assertions.assertEquals("abcd", res.asString());
