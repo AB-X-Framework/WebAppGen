@@ -328,7 +328,7 @@
   {
     "specs": [{
       "env": "",
-      "value": {"title": "Save Map"}
+      "value": {"title": "Save Array"}
     }],
     "name": "webappgen.arrays.SaveMap",
     "isContainer": false,
