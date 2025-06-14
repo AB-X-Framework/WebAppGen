@@ -248,7 +248,7 @@ public class SpecsImporter {
             for (int j = 0; j < textPackages.length(); j++) {
                 JSONObject jsonResource = textPackages.getJSONObject(j);
                 String name = jsonResource.getString("name");
-                String file = specsPath + "/text/" + packageName + "/" + name;
+                String file = specsPath + "/text/"  + "/" + name.replace('.','/') + ".txt";
                 String data = getData(file, fs);
                 resourceModel.saveTextResource(name, packageName,
                         data, jsonResource.getString("role"));

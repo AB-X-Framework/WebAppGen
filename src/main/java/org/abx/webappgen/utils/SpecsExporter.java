@@ -329,7 +329,8 @@ public class SpecsExporter {
                 jsonTextResource.put("name", textResource.resourceName);
                 jsonTextResource.put("package", packageName);
                 jsonTextResource.put("role", textResource.role);
-                new FileOutputStream(specsFolder + "/text/" + packageName + "/" + textResource.resourceName).
+                new FileOutputStream(specsFolder + "/text/" +
+                        textResource.resourceName.replace('.','/') + ".txt").
                         write(textResource.resourceValue.getBytes());
             }
 
