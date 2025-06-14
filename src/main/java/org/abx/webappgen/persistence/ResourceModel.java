@@ -256,7 +256,7 @@ public class ResourceModel {
             long key = object.getLong("key");
 
             String value = object.getString("value");
-            ArrayEntry entry = arrayEntryRepository.findByArrayEntryId(id);
+            ArrayEntry entry = arrayEntryRepository.findByArrayEntryId(key);
             if (entry == null) {
                 throw new Exception("Entry not found");
             }
