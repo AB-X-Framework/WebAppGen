@@ -2,9 +2,9 @@
   {
     "specs": [{
       "env": "",
-      "value": {"title": "Create New Map"}
+      "value": {"title": "Create New Array"}
     }],
-    "name": "webappgen.arrays.NewMapConfirm",
+    "name": "webappgen.arrays.NewArrayConfirm",
     "isContainer": false,
     "js": [],
     "type": "button"
@@ -13,23 +13,23 @@
     "layout": "popup",
     "components": [
       {
-        "innerId": "NewMapName",
-        "component": "webappgen.arrays.NewMapName",
+        "innerId": "NewArrayName",
+        "component": "webappgen.arrays.NewArrayName",
         "size": "l12",
         "env": ""
       },
       {
-        "innerId": "NewMapConfirm",
-        "component": "webappgen.arrays.NewMapConfirm",
+        "innerId": "NewArrayConfirm",
+        "component": "webappgen.arrays.NewArrayConfirm",
         "size": "l12",
         "env": ""
       }
     ],
-    "name": "webappgen.arrays.NewMapModal",
+    "name": "webappgen.arrays.NewArrayModal",
     "isContainer": true,
     "js": [{
       "env": "",
-      "value": "$(NewMapConfirm).click(()=>{\n    const name = $(NewMapName).val();\n    $.post(`/resources/arrays/${name}`,(status)=>{\n       if (status.success){\n           PageContent.closeModal(self);\n           addAutocompleteValue(workingEnv.PackageName,status.package)\n           addAutocompleteValue(workingEnv.MapName,name);\n       } else {\n           PageContent.showModal(\"Cannot create map\"+JSON.stringify(status.error))\n       }\n    });\n});"
+      "value": "$(NewArrayConfirm).click(()=>{\n    const name = $(NewArrayName).val();\n    $.post(`/resources/arrays/${name}`,(status)=>{\n       if (status.success){\n           PageContent.closeModal(self);\n           addAutocompleteValue(workingEnv.PackageName,status.package)\n           addAutocompleteValue(workingEnv.MapName,name);\n       } else {\n           PageContent.showModal(\"Cannot create map\"+JSON.stringify(status.error))\n       }\n    });\n});"
     }]
   },
   {
@@ -366,8 +366,8 @@
         "env": ""
       },
       {
-        "innerId": "NewMap",
-        "component": "webappgen.arrays.NewMap",
+        "innerId": "NewArray",
+        "component": "webappgen.arrays.NewArray",
         "size": "",
         "env": ""
       },
@@ -402,8 +402,8 @@
         "env": ""
       },
       {
-        "innerId": "NewMapModal",
-        "component": "webappgen.arrays.NewMapModal",
+        "innerId": "NewArrayModal",
+        "component": "webappgen.arrays.NewArrayModal",
         "size": "l12",
         "env": ""
       }
@@ -421,7 +421,7 @@
       },
       {
         "env": "",
-        "value": "$(NewMap).click(()=>{\n    PageContent.openModal(NewMapModal);\n});"
+        "value": "$(NewArray).click(()=>{\n    PageContent.openModal(NewArrayModal);\n});"
       },
       {
         "env": "",
@@ -432,9 +432,9 @@
   {
     "specs": [{
       "env": "",
-      "value": {"title": "New Map"}
+      "value": {"title": "New Array"}
     }],
-    "name": "webappgen.arrays.NewMap",
+    "name": "webappgen.arrays.NewArray",
     "isContainer": false,
     "js": [],
     "type": "button"
@@ -468,7 +468,7 @@
         "content": ""
       }
     }],
-    "name": "webappgen.arrays.NewMapName",
+    "name": "webappgen.arrays.NewArrayName",
     "isContainer": false,
     "js": [],
     "type": "textfield"
@@ -476,7 +476,7 @@
   {
     "specs": [{
       "env": "",
-      "value": {"title": "New Map"}
+      "value": {"title": "New Array"}
     }],
     "name": "webappgen.arrays.ProcessAddMap",
     "isContainer": false,
