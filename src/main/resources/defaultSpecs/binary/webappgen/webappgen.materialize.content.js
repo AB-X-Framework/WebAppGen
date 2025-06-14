@@ -129,6 +129,7 @@ class PageContent {
                     break;
                 case "section":
                     PageContent.renderSection(output, componentSpecs.specs);
+                    break;
                 case "label":
                     PageContent.renderLabel(output, componentSpecs.specs);
                     break;

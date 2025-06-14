@@ -162,7 +162,7 @@ public class ResourceController extends RoleController {
     }
 
     @Secured("Admin")
-    @PostMapping(value = "/maps/{arrayName}/entries", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/arrays/{arrayName}/entries", produces = MediaType.APPLICATION_JSON_VALUE)
     public String saveArrayEntries(
             @PathVariable String arrayName,
             @RequestParam String values) {
