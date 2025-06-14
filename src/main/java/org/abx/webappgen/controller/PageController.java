@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.stringtemplate.v4.ST;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Set;
 
 import static org.abx.webappgen.utils.ElementUtils.elementHashCode;
@@ -21,7 +22,7 @@ import static org.abx.webappgen.utils.ElementUtils.elementHashCode;
 @RestController
 @RequestMapping("/page")
 public class PageController extends RoleController {
-    public final static String LANG = "lang";
+    public final static String Env = "Env";
 
     private ST pageTemplate;
 
@@ -65,13 +66,13 @@ public class PageController extends RoleController {
 
 
     private String env(HttpSession session) {
-        StringBuilder env = new StringBuilder();
-        if (session.getAttribute(LANG) != null) {
-            env.append((String) session.getAttribute(LANG));
+        if (session.getAttribute(Env) == null) {
+            StringBuilder env = new StringBuilder(pageModel.defaultEnv());
+            for (String role : getRoles()) {
+                env.append("|role=").append(role);
+            }
+            session.setAttribute(Env, env.toString());
         }
-        for (String role : getRoles()) {
-            env.append("|").append(role);
-        }
-        return env.toString();
+        return (String) session.getAttribute(Env);
     }
 }

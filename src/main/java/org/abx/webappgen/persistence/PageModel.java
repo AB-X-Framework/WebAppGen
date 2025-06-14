@@ -31,9 +31,11 @@ public class PageModel {
     public static final String Package = "package";
     public static final String IsContainer = "isContainer";
     public static final String Component = "component";
-    long envId;
 
-    long hideDefaultsId;
+    private final  long envId;
+    private final long hideDefaultsId;
+    private final  long defaultEnv;
+
     @Autowired
     public PageRepository pageRepository;
 
@@ -80,6 +82,7 @@ public class PageModel {
     public PageModel() {
         envId = PageModel.mapHashCode("app.Env", "home");
         hideDefaultsId = PageModel.mapHashCode("app.Env", "hideDefaults");
+        defaultEnv = PageModel.mapHashCode("app.Env", "defaultEnv");
     }
 
     @Transactional
@@ -249,6 +252,12 @@ public class PageModel {
     public JSONObject getPageByPageMatchesId(Set<String> roles, String env, long matchId) {
         Page page = pageRepository.findByMatchesId(matchId);
         return getPageByPageId(roles, env, page);
+    }
+
+
+    @Transactional
+    public String defaultEnv() {
+        return mapEntryRepository.findByMapEntryId(defaultEnv).mapValue;
     }
 
     private JSONObject getPageByPageId(Set<String> roles, String env, Page page) {
