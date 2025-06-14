@@ -58,7 +58,7 @@ public class ResourceController extends RoleController {
     }
 
     @Secured("Admin")
-    @PostMapping(value = "/maps/{arrayName}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/arrays/{arrayName}", produces = MediaType.APPLICATION_JSON_VALUE)
     public String createArray(
             @PathVariable String arrayName) {
         String packageName = arrayName.substring(0, arrayName.lastIndexOf('.'));
@@ -91,7 +91,7 @@ public class ResourceController extends RoleController {
 
 
     @Secured("Admin")
-    @DeleteMapping(value = "/maps/{arrayName}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = "/arrays/{arrayName}", produces = MediaType.APPLICATION_JSON_VALUE)
     public String deleteArray(
             @PathVariable String arrayName) {
         JSONObject result = new JSONObject();
@@ -130,7 +130,7 @@ public class ResourceController extends RoleController {
     }
 
     @Secured("Admin")
-    @DeleteMapping(value = "/array/{mapName}/entries/{key}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = "/arrays/{mapName}/entries/{key}", produces = MediaType.APPLICATION_JSON_VALUE)
     public String deleteArrayIndex(
             @PathVariable String mapName,
             @PathVariable long key) {
@@ -184,7 +184,7 @@ public class ResourceController extends RoleController {
     }
 
     @Secured("Admin")
-    @GetMapping(value = "/packages/array", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/packages/arrays", produces = MediaType.APPLICATION_JSON_VALUE)
     public String arrayPackages() {
         return resourceModel.getArrayPackages().toString();
     }
