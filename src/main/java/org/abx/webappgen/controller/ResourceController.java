@@ -130,7 +130,7 @@ public class ResourceController extends RoleController {
     }
 
     @Secured("Admin")
-    @DeleteMapping(value = "/maps/{mapName}/entries/{key}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = "/array/{mapName}/entries/{key}", produces = MediaType.APPLICATION_JSON_VALUE)
     public String deleteArrayIndex(
             @PathVariable String mapName,
             @PathVariable long key) {
