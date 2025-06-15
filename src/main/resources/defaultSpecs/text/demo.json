@@ -1,5 +1,8 @@
-[{
-  "package": "demo",
-  "role": "Anonymous",
-  "name": "demo.loren"
+[
+  {
+    "package": "demo",
+    "role": "Anonymous",
+    "name": "demo.loren",
+    "owner": "root@abxwebappgen.org",
+    "title": "Text"
 }]
