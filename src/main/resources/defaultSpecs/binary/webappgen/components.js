@@ -198,16 +198,17 @@ function cloneEnv() {
     selectOrAddValue($env, $env.find('option').length, selectedText);
     if (detailType === "js") {
         const value = JSON.parse(JSON.stringify(workingEnv.component.js[index]));
-        workingEnv.push(value);
+        workingEnv.component.js.push(value);
     } else {
         if (componentType === "Container") {
             const value = JSON.parse(JSON.stringify(workingEnv.component.components[index]));
-            workingEnv.push(value);
+            workingEnv.component.components.push(value);
         } else {
             const value = JSON.parse(JSON.stringify(workingEnv.component.specs[index]));
-            workingEnv.push(value);
+            workingEnv.component.specs.push(value);
         }
     }
+    renderCurrentComponent();
     markChanged();
 }
 
