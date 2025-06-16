@@ -618,7 +618,7 @@
       {
         "innerId": "ContainerLayout",
         "component": "webappgen.components.ContainerLayout",
-        "size": "l2",
+        "size": "l1",
         "env": ""
       },
       {
@@ -660,6 +660,12 @@
       {
         "innerId": "MoveUp",
         "component": "webappgen.components.env.MoveUp",
+        "size": "",
+        "env": ""
+      },
+      {
+        "innerId": "elem10",
+        "component": "webappgen.components.env.Clone",
         "size": "",
         "env": ""
       },
