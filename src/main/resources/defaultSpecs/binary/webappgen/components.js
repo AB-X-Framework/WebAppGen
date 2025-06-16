@@ -191,9 +191,12 @@ function updateElementType() {
 function cloneEnv() {
     const componentType = $(workingEnv.ComponentType).val();
     const detailType = $(workingEnv.shouldUpdateDetailType).val();
-    const index = $(workingEnv.ComponentEnv).val();
-    if (detailType === "js") {
+    const $env = $(workingEnv.ComponentEnv);
+    const index = $env.val();
+    const selectedText = $(select).find('option:selected').text();
 
+    selectOrAddValue($env, $env.find('option').length, selectedText);
+    if (detailType === "js") {
     } else {
         if (componentType === "Container") {
 
