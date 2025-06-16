@@ -91,7 +91,6 @@ class PageContent {
     }
 
     static renderComponent(output, js, componentSpecs) {
-
         if (componentSpecs.isContainer) {
             if (componentSpecs.layout === "nav") {
                 PageContent.renderNav(output, js, componentSpecs);
@@ -171,13 +170,11 @@ class PageContent {
         if (componentSpecs.js !== "") {
             js.push(componentSpecs.js);
         }
-
     }
 
     static renderNav(output, js, componentSpecs) {
         var children = componentSpecs.children;
-        output.push(`
-<header><div class="container">
+        output.push(`<header><div class="container">
        <div class="container">
         <a href="#" data-target="nav-mobile"
            class="top-nav sidenav-trigger waves-effect waves-light circle hide-on-large-only">
@@ -313,14 +310,13 @@ class PageContent {
 
     static renderModal(output, js, specs) {
         var results = `<div id="${specs.id}" class="modal">
-    <div class="modal-content">
-        <h4>${specs.title}</h4>
-        <p>${specs.content}</p>
-    </div>
-    <div class="modal-footer">
-        <a href="#!" class="modal-close waves-effect waves-green btn-flat">OK</a>
-    </div>
-</div>`;
+        <div class="modal-content">
+            <h4>${specs.title}</h4>
+            <p>${specs.content}</p>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">OK</a>
+        </div></div>`;
         js.push(`M.Modal.init(${specs.id});`)
         output.push(results);
 
@@ -364,14 +360,14 @@ class PageContent {
     static renderFile(output, specs) {
         var results =
             `<div class="input-field">
-  <label for="${specs.id}" class="active">${specs.title}</label>
-  <div class="file-field input-field">
-      <input type="file" id="${specs.id}">
-    <div class="file-path-wrapper">
-      <input class="file-path validate" type="text" placeholder="${specs.content}">
-    </div>
-  </div>
-</div>`;
+          <label for="${specs.id}" class="active">${specs.title}</label>
+          <div class="file-field input-field">
+              <input type="file" id="${specs.id}">
+            <div class="file-path-wrapper">
+              <input class="file-path validate" type="text" placeholder="${specs.content}">
+            </div>
+          </div>
+        </div>`;
         output.push(results);
     }
 
@@ -446,8 +442,8 @@ class PageContent {
             js.push(`$(${specs.id}).formSelect();`);
             if (specs.onChange) {
                 js.push(`$(${specs.id}).on('change', function () {
-        ${specs.onChange}( $(this).val());
-      });`);
+                    ${specs.onChange}( $(this).val());
+                });`);
             }
             output.push(results);
         }
@@ -457,19 +453,18 @@ class PageContent {
         var result = `
     <script src="/resources/binaries/ace/ace.js"></script>
     <div id="${specs.id}" style="height: ${specs.height}; width: 100%">${specs.content}</div>
-        
-<script>
-   { const editor = ace.edit("${specs.id}");
-    editor.setTheme("ace/theme/monokai"); // Change theme if desired
-    editor.session.setMode("ace/mode/javascript"); // JS highlighting
-    editor.setOptions({
-        fontSize: "14px",
-        showPrintMargin: false,
-        wrap: true,
-        useWorker: true // Enables JS syntax checking
-    });
-    }
-</script>`;
+    <script>
+       { const editor = ace.edit("${specs.id}");
+        editor.setTheme("ace/theme/monokai"); // Change theme if desired
+        editor.session.setMode("ace/mode/javascript"); // JS highlighting
+        editor.setOptions({
+            fontSize: "14px",
+            showPrintMargin: false,
+            wrap: true,
+            useWorker: true // Enables JS syntax checking
+        });
+        }
+    </script>`;
         output.push(result);
     }
 
@@ -492,17 +487,16 @@ class PageContent {
 
     static renderOkCancelModal(output, js, specs) {
         let html = `
-    <div id="${specs.id}" class="modal">
-    
-      <div class="modal-content">
-       <h5>${specs.title}</h5>
-      <p>${specs.content}</p></div>
-      <div class="modal-footer">
-        <button class="modal-close btn green" id="${specs.id}_ok">${specs.ok}</button>
-        <button class="modal-close btn red" id="${specs.id}_cancel">${specs.cancel}</button>
-      </div>
-    </div>
-  `;
+        <div id="${specs.id}" class="modal">
+          <div class="modal-content">
+           <h5>${specs.title}</h5>
+          <p>${specs.content}</p></div>
+          <div class="modal-footer">
+            <button class="modal-close btn green" id="${specs.id}_ok">${specs.ok}</button>
+            <button class="modal-close btn red" id="${specs.id}_cancel">${specs.cancel}</button>
+          </div>
+        </div>
+      `;
         js.push(`${specs.id}.ok=${specs.id}_ok`);
         js.push(`${specs.id}.cancel=${specs.id}_cancel`);
         output.push(html);
@@ -510,17 +504,16 @@ class PageContent {
 
 
     static renderSwitch(output, js, specs) {
-
         let result = `<div class="input-field">
-  <p>${specs.title}</p>
-  <div class="switch">
-  <label>
-    ${specs.cancel}
-    <input id="${specs.id}" type="checkbox" >
-    <span class="lever"></span>
-    ${specs.ok}
-  </label>
-</div></div>`;
+      <p>${specs.title}</p>
+      <div class="switch">
+      <label>
+        ${specs.cancel}
+        <input id="${specs.id}" type="checkbox" >
+        <span class="lever"></span>
+        ${specs.ok}
+      </label>
+    </div></div>`;
         js.push(`
         if ("${specs.src}" === "true"){
                ${specs.id}.checked = true;
@@ -542,28 +535,24 @@ class PageContent {
 
     static renderMenu(output, js, specs) {
         var result = ` 
-<!-- Dropdown Structure -->
-
-<ul id="dropdown1" class="dropdown-content">
-  <li><a href="#!">one</a></li>
-  <li><a href="#!">two</a></li>
-  <li class="divider"></li>
-  <li><a href="#!">three</a></li>
-</ul>
-<nav>
-  <div class="nav-wrapper">
-    <ul class="left hide-on-med-and-down">
-      ${PageContent.renderMenuItems(specs.items)}
-      <!-- Dropdown Trigger -->
-      <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Dropdown<i class="material-icons right">arrow_drop_down</i></a></li>
-    </ul>
-  </div>
-</nav>
-        
-`
-        js.push(`
-$(".dropdown-trigger").dropdown();
-        `)
+        <!-- Dropdown Structure -->
+        <ul id="dropdown1" class="dropdown-content">
+          <li><a href="#!">one</a></li>
+          <li><a href="#!">two</a></li>
+          <li class="divider"></li>
+          <li><a href="#!">three</a></li>
+        </ul>
+        <nav>
+          <div class="nav-wrapper">
+            <ul class="left hide-on-med-and-down">
+              ${PageContent.renderMenuItems(specs.items)}
+              <!-- Dropdown Trigger -->
+              <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Dropdown<i class="material-icons right">arrow_drop_down</i></a></li>
+            </ul>
+          </div>
+        </nav>   
+        `
+        js.push(`$(".dropdown-trigger").dropdown();`)
         output.push(result)
     }
 
@@ -575,14 +564,14 @@ $(".dropdown-trigger").dropdown();
 
         // Modal content
         modal.innerHTML = `
-    <div class="modal-content">
-      <h4>${title}</h4>
-      <p>${content}</p>
-    </div>
-    <div class="modal-footer">
-      <a href="#!" class="modal-close waves-effect waves-green btn-flat">OK</a>
-    </div>
-  `;
+        <div class="modal-content">
+          <h4>${title}</h4>
+          <p>${content}</p>
+        </div>
+        <div class="modal-footer">
+          <a href="#!" class="modal-close waves-effect waves-green btn-flat">OK</a>
+        </div>
+      `;
 
         // Append to body
         document.body.appendChild(modal);
@@ -688,5 +677,4 @@ class App {
                 }
             });
     }
-
 }
