@@ -188,6 +188,21 @@ function updateElementType() {
     processCurrentComponent(false);
 }
 
+function cloneEnv() {
+    const componentType = $(workingEnv.ComponentType).val();
+    const detailType = $(workingEnv.shouldUpdateDetailType).val();
+    const index = $(workingEnv.ComponentEnv).val();
+    if (detailType === "js") {
+
+    } else {
+        if (componentType === "Container") {
+
+        } else {
+
+        }
+    }
+}
+
 function processChildren(chooseChildren) {
     hideSpecs();
     let component = workingEnv.component;
@@ -761,6 +776,7 @@ function renderCurrentComponent() {
         });
 }
 
+
 function processContainerLayout(layout) {
     $(workingEnv.ContainerLayout).val(layout);
     $(workingEnv.ContainerLayout).formSelect();
@@ -776,7 +792,8 @@ function updateContainerLayout() {
     renderCurrentComponent();
     if (layout === "popup") {
         $(workingEnv.SpecsShowModal).parent().parent().parent().show();
-    } else {$(workingEnv.SpecsShowModal).parent().parent().parent().hide();
+    } else {
+        $(workingEnv.SpecsShowModal).parent().parent().parent().hide();
     }
 }
 
