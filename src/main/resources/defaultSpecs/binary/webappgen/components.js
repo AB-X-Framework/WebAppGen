@@ -193,18 +193,24 @@ function cloneEnv() {
     const detailType = $(workingEnv.shouldUpdateDetailType).val();
     const $env = $(workingEnv.ComponentEnv);
     const index = $env.val();
-    const selectedText = $(select).find('option:selected').text();
+    const selectedText = $env.find('option:selected').text();
 
     selectOrAddValue($env, $env.find('option').length, selectedText);
     if (detailType === "js") {
+        const value = JSON.parse(JSON.stringify(workingEnv.component.js[index]));
+        workingEnv.push(value);
     } else {
         if (componentType === "Container") {
-
+            const value = JSON.parse(JSON.stringify(workingEnv.component.components[index]));
+            workingEnv.push(value);
         } else {
-
+            const value = JSON.parse(JSON.stringify(workingEnv.component.specs[index]));
+            workingEnv.push(value);
         }
     }
+    markChanged();
 }
+cloneEnv();
 
 function processChildren(chooseChildren) {
     hideSpecs();
