@@ -210,7 +210,6 @@ function cloneEnv() {
     }
     markChanged();
 }
-cloneEnv();
 
 function processChildren(chooseChildren) {
     hideSpecs();
