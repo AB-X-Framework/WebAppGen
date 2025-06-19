@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.HashSet;
+import java.util.Set;
 
 import static org.abx.webappgen.utils.ElementUtils.elementHashCode;
 
@@ -62,31 +63,32 @@ public class SpecsImporter {
         if (dropApp) {
             pageModel.clean();
         }
+        Set<String> savedComponents = new HashSet<>();
         if (loadAppResources) {
             JSONArray resources = new JSONArray(specsResources);
             for (int i = 0; i < resources.length(); i++) {
-                loadSpecsResources(resources.getString(i));
+                loadSpecsResources(resources.getString(i), savedComponents);
             }
         }
         if (loadAppFolder) {
-            loadSpecsFolder(specsFolder);
+            loadSpecsFolder(specsFolder, savedComponents);
         }
     }
 
     public boolean uploadBinarySpecs(byte[] zipFolder) throws Exception {
         String path = ZipUtils.unzipToTempFolder(zipFolder);
-        loadSpecsFolder(path);
+        loadSpecsFolder(path, new HashSet<>());
         return true;
     }
 
 
-    public void loadSpecsFolder(String specsFolder) throws Exception {
-        loadSpecs(specsFolder, true);
+    public void loadSpecsFolder(String specsFolder, Set<String> savedComponents) throws Exception {
+        loadSpecs(specsFolder, true, savedComponents);
     }
 
 
-    public void loadSpecsResources(String specsFolder) throws Exception {
-        loadSpecs(specsFolder, false);
+    public void loadSpecsResources(String specsFolder, Set<String> savedComponents) throws Exception {
+        loadSpecs(specsFolder, false, savedComponents);
     }
 
     public String getData(String resource, boolean fs) throws Exception {
@@ -118,7 +120,7 @@ public class SpecsImporter {
      * @param specsPath
      * @throws Exception
      */
-    public void loadSpecs(String specsPath, boolean fs) throws Exception {
+    public void loadSpecs(String specsPath, boolean fs, Set<String> savedComponents) throws Exception {
         String data = getData(specsPath + "/specs.json", fs);
         JSONObject obj = new JSONObject(data);
         processUsers(specsPath, obj.getString("users"), fs);
@@ -130,7 +132,7 @@ public class SpecsImporter {
         JSONObject resources = obj.getJSONObject("resources");
         processResource(specsPath, resources, fs);
         JSONArray components = obj.getJSONArray("components");
-        processComponents(specsPath, components, fs);
+        processComponents(specsPath, components, fs, savedComponents);
         JSONArray pages = obj.getJSONArray("pages");
         processPages(specsPath, pages, fs);
     }
@@ -266,9 +268,8 @@ public class SpecsImporter {
         processMapResource(specsPath, resource.getJSONArray("map"), fs);
     }
 
-    private void processComponents(String specsPath, JSONArray componentPackages, boolean fs) throws Exception {
+    private void processComponents(String specsPath, JSONArray componentPackages, boolean fs, Set<String> saved) throws Exception {
         JSONArray missing = new JSONArray();
-        HashSet<String> saved = new HashSet<>();
         for (int i = 0; i < componentPackages.length(); i++) {
             String componentPackage = componentPackages.getString(i);
             String packages = getData(specsPath + "/components/" + componentPackage + ".json", fs);
@@ -288,6 +289,7 @@ public class SpecsImporter {
             if (missing.length() == totalMissing) {
                 throw new Exception("Could not resolve all components " + missing.toString(2));
             }
+            totalMissing = missing.length();
         }
     }
 
@@ -327,7 +329,7 @@ public class SpecsImporter {
         pageRepository.delete(exitingPage);
     }
 
-    private JSONArray processComponentsAux(JSONArray components, HashSet<String> saved) throws Exception {
+    private JSONArray processComponentsAux(JSONArray components, Set<String> saved) throws Exception {
         if (components.isEmpty()) {
             return components;
         }
