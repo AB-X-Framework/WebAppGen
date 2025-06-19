@@ -1,42 +1,5 @@
 [
   {
-    "layout": "popup",
-    "components": [
-      {
-        "innerId": "NewEntryValue",
-        "component": "webappgen.texts.NewEntryValue",
-        "size": "l12",
-        "env": ""
-      },
-      {
-        "innerId": "NewEntryConfrim",
-        "component": "webappgen.texts.NewEntryConfirm",
-        "size": "l12",
-        "env": ""
-      }
-    ],
-    "name": "webappgen.texts.NewEntryModal",
-    "isContainer": true,
-    "js": [{
-      "env": "",
-      "value": "$(NewEntryConfrim).click(()=>{\n    const value = $(NewEntryValue).val();\n    $.post(`/resources/texts/${workingEnv.textName}/add`,{\n       value :value\n    },(status)=>{\n        if (status.success){\n            PageContent.closeModal(self);\n            workingEnv.renderText();\n        }else {\n            PageContent.showModal(\"Cannot add value \"+JSON.stringify(status.error));\n        }\n    });\n});"
-    }]
-  },
-  {
-    "specs": [{
-      "env": "",
-      "value": {
-        "label": "Text value",
-        "title": "New value",
-        "content": ""
-      }
-    }],
-    "name": "webappgen.texts.NewEntryValue",
-    "isContainer": false,
-    "js": [],
-    "type": "textarea"
-  },
-  {
     "specs": [{
       "env": "",
       "value": {
@@ -64,12 +27,6 @@
         "env": ""
       },
       {
-        "innerId": "Pagination",
-        "component": "webappgen.texts.Pagination",
-        "size": "",
-        "env": ""
-      },
-      {
         "innerId": "NewText",
         "component": "webappgen.texts.NewText",
         "size": "",
@@ -84,12 +41,6 @@
       {
         "innerId": "ConfirmDeleteText",
         "component": "webappgen.texts.ConfirmDeleteText",
-        "size": "l12",
-        "env": ""
-      },
-      {
-        "innerId": "NewEntryModal",
-        "component": "webappgen.texts.NewEntryModal",
         "size": "l12",
         "env": ""
       },
@@ -218,23 +169,6 @@
       "env": ""
     }],
     "name": "webappgen.texts.DetailsPanel",
-    "isContainer": true,
-    "js": []
-  },
-  {
-    "specs": [{
-      "env": "",
-      "value": {"title": "Add New Entry"}
-    }],
-    "name": "webappgen.texts.NewEntryConfirm",
-    "isContainer": false,
-    "js": [],
-    "type": "button"
-  },
-  {
-    "layout": "horizontal",
-    "components": [],
-    "name": "webappgen.texts.Pagination",
     "isContainer": true,
     "js": []
   },
