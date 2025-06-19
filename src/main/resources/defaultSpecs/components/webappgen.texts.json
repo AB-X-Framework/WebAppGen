@@ -70,18 +70,6 @@
         "env": ""
       },
       {
-        "innerId": "Label",
-        "component": "webappgen.texts.Label",
-        "size": "l12",
-        "env": ""
-      },
-      {
-        "innerId": "NewEntry",
-        "component": "webappgen.texts.NewEntry",
-        "size": "l12",
-        "env": ""
-      },
-      {
         "innerId": "NewText",
         "component": "webappgen.texts.NewText",
         "size": "",
@@ -245,20 +233,7 @@
   },
   {
     "layout": "horizontal",
-    "components": [
-      {
-        "innerId": "Prev",
-        "component": "webappgen.texts.Prev",
-        "size": "",
-        "env": ""
-      },
-      {
-        "innerId": "Next",
-        "component": "webappgen.texts.Next",
-        "size": "l1",
-        "env": ""
-      }
-    ],
+    "components": [],
     "name": "webappgen.texts.Pagination",
     "isContainer": true,
     "js": []
@@ -304,19 +279,6 @@
       "value": "$(self.ok).click(()=>{\n    const values = Object.entries(workingEnv.updatedText).map(([key, value]) => ({ key, value }));\n\n   $.post(`/resources/texts/${workingEnv.textName}/entries`,{\n       \"values\" : JSON.stringify(values) \n    },(status)=>{\n        if (status.success){\n            PageContent.closeModal(self);\n            workingEnv.renderText();\n            workingEnv.SaveText.markSaved();\n        }else {\n            PageContent.showModal(\"Cannot save values \"+JSON.stringify(status.error));\n        }\n    }); \n});"
     }],
     "type": "okCancelModal"
-  },
-  {
-    "specs": [{
-      "env": "",
-      "value": {
-        "src": "",
-        "content": "Entries"
-      }
-    }],
-    "name": "webappgen.texts.Label",
-    "isContainer": false,
-    "js": [],
-    "type": "label"
   },
   {
     "specs": [{
@@ -387,16 +349,6 @@
     }]
   },
   {
-    "specs": [{
-      "env": "",
-      "value": {"title": "New Entry"}
-    }],
-    "name": "webappgen.texts.NewEntry",
-    "isContainer": false,
-    "js": [],
-    "type": "button"
-  },
-  {
     "layout": "horizontal",
     "components": [{
       "innerId": "DetailsPanel",
@@ -407,32 +359,6 @@
     "name": "webappgen.texts.RightPanel",
     "isContainer": true,
     "js": []
-  },
-  {
-    "specs": [{
-      "env": "",
-      "value": {"title": ">"}
-    }],
-    "name": "webappgen.texts.Next",
-    "isContainer": false,
-    "js": [{
-      "env": "",
-      "value": "$(self).click(()=>{\n    workingEnv.currPage+=1;\n    workingEnv.renderNextValues();\n});"
-    }],
-    "type": "button"
-  },
-  {
-    "specs": [{
-      "env": "",
-      "value": {"title": "<"}
-    }],
-    "name": "webappgen.texts.Prev",
-    "isContainer": false,
-    "js": [{
-      "env": "",
-      "value": "$(self).click(()=>{\n    workingEnv.currPage=Math.max( workingEnv.currPage-1,0);\n    workingEnv.renderNextValues();\n});"
-    }],
-    "type": "button"
   },
   {
     "layout": "vertical",

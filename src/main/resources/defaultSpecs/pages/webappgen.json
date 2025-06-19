@@ -67,7 +67,7 @@
     "css": [],
     "role": "Admin",
     "name": "webappgen.Texts",
-    "title": "Arrays",
+    "title": "Texts",
     "scripts": [
       {
         "env": "",
