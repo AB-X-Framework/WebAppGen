@@ -276,6 +276,10 @@
           {
             "text": "Arrays",
             "value": "/page/Arrays"
+          },
+          {
+            "text": "Texts",
+            "value": "/page/Texts"
           }
         ]
       }

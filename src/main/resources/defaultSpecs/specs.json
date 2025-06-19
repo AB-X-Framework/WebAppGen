@@ -39,8 +39,8 @@
     ],
     "binary": [
       "ace",
-      "webappgen",
-      "jquery"
+      "jquery",
+      "webappgen"
     ],
     "text": ["demo"],
     "map": [{

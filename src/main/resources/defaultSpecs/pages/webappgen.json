@@ -63,6 +63,24 @@
     "matches": "Pages"
   },
   {
+    "component": "webappgen.texts.MainMapComponent",
+    "css": [],
+    "role": "Admin",
+    "name": "webappgen.Texts",
+    "title": "Arrays",
+    "scripts": [
+      {
+        "env": "",
+        "value": "/resources/binaries/webappgen/utils.js"
+      },
+      {
+        "env": "",
+        "value": "/resources/binaries/webappgen/maps.js"
+      }
+    ],
+    "matches": "Texts"
+  },
+  {
     "component": "webappgen.components.ComponentsPageComponent",
     "css": [{
       "env": "",
