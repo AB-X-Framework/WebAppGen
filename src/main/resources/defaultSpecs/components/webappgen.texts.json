@@ -162,12 +162,20 @@
   },
   {
     "layout": "horizontal",
-    "components": [{
-      "innerId": "DetailsContainer",
-      "component": "webappgen.base.div",
-      "size": "l12",
-      "env": ""
-    }],
+    "components": [
+      {
+        "innerId": "DetailsContainer",
+        "component": "webappgen.texts.Title",
+        "size": "l6",
+        "env": ""
+      },
+      {
+        "innerId": "elem1",
+        "component": "webappgen.texts.Owner",
+        "size": "l6",
+        "env": ""
+      }
+    ],
     "name": "webappgen.texts.DetailsPanel",
     "isContainer": true,
     "js": []
@@ -223,6 +231,34 @@
     "isContainer": false,
     "js": [],
     "type": "button"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "label": "Text owner",
+        "title": "Owner",
+        "content": ""
+      }
+    }],
+    "name": "webappgen.texts.Owner",
+    "isContainer": false,
+    "js": [],
+    "type": "textfield"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "label": "Text title",
+        "title": "Text title",
+        "content": ""
+      }
+    }],
+    "name": "webappgen.texts.Title",
+    "isContainer": false,
+    "js": [],
+    "type": "textfield"
   },
   {
     "specs": [{
