@@ -63,7 +63,7 @@
     "matches": "Pages"
   },
   {
-    "component": "webappgen.texts.MainMapComponent",
+    "component": "webappgen.texts.MainTextComponent",
     "css": [],
     "role": "Admin",
     "name": "webappgen.Texts",

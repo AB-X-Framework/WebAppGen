@@ -85,6 +85,26 @@
     ]
   },
   {
+    "layout": "vertical",
+    "components": [
+      {
+        "innerId": "header",
+        "component": "webappgen.home.header",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "modelContainer",
+        "component": "webappgen.texts.TextBody",
+        "size": "",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.texts.MainTextComponent",
+    "isContainer": true,
+    "js": []
+  },
+  {
     "specs": [{
       "env": "",
       "value": {"title": "New Text"}
@@ -139,26 +159,6 @@
       "value": "workingEnv.TextName = self;"
     }],
     "type": "autocomplete"
-  },
-  {
-    "layout": "vertical",
-    "components": [
-      {
-        "innerId": "header",
-        "component": "webappgen.home.header",
-        "size": "l12",
-        "env": ""
-      },
-      {
-        "innerId": "modelContainer",
-        "component": "webappgen.texts.TextBody",
-        "size": "",
-        "env": ""
-      }
-    ],
-    "name": "webappgen.texts.MainMapComponent",
-    "isContainer": true,
-    "js": []
   },
   {
     "layout": "horizontal",
