@@ -1,0 +1,473 @@
+[
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "New Method"}
+    }],
+    "name": "webappgen.methods.ProcessAddMethod",
+    "isContainer": false,
+    "js": [],
+    "type": "button"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "Delete Method"}
+    }],
+    "name": "webappgen.methods.DeleteMethod",
+    "isContainer": false,
+    "js": [],
+    "type": "button"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "label": "Cloned method name",
+        "title": "Cloned method name",
+        "content": ""
+      }
+    }],
+    "name": "webappgen.methods.CloneMethodName",
+    "isContainer": false,
+    "js": [],
+    "type": "textfield"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "label": "New method name",
+        "title": "Method name",
+        "content": ""
+      }
+    }],
+    "name": "webappgen.methods.NewMethodName",
+    "isContainer": false,
+    "js": [],
+    "type": "textfield"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "cancel": "Cancel",
+        "ok": "Delete",
+        "title": "Confirm Delete",
+        "content": "Are you sure to delete this method?"
+      }
+    }],
+    "name": "webappgen.methods.ConfirmDeleteMethod",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "$(self.ok).click(()=>{\n    $.ajax({\n        url: `/resources/methods/${workingEnv.methodName}`, // the resource to delete\n        type: 'DELETE',\n        success: (result)=> {\n            if (result.success){\n                location.reload();    \n            }else {\n                PageContent.showModal(\"Cannot delete method \"+JSON.stringify(result.error));\n            }\n            \n        }\n});\n});"
+    }],
+    "type": "okCancelModal"
+  },
+  {
+    "layout": "vertical",
+    "components": [
+      {
+        "innerId": "MethodsPackage",
+        "component": "webappgen.methods.MethodsPackage",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "MethodName",
+        "component": "webappgen.methods.MethodName",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "MenuPanel",
+        "component": "webappgen.methods.MenuPanel",
+        "size": "l12",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.methods.LeftPanel",
+    "isContainer": true,
+    "js": []
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "Save Method"}
+    }],
+    "name": "webappgen.methods.SaveMethod",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "workingEnv.SaveMethod=self;\nself.markChanged=()=>{\n    $(self).addClass(\"yellow darken-2\");\n}\n\nself.markSaved=()=>{\n    $(self).removeClass(\"yellow darken-2\");\n}"
+    }],
+    "type": "button"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "Create New Method"}
+    }],
+    "name": "webappgen.methods.NewMethodConfirm",
+    "isContainer": false,
+    "js": [],
+    "type": "button"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "label": "Method owner",
+        "title": "Owner",
+        "content": ""
+      }
+    }],
+    "name": "webappgen.methods.Owner",
+    "isContainer": false,
+    "js": [],
+    "type": "textfield"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "label": "Method title",
+        "title": "Method title",
+        "content": ""
+      }
+    }],
+    "name": "webappgen.methods.Title",
+    "isContainer": false,
+    "js": [],
+    "type": "textfield"
+  },
+  {
+    "layout": "container",
+    "components": [
+      {
+        "innerId": "SaveMethod",
+        "component": "webappgen.methods.SaveMethod",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "NewMethod",
+        "component": "webappgen.methods.NewMethod",
+        "size": "",
+        "env": ""
+      },
+      {
+        "innerId": "CloneMethod",
+        "component": "webappgen.methods.CloneMethod",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "DeleteMethod",
+        "component": "webappgen.methods.DeleteMethod",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "ConfirmDeleteMethod",
+        "component": "webappgen.methods.ConfirmDeleteMethod",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "DeletePopup",
+        "component": "webappgen.methods.DeletePopup",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "SaveMethodConfirm",
+        "component": "webappgen.methods.SaveMethodConfirm",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "NewMethodModal",
+        "component": "webappgen.methods.NewMethodModal",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "CloneMethodModal",
+        "component": "webappgen.methods.CloneMethodModal",
+        "size": "l12",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.methods.MenuPanel",
+    "isContainer": true,
+    "js": [
+      {
+        "env": "",
+        "value": "$(SaveMethod).click(()=>{\n    PageContent.openModal(SaveMethodConfirm);\n});"
+      },
+      {
+        "env": "",
+        "value": "$(NewMethod).click(()=>{\n    PageContent.openModal(NewMethodModal);\n});"
+      },
+      {
+        "env": "",
+        "value": "$(CloneMethod).click(()=>{\n    PageContent.openModal(CloneMethodModal);\n});"
+      },
+      {
+        "env": "",
+        "value": "$(DeleteMethod).click(()=>{\n    PageContent.openModal(ConfirmDeleteMethod);\n})"
+      }
+    ]
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "cancel": "Cancel",
+        "ok": "Ok",
+        "title": "Delete Method Entry",
+        "content": "Do you want to delete this entry?"
+      }
+    }],
+    "name": "webappgen.methods.DeletePopup",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "workingEnv.DeletePopup = self;\n\n$(self.ok).click(()=>{\n    const responseFx = (status)=>{\n            if (status.success){\n                PageContent.closeModal(workingEnv.DeletePopup);\n                workingEnv.renderMethod();\n            } else {\n                PageContent.showModal(`Cannot delete ${self.key}. ${JSON.stringify(status.error)}`)\n            }\n        };\n    \n    $.ajax({\n        \"type\": 'DELETE',\n        \"url\":`/resources/methods/${workingEnv.methodName}/entries/${self.key}`,\n        \"success\":responseFx\n    });\n});\n\nself.setKey=(key)=>{\n    self.key = key;\n}"
+    }],
+    "type": "okCancelModal"
+  },
+  {
+    "layout": "popup",
+    "components": [
+      {
+        "innerId": "NewMethodName",
+        "component": "webappgen.methods.NewMethodName",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "NewMethodConfirm",
+        "component": "webappgen.methods.NewMethodConfirm",
+        "size": "l12",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.methods.NewMethodModal",
+    "isContainer": true,
+    "js": [{
+      "env": "",
+      "value": "$(NewMethodConfirm).click(()=>{\n    const name = $(NewMethodName).val();\n    $.post(`/resources/methods`,{\n        \"resource\":JSON.stringify({\n            \"name\":name,\n            \"content\":\"New content\",\n            \"title\":\"New method\",\n            \"role\":\"Admin\"\n        })\n    },(status)=>{\n       if (status.success){\n           PageContent.closeModal(self);\n           addAutocompleteValue(workingEnv.PackageName,status.package)\n           addAutocompleteValue(workingEnv.MethodName,name);\n           workingEnv.renderMethod();\n       } else {\n           PageContent.showModal(\"Cannot create method\"+JSON.stringify(status.error))\n       }\n    });\n});"
+    }]
+  },
+  {
+    "layout": "horizontal",
+    "components": [
+      {
+        "innerId": "Title",
+        "component": "webappgen.methods.Title",
+        "size": "l6",
+        "env": ""
+      },
+      {
+        "innerId": "Owner",
+        "component": "webappgen.methods.Owner",
+        "size": "l5",
+        "env": ""
+      },
+      {
+        "innerId": "RoleType",
+        "component": "webappgen.components.RoleType",
+        "size": "l1",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.methods.DetailsPanel",
+    "isContainer": true,
+    "js": []
+  },
+  {
+    "layout": "vertical",
+    "components": [
+      {
+        "innerId": "header",
+        "component": "webappgen.home.header",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "modelContainer",
+        "component": "webappgen.methods.MethodBody",
+        "size": "",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.methods.MainMethodComponent",
+    "isContainer": true,
+    "js": []
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "src": "/resources/packages/methods",
+        "values": [],
+        "title": "Methods Package"
+      }
+    }],
+    "name": "webappgen.methods.MethodsPackage",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "workingEnv.PackageName=self;"
+    }],
+    "type": "autocomplete"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "New Method"}
+    }],
+    "name": "webappgen.methods.NewMethod",
+    "isContainer": false,
+    "js": [],
+    "type": "button"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "Clone Method"}
+    }],
+    "name": "webappgen.methods.CloneMethod",
+    "isContainer": false,
+    "js": [],
+    "type": "button"
+  },
+  {
+    "layout": "popup",
+    "components": [
+      {
+        "innerId": "CloneMethodName",
+        "component": "webappgen.methods.CloneMethodName",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "NewMethodConfirm",
+        "component": "webappgen.methods.NewMethodConfirm",
+        "size": "l12",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.methods.CloneMethodModal",
+    "isContainer": true,
+    "js": [{
+      "env": "",
+      "value": "$(NewMethodConfirm).click(()=>{\n    const name = $(CloneMethodName).val();\n    $.post(`/resources/methods`,{\n        \"resource\":JSON.stringify({\n            \"name\":name,\n            \"content\":workingEnv.updatedMethod.content,\n            \"title\":workingEnv.updatedMethod.title,\n            \"role\":workingEnv.updatedMethod.role\n        })\n    },(status)=>{\n       if (status.success){\n           PageContent.closeModal(self);\n           addAutocompleteValue(workingEnv.PackageName,status.package)\n           addAutocompleteValue(workingEnv.MethodName,name);\n           workingEnv.renderMethod();\n       } else {\n           PageContent.showModal(\"Cannot create method\"+JSON.stringify(status.error))\n       }\n    });\n});"
+    }]
+  },
+  {
+    "layout": "horizontal",
+    "components": [
+      {
+        "innerId": "DetailsPanel",
+        "component": "webappgen.methods.DetailsPanel",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "MethodContent",
+        "component": "webappgen.methods.MethodContent",
+        "size": "l12",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.methods.RightPanel",
+    "isContainer": true,
+    "js": []
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "label": "Method",
+        "title": "Current Method",
+        "content": ""
+      }
+    }],
+    "name": "webappgen.methods.MethodContent",
+    "isContainer": false,
+    "js": [],
+    "type": "textarea"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "cancel": "Cancel",
+        "ok": "Save",
+        "title": "Save Method Values",
+        "content": "Are you sure you want to save method values?"
+      }
+    }],
+    "name": "webappgen.methods.SaveMethodConfirm",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "$(self.ok).click(()=>{\n    const values = Object.entries(workingEnv.updatedMethod).map(([key, value]) => ({ key, value }));\n\n   $.post(`/resources/methods`,{\n       \"resource\" : JSON.stringify(workingEnv.updatedMethod) \n    },(status)=>{\n        if (status.success){\n            PageContent.closeModal(self);\n            workingEnv.renderMethod();\n            workingEnv.SaveMethod.markSaved();\n        }else {\n            PageContent.showModal(\"Cannot save values \"+JSON.stringify(status.error));\n        }\n    }); \n});"
+    }],
+    "type": "okCancelModal"
+  },
+  {
+    "layout": "horizontal",
+    "components": [
+      {
+        "innerId": "LeftPanel",
+        "component": "webappgen.methods.LeftPanel",
+        "size": "l2",
+        "env": ""
+      },
+      {
+        "innerId": "RightPanel",
+        "component": "webappgen.methods.RightPanel",
+        "size": "l10",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.methods.MethodBody",
+    "isContainer": true,
+    "js": [
+      {
+        "env": "",
+        "value": "$(LeftPanel.MethodsPackage).change(()=>{\n    clearAutocomplete(LeftPanel.MethodName);\n    \n    const packageName = $(LeftPanel.MethodsPackage).val();\n    if (packageName !== \"\"){\n        $.get(`/resources/packages/methods/${packageName}`,(methodsPerPackage)=>{\n            methodsPerPackage.forEach((methodName)=>{\n                addAutocompleteValue(LeftPanel.MethodName,methodName)\n            });\n            $(LeftPanel.MethodName).val(\"\");\n            $(self.RightPanel.MethodContent).val(\"\");\n            $(self.RightPanel.DetailsPanel.Owner).val(\"\");\n            $(self.RightPanel.DetailsPanel.Title).val(\"\");\n            $(self.RightPanel.DetailsPanel.RoleType).val(\"\").formSelect();\n        });\n    }\n});"
+      },
+      {
+        "env": "",
+        "value": "workingEnv.currPage = 0;\nworkingEnv.MethodBody = self;\n\nworkingEnv.renderMethod = ()=> {\n    workingEnv.methodName = $(LeftPanel.MethodName).val();\n    if (workingEnv.methodName !== \"\"){\n        $.get(`/resources/methods/${workingEnv.methodName}`,(method)=>{\n            workingEnv.updatedMethod = method;\n            $(self.RightPanel.MethodContent).val(method.content);\n            $(self.RightPanel.DetailsPanel.Owner).val(method.owner);\n            $(self.RightPanel.DetailsPanel.Title).val(method.title);\n            $(self.RightPanel.DetailsPanel.RoleType).val(method.role).formSelect();\n        });\n    }\n}\n$(LeftPanel.MethodName).change(workingEnv.renderMethod);"
+      },
+      {
+        "env": "",
+        "value": "self.markChanged=()=>{\n    self.LeftPanel.MenuPanel.SaveMethod.markChanged();\n}\n\n\n$(self.RightPanel.MethodContent).on('input',()=>{\n    workingEnv.updatedMethod.content = $(self.RightPanel.MethodContent).val(); \n    self.markChanged();\n});\n \n$(self.RightPanel.DetailsPanel.Owner).on('input',()=>{\n    workingEnv.updatedMethod.owner = $(self.RightPanel.DetailsPanel.Owner).val(); \n    self.markChanged();\n});\n \n$(self.RightPanel.DetailsPanel.Title).on('input',()=>{\n    workingEnv.updatedMethod.title = $(self.RightPanel.DetailsPanel.Title).val(); \n    self.markChanged();\n});\n \n$(self.RightPanel.DetailsPanel.RoleType).change(()=>{\n    workingEnv.updatedMethod.role = $(self.RightPanel.DetailsPanel.RoleType).val(); \n    self.markChanged();\n});"
+      }
+    ]
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "src": "",
+        "values": [],
+        "title": "Method Name"
+      }
+    }],
+    "name": "webappgen.methods.MethodName",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "workingEnv.MethodName = self;"
+    }],
+    "type": "autocomplete"
+  }
+]
