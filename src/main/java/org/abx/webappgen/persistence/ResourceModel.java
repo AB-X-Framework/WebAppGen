@@ -264,7 +264,6 @@ public class ResourceModel {
         return array;
     }
 
-
     public JSONArray getBinariesByPackageName(String packageName) {
         JSONArray array = new JSONArray();
         binaryResourceRepository.findAllByPackageName(packageName).forEach((mapResource) -> {
