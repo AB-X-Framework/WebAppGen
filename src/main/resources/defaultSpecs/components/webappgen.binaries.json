@@ -70,7 +70,7 @@
       },
       {
         "env": "",
-        "value": "workingEnv.currPage = 0;\nworkingEnv.BinaryBody = self;\n\nworkingEnv.renderBinary = ()=> {\n    workingEnv.binaryName = $(LeftPanel.BinaryName).val();\n    if (workingEnv.binaryName !== \"\"){\n        $.get(`/resources/binaries/${workingEnv.binaryName}`,(binary)=>{\n            workingEnv.updatedBinary = binary;\n            $(self.RightPanel.BinaryContent).val(binary.content);\n            $(self.RightPanel.DetailsPanel.Owner).val(binary.owner);\n            $(self.RightPanel.DetailsPanel.Title).val(binary.title);\n            $(self.RightPanel.DetailsPanel.RoleType).val(binary.role).formSelect();\n        });\n    }\n}\n$(LeftPanel.BinaryName).change(workingEnv.renderBinary);"
+        "value": "workingEnv.currPage = 0;\nworkingEnv.BinaryBody = self;\n\nworkingEnv.renderBinary = ()=> {\n    workingEnv.binaryName = $(LeftPanel.BinaryName).val();\n    if (workingEnv.binaryName !== \"\"){\n        $.get(`/resources/binary/${workingEnv.binaryName}`,(binary)=>{\n            workingEnv.updatedBinary = binary;\n            $(self.RightPanel.BinaryContent).val(binary.content);\n            $(self.RightPanel.DetailsPanel.Owner).val(binary.owner);\n            $(self.RightPanel.DetailsPanel.Title).val(binary.title);\n            $(self.RightPanel.DetailsPanel.RoleType).val(binary.role).formSelect();\n        });\n    }\n}\n$(LeftPanel.BinaryName).change(workingEnv.renderBinary);"
       },
       {
         "env": "",
@@ -190,7 +190,7 @@
     "isContainer": false,
     "js": [{
       "env": "",
-      "value": "$(self.ok).click(()=>{\n    $.ajax({\n        url: `/resources/binaries/${workingEnv.binaryName}`, // the resource to delete\n        type: 'DELETE',\n        success: (result)=> {\n            if (result.success){\n                location.reload();    \n            }else {\n                PageContent.showModal(\"Cannot delete binary \"+JSON.stringify(result.error));\n            }\n            \n        }\n});\n});"
+      "value": "$(self.ok).click(()=>{\n    $.ajax({\n        url: `/resources/binary/${workingEnv.binaryName}`, // the resource to delete\n        type: 'DELETE',\n        success: (result)=> {\n            if (result.success){\n                location.reload();    \n            }else {\n                PageContent.showModal(\"Cannot delete binary \"+JSON.stringify(result.error));\n            }\n            \n        }\n});\n});"
     }],
     "type": "okCancelModal"
   },
@@ -221,7 +221,7 @@
     "isContainer": false,
     "js": [{
       "env": "",
-      "value": "workingEnv.DeletePopup = self;\n\n$(self.ok).click(()=>{\n    const responseFx = (status)=>{\n            if (status.success){\n                PageContent.closeModal(workingEnv.DeletePopup);\n                workingEnv.renderBinary();\n            } else {\n                PageContent.showModal(`Cannot delete ${self.key}. ${JSON.stringify(status.error)}`)\n            }\n        };\n    \n    $.ajax({\n        \"type\": 'DELETE',\n        \"url\":`/resources/binaries/${workingEnv.binaryName}/entries/${self.key}`,\n        \"success\":responseFx\n    });\n});\n\nself.setKey=(key)=>{\n    self.key = key;\n}"
+      "value": "workingEnv.DeletePopup = self;\n\n$(self.ok).click(()=>{\n    const responseFx = (status)=>{\n            if (status.success){\n                PageContent.closeModal(workingEnv.DeletePopup);\n                workingEnv.renderBinary();\n            } else {\n                PageContent.showModal(`Cannot delete ${self.key}. ${JSON.stringify(status.error)}`)\n            }\n        };\n    \n    $.ajax({\n        \"type\": 'DELETE',\n        \"url\":`/resources/binary/${workingEnv.binaryName}/entries/${self.key}`,\n        \"success\":responseFx\n    });\n});\n\nself.setKey=(key)=>{\n    self.key = key;\n}"
     }],
     "type": "okCancelModal"
   },

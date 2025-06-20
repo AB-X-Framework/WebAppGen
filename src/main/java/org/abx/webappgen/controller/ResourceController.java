@@ -359,14 +359,14 @@ public class ResourceController extends RoleController {
         return resourceModel.getEntireArrayEntries(arrayName).toString();
     }
 
-    @GetMapping("/binaries/**")
+    @GetMapping("/binary/**")
     public ResponseEntity<?> getBinary(HttpServletRequest request) {
         String path = (String) request.getAttribute(
                 HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE
         );
 
         // Remove the prefix "/binaries/"
-        String resource = path.replaceFirst("/resources/binaries/", "");
+        String resource = path.replaceFirst("/resources/binary/", "");
         Set<String> roles = getRoles();
         Pair<String, byte[]> fileContent = resourceModel.getBinaryResource(roles, resource);
         if (fileContent == null) {
