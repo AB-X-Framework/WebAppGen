@@ -395,13 +395,15 @@ public class ResourceController extends RoleController {
     @Secured("Admin")
     @PostMapping(value = "/binaries", consumes = "multipart/form-data")
     public long handleUpload(
+            HttpServletRequest request,
             @RequestPart MultipartFile data,
             @RequestPart String packageName,
             @RequestPart String role,
             @RequestPart String contentType) throws IOException {
         byte[] fileBytes = data.getBytes();
         String name = data.getOriginalFilename();
-        return resourceModel.saveBinaryResource(name, packageName, contentType, fileBytes, role);
+        String username = request.getUserPrincipal().getName();
+        return resourceModel.saveBinaryResource(name, packageName, username, contentType, fileBytes, role);
     }
 
 }

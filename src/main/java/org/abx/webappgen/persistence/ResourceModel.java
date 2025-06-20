@@ -96,7 +96,7 @@ public class ResourceModel {
     /**
      * Return title + content + owner
      *
-     * @param roles The roles of the request
+     * @param roles        The roles of the request
      * @param resourceName The requested text
      * @return
      */
@@ -144,6 +144,7 @@ public class ResourceModel {
         jsonText.put("type", methodSpec.type);
         return jsonText;
     }
+
     @Transactional
     public JSONObject getBinaryResource(String resourceName) {
         BinaryResource binaryResource = binaryResourceRepository.findByBinaryResourceId(
@@ -159,6 +160,7 @@ public class ResourceModel {
         jsonText.put("contentType", binaryResource.contentType);
         return jsonText;
     }
+
     @Transactional
     public void addTextResource(JSONObject content) {
         long resourceId = elementHashCode(content.getString("name"));
@@ -178,6 +180,7 @@ public class ResourceModel {
 
     /**
      * Adds new method
+     *
      * @param content method spec
      */
     @Transactional
@@ -274,7 +277,7 @@ public class ResourceModel {
         if (text == null) {
             return null;
         }
-        if (owner !=text.owner) {
+        if (owner != text.owner) {
             return null;
         }
         JSONObject jsonText = new JSONObject();
@@ -299,12 +302,13 @@ public class ResourceModel {
         return new Pair<>(binaryResource.contentType, binaryResource.resourceValue);
     }
 
-    public long saveBinaryResource(String resourceName, String packageName, String contentType, byte[] data, String role) {
+    public long saveBinaryResource(String resourceName, String packageName, String owner, String contentType, byte[] data, String role) {
         long id = elementHashCode(resourceName);
         BinaryResource binaryResource = new BinaryResource();
         binaryResource.binaryResourceId = id;
         binaryResource.contentType = contentType;
         binaryResource.resourceValue = data;
+        binaryResource.owner = elementHashCode(owner);
         binaryResource.role = role;
         binaryResource.packageName = packageName;
         binaryResource.resourceName = resourceName;
