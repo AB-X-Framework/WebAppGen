@@ -287,7 +287,13 @@
       {
         "innerId": "Owner",
         "component": "webappgen.methods.Owner",
-        "size": "l4",
+        "size": "l3",
+        "env": ""
+      },
+      {
+        "innerId": "MethodType",
+        "component": "webappgen.methods.MethodType",
+        "size": "l1",
         "env": ""
       },
       {
@@ -444,7 +450,7 @@
       },
       {
         "env": "",
-        "value": "workingEnv.currPage = 0;\nworkingEnv.MethodBody = self;\n\nworkingEnv.renderMethod = ()=> {\n    workingEnv.methodName = $(LeftPanel.MethodName).val();\n    if (workingEnv.methodName !== \"\"){\n        $.get(`/resources/methods/${workingEnv.methodName}`,(method)=>{\n            workingEnv.updatedMethod = method;\n            var editor = ace.edit(self.RightPanel.JS);\n            editor.setValue(method.js);\n            $(self.RightPanel.DetailsPanel.Description).val(method.description);\n            $(self.RightPanel.DetailsPanel.Owner).val(method.owner);\n            \n            $(self.RightPanel.DetailsPanel.RoleType).val(method.role).formSelect();\n        });\n    }\n}\n$(LeftPanel.MethodName).change(workingEnv.renderMethod);"
+        "value": "workingEnv.currPage = 0;\nworkingEnv.MethodBody = self;\n\nworkingEnv.renderMethod = ()=> {\n    workingEnv.methodName = $(LeftPanel.MethodName).val();\n    if (workingEnv.methodName !== \"\"){\n        $.get(`/resources/methods/${workingEnv.methodName}`,(method)=>{\n            workingEnv.updatedMethod = method;\n            var editor = ace.edit(self.RightPanel.JS);\n            editor.setValue(method.js);\n            $(self.RightPanel.DetailsPanel.Description).val(method.description);\n            $(self.RightPanel.DetailsPanel.MethodType).val(method.type).formSelect();\n            $(self.RightPanel.DetailsPanel.Owner).val(method.owner);\n            \n            $(self.RightPanel.DetailsPanel.RoleType).val(method.role).formSelect();\n        });\n    }\n}\n$(LeftPanel.MethodName).change(workingEnv.renderMethod);"
       },
       {
         "env": "",
@@ -468,5 +474,36 @@
       "value": "workingEnv.MethodName = self;"
     }],
     "type": "autocomplete"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "src": "",
+        "values": [
+          {
+            "text": "JPEG",
+            "value": "jpg"
+          },
+          {
+            "text": "Text",
+            "value": "text"
+          },
+          {
+            "text": "JSON",
+            "value": "json"
+          },
+          {
+            "text": "PNG",
+            "value": "png"
+          }
+        ],
+        "title": "Method Type"
+      }
+    }],
+    "name": "webappgen.methods.MethodType",
+    "isContainer": false,
+    "js": [],
+    "type": "select"
   }
 ]
