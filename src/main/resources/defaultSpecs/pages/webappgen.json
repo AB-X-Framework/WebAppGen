@@ -136,5 +136,23 @@
       }
     ],
     "matches": "Binaries"
+  },
+  {
+    "component": "webappgen.methods.MainMethodComponent",
+    "css": [],
+    "role": "Admin",
+    "name": "webappgen.Methods",
+    "title": "Methods",
+    "scripts": [
+      {
+        "env": "",
+        "value": "/resources/binaries/webappgen/utils.js"
+      },
+      {
+        "env": "",
+        "value": "/resources/binaries/webappgen/maps.js"
+      }
+    ],
+    "matches": "Methods"
   }
 ]

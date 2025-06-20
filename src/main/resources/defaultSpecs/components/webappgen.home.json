@@ -284,6 +284,10 @@
           {
             "text": "Binaries",
             "value": "/page/Binaries"
+          },
+          {
+            "text": "Methods",
+            "value": "/page/Methods"
           }
         ]
       }
