@@ -1,7 +1,7 @@
 [{
   "owner": "root@abxwebappgen.org",
   "package": "demo",
-  "role": "Anonymous",
+  "role": "Admin",
   "name": "demo.loren",
-  "title": "Anonymous"
+  "title": "Anonymous asdf"
 }]

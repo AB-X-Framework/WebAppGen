@@ -55,6 +55,23 @@ public class ResourceController extends RoleController {
 
 
     @Secured("Admin")
+    @PostMapping(value = "/texts", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String addText(
+            @RequestParam String resource) {
+        JSONObject status = new JSONObject();
+        JSONObject jsonResource = new JSONObject(resource);
+        try {
+            resourceModel.addTextResource(jsonResource);
+            status.put("success", true);
+        } catch (Exception e) {
+            status.put("success", false);
+            status.put("error", e.getMessage());
+        }
+        return status.toString();
+    }
+
+
+    @Secured("Admin")
     @PostMapping(value = "/maps/{mapName}", produces = MediaType.APPLICATION_JSON_VALUE)
     public String createMap(
             @PathVariable String mapName) {

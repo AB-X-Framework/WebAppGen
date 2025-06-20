@@ -113,10 +113,25 @@ public class ResourceModel {
         }
         JSONObject jsonText = new JSONObject();
         jsonText.put("title", text.title);
+        jsonText.put("name", text.resourceName);
         jsonText.put("content", text.resourceValue);
         jsonText.put("owner", userRepository.findByUserId(text.owner).username);
         jsonText.put("role", text.role);
         return jsonText;
+    }
+
+    public void addTextResource( JSONObject content) {
+        long resourceId = elementHashCode(content.getString("name"));
+        TextResource text = textResourceRepository.findByTextResourceId(resourceId );
+        if (text == null) {
+            text = new TextResource();
+            text.textResourceId =resourceId;
+        }
+        text.title = content.getString("title");
+        text.resourceValue = content.getString("content");
+        text.owner = elementHashCode(content.getString("owner"));
+        text.role = content.getString("role");
+        textResourceRepository.save(text);
     }
 
     @Transactional

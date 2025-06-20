@@ -197,10 +197,7 @@
     }],
     "name": "webappgen.texts.TextContent",
     "isContainer": false,
-    "js": [{
-      "env": "",
-      "value": "workingEnv.SaveText=self;\nself.markChanged=()=>{\n    $(self).addClass(\"yellow darken-2\");\n}\n\nself.markSaved=()=>{\n    $(self).removeClass(\"yellow darken-2\");\n}"
-    }],
+    "js": [],
     "type": "textarea"
   },
   {
@@ -241,7 +238,7 @@
     "isContainer": false,
     "js": [{
       "env": "",
-      "value": "$(self.ok).click(()=>{\n    const values = Object.entries(workingEnv.updatedText).map(([key, value]) => ({ key, value }));\n\n   $.post(`/resources/texts/${workingEnv.textName}/entries`,{\n       \"values\" : JSON.stringify(values) \n    },(status)=>{\n        if (status.success){\n            PageContent.closeModal(self);\n            workingEnv.renderText();\n            workingEnv.SaveText.markSaved();\n        }else {\n            PageContent.showModal(\"Cannot save values \"+JSON.stringify(status.error));\n        }\n    }); \n});"
+      "value": "$(self.ok).click(()=>{\n    const values = Object.entries(workingEnv.updatedText).map(([key, value]) => ({ key, value }));\n\n   $.post(`/resources/texts`,{\n       \"resource\" : JSON.stringify(workingEnv.updatedText) \n    },(status)=>{\n        if (status.success){\n            PageContent.closeModal(self);\n            workingEnv.renderText();\n            workingEnv.SaveText.markSaved();\n        }else {\n            PageContent.showModal(\"Cannot save values \"+JSON.stringify(status.error));\n        }\n    }); \n});"
     }],
     "type": "okCancelModal"
   },
