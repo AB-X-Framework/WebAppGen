@@ -181,7 +181,6 @@ public class ResourceModel {
         method.description = content.getString("description");
         method.type = content.getString("type");
         method.outputName = content.getString("outputName");
-
         methodSpecRepository.save(method);
     }
 
@@ -225,7 +224,7 @@ public class ResourceModel {
      * @return
      */
     @Transactional
-    public JSONObject deleteTextIfOwner(String owner, String resourceName) {
+    public JSONObject deleteTextIfOwner(long owner, String resourceName) {
         JSONObject result = new JSONObject();
         TextResource text = textResourceRepository.findByTextResourceId(
                 elementHashCode(resourceName)
@@ -236,7 +235,7 @@ public class ResourceModel {
             result.put("message", "Resource not found");
             return result;
         }
-        if (!owner.equals(text.owner)) {
+        if (owner != text.owner) {
             result.put("success", false);
             result.put("message", "Resource not owned");
             return result;
@@ -251,9 +250,9 @@ public class ResourceModel {
      *
      * @param owner        The resource owner
      * @param resourceName the resource name
-     * @return
+     * @return The text
      */
-    public JSONObject getTextIfOwner(String owner, String resourceName) {
+    public JSONObject getTextIfOwner(long owner, String resourceName) {
         TextResource text = textResourceRepository.findByTextResourceId(
                 elementHashCode(resourceName)
         );
@@ -261,7 +260,7 @@ public class ResourceModel {
         if (text == null) {
             return null;
         }
-        if (!owner.equals(text.owner)) {
+        if (owner !=text.owner) {
             return null;
         }
         JSONObject jsonText = new JSONObject();
@@ -523,7 +522,7 @@ public class ResourceModel {
     }
 
 
-    public long saveMapResource(String mapName, String packageName, JSONObject data) {
+    public void saveMapResource(String mapName, String packageName, JSONObject data) {
         long id = elementHashCode(mapName);
         MapResource mapResource = new MapResource();
         mapResource.mapResourceId = id;
@@ -538,7 +537,6 @@ public class ResourceModel {
             entry.mapResource = mapResource;
             mapEntryRepository.save(entry);
         }
-        return id;
     }
 
     public void saveArrayResource(String resourceName, String packageName, JSONArray data) {
@@ -562,18 +560,17 @@ public class ResourceModel {
         }
     }
 
-    public long saveTextResource(String resourceName, String owner, String title, String packageName, String data, String role) {
+    public void saveTextResource(String resourceName, String owner, String title, String packageName, String data, String role) {
         long id = elementHashCode(resourceName);
         TextResource textResource = new TextResource();
         textResource.textResourceId = id;
         textResource.resourceValue = data;
         textResource.role = role;
-        textResource.title = role;
+        textResource.title = title;
         textResource.owner = elementHashCode(owner);
         textResource.packageName = packageName;
         textResource.resourceName = resourceName;
         textResourceRepository.save(textResource);
-        return id;
 
     }
 }
