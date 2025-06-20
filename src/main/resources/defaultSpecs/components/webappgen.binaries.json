@@ -66,11 +66,11 @@
     "js": [
       {
         "env": "",
-        "value": "$(LeftPanel.BinariesPackage).change(()=>{\n    clearAutocomplete(LeftPanel.BinaryName);\n    \n    const packageName = $(LeftPanel.BinariesPackage).val();\n    if (packageName !== \"\"){\n        $.get(`/resources/packages/binaries/${packageName}`,(binariesPerPackage)=>{\n            binariesPerPackage.forEach((binaryName)=>{\n                addAutocompleteValue(LeftPanel.BinaryName,binaryName)\n            });\n            $(LeftPanel.BinaryName).val(\"\");\n            $(self.RightPanel.BinaryContent).val(\"\");\n            $(self.RightPanel.DetailsPanel.Owner).val(\"\");\n            $(self.RightPanel.DetailsPanel.Title).val(\"\");\n            $(self.RightPanel.DetailsPanel.RoleType).val(\"\").formSelect();\n        });\n    }\n});"
+        "value": "$(LeftPanel.BinariesPackage).change(()=>{\n    clearAutocomplete(LeftPanel.BinaryName);\n    \n    const packageName = $(LeftPanel.BinariesPackage).val();\n    if (packageName !== \"\"){\n        $.get(`/resources/packages/binaries/${packageName}`,(binariesPerPackage)=>{\n            binariesPerPackage.forEach((binaryName)=>{\n                addAutocompleteValue(LeftPanel.BinaryName,binaryName)\n            });\n            $(LeftPanel.BinaryName).val(\"\");\n            $(self.RightPanel.BinaryContent).val(\"\");\n            $(self.RightPanel.DetailsPanel.Owner).val(\"\");\n            $(self.RightPanel.DetailsPanel.ContentType).val(\"\");\n            $(self.RightPanel.DetailsPanel.RoleType).val(\"\").formSelect();\n        });\n    }\n});"
       },
       {
         "env": "",
-        "value": "workingEnv.currPage = 0;\nworkingEnv.BinaryBody = self;\n\nworkingEnv.renderBinary = ()=> {\n    workingEnv.binaryName = $(LeftPanel.BinaryName).val();\n    if (workingEnv.binaryName !== \"\"){\n        $.get(`/resources/binaries/${workingEnv.binaryName}`,(binary)=>{\n            workingEnv.updatedBinary = binary;\n            $(self.RightPanel.BinaryContent).val(binary.content);\n            $(self.RightPanel.DetailsPanel.Owner).val(binary.owner);\n            $(self.RightPanel.DetailsPanel.Title).val(binary.title);\n            $(self.RightPanel.DetailsPanel.RoleType).val(binary.role).formSelect();\n        });\n    }\n}\n$(LeftPanel.BinaryName).change(workingEnv.renderBinary);"
+        "value": "workingEnv.currPage = 0;\nworkingEnv.BinaryBody = self;\n\nworkingEnv.renderBinary = ()=> {\n    workingEnv.binaryName = $(LeftPanel.BinaryName).val();\n    if (workingEnv.binaryName !== \"\"){\n        $.get(`/resources/binaries/${workingEnv.binaryName}`,(binary)=>{\n            workingEnv.updatedBinary = binary;\n            $(self.RightPanel.BinaryContent).val(binary.content);\n            $(self.RightPanel.DetailsPanel.Owner).val(binary.owner);\n            $(self.RightPanel.DetailsPanel.ContentType).val(binary.contentType);\n            $(self.RightPanel.DetailsPanel.RoleType).val(binary.role).formSelect();\n        });\n    }\n}\n$(LeftPanel.BinaryName).change(workingEnv.renderBinary);"
       },
       {
         "env": "",
@@ -112,20 +112,6 @@
   {
     "specs": [{
       "env": "",
-      "value": {
-        "label": "Binary title",
-        "title": "Binary title",
-        "content": ""
-      }
-    }],
-    "name": "webappgen.binaries.Title",
-    "isContainer": false,
-    "js": [],
-    "type": "textfield"
-  },
-  {
-    "specs": [{
-      "env": "",
       "value": {"title": "New Binary"}
     }],
     "name": "webappgen.binaries.ProcessAddBinary",
@@ -137,21 +123,21 @@
     "layout": "horizontal",
     "components": [
       {
-        "innerId": "Title",
-        "component": "webappgen.binaries.Title",
+        "innerId": "ContentType",
+        "component": "webappgen.binaries.ContentType",
         "size": "l6",
         "env": ""
       },
       {
         "innerId": "Owner",
         "component": "webappgen.binaries.Owner",
-        "size": "l5",
+        "size": "l4",
         "env": ""
       },
       {
         "innerId": "RoleType",
         "component": "webappgen.components.RoleType",
-        "size": "l1",
+        "size": "l2",
         "env": ""
       }
     ],
@@ -294,6 +280,20 @@
     "isContainer": false,
     "js": [],
     "type": "button"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "label": "Content Type",
+        "title": "Content Type",
+        "content": ""
+      }
+    }],
+    "name": "webappgen.binaries.ContentType",
+    "isContainer": false,
+    "js": [],
+    "type": "textfield"
   },
   {
     "specs": [{
@@ -451,7 +451,7 @@
     "type": "button"
   },
   {
-    "layout": "horizontal",
+    "layout": "vertical",
     "components": [
       {
         "innerId": "DetailsPanel",
