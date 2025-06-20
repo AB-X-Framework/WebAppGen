@@ -68,5 +68,10 @@
     "role": "Admin",
     "name": "webappgen/maps.js",
     "contentType": "text/javascript"
+  },
+  {
+    "role": "Anonymous",
+    "name": "webappgen/page.html",
+    "contentType": "text/html"
   }
 ]
