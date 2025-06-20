@@ -66,6 +66,19 @@
     "type": "okCancelModal"
   },
   {
+    "specs": [{
+      "env": "",
+      "value": {
+        "content": "//Your JS Here",
+        "height": "500px"
+      }
+    }],
+    "name": "webappgen.methods.MethodJS",
+    "isContainer": false,
+    "js": [],
+    "type": "jsEditor"
+  },
+  {
     "layout": "vertical",
     "components": [
       {
@@ -379,7 +392,7 @@
       },
       {
         "innerId": "JS",
-        "component": "webappgen.methods.MethodContent",
+        "component": "webappgen.methods.MethodJS",
         "size": "l12",
         "env": ""
       }
@@ -387,20 +400,6 @@
     "name": "webappgen.methods.RightPanel",
     "isContainer": true,
     "js": []
-  },
-  {
-    "specs": [{
-      "env": "",
-      "value": {
-        "label": "Method",
-        "title": "Current Method",
-        "content": ""
-      }
-    }],
-    "name": "webappgen.methods.MethodContent",
-    "isContainer": false,
-    "js": [],
-    "type": "textarea"
   },
   {
     "specs": [{
@@ -445,7 +444,7 @@
       },
       {
         "env": "",
-        "value": "workingEnv.currPage = 0;\nworkingEnv.MethodBody = self;\n\nworkingEnv.renderMethod = ()=> {\n    workingEnv.methodName = $(LeftPanel.MethodName).val();\n    if (workingEnv.methodName !== \"\"){\n        $.get(`/resources/methods/${workingEnv.methodName}`,(method)=>{\n            workingEnv.updatedMethod = method;\n            $(self.RightPanel.JS).val(method.js);\n            $(self.RightPanel.DetailsPanel.Owner).val(method.owner);\n            $(self.RightPanel.DetailsPanel.Title).val(method.title);\n            $(self.RightPanel.DetailsPanel.RoleType).val(method.role).formSelect();\n        });\n    }\n}\n$(LeftPanel.MethodName).change(workingEnv.renderMethod);"
+        "value": "workingEnv.currPage = 0;\nworkingEnv.MethodBody = self;\n\nworkingEnv.renderMethod = ()=> {\n    workingEnv.methodName = $(LeftPanel.MethodName).val();\n    if (workingEnv.methodName !== \"\"){\n        $.get(`/resources/methods/${workingEnv.methodName}`,(method)=>{\n            workingEnv.updatedMethod = method;\n            var editor = ace.edit(self.RightPanel.JS);\n            editor.setValue(method.js);\n            $(self.RightPanel.DetailsPanel.Owner).val(method.owner);\n            $(self.RightPanel.DetailsPanel.Title).val(method.title);\n            $(self.RightPanel.DetailsPanel.RoleType).val(method.role).formSelect();\n        });\n    }\n}\n$(LeftPanel.MethodName).change(workingEnv.renderMethod);"
       },
       {
         "env": "",
