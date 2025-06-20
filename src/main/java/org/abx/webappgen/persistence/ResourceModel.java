@@ -38,6 +38,9 @@ public class ResourceModel {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private MethodSpecRepository methodSpecRepository;
+
 
     @Transactional
     public JSONArray getMapEntries(String mapResourceName, int page, int size) {
@@ -118,6 +121,23 @@ public class ResourceModel {
         jsonText.put("content", text.resourceValue);
         jsonText.put("owner", userRepository.findByUserId(text.owner).username);
         jsonText.put("role", text.role);
+        return jsonText;
+    }
+
+    public JSONObject getMethodResource( String resourceName) {
+        MethodSpec methodSpec = methodSpecRepository.findByMethodSpecId(
+                elementHashCode(resourceName)
+        );
+
+        if (methodSpec == null) {
+            return null;
+        }
+        JSONObject jsonText = new JSONObject();
+        jsonText.put("name", methodSpec.methodName);
+        jsonText.put("js", methodSpec.methodJS);
+        jsonText.put("description", methodSpec.description);
+        jsonText.put("role", methodSpec.role);
+        jsonText.put("package", methodSpec.packageName);
         return jsonText;
     }
 
@@ -256,6 +276,12 @@ public class ResourceModel {
     }
 
 
+    public JSONArray getMethodPackages() {
+        JSONArray array = new JSONArray();
+        array.putAll(methodSpecRepository.findDistinctPackageNames());
+        return array;
+    }
+
     public JSONArray getBinaryPackages() {
         JSONArray array = new JSONArray();
         array.putAll(binaryResourceRepository.findDistinctPackageNames());
@@ -286,6 +312,16 @@ public class ResourceModel {
         });
         return array;
     }
+
+
+    public JSONArray getMethodsByPackageName(String packageName) {
+        JSONArray array = new JSONArray();
+        methodSpecRepository.findAllByPackageName(packageName).forEach((mapResource) -> {
+            array.put(mapResource.methodName);
+        });
+        return array;
+    }
+
 
     public JSONArray getBinariesByPackageName(String packageName) {
         JSONArray array = new JSONArray();

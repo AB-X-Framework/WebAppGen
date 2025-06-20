@@ -39,6 +39,18 @@ public class ResourceController extends RoleController {
         return data.toString();
     }
 
+
+    @GetMapping(value = "/methods/{resource}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Secured("Admin")
+    public String methodResource(@PathVariable String resource) throws Exception {
+        Set<String> roles = getRoles();
+        JSONObject data = resourceModel.getTextResource(roles, resource);
+        if (data == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Resource not found: " + resource);
+        }
+        return data.toString();
+    }
+
     @Secured("Admin")
     @DeleteMapping(value = "/texts/{resourceName}", produces = MediaType.APPLICATION_JSON_VALUE)
     public String deleteText(
@@ -252,6 +264,13 @@ public class ResourceController extends RoleController {
     }
 
     @Secured("Admin")
+    @GetMapping(value = "/packages/methods", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String methodPackages() {
+        return resourceModel.getMethodPackages().toString();
+    }
+
+
+    @Secured("Admin")
     @GetMapping(value = "/packages/binaries", produces = MediaType.APPLICATION_JSON_VALUE)
     public String binariesPackages() {
         return resourceModel.getBinaryPackages().toString();
@@ -274,6 +293,13 @@ public class ResourceController extends RoleController {
     @GetMapping(value = "/packages/texts/{packageName}", produces = MediaType.APPLICATION_JSON_VALUE)
     public String textsByPackage(@PathVariable String packageName) {
         return resourceModel.getTextsByPackageName(packageName).toString(2);
+    }
+
+
+    @Secured("Admin")
+    @GetMapping(value = "/packages/method/{packageName}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String methodsByPackage(@PathVariable String packageName) {
+        return resourceModel.getMethodsByPackageName(packageName).toString(2);
     }
 
     @Secured("Admin")
