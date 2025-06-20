@@ -64,6 +64,20 @@ public class ResourceController extends RoleController {
         return status.toString();
     }
 
+    @Secured("Admin")
+    @DeleteMapping(value = "/methods/{resourceName}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String deleteMethod(
+            @PathVariable String resourceName) {
+        JSONObject status = new JSONObject();
+        try {
+            status.put("success", resourceModel.deleteMethod(resourceName));
+        } catch (Exception e) {
+            status.put("success", false);
+            status.put("error", e.getMessage());
+        }
+        return status.toString();
+    }
+
 
     @Secured("Admin")
     @PostMapping(value = "/texts", produces = MediaType.APPLICATION_JSON_VALUE)

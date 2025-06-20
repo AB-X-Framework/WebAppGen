@@ -196,6 +196,22 @@ public class ResourceModel {
         return result;
     }
 
+    @Transactional
+    public JSONObject deleteMethod(String resourceName) {
+        JSONObject result = new JSONObject();
+        MethodSpec method =  methodSpecRepository.findByMethodSpecId(
+                elementHashCode(resourceName)
+        );
+        if (method == null) {
+            result.put("success", false);
+            result.put("message", "Resource not found");
+            return result;
+        }
+        methodSpecRepository.delete(method);
+        result.put("success", true);
+        return result;
+    }
+
     /**
      * Delete if resource
      *
