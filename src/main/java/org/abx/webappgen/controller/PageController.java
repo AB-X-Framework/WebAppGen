@@ -2,19 +2,18 @@ package org.abx.webappgen.controller;
 
 import jakarta.servlet.http.HttpSession;
 import org.abx.util.StreamUtils;
-import org.abx.webappgen.persistence.PageModel;
 import org.abx.webappgen.utils.SpecsExporter;
 import org.abx.webappgen.utils.SpecsImporter;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.stringtemplate.v4.ST;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Set;
 
 import static org.abx.webappgen.utils.ElementUtils.elementHashCode;
@@ -22,7 +21,6 @@ import static org.abx.webappgen.utils.ElementUtils.elementHashCode;
 @RestController
 @RequestMapping("/page")
 public class PageController extends RoleController {
-    public final static String Env = "Env";
 
     private ST pageTemplate;
 
@@ -32,8 +30,6 @@ public class PageController extends RoleController {
     @Autowired
     private SpecsImporter specsImporter;
 
-    @Autowired
-    public PageModel pageModel;
 
     public PageController() {
         try {
@@ -65,14 +61,4 @@ public class PageController extends RoleController {
     }
 
 
-    private String env(HttpSession session) {
-        if (session.getAttribute(Env) == null) {
-            StringBuilder env = new StringBuilder(pageModel.defaultEnv());
-            for (String role : getRoles()) {
-                env.append("|role=").append(role);
-            }
-            session.setAttribute(Env, env.toString());
-        }
-        return (String) session.getAttribute(Env);
-    }
 }

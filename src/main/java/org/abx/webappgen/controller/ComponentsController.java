@@ -28,10 +28,6 @@ public class ComponentsController extends RoleController implements EnvListener 
     @Autowired
     private SpecsImporter specsImporter;
 
-    @Autowired
-    public PageModel pageModel;
-
-
     @Override
     public void envChanged() {
 
@@ -98,7 +94,7 @@ public class ComponentsController extends RoleController implements EnvListener 
     @PostMapping(value = "/preview", produces = MediaType.APPLICATION_JSON_VALUE)
     @Secured("Admin")
     public String component(@RequestParam String componentSpecs, @RequestParam String env) {
-        return pageModel.preview(new JSONObject(componentSpecs), env).toString(2);
+        return pageModel.preview(new JSONObject(componentSpecs), new SessionEnv(env)).toString(2);
     }
 
 
@@ -166,14 +162,4 @@ public class ComponentsController extends RoleController implements EnvListener 
     }
 
 
-    private String env(HttpSession session) {
-        StringBuilder env = new StringBuilder();
-        if (session.getAttribute(LANG) != null) {
-            env.append((String) session.getAttribute(LANG));
-        }
-        for (String role : getRoles()) {
-            env.append("|").append(role);
-        }
-        return env.toString();
-    }
 }

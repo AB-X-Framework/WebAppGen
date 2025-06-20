@@ -1,5 +1,6 @@
 package org.abx.webappgen.persistence;
 
+import org.abx.webappgen.controller.SessionEnv;
 import org.abx.webappgen.persistence.dao.*;
 import org.abx.webappgen.persistence.model.*;
 import org.json.JSONArray;
@@ -243,13 +244,13 @@ public class PageModel {
 
 
     @Transactional
-    public JSONObject getPageByPageId(Set<String> roles, String env, long id) {
+    public JSONObject getPageByPageId(Set<String> roles, SessionEnv env, long id) {
         Page page = pageRepository.findByPageId(id);
         return getPageByPageId(roles, env, page);
     }
 
     @Transactional
-    public JSONObject getPageByPageMatchesId(Set<String> roles, String env, long matchId) {
+    public JSONObject getPageByPageMatchesId(Set<String> roles, SessionEnv env, long matchId) {
         Page page = pageRepository.findByMatchesId(matchId);
         return getPageByPageId(roles, env, page);
     }
@@ -260,7 +261,7 @@ public class PageModel {
         return mapEntryRepository.findByMapEntryId(defaultEnv).mapValue;
     }
 
-    private JSONObject getPageByPageId(Set<String> roles, String env, Page page) {
+    private JSONObject getPageByPageId(Set<String> roles, SessionEnv env, Page page) {
         JSONObject jsonPage = new JSONObject();
         if (page == null) {
             jsonPage.put(Title, "Not found");
@@ -294,16 +295,16 @@ public class PageModel {
 
 
     @Transactional
-    public JSONObject getComponentByName(String name, String env) {
+    public JSONObject getComponentByName(String name, SessionEnv env) {
         return processTop("__top", componentRepository.findByComponentId(elementHashCode(name)), env);
     }
 
     @Transactional
-    public JSONObject preview(JSONObject specs, String env) {
+    public JSONObject preview(JSONObject specs, SessionEnv env) {
         return previewComponent(specs, env);
     }
 
-    private JSONObject processTop(String name, Component component, String env) {
+    private JSONObject processTop(String name, Component component, SessionEnv env) {
         ComponentSpecs topSpecs = new ComponentSpecs(name, env);
         topSpecs.siblings = new HashMap<>();
         topSpecs.siblings.put("self", name);
@@ -314,14 +315,14 @@ public class PageModel {
         return componentSpecs;
     }
 
-    private JSONObject processTop(JSONObject previewComponentSpecs, String env) {
+    private JSONObject processTop(JSONObject previewComponentSpecs, SessionEnv env) {
         JSONObject componentSpecs = previewComponent(previewComponentSpecs, env);
         componentSpecs.put(Size, "");
         return componentSpecs;
     }
 
-    private boolean matchesEnv(String targetEnv, String currEnv) {
-        return currEnv.contains(targetEnv);
+    private boolean matchesEnv(String currEnv,SessionEnv targetEnv ) {
+        return targetEnv.matches(currEnv);
     }
 
 
@@ -366,7 +367,7 @@ public class PageModel {
         return "{\n" + sb + source + "}";
     }
 
-    private JSONObject previewComponent(JSONObject jsonComponent, String env) {
+    private JSONObject previewComponent(JSONObject jsonComponent, SessionEnv env) {
         boolean isContainer = jsonComponent.getBoolean("isContainer");
         jsonComponent.put(Id, "__preview");
         if (isContainer) {
@@ -410,7 +411,7 @@ public class PageModel {
         return jsonComponent;
     }
 
-    private void addPreviewContainer(JSONObject jsonComponent, String env) {
+    private void addPreviewContainer(JSONObject jsonComponent, SessionEnv env) {
         JSONArray jsonChildren = new JSONArray();
         jsonComponent.put(Children, jsonChildren);
         JSONArray jsonChildrenComponents = jsonComponent.getJSONArray(Components);
@@ -466,7 +467,7 @@ public class PageModel {
         String emptyEnv = null;
         for (EnvValue envValue : element.specs) {
             if (matchesEnv(envValue.env, specs.env)) {
-                if (specs.env.isEmpty()) {
+                if (envValue.env.isEmpty()) {
                     emptyEnv = envValue.envValue;
                 } else {
                     jsonComponent.put(Specs, new JSONObject(envValue.envValue));
