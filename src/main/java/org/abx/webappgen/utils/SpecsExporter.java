@@ -268,6 +268,7 @@ public class SpecsExporter {
                 jsonMethod.put("outputName", method.outputName);
                 jsonMethod.put("role", method.role);
                 jsonMethod.put("description", method.description);
+                new File(specsFolder + "/methods/" + packageName.replace(".","/")).mkdirs();
                 new FileOutputStream(specsFolder + "/methods/"+
                         method.methodName.replace('.','/') + ".js").write(method.methodJS.getBytes());
             }
