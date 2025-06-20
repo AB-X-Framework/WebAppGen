@@ -360,9 +360,15 @@ public class ResourceController extends RoleController {
     }
 
     @Secured("Admin")
-    @GetMapping(value = "/binaries/{binaryName}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public String getBinaryResource(@PathVariable String binaryName) {
-        return resourceModel.getBinaryResource(binaryName).toString();
+    @GetMapping(value = "/binaries/**", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String getBinaryResource(HttpServletRequest request) {
+        String path = (String) request.getAttribute(
+                HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE
+        );
+
+        // Remove the prefix "/binaries/"
+        String resource = path.replaceFirst("/resources/binary/", "");
+        return resourceModel.getBinaryResource(resource).toString();
     }
 
 
