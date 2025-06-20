@@ -258,7 +258,7 @@
     "isContainer": true,
     "js": [{
       "env": "",
-      "value": "$(NewMethodConfirm).click(()=>{\n    const name = $(NewMethodName).val();\n    $.post(`/resources/methods`,{\n        \"resource\":JSON.stringify({\n            \"name\":name,\n            \"content\":\"New content\",\n            \"title\":\"New method\",\n            \"role\":\"Admin\"\n        })\n    },(status)=>{\n       if (status.success){\n           PageContent.closeModal(self);\n           addAutocompleteValue(workingEnv.PackageName,status.package)\n           addAutocompleteValue(workingEnv.MethodName,name);\n           workingEnv.renderMethod();\n       } else {\n           PageContent.showModal(\"Cannot create method\"+JSON.stringify(status.error))\n       }\n    });\n});"
+      "value": "$(NewMethodConfirm).click(()=>{\n    const name = $(NewMethodName).val();\n    const singleName =name.substring(0, name.lastIndexOf(\".\"));\n    $.post(`/resources/methods`,{\n        \"resource\":JSON.stringify({\n            \"name\":name,\n            \"description\":\"New method\",\n            \"content\":`function ${singleName}(){return \"hello world\"}`,\n            \"outputName\":\"output.txt\",\n            \"type\":\"text\"\n        })\n    },(status)=>{\n       if (status.success){\n           PageContent.closeModal(self);\n           addAutocompleteValue(workingEnv.PackageName,status.package)\n           addAutocompleteValue(workingEnv.MethodName,name);\n           workingEnv.renderMethod();\n       } else {\n           PageContent.showModal(\"Cannot create method\"+JSON.stringify(status.error))\n       }\n    });\n});"
     }]
   },
   {
