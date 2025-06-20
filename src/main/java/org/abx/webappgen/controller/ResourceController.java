@@ -296,7 +296,7 @@ public class ResourceController extends RoleController {
 
 
     @Secured("Admin")
-    @GetMapping(value = "/packages/method/{packageName}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/packages/methods/{packageName}", produces = MediaType.APPLICATION_JSON_VALUE)
     public String methodsByPackage(@PathVariable String packageName) {
         return resourceModel.getMethodsByPackageName(packageName).toString(2);
     }
