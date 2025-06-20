@@ -136,6 +136,10 @@
       {
         "env": "",
         "value": "workingEnv.currPage = 0;\nworkingEnv.TextBody = self;\n\nworkingEnv.renderText = ()=> {\n    workingEnv.textName = $(LeftPanel.TextName).val();\n    if (workingEnv.textName !== \"\"){\n        $.get(`/resources/texts/${workingEnv.textName}`,(text)=>{\n            workingEnv.updatedText = text;\n            $(self.RightPanel.TextContent).val(text.content);\n            $(self.RightPanel.DetailsPanel.Owner).val(text.owner);\n            $(self.RightPanel.DetailsPanel.Title).val(text.title);\n            $(self.RightPanel.DetailsPanel.RoleType).val(text.role).formSelect();\n        });\n    }\n}\n$(LeftPanel.TextName).change(workingEnv.renderText);"
+      },
+      {
+        "env": "",
+        "value": "self.markChanged=()=>{\n    self.LeftPanel.MenuPanel.SaveText.markChanged();\n}\n\n\n $(self.RightPanel.TextContent).on('input',()=>{\n    workingEnv.updatedText.content = $(self.RightPanel.TextContent).val(); \n    self.markChanged();\n });\n            /*$(self.RightPanel.DetailsPanel.Owner).val(text.owner);\n            $(self.RightPanel.DetailsPanel.Title).val(text.title);\n            $(self.RightPanel.DetailsPanel.RoleType).val(text.role).formSelect();*/"
       }
     ]
   },
