@@ -35,6 +35,9 @@ public class ResourceModel {
     @Autowired
     private MapEntryRepository mapEntryRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
 
     @Transactional
     public JSONArray getMapEntries(String mapResourceName, int page, int size) {
@@ -88,7 +91,7 @@ public class ResourceModel {
     }
 
     /**
-     * Return title + content
+     * Return title + content + owner
      *
      * @param roles
      * @param resourceName
@@ -111,6 +114,8 @@ public class ResourceModel {
         JSONObject jsonText = new JSONObject();
         jsonText.put("title", text.title);
         jsonText.put("content", text.resourceValue);
+        jsonText.put("owner", userRepository.findByUserId(text.owner).username);
+        jsonText.put("role", text.role);
         return jsonText;
     }
 
