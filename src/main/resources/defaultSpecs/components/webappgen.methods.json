@@ -258,7 +258,7 @@
     "isContainer": true,
     "js": [{
       "env": "",
-      "value": "$(NewMethodConfirm).click(()=>{\n    const name = $(NewMethodName).val();\n    const singleName =name.substring(name.lastIndexOf(\".\"));\n    $.post(`/resources/methods`,{\n        \"resource\":JSON.stringify({\n            \"name\":name,\n            \"description\":\"New method\",\n            \"js\":`function ${singleName}(){return \"hello world\"}`,\n            \"outputName\":\"output.txt\",\n            \"role\":\"Admin\",\n            \"type\":\"text\"\n        })\n    },(status)=>{\n       if (status.success){\n           PageContent.closeModal(self);\n           addAutocompleteValue(workingEnv.PackageName,status.package)\n           addAutocompleteValue(workingEnv.MethodName,name);\n           workingEnv.renderMethod();\n       } else {\n           PageContent.showModal(\"Cannot create method\"+JSON.stringify(status.error))\n       }\n    });\n});"
+      "value": "$(NewMethodConfirm).click(()=>{\n    const name = $(NewMethodName).val();\n    const singleName =name.substring(name.lastIndexOf(\".\")+1);\n    $.post(`/resources/methods`,{\n        \"resource\":JSON.stringify({\n            \"name\":name,\n            \"description\":\"New method\",\n            \"js\":`function ${singleName}(){return \"hello world\"}`,\n            \"outputName\":\"output.txt\",\n            \"role\":\"Admin\",\n            \"type\":\"text\"\n        })\n    },(status)=>{\n       if (status.success){\n           PageContent.closeModal(self);\n           addAutocompleteValue(workingEnv.PackageName,status.package)\n           addAutocompleteValue(workingEnv.MethodName,name);\n           workingEnv.renderMethod();\n       } else {\n           PageContent.showModal(\"Cannot create method\"+JSON.stringify(status.error))\n       }\n    });\n});"
     }]
   },
   {
@@ -370,7 +370,7 @@
     "isContainer": true,
     "js": [{
       "env": "",
-      "value": "$(NewMethodConfirm).click(()=>{\n    const name = $(CloneMethodName).val();\n    $.post(`/resources/methods`,{\n        \"resource\":JSON.stringify({\n            \"name\":name,\n            \"content\":workingEnv.updatedMethod.content,\n            \"title\":workingEnv.updatedMethod.title,\n            \"role\":workingEnv.updatedMethod.role\n        })\n    },(status)=>{\n       if (status.success){\n           PageContent.closeModal(self);\n           addAutocompleteValue(workingEnv.PackageName,status.package)\n           addAutocompleteValue(workingEnv.MethodName,name);\n           workingEnv.renderMethod();\n       } else {\n           PageContent.showModal(\"Cannot create method\"+JSON.stringify(status.error))\n       }\n    });\n});"
+      "value": "$(NewMethodConfirm).click(()=>{\n    const name = $(CloneMethodName).val();\n    $.post(`/resources/methods`,{\n        \"resource\":JSON.stringify({\n            \"name\":name,\n            \"description\":workingEnv.updatedMethod.description,\n            \"js\":workingEnv.updatedMethod.js,\n            \"outputName\":workingEnv.updatedMethod.outputName,\n            \"role\":workingEnv.updatedMethod.role,\n            \"type\":workingEnv.updatedMethod.type\n        })\n    },(status)=>{\n       if (status.success){\n           PageContent.closeModal(self);\n           addAutocompleteValue(workingEnv.PackageName,status.package)\n           addAutocompleteValue(workingEnv.MethodName,name);\n           workingEnv.renderMethod();\n       } else {\n           PageContent.showModal(\"Cannot create method\"+JSON.stringify(status.error))\n       }\n    });\n});"
     }]
   },
   {
@@ -446,7 +446,7 @@
     "js": [
       {
         "env": "",
-        "value": "$(LeftPanel.MethodsPackage).change(()=>{\n    clearAutocomplete(LeftPanel.MethodName);\n    \n    const packageName = $(LeftPanel.MethodsPackage).val();\n    if (packageName !== \"\"){\n        $.get(`/resources/packages/methods/${packageName}`,(methodsPerPackage)=>{\n            methodsPerPackage.forEach((methodName)=>{\n                addAutocompleteValue(LeftPanel.MethodName,methodName)\n            });\n            $(LeftPanel.MethodName).val(\"\");\n            $(self.RightPanel.DetailsPanel.OutputName).val(\"\");\n            $(self.RightPanel.DetailsPanel.Description).val(\"\");\n            $(self.RightPanel.DetailsPanel.RoleType).val(\"\").formSelect();\n            $(self.RightPanel.JS).val(\"\");\n        });\n    }\n});"
+        "value": "$(LeftPanel.MethodsPackage).change(()=>{\n    clearAutocomplete(LeftPanel.MethodName);\n    const packageName = $(LeftPanel.MethodsPackage).val();\n    if (packageName !== \"\"){\n        $.get(`/resources/packages/methods/${packageName}`,(methodsPerPackage)=>{\n            methodsPerPackage.forEach((methodName)=>{\n                addAutocompleteValue(LeftPanel.MethodName,methodName)\n            });\n            $(LeftPanel.MethodName).val(\"\");\n            $(self.RightPanel.DetailsPanel.OutputName).val(\"\");\n            $(self.RightPanel.DetailsPanel.MethodType).val(\"\").formSelect();\n            $(self.RightPanel.DetailsPanel.Description).val(\"\");\n            $(self.RightPanel.DetailsPanel.RoleType).val(\"\").formSelect();\n            $(self.RightPanel.JS).val(\"\");\n        });\n    }\n});"
       },
       {
         "env": "",
