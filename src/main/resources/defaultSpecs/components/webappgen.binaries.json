@@ -107,7 +107,7 @@
     "name": "webappgen.binaries.Owner",
     "isContainer": false,
     "js": [],
-    "type": "binaryfield"
+    "type": "textfield"
   },
   {
     "specs": [{
@@ -121,7 +121,7 @@
     "name": "webappgen.binaries.Title",
     "isContainer": false,
     "js": [],
-    "type": "binaryfield"
+    "type": "textfield"
   },
   {
     "specs": [{
@@ -237,7 +237,7 @@
     "name": "webappgen.binaries.BinaryContent",
     "isContainer": false,
     "js": [],
-    "type": "binaryarea"
+    "type": "textarea"
   },
   {
     "layout": "vertical",
@@ -327,7 +327,7 @@
     "name": "webappgen.binaries.NewBinaryName",
     "isContainer": false,
     "js": [],
-    "type": "binaryfield"
+    "type": "textfield"
   },
   {
     "layout": "container",
@@ -438,7 +438,7 @@
     "name": "webappgen.binaries.CloneBinaryName",
     "isContainer": false,
     "js": [],
-    "type": "binaryfield"
+    "type": "textfield"
   },
   {
     "specs": [{
