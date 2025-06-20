@@ -96,8 +96,8 @@ public class ResourceModel {
     /**
      * Return title + content + owner
      *
-     * @param roles
-     * @param resourceName
+     * @param roles The roles of the request
+     * @param resourceName The requested text
      * @return
      */
     @Transactional
@@ -126,7 +126,7 @@ public class ResourceModel {
     }
 
     @Transactional
-    public JSONObject getMethodResource( String resourceName) {
+    public JSONObject getMethodResource(String resourceName) {
         MethodSpec methodSpec = methodSpecRepository.findByMethodSpecId(
                 elementHashCode(resourceName)
         );
@@ -145,12 +145,12 @@ public class ResourceModel {
     }
 
     @Transactional
-    public void addTextResource( JSONObject content) {
+    public void addTextResource(JSONObject content) {
         long resourceId = elementHashCode(content.getString("name"));
-        TextResource text = textResourceRepository.findByTextResourceId(resourceId );
+        TextResource text = textResourceRepository.findByTextResourceId(resourceId);
         if (text == null) {
             text = new TextResource();
-            text.textResourceId =resourceId;
+            text.textResourceId = resourceId;
         }
         text.resourceName = content.getString("name");
         text.title = content.getString("title");
@@ -161,14 +161,17 @@ public class ResourceModel {
         textResourceRepository.save(text);
     }
 
-
+    /**
+     * Adds new method
+     * @param content method spec
+     */
     @Transactional
-    public void addMethodResource( JSONObject content) {
+    public void addMethodResource(JSONObject content) {
         long resourceId = elementHashCode(content.getString("name"));
-        MethodSpec method = methodSpecRepository.findByMethodSpecId(resourceId );
+        MethodSpec method = methodSpecRepository.findByMethodSpecId(resourceId);
         if (method == null) {
             method = new MethodSpec();
-            method.methodSpecId =resourceId;
+            method.methodSpecId = resourceId;
         }
         method.methodJS = content.getString("js");
         method.methodName = content.getString("name");
@@ -180,6 +183,7 @@ public class ResourceModel {
 
         methodSpecRepository.save(method);
     }
+
     @Transactional
     public JSONObject deleteText(String resourceName) {
         JSONObject result = new JSONObject();
@@ -199,7 +203,7 @@ public class ResourceModel {
     @Transactional
     public JSONObject deleteMethod(String resourceName) {
         JSONObject result = new JSONObject();
-        MethodSpec method =  methodSpecRepository.findByMethodSpecId(
+        MethodSpec method = methodSpecRepository.findByMethodSpecId(
                 elementHashCode(resourceName)
         );
         if (method == null) {
