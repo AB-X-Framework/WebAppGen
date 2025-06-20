@@ -72,10 +72,6 @@
       },
       {
         "env": "",
-        "value": "$(NewEntry).click(()=>{\n    PageContent.openModal(NewEntryModal);\n});"
-      },
-      {
-        "env": "",
         "value": "$(NewText).click(()=>{\n    PageContent.openModal(NewTextModal);\n});"
       },
       {
@@ -172,13 +168,36 @@
       {
         "innerId": "elem1",
         "component": "webappgen.texts.Owner",
-        "size": "l6",
+        "size": "l5",
+        "env": ""
+      },
+      {
+        "innerId": "elem2",
+        "component": "webappgen.components.RoleType",
+        "size": "l1",
         "env": ""
       }
     ],
     "name": "webappgen.texts.DetailsPanel",
     "isContainer": true,
     "js": []
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "label": "Text",
+        "title": "Current Text",
+        "content": ""
+      }
+    }],
+    "name": "webappgen.texts.TextContent",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "workingEnv.SaveText=self;\nself.markChanged=()=>{\n    $(self).addClass(\"yellow darken-2\");\n}\n\nself.markSaved=()=>{\n    $(self).removeClass(\"yellow darken-2\");\n}"
+    }],
+    "type": "textarea"
   },
   {
     "specs": [{
@@ -320,12 +339,20 @@
   },
   {
     "layout": "horizontal",
-    "components": [{
-      "innerId": "DetailsPanel",
-      "component": "webappgen.texts.DetailsPanel",
-      "size": "l12",
-      "env": ""
-    }],
+    "components": [
+      {
+        "innerId": "DetailsPanel",
+        "component": "webappgen.texts.DetailsPanel",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "elem1",
+        "component": "webappgen.texts.TextContent",
+        "size": "l12",
+        "env": ""
+      }
+    ],
     "name": "webappgen.texts.RightPanel",
     "isContainer": true,
     "js": []
