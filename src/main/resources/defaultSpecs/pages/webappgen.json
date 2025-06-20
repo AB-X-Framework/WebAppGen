@@ -118,5 +118,23 @@
       }
     ],
     "matches": "Arrays"
+  },
+  {
+    "component": "webappgen.binaries.MainBinaryComponent",
+    "css": [],
+    "role": "Admin",
+    "name": "webappgen.Binaries",
+    "title": "Binaries",
+    "scripts": [
+      {
+        "env": "",
+        "value": "/resources/binaries/webappgen/utils.js"
+      },
+      {
+        "env": "",
+        "value": "/resources/binaries/webappgen/maps.js"
+      }
+    ],
+    "matches": "Binaries"
   }
 ]

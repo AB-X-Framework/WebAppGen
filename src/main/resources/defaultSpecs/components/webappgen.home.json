@@ -280,6 +280,10 @@
           {
             "text": "Texts",
             "value": "/page/Texts"
+          },
+          {
+            "text": "Binaries",
+            "value": "/page/Binaries"
           }
         ]
       }
