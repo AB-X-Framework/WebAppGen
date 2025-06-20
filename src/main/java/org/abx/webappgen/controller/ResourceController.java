@@ -40,7 +40,7 @@ public class ResourceController extends RoleController {
     }
 
     @Secured("Admin")
-    @DeleteMapping(value = "/texts/{resource}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = "/texts/{resourceName}", produces = MediaType.APPLICATION_JSON_VALUE)
     public String deleteText(
             @PathVariable String resourceName) {
         JSONObject status = new JSONObject();
