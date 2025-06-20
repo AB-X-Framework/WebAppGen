@@ -157,6 +157,7 @@ public class ResourceModel {
         jsonText.put("role", binaryResource.role);
         jsonText.put("name", binaryResource.resourceName);
         jsonText.put("package", binaryResource.packageName);
+        jsonText.put("owner", userRepository.findByUserId(binaryResource.owner).username);
         jsonText.put("contentType", binaryResource.contentType);
         return jsonText;
     }
