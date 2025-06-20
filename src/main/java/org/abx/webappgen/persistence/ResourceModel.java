@@ -140,6 +140,7 @@ public class ResourceModel {
         jsonText.put("description", methodSpec.description);
         jsonText.put("role", methodSpec.role);
         jsonText.put("package", methodSpec.packageName);
+        jsonText.put("outputName", methodSpec.outputName);
         jsonText.put("type", methodSpec.type);
         return jsonText;
     }
