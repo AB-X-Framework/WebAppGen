@@ -144,7 +144,21 @@ public class ResourceModel {
         jsonText.put("type", methodSpec.type);
         return jsonText;
     }
-
+    @Transactional
+    public JSONObject getBinaryResource(String resourceName) {
+        BinaryResource binaryResource = binaryResourceRepository.findByBinaryResourceId(
+                elementHashCode(resourceName)
+        );
+        if (binaryResource == null) {
+            return null;
+        }
+        JSONObject jsonText = new JSONObject();
+        jsonText.put("role", binaryResource.role);
+        jsonText.put("name", binaryResource.resourceName);
+        jsonText.put("package", binaryResource.packageName);
+        jsonText.put("contentType", binaryResource.contentType);
+        return jsonText;
+    }
     @Transactional
     public void addTextResource(JSONObject content) {
         long resourceId = elementHashCode(content.getString("name"));
@@ -268,6 +282,7 @@ public class ResourceModel {
         jsonText.put("content", text.resourceValue);
         return jsonText;
     }
+
 
     public Pair<String, byte[]> getBinaryResource(Set<String> roles, String resourceName) {
         BinaryResource binaryResource = binaryResourceRepository.findByBinaryResourceId(

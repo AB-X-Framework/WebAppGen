@@ -359,6 +359,13 @@ public class ResourceController extends RoleController {
         return resourceModel.getEntireArrayEntries(arrayName).toString();
     }
 
+    @Secured("Admin")
+    @GetMapping(value = "/binaries/{binaryName}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String getBinaryResource(@PathVariable String binaryName) {
+        return resourceModel.getBinaryResource(binaryName).toString();
+    }
+
+
     @GetMapping("/binary/**")
     public ResponseEntity<?> getBinary(HttpServletRequest request) {
         String path = (String) request.getAttribute(
