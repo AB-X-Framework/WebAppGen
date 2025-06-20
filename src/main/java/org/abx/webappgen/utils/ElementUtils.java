@@ -9,5 +9,8 @@ public class ElementUtils {
         return element.hashCode();
     }
 
+    public static long mapHashCode(String map, String key) {
+        return elementHashCode(map + "." + key);
+    }
 
 }

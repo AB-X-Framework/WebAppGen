@@ -3,6 +3,7 @@ package org.abx.webappgen.persistence;
 import org.abx.webappgen.controller.SessionEnv;
 import org.abx.webappgen.persistence.dao.*;
 import org.abx.webappgen.persistence.model.*;
+import org.abx.webappgen.utils.ElementUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
-import static org.abx.webappgen.utils.ElementUtils.defaultPackage;
-import static org.abx.webappgen.utils.ElementUtils.elementHashCode;
+import static org.abx.webappgen.utils.ElementUtils.*;
 
 @org.springframework.stereotype.Component
 public class PageModel {
@@ -61,7 +61,6 @@ public class PageModel {
     @Autowired
     public BinaryResourceRepository binaryResourceRepository;
 
-
     @Autowired
     public ArrayResourceRepository arrayResourceRepository;
 
@@ -81,9 +80,9 @@ public class PageModel {
     private UserRepository userRepository;
 
     public PageModel() {
-        envId = PageModel.mapHashCode("app.Env", "home");
-        hideDefaultsId = PageModel.mapHashCode("app.Env", "hideDefaults");
-        defaultEnv = PageModel.mapHashCode("app.Env", "defaultEnv");
+        envId = mapHashCode("app.Env", "home");
+        hideDefaultsId = mapHashCode("app.Env", "hideDefaults");
+        defaultEnv = mapHashCode("app.Env", "defaultEnv");
     }
 
     @Transactional
@@ -326,9 +325,7 @@ public class PageModel {
     }
 
 
-    public static long mapHashCode(String map, String key) {
-        return elementHashCode(map + "." + key);
-    }
+
 
     @Transactional
     public long createPageWithPageName(String pageName, String packageName,
