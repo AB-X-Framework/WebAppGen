@@ -89,11 +89,12 @@ public class ResourceModel {
 
     /**
      * Return title + content
+     *
      * @param roles
      * @param resourceName
      * @return
      */
-    public JSONObject getTextResource(Set<String> roles,String resourceName) {
+    public JSONObject getTextResource(Set<String> roles, String resourceName) {
         TextResource text = textResourceRepository.findByTextResourceId(
                 elementHashCode(resourceName)
         );
@@ -109,7 +110,7 @@ public class ResourceModel {
         }
         JSONObject jsonText = new JSONObject();
         jsonText.put("title", text.title);
-        jsonText.put("content",text.resourceValue);
+        jsonText.put("content", text.resourceValue);
         return jsonText;
     }
 
@@ -131,12 +132,13 @@ public class ResourceModel {
 
     /**
      * Delete if resource
+     *
      * @param owner
      * @param resourceName
      * @return
      */
     @Transactional
-    public JSONObject deleteTextIfOwner(String owner,String resourceName) {
+    public JSONObject deleteTextIfOwner(String owner, String resourceName) {
         JSONObject result = new JSONObject();
         TextResource text = textResourceRepository.findByTextResourceId(
                 elementHashCode(resourceName)
@@ -147,7 +149,7 @@ public class ResourceModel {
             result.put("message", "Resource not found");
             return result;
         }
-        if (!owner.equals(text.owner)){
+        if (!owner.equals(text.owner)) {
             result.put("success", false);
             result.put("message", "Resource not owned");
             return result;
@@ -159,11 +161,12 @@ public class ResourceModel {
 
     /**
      * Return content plus title
-     * @param owner The resource owner
+     *
+     * @param owner        The resource owner
      * @param resourceName the resource name
      * @return
      */
-    public JSONObject getTextIfOwner(String owner,String resourceName) {
+    public JSONObject getTextIfOwner(String owner, String resourceName) {
         TextResource text = textResourceRepository.findByTextResourceId(
                 elementHashCode(resourceName)
         );
@@ -171,12 +174,12 @@ public class ResourceModel {
         if (text == null) {
             return null;
         }
-        if (!owner.equals(text.owner)){
+        if (!owner.equals(text.owner)) {
             return null;
         }
         JSONObject jsonText = new JSONObject();
         jsonText.put("title", text.title);
-        jsonText.put("content",text.resourceValue);
+        jsonText.put("content", text.resourceValue);
         return jsonText;
     }
 
@@ -222,6 +225,20 @@ public class ResourceModel {
         return array;
     }
 
+
+    public JSONArray getTextPackages() {
+        JSONArray array = new JSONArray();
+        array.putAll(textResourceRepository.findDistinctPackageNames());
+        return array;
+    }
+
+
+    public JSONArray getBinaryPackages() {
+        JSONArray array = new JSONArray();
+        array.putAll(binaryResourceRepository.findDistinctPackageNames());
+        return array;
+    }
+
     public JSONArray getMapsByPackageName(String packageName) {
         JSONArray array = new JSONArray();
         mapResourceRepository.findAllByPackageName(packageName).forEach((mapResource) -> {
@@ -239,6 +256,22 @@ public class ResourceModel {
         return array;
     }
 
+    public JSONArray getTextsByPackageName(String packageName) {
+        JSONArray array = new JSONArray();
+        textResourceRepository.findAllByPackageName(packageName).forEach((mapResource) -> {
+            array.put(mapResource.resourceName);
+        });
+        return array;
+    }
+
+
+    public JSONArray getBinariesByPackageName(String packageName) {
+        JSONArray array = new JSONArray();
+        binaryResourceRepository.findAllByPackageName(packageName).forEach((mapResource) -> {
+            array.put(mapResource.resourceName);
+        });
+        return array;
+    }
 
     public long getMapEntriesCount(String mapName) {
         MapResource mapResource = mapResourceRepository.findByMapResourceId(elementHashCode(mapName));
@@ -427,7 +460,7 @@ public class ResourceModel {
         }
     }
 
-    public long saveTextResource(String resourceName, String owner,String title, String packageName, String data, String role) {
+    public long saveTextResource(String resourceName, String owner, String title, String packageName, String data, String role) {
         long id = elementHashCode(resourceName);
         TextResource textResource = new TextResource();
         textResource.textResourceId = id;

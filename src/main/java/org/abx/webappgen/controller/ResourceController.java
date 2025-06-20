@@ -11,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.HandlerMapping;
@@ -224,6 +223,18 @@ public class ResourceController extends RoleController {
     }
 
     @Secured("Admin")
+    @GetMapping(value = "/packages/texts", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String textPackages() {
+        return resourceModel.getTextPackages().toString();
+    }
+
+    @Secured("Admin")
+    @GetMapping(value = "/packages/binaries", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String binariesPackages() {
+        return resourceModel.getBinaryPackages().toString();
+    }
+
+    @Secured("Admin")
     @GetMapping(value = "/packages/maps/{packageName}", produces = MediaType.APPLICATION_JSON_VALUE)
     public String mapsByPackage(@PathVariable String packageName) {
         return resourceModel.getMapsByPackageName(packageName).toString(2);
@@ -231,8 +242,21 @@ public class ResourceController extends RoleController {
 
     @Secured("Admin")
     @GetMapping(value = "/packages/arrays/{packageName}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public String arrayByPackage(@PathVariable String packageName) {
+    public String arraysByPackage(@PathVariable String packageName) {
         return resourceModel.getArraysByPackageName(packageName).toString(2);
+    }
+
+
+    @Secured("Admin")
+    @GetMapping(value = "/packages/texts/{packageName}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String textsByPackage(@PathVariable String packageName) {
+        return resourceModel.getTextsByPackageName(packageName).toString(2);
+    }
+
+    @Secured("Admin")
+    @GetMapping(value = "/packages/binaries/{packageName}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String binariesByPackage(@PathVariable String packageName) {
+        return resourceModel.getBinariesByPackageName(packageName).toString(2);
     }
 
     @Secured("Admin")
