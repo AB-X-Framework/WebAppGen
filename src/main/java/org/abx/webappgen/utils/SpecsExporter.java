@@ -305,7 +305,7 @@ public class SpecsExporter {
                 jsonBinaryResource.put("name", binaryResource.resourceName);
                 jsonBinaryResource.put("contentType", binaryResource.contentType);
                 jsonBinaryResource.put("role", binaryResource.role);
-                jsonBinaryResource.put("owner",userRepository.findByUserId(binaryResource.owner).userId);
+                jsonBinaryResource.put("owner",userRepository.findByUserId(binaryResource.owner).username);
                 new File(specsFolder+"/binary/" + packageName.replace(".","/")).mkdirs();
                 new FileOutputStream(specsFolder + "/binary/" + binaryResource.resourceName).
                         write(binaryResource.resourceValue);
