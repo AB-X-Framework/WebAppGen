@@ -100,6 +100,7 @@ public class ResourceModel {
      * @param resourceName
      * @return
      */
+    @Transactional
     public JSONObject getTextResource(Set<String> roles, String resourceName) {
         TextResource text = textResourceRepository.findByTextResourceId(
                 elementHashCode(resourceName)
@@ -124,6 +125,7 @@ public class ResourceModel {
         return jsonText;
     }
 
+    @Transactional
     public JSONObject getMethodResource( String resourceName) {
         MethodSpec methodSpec = methodSpecRepository.findByMethodSpecId(
                 elementHashCode(resourceName)
@@ -138,9 +140,11 @@ public class ResourceModel {
         jsonText.put("description", methodSpec.description);
         jsonText.put("role", methodSpec.role);
         jsonText.put("package", methodSpec.packageName);
+        jsonText.put("type", methodSpec.type);
         return jsonText;
     }
 
+    @Transactional
     public void addTextResource( JSONObject content) {
         long resourceId = elementHashCode(content.getString("name"));
         TextResource text = textResourceRepository.findByTextResourceId(resourceId );
@@ -157,6 +161,25 @@ public class ResourceModel {
         textResourceRepository.save(text);
     }
 
+
+    @Transactional
+    public void addMethodResource( JSONObject content) {
+        long resourceId = elementHashCode(content.getString("name"));
+        MethodSpec method = methodSpecRepository.findByMethodSpecId(resourceId );
+        if (method == null) {
+            method = new MethodSpec();
+            method.methodSpecId =resourceId;
+        }
+        method.methodJS = content.getString("js");
+        method.methodName = content.getString("name");
+        method.role = content.getString("role");
+        method.packageName = content.getString("package");
+        method.description = content.getString("description");
+        method.type = content.getString("type");
+        method.outputName = content.getString("outputName");
+
+        methodSpecRepository.save(method);
+    }
     @Transactional
     public JSONObject deleteText(String resourceName) {
         JSONObject result = new JSONObject();
