@@ -1,0 +1,473 @@
+[
+  {
+    "layout": "popup",
+    "components": [
+      {
+        "innerId": "CloneBinaryName",
+        "component": "webappgen.binaries.CloneBinaryName",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "NewBinaryConfirm",
+        "component": "webappgen.binaries.NewBinaryConfirm",
+        "size": "l12",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.binaries.CloneBinaryModal",
+    "isContainer": true,
+    "js": [{
+      "env": "",
+      "value": "$(NewBinaryConfirm).click(()=>{\n    const name = $(CloneBinaryName).val();\n    $.post(`/resources/binaries`,{\n        \"resource\":JSON.stringify({\n            \"name\":name,\n            \"content\":workingEnv.updatedBinary.content,\n            \"title\":workingEnv.updatedBinary.title,\n            \"role\":workingEnv.updatedBinary.role\n        })\n    },(status)=>{\n       if (status.success){\n           PageContent.closeModal(self);\n           addAutocompleteValue(workingEnv.PackageName,status.package)\n           addAutocompleteValue(workingEnv.BinaryName,name);\n           workingEnv.renderBinary();\n       } else {\n           PageContent.showModal(\"Cannot create binary\"+JSON.stringify(status.error))\n       }\n    });\n});"
+    }]
+  },
+  {
+    "layout": "popup",
+    "components": [
+      {
+        "innerId": "NewBinaryName",
+        "component": "webappgen.binaries.NewBinaryName",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "NewBinaryConfirm",
+        "component": "webappgen.binaries.NewBinaryConfirm",
+        "size": "l12",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.binaries.NewBinaryModal",
+    "isContainer": true,
+    "js": [{
+      "env": "",
+      "value": "$(NewBinaryConfirm).click(()=>{\n    const name = $(NewBinaryName).val();\n    $.post(`/resources/binaries`,{\n        \"resource\":JSON.stringify({\n            \"name\":name,\n            \"content\":\"New content\",\n            \"title\":\"New binary\",\n            \"role\":\"Admin\"\n        })\n    },(status)=>{\n       if (status.success){\n           PageContent.closeModal(self);\n           addAutocompleteValue(workingEnv.PackageName,status.package)\n           addAutocompleteValue(workingEnv.BinaryName,name);\n           workingEnv.renderBinary();\n       } else {\n           PageContent.showModal(\"Cannot create binary\"+JSON.stringify(status.error))\n       }\n    });\n});"
+    }]
+  },
+  {
+    "layout": "horizontal",
+    "components": [
+      {
+        "innerId": "LeftPanel",
+        "component": "webappgen.binaries.LeftPanel",
+        "size": "l2",
+        "env": ""
+      },
+      {
+        "innerId": "RightPanel",
+        "component": "webappgen.binaries.RightPanel",
+        "size": "l10",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.binaries.BinaryBody",
+    "isContainer": true,
+    "js": [
+      {
+        "env": "",
+        "value": "$(LeftPanel.BinariesPackage).change(()=>{\n    clearAutocomplete(LeftPanel.BinaryName);\n    \n    const packageName = $(LeftPanel.BinariesPackage).val();\n    if (packageName !== \"\"){\n        $.get(`/resources/packages/binaries/${packageName}`,(binariesPerPackage)=>{\n            binariesPerPackage.forEach((binaryName)=>{\n                addAutocompleteValue(LeftPanel.BinaryName,binaryName)\n            });\n            $(LeftPanel.BinaryName).val(\"\");\n            $(self.RightPanel.BinaryContent).val(\"\");\n            $(self.RightPanel.DetailsPanel.Owner).val(\"\");\n            $(self.RightPanel.DetailsPanel.Title).val(\"\");\n            $(self.RightPanel.DetailsPanel.RoleType).val(\"\").formSelect();\n        });\n    }\n});"
+      },
+      {
+        "env": "",
+        "value": "workingEnv.currPage = 0;\nworkingEnv.BinaryBody = self;\n\nworkingEnv.renderBinary = ()=> {\n    workingEnv.binaryName = $(LeftPanel.BinaryName).val();\n    if (workingEnv.binaryName !== \"\"){\n        $.get(`/resources/binaries/${workingEnv.binaryName}`,(binary)=>{\n            workingEnv.updatedBinary = binary;\n            $(self.RightPanel.BinaryContent).val(binary.content);\n            $(self.RightPanel.DetailsPanel.Owner).val(binary.owner);\n            $(self.RightPanel.DetailsPanel.Title).val(binary.title);\n            $(self.RightPanel.DetailsPanel.RoleType).val(binary.role).formSelect();\n        });\n    }\n}\n$(LeftPanel.BinaryName).change(workingEnv.renderBinary);"
+      },
+      {
+        "env": "",
+        "value": "self.markChanged=()=>{\n    self.LeftPanel.MenuPanel.SaveBinary.markChanged();\n}\n\n\n$(self.RightPanel.BinaryContent).on('input',()=>{\n    workingEnv.updatedBinary.content = $(self.RightPanel.BinaryContent).val(); \n    self.markChanged();\n});\n \n$(self.RightPanel.DetailsPanel.Owner).on('input',()=>{\n    workingEnv.updatedBinary.owner = $(self.RightPanel.DetailsPanel.Owner).val(); \n    self.markChanged();\n});\n \n$(self.RightPanel.DetailsPanel.Title).on('input',()=>{\n    workingEnv.updatedBinary.title = $(self.RightPanel.DetailsPanel.Title).val(); \n    self.markChanged();\n});\n \n$(self.RightPanel.DetailsPanel.RoleType).change(()=>{\n    workingEnv.updatedBinary.role = $(self.RightPanel.DetailsPanel.RoleType).val(); \n    self.markChanged();\n});"
+      }
+    ]
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "src": "",
+        "values": [],
+        "title": "Binary Name"
+      }
+    }],
+    "name": "webappgen.binaries.BinaryName",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "workingEnv.BinaryName = self;"
+    }],
+    "type": "autocomplete"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "label": "Binary owner",
+        "title": "Owner",
+        "content": ""
+      }
+    }],
+    "name": "webappgen.binaries.Owner",
+    "isContainer": false,
+    "js": [],
+    "type": "binaryfield"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "label": "Binary title",
+        "title": "Binary title",
+        "content": ""
+      }
+    }],
+    "name": "webappgen.binaries.Title",
+    "isContainer": false,
+    "js": [],
+    "type": "binaryfield"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "New Binary"}
+    }],
+    "name": "webappgen.binaries.ProcessAddBinary",
+    "isContainer": false,
+    "js": [],
+    "type": "button"
+  },
+  {
+    "layout": "horizontal",
+    "components": [
+      {
+        "innerId": "Title",
+        "component": "webappgen.binaries.Title",
+        "size": "l6",
+        "env": ""
+      },
+      {
+        "innerId": "Owner",
+        "component": "webappgen.binaries.Owner",
+        "size": "l5",
+        "env": ""
+      },
+      {
+        "innerId": "RoleType",
+        "component": "webappgen.components.RoleType",
+        "size": "l1",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.binaries.DetailsPanel",
+    "isContainer": true,
+    "js": []
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "src": "/resources/packages/binaries",
+        "values": [],
+        "title": "Binaries Package"
+      }
+    }],
+    "name": "webappgen.binaries.BinariesPackage",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "workingEnv.PackageName=self;"
+    }],
+    "type": "autocomplete"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "cancel": "Cancel",
+        "ok": "Delete",
+        "title": "Confirm Delete",
+        "content": "Are you sure to delete this binary?"
+      }
+    }],
+    "name": "webappgen.binaries.ConfirmDeleteBinary",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "$(self.ok).click(()=>{\n    $.ajax({\n        url: `/resources/binaries/${workingEnv.binaryName}`, // the resource to delete\n        type: 'DELETE',\n        success: (result)=> {\n            if (result.success){\n                location.reload();    \n            }else {\n                PageContent.showModal(\"Cannot delete binary \"+JSON.stringify(result.error));\n            }\n            \n        }\n});\n});"
+    }],
+    "type": "okCancelModal"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "Save Binary"}
+    }],
+    "name": "webappgen.binaries.SaveBinary",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "workingEnv.SaveBinary=self;\nself.markChanged=()=>{\n    $(self).addClass(\"yellow darken-2\");\n}\n\nself.markSaved=()=>{\n    $(self).removeClass(\"yellow darken-2\");\n}"
+    }],
+    "type": "button"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "cancel": "Cancel",
+        "ok": "Ok",
+        "title": "Delete Binary Entry",
+        "content": "Do you want to delete this entry?"
+      }
+    }],
+    "name": "webappgen.binaries.DeletePopup",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "workingEnv.DeletePopup = self;\n\n$(self.ok).click(()=>{\n    const responseFx = (status)=>{\n            if (status.success){\n                PageContent.closeModal(workingEnv.DeletePopup);\n                workingEnv.renderBinary();\n            } else {\n                PageContent.showModal(`Cannot delete ${self.key}. ${JSON.stringify(status.error)}`)\n            }\n        };\n    \n    $.ajax({\n        \"type\": 'DELETE',\n        \"url\":`/resources/binaries/${workingEnv.binaryName}/entries/${self.key}`,\n        \"success\":responseFx\n    });\n});\n\nself.setKey=(key)=>{\n    self.key = key;\n}"
+    }],
+    "type": "okCancelModal"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "label": "Binary",
+        "title": "Current Binary",
+        "content": ""
+      }
+    }],
+    "name": "webappgen.binaries.BinaryContent",
+    "isContainer": false,
+    "js": [],
+    "type": "binaryarea"
+  },
+  {
+    "layout": "vertical",
+    "components": [
+      {
+        "innerId": "BinariesPackage",
+        "component": "webappgen.binaries.BinariesPackage",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "BinaryName",
+        "component": "webappgen.binaries.BinaryName",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "MenuPanel",
+        "component": "webappgen.binaries.MenuPanel",
+        "size": "l12",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.binaries.LeftPanel",
+    "isContainer": true,
+    "js": []
+  },
+  {
+    "layout": "vertical",
+    "components": [
+      {
+        "innerId": "header",
+        "component": "webappgen.home.header",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "modelContainer",
+        "component": "webappgen.binaries.BinaryBody",
+        "size": "",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.binaries.MainBinaryComponent",
+    "isContainer": true,
+    "js": []
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "Clone Binary"}
+    }],
+    "name": "webappgen.binaries.CloneBinary",
+    "isContainer": false,
+    "js": [],
+    "type": "button"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "Create New Binary"}
+    }],
+    "name": "webappgen.binaries.NewBinaryConfirm",
+    "isContainer": false,
+    "js": [],
+    "type": "button"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "Delete Binary"}
+    }],
+    "name": "webappgen.binaries.DeleteBinary",
+    "isContainer": false,
+    "js": [],
+    "type": "button"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "label": "New binary name",
+        "title": "Binary name",
+        "content": ""
+      }
+    }],
+    "name": "webappgen.binaries.NewBinaryName",
+    "isContainer": false,
+    "js": [],
+    "type": "binaryfield"
+  },
+  {
+    "layout": "container",
+    "components": [
+      {
+        "innerId": "SaveBinary",
+        "component": "webappgen.binaries.SaveBinary",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "NewBinary",
+        "component": "webappgen.binaries.NewBinary",
+        "size": "",
+        "env": ""
+      },
+      {
+        "innerId": "CloneBinary",
+        "component": "webappgen.binaries.CloneBinary",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "DeleteBinary",
+        "component": "webappgen.binaries.DeleteBinary",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "ConfirmDeleteBinary",
+        "component": "webappgen.binaries.ConfirmDeleteBinary",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "DeletePopup",
+        "component": "webappgen.binaries.DeletePopup",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "SaveBinaryConfirm",
+        "component": "webappgen.binaries.SaveBinaryConfirm",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "NewBinaryModal",
+        "component": "webappgen.binaries.NewBinaryModal",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "CloneBinaryModal",
+        "component": "webappgen.binaries.CloneBinaryModal",
+        "size": "l12",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.binaries.MenuPanel",
+    "isContainer": true,
+    "js": [
+      {
+        "env": "",
+        "value": "$(SaveBinary).click(()=>{\n    PageContent.openModal(SaveBinaryConfirm);\n});"
+      },
+      {
+        "env": "",
+        "value": "$(NewBinary).click(()=>{\n    PageContent.openModal(NewBinaryModal);\n});"
+      },
+      {
+        "env": "",
+        "value": "$(CloneBinary).click(()=>{\n    PageContent.openModal(CloneBinaryModal);\n});"
+      },
+      {
+        "env": "",
+        "value": "$(DeleteBinary).click(()=>{\n    PageContent.openModal(ConfirmDeleteBinary);\n})"
+      }
+    ]
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "cancel": "Cancel",
+        "ok": "Save",
+        "title": "Save Binary Values",
+        "content": "Are you sure you want to save binary values?"
+      }
+    }],
+    "name": "webappgen.binaries.SaveBinaryConfirm",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "$(self.ok).click(()=>{\n    const values = Object.entries(workingEnv.updatedBinary).map(([key, value]) => ({ key, value }));\n\n   $.post(`/resources/binaries`,{\n       \"resource\" : JSON.stringify(workingEnv.updatedBinary) \n    },(status)=>{\n        if (status.success){\n            PageContent.closeModal(self);\n            workingEnv.renderBinary();\n            workingEnv.SaveBinary.markSaved();\n        }else {\n            PageContent.showModal(\"Cannot save values \"+JSON.stringify(status.error));\n        }\n    }); \n});"
+    }],
+    "type": "okCancelModal"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "label": "Cloned binary name",
+        "title": "Cloned binary name",
+        "content": ""
+      }
+    }],
+    "name": "webappgen.binaries.CloneBinaryName",
+    "isContainer": false,
+    "js": [],
+    "type": "binaryfield"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "New Binary"}
+    }],
+    "name": "webappgen.binaries.NewBinary",
+    "isContainer": false,
+    "js": [],
+    "type": "button"
+  },
+  {
+    "layout": "horizontal",
+    "components": [
+      {
+        "innerId": "DetailsPanel",
+        "component": "webappgen.binaries.DetailsPanel",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "BinaryContent",
+        "component": "webappgen.binaries.BinaryContent",
+        "size": "l12",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.binaries.RightPanel",
+    "isContainer": true,
+    "js": []
+  }
+]
