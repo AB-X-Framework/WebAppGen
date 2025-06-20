@@ -135,7 +135,7 @@
       },
       {
         "env": "",
-        "value": "workingEnv.currPage = 0;\nworkingEnv.TextBody = self;\n\nworkingEnv.renderText = ()=> {\n    workingEnv.textName = $(LeftPanel.TextName).val();\n    if (workingEnv.textName !== \"\"){\n        $.get(`/resources/texts/${workingEnv.textName}`,(text)=>{\n            workingEnv.updatedText = text;\n            $(self.RightPanel.TextContent).val(text.content);\n            $(self.RightPanel.DetailsPanel.Owner).val(text.owner);\n            $(self.RightPanel.DetailsPanel.RoleType).val(text.role);\n        });\n    }\n}\n$(LeftPanel.TextName).change(workingEnv.renderText);"
+        "value": "workingEnv.currPage = 0;\nworkingEnv.TextBody = self;\n\nworkingEnv.renderText = ()=> {\n    workingEnv.textName = $(LeftPanel.TextName).val();\n    if (workingEnv.textName !== \"\"){\n        $.get(`/resources/texts/${workingEnv.textName}`,(text)=>{\n            workingEnv.updatedText = text;\n            $(self.RightPanel.TextContent).val(text.content);\n            $(self.RightPanel.DetailsPanel.Owner).val(text.owner);\n            $(self.RightPanel.DetailsPanel.Title).val(text.title);\n            $(self.RightPanel.DetailsPanel.RoleType).val(text.role).formSelect();\n        });\n    }\n}\n$(LeftPanel.TextName).change(workingEnv.renderText);"
       }
     ]
   },
@@ -160,7 +160,7 @@
     "layout": "horizontal",
     "components": [
       {
-        "innerId": "DetailsContainer",
+        "innerId": "Title",
         "component": "webappgen.texts.Title",
         "size": "l6",
         "env": ""
