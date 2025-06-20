@@ -91,7 +91,7 @@ public class ResourceController extends RoleController {
         try {
             String name = jsonResource.getString("name");
             String packageName = name.substring(0, name.lastIndexOf('.'));
-            jsonResource.put("packageName", packageName);
+            jsonResource.put("package", packageName);
             resourceModel.addTextResource(jsonResource);
             status.put("package", packageName);
             status.put("success", true);
@@ -112,7 +112,7 @@ public class ResourceController extends RoleController {
         try {
             String name = jsonResource.getString("name");
             String packageName = name.substring(0, name.lastIndexOf('.'));
-            jsonResource.put("packageName", packageName);
+            jsonResource.put("package", packageName);
             resourceModel.addMethodResource(jsonResource);
             status.put("package", packageName);
             status.put("success", true);

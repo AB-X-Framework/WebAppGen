@@ -155,7 +155,7 @@ public class ResourceModel {
         }
         text.resourceName = content.getString("name");
         text.title = content.getString("title");
-        text.packageName = content.getString("packageName");
+        text.packageName = content.getString("package");
         text.resourceValue = content.getString("content");
         text.owner = elementHashCode(content.getString("owner"));
         text.role = content.getString("role");
