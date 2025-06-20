@@ -27,11 +27,11 @@ public class ResourceController extends RoleController {
     @Autowired
     private ResourceModel resourceModel;
 
-    @GetMapping(value = "/texts/{resource}", produces = MediaType.TEXT_PLAIN_VALUE)
+    @GetMapping(value = "/texts/{resource}", produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("permitAll()")
     public ResponseEntity<String> textResource(@PathVariable String resource) {
         Set<String> roles = getRoles();
-        String data = resourceModel.getTextResource(roles, resource);
+        String data = resourceModel.getTextResource(roles, resource).toString();
         if (data == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -41,6 +41,22 @@ public class ResourceController extends RoleController {
         headers.setContentLength(data.length());
         return new ResponseEntity<>(data, headers, HttpStatus.OK);
     }
+
+    @Secured("Admin")
+    @DeleteMapping(value = "/texts/{resource}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String deleteMapValue(
+            @PathVariable String mapName,
+            @PathVariable String key) {
+        JSONObject status = new JSONObject();
+        try {
+            status.put("success", resourceModel.deleteMapEntry(mapName, key));
+        } catch (Exception e) {
+            status.put("success", false);
+            status.put("error", e.getMessage());
+        }
+        return status.toString();
+    }
+
 
     @Secured("Admin")
     @PostMapping(value = "/maps/{mapName}", produces = MediaType.APPLICATION_JSON_VALUE)

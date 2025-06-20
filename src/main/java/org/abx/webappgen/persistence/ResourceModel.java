@@ -87,7 +87,13 @@ public class ResourceModel {
         return jsonArray;
     }
 
-    public String getTextResource(Set<String> roles, String resourceName) {
+    /**
+     * Return title + content
+     * @param roles
+     * @param resourceName
+     * @return
+     */
+    public JSONObject getTextResource(Set<String> roles,String resourceName) {
         TextResource text = textResourceRepository.findByTextResourceId(
                 elementHashCode(resourceName)
         );
@@ -101,7 +107,61 @@ public class ResourceModel {
                 return null;
             }
         }
-        return text.resourceValue;
+        JSONObject jsonText = new JSONObject();
+        jsonText.put("title", text.title);
+        jsonText.put("content",text.resourceValue);
+        return jsonText;
+    }
+
+    /**
+     * Delete if resource
+     * @param owner
+     * @param resourceName
+     * @return
+     */
+    @Transactional
+    public JSONObject deleteTextIfOwner(String owner,String resourceName) {
+        JSONObject result = new JSONObject();
+        TextResource text = textResourceRepository.findByTextResourceId(
+                elementHashCode(resourceName)
+        );
+
+        if (text == null) {
+            result.put("success", false);
+            result.put("message", "Resource not found");
+            return result;
+        }
+        if (!owner.equals(text.owner)){
+            result.put("success", false);
+            result.put("message", "Resource not owned");
+            return result;
+        }
+        textResourceRepository.delete(text);
+        result.put("success", true);
+        return result;
+    }
+
+    /**
+     * Return content plus title
+     * @param owner The resource owner
+     * @param resourceName the resource name
+     * @return
+     */
+    public JSONObject getTextIfOwner(String owner,String resourceName) {
+        TextResource text = textResourceRepository.findByTextResourceId(
+                elementHashCode(resourceName)
+        );
+
+        if (text == null) {
+            return null;
+        }
+        if (!owner.equals(text.owner)){
+            return null;
+        }
+        JSONObject jsonText = new JSONObject();
+        jsonText.put("title", text.title);
+        jsonText.put("content",text.resourceValue);
+        return jsonText;
     }
 
     public Pair<String, byte[]> getBinaryResource(Set<String> roles, String resourceName) {
