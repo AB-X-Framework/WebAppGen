@@ -33,6 +33,12 @@
         "env": ""
       },
       {
+        "innerId": "CloneText",
+        "component": "webappgen.texts.CloneText",
+        "size": "l12",
+        "env": ""
+      },
+      {
         "innerId": "DeleteText",
         "component": "webappgen.texts.DeleteText",
         "size": "l12",
@@ -61,6 +67,12 @@
         "component": "webappgen.texts.NewTextModal",
         "size": "l12",
         "env": ""
+      },
+      {
+        "innerId": "CloneTextModal",
+        "component": "webappgen.texts.CloneTextModal",
+        "size": "l12",
+        "env": ""
       }
     ],
     "name": "webappgen.texts.MenuPanel",
@@ -73,6 +85,10 @@
       {
         "env": "",
         "value": "$(NewText).click(()=>{\n    PageContent.openModal(NewTextModal);\n});"
+      },
+      {
+        "env": "",
+        "value": "$(CloneText).click(()=>{\n    PageContent.openModal(CloneTextModal);\n});"
       },
       {
         "env": "",
@@ -131,7 +147,7 @@
     "js": [
       {
         "env": "",
-        "value": "$(LeftPanel.TextsPackage).change(()=>{\n    clearAutocomplete(LeftPanel.TextName);\n    \n    const packageName = $(LeftPanel.TextsPackage).val();\n    if (packageName !== \"\"){\n        $.get(`/resources/packages/texts/${packageName}`,(textsPerPackage)=>{\n            textsPerPackage.forEach((textName)=>{\n                addAutocompleteValue(LeftPanel.TextName,textName)\n            });\n             $(LeftPanel.TextName).val(\"\");\n        });\n    }\n});"
+        "value": "$(LeftPanel.TextsPackage).change(()=>{\n    clearAutocomplete(LeftPanel.TextName);\n    \n    const packageName = $(LeftPanel.TextsPackage).val();\n    if (packageName !== \"\"){\n        $.get(`/resources/packages/texts/${packageName}`,(textsPerPackage)=>{\n            textsPerPackage.forEach((textName)=>{\n                addAutocompleteValue(LeftPanel.TextName,textName)\n            });\n            $(LeftPanel.TextName).val(\"\");\n            $(self.RightPanel.TextContent).val(\"\");\n            $(self.RightPanel.DetailsPanel.Owner).val(\"\");\n            $(self.RightPanel.DetailsPanel.Title).val(\"\");\n            $(self.RightPanel.DetailsPanel.RoleType).val(\"\").formSelect();\n        });\n    }\n});"
       },
       {
         "env": "",
@@ -185,6 +201,39 @@
     "name": "webappgen.texts.DetailsPanel",
     "isContainer": true,
     "js": []
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "Clone Text"}
+    }],
+    "name": "webappgen.texts.CloneText",
+    "isContainer": false,
+    "js": [],
+    "type": "button"
+  },
+  {
+    "layout": "popup",
+    "components": [
+      {
+        "innerId": "CloneTextName",
+        "component": "webappgen.texts.CloneTextName",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "NewTextConfirm",
+        "component": "webappgen.texts.NewTextConfirm",
+        "size": "l12",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.texts.CloneTextModal",
+    "isContainer": true,
+    "js": [{
+      "env": "",
+      "value": "$(NewTextConfirm).click(()=>{\n    const name = $(CloneTextName).val();\n    $.post(`/resources/texts`,{\n        \"resource\":JSON.stringify({\n            \"name\":name,\n            \"content\":workingEnv.updatedText.content,\n            \"title\":workingEnv.updatedText.title,\n            \"role\":workingEnv.updatedText.role\n        })\n    },(status)=>{\n       if (status.success){\n           PageContent.closeModal(self);\n           addAutocompleteValue(workingEnv.PackageName,status.package)\n           addAutocompleteValue(workingEnv.TextName,name);\n           workingEnv.renderText();\n       } else {\n           PageContent.showModal(\"Cannot create text\"+JSON.stringify(status.error))\n       }\n    });\n});"
+    }]
   },
   {
     "specs": [{
@@ -276,6 +325,20 @@
       }
     }],
     "name": "webappgen.texts.Title",
+    "isContainer": false,
+    "js": [],
+    "type": "textfield"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "label": "Cloned text name",
+        "title": "Cloned text name",
+        "content": ""
+      }
+    }],
+    "name": "webappgen.texts.CloneTextName",
     "isContainer": false,
     "js": [],
     "type": "textfield"
