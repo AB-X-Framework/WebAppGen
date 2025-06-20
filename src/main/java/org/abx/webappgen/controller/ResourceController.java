@@ -12,7 +12,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.HandlerMapping;
@@ -30,7 +29,7 @@ public class ResourceController extends RoleController {
 
     @GetMapping(value = "/texts/{resource}", produces = MediaType.APPLICATION_JSON_VALUE)
     @Secured("Admin")
-    public String textResource(@PathVariable String resource) throws Exception {
+    public String textResource(@PathVariable String resource) {
         Set<String> roles = getRoles();
         JSONObject data = resourceModel.getTextResource(roles, resource);
         if (data == null) {
@@ -42,8 +41,8 @@ public class ResourceController extends RoleController {
 
     @GetMapping(value = "/methods/{resource}", produces = MediaType.APPLICATION_JSON_VALUE)
     @Secured("Admin")
-    public String methodResource(@PathVariable String resource) throws Exception {
-        JSONObject data = resourceModel.getMethodResource( resource);
+    public String methodResource(@PathVariable String resource) {
+        JSONObject data = resourceModel.getMethodResource(resource);
         if (data == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Resource not found: " + resource);
         }
@@ -90,10 +89,31 @@ public class ResourceController extends RoleController {
             jsonResource.put("owner", request.getUserPrincipal().getName());
         }
         try {
-            String name =  jsonResource.getString("name");
+            String name = jsonResource.getString("name");
             String packageName = name.substring(0, name.lastIndexOf('.'));
             jsonResource.put("packageName", packageName);
             resourceModel.addTextResource(jsonResource);
+            status.put("package", packageName);
+            status.put("success", true);
+        } catch (Exception e) {
+            status.put("success", false);
+            status.put("error", e.getMessage());
+        }
+        return status.toString();
+    }
+
+
+    @Secured("Admin")
+    @PostMapping(value = "/methods", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String addMethod(
+            @RequestParam String resource) {
+        JSONObject status = new JSONObject();
+        JSONObject jsonResource = new JSONObject(resource);
+        try {
+            String name = jsonResource.getString("name");
+            String packageName = name.substring(0, name.lastIndexOf('.'));
+            jsonResource.put("packageName", packageName);
+            resourceModel.addMethodResource(jsonResource);
             status.put("package", packageName);
             status.put("success", true);
         } catch (Exception e) {
