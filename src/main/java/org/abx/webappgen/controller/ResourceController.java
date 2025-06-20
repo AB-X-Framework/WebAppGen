@@ -367,7 +367,7 @@ public class ResourceController extends RoleController {
         );
 
         // Remove the prefix "/binaries/"
-        String resource = path.replaceFirst("/resources/binary/", "");
+        String resource = path.replaceFirst("/resources/binaries/", "");
         return resourceModel.getBinaryResource(resource).toString();
     }
 
