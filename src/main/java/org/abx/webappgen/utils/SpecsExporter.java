@@ -332,6 +332,7 @@ public class SpecsExporter {
                 jsonTextResource.put("role", textResource.role);
                 jsonTextResource.put("title", textResource.title);
                 jsonTextResource.put("owner", userRepository.findByUserId(textResource.owner).username);
+                new File(specsFolder+"/text/" + packageName.replace(".","/")).mkdirs();
                 new FileOutputStream(specsFolder + "/text/" +
                         textResource.resourceName.replace('.','/') + ".txt").
                         write(textResource.resourceValue.getBytes());
