@@ -335,7 +335,7 @@
     "isContainer": true,
     "js": [{
       "env": "",
-      "value": "$(NewTextConfirm).click(()=>{\n    const name = $(NewTextName).val();\n    $.post(`/resources/texts/${name}`,(status)=>{\n       if (status.success){\n           PageContent.closeModal(self);\n           addAutocompleteValue(workingEnv.PackageName,status.package)\n           addAutocompleteValue(workingEnv.TextName,name);\n       } else {\n           PageContent.showModal(\"Cannot create text\"+JSON.stringify(status.error))\n       }\n    });\n});"
+      "value": "$(NewTextConfirm).click(()=>{\n    const name = $(NewTextName).val();\n    $.post(`/resources/texts`,{\n        \"resource\":JSON.stringify({\n            \"name\":name,\n            \"content\":\"New content\",\n            \"title\":\"New text\",\n            \"role\":\"Admin\"\n        })\n    },(status)=>{\n       if (status.success){\n           PageContent.closeModal(self);\n           addAutocompleteValue(workingEnv.PackageName,status.package)\n           addAutocompleteValue(workingEnv.TextName,name);\n           workingEnv.renderText();\n       } else {\n           PageContent.showModal(\"Cannot create text\"+JSON.stringify(status.error))\n       }\n    });\n});"
     }]
   },
   {
