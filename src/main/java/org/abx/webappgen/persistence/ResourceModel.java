@@ -113,6 +113,22 @@ public class ResourceModel {
         return jsonText;
     }
 
+    @Transactional
+    public JSONObject deleteText(String resourceName) {
+        JSONObject result = new JSONObject();
+        TextResource text = textResourceRepository.findByTextResourceId(
+                elementHashCode(resourceName)
+        );
+        if (text == null) {
+            result.put("success", false);
+            result.put("message", "Resource not found");
+            return result;
+        }
+        textResourceRepository.delete(text);
+        result.put("success", true);
+        return result;
+    }
+
     /**
      * Delete if resource
      * @param owner

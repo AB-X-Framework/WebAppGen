@@ -28,7 +28,7 @@ public class ResourceController extends RoleController {
     private ResourceModel resourceModel;
 
     @GetMapping(value = "/texts/{resource}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @PreAuthorize("permitAll()")
+    @Secured("Admin")
     public ResponseEntity<String> textResource(@PathVariable String resource) {
         Set<String> roles = getRoles();
         String data = resourceModel.getTextResource(roles, resource).toString();
@@ -44,12 +44,11 @@ public class ResourceController extends RoleController {
 
     @Secured("Admin")
     @DeleteMapping(value = "/texts/{resource}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public String deleteMapValue(
-            @PathVariable String mapName,
-            @PathVariable String key) {
+    public String deleteText(
+            @PathVariable String resourceName) {
         JSONObject status = new JSONObject();
         try {
-            status.put("success", resourceModel.deleteMapEntry(mapName, key));
+            status.put("success", resourceModel.deleteText(resourceName));
         } catch (Exception e) {
             status.put("success", false);
             status.put("error", e.getMessage());
@@ -253,6 +252,7 @@ public class ResourceController extends RoleController {
     public String getEntireArrayEntries(@PathVariable String arrayName) {
         return resourceModel.getEntireArrayEntries(arrayName).toString();
     }
+
     @GetMapping("/binaries/**")
     public ResponseEntity<?> getBinary(HttpServletRequest request) {
         String path = (String) request.getAttribute(
