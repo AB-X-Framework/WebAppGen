@@ -12,7 +12,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.HandlerMapping;
 
 import java.io.IOException;
@@ -28,17 +30,13 @@ public class ResourceController extends RoleController {
 
     @GetMapping(value = "/texts/{resource}", produces = MediaType.APPLICATION_JSON_VALUE)
     @Secured("Admin")
-    public ResponseEntity<String> textResource(@PathVariable String resource) {
+    public String textResource(@PathVariable String resource) throws Exception {
         Set<String> roles = getRoles();
-        String data = resourceModel.getTextResource(roles, resource).toString();
+        JSONObject data = resourceModel.getTextResource(roles, resource);
         if (data == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Resource not found: " + resource);
         }
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.TEXT_PLAIN); // Or your custom type
-        headers.setContentDispositionFormData("attachment", resource);
-        headers.setContentLength(data.length());
-        return new ResponseEntity<>(data, headers, HttpStatus.OK);
+        return data.toString();
     }
 
     @Secured("Admin")

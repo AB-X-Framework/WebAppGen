@@ -135,7 +135,7 @@
       },
       {
         "env": "",
-        "value": "workingEnv.currPage = 0;\nworkingEnv.TextBody = self;\nworkingEnv.updatedText = {};\nworkingEnv.entriesPerPage = 10;\nworkingEnv.entryCount=0;\nworkingEnv.renderNextValues = ()=>{\n    if (workingEnv.textName === \"\"){\n        return;\n    }\n    App.process(\"webappgen.textValues\",{\n        \"text\":workingEnv.textName,\n        \"page\":workingEnv.currPage,\n        \"size\":workingEnv.entriesPerPage\n    },(componentSpecs)=>{\n        workingEnv.SaveText.markSaved();\n        const init = (workingEnv.currPage*workingEnv.entriesPerPage)+1;\n        let end = ((workingEnv.currPage+1)*workingEnv.entriesPerPage);\n        end = Math.min(workingEnv.entryCount,end);\n        $(LeftPanel.MenuPanel.Label).text(`Entries ${init} - ${end} of ${workingEnv.entryCount}`);\n        workingEnv.updatedText = {};\n        componentSpecs.js = \"\";\n        const output = [];\n        const js =[];\n        PageContent.renderComponent(output, js, componentSpecs);\n        $(RightPanel.DetailsPanel.DetailsContainer).html(output.join(\"\"));\n        M.updateTextFields();\n        PageContent.processJS(js);\n    });\n};\nworkingEnv.renderText = ()=> {\n    workingEnv.textName = $(LeftPanel.TextName).val();\n    if (workingEnv.textName !== \"\"){\n        $.get(`/resources/texts/${workingEnv.textName}/count`,(total)=>{\n            workingEnv.entryCount = total;\n        });\n        workingEnv.currPage = 0;\n        workingEnv.renderNextValues();\n    }\n}\n$(LeftPanel.TextName).change(workingEnv.renderText);"
+        "value": "workingEnv.currPage = 0;\nworkingEnv.TextBody = self;\n\nworkingEnv.renderText = ()=> {\n    workingEnv.textName = $(LeftPanel.TextName).val();\n    if (workingEnv.textName !== \"\"){\n        $.get(`/resources/texts/${workingEnv.textName}`,(text)=>{\n            workingEnv.updatedText = text;\n            $(self.RightPanel.TextContent).val(text.content);\n            $(self.RightPanel.TextContent).val(text.content);\n        });\n    }\n}\n$(LeftPanel.TextName).change(workingEnv.renderText);"
       }
     ]
   },
@@ -347,7 +347,7 @@
         "env": ""
       },
       {
-        "innerId": "elem1",
+        "innerId": "TextContent",
         "component": "webappgen.texts.TextContent",
         "size": "l12",
         "env": ""
