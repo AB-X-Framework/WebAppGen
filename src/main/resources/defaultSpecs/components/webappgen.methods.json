@@ -131,26 +131,26 @@
     "specs": [{
       "env": "",
       "value": {
+        "label": "Method description",
+        "title": "Method description",
+        "content": ""
+      }
+    }],
+    "name": "webappgen.methods.Description",
+    "isContainer": false,
+    "js": [],
+    "type": "textarea"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
         "label": "Method owner",
         "title": "Owner",
         "content": ""
       }
     }],
     "name": "webappgen.methods.Owner",
-    "isContainer": false,
-    "js": [],
-    "type": "textfield"
-  },
-  {
-    "specs": [{
-      "env": "",
-      "value": {
-        "label": "Method title",
-        "title": "Method title",
-        "content": ""
-      }
-    }],
-    "name": "webappgen.methods.Title",
     "isContainer": false,
     "js": [],
     "type": "textfield"
@@ -279,15 +279,15 @@
     "layout": "horizontal",
     "components": [
       {
-        "innerId": "Title",
-        "component": "webappgen.methods.Title",
-        "size": "l6",
+        "innerId": "Description",
+        "component": "webappgen.methods.Description",
+        "size": "l7",
         "env": ""
       },
       {
         "innerId": "Owner",
         "component": "webappgen.methods.Owner",
-        "size": "l5",
+        "size": "l4",
         "env": ""
       },
       {
@@ -440,11 +440,11 @@
     "js": [
       {
         "env": "",
-        "value": "$(LeftPanel.MethodsPackage).change(()=>{\n    clearAutocomplete(LeftPanel.MethodName);\n    \n    const packageName = $(LeftPanel.MethodsPackage).val();\n    if (packageName !== \"\"){\n        $.get(`/resources/packages/methods/${packageName}`,(methodsPerPackage)=>{\n            methodsPerPackage.forEach((methodName)=>{\n                addAutocompleteValue(LeftPanel.MethodName,methodName)\n            });\n            $(LeftPanel.MethodName).val(\"\");\n            $(self.RightPanel.DetailsPanel.Owner).val(\"\");\n            $(self.RightPanel.DetailsPanel.Title).val(\"\");\n            $(self.RightPanel.DetailsPanel.RoleType).val(\"\").formSelect();\n            $(self.RightPanel.JS).val(\"\");\n        });\n    }\n});"
+        "value": "$(LeftPanel.MethodsPackage).change(()=>{\n    clearAutocomplete(LeftPanel.MethodName);\n    \n    const packageName = $(LeftPanel.MethodsPackage).val();\n    if (packageName !== \"\"){\n        $.get(`/resources/packages/methods/${packageName}`,(methodsPerPackage)=>{\n            methodsPerPackage.forEach((methodName)=>{\n                addAutocompleteValue(LeftPanel.MethodName,methodName)\n            });\n            $(LeftPanel.MethodName).val(\"\");\n            $(self.RightPanel.DetailsPanel.Owner).val(\"\");\n            $(self.RightPanel.DetailsPanel.Description).val(\"\");\n            $(self.RightPanel.DetailsPanel.RoleType).val(\"\").formSelect();\n            $(self.RightPanel.JS).val(\"\");\n        });\n    }\n});"
       },
       {
         "env": "",
-        "value": "workingEnv.currPage = 0;\nworkingEnv.MethodBody = self;\n\nworkingEnv.renderMethod = ()=> {\n    workingEnv.methodName = $(LeftPanel.MethodName).val();\n    if (workingEnv.methodName !== \"\"){\n        $.get(`/resources/methods/${workingEnv.methodName}`,(method)=>{\n            workingEnv.updatedMethod = method;\n            var editor = ace.edit(self.RightPanel.JS);\n            editor.setValue(method.js);\n            $(self.RightPanel.DetailsPanel.Owner).val(method.owner);\n            $(self.RightPanel.DetailsPanel.Title).val(method.title);\n            $(self.RightPanel.DetailsPanel.RoleType).val(method.role).formSelect();\n        });\n    }\n}\n$(LeftPanel.MethodName).change(workingEnv.renderMethod);"
+        "value": "workingEnv.currPage = 0;\nworkingEnv.MethodBody = self;\n\nworkingEnv.renderMethod = ()=> {\n    workingEnv.methodName = $(LeftPanel.MethodName).val();\n    if (workingEnv.methodName !== \"\"){\n        $.get(`/resources/methods/${workingEnv.methodName}`,(method)=>{\n            workingEnv.updatedMethod = method;\n            var editor = ace.edit(self.RightPanel.JS);\n            editor.setValue(method.js);\n            $(self.RightPanel.DetailsPanel.Description).val(method.description);\n            $(self.RightPanel.DetailsPanel.Owner).val(method.owner);\n            \n            $(self.RightPanel.DetailsPanel.RoleType).val(method.role).formSelect();\n        });\n    }\n}\n$(LeftPanel.MethodName).change(workingEnv.renderMethod);"
       },
       {
         "env": "",
