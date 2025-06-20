@@ -43,8 +43,7 @@ public class ResourceController extends RoleController {
     @GetMapping(value = "/methods/{resource}", produces = MediaType.APPLICATION_JSON_VALUE)
     @Secured("Admin")
     public String methodResource(@PathVariable String resource) throws Exception {
-        Set<String> roles = getRoles();
-        JSONObject data = resourceModel.getTextResource(roles, resource);
+        JSONObject data = resourceModel.getMethodResource( resource);
         if (data == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Resource not found: " + resource);
         }
