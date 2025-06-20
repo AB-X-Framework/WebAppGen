@@ -114,6 +114,7 @@ public class ResourceModel {
         JSONObject jsonText = new JSONObject();
         jsonText.put("title", text.title);
         jsonText.put("name", text.resourceName);
+        jsonText.put("package", text.packageName);
         jsonText.put("content", text.resourceValue);
         jsonText.put("owner", userRepository.findByUserId(text.owner).username);
         jsonText.put("role", text.role);
@@ -127,7 +128,9 @@ public class ResourceModel {
             text = new TextResource();
             text.textResourceId =resourceId;
         }
+        text.resourceName = content.getString("name");
         text.title = content.getString("title");
+        text.packageName = content.getString("packageName");
         text.resourceValue = content.getString("content");
         text.owner = elementHashCode(content.getString("owner"));
         text.role = content.getString("role");

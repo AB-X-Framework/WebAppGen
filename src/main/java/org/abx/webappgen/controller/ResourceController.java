@@ -57,11 +57,19 @@ public class ResourceController extends RoleController {
     @Secured("Admin")
     @PostMapping(value = "/texts", produces = MediaType.APPLICATION_JSON_VALUE)
     public String addText(
+            final HttpServletRequest request,
             @RequestParam String resource) {
         JSONObject status = new JSONObject();
         JSONObject jsonResource = new JSONObject(resource);
+        if (jsonResource.isNull("owner")) {
+            jsonResource.put("owner", request.getUserPrincipal().getName());
+        }
         try {
+            String name =  jsonResource.getString("name");
+            String packageName = name.substring(0, name.lastIndexOf('.'));
+            jsonResource.put("packageName", packageName);
             resourceModel.addTextResource(jsonResource);
+            status.put("package", packageName);
             status.put("success", true);
         } catch (Exception e) {
             status.put("success", false);
