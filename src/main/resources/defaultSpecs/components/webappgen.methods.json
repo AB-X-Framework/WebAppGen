@@ -378,7 +378,7 @@
         "env": ""
       },
       {
-        "innerId": "MethodContent",
+        "innerId": "JS",
         "component": "webappgen.methods.MethodContent",
         "size": "l12",
         "env": ""
@@ -441,15 +441,15 @@
     "js": [
       {
         "env": "",
-        "value": "$(LeftPanel.MethodsPackage).change(()=>{\n    clearAutocomplete(LeftPanel.MethodName);\n    \n    const packageName = $(LeftPanel.MethodsPackage).val();\n    if (packageName !== \"\"){\n        $.get(`/resources/packages/methods/${packageName}`,(methodsPerPackage)=>{\n            methodsPerPackage.forEach((methodName)=>{\n                addAutocompleteValue(LeftPanel.MethodName,methodName)\n            });\n            $(LeftPanel.MethodName).val(\"\");\n            $(self.RightPanel.MethodContent).val(\"\");\n            $(self.RightPanel.DetailsPanel.Owner).val(\"\");\n            $(self.RightPanel.DetailsPanel.Title).val(\"\");\n            $(self.RightPanel.DetailsPanel.RoleType).val(\"\").formSelect();\n        });\n    }\n});"
+        "value": "$(LeftPanel.MethodsPackage).change(()=>{\n    clearAutocomplete(LeftPanel.MethodName);\n    \n    const packageName = $(LeftPanel.MethodsPackage).val();\n    if (packageName !== \"\"){\n        $.get(`/resources/packages/methods/${packageName}`,(methodsPerPackage)=>{\n            methodsPerPackage.forEach((methodName)=>{\n                addAutocompleteValue(LeftPanel.MethodName,methodName)\n            });\n            $(LeftPanel.MethodName).val(\"\");\n            $(self.RightPanel.DetailsPanel.Owner).val(\"\");\n            $(self.RightPanel.DetailsPanel.Title).val(\"\");\n            $(self.RightPanel.DetailsPanel.RoleType).val(\"\").formSelect();\n            $(self.RightPanel.JS).val(\"\");\n        });\n    }\n});"
       },
       {
         "env": "",
-        "value": "workingEnv.currPage = 0;\nworkingEnv.MethodBody = self;\n\nworkingEnv.renderMethod = ()=> {\n    workingEnv.methodName = $(LeftPanel.MethodName).val();\n    if (workingEnv.methodName !== \"\"){\n        $.get(`/resources/methods/${workingEnv.methodName}`,(method)=>{\n            workingEnv.updatedMethod = method;\n            $(self.RightPanel.MethodContent).val(method.content);\n            $(self.RightPanel.DetailsPanel.Owner).val(method.owner);\n            $(self.RightPanel.DetailsPanel.Title).val(method.title);\n            $(self.RightPanel.DetailsPanel.RoleType).val(method.role).formSelect();\n        });\n    }\n}\n$(LeftPanel.MethodName).change(workingEnv.renderMethod);"
+        "value": "workingEnv.currPage = 0;\nworkingEnv.MethodBody = self;\n\nworkingEnv.renderMethod = ()=> {\n    workingEnv.methodName = $(LeftPanel.MethodName).val();\n    if (workingEnv.methodName !== \"\"){\n        $.get(`/resources/methods/${workingEnv.methodName}`,(method)=>{\n            workingEnv.updatedMethod = method;\n            $(self.RightPanel.JS).val(method.js);\n            $(self.RightPanel.DetailsPanel.Owner).val(method.owner);\n            $(self.RightPanel.DetailsPanel.Title).val(method.title);\n            $(self.RightPanel.DetailsPanel.RoleType).val(method.role).formSelect();\n        });\n    }\n}\n$(LeftPanel.MethodName).change(workingEnv.renderMethod);"
       },
       {
         "env": "",
-        "value": "self.markChanged=()=>{\n    self.LeftPanel.MenuPanel.SaveMethod.markChanged();\n}\n\n\n$(self.RightPanel.MethodContent).on('input',()=>{\n    workingEnv.updatedMethod.content = $(self.RightPanel.MethodContent).val(); \n    self.markChanged();\n});\n \n$(self.RightPanel.DetailsPanel.Owner).on('input',()=>{\n    workingEnv.updatedMethod.owner = $(self.RightPanel.DetailsPanel.Owner).val(); \n    self.markChanged();\n});\n \n$(self.RightPanel.DetailsPanel.Title).on('input',()=>{\n    workingEnv.updatedMethod.title = $(self.RightPanel.DetailsPanel.Title).val(); \n    self.markChanged();\n});\n \n$(self.RightPanel.DetailsPanel.RoleType).change(()=>{\n    workingEnv.updatedMethod.role = $(self.RightPanel.DetailsPanel.RoleType).val(); \n    self.markChanged();\n});"
+        "value": "self.markChanged=()=>{\n    self.LeftPanel.MenuPanel.SaveMethod.markChanged();\n}\n\n\n$(self.RightPanel.JS).on('input',()=>{\n    workingEnv.updatedMethod.content = $(self.RightPanel.JS).val(); \n    self.markChanged();\n});\n \n$(self.RightPanel.DetailsPanel.Owner).on('input',()=>{\n    workingEnv.updatedMethod.owner = $(self.RightPanel.DetailsPanel.Owner).val(); \n    self.markChanged();\n});\n \n$(self.RightPanel.DetailsPanel.Title).on('input',()=>{\n    workingEnv.updatedMethod.title = $(self.RightPanel.DetailsPanel.Title).val(); \n    self.markChanged();\n});\n \n$(self.RightPanel.DetailsPanel.RoleType).change(()=>{\n    workingEnv.updatedMethod.role = $(self.RightPanel.DetailsPanel.RoleType).val(); \n    self.markChanged();\n});"
       }
     ]
   },
