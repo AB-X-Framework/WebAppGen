@@ -303,7 +303,8 @@ public class ResourceModel {
         return new Pair<>(binaryResource.contentType, binaryResource.resourceValue);
     }
 
-    public long saveBinaryResource(String resourceName, String packageName, String owner, String contentType, byte[] data, String role) {
+    public long saveBinaryResource(String resourceName, String packageName, String owner,
+                                   String contentType, byte[] data, String role) {
         long id = elementHashCode(resourceName);
         BinaryResource binaryResource =  binaryResourceRepository.findByBinaryResourceId(id);
         if (binaryResource == null) {
