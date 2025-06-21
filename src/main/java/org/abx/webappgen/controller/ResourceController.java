@@ -402,14 +402,17 @@ public class ResourceController extends RoleController {
     @PostMapping(value = "/binaries", consumes = "multipart/form-data")
     public long handleUpload(
             HttpServletRequest request,
-            @RequestPart MultipartFile data,
-            @RequestPart String packageName,
-            @RequestPart String role,
-            @RequestPart String contentType) throws IOException {
+            @RequestPart String name,
+            @RequestPart(required = false) MultipartFile data,
+            @RequestPart(required = false) String role,
+            @RequestPart(required = false) String owner,
+            @RequestPart(required = false) String contentType) throws IOException {
         byte[] fileBytes = data.getBytes();
-        String name = data.getOriginalFilename();
-        String username = request.getUserPrincipal().getName();
-        return resourceModel.saveBinaryResource(name, packageName, username, contentType, fileBytes, role);
+        String packageName = name.substring(0, name.lastIndexOf('.'));
+        if (owner == null) {
+            owner = request.getUserPrincipal().getName();
+        }
+        return resourceModel.saveBinaryResource(name, packageName, owner, contentType, fileBytes, role);
     }
 
 }

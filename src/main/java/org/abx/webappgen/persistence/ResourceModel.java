@@ -305,12 +305,24 @@ public class ResourceModel {
 
     public long saveBinaryResource(String resourceName, String packageName, String owner, String contentType, byte[] data, String role) {
         long id = elementHashCode(resourceName);
-        BinaryResource binaryResource = new BinaryResource();
-        binaryResource.binaryResourceId = id;
-        binaryResource.contentType = contentType;
-        binaryResource.resourceValue = data;
+        BinaryResource binaryResource =  binaryResourceRepository.findByBinaryResourceId(id);
+        if (binaryResource == null) {
+             binaryResource = new BinaryResource();
+             binaryResource.binaryResourceId = id;
+        }
+        if (contentType != null) {
+            binaryResource.contentType = contentType;
+        }
+        if (contentType != null) {
+            binaryResource.resourceValue = data;
+        }
+        if (binaryResource.resourceValue == null) {
+            binaryResource.resourceValue = new byte[0];
+        }
         binaryResource.owner = elementHashCode(owner);
-        binaryResource.role = role;
+        if (role != null) {
+            binaryResource.role = role;
+        }
         binaryResource.packageName = packageName;
         binaryResource.resourceName = resourceName;
         binaryResourceRepository.save(binaryResource);
