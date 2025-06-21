@@ -394,6 +394,14 @@ public class ResourceModel {
         return array;
     }
 
+
+    public JSONArray getBinariesOutputTypes() {
+        JSONArray array = new JSONArray();
+        binaryResourceRepository.findDistinctContentTypes().forEach(array::put);
+        return array;
+    }
+
+
     public long getMapEntriesCount(String mapName) {
         MapResource mapResource = mapResourceRepository.findByMapResourceId(elementHashCode(mapName));
         return mapEntryRepository.countByMapResource(mapResource);

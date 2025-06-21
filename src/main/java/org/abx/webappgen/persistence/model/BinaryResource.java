@@ -4,7 +4,8 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "BinaryResource",
-        indexes = {@Index(name = "BinaryResource_packageName", columnList = "packageName")})
+        indexes = {@Index(name = "BinaryResource_packageName", columnList = "packageName"),
+                @Index(name = "BinaryResource_contentType", columnList = "contentType")})
 public class BinaryResource {
     @Id
     @Column(unique = true, nullable = false)
@@ -25,7 +26,7 @@ public class BinaryResource {
     @Column(nullable = false)
     public String role;
 
-    @Column(columnDefinition = "MEDIUMBLOB",nullable = false)
+    @Column(columnDefinition = "MEDIUMBLOB", nullable = false)
     public byte[] resourceValue;
 
 }

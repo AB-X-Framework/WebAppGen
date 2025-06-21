@@ -342,6 +342,12 @@ public class ResourceController extends RoleController {
     }
 
     @Secured("Admin")
+    @GetMapping(value = "/binaryContentTypes", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String binariesByPackage() {
+        return resourceModel.getBinariesOutputTypes().toString(2);
+    }
+
+    @Secured("Admin")
     @GetMapping(value = "/maps/{mapName}/count", produces = MediaType.APPLICATION_JSON_VALUE)
     public long getMapEntriesCount(@PathVariable String mapName) {
         return resourceModel.getMapEntriesCount(mapName);

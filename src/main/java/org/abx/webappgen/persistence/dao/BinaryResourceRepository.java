@@ -19,4 +19,8 @@ public interface BinaryResourceRepository extends JpaRepository<BinaryResource, 
 
     @Query("SELECT DISTINCT c.packageName FROM BinaryResource c")
     List<String> findDistinctPackageNames();
+
+
+    @Query("SELECT DISTINCT c.contentType FROM BinaryResource c")
+    List<String> findDistinctContentTypes();
 }
