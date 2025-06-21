@@ -66,11 +66,11 @@
     "js": [
       {
         "env": "",
-        "value": "$(LeftPanel.BinariesPackage).change(()=>{\n    clearAutocomplete(LeftPanel.BinaryName);\n    \n    const packageName = $(LeftPanel.BinariesPackage).val();\n    if (packageName !== \"\"){\n        $.get(`/resources/packages/binaries/${packageName}`,(binariesPerPackage)=>{\n            binariesPerPackage.forEach((binaryName)=>{\n                addAutocompleteValue(LeftPanel.BinaryName,binaryName)\n            });\n            $(LeftPanel.BinaryName).val(\"\");\n            $(self.RightPanel.BinaryContent).val(\"\");\n            $(self.RightPanel.DetailsPanel.Owner).val(\"\");\n            $(self.RightPanel.DetailsPanel.RoleType).val(\"\").formSelect();\n        });\n    }\n});"
+        "value": "$(LeftPanel.BinariesPackage).change(()=>{\n    clearAutocomplete(LeftPanel.BinaryName);\n    \n    const packageName = $(LeftPanel.BinariesPackage).val();\n    if (packageName !== \"\"){\n        $.get(`/resources/packages/binaries/${packageName}`,(binariesPerPackage)=>{\n            binariesPerPackage.forEach((binaryName)=>{\n                addAutocompleteValue(LeftPanel.BinaryName,binaryName)\n            });\n            self.LeftPanel.MenuPanel.SaveBinary.markSaved();\n            $(LeftPanel.BinaryName).val(\"\");\n            $(self.RightPanel.BinaryContent).val(\"\");\n            $(self.RightPanel.DetailsPanel.Owner).val(\"\");\n            $(self.RightPanel.DetailsPanel.RoleType).val(\"\").formSelect();\n        });\n    }\n});"
       },
       {
         "env": "",
-        "value": "workingEnv.currPage = 0;\nworkingEnv.BinaryBody = self;\n\nworkingEnv. downloadFromUrl=(url, filename) =>{\n  const a = document.createElement('a');\n  a.href = url;\n  a.download = filename || '';\n  a.style.display = 'none';\n  document.body.appendChild(a);\n  a.click();\n  document.body.removeChild(a);\n}\n\nworkingEnv.renderBinary = ()=> {\n    workingEnv.binaryName = $(LeftPanel.BinaryName).val();\n    if (workingEnv.binaryName !== \"\"){\n        $.get(`/resources/binaries/${workingEnv.binaryName}`,(binary)=>{\n            \n            workingEnv.updatedBinary = binary;\n            $(self.RightPanel.BinaryContent).click(()=>{\n               workingEnv.downloadFromUrl (`/resources/binary/${workingEnv.binaryName}`);\n            });\n            $(self.RightPanel.DetailsPanel.Owner).val(binary.owner);\n            $(self.RightPanel.DetailsPanel.ContentType).val(binary.contentType);\n            $(self.RightPanel.DetailsPanel.RoleType).val(binary.role).formSelect();\n        });\n    }\n}\n$(LeftPanel.BinaryName).change(workingEnv.renderBinary);"
+        "value": "workingEnv.currPage = 0;\nworkingEnv.BinaryBody = self;\n\nworkingEnv. downloadFromUrl=(url, filename) =>{\n  const a = document.createElement('a');\n  a.href = url;\n  a.download = filename || '';\n  a.style.display = 'none';\n  document.body.appendChild(a);\n  a.click();\n  document.body.removeChild(a);\n}\n\nworkingEnv.renderBinary = ()=> {\n    workingEnv.binaryName = $(LeftPanel.BinaryName).val();\n    if (workingEnv.binaryName !== \"\"){\n        $.get(`/resources/binaries/${workingEnv.binaryName}`,(binary)=>{\n            \n            self.LeftPanel.MenuPanel.SaveBinary.markSaved();\n            workingEnv.updatedBinary = binary;\n            $(self.RightPanel.BinaryContent).click(()=>{\n               workingEnv.downloadFromUrl (`/resources/binary/${workingEnv.binaryName}`);\n            });\n            $(self.RightPanel.DetailsPanel.Owner).val(binary.owner);\n            $(self.RightPanel.DetailsPanel.ContentType).val(binary.contentType);\n            $(self.RightPanel.DetailsPanel.RoleType).val(binary.role).formSelect();\n            M.updateTextFields() \n        });\n    }\n}\n$(LeftPanel.BinaryName).change(workingEnv.renderBinary);"
       },
       {
         "env": "",
@@ -271,15 +271,15 @@
     "specs": [{
       "env": "",
       "value": {
-        "label": "Content Type",
-        "title": "Content Type",
-        "content": ""
+        "src": "/resources/binaryContentTypes",
+        "values": [],
+        "title": "Content Types"
       }
     }],
     "name": "webappgen.binaries.ContentType",
     "isContainer": false,
     "js": [],
-    "type": "textfield"
+    "type": "autocomplete"
   },
   {
     "specs": [{
