@@ -19,7 +19,7 @@
     "isContainer": true,
     "js": [{
       "env": "",
-      "value": "$(NewBinaryConfirm).click(()=>{\n    const newName = $(CloneBinaryName).val();\n    $.post(`/resources/binaries/clone`,{\n        \"newName\":newName,\n        \"original\":workingEnv.binaryName,\n        \"contentType\":workingEnv.updatedBinary.contentType,\n        \"owner\":workingEnv.updatedBinary.owner,\n        \"role\":workingEnv.updatedBinary.role\n    },(status)=>{\n       if (status.success){\n           PageContent.closeModal(self);\n           addAutocompleteValue(workingEnv.PackageName,status.package)\n           addAutocompleteValue(workingEnv.BinaryName,name);\n           workingEnv.renderBinary();\n       } else {\n           PageContent.showModal(\"Cannot create binary\"+JSON.stringify(status.error))\n       }\n    });\n});"
+      "value": "$(NewBinaryConfirm).click(()=>{\n    const newName = $(CloneBinaryName).val();\n    $.post(`/resources/binaries/clone`,{\n        \"newName\":newName,\n        \"original\":workingEnv.binaryName,\n        \"contentType\":workingEnv.updatedBinary.contentType,\n        \"owner\":workingEnv.updatedBinary.owner,\n        \"role\":workingEnv.updatedBinary.role\n    },(status)=>{\n       if (status.success){\n           PageContent.closeModal(self);\n           addAutocompleteValue(workingEnv.PackageName,status.package)\n           addAutocompleteValue(workingEnv.BinaryName,newName);\n           workingEnv.renderBinary();\n       } else {\n           PageContent.showModal(\"Cannot create binary\"+JSON.stringify(status.error))\n       }\n    });\n});"
     }]
   },
   {
