@@ -42,7 +42,7 @@
     "isContainer": true,
     "js": [{
       "env": "",
-      "value": "$(NewBinaryConfirm).click(()=>{\n    const name = $(NewBinaryName).val();\n    $.post(`/resources/binaries`,{\n        \"resource\":JSON.stringify({\n            \"name\":name,\n            \"content\":\"New content\",\n            \"title\":\"New binary\",\n            \"role\":\"Admin\"\n        })\n    },(status)=>{\n       if (status.success){\n           PageContent.closeModal(self);\n           addAutocompleteValue(workingEnv.PackageName,status.package)\n           addAutocompleteValue(workingEnv.BinaryName,name);\n           workingEnv.renderBinary();\n       } else {\n           PageContent.showModal(\"Cannot create binary\"+JSON.stringify(status.error))\n       }\n    });\n});"
+      "value": "$(NewBinaryConfirm).click(()=>{\n    const name = $(NewBinaryName).val();\n    $.post(`/resources/binaries`,{\n        \"name\":name,\n        \"contentType\":\"application/octet-stream\",\n        \"title\":\"New binary\",\n        \"role\":\"Admin\"\n    },(status)=>{\n       if (status.success){\n           PageContent.closeModal(self);\n           addAutocompleteValue(workingEnv.PackageName,status.package)\n           addAutocompleteValue(workingEnv.BinaryName,name);\n           workingEnv.renderBinary();\n       } else {\n           PageContent.showModal(\"Cannot create binary\"+JSON.stringify(status.error))\n       }\n    });\n});"
     }]
   },
   {

@@ -423,10 +423,10 @@ public class ResourceController extends RoleController {
     @PostMapping(value = "/binaries", produces = MediaType.APPLICATION_JSON_VALUE)
     public String updateBinary(
             HttpServletRequest request,
-            @RequestPart String name,
-            @RequestPart String role,
-            @RequestPart String owner,
-            @RequestPart String contentType) {
+            @RequestParam String name,
+            @RequestParam String role,
+            @RequestParam(required = false) String owner,
+            @RequestParam String contentType) {
         String packageName = name.substring(0, name.lastIndexOf('.'));
         JSONObject status = new JSONObject();
         try {
