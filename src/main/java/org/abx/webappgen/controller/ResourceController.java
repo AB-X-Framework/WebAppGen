@@ -445,10 +445,10 @@ public class ResourceController extends RoleController {
 
 
     @Secured("Admin")
-    @PostMapping(value = "/binaries/{binaryName}",
+    @PostMapping(value = "/binaries/upload",
             consumes = "multipart/form-data", produces = MediaType.APPLICATION_JSON_VALUE)
     public String handleUpload(
-            @PathVariable String binaryName,
+            @RequestPart String binaryName,
             @RequestPart(required = false) MultipartFile data) throws Exception {
         JSONObject status = new JSONObject();
         try {
