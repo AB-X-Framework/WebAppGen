@@ -427,7 +427,7 @@ public class ResourceController extends RoleController {
             @RequestParam String role,
             @RequestParam(required = false) String owner,
             @RequestParam String contentType) {
-        String packageName = name.substring(0, name.lastIndexOf('.'));
+        String packageName = name.substring(0, name.lastIndexOf('/'));
         JSONObject status = new JSONObject();
         try {
             if (owner == null) {
@@ -435,6 +435,7 @@ public class ResourceController extends RoleController {
             }
             resourceModel.saveBinaryResource(name, packageName, owner, contentType, role);
             status.put("success", true);
+            status.put("package", packageName);
         } catch (Exception e) {
             status.put("success", false);
             status.put("message", e.getMessage());
