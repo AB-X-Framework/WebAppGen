@@ -331,31 +331,32 @@ public class ResourceModel {
 
     @Transactional
     public long saveBinaryResource(String resourceName, String packageName, String owner,
-                                   String contentType, byte[] data, String role) {
+                                   String contentType, String role) {
         long id = elementHashCode(resourceName);
         BinaryResource binaryResource = binaryResourceRepository.findByBinaryResourceId(id);
         if (binaryResource == null) {
             binaryResource = new BinaryResource();
             binaryResource.binaryResourceId = id;
-        }
-        if (contentType != null) {
-            binaryResource.contentType = contentType;
-        }
-        if (data != null) {
-            binaryResource.resourceValue = data;
-        }
-        if (binaryResource.resourceValue == null) {
             binaryResource.resourceValue = new byte[0];
         }
+        binaryResource.contentType = contentType;
         binaryResource.owner = elementHashCode(owner);
-        if (role != null) {
-            binaryResource.role = role;
-        }
+        binaryResource.role = role;
         binaryResource.packageName = packageName;
         binaryResource.resourceName = resourceName;
         binaryResourceRepository.save(binaryResource);
         return id;
+    }
 
+    @Transactional
+    public void upload(String resourceName, byte[] data) throws Exception {
+        long id = elementHashCode(resourceName);
+        BinaryResource binaryResource = binaryResourceRepository.findByBinaryResourceId(id);
+        if (binaryResource == null) {
+            throw new Exception("Binary not found");
+        }
+        binaryResource.resourceValue = data;
+        binaryResourceRepository.save(binaryResource);
     }
 
     public JSONArray getMapPackages() {
