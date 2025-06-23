@@ -19,22 +19,8 @@
     "isContainer": true,
     "js": [{
       "env": "",
-      "value": "$(NewBinaryConfirm).click(()=>{\n    const name = $(CloneBinaryName).val();\n    $.post(`/resources/binaries`,{\n        \"resource\":JSON.stringify({\n            \"name\":name,\n            \"content\":workingEnv.updatedBinary.content,\n            \"title\":workingEnv.updatedBinary.title,\n            \"role\":workingEnv.updatedBinary.role\n        })\n    },(status)=>{\n       if (status.success){\n           PageContent.closeModal(self);\n           addAutocompleteValue(workingEnv.PackageName,status.package)\n           addAutocompleteValue(workingEnv.BinaryName,name);\n           workingEnv.renderBinary();\n       } else {\n           PageContent.showModal(\"Cannot create binary\"+JSON.stringify(status.error))\n       }\n    });\n});"
+      "value": "$(NewBinaryConfirm).click(()=>{\n    const newName = $(CloneBinaryName).val();\n    $.post(`/resources/binaries/clone`,{\n        \"resource\":JSON.stringify({\n            \"newName\":newName,\n            \"original\":workingEnv.binaryName,\n            \"contentType\":workingEnv.updatedBinary.contentType,\n            \"owner\":workingEnv.updatedBinary.owner,\n            \"role\":workingEnv.updatedBinary.role\n        })\n    },(status)=>{\n       if (status.success){\n           PageContent.closeModal(self);\n           addAutocompleteValue(workingEnv.PackageName,status.package)\n           addAutocompleteValue(workingEnv.BinaryName,name);\n           workingEnv.renderBinary();\n       } else {\n           PageContent.showModal(\"Cannot create binary\"+JSON.stringify(status.error))\n       }\n    });\n});"
     }]
-  },
-  {
-    "specs": [{
-      "env": "",
-      "value": {
-        "src": "",
-        "content": "",
-        "height": "700px"
-      }
-    }],
-    "name": "webappgen.binaries.ContentJS",
-    "isContainer": false,
-    "js": [],
-    "type": "jsEditor"
   },
   {
     "layout": "popup",
@@ -88,7 +74,7 @@
       },
       {
         "env": "",
-        "value": "workingEnv.currPage = 0;\nworkingEnv.BinaryBody = self;\n\nworkingEnv. downloadFromUrl=(url, filename) =>{\n  const a = document.createElement('a');\n  a.href = url;\n  a.download = filename || '';\n  a.style.display = 'none';\n  document.body.appendChild(a);\n  a.click();\n  document.body.removeChild(a);\n}\n\nworkingEnv.renderBinary = ()=> {\n    workingEnv.binaryName = $(LeftPanel.BinaryName).val();\n    if (workingEnv.binaryName !== \"\"){\n        $.get(`/resources/binaries/${workingEnv.binaryName}`,(binary)=>{\n            \n            workingEnv.updatedBinary = binary;\n            $(self.RightPanel.BinaryContent).click(()=>{\n               workingEnv.downloadFromUrl (`/resources/binary/${workingEnv.binaryName}`);\n            });\n            if (binary.contentType == 'text/javascript'){\n                $.get(`/resources/binary/${workingEnv.binaryName}`,(content)=>{\n                    ace.edit(self.RightPanel.ContentJS).setValue(content);\n                    self.LeftPanel.MenuPanel.SaveBinary.markSaved();\n                });\n                $(self.RightPanel.Download).parent().hide();\n                $(self.RightPanel.Upload).parent().hide();\n                $(self.RightPanel.UploadFile).parent().parent().hide();\n                $(self.RightPanel.ContentJS).parent().show();\n            }else{ \n                $(self.RightPanel.ContentJS).parent().hide();\n                $(self.RightPanel.Download).parent().show();\n                $(self.RightPanel.Upload).parent().show();\n                $(self.RightPanel.UploadFile).parent().show();\n            }\n            $(self.RightPanel.DetailsPanel.Owner).val(binary.owner);\n            $(self.RightPanel.DetailsPanel.ContentType).val(binary.contentType);\n            $(self.RightPanel.DetailsPanel.RoleType).val(binary.role).formSelect();\n            M.updateTextFields() \n        });\n    }\n}\n$(LeftPanel.BinaryName).change(workingEnv.renderBinary);"
+        "value": "workingEnv.currPage = 0;\nworkingEnv.BinaryBody = self;\n\nworkingEnv. downloadFromUrl=(url, filename) =>{\n  const a = document.createElement('a');\n  a.href = url;\n  a.download = filename || '';\n  a.style.display = 'none';\n  document.body.appendChild(a);\n  a.click();\n  document.body.removeChild(a);\n}\n\nworkingEnv.renderBinary = ()=> {\n    workingEnv.binaryName = $(LeftPanel.BinaryName).val();\n    if (workingEnv.binaryName !== \"\"){\n        $.get(`/resources/binaries/${workingEnv.binaryName}`,(binary)=>{\n            \n            workingEnv.updatedBinary = binary;\n            $(self.RightPanel.BinaryContent).click(()=>{\n               workingEnv.downloadFromUrl (`/resources/binary/${workingEnv.binaryName}`);\n            });\n            \n                $(self.RightPanel.ContentJS).parent().hide();\n                $(self.RightPanel.Download).parent().show();\n                $(self.RightPanel.Upload).parent().show();\n                $(self.RightPanel.UploadFile).parent().show();\n            \n            $(self.RightPanel.DetailsPanel.Owner).val(binary.owner);\n            $(self.RightPanel.DetailsPanel.ContentType).val(binary.contentType);\n            $(self.RightPanel.DetailsPanel.RoleType).val(binary.role).formSelect();\n            M.updateTextFields() \n        });\n    }\n}\n$(LeftPanel.BinaryName).change(workingEnv.renderBinary);"
       },
       {
         "env": "",
@@ -493,12 +479,6 @@
       {
         "innerId": "DetailsPanel",
         "component": "webappgen.binaries.DetailsPanel",
-        "size": "l12",
-        "env": ""
-      },
-      {
-        "innerId": "ContentJS",
-        "component": "webappgen.binaries.ContentJS",
         "size": "l12",
         "env": ""
       },

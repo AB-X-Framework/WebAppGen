@@ -303,18 +303,45 @@ public class ResourceModel {
         return new Pair<>(binaryResource.contentType, binaryResource.resourceValue);
     }
 
-    public long saveBinaryResource(String resourceName, String packageName, String owner,
-                                   String contentType, byte[] data, String role) {
+    @Transactional
+    public long cloneBinary(String original, String resourceName, String packageName, String owner,
+                            String contentType, String role) {
+        long originalId = elementHashCode(original);
         long id = elementHashCode(resourceName);
-        BinaryResource binaryResource =  binaryResourceRepository.findByBinaryResourceId(id);
+        BinaryResource originalData = binaryResourceRepository.findByBinaryResourceId(originalId);
+        BinaryResource binaryResource = binaryResourceRepository.findByBinaryResourceId(id);
         if (binaryResource == null) {
-             binaryResource = new BinaryResource();
-             binaryResource.binaryResourceId = id;
+            binaryResource = new BinaryResource();
+            binaryResource.binaryResourceId = id;
         }
         if (contentType != null) {
             binaryResource.contentType = contentType;
         }
+        binaryResource.resourceValue = originalData.resourceValue;
+        binaryResource.owner = elementHashCode(owner);
+        if (role != null) {
+            binaryResource.role = role;
+        }
+        binaryResource.packageName = packageName;
+        binaryResource.resourceName = resourceName;
+        binaryResourceRepository.save(binaryResource);
+        return id;
+
+    }
+
+    @Transactional
+    public long saveBinaryResource(String resourceName, String packageName, String owner,
+                                   String contentType, byte[] data, String role) {
+        long id = elementHashCode(resourceName);
+        BinaryResource binaryResource = binaryResourceRepository.findByBinaryResourceId(id);
+        if (binaryResource == null) {
+            binaryResource = new BinaryResource();
+            binaryResource.binaryResourceId = id;
+        }
         if (contentType != null) {
+            binaryResource.contentType = contentType;
+        }
+        if (data != null) {
             binaryResource.resourceValue = data;
         }
         if (binaryResource.resourceValue == null) {

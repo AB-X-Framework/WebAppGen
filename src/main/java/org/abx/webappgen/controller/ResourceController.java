@@ -415,4 +415,20 @@ public class ResourceController extends RoleController {
         return resourceModel.saveBinaryResource(name, packageName, owner, contentType, fileBytes, role);
     }
 
+    @Secured("Admin")
+    @PostMapping(value = "/binaries/clone")
+    public long clone(
+            HttpServletRequest request,
+            @RequestParam String original,
+            @RequestParam String newName,
+            @RequestParam(required = false) String role,
+            @RequestParam(required = false) String owner,
+            @RequestParam(required = false) String contentType) throws IOException {
+        String packageName = newName.substring(0, newName.lastIndexOf('/'));
+        if (owner == null) {
+            owner = request.getUserPrincipal().getName();
+        }
+        return resourceModel.cloneBinary(original,newName, packageName, owner, contentType, role);
+    }
+
 }
