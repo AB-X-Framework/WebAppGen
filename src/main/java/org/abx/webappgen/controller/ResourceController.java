@@ -421,7 +421,8 @@ public class ResourceController extends RoleController {
 
     @Secured("Admin")
     @PostMapping(value = "/binaries", produces = MediaType.APPLICATION_JSON_VALUE)
-    public String handleUpload(
+    public String updateBinary(
+            HttpServletRequest request,
             @RequestPart String name,
             @RequestPart String role,
             @RequestPart String owner,
@@ -429,6 +430,9 @@ public class ResourceController extends RoleController {
         String packageName = name.substring(0, name.lastIndexOf('.'));
         JSONObject status = new JSONObject();
         try {
+            if (owner == null) {
+                owner = request.getUserPrincipal().getName();
+            }
             resourceModel.saveBinaryResource(name, packageName, owner, contentType, role);
             status.put("success", true);
         } catch (Exception e) {
@@ -460,7 +464,6 @@ public class ResourceController extends RoleController {
     @Secured("Admin")
     @PostMapping(value = "/binaries/clone", produces = MediaType.APPLICATION_JSON_VALUE)
     public String clone(
-            HttpServletRequest request,
             @RequestParam String original,
             @RequestParam String newName,
             @RequestParam String role,
