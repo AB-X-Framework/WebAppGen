@@ -399,26 +399,42 @@ public class ResourceController extends RoleController {
     }
 
     @Secured("Admin")
-    @PostMapping(value = "/binaries", consumes = "multipart/form-data")
-    public long handleUpload(
+    @PostMapping(value = "/binaries", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String handleUpload(
             @RequestPart String name,
             @RequestPart String role,
             @RequestPart String owner,
-            @RequestPart String contentType) throws IOException {
+            @RequestPart String contentType) {
         String packageName = name.substring(0, name.lastIndexOf('.'));
-        return resourceModel.saveBinaryResource(name, packageName, owner, contentType, role);
+        JSONObject status = new JSONObject();
+
+        try {
+            status.put("success", true);
+            resourceModel.saveBinaryResource(name, packageName, owner, contentType, role);
+        } catch (Exception e) {
+            status.put("success", false);
+            status.put("message", e.getMessage());
+        }
+        return status.toString();
     }
 
 
     @Secured("Admin")
-    @PostMapping(value = "/binaries/{binaryName}", consumes = "multipart/form-data")
-    public long handleUpload(
+    @PostMapping(value = "/binaries/{binaryName}",
+            consumes = "multipart/form-data",produces = MediaType.APPLICATION_JSON_VALUE)
+    public String handleUpload(
             @PathVariable String binaryName,
-            @RequestPart(required = false) MultipartFile data) throws IOException {
-        byte[] fileBytes = data.getBytes();
-        String packageName = name.substring(0, name.lastIndexOf('.'));
-
-        return resourceModel.saveBinaryResource(name, packageName, owner, contentType, fileBytes, role);
+            @RequestPart(required = false) MultipartFile data) throws Exception {
+        JSONObject status = new JSONObject();
+        try {
+            status.put("success", true);
+            byte[] bytes = data.getBytes();
+            resourceModel.upload(binaryName, bytes);
+        } catch (Exception e) {
+            status.put("success", false);
+            status.put("message", e.getMessage());
+        }
+        return status.toString();
     }
 
     @Secured("Admin")
@@ -427,14 +443,14 @@ public class ResourceController extends RoleController {
             HttpServletRequest request,
             @RequestParam String original,
             @RequestParam String newName,
-            @RequestParam(required = false) String role,
-            @RequestParam(required = false) String owner,
-            @RequestParam(required = false) String contentType) throws IOException {
+            @RequestParam String role,
+            @RequestParam String owner,
+            @RequestParam String contentType) throws IOException {
         String packageName = newName.substring(0, newName.lastIndexOf('/'));
         if (owner == null) {
             owner = request.getUserPrincipal().getName();
         }
-        return resourceModel.cloneBinary(original,newName, packageName, owner, contentType, role);
+        return resourceModel.cloneBinary(original, newName, packageName, owner, contentType, role);
     }
 
 }
