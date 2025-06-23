@@ -377,6 +377,27 @@ public class ResourceController extends RoleController {
         return resourceModel.getBinaryResource(resource).toString();
     }
 
+    @Secured("Admin")
+    @DeleteMapping(value = "/binaries/**", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String deleteBinary(HttpServletRequest request) {
+        String path = (String) request.getAttribute(
+                HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE
+        );
+
+        // Remove the prefix "/binaries/"
+        String resource = path.replaceFirst("/resources/binaries/", "");
+        JSONObject status = new JSONObject();
+        try {
+            resourceModel.deleteBinaryResource(resource);
+            status.put("success", true);
+        } catch (Exception e) {
+            status.put("success", false);
+            status.put("message", e.getMessage());
+        }
+        return status.toString();
+    }
+
+
 
     @GetMapping("/binary/**")
     public ResponseEntity<?> getBinary(HttpServletRequest request) {
@@ -407,10 +428,9 @@ public class ResourceController extends RoleController {
             @RequestPart String contentType) {
         String packageName = name.substring(0, name.lastIndexOf('.'));
         JSONObject status = new JSONObject();
-
         try {
-            status.put("success", true);
             resourceModel.saveBinaryResource(name, packageName, owner, contentType, role);
+            status.put("success", true);
         } catch (Exception e) {
             status.put("success", false);
             status.put("message", e.getMessage());
@@ -421,15 +441,15 @@ public class ResourceController extends RoleController {
 
     @Secured("Admin")
     @PostMapping(value = "/binaries/{binaryName}",
-            consumes = "multipart/form-data",produces = MediaType.APPLICATION_JSON_VALUE)
+            consumes = "multipart/form-data", produces = MediaType.APPLICATION_JSON_VALUE)
     public String handleUpload(
             @PathVariable String binaryName,
             @RequestPart(required = false) MultipartFile data) throws Exception {
         JSONObject status = new JSONObject();
         try {
-            status.put("success", true);
             byte[] bytes = data.getBytes();
             resourceModel.upload(binaryName, bytes);
+            status.put("success", true);
         } catch (Exception e) {
             status.put("success", false);
             status.put("message", e.getMessage());
@@ -438,8 +458,8 @@ public class ResourceController extends RoleController {
     }
 
     @Secured("Admin")
-    @PostMapping(value = "/binaries/clone")
-    public long clone(
+    @PostMapping(value = "/binaries/clone", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String clone(
             HttpServletRequest request,
             @RequestParam String original,
             @RequestParam String newName,
@@ -447,10 +467,16 @@ public class ResourceController extends RoleController {
             @RequestParam String owner,
             @RequestParam String contentType) throws IOException {
         String packageName = newName.substring(0, newName.lastIndexOf('/'));
-        if (owner == null) {
-            owner = request.getUserPrincipal().getName();
+        JSONObject status = new JSONObject();
+        try {
+            resourceModel.cloneBinary(original, newName, packageName, owner, contentType, role);
+            status.put("success", true);
+            status.put("package", packageName);
+        } catch (Exception e) {
+            status.put("success", false);
+            status.put("message", e.getMessage());
         }
-        return resourceModel.cloneBinary(original, newName, packageName, owner, contentType, role);
+        return status.toString();
     }
 
 }

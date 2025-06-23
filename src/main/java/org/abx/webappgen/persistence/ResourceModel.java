@@ -162,6 +162,16 @@ public class ResourceModel {
         return jsonText;
     }
 
+
+    @Transactional
+    public void deleteBinaryResource(String resourceName) {
+        BinaryResource binaryResource = binaryResourceRepository.findByBinaryResourceId(
+                elementHashCode(resourceName)
+        );
+        binaryResourceRepository.delete(binaryResource);
+        binaryResourceRepository.flush();
+    }
+
     @Transactional
     public void addTextResource(JSONObject content) {
         long resourceId = elementHashCode(content.getString("name"));
@@ -304,7 +314,7 @@ public class ResourceModel {
     }
 
     @Transactional
-    public long cloneBinary(String original, String resourceName, String packageName, String owner,
+    public void cloneBinary(String original, String resourceName, String packageName, String owner,
                             String contentType, String role) {
         long originalId = elementHashCode(original);
         long id = elementHashCode(resourceName);
@@ -325,8 +335,6 @@ public class ResourceModel {
         binaryResource.packageName = packageName;
         binaryResource.resourceName = resourceName;
         binaryResourceRepository.save(binaryResource);
-        return id;
-
     }
 
     @Transactional
