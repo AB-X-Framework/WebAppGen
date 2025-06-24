@@ -440,9 +440,9 @@ class PageContent {
                     value: item,
                     text: item
                 }));
-                PageContent.applySelectClass(${specs.id});
               })
               M.FormSelect.init(${specs.id});
+              PageContent.applySelectClass(${specs.id});
             });`);
             output.push(results);
             if (specs.onChange) {
@@ -576,7 +576,7 @@ class PageContent {
         output.push(`<ul id="${dropdownData}" class="dropdown-content">`);
         js.push(`${innerSpecs.id}.items=[]`);
         for (let entry of innerSpecs.values) {
-            output.push(` <li><a  id="${innerSpecs.id}_${entry.value}" href="#!">${entry.text}</a></li>`);
+            output.push(` <li><a class="${PageContent.global.themeText}" id="${innerSpecs.id}_${entry.value}" href="#!">${entry.text}</a></li>`);
             js.push(`${innerSpecs.id}.${entry.value}=${innerSpecs.id}_${entry.value}`);
             js.push(`${innerSpecs.id}.items.push(${innerSpecs.id}_${entry.value})`);
         }

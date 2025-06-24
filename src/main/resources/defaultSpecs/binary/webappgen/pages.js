@@ -26,6 +26,7 @@ function selectPackage(packageName) {
             }));
         });
         M.FormSelect.init(pageNameBox);
+        PageContent.applySelectClass($(pageNameBox));
         markSaved();
     });
 }
@@ -62,6 +63,7 @@ function processNewPage(originalPackage,page){
                     }));
                 });
                 M.FormSelect.init(pageNameBox);
+                PageContent.applySelectClass($(pageNameBox));
             });
         }
     } else {
