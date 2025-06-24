@@ -33,6 +33,7 @@ public class PageModel {
     public static final String IsContainer = "isContainer";
     public static final String Component = "component";
     public static final String Theme = "theme";
+    public static final String Global    = "global";
 
     private final  long envId;
     private final long hideDefaultsId;
@@ -289,7 +290,9 @@ public class PageModel {
                 css.put(cssValue.envValue);
             }
         }
-        jsonPage.put(Theme,"blue");
+        JSONObject global = new JSONObject();
+        global.put(Theme,"blue");
+        jsonPage.put(Global,global);
         jsonPage.put(Component, processTop("top", page.component, env));
         return jsonPage;
     }
