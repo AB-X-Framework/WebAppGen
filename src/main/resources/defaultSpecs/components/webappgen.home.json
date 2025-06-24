@@ -337,12 +337,12 @@
         "src": "",
         "values": [
           {
-            "text": "Item 1",
-            "value": "item1"
+            "text": "ES",
+            "value": "ES"
           },
           {
-            "text": "Item 2",
-            "value": "item2"
+            "text": "EN",
+            "value": "en"
           }
         ],
         "title": "Language"
