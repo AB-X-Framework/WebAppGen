@@ -90,6 +90,10 @@
           {
             "text": "Nav",
             "value": "nav"
+          },
+          {
+            "text": "Menu",
+            "value": "menu"
           }
         ],
         "title": "Layout"
@@ -535,10 +539,6 @@
           {
             "text": "Textarea",
             "value": "textarea"
-          },
-          {
-            "text": "Menu",
-            "value": "menu"
           },
           {
             "text": "Header",

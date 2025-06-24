@@ -1,4 +1,4 @@
-var maxLine = 73;
+    var maxLine = 73;
 
 function hideElemContainer() {
     $(workingEnv.ElementType).closest('.input-field').parent().hide();
@@ -92,6 +92,7 @@ function defaultSpecs(elementType) {
             newDefSpecs.src = "";
             newDefSpecs.content = "Hello world";
             break;
+        case "menuItem":
         case "button":
             newDefSpecs.title = "Click me";
             break;
@@ -629,6 +630,7 @@ function processSpecs() {
             break;
         case "file":
             $(workingEnv.SpecsContent).closest('.input-field').parent().show();
+        case "menuItem":
         case "button":
             $(workingEnv.SpecsTitle).closest('.input-field').parent().show();
             break;
@@ -718,6 +720,7 @@ function processElement() {
         case "img":
             $(workingEnv.SpecsSource).val(specs.src);
             break;
+        case "menuItem":
         case "button":
             $(workingEnv.SpecsTitle).val(specs.title);
             break;

@@ -53,7 +53,7 @@ class PageContent {
         document.title = specs.title;
     }
 
-    static processJS(js){
+    static processJS(js) {
         for (var line of js) {
             try {
                 eval(line);
@@ -102,6 +102,8 @@ class PageContent {
                 PageContent.renderVertical(output, js, componentSpecs);
             } else if (componentSpecs.layout === "popup") {
                 PageContent.renderPopup(output, js, componentSpecs);
+            } else if (componentSpecs.layout === "menu") {
+                PageContent.renderMenu(output, js, componentSpecs.specs);
             } else {
                 PageContent.renderTopLayout(output, js, componentSpecs);
             }
@@ -155,9 +157,6 @@ class PageContent {
                     break;
                 case "okCancelModal":
                     PageContent.renderOkCancelModal(output, js, componentSpecs.specs);
-                    break;
-                case "menu":
-                    PageContent.renderMenu(output, js, componentSpecs.specs);
                     break;
                 case "div":
                     PageContent.renderDiv(output, componentSpecs.specs);
@@ -525,7 +524,7 @@ class PageContent {
         output.push(result);
     }
 
-    static renderMenuItems(items) {
+    static renderMenuItem(items) {
         var line = "";
         for (var item of items) {
             line += ` <li><a href="${item}">${item.name}</a></li>`;
@@ -533,8 +532,8 @@ class PageContent {
         return line;
     }
 
-    static renderMenu(output, js, specs) {
-        var result = ` 
+    static renderMenu(output, js, componentSpecs) {
+        output.push(` 
         <!-- Dropdown Structure -->
         <ul id="dropdown1" class="dropdown-content">
           <li><a href="#!">one</a></li>
@@ -544,16 +543,15 @@ class PageContent {
         </ul>
         <nav>
           <div class="nav-wrapper">
-            <ul class="left hide-on-med-and-down">
-              ${PageContent.renderMenuItems(specs.items)}
-              <!-- Dropdown Trigger -->
-              <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Dropdown<i class="material-icons right">arrow_drop_down</i></a></li>
+            <ul class="left hide-on-med-and-down">`);
+        for (var component of componentSpecs.children) {
+            PageContent.renderComponent(output, js, component)
+        }
+        output.push(`<li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Dropdown<i class="material-icons right">arrow_drop_down</i></a></li>
             </ul>
           </div>
         </nav>   
-        `
-        js.push(`$(".dropdown-trigger").dropdown();`)
-        output.push(result)
+        `)
     }
 
     static showModal(title, content) {
