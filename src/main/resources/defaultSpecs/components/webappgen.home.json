@@ -44,7 +44,10 @@
     }],
     "name": "webappgen.home.Items",
     "isContainer": false,
-    "js": [],
+    "js": [{
+      "env": "",
+      "value": "for (let elem of self.items){\n    $(elem).click(()=>{\n       console.log(\"Clicking elem \"+elem.id) \n    });\n}"
+    }],
     "type": "menuItems"
   },
   {

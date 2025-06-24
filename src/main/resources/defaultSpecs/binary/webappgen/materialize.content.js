@@ -539,7 +539,6 @@ class PageContent {
         let innerSpecs = specs.specs;
         const dropdownData = `dropdown_${innerSpecs.id}`
         output.push(`<ul id="${dropdownData}" class="dropdown-content">`);
-
         js.push(`${innerSpecs.id}.items=[]`);
         for (let entry of innerSpecs.values) {
             output.push(` <li><a id="${innerSpecs.id}_${entry.value}" href="#!">${entry.text}</a></li>`);
@@ -557,7 +556,6 @@ class PageContent {
     }
 
     static renderMenu(output, js, specs) {
-
         output.push(` 
         <!-- Dropdown Structure -->
         <nav id="${specs.id}" >
