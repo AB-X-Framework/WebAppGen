@@ -545,7 +545,7 @@ class PageContent {
     static renderMenuImg(output, js, specs) {
         let innerSpecs = specs.specs;
         output.push(`
-        <a href="#" class="${specs.size}" style="height: 64px; ">
+        <a href="#"  id="${innerSpecs.id}" class="${specs.size}" style="height: 64px; ">
             <img src="${innerSpecs.src}" alt="Logo" style="height: 60px; padding: 2px;">
         </a>`);
     }

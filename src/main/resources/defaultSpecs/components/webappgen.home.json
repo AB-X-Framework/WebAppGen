@@ -211,21 +211,21 @@
     "layout": "menu",
     "components": [
       {
-        "innerId": "elem0",
-        "component": "webappgen.home.Hello",
+        "innerId": "Logo",
+        "component": "webappgen.home.ImgItem",
+        "size": "left",
+        "env": ""
+      },
+      {
+        "innerId": "Items",
+        "component": "webappgen.home.Items",
         "size": "right",
         "env": ""
       },
       {
-        "innerId": "elem3",
-        "component": "webappgen.home.ImgItem",
-        "size": "l12",
-        "env": ""
-      },
-      {
-        "innerId": "elem1",
-        "component": "webappgen.home.Items",
-        "size": "l12",
+        "innerId": "Hello",
+        "component": "webappgen.home.Hello",
+        "size": "right",
         "env": ""
       }
     ],
@@ -316,7 +316,7 @@
   {
     "specs": [{
       "env": "",
-      "value": {"src": ""}
+      "value": {"src": "/resources/binary/webappgen/abx.png"}
     }],
     "name": "webappgen.home.ImgItem",
     "isContainer": false,
