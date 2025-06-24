@@ -103,7 +103,7 @@ class PageContent {
             } else if (componentSpecs.layout === "popup") {
                 PageContent.renderPopup(output, js, componentSpecs);
             } else if (componentSpecs.layout === "menu") {
-                PageContent.renderMenu(output, js, componentSpecs.specs);
+                PageContent.renderMenu(output, js, componentSpecs);
             } else {
                 PageContent.renderTopLayout(output, js, componentSpecs);
             }
