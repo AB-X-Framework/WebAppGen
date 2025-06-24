@@ -1,7 +1,10 @@
 [
   {
     "component": "webappgen.home.WelcomePageComponent",
-    "css": [],
+    "css": [{
+      "env": "",
+      "value": "/resources/binary/webappgen/materialize.icons.css"
+    }],
     "role": "Admin",
     "name": "webappgen.Home",
     "title": "Home Page",
@@ -13,7 +16,10 @@
   },
   {
     "component": "webappgen.maps.MainMapComponent",
-    "css": [],
+    "css": [{
+      "env": "",
+      "value": "/resources/binary/webappgen/materialize.icons.css"
+    }],
     "role": "Admin",
     "name": "webappgen.Maps",
     "title": "Maps",
@@ -118,7 +124,10 @@
   },
   {
     "component": "webappgen.arrays.MainMapComponent",
-    "css": [],
+    "css": [{
+      "env": "",
+      "value": "/resources/binary/webappgen/materialize.icons.css"
+    }],
     "role": "Admin",
     "name": "webappgen.Arrays",
     "title": "Arrays",
@@ -136,7 +145,10 @@
   },
   {
     "component": "webappgen.binaries.MainBinaryComponent",
-    "css": [],
+    "css": [{
+      "env": "",
+      "value": "/resources/binary/webappgen/materialize.icons.css"
+    }],
     "role": "Admin",
     "name": "webappgen.Binaries",
     "title": "Binaries",
