@@ -30,4 +30,9 @@ public class RoleController {
         }
         return (SessionEnv) session.getAttribute(Env);
     }
+
+    public void updateEnv(HttpSession session,String key, String value) {
+        SessionEnv env =env(session);
+        env.set(key, value);
+    }
 }

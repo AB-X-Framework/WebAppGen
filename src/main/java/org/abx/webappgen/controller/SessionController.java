@@ -2,6 +2,7 @@ package org.abx.webappgen.controller;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.json.JSONObject;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -11,10 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/session")
-public class SessionController {
+public class SessionController extends RoleController {
 
 
-    @RequestMapping(value = "/login", produces =  MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("permitAll()")
     public String login(final HttpServletRequest request,
                         @RequestParam String username,
@@ -32,16 +33,25 @@ public class SessionController {
         return status.toString(2);
     }
 
-    @RequestMapping(value = "/isLoggedIn", produces =  MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/isLoggedIn", produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("permitAll()")
     public boolean isLoggedIn(final HttpServletRequest request) {
         return request.getUserPrincipal() != null && request.getUserPrincipal().getName() != null;
     }
 
-    @RequestMapping(value = "/logout", produces =  MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/logout", produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("permitAll()")
-    public boolean logout(final HttpServletRequest request ) throws ServletException {
+    public boolean logout(final HttpServletRequest request) throws ServletException {
         request.logout();
         return true;
     }
+
+    @PreAuthorize("permitAll()")
+    @RequestMapping(value = "/setLang", produces = MediaType.APPLICATION_JSON_VALUE)
+    public void setLang(final HttpSession session,
+                        @RequestParam String lang) throws ServletException {
+        updateEnv(session, "lang", lang);
+    }
+
+
 }

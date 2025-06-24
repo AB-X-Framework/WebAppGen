@@ -358,7 +358,7 @@
     "isContainer": false,
     "js": [{
       "env": "",
-      "value": "for (let elem of self.items){\n    $(elem).click(()=>{\n       console.log(\"Clicking elem \"+elem.id) \n    });\n}"
+      "value": "for (let elem of self.items){\n    $(elem).click(()=>{\n        $.get(`/session/setLang?lang=${elem.key}`,()=>{location.reload();});\n    });\n}"
     }],
     "type": "menuItems"
   },

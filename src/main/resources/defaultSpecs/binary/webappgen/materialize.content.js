@@ -603,6 +603,7 @@ class PageContent {
             output.push(` <li><a class="${PageContent.global.themeText}" id="${innerSpecs.id}_${entry.value}" href="#!">${entry.text}</a></li>`);
             js.push(`${innerSpecs.id}.${entry.value}=${innerSpecs.id}_${entry.value}`);
             js.push(`${innerSpecs.id}.items.push(${innerSpecs.id}_${entry.value})`);
+            js.push(`${innerSpecs.id}_${entry.value}.key="${entry.value}"`)
         }
         output.push(`</ul>`);
         output.push(`<ul class="${specs.size}">
