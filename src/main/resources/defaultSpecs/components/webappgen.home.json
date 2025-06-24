@@ -337,23 +337,42 @@
     "type": "menuItem"
   },
   {
-    "specs": [{
-      "env": "",
-      "value": {
-        "src": "",
-        "values": [
-          {
-            "text": "ES",
-            "value": "ES"
-          },
-          {
-            "text": "EN",
-            "value": "en"
-          }
-        ],
-        "title": "Language"
+    "specs": [
+      {
+        "env": "",
+        "value": {
+          "src": "",
+          "values": [
+            {
+              "text": "ES",
+              "value": "ES"
+            },
+            {
+              "text": "EN",
+              "value": "en"
+            }
+          ],
+          "title": "Language"
+        }
+      },
+      {
+        "env": "ES",
+        "value": {
+          "src": "",
+          "values": [
+            {
+              "text": "ES",
+              "value": "ES"
+            },
+            {
+              "text": "EN",
+              "value": "en"
+            }
+          ],
+          "title": "Idioma"
+        }
       }
-    }],
+    ],
     "name": "webappgen.home.Language",
     "isContainer": false,
     "js": [{
