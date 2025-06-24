@@ -320,7 +320,7 @@ class PageContent {
         var results =
             `<div  class="input-field">
             <input placeholder="${specs.content}" id="${specs.id}"  type="password" class="validate">
-          <label for="f_${specs.id}">${specs.title}</label></div>`;
+          <label class="${PageContent.global.themeText}" for="f_${specs.id}">${specs.title}</label></div>`;
         output.push(results);
     }
 
@@ -391,7 +391,7 @@ class PageContent {
         //PageContent.renderSelect(output,js,specs);
         output.push(` <div class="input-field" >
             <input type="text" id="${specs.id}" class="autocomplete">
-          <label for="${specs.id}">${specs.title}</label></div>`);
+          <label class="${PageContent.global.themeText}" for="${specs.id}">${specs.title}</label></div>`);
         if (typeof specs.src !== "undefined" && specs.src.trim() !== "") {
             js.push(`
             $.get("${specs.src}",(resultList)=>{
@@ -422,12 +422,13 @@ class PageContent {
             <select id="${specs.id}">
              <option value="" disabled selected></option>
             </select>
-             <label>${specs.title}</label>
+             <label class="${PageContent.global.themeText}">${specs.title}</label>
             </div>`;
             js.push(`$.get("${specs.src}",(resultList)=>{resultList.forEach(function(item) {
-                $(${specs.id}).append($('<option>', {
+                $(${specs.id}).append($('<option >', {
                     value: item,
-                    text: item
+                    text: item,
+                    class: "${PageContent.global.themeText}"
                }));
               })
               M.FormSelect.init(${specs.id});
@@ -442,7 +443,7 @@ class PageContent {
             let optionsHtml;
             if (typeof specs.values !== "undefined") {
                 optionsHtml = specs.values.map(item =>
-                    `<option value="${item.value}">${item.text}</option>`
+                    `<option class="${PageContent.global.themeText}" value="${item.value}">${item.text}</option>`
                 ).join('');
             } else {
                 optionsHtml = "";
@@ -453,7 +454,7 @@ class PageContent {
              <option value="" disabled selected></option>
             ${optionsHtml}
             </select>
-             <label>${specs.title}</label>
+             <label class="${PageContent.global.themeText}">${specs.title}</label>
             </div>`;
             js.push(`$(${specs.id}).formSelect();`);
             if (specs.onChange) {
