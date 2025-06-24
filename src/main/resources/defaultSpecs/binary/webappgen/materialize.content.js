@@ -113,6 +113,9 @@ class PageContent {
                 case "button":
                     PageContent.renderButton(output, componentSpecs.specs);
                     break;
+                case "menuItem":
+                    PageContent.renderMenuItem(output, componentSpecs.specs);
+                    break;
                 case "img":
                     PageContent.renderImg(output, componentSpecs.specs);
                     break;
@@ -524,31 +527,19 @@ class PageContent {
         output.push(result);
     }
 
-    static renderMenuItem(items) {
-        var line = "";
-        for (var item of items) {
-            line += ` <li><a href="${item}">${item.name}</a></li>`;
-        }
-        return line;
+    static renderMenuItem(output, js, componentSpecs) {
+        output.push(`  <li class="${componentSpecs.size}"><a>${item.name}</a></li>`);
     }
 
     static renderMenu(output, js, componentSpecs) {
         output.push(` 
         <!-- Dropdown Structure -->
-        <ul id="dropdown1" class="dropdown-content">
-          <li><a href="#!">one</a></li>
-          <li><a href="#!">two</a></li>
-          <li class="divider"></li>
-          <li><a href="#!">three</a></li>
-        </ul>
         <nav>
-          <div class="nav-wrapper">
-            <ul class="left hide-on-med-and-down">`);
+          <div class="nav-wrapper">`);
         for (var component of componentSpecs.children) {
             PageContent.renderComponent(output, js, component)
         }
-        output.push(`<li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Dropdown<i class="material-icons right">arrow_drop_down</i></a></li>
-            </ul>
+        output.push(`            
           </div>
         </nav>   
         `)
