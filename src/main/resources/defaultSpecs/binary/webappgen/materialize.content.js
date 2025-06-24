@@ -76,7 +76,15 @@ class PageContent {
             $("#body-content").html(output.join(""));
             M.updateTextFields();
             PageContent.processJS(js);
+
+            $('.input-field input, .input-field textarea').on('focus', function () {
+                $(this).next('label').addClass(PageContent.global.themeText);
+            }).on('blur', function () {
+                $(this).next('label').removeClass(PageContent.global.themeText);
+            });
+
         });
+
     }
 
     static renderCSS(output, cssList) {
@@ -308,7 +316,7 @@ class PageContent {
         }
         var results = `<div  class="input-field">
             <input placeholder="${specs.label}" id="${specs.id}"  type="text" class="validate" value="${content}">
-            <label class="${PageContent.global.themeText}" for="${specs.id}">${specs.title}</label>
+            <label  for="${specs.id}">${specs.title}</label>
         </div>`;
         output.push(results);
         if (typeof specs.src !== "undefined" && specs.src !== "") {
@@ -320,7 +328,7 @@ class PageContent {
         var results =
             `<div  class="input-field">
             <input placeholder="${specs.content}" id="${specs.id}"  type="password" class="validate">
-          <label class="${PageContent.global.themeText}" for="f_${specs.id}">${specs.title}</label></div>`;
+          <label  for="f_${specs.id}">${specs.title}</label></div>`;
         output.push(results);
     }
 
@@ -348,7 +356,7 @@ class PageContent {
         var results =
             `<div class="input-field">
             <textarea placeholder="${specs.label}" id="${specs.id}"  type="text" class="materialize-textarea">${content}</textarea>
-          <label  class="${PageContent.global.themeText}" for="${specs.id}">${specs.title}</label></div>`;
+          <label   for="${specs.id}">${specs.title}</label></div>`;
         output.push(results);
     }
 
@@ -391,7 +399,7 @@ class PageContent {
         //PageContent.renderSelect(output,js,specs);
         output.push(` <div class="input-field" >
             <input type="text" id="${specs.id}" class="autocomplete">
-          <label class="${PageContent.global.themeText}" for="${specs.id}">${specs.title}</label></div>`);
+          <label  for="${specs.id}">${specs.title}</label></div>`);
         if (typeof specs.src !== "undefined" && specs.src.trim() !== "") {
             js.push(`
             $.get("${specs.src}",(resultList)=>{
@@ -415,46 +423,47 @@ class PageContent {
         }
     }
 
+    static applySelectClass(select){
+        $(select).parent().find("li span").addClass(PageContent.global.themeText)
+    }
+
     static renderSelect(output, js, specs) {
         if (typeof specs.src !== "undefined" && specs.src.trim() !== "") {
-            var results =
-                `<div   class="input-field">
-            <select id="${specs.id}">
-             <option value="" disabled selected></option>
-            </select>
-             <label class="${PageContent.global.themeText}">${specs.title}</label>
+            var results = `<div   class="input-field">
+                <select id="${specs.id}">
+                    <option value="" disabled selected></option>
+                </select>
+                <label >${specs.title}</label>
             </div>`;
             js.push(`$.get("${specs.src}",(resultList)=>{resultList.forEach(function(item) {
                 $(${specs.id}).append($('<option >', {
                     value: item,
-                    text: item,
-                    class: "${PageContent.global.themeText}"
-               }));
+                    text: item
+                }));
               })
               M.FormSelect.init(${specs.id});
             });`);
             output.push(results);
             if (specs.onChange) {
                 js.push(`$(${specs.id}).on('change', function () {
-        ${specs.onChange}( $(this).val());
-      });`);
+                    ${specs.onChange}( $(this).val());
+                });`);
             }
         } else {
             let optionsHtml;
             if (typeof specs.values !== "undefined") {
                 optionsHtml = specs.values.map(item =>
-                    `<option class="${PageContent.global.themeText}" value="${item.value}">${item.text}</option>`
+                    `<option  value="${item.value}">${item.text}</option>`
                 ).join('');
             } else {
                 optionsHtml = "";
             }
-            var results =
-                `<div   class="input-field">
-            <select id="${specs.id}">
-             <option value="" disabled selected></option>
-            ${optionsHtml}
-            </select>
-             <label class="${PageContent.global.themeText}">${specs.title}</label>
+            var results =cv`<div   class="input-field">
+                <select id="${specs.id}">
+                    <option value="" disabled selected></option>
+                    ${optionsHtml}
+                </select>
+                <label >${specs.title}</label>
             </div>`;
             js.push(`$(${specs.id}).formSelect();`);
             if (specs.onChange) {
@@ -464,6 +473,7 @@ class PageContent {
             }
             output.push(results);
         }
+        js.push(`PageContent.applySelectClass(${specs.id});`)
     }
 
     static renderJsEditor(output, js, specs) {
@@ -565,7 +575,7 @@ class PageContent {
         output.push(`<ul id="${dropdownData}" class="dropdown-content">`);
         js.push(`${innerSpecs.id}.items=[]`);
         for (let entry of innerSpecs.values) {
-            output.push(` <li><a class="${PageContent.global.themeText}" id="${innerSpecs.id}_${entry.value}" href="#!">${entry.text}</a></li>`);
+            output.push(` <li><a  id="${innerSpecs.id}_${entry.value}" href="#!">${entry.text}</a></li>`);
             js.push(`${innerSpecs.id}.${entry.value}=${innerSpecs.id}_${entry.value}`);
             js.push(`${innerSpecs.id}.items.push(${innerSpecs.id}_${entry.value})`);
         }
