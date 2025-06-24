@@ -400,10 +400,16 @@
     "type": "okCancelModal"
   },
   {
-    "specs": [{
-      "env": "",
-      "value": {"title": "Log out"}
-    }],
+    "specs": [
+      {
+        "env": "",
+        "value": {"title": "Log out"}
+      },
+      {
+        "env": "ES",
+        "value": {"title": "Salir"}
+      }
+    ],
     "name": "webappgen.home.LogOut",
     "isContainer": false,
     "js": [{
