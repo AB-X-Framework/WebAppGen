@@ -539,9 +539,12 @@ class PageContent {
         let innerSpecs = specs.specs;
         const dropdownData = `dropdown_${innerSpecs.id}`
         output.push(`<ul id="${dropdownData}" class="dropdown-content">`);
+
+        js.push(`${innerSpecs.id}.items=[]`);
         for (let entry of innerSpecs.values) {
             output.push(` <li><a id="${innerSpecs.id}_${entry.value}" href="#!">${entry.text}</a></li>`);
             js.push(`${innerSpecs.id}.${entry.value}=${innerSpecs.id}_${entry.value}`);
+            js.push(`${innerSpecs.id}.items.push(${innerSpecs.id}_${entry.value})`);
         }
         output.push(`</ul>`);
         output.push(`<ul class="${specs.size}">
