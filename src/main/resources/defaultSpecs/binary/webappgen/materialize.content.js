@@ -521,19 +521,19 @@ class PageContent {
 
     static renderSwitch(output, js, specs) {
         let result = `<div class="input-field">
-      <p>${specs.title}</p>
-      <div class="switch">
-      <label>
-        ${specs.cancel}
-        <input id="${specs.id}" type="checkbox" >
-        <span class="lever"></span>
-        ${specs.ok}
-      </label>
-    </div></div>`;
-        js.push(`
-        if ("${specs.src}" === "true"){
-               ${specs.id}.checked = true;
-        }else if ("${specs.src}" != "false"){
+            <p>${specs.title}</p>
+            <div class="switch">
+                <label>
+                    ${specs.cancel}
+                    <input id="${specs.id}" type="checkbox" >
+                    <span class="lever"></span>
+                    ${specs.ok}
+                </label>
+            </div>
+        </div>`;
+        js.push(`if ("${specs.src}" === "true"){
+            ${specs.id}.checked = true;
+        } else if ("${specs.src}" != "false"){
             $.get("${specs.src}",(result)=>{
                 ${specs.id}.checked = parseBoolean(result);
             });
