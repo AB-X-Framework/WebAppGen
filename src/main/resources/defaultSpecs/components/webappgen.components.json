@@ -587,6 +587,10 @@
           {
             "text": "Autocomplete",
             "value": "autocomplete"
+          },
+          {
+            "text": "Menu Item",
+            "value": "menuItem"
           }
         ],
         "title": "Element Type"
