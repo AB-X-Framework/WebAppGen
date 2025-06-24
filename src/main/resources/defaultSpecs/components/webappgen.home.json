@@ -186,7 +186,7 @@
     "components": [{
       "innerId": "elem0",
       "component": "webappgen.home.Hello",
-      "size": "l12",
+      "size": "right",
       "env": ""
     }],
     "name": "webappgen.home.Menu",

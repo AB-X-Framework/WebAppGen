@@ -114,7 +114,7 @@ class PageContent {
                     PageContent.renderButton(output, componentSpecs.specs);
                     break;
                 case "menuItem":
-                    PageContent.renderMenuItem(output,js, componentSpecs.specs);
+                    PageContent.renderMenuItem(output,js, componentSpecs);
                     break;
                 case "img":
                     PageContent.renderImg(output, componentSpecs.specs);
@@ -528,7 +528,8 @@ class PageContent {
     }
 
     static renderMenuItem(output, js, specs) {
-        output.push(`  <li class="${specs.size}"><a id="${specs.id}" >${specs.title}</a></li>`);
+        let innerSpecs = specs.specs;
+        output.push(`  <ul class="${specs.size}"><li><a id="${innerSpecs.id}" >${innerSpecs.title}</a></li></ul>`);
     }
 
     static renderMenu(output, js, specs) {
