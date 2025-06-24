@@ -51,6 +51,32 @@
   {
     "specs": [{
       "env": "",
+      "value": {"title": "Home"}
+    }],
+    "name": "webappgen.home.ItemHome",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "$(self).click(()=>{\n   document.location= \"/page/Home\"; \n});"
+    }],
+    "type": "menuItem"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "Maps"}
+    }],
+    "name": "webappgen.home.ItemMaps",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "$(self).click(()=>{\n   document.location= \"/page/Maps\"; \n});"
+    }],
+    "type": "menuItem"
+  },
+  {
+    "specs": [{
+      "env": "",
       "value": {"title": "Download Model"}
     }],
     "name": "webappgen.home.download",
@@ -187,14 +213,38 @@
         "env": ""
       },
       {
-        "innerId": "elem2",
+        "innerId": "Text",
+        "component": "webappgen.home.ItemTexts",
+        "size": "right",
+        "env": ""
+      },
+      {
+        "innerId": "Arrays",
+        "component": "webappgen.home.ItemArrays",
+        "size": "right",
+        "env": ""
+      },
+      {
+        "innerId": "Maps",
+        "component": "webappgen.home.ItemMaps",
+        "size": "right",
+        "env": ""
+      },
+      {
+        "innerId": "Pages",
+        "component": "webappgen.home.ItemPages",
+        "size": "right",
+        "env": ""
+      },
+      {
+        "innerId": "Components",
         "component": "webappgen.home.ItemComponents",
         "size": "right",
         "env": ""
       },
       {
-        "innerId": "Hello",
-        "component": "webappgen.home.HomeItem",
+        "innerId": "Home",
+        "component": "webappgen.home.ItemHome",
         "size": "right",
         "env": ""
       }
@@ -239,6 +289,19 @@
     "js": [{
       "env": "",
       "value": "$(self).click(()=>{\n   document.location= \"/page/Pages\"; \n});"
+    }],
+    "type": "menuItem"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "Texts"}
+    }],
+    "name": "webappgen.home.ItemTexts",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "$(self).click(()=>{\n   document.location= \"/page/Texts\"; \n});"
     }],
     "type": "menuItem"
   },
@@ -305,6 +368,19 @@
       "value": "let url = document.location.href ;\nlet lastSegment = url.substring(url.lastIndexOf(\"/\") + 1);\nPageContent.setActiveMenuItemText(self,lastSegment); "
     }],
     "type": "select"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "Arrays"}
+    }],
+    "name": "webappgen.home.ItemArrays",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "$(self).click(()=>{\n   document.location= \"/page/Arrays\"; \n});"
+    }],
+    "type": "menuItem"
   },
   {
     "specs": [{
@@ -380,19 +456,6 @@
       "value": "let url = document.location.href ;\nlet lastSegment = url.substring(url.lastIndexOf(\"/\") + 1);\nPageContent.setActiveMenuItemText(self,lastSegment); "
     }],
     "type": "header"
-  },
-  {
-    "specs": [{
-      "env": "",
-      "value": {"title": "Home"}
-    }],
-    "name": "webappgen.home.HomeItem",
-    "isContainer": false,
-    "js": [{
-      "env": "",
-      "value": "$(self).click(()=>{\n   document.location= \"/page/Home\"; \n});"
-    }],
-    "type": "menuItem"
   },
   {
     "specs": [{
