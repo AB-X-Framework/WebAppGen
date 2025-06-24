@@ -795,6 +795,9 @@ function renderCurrentComponent() {
             PageContent.renderComponent(output, js, componentSpecs)
             $(workingEnv.show).html(output.join(""));
             M.updateTextFields();
+            const elems = document.querySelectorAll('.dropdown-trigger');
+            M.Dropdown.init(elems, { coverTrigger: false });
+            $('select').formSelect();
         });
 }
 
