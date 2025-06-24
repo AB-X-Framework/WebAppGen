@@ -213,6 +213,18 @@
         "env": ""
       },
       {
+        "innerId": "Methods",
+        "component": "webappgen.home.ItemMethods",
+        "size": "right",
+        "env": ""
+      },
+      {
+        "innerId": "Binaries",
+        "component": "webappgen.home.ItemBinaries",
+        "size": "right",
+        "env": ""
+      },
+      {
         "innerId": "Text",
         "component": "webappgen.home.ItemTexts",
         "size": "right",
@@ -278,6 +290,19 @@
       "value": ""
     }],
     "type": "button"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "Methods"}
+    }],
+    "name": "webappgen.home.ItemMethods",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "$(self).click(()=>{\n   document.location= \"/page/Methods\"; \n});"
+    }],
+    "type": "menuItem"
   },
   {
     "specs": [{
@@ -348,6 +373,19 @@
       "value": "$(self.ok).click(()=>loadModel($(modelPath).val())) "
     }],
     "type": "okCancelModal"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "Binaries"}
+    }],
+    "name": "webappgen.home.ItemBinaries",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "$(self).click(()=>{\n   document.location= \"/page/Binaries\"; \n});"
+    }],
+    "type": "menuItem"
   },
   {
     "specs": [{
