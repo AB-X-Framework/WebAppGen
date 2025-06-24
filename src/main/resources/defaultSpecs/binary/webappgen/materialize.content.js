@@ -63,6 +63,13 @@ class PageContent {
             }
         }
     }
+    static toTextColorClass() {
+        return PageContent.global.theme
+            .trim()
+            .split(/\s+/)
+            .map(cls => cls + '-text')
+            .join(' ');
+    }
 
     static renderPage(name) {
         $.get(`/page/specs/${name}`, (specs) => {
@@ -72,6 +79,7 @@ class PageContent {
             PageContent.renderCSS(output, specs.css);
             PageContent.renderScripts(output, specs.scripts);
             PageContent.global = specs.global
+            PageContent.global.themeText = toTextColorClass();
             PageContent.renderComponent(output, js, specs.component);
             $("#body-content").html(output.join(""));
             M.updateTextFields();
@@ -306,10 +314,10 @@ class PageContent {
         } else {
             content = specs.content;
         }
-        var results =
-            `<div  class="input-field">
+        var results = `<div  class="input-field">
             <input placeholder="${specs.label}" id="${specs.id}"  type="text" class="validate" value="${content}">
-          <label for="${specs.id}">${specs.title}</label></div>`;
+            <label class="${PageContent.global.themeText}" for="${specs.id}">${specs.title}</label>
+        </div>`;
         output.push(results);
         if (typeof specs.src !== "undefined" && specs.src !== "") {
             js.push(`$.get('${specs.src}',(res)=>{$(${specs.id}).val(res)})`);
@@ -556,13 +564,15 @@ class PageContent {
         output.push(`  <ul class="${specs.size}"><li><a   id="${innerSpecs.id}" >${innerSpecs.title}</a></li></ul>`);
     }
 
+
+
     static renderMenuItems(output, js, specs) {
         let innerSpecs = specs.specs;
         const dropdownData = `dropdown_${innerSpecs.id}`
         output.push(`<ul id="${dropdownData}" class="dropdown-content">`);
         js.push(`${innerSpecs.id}.items=[]`);
         for (let entry of innerSpecs.values) {
-            output.push(` <li><a id="${innerSpecs.id}_${entry.value}" href="#!">${entry.text}</a></li>`);
+            output.push(` <li><a class="${PageContent.global.themeText}" id="${innerSpecs.id}_${entry.value}" href="#!">${entry.text}</a></li>`);
             js.push(`${innerSpecs.id}.${entry.value}=${innerSpecs.id}_${entry.value}`);
             js.push(`${innerSpecs.id}.items.push(${innerSpecs.id}_${entry.value})`);
         }
