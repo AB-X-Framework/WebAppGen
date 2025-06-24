@@ -83,6 +83,30 @@ class PageContent {
                 $(this).next('label').removeClass(PageContent.global.themeText);
             });
 
+            function applyUnderlineFromTextClassToAll(selector) {
+                // Step 1: Get the actual color from the class (e.g., blue-text)
+                const $temp = $('<span>')
+                    .addClass(PageContent.global.themeText)
+                    .css({ display: 'none' })
+                    .appendTo('body');
+
+                const color = $temp.css('color');
+                $temp.remove(); // Clean up
+                // Step 2: Apply handlers to all inputs and textareas in .input-field
+                $(selector).on('focus', function () {
+                    $(this).css({
+                        'border-bottom': `1px solid ${color}`,
+                        'box-shadow': `0 1px 0 0 ${color}`
+                    });
+                }).on('blur', function () {
+                    $(this).removeClass('valid')
+                    $(this).css({
+                        'border-bottom': '',
+                        'box-shadow': ''
+                    });
+                });
+            }
+            applyUnderlineFromTextClassToAll('.input-field input, .input-field textarea');
         });
 
     }
