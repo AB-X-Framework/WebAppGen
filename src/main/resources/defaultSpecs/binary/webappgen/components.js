@@ -47,6 +47,7 @@ function selectPackage(packageName, afterCall) {
     }));
     $(workingEnv.ComponentEnv).empty();
     M.FormSelect.init(workingEnv.ComponentEnv);
+    PageContent.applySelectClass($(workingEnv.ComponentEnv));
     if (packageName === "") {
         return;
     }
@@ -56,12 +57,12 @@ function selectPackage(packageName, afterCall) {
                 value: item,
                 text: item
             }));
-
         });
         $(workingEnv.show).empty();
         $(workingEnv.div).empty();
         hideElemContainer();
         M.FormSelect.init(componentBox);
+        PageContent.applySelectClass($(componentBox));
         workingEnv.shouldUpdate = true;
         if (typeof afterCall !== "undefined") {
             afterCall();
@@ -151,6 +152,7 @@ function processComponentType(componentType) {
     workingEnv.shouldUpdate = false;
     $(workingEnv.ComponentType).val(componentType);
     $(workingEnv.ComponentType).formSelect()
+    PageContent.applySelectClass($(workingEnv.ComponentType));
     $(workingEnv.ComponentType).change();
     setComponentTypeVisibility();
     workingEnv.shouldUpdate = true;
@@ -180,6 +182,7 @@ function processElementType(elementType) {
     workingEnv.shouldUpdate = false;
     $(workingEnv.ElementType).val(elementType);
     $(workingEnv.ElementType).formSelect();
+    PageContent.applySelectClass($(workingEnv.ElementType));
     workingEnv.shouldUpdate = true;
 }
 
@@ -252,6 +255,7 @@ function processChildren(chooseChildren) {
         processInnerComponent($(workingEnv.ComponentEnv).val());
     });
     M.FormSelect.init(workingEnv.ComponentEnv);
+    PageContent.applySelectClass($(workingEnv.ComponentEnv));
 }
 
 function updateInnerElement() {
@@ -293,6 +297,7 @@ function updateInnerPackage() {
         });
         workingEnv.shouldUpdate = true;
         M.FormSelect.init(componentBox);
+        PageContent.applySelectClass($(componentBox));
         renderCurrentComponent()
     });
 }
@@ -317,6 +322,7 @@ function processInnerComponent(index) {
             });
             $(componentBox).val(innerComponentName);
             M.FormSelect.init(componentBox);
+            PageContent.applySelectClass($(componentBox));
             workingEnv.shouldUpdate = true;
         });
     });
@@ -357,6 +363,7 @@ function processJS(envIndex) {
         }));
     });
     M.FormSelect.init(workingEnv.ComponentEnv);
+    PageContent.applySelectClass($(workingEnv.ComponentEnv));
     $(workingEnv.ComponentEnv).change(() => {
         workingEnv.shouldUpdate = false;
         let index = $(workingEnv.ComponentEnv).val();
@@ -432,6 +439,7 @@ function addNewEnv() {
     $(workingEnv.SpecsEnv).val(env);
     $(workingEnv.ComponentEnv).val(index);
     M.FormSelect.init(workingEnv.ComponentEnv);
+    PageContent.applySelectClass($(workingEnv.ComponentEnv));
 }
 
 function swapComponentEnvPositions(posA, posB) {
@@ -446,6 +454,8 @@ function swapComponentEnvPositions(posA, posB) {
     $(workingEnv.ComponentEnv).val(posB);
     // Reinitialize Materialize so the UI reflects the change
     M.FormSelect.init(workingEnv.ComponentEnv);
+    PageContent.applySelectClass($(workingEnv.ComponentEnv));
+
 }
 
 /**
@@ -541,6 +551,7 @@ function setSpecValue(type, newValue) {
     }
     $(workingEnv.ComponentEnv).find('option:selected').text(text);
     $(workingEnv.ComponentEnv).formSelect();
+    PageContent.applySelectClass($(workingEnv.ComponentEnv));
 }
 
 function setChildValue(type, newValue) {
@@ -556,6 +567,7 @@ function setChildValue(type, newValue) {
     }
     $(workingEnv.ComponentEnv).find('option:selected').text(text);
     $(workingEnv.ComponentEnv).formSelect();
+    PageContent.applySelectClass($(workingEnv.ComponentEnv));
 }
 
 function updateText(delta, text) {
@@ -581,6 +593,7 @@ function updateText(delta, text) {
     }
     $(workingEnv.ComponentEnv).find('option:selected').text(text);
     $(workingEnv.ComponentEnv).formSelect();
+    PageContent.applySelectClass($(workingEnv.ComponentEnv));
 }
 
 function processSpecs() {
@@ -607,6 +620,7 @@ function processSpecs() {
         }));
     });
     M.FormSelect.init(workingEnv.ComponentEnv);
+    PageContent.applySelectClass($(workingEnv.ComponentEnv));
     hideSpecs();
     $(workingEnv.SpecsEnv).closest('.input-field').parent().show();
     switch (component.type) {
@@ -798,6 +812,7 @@ function renderCurrentComponent() {
             const elems = document.querySelectorAll('.dropdown-trigger');
             M.Dropdown.init(elems, { coverTrigger: false });
             $('select').formSelect();
+            PageContent.applySelectClass($('select'));
         });
 }
 
@@ -805,6 +820,7 @@ function renderCurrentComponent() {
 function processContainerLayout(layout) {
     $(workingEnv.ContainerLayout).val(layout);
     $(workingEnv.ContainerLayout).formSelect();
+    PageContent.applySelectClass($(workingEnv.ContainerLayout));
 }
 
 function updateContainerLayout() {
@@ -875,6 +891,7 @@ function processCurrentComponent(showJS, chooseChildren) {
     });
 
     M.FormSelect.init(workingEnv.shouldUpdateDetailType);
+    PageContent.applySelectClass($(workingEnv.shouldUpdateDetailType));
     renderCurrentComponent()
 }
 
@@ -966,6 +983,7 @@ function renameComponent(newName) {
                 selectOrAddValue($(workingEnv.ComponentName), newName);
                 $(workingEnv.ComponentName).find(`option[value="${originalName}"]`).remove();
                 $(workingEnv.ComponentName).formSelect();
+                PageContent.applySelectClass($(workingEnv.ComponentName));
             }
             markSaved();
         }

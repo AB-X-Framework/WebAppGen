@@ -37,6 +37,7 @@ function selectOrAddValue(selectContainer, valueToSelect, label = valueToSelect)
     }
     // Re-initialize Materialize select to update UI
     selectContainer.formSelect();
+    PageContent.applySelectClass(selectContainer);
     return exists;
 }
 

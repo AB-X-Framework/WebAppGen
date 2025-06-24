@@ -440,6 +440,7 @@ class PageContent {
                     value: item,
                     text: item
                 }));
+                PageContent.applySelectClass(${specs.id});
               })
               M.FormSelect.init(${specs.id});
             });`);
@@ -466,14 +467,15 @@ class PageContent {
                 <label >${specs.title}</label>
             </div>`;
             js.push(`$(${specs.id}).formSelect();`);
+            js.push(`PageContent.applySelectClass(${specs.id});`)
             if (specs.onChange) {
                 js.push(`$(${specs.id}).on('change', function () {
                     ${specs.onChange}( $(this).val());
                 });`);
+
             }
             output.push(results);
         }
-        js.push(`PageContent.applySelectClass(${specs.id});`)
     }
 
     static renderJsEditor(output, js, specs) {
