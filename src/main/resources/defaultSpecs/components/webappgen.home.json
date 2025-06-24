@@ -207,6 +207,12 @@
         "env": ""
       },
       {
+        "innerId": "Logout",
+        "component": "webappgen.home.LogOut",
+        "size": "right",
+        "env": ""
+      },
+      {
         "innerId": "Language",
         "component": "webappgen.home.Language",
         "size": "right",
@@ -377,6 +383,19 @@
   {
     "specs": [{
       "env": "",
+      "value": {"title": "Log out"}
+    }],
+    "name": "webappgen.home.LogOut",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "$(self).click(()=>{\n    $.get(\"/session/logout\",()=>{\n       document.location= \"/page/Home\"; \n    });\n});"
+    }],
+    "type": "menuItem"
+  },
+  {
+    "specs": [{
+      "env": "",
       "value": {"title": "Binaries"}
     }],
     "name": "webappgen.home.ItemBinaries",
@@ -453,6 +472,12 @@
         "innerId": "Logo",
         "component": "webappgen.home.ImgItem",
         "size": "left",
+        "env": ""
+      },
+      {
+        "innerId": "elem1",
+        "component": "webappgen.home.LogOut",
+        "size": "right",
         "env": ""
       },
       {
