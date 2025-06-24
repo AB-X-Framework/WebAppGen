@@ -622,6 +622,7 @@ public class ResourceModel {
         if (previous != null) {
             arrayResourceRepository.delete(previous);
             arrayResourceRepository.flush();
+            arrayEntryRepository.deleteAll(arrayEntryRepository.findAllByArrayResourceId(id));
         }
         ArrayResource arrayResource = new ArrayResource();
         arrayResource.arrayResourceId = id;
