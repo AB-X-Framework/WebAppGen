@@ -65,14 +65,6 @@ class PageContent {
     }
 
     static renderPage(name) {
-        function toTextColorClass() {
-            return PageContent.global.theme
-                .trim()
-                .split(/\s+/)
-                .map(cls => cls + '-text')
-                .join(' ');
-        }
-
         $.get(`/page/specs/${name}`, (specs) => {
             PageContent.processTile(specs);
             var output = [];
@@ -80,7 +72,6 @@ class PageContent {
             PageContent.renderCSS(output, specs.css);
             PageContent.renderScripts(output, specs.scripts);
             PageContent.global = specs.global
-            PageContent.global.themeText = toTextColorClass();
             PageContent.renderComponent(output, js, specs.component);
             $("#body-content").html(output.join(""));
             M.updateTextFields();

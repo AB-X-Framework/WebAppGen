@@ -34,6 +34,7 @@ public class PageModel {
     public static final String Component = "component";
     public static final String Theme = "theme";
     public static final String ThemeOk = "themeOk";
+    public static final String ThemeText = "themeText";
     public static final String ThemeUpdated = "themeUpdated";
     public static final String ThemeCancel = "themeCancel";
     public static final String Global    = "global";
@@ -43,6 +44,7 @@ public class PageModel {
     private final  long defaultEnv;
     private final  long defaultTheme;
     private final  long defaultThemeOk;
+    private final  long defaultThemeText;
     private final  long defaultThemeUpdated;
     private final  long defaultThemeCancel;
 
@@ -94,6 +96,7 @@ public class PageModel {
         defaultEnv = mapHashCode("app.Env", "defaultEnv");
         defaultTheme = mapHashCode("app.Env", "theme");
         defaultThemeOk = mapHashCode("app.Env", "theme.ok");
+        defaultThemeText = mapHashCode("app.Env", "theme.text");
         defaultThemeUpdated = mapHashCode("app.Env", "theme.updated");
         defaultThemeCancel = mapHashCode("app.Env", "theme.cancel");
     }
@@ -306,6 +309,7 @@ public class PageModel {
         global.put(ThemeOk,mapEntryRepository.findByMapEntryId(defaultThemeOk).mapValue);
         global.put(ThemeCancel,mapEntryRepository.findByMapEntryId(defaultThemeCancel).mapValue);
         global.put(ThemeUpdated,mapEntryRepository.findByMapEntryId(defaultThemeUpdated).mapValue);
+        global.put(ThemeText,mapEntryRepository.findByMapEntryId(defaultThemeText).mapValue);
         jsonPage.put(Global,global);
         jsonPage.put(Component, processTop("top", page.component, env));
         return jsonPage;
