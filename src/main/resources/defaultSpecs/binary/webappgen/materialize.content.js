@@ -117,7 +117,7 @@ class PageContent {
                     PageContent.renderMenuItem(output,js, componentSpecs);
                     break;
                 case "menuItems":
-                    PageContent.renderMenuItem(output,js, componentSpecs);
+                    PageContent.renderMenuItems(output,js, componentSpecs);
                     break;
                 case "img":
                     PageContent.renderImg(output, componentSpecs.specs);
@@ -532,14 +532,28 @@ class PageContent {
 
     static renderMenuItem(output, js, specs) {
         let innerSpecs = specs.specs;
-        output.push(`  <ul class="${specs.size}"><li><a id="${innerSpecs.id}" >${innerSpecs.title}</a></li></ul>`);
+
+        output.push(`  <ul class="${specs.size}"><li><a   id="${innerSpecs.id}" >${innerSpecs.title}</a></li></ul>`);
+
     }
+
     static renderMenuItems(output, js, specs) {
         let innerSpecs = specs.specs;
-        output.push(`  <ul class="${specs.size}"><li><a id="${innerSpecs.id}" >${innerSpecs.title}</a></li></ul>`);
+
+        output.push(`  <ul class="right hide-on-med-and-down">
+      <!-- Dropdown Trigger -->
+      <li><a id="${innerSpecs.id}" class="dropdown-trigger" href="#!" data-target="dropdown1">Dropdown<i class="material-icons right">arrow_drop_down</i></a></li>
+    </ul>`);
+
     }
 
     static renderMenu(output, js, specs) {
+        output.push(`<ul id="dropdown_1" class="dropdown-content">
+  <li><a href="#!">one</a></li>
+  <li><a href="#!">two</a></li>
+  <li class="divider"></li>
+  <li><a href="#!">three</a></li>
+</ul>`)
         output.push(` 
         <!-- Dropdown Structure -->
         <nav id="${specs.id}" >

@@ -31,7 +31,10 @@
   },
   {
     "component": "webappgen.home.Menu",
-    "css": [],
+    "css": [{
+      "env": "",
+      "value": "https://fonts.googleapis.com/icon?family=Material+Icons"
+    }],
     "role": "Anonymous",
     "name": "webappgen.Menu",
     "title": "Home Page",

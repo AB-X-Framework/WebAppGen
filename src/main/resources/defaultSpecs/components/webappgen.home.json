@@ -28,6 +28,29 @@
     "specs": [{
       "env": "",
       "value": {
+        "src": "",
+        "values": [
+          {
+            "text": "Item 1",
+            "value": "item1"
+          },
+          {
+            "text": "Item 2",
+            "value": "item2"
+          }
+        ],
+        "title": "Choose item"
+      }
+    }],
+    "name": "webappgen.home.Items",
+    "isContainer": false,
+    "js": [],
+    "type": "menuItems"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
         "src": "/resources/maps/app.Env/entries/modelPath",
         "title": "Project path",
         "content": ""
@@ -183,12 +206,20 @@
   },
   {
     "layout": "menu",
-    "components": [{
-      "innerId": "elem0",
-      "component": "webappgen.home.Hello",
-      "size": "right",
-      "env": ""
-    }],
+    "components": [
+      {
+        "innerId": "elem0",
+        "component": "webappgen.home.Hello",
+        "size": "right",
+        "env": ""
+      },
+      {
+        "innerId": "elem1",
+        "component": "webappgen.home.Items",
+        "size": "l12",
+        "env": ""
+      }
+    ],
     "name": "webappgen.home.Menu",
     "isContainer": true,
     "js": []
