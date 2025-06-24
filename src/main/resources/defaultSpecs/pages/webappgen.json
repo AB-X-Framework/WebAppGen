@@ -52,7 +52,10 @@
   },
   {
     "component": "webappgen.login.LoginPageComponent",
-    "css": [],
+    "css": [{
+      "env": "",
+      "value": "/resources/binary/webappgen/materialize.icons.css"
+    }],
     "role": "Anonymous",
     "name": "webappgen.Login",
     "title": "Login Page",

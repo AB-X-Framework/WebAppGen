@@ -120,20 +120,24 @@
     "js": []
   },
   {
-    "specs": [{
-      "env": "",
-      "value": {
-        "src": "/resources/binary/webappgen/abx.png",
-        "values": [{
-          "text": "About us",
-          "value": "/help"
-        }]
+    "layout": "menu",
+    "components": [
+      {
+        "innerId": "elem0",
+        "component": "webappgen.home.ImgItem",
+        "size": "left",
+        "env": ""
+      },
+      {
+        "innerId": "elem1",
+        "component": "webappgen.home.Language",
+        "size": "right",
+        "env": ""
       }
-    }],
+    ],
     "name": "webappgen.login.header",
-    "isContainer": false,
-    "js": [],
-    "type": "header"
+    "isContainer": true,
+    "js": []
   },
   {
     "specs": [{
