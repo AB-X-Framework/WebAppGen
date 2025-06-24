@@ -568,7 +568,7 @@ class PageContent {
         output.push(`</ul>`);
         output.push(`<ul class="${specs.size}">
             <li>
-                <a id="${innerSpecs.id}" class="dropdown-trigger" href="#!" data-target="${dropdownData}">Dropdown
+                <a id="${innerSpecs.id}" class="dropdown-trigger" href="#!" data-target="${dropdownData}">${innerSpecs.title}
             <i class="material-icons right">arrow_drop_down</i></a></li>
         </ul>`);
         js.push(` $('#${innerSpecs.id}').dropdown({ coverTrigger: false });`)
