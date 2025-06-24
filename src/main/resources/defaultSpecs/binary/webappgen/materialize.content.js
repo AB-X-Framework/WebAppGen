@@ -348,7 +348,7 @@ class PageContent {
         var results =
             `<div class="input-field">
             <textarea placeholder="${specs.label}" id="${specs.id}"  type="text" class="materialize-textarea">${content}</textarea>
-          <label for="${specs.id}">${specs.title}</label></div>`;
+          <label  class="${PageContent.global.themeText}" for="${specs.id}">${specs.title}</label></div>`;
         output.push(results);
     }
 
