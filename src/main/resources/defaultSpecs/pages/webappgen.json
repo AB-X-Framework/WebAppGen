@@ -33,7 +33,7 @@
     "component": "webappgen.home.Menu",
     "css": [{
       "env": "",
-      "value": "https://fonts.googleapis.com/icon?family=Material+Icons"
+      "value": "/resources/binary/webappgen/materialize.icons.css"
     }],
     "role": "Anonymous",
     "name": "webappgen.Menu",
