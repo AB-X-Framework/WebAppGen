@@ -85,7 +85,10 @@
   },
   {
     "component": "webappgen.texts.MainTextComponent",
-    "css": [],
+    "css": [{
+      "env": "",
+      "value": "/resources/binary/webappgen/materialize.icons.css"
+    }],
     "role": "Admin",
     "name": "webappgen.Texts",
     "title": "Texts",
@@ -166,7 +169,10 @@
   },
   {
     "component": "webappgen.methods.MainMethodComponent",
-    "css": [],
+    "css": [{
+      "env": "",
+      "value": "/resources/binary/webappgen/materialize.icons.css"
+    }],
     "role": "Admin",
     "name": "webappgen.Methods",
     "title": "Methods",
