@@ -3,7 +3,6 @@ package org.abx.webappgen.controller;
 import com.mysql.cj.xdevapi.JsonArray;
 import jakarta.servlet.http.HttpSession;
 import org.abx.webappgen.persistence.EnvListener;
-import org.abx.webappgen.persistence.PageModel;
 import org.abx.webappgen.utils.SpecsExporter;
 import org.abx.webappgen.utils.SpecsImporter;
 import org.json.JSONObject;
@@ -55,7 +54,7 @@ public class ComponentsController extends RoleController implements EnvListener 
 
     @GetMapping(value = "/delete/{componentName}", produces = MediaType.APPLICATION_JSON_VALUE)
     @Secured("Admin")
-    public String component(@PathVariable String componentName ) {
+    public String component(@PathVariable String componentName) {
         JSONObject status = new JSONObject();
         try {
             pageModel.delete(componentName);
@@ -115,10 +114,10 @@ public class ComponentsController extends RoleController implements EnvListener 
             JSONObject specs = new JSONObject();
             specs.put("name", newName);
             specs.put("package", packageName);
-            specs.put("isContainer",true);
-            specs.put("js",new JsonArray());
-            specs.put("components",new JsonArray());
-            specs.put("layout","vertical");
+            specs.put("isContainer", true);
+            specs.put("js", new JsonArray());
+            specs.put("components", new JsonArray());
+            specs.put("layout", "vertical");
             specsImporter.saveComponent(specs);
             status.put("success", "true");
             status.put("component", specs);
@@ -128,6 +127,7 @@ public class ComponentsController extends RoleController implements EnvListener 
         }
         return status.toString(2);
     }
+
     private String cloneComponent(JSONObject specs, String newName) {
         JSONObject status = new JSONObject();
         String packageName = newName.substring(0, newName.lastIndexOf("."));

@@ -6,6 +6,7 @@ import jakarta.transaction.Transactional;
 import org.abx.util.StreamUtils;
 import org.abx.webappgen.persistence.PageModel;
 import org.abx.webappgen.persistence.ResourceModel;
+import org.abx.webappgen.persistence.dao.ComponentRepository;
 import org.abx.webappgen.persistence.dao.MethodSpecRepository;
 import org.abx.webappgen.persistence.dao.PageRepository;
 import org.abx.webappgen.persistence.dao.UserRepository;
@@ -57,6 +58,8 @@ public class SpecsImporter {
     private UserRepository userRepository;
     @Autowired
     private PageRepository pageRepository;
+    @Autowired
+    private ComponentRepository componentRepository;
 
     @PostConstruct
     public void init() throws Exception {
@@ -114,13 +117,21 @@ public class SpecsImporter {
         return StreamUtils.readByteArrayStream(inputStream);
     }
 
+    @Transactional
+    public void loadSpecs(String specsPath, boolean fs) throws Exception {
+        Set<String> savedComponents = new HashSet<>();
+        for (org.abx.webappgen.persistence.model.Component component : componentRepository.findAll()) {
+            savedComponents.add(component.componentName);
+        }
+         loadSpecs(specsPath,fs,savedComponents);
+    }
     /**
      * Uploads spe
      *
      * @param specsPath
      * @throws Exception
      */
-    public void loadSpecs(String specsPath, boolean fs, Set<String> savedComponents) throws Exception {
+    private void loadSpecs(String specsPath, boolean fs, Set<String> savedComponents) throws Exception {
         String data = getData(specsPath + "/specs.json", fs);
         JSONObject obj = new JSONObject(data);
         processUsers(specsPath, obj.getString("users"), fs);
