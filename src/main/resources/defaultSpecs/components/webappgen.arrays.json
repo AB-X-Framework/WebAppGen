@@ -46,7 +46,7 @@
     "isContainer": false,
     "js": [{
       "env": "",
-      "value": "workingEnv.SaveArray=self;\nself.markChanged=()=>{\n    $(self).addClass(PageContent.global.themeUpdated);\n}\n\nself.markSaved=()=>{\n    $(self).removeClass(\"yellow darken-2\");\n}"
+      "value": "workingEnv.SaveArray=self;\nself.markChanged=()=>{\n    $(self).addClass(PageContent.global.themeUpdated);\n}\n\nself.markSaved=()=>{\n    $(self).removeClass(PageContent.global.themeUpdated);\n}"
     }],
     "type": "button"
   },
