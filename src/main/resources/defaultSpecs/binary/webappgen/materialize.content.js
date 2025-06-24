@@ -63,15 +63,16 @@ class PageContent {
             }
         }
     }
-    static toTextColorClass() {
-        return PageContent.global.theme
-            .trim()
-            .split(/\s+/)
-            .map(cls => cls + '-text')
-            .join(' ');
-    }
 
     static renderPage(name) {
+        function toTextColorClass() {
+            return PageContent.global.theme
+                .trim()
+                .split(/\s+/)
+                .map(cls => cls + '-text')
+                .join(' ');
+        }
+
         $.get(`/page/specs/${name}`, (specs) => {
             PageContent.processTile(specs);
             var output = [];
