@@ -70,7 +70,7 @@
       },
       {
         "env": "",
-        "value": "$(self.RightPanel.Upload).click(()=>{\n    const formData = new FormData();\n    formData.append(\"data\",self.RightPanel.UploadFile.files[0]);\n    formData.append(\"binaryName\",workingEnv.binaryName);\n    $.ajax({\n        url: `/resources/binaries/upload`, \n        method: \"POST\",\n        data: formData,\n        processData: false,\n        contentType: false,\n        success: (binary)=>{\n            PageContent.showModal(\"Upload\", \"New binary uploaded successfully.\");\n        }\n    });\n});"
+        "value": "$(self.RightPanel.Upload).click(()=>{\n    const formData = new FormData();\n    formData.append(\"data\",self.RightPanel.UploadFile.files[0]);\n    formData.append(\"name\",workingEnv.binaryName);\n    $.ajax({\n        url: `/resources/binaries/upload`, \n        method: \"POST\",\n        data: formData,\n        processData: false,\n        contentType: false,\n        success: (binary)=>{\n            PageContent.showModal(\"Upload\", \"New binary uploaded successfully.\");\n        }\n    });\n});"
       },
       {
         "env": "",

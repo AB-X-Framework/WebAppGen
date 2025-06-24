@@ -448,12 +448,12 @@ public class ResourceController extends RoleController {
     @PostMapping(value = "/binaries/upload",
             consumes = "multipart/form-data", produces = MediaType.APPLICATION_JSON_VALUE)
     public String handleUpload(
-            @RequestPart String binaryName,
-            @RequestPart(required = false) MultipartFile data) throws Exception {
+            @RequestPart String name,
+            @RequestPart(required = false) MultipartFile data)  {
         JSONObject status = new JSONObject();
         try {
             byte[] bytes = data.getBytes();
-            resourceModel.upload(binaryName, bytes);
+            resourceModel.upload(name, bytes);
             status.put("success", true);
         } catch (Exception e) {
             status.put("success", false);
