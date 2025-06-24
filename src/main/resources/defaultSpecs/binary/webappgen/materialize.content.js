@@ -113,6 +113,9 @@ class PageContent {
                 case "button":
                     PageContent.renderButton(output, componentSpecs.specs);
                     break;
+                case "menuImg":
+                    PageContent.renderMenuImg(output,js, componentSpecs);
+                    break;
                 case "menuItem":
                     PageContent.renderMenuItem(output,js, componentSpecs);
                     break;
@@ -529,6 +532,12 @@ class PageContent {
             });
         }`)
         output.push(result);
+    }
+
+
+    static renderMenuImg(output, js, specs) {
+        let innerSpecs = specs.specs;
+        output.push(`  <ul class="${specs.size}"><li><a   id="${innerSpecs.id}" >${innerSpecs.title}</a></li></ul>`);
     }
 
     static renderMenuItem(output, js, specs) {

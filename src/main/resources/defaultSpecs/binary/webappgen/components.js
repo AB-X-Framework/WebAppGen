@@ -90,6 +90,7 @@ function defaultSpecs(elementType) {
             newDefSpecs.title = "The select";
             newDefSpecs.values = [];
             break;
+        case "menuImg":
         case "img":
             newDefSpecs.src = "";
             break;
@@ -621,6 +622,7 @@ function processSpecs() {
             $(workingEnv.SpecsTitle).closest('.input-field').parent().show();
             $(workingEnv.SpecsSource).closest('.input-field').parent().show();
             break;
+        case "menuImg":
         case "img":
             $(workingEnv.SpecsSource).closest('.input-field').parent().show();
             break;
@@ -723,6 +725,7 @@ function processElement() {
         case "header":
             $(workingEnv.SpecsSource).val(specs.src);
             break;
+        case "menuImg":
         case "img":
             $(workingEnv.SpecsSource).val(specs.src);
             break;
