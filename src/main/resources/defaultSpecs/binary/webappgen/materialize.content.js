@@ -423,7 +423,7 @@ class PageContent {
         }
     }
 
-    static applySelectClass(select){
+    static applySelectClass(select) {
         $(select).parent().find("li span").addClass(PageContent.global.themeText)
     }
 
@@ -458,7 +458,7 @@ class PageContent {
             } else {
                 optionsHtml = "";
             }
-            var results =cv`<div   class="input-field">
+            var results = `<div   class="input-field">
                 <select id="${specs.id}">
                     <option value="" disabled selected></option>
                     ${optionsHtml}
@@ -566,7 +566,6 @@ class PageContent {
         let innerSpecs = specs.specs;
         output.push(`  <ul class="${specs.size}"><li><a   id="${innerSpecs.id}" >${innerSpecs.title}</a></li></ul>`);
     }
-
 
 
     static renderMenuItems(output, js, specs) {
