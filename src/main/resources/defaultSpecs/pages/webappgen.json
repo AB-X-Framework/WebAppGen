@@ -30,6 +30,18 @@
     "matches": "Maps"
   },
   {
+    "component": "webappgen.home.Menu",
+    "css": [],
+    "role": "Anonymous",
+    "name": "webappgen.Menu",
+    "title": "Home Page",
+    "scripts": [{
+      "env": "",
+      "value": "/resources/binary/webappgen/model.methods.js"
+    }],
+    "matches": "Menu"
+  },
+  {
     "component": "webappgen.login.LoginPageComponent",
     "css": [],
     "role": "Anonymous",

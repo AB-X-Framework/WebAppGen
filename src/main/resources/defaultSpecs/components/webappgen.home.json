@@ -17,6 +17,16 @@
   {
     "specs": [{
       "env": "",
+      "value": {"title": "Click me"}
+    }],
+    "name": "webappgen.home.Hello",
+    "isContainer": false,
+    "js": [],
+    "type": "menuItem"
+  },
+  {
+    "specs": [{
+      "env": "",
       "value": {
         "src": "/resources/maps/app.Env/entries/modelPath",
         "title": "Project path",
@@ -172,14 +182,11 @@
     ]
   },
   {
-    "specs": [{
-      "env": "",
-      "value": {"title": "Click me"}
-    }],
+    "layout": "menu",
+    "components": [],
     "name": "webappgen.home.Menu",
-    "isContainer": false,
-    "js": [],
-    "type": "menuItem"
+    "isContainer": true,
+    "js": []
   },
   {
     "specs": [{
