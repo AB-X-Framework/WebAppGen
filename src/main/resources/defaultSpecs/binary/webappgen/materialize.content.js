@@ -114,7 +114,7 @@ class PageContent {
                     PageContent.renderButton(output, componentSpecs.specs);
                     break;
                 case "menuItem":
-                    PageContent.renderMenuItem(output, componentSpecs.specs);
+                    PageContent.renderMenuItem(output,js, componentSpecs.specs);
                     break;
                 case "img":
                     PageContent.renderImg(output, componentSpecs.specs);
@@ -527,16 +527,16 @@ class PageContent {
         output.push(result);
     }
 
-    static renderMenuItem(output, js, componentSpecs) {
-        output.push(`  <li class="${componentSpecs.size}"><a>${item.name}</a></li>`);
+    static renderMenuItem(output, js, specs) {
+        output.push(`  <li class="${specs.size}"><a id="${specs.id}" >${specs.title}</a></li>`);
     }
 
-    static renderMenu(output, js, componentSpecs) {
+    static renderMenu(output, js, specs) {
         output.push(` 
         <!-- Dropdown Structure -->
-        <nav>
+        <nav id="${specs.id}" >
           <div class="nav-wrapper">`);
-        for (var component of componentSpecs.children) {
+        for (var component of specs.children) {
             PageContent.renderComponent(output, js, component)
         }
         output.push(`            
