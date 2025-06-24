@@ -532,28 +532,29 @@ class PageContent {
 
     static renderMenuItem(output, js, specs) {
         let innerSpecs = specs.specs;
-
         output.push(`  <ul class="${specs.size}"><li><a   id="${innerSpecs.id}" >${innerSpecs.title}</a></li></ul>`);
-
     }
 
     static renderMenuItems(output, js, specs) {
         let innerSpecs = specs.specs;
-
-        output.push(`  <ul class="right hide-on-med-and-down">
-      <!-- Dropdown Trigger -->
-      <li><a id="${innerSpecs.id}" class="dropdown-trigger" href="#!" data-target="dropdown1">Dropdown<i class="material-icons right">arrow_drop_down</i></a></li>
-    </ul>`);
+        const dropdownData = `dropdown_${innerSpecs.id}`
+        output.push(`<ul id="${dropdownData}" class="dropdown-content">`);
+        for (let entry of innerSpecs.values) {
+            output.push(` <li><a id="${innerSpecs.id}_${entry.value}" href="#!">${entry.text}</a></li>`);
+            js.push(`${innerSpecs.id}.${entry.value}=${innerSpecs.id}_${entry.value}`);
+        }
+        output.push(`</ul>`);
+        output.push(`<ul class="${specs.size}">
+            <li>
+                <a id="${innerSpecs.id}" class="dropdown-trigger" href="#!" data-target="${dropdownData}">Dropdown
+            <i class="material-icons right">arrow_drop_down</i></a></li>
+        </ul>`);
+        js.push(` $('#${innerSpecs.id}').dropdown({ coverTrigger: false });`)
 
     }
 
     static renderMenu(output, js, specs) {
-        output.push(`<ul id="dropdown_1" class="dropdown-content">
-  <li><a href="#!">one</a></li>
-  <li><a href="#!">two</a></li>
-  <li class="divider"></li>
-  <li><a href="#!">three</a></li>
-</ul>`)
+
         output.push(` 
         <!-- Dropdown Structure -->
         <nav id="${specs.id}" >
