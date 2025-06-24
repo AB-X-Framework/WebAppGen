@@ -217,6 +217,12 @@
         "env": ""
       },
       {
+        "innerId": "elem3",
+        "component": "webappgen.home.ImgItem",
+        "size": "l12",
+        "env": ""
+      },
+      {
         "innerId": "elem1",
         "component": "webappgen.home.Items",
         "size": "l12",
@@ -306,6 +312,16 @@
       "value": ""
     }],
     "type": "file"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"src": ""}
+    }],
+    "name": "webappgen.home.ImgItem",
+    "isContainer": false,
+    "js": [],
+    "type": "menuImg"
   },
   {
     "specs": [{

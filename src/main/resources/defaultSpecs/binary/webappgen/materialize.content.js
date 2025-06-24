@@ -544,7 +544,10 @@ class PageContent {
 
     static renderMenuImg(output, js, specs) {
         let innerSpecs = specs.specs;
-        output.push(`  <ul class="${specs.size}"><li><a   id="${innerSpecs.id}" >${innerSpecs.title}</a></li></ul>`);
+        output.push(`
+        <a href="#" class="left" style="height: 64px; ">
+      <img src="/resources/binary/webappgen/abx.png" alt="Logo" style="height: 60px; padding: 2px;">
+    </a>`);
     }
 
     static renderMenuItem(output, js, specs) {
