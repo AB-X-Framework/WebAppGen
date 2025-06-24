@@ -183,7 +183,12 @@
   },
   {
     "layout": "menu",
-    "components": [],
+    "components": [{
+      "innerId": "elem0",
+      "component": "webappgen.home.Hello",
+      "size": "l12",
+      "env": ""
+    }],
     "name": "webappgen.home.Menu",
     "isContainer": true,
     "js": []
