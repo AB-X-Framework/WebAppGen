@@ -33,12 +33,16 @@ public class PageModel {
     public static final String IsContainer = "isContainer";
     public static final String Component = "component";
     public static final String Theme = "theme";
+    public static final String ThemeOk = "themeOk";
+    public static final String ThemeCancel = "themeCancel";
     public static final String Global    = "global";
 
     private final  long envId;
     private final long hideDefaultsId;
     private final  long defaultEnv;
     private final  long defaultTheme;
+    private final  long defaultThemeOk;
+    private final  long defaultThemeCancel;
 
     @Autowired
     public PageRepository pageRepository;
@@ -87,6 +91,8 @@ public class PageModel {
         hideDefaultsId = mapHashCode("app.Env", "hideDefaults");
         defaultEnv = mapHashCode("app.Env", "defaultEnv");
         defaultTheme = mapHashCode("app.Env", "theme");
+        defaultThemeOk = mapHashCode("app.Env", "theme.ok");
+        defaultThemeCancel = mapHashCode("app.Env", "theme.cancel");
     }
 
     @Transactional
@@ -294,6 +300,8 @@ public class PageModel {
         }
         JSONObject global = new JSONObject();
         global.put(Theme,mapEntryRepository.findByMapEntryId(defaultTheme).mapValue);
+        global.put(ThemeOk,mapEntryRepository.findByMapEntryId(defaultThemeOk).mapValue);
+        global.put(ThemeCancel,mapEntryRepository.findByMapEntryId(defaultThemeCancel).mapValue);
         jsonPage.put(Global,global);
         jsonPage.put(Component, processTop("top", page.component, env));
         return jsonPage;

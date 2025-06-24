@@ -71,7 +71,8 @@ class PageContent {
             var js = [];
             PageContent.renderCSS(output, specs.css);
             PageContent.renderScripts(output, specs.scripts);
-            PageContent.renderComponent(output, js, specs.component, specs.global)
+            PageContent.global = specs.global
+            PageContent.renderComponent(output, js, specs.component);
             $("#body-content").html(output.join(""));
             M.updateTextFields();
             PageContent.processJS(js);
@@ -90,88 +91,88 @@ class PageContent {
         }
     }
 
-    static renderComponent(output, js, componentSpecs, global) {
+    static renderComponent(output, js, componentSpecs) {
         if (componentSpecs.isContainer) {
             if (componentSpecs.layout === "nav") {
-                PageContent.renderNav(output, js, componentSpecs, global);
+                PageContent.renderNav(output, js, componentSpecs);
             } else if (componentSpecs.layout === "horizontal") {
-                PageContent.renderHorizontal(output, js, componentSpecs, global);
+                PageContent.renderHorizontal(output, js, componentSpecs);
             } else if (componentSpecs.layout === "container") {
-                PageContent.renderContainer(output, js, componentSpecs, global);
+                PageContent.renderContainer(output, js, componentSpecs);
             } else if (componentSpecs.layout === "vertical") {
-                PageContent.renderVertical(output, js, componentSpecs, global);
+                PageContent.renderVertical(output, js, componentSpecs);
             } else if (componentSpecs.layout === "popup") {
-                PageContent.renderPopup(output, js, componentSpecs, global);
+                PageContent.renderPopup(output, js, componentSpecs);
             } else if (componentSpecs.layout === "menu") {
-                PageContent.renderMenu(output, js, componentSpecs, global);
+                PageContent.renderMenu(output, js, componentSpecs);
             } else {
-                PageContent.renderTopLayout(output, js, componentSpecs, global);
+                PageContent.renderTopLayout(output, js, componentSpecs);
             }
         } else {
             componentSpecs.specs.id = componentSpecs.id;
             switch (componentSpecs.type) {
                 case "button":
-                    PageContent.renderButton(output, js, componentSpecs.specs, global);
+                    PageContent.renderButton(output, js, componentSpecs.specs);
                     break;
                 case "menuImg":
-                    PageContent.renderMenuImg(output, js, componentSpecs, global);
+                    PageContent.renderMenuImg(output, js, componentSpecs);
                     break;
                 case "menuItem":
-                    PageContent.renderMenuItem(output, js, componentSpecs, global);
+                    PageContent.renderMenuItem(output, js, componentSpecs);
                     break;
                 case "menuItems":
-                    PageContent.renderMenuItems(output, js, componentSpecs, global);
+                    PageContent.renderMenuItems(output, js, componentSpecs);
                     break;
                 case "img":
-                    PageContent.renderImg(output, js, componentSpecs.specs, global);
+                    PageContent.renderImg(output, js, componentSpecs.specs);
                     break;
                 case "canvas":
-                    PageContent.renderCanvas(output, js, componentSpecs.specs, global);
+                    PageContent.renderCanvas(output, js, componentSpecs.specs);
                     break;
                 case "textfield":
-                    PageContent.renderTextfield(output, js, componentSpecs.specs, global);
+                    PageContent.renderTextfield(output, js, componentSpecs.specs);
                     break;
                 case "password":
-                    PageContent.renderPassword(output, js, componentSpecs.specs, global);
+                    PageContent.renderPassword(output, js, componentSpecs.specs);
                     break;
                 case "textarea":
-                    PageContent.renderTextarea(output, js, componentSpecs.specs, global);
+                    PageContent.renderTextarea(output, js, componentSpecs.specs);
                     break;
                 case "section":
-                    PageContent.renderSection(output, js, componentSpecs.specs, global);
+                    PageContent.renderSection(output, js, componentSpecs.specs);
                     break;
                 case "label":
-                    PageContent.renderLabel(output, js, componentSpecs.specs, global);
+                    PageContent.renderLabel(output, js, componentSpecs.specs);
                     break;
                 case "autocomplete":
-                    PageContent.renderAutocomplete(output, js, componentSpecs.specs, global);
+                    PageContent.renderAutocomplete(output, js, componentSpecs.specs);
                     break;
                 case "select":
-                    PageContent.renderSelect(output, js, componentSpecs.specs, global);
+                    PageContent.renderSelect(output, js, componentSpecs.specs);
                     break;
                 case "file":
-                    PageContent.renderFile(output, componentSpecs.specs, global);
+                    PageContent.renderFile(output, componentSpecs.specs);
                     break;
                 case "modal":
-                    PageContent.renderModal(output, js, componentSpecs.specs, global);
+                    PageContent.renderModal(output, js, componentSpecs.specs);
                     break;
                 case "jsEditor":
-                    PageContent.renderJsEditor(output, js, componentSpecs.specs, global);
+                    PageContent.renderJsEditor(output, js, componentSpecs.specs);
                     break;
                 case "switch":
-                    PageContent.renderSwitch(output, js, componentSpecs.specs, global);
+                    PageContent.renderSwitch(output, js, componentSpecs.specs);
                     break;
                 case "header":
-                    PageContent.renderHeader(output, js, componentSpecs.specs, global);
+                    PageContent.renderHeader(output, js, componentSpecs.specs);
                     break;
                 case "okCancelModal":
-                    PageContent.renderOkCancelModal(output, js, componentSpecs.specs, global);
+                    PageContent.renderOkCancelModal(output, js, componentSpecs.specs);
                     break;
                 case "div":
-                    PageContent.renderDiv(output, js, componentSpecs.specs, global);
+                    PageContent.renderDiv(output, js, componentSpecs.specs);
                     break;
                 case "divider":
-                    PageContent.renderDivider(output, js, componentSpecs.specs, global);
+                    PageContent.renderDivider(output, js, componentSpecs.specs);
                     break;
             }
         }
@@ -180,7 +181,7 @@ class PageContent {
         }
     }
 
-    static renderNav(output, js, componentSpecs, global) {
+    static renderNav(output, js, componentSpecs) {
         var children = componentSpecs.children;
         output.push(`<header>
             <div class="container">
@@ -191,46 +192,46 @@ class PageContent {
                     </a>
                 </div>
                 <ul id="nav-mobile" class="sidenav sidenav-fixed">`)
-        PageContent.renderComponent(output, js, children[0], global)
+        PageContent.renderComponent(output, js, children[0])
         output.push(`</ul>
         </header>
         <main>
             <div class="section" id="index-banner">
                 <div class="container">  
                     <div class="row" style="margin-bottom: 0;">`);
-        PageContent.renderComponent(output, js, children[1], global)
+        PageContent.renderComponent(output, js, children[1])
         output.push(`</div>
                 </div>
             </div>
         </main>`)
     }
 
-    static renderHorizontal(output, js, componentSpecs, global) {
+    static renderHorizontal(output, js, componentSpecs) {
         output.push(`<div  style="height: 100%; margin-bottom: 0;" id="${componentSpecs.id}" class="row">`);
         for (var component of componentSpecs.children) {
             output.push(`<div class="col ${component.size}" >`);
-            PageContent.renderComponent(output, js, component, global);
+            PageContent.renderComponent(output, js, component);
             output.push('</div>');
         }
         output.push('</div>');
     }
 
-    static renderVertical(output, js, componentSpecs, global) {
+    static renderVertical(output, js, componentSpecs) {
         output.push(`<div  id="${componentSpecs.id}">`);
         for (var component of componentSpecs.children) {
             output.push(`<div class="row ${component.size}">`);
-            PageContent.renderComponent(output, js, component, global)
+            PageContent.renderComponent(output, js, component)
             output.push('</div>');
         }
         output.push('</div>');
     }
 
-    static renderPopup(output, js, componentSpecs, global) {
+    static renderPopup(output, js, componentSpecs) {
         output.push(`<div  id="${componentSpecs.id}" class="modal">
     <div class="modal-content">`);
         let finalIndex = componentSpecs.children.length - 1;
         for (var i = 0; i < finalIndex; ++i) {
-            PageContent.renderComponent(output, js, componentSpecs.children[i], global);
+            PageContent.renderComponent(output, js, componentSpecs.children[i]);
         }
         output.push('</div> <div class="modal-footer">');
         PageContent.renderComponent(output, js, componentSpecs.children[finalIndex]);
@@ -239,7 +240,7 @@ class PageContent {
         output.push('</div>');
     }
 
-    static renderTopLayout(output, js, componentSpecs, global) {
+    static renderTopLayout(output, js, componentSpecs) {
         output.push(`<div  id="${componentSpecs.id}">`);
         let first = false;
         for (var component of componentSpecs.children) {
@@ -249,18 +250,18 @@ class PageContent {
             } else {
                 output.push(`<div class=" ${component.size}">`);
             }
-            PageContent.renderComponent(output, js, component, global)
+            PageContent.renderComponent(output, js, component)
             output.push('</div>');
         }
         output.push('</div>');
     }
 
 
-    static renderContainer(output, js, componentSpecs, global) {
+    static renderContainer(output, js, componentSpecs) {
         output.push(`<div class=" container ${componentSpecs.size}" id="${componentSpecs.id}">`);
         for (var component of componentSpecs.children) {
             output.push(`<div class="row ${component.size}">`);
-            PageContent.renderComponent(output, js, component, global)
+            PageContent.renderComponent(output, js, component)
             output.push('</div>');
         }
         output.push('</div>');
@@ -268,7 +269,7 @@ class PageContent {
 
     static renderButton(output, js, specs) {
         var results =
-            `<button id="${specs.id}" class="btn waves-effect waves-light  "> ${specs.title} 
+            `<button id="${specs.id}" class="btn waves-effect waves-light ${PageContent.global.theme} "> ${specs.title} 
              </button>`
         output.push(results);
     }
@@ -508,8 +509,8 @@ class PageContent {
            <h5>${specs.title}</h5>
           <p>${specs.content}</p></div>
           <div class="modal-footer">
-            <button class="modal-close btn green" id="${specs.id}_ok">${specs.ok}</button>
-            <button class="modal-close btn red" id="${specs.id}_cancel">${specs.cancel}</button>
+            <button class="modal-close btn ${PageContent.global.themeOk}" id="${specs.id}_ok">${specs.ok}</button>
+            <button class="modal-close btn  ${PageContent.global.themeCancel}" id="${specs.id}_cancel">${specs.cancel}</button>
           </div>
         </div>
       `;
@@ -575,13 +576,13 @@ class PageContent {
 
     }
 
-    static renderMenu(output, js, specs, global) {
+    static renderMenu(output, js, specs) {
         output.push(` 
         <!-- Dropdown Structure -->
         <nav id="${specs.id}" >
-          <div class="nav-wrapper ${global.theme}">`);
+          <div class="nav-wrapper ${PageContent.global.theme}">`);
         for (var component of specs.children) {
-            PageContent.renderComponent(output, js, component, global);
+            PageContent.renderComponent(output, js, component);
         }
         output.push(`            
           </div>
