@@ -107,6 +107,13 @@ class PageContent {
                 });
             }
             applyUnderlineFromTextClassToAll('.input-field input, .input-field textarea');
+
+            function colorAutocompleteItems(colorClass = 'blue-text') {
+                $('.autocomplete-content li span').addClass(colorClass);
+            }
+            $('input.autocomplete').on('click', function () {
+                setTimeout(() => colorAutocompleteItems('blue-text'));
+            });
         });
 
     }
