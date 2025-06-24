@@ -182,20 +182,27 @@ class PageContent {
 
     static renderNav(output, js, componentSpecs) {
         var children = componentSpecs.children;
-        output.push(`<header><div class="container">
-       <div class="container">
-        <a href="#" data-target="nav-mobile"
-           class="top-nav sidenav-trigger waves-effect waves-light circle hide-on-large-only">
-            <i  class="material-icons">menu</i>
-        </a>
-    </div>
-    <ul id="nav-mobile" class="sidenav sidenav-fixed">`)
+        output.push(`<header>
+            <div class="container">
+                <div class="container">
+                    <a href="#" data-target="nav-mobile"
+                        class="top-nav sidenav-trigger waves-effect waves-light circle hide-on-large-only">
+                        <i  class="material-icons">menu</i>
+                    </a>
+                </div>
+                <ul id="nav-mobile" class="sidenav sidenav-fixed">`)
         PageContent.renderComponent(output, js, children[0])
-        output.push(`</ul></header><main>
-    <div class="section" id="index-banner">
-        <div class="container">  <div class="row" style="margin-bottom: 0;">`);
+        output.push(`</ul>
+        </header>
+        <main>
+            <div class="section" id="index-banner">
+                <div class="container">  
+                    <div class="row" style="margin-bottom: 0;">`);
         PageContent.renderComponent(output, js, children[1])
-        output.push(`   </div>     </div></div></main>`)
+        output.push(`</div>
+                </div>
+            </div>
+        </main>`)
     }
 
     static renderHorizontal(output, js, componentSpecs) {
