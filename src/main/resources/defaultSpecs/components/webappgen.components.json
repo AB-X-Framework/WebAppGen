@@ -591,6 +591,10 @@
           {
             "text": "Menu Item",
             "value": "menuItem"
+          },
+          {
+            "text": "Menu Items",
+            "value": "menuItems"
           }
         ],
         "title": "Element Type"

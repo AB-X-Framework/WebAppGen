@@ -116,6 +116,9 @@ class PageContent {
                 case "menuItem":
                     PageContent.renderMenuItem(output,js, componentSpecs);
                     break;
+                case "menuItems":
+                    PageContent.renderMenuItem(output,js, componentSpecs);
+                    break;
                 case "img":
                     PageContent.renderImg(output, componentSpecs.specs);
                     break;
@@ -528,6 +531,10 @@ class PageContent {
     }
 
     static renderMenuItem(output, js, specs) {
+        let innerSpecs = specs.specs;
+        output.push(`  <ul class="${specs.size}"><li><a id="${innerSpecs.id}" >${innerSpecs.title}</a></li></ul>`);
+    }
+    static renderMenuItems(output, js, specs) {
         let innerSpecs = specs.specs;
         output.push(`  <ul class="${specs.size}"><li><a id="${innerSpecs.id}" >${innerSpecs.title}</a></li></ul>`);
     }

@@ -80,6 +80,11 @@ function defaultSpecs(elementType) {
             newDefSpecs.height = "100px";
             newDefSpecs.content = "//Your JS Here";
             break;
+        case "menuItems":
+            newDefSpecs.src = "";
+            newDefSpecs.title = "Choose item";
+            newDefSpecs.values = [];
+            break
         case "select":
             newDefSpecs.src = "";
             newDefSpecs.title = "The select";
@@ -634,6 +639,7 @@ function processSpecs() {
         case "button":
             $(workingEnv.SpecsTitle).closest('.input-field').parent().show();
             break;
+        case "menuItems":
         case "select":
             $(workingEnv.SpecsSource).closest('.input-field').parent().show();
             $(workingEnv.SpecsTitle).closest('.input-field').parent().show();
@@ -724,6 +730,7 @@ function processElement() {
         case "button":
             $(workingEnv.SpecsTitle).val(specs.title);
             break;
+        case "menuItems":
         case "select":
             if (typeof specs.src != "undefined") {
                 $(workingEnv.SpecsSource).val(specs.src);
