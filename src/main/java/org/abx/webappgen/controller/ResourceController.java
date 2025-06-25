@@ -3,6 +3,7 @@ package org.abx.webappgen.controller;
 import jakarta.servlet.http.HttpServletRequest;
 import org.abx.util.Pair;
 import org.abx.webappgen.persistence.ResourceModel;
+import org.apache.tika.Tika;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,7 @@ import java.util.Set;
 @RequestMapping("/resources")
 public class ResourceController extends RoleController {
 
+    private static final Tika tika = new Tika();
     @Autowired
     private ResourceModel resourceModel;
 
@@ -398,7 +400,6 @@ public class ResourceController extends RoleController {
     }
 
 
-
     @GetMapping("/binary/**")
     public ResponseEntity<?> getBinary(HttpServletRequest request) {
         String path = (String) request.getAttribute(
@@ -443,16 +444,39 @@ public class ResourceController extends RoleController {
         return status.toString();
     }
 
+    @Secured("Admin")
+    @PostMapping(value = "/binaries/new",
+            consumes = "multipart/form-data", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String handleNew(
+            HttpServletRequest request,
+            @RequestPart String name,
+            @RequestPart MultipartFile data) {
+        JSONObject status = new JSONObject();
+        try {
+            String packageName = name.substring(0, name.lastIndexOf('/'));
+            byte[] bytes = data.getBytes();
+            String contentType = tika.detect(bytes);
+            resourceModel.saveBinaryResource(name, packageName, request.getUserPrincipal().getName(), contentType, "Anonymous");
+            resourceModel.upload(name, bytes);
+            status.put("success", true);
+        } catch (Exception e) {
+            status.put("success", false);
+            status.put("message", e.getMessage());
+        }
+        return status.toString();
+    }
+
 
     @Secured("Admin")
     @PostMapping(value = "/binaries/upload",
             consumes = "multipart/form-data", produces = MediaType.APPLICATION_JSON_VALUE)
     public String handleUpload(
             @RequestPart String name,
-            @RequestPart(required = false) MultipartFile data)  {
+            @RequestPart(required = false) MultipartFile data) {
         JSONObject status = new JSONObject();
         try {
             byte[] bytes = data.getBytes();
+
             resourceModel.upload(name, bytes);
             status.put("success", true);
         } catch (Exception e) {
