@@ -3,7 +3,6 @@ package org.abx.webappgen.persistence;
 import org.abx.webappgen.controller.SessionEnv;
 import org.abx.webappgen.persistence.dao.*;
 import org.abx.webappgen.persistence.model.*;
-import org.abx.webappgen.utils.ElementUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,16 +36,16 @@ public class PageModel {
     public static final String ThemeText = "themeText";
     public static final String ThemeUpdated = "themeUpdated";
     public static final String ThemeCancel = "themeCancel";
-    public static final String Global    = "global";
+    public static final String Global = "global";
 
-    private final  long envId;
+    private final long envId;
     private final long hideDefaultsId;
-    private final  long defaultEnv;
-    private final  long defaultTheme;
-    private final  long defaultThemeOk;
-    private final  long defaultThemeText;
-    private final  long defaultThemeUpdated;
-    private final  long defaultThemeCancel;
+    private final long defaultEnv;
+    private final long defaultTheme;
+    private final long defaultThemeOk;
+    private final long defaultThemeText;
+    private final long defaultThemeUpdated;
+    private final long defaultThemeCancel;
 
     @Autowired
     public PageRepository pageRepository;
@@ -211,7 +210,13 @@ public class PageModel {
         JSONArray packages = new JSONArray();
         List<String> packageList = pageRepository.findDistinctPackageNames();
         Collections.sort(packageList);
-        packages.putAll(packageList);
+        if (Boolean.parseBoolean(mapEntryRepository.findByMapEntryId(hideDefaultsId).mapValue)) {
+            for (String pagePackage : packageList) {
+                packages.put(pagePackage);
+            }
+        } else {
+            packages.putAll(packageList);
+        }
         return packages;
     }
 
@@ -305,12 +310,12 @@ public class PageModel {
             }
         }
         JSONObject global = new JSONObject();
-        global.put(Theme,mapEntryRepository.findByMapEntryId(defaultTheme).mapValue);
-        global.put(ThemeOk,mapEntryRepository.findByMapEntryId(defaultThemeOk).mapValue);
-        global.put(ThemeCancel,mapEntryRepository.findByMapEntryId(defaultThemeCancel).mapValue);
-        global.put(ThemeUpdated,mapEntryRepository.findByMapEntryId(defaultThemeUpdated).mapValue);
-        global.put(ThemeText,mapEntryRepository.findByMapEntryId(defaultThemeText).mapValue);
-        jsonPage.put(Global,global);
+        global.put(Theme, mapEntryRepository.findByMapEntryId(defaultTheme).mapValue);
+        global.put(ThemeOk, mapEntryRepository.findByMapEntryId(defaultThemeOk).mapValue);
+        global.put(ThemeCancel, mapEntryRepository.findByMapEntryId(defaultThemeCancel).mapValue);
+        global.put(ThemeUpdated, mapEntryRepository.findByMapEntryId(defaultThemeUpdated).mapValue);
+        global.put(ThemeText, mapEntryRepository.findByMapEntryId(defaultThemeText).mapValue);
+        jsonPage.put(Global, global);
         jsonPage.put(Component, processTop("top", page.component, env));
         return jsonPage;
     }
@@ -343,11 +348,9 @@ public class PageModel {
         return componentSpecs;
     }
 
-    private boolean matchesEnv(String currEnv,SessionEnv targetEnv ) {
+    private boolean matchesEnv(String currEnv, SessionEnv targetEnv) {
         return targetEnv.matches(currEnv);
     }
-
-
 
 
     @Transactional
