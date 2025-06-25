@@ -1,6 +1,6 @@
 package org.abx.webappgen.utils;
 
-
+import org.springframework.core.io.ResourceLoader;
 import jakarta.annotation.PostConstruct;
 import jakarta.transaction.Transactional;
 import org.abx.util.StreamUtils;
@@ -31,6 +31,8 @@ import static org.abx.webappgen.utils.ElementUtils.elementHashCode;
 public class SpecsImporter {
     @Autowired
     private PageModel pageModel;
+    @Autowired
+    ResourceLoader resourceLoader;
 
     @Autowired
     private ResourceModel resourceModel;
@@ -100,7 +102,7 @@ public class SpecsImporter {
             File resourceFile = new File(resource);
             inputStream = new FileInputStream(resourceFile);
         } else {
-            inputStream = getClass().getClassLoader().getResourceAsStream(resource);
+            inputStream = resourceLoader.getResource("classpath:"+resource).getInputStream();
         }
         return StreamUtils.readStream(inputStream);
     }
@@ -265,7 +267,7 @@ public class SpecsImporter {
                 String name = jsonResource.getString("name");
                 String owner = jsonResource.getString("owner");
                 String title = jsonResource.getString("title");
-                String file = specsPath + "/text/" + "/" + name.replace('.', '/') + ".txt";
+                String file = specsPath + "/text/"  + name.replace('.', '/') + ".txt";
                 String data = getData(file, fs);
                 resourceModel.saveTextResource(name, owner, title, packageName,
                         data, jsonResource.getString("role"));
