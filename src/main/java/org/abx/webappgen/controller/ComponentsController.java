@@ -58,9 +58,9 @@ public class ComponentsController extends RoleController implements EnvListener 
         JSONObject status = new JSONObject();
         try {
             pageModel.delete(componentName);
-            status.put("success", "true");
+            status.put("success", true);
         } catch (Exception e) {
-            status.put("success", "false");
+            status.put("success", false);
             status.put("error", e.getMessage());
         }
         return status.toString(2);
@@ -73,9 +73,9 @@ public class ComponentsController extends RoleController implements EnvListener 
         JSONObject status = new JSONObject();
         try {
             specsImporter.saveComponent(new JSONObject(component));
-            status.put("success", "true");
+            status.put("success", true);
         } catch (Exception e) {
-            status.put("success", "false");
+            status.put("success", false);
             status.put("error", e.getMessage());
         }
         return status.toString(2);
