@@ -393,14 +393,19 @@ class PageContent {
 
 
     static renderSection(output, js, specs) {
-        var results =
-            `<div id="${specs.id}"  class="section white section-content">
+        var results = `<div id="${specs.id}"  class="section white section-content">
             <div class="row ">
-            <${specs.size} class="header">${specs.title}</${specs.size}>
-             <p class="grey-text text-darken-3">
-             ${specs.content.replaceAll("\n", "</><p class=\"grey-text text-darken-3\">")}
-             </p>
-          </div></div>`;
+                <${specs.size} id="${specs.id}_title" class="header">${specs.title}</${specs.size}>
+                <div id="${specs.id}_body">
+                    <p class="${PageContent.global.themeText}">
+                        ${specs.content.replaceAll("\n", `</><p class=\"${PageContent.global.themeText}\">`)}
+                    </p>
+                </div>
+            </div>
+        </div>`;
+        if (specs.src != null){
+
+        }
         output.push(results);
     }
 

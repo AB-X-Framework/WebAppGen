@@ -684,6 +684,7 @@ function processSpecs() {
             $(workingEnv.SpecsCancel).closest('.input-field').parent().show();
             break;
         case "section":
+            $(workingEnv.SpecsSource).closest('.input-field').parent().show();
             $(workingEnv.SpecsSize).closest('.input-field').parent().show();
             $(workingEnv.SpecsTitle).closest('.input-field').parent().show();
             $(workingEnv.SpecsContentArea).closest('.input-field').parent().show();
