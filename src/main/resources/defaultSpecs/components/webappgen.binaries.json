@@ -48,7 +48,7 @@
     "isContainer": true,
     "js": [{
       "env": "",
-      "value": "$(NewBinaryConfirm).click(()=>{\n    const name = $(NewBinaryName).val();\n    const formData = new FormData();\n    formData.append(\"data\",self.NewBinaryFile.files[0]);\n    formData.append(\"name\",$(self.NewBinaryName).val());\n    $.ajax({\n        url: `/resources/binaries/new`, \n        method: \"POST\",\n        data: formData,\n        processData: false,\n        contentType: false,\n        success: (status)=>{\n            if (status.success){\n               addAutocompleteValue(workingEnv.PackageName,status.package)\n               addAutocompleteValue(workingEnv.BinaryName,name);\n               workingEnv.renderBinary();\n               PageContent.showModal(\"Upload\", \"New binary uploaded successfully.\");\n            }else {\n                \n                PageContent.showModal(\"Cannot create binary\"+JSON.stringify(status.error))\n            }\n            \n        }\n    });\n\n    /*$.post(`/resources/binaries`,{\n        \"name\":name,\n        \"contentType\":\"application/octet-stream\",\n        \"title\":\"New binary\",\n        \"role\":\"Admin\"\n    },(status)=>{\n       if (status.success){\n           PageContent.closeModal(self);\n           addAutocompleteValue(workingEnv.PackageName,status.package)\n           addAutocompleteValue(workingEnv.BinaryName,name);\n           workingEnv.renderBinary();\n       } else {\n           PageContent.showModal(\"Cannot create binary\"+JSON.stringify(status.error))\n       }\n    });*/\n});"
+      "value": "$(NewBinaryConfirm).click(()=>{\n    const name = $(NewBinaryName).val();\n    const formData = new FormData();\n    formData.append(\"data\",self.NewBinaryFile.files[0]);\n    formData.append(\"name\",$(self.NewBinaryName).val());\n    $.ajax({\n        url: `/resources/binaries/new`, \n        method: \"POST\",\n        data: formData,\n        processData: false,\n        contentType: false,\n        success: (status)=>{\n            if (status.success){\n               addAutocompleteValue(workingEnv.PackageName,status.package)\n               addAutocompleteValue(workingEnv.BinaryName,name);\n               addAutocompleteValue(workingEnv.ContentType,status.contentType);\n               workingEnv.renderBinary();\n               PageContent.showModal(\"Upload\", \"New binary uploaded successfully.\");\n            }else {\n                \n                PageContent.showModal(\"Cannot create binary\"+JSON.stringify(status.error))\n            }\n            \n        }\n    });\n\n    /*$.post(`/resources/binaries`,{\n        \"name\":name,\n        \"contentType\":\"application/octet-stream\",\n        \"title\":\"New binary\",\n        \"role\":\"Admin\"\n    },(status)=>{\n       if (status.success){\n           PageContent.closeModal(self);\n           addAutocompleteValue(workingEnv.PackageName,status.package)\n           addAutocompleteValue(workingEnv.BinaryName,name);\n           workingEnv.renderBinary();\n       } else {\n           PageContent.showModal(\"Cannot create binary\"+JSON.stringify(status.error))\n       }\n    });*/\n});"
     }]
   },
   {
@@ -80,7 +80,7 @@
       },
       {
         "env": "",
-        "value": "workingEnv.currPage = 0;\nworkingEnv.BinaryBody = self;\n\n\nworkingEnv.renderBinary = ()=> {\n    var downloadFromUrl=(url, filename) =>{\n        const a = document.createElement('a');\n        a.href = url;\n        a.download = filename || '';\n        a.style.display = 'none';\n        document.body.appendChild(a);\n        a.click();\n        document.body.removeChild(a);\n    }\n\n\n    workingEnv.binaryName = $(LeftPanel.BinaryName).val();\n    if (workingEnv.binaryName !== \"\"){\n        $.get(`/resources/binaries/${workingEnv.binaryName}`,(binary)=>{\n            workingEnv.updatedBinary = binary;\n            $(self.RightPanel.DetailsPanel.Owner).val(binary.owner);\n            $(self.RightPanel.DetailsPanel.ContentType).val(binary.contentType);\n            if (binary.contentType === \"application/png\" || binary.contentType === \"application/jpeg\"){\n                $(self.RightPanel.Img).parent().show();\n                self.RightPanel.Img.src = `/resources/binary/${workingEnv.binaryName}`;\n            }else{\n                $(self.RightPanel.Img).parent().hide();\n            }\n            $(self.RightPanel.DetailsPanel.RoleType).val(binary.role).formSelect();\n            M.updateTextFields() ;\n            $(self.RightPanel.DetailsPanel.Download).click(()=>{\n                downloadFromUrl(`/resources/binary/${workingEnv.binaryName}`,workingEnv.binaryName.substring(workingEnv.binaryName.lastIndexOf(\"/\")+1));\n            });\n        });\n    }\n}\n$(self.RightPanel.Img).parent().hide();\n$(LeftPanel.BinaryName).change(workingEnv.renderBinary);"
+        "value": "workingEnv.currPage = 0;\nworkingEnv.BinaryBody = self;\n\n\nworkingEnv.renderBinary = ()=> {\n    var downloadFromUrl=(url, filename) =>{\n        const a = document.createElement('a');\n        a.href = url;\n        a.download = filename || '';\n        a.style.display = 'none';\n        document.body.appendChild(a);\n        a.click();\n        document.body.removeChild(a);\n    }\n\n\n    workingEnv.binaryName = $(LeftPanel.BinaryName).val();\n    if (workingEnv.binaryName !== \"\"){\n        $.get(`/resources/binaries/${workingEnv.binaryName}`,(binary)=>{\n            workingEnv.updatedBinary = binary;\n            $(self.RightPanel.DetailsPanel.Owner).val(binary.owner);\n            $(self.RightPanel.DetailsPanel.ContentType).val(binary.contentType);\n            if (binary.contentType === \"application/png\" || binary.contentType === \"application/jpeg\"|| binary.contentType === \"image/jpeg\"){\n                $(self.RightPanel.ImgContainer).parent().show();\n                self.RightPanel.ImgContainer.Img.src = `/resources/binary/${workingEnv.binaryName}`;\n            }else{\n                $(self.RightPanel.ImgContainer).parent().hide();\n            }\n            $(self.RightPanel.DetailsPanel.RoleType).val(binary.role).formSelect();\n            M.updateTextFields() ;\n            $(self.RightPanel.DetailsPanel.Download).click(()=>{\n                downloadFromUrl(`/resources/binary/${workingEnv.binaryName}`,workingEnv.binaryName.substring(workingEnv.binaryName.lastIndexOf(\"/\")+1));\n            });\n        });\n    }\n}\n$(self.RightPanel.ImgContainer).parent().hide();\n$(LeftPanel.BinaryName).change(workingEnv.renderBinary);"
       },
       {
         "env": "",
@@ -118,6 +118,18 @@
     "isContainer": false,
     "js": [],
     "type": "textfield"
+  },
+  {
+    "layout": "horizontal",
+    "components": [{
+      "innerId": "Img",
+      "component": "webappgen.binaries.Img",
+      "size": "l6",
+      "env": ""
+    }],
+    "name": "webappgen.binaries.ImgContainer",
+    "isContainer": true,
+    "js": []
   },
   {
     "specs": [{
@@ -311,7 +323,10 @@
     }],
     "name": "webappgen.binaries.ContentType",
     "isContainer": false,
-    "js": [],
+    "js": [{
+      "env": "",
+      "value": "workingEnv.ContentType = self;"
+    }],
     "type": "autocomplete"
   },
   {
@@ -530,9 +545,9 @@
         "env": ""
       },
       {
-        "innerId": "Img",
-        "component": "webappgen.binaries.Img",
-        "size": "l12",
+        "innerId": "ImgContainer",
+        "component": "webappgen.binaries.ImgContainer",
+        "size": "l6",
         "env": ""
       }
     ],
