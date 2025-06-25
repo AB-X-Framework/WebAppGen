@@ -108,11 +108,11 @@ class PageContent {
             }
             applyUnderlineFromTextClassToAll('.input-field input, .input-field textarea');
 
-            function colorAutocompleteItems(colorClass = 'blue-text') {
+            function colorAutocompleteItems(colorClass) {
                 $('.autocomplete-content li span').addClass(colorClass);
             }
             $('input.autocomplete').on('click', function () {
-                setTimeout(() => colorAutocompleteItems('blue-text'));
+                setTimeout(() => colorAutocompleteItems(PageContent.global.themeText));
             });
         });
 
