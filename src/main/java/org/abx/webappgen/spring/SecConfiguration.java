@@ -47,6 +47,8 @@ public class SecConfiguration {
                             .permitAll()
                             .requestMatchers("process/**")
                             .permitAll()
+                            .requestMatchers("favicon.ico")
+                            .permitAll()
                             .requestMatchers("error").permitAll()
                             .anyRequest()
                             .authenticated();
