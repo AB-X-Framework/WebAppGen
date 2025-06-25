@@ -32,6 +32,12 @@
         "env": ""
       },
       {
+        "innerId": "elem1",
+        "component": "webappgen.binaries.NewBinaryFile",
+        "size": "l12",
+        "env": ""
+      },
+      {
         "innerId": "NewBinaryConfirm",
         "component": "webappgen.binaries.NewBinaryConfirm",
         "size": "l12",
@@ -327,6 +333,19 @@
     "isContainer": false,
     "js": [],
     "type": "button"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "title": "The file",
+        "content": "Upload"
+      }
+    }],
+    "name": "webappgen.binaries.NewBinaryFile",
+    "isContainer": false,
+    "js": [],
+    "type": "file"
   },
   {
     "specs": [{
