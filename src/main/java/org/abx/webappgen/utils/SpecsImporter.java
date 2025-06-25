@@ -313,6 +313,10 @@ public class SpecsImporter {
         processComponent(component);
     }
 
+    @Transactional
+    public boolean matchesExists(String match){
+        return pageRepository.findByMatchesId(elementHashCode(match))!= null;
+    }
 
     @Transactional
     public void savePage(JSONObject page) {

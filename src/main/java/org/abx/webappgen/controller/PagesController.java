@@ -47,6 +47,10 @@ public class PagesController extends RoleController {
         JSONObject jsonPage = new JSONObject(page);
         String packageName = newName.substring(0, newName.lastIndexOf("."));
         jsonPage.put("package", packageName);
+        if (specsImporter.matchesExists(jsonPage.getString("matches"))) {
+            jsonPage.put("matches",
+                    jsonPage.getString("matches") + ((int) (Math.random() * 900000)));
+        }
         jsonPage.put("name", newName);
         JSONObject status = new JSONObject();
         try {
@@ -77,6 +81,7 @@ public class PagesController extends RoleController {
         }
         return status.toString(2);
     }
+
     @PostMapping(value = "/new", produces = MediaType.APPLICATION_JSON_VALUE)
     @Secured("Admin")
     public String newPage(@RequestParam String newName) {
@@ -87,11 +92,11 @@ public class PagesController extends RoleController {
             page.put("name", newName);
             page.put("title", "New Page");
             page.put("package", packageName);
-            page.put("matches","/Page"+((int)(Math.random()*900000)));
-            page.put("css",new JSONArray());
-            page.put("scripts",new JSONArray());
-            page.put("component","app.Default");
-            page.put("role","Admin");
+            page.put("matches", "Page" + ((int) (Math.random() * 900000)));
+            page.put("css", new JSONArray());
+            page.put("scripts", new JSONArray());
+            page.put("component", "app.Default");
+            page.put("role", "Admin");
 
             specsImporter.savePage(page);
             status.put("success", "true");
