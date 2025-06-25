@@ -257,7 +257,7 @@
     "type": "select"
   },
   {
-    "layout": "topLayout",
+    "layout": "vertical",
     "components": [
       {
         "innerId": "header",
