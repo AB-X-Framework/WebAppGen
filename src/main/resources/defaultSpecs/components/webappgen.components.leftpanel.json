@@ -13,7 +13,7 @@
     "isContainer": false,
     "js": [{
       "env": "",
-      "value": "$(self).click(()=>{\n   $.get(`/components/delete/${workingEnv.component.name}`,(status)=>{\n       if (status.success){\n           location.reload();\n       }else {\n           PageContent.showModay(status.error)\n       }\n    }); \n});"
+      "value": "$(self).click(()=>{\n   $.get(`/components/delete/${workingEnv.component.name}`,(status)=>{\n       if (status.success){\n           location.reload();\n       }else {\n           PageContent.showModal(\"Cannot delete component\",JSON.stringify(status.error));\n       }\n    }); \n});"
     }],
     "type": "okCancelModal"
   },

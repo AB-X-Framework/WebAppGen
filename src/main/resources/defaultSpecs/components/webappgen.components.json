@@ -277,24 +277,6 @@
     "js": []
   },
   {
-    "specs": [{
-      "env": "",
-      "value": {
-        "cancel": "Cancel",
-        "ok": "Delete",
-        "title": "Confirm Delete",
-        "content": "Do you want to delete element?"
-      }
-    }],
-    "name": "webappgen.components.DeleteComponentConfirm",
-    "isContainer": false,
-    "js": [{
-      "env": "",
-      "value": "$(self).click(()=>{\n   $.get(`/components/delete/${workingEnv.component.name}`,\n   \n   ) \n});"
-    }],
-    "type": "okCancelModal"
-  },
-  {
     "layout": "vertical",
     "components": [
       {
