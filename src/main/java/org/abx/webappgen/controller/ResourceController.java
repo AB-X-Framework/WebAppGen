@@ -40,6 +40,17 @@ public class ResourceController extends RoleController {
         return data.toString();
     }
 
+    @GetMapping(value = "/text/{resource}", produces = MediaType.TEXT_PLAIN_VALUE)
+    @Secured("Admin")
+    public String getText(@PathVariable String resource) {
+        Set<String> roles = getRoles();
+        String data = resourceModel.getText(roles, resource);
+        if (data == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Resource not found: " + resource);
+        }
+        return data;
+    }
+
 
     @GetMapping(value = "/methods/{resource}", produces = MediaType.APPLICATION_JSON_VALUE)
     @Secured("Admin")

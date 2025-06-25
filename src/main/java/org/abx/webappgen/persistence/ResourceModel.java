@@ -126,6 +126,23 @@ public class ResourceModel {
     }
 
     @Transactional
+    public String getText(Set<String> roles, String resourceName) {
+        TextResource text = textResourceRepository.findByTextResourceId(
+                elementHashCode(resourceName)
+        );
+        if (text == null) {
+            return null;
+        }
+        String requiredRole = text.role;
+        if (!requiredRole.equals("Anonymous")) {
+            if (!roles.contains(requiredRole)) {
+                return null;
+            }
+        }
+        return text.resourceValue;
+    }
+
+    @Transactional
     public JSONObject getMethodResource(String resourceName) {
         MethodSpec methodSpec = methodSpecRepository.findByMethodSpecId(
                 elementHashCode(resourceName)
