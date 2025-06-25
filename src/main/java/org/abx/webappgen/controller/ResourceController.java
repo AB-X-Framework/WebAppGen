@@ -453,11 +453,17 @@ public class ResourceController extends RoleController {
             @RequestPart MultipartFile data) {
         JSONObject status = new JSONObject();
         try {
+            String owner = request.getUserPrincipal().getName();
             String packageName = name.substring(0, name.lastIndexOf('/'));
             byte[] bytes = data.getBytes();
+            String role = "Anonymous";
             String contentType = tika.detect(bytes);
-            resourceModel.saveBinaryResource(name, packageName, request.getUserPrincipal().getName(), contentType, "Anonymous");
+            resourceModel.saveBinaryResource(name, packageName, owner, contentType, role);
             resourceModel.upload(name, bytes);
+            status.put("package", packageName);
+            status.put("owner", owner);
+            status.put("contentType", contentType);
+            status.put("role", role);
             status.put("success", true);
         } catch (Exception e) {
             status.put("success", false);
