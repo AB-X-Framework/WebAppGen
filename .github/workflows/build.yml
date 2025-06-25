@@ -36,13 +36,6 @@ jobs:
         with:
           java-version:  '21.0.5'
 
-      - name: Settings
-        uses: s4u/maven-settings-action@v2.5.0
-        with:
-          servers: '[
-            {"id": "github-ABXUSArch","configuration": {"httpHeaders": {"property": {"name": "Authorization","value": "Bearer ${{ secrets.GITHUB_TOKEN }}"}}}}
-          ]'
-
 
       # Step 3: Compile and deploy ABX WebApp Gen
       - name: Compile and deploy ABX WebApp Gen

@@ -10,11 +10,8 @@
 	</parent>
 	<repositories>
 		<repository>
-			<id>github-ABXUSArch</id>
-			<url>https://maven.pkg.github.com/AB-X-Framework/ABXUSArch</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
+			<id>jitpack.io</id>
+			<url>https://jitpack.io</url>
 		</repository>
 	</repositories>
 	<groupId>org.abx.webappgen</groupId>
@@ -34,9 +31,9 @@
 			<version>8.4.0</version>
 		</dependency>
 		<dependency>
-			<groupId>org.abx.ws</groupId>
-			<artifactId>wsarch</artifactId>
-			<version>1.0-SNAPSHOT</version>
+			<groupId>com.github.AB-X-Framework</groupId>
+			<artifactId>ABXUSArch</artifactId>
+			<version>main-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.graalvm.polyglot</groupId>
