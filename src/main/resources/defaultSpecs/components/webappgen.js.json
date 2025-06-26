@@ -218,7 +218,7 @@
     "specs": [{
       "env": "",
       "value": {
-        "src": "/resources/packages/js",
+        "src": "/resources/packages/binaries",
         "values": [],
         "title": "JS Package"
       }
