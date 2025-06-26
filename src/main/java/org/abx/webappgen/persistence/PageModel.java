@@ -405,13 +405,19 @@ public class PageModel {
             addPreviewContainer(jsonComponent, env);
             jsonComponent.put(JS, "");
         } else {
+            boolean found = false;
             JSONArray specs = jsonComponent.getJSONArray(Specs);
             for (int i = 0; i < specs.length(); i++) {
                 JSONObject spec = specs.getJSONObject(i);
                 if (matchesEnv(spec.getString("env"), env)) {
                     jsonComponent.put(Specs, spec.getJSONObject("value"));
+                    found = true;
                     break;
                 }
+            }
+            //In case of desperation use first one
+            if (!found) {
+                jsonComponent.put(Specs, specs.getJSONObject(0).getString("value"));
             }
             jsonComponent.put(JS, "");
         }
