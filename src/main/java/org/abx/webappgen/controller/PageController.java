@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.view.RedirectView;
 import org.stringtemplate.v4.ST;
 
 import java.util.HashMap;
@@ -45,16 +46,17 @@ public class PageController extends RoleController {
         pageTemplates = new HashMap<>();
     }
 
-    @GetMapping(value = "/{pagename}", produces = MediaType.TEXT_HTML_VALUE)
+    @GetMapping(value = "/{pagename}",produces =  MediaType.TEXT_HTML_VALUE)
     @PreAuthorize("permitAll()")
-    public String page(HttpSession session, @PathVariable String pagename) {
+    public Object page(HttpSession session, @PathVariable String pagename) {
         if (!pageModel.validPage(getRoles(), elementHashCode(pagename))) {
-            pagename = pageModel.getHome();
+            String home = pageModel.getHome();
+            return new RedirectView("/page/" + home);
         }
         ST st1 = getPageTemplate(session);
-        String output = st1.add("pagename", pagename).render();
-        return output;
+        return st1.add("pagename", pagename).render();
     }
+
 
     private ST getPageTemplate(HttpSession session) {
         SessionEnv sessionEnv = env(session);
