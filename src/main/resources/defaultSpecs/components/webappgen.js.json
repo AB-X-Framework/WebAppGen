@@ -1,0 +1,558 @@
+[
+  {
+    "layout": "popup",
+    "components": [
+      {
+        "innerId": "CloneBinaryName",
+        "component": "webappgen.js.CloneBinaryName",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "NewBinaryConfirm",
+        "component": "webappgen.js.NewBinaryConfirm",
+        "size": "l12",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.js.CloneBinaryModal",
+    "isContainer": true,
+    "js": [{
+      "env": "",
+      "value": "$(NewBinaryConfirm).click(()=>{\n    const newName = $(CloneBinaryName).val();\n    $.post(`/resources/binaries/clone`,{\n        \"newName\":newName,\n        \"original\":workingEnv.binaryName,\n        \"contentType\":workingEnv.updatedBinary.contentType,\n        \"owner\":workingEnv.updatedBinary.owner,\n        \"role\":workingEnv.updatedBinary.role\n    },(status)=>{\n       if (status.success){\n           PageContent.closeModal(self);\n           addAutocompleteValue(workingEnv.PackageName,status.package)\n           addAutocompleteValue(workingEnv.BinaryName,newName);\n           workingEnv.renderBinary();\n       } else {\n           PageContent.showModal(\"Cannot create binary\"+JSON.stringify(status.error))\n       }\n    });\n});"
+    }]
+  },
+  {
+    "layout": "popup",
+    "components": [
+      {
+        "innerId": "NewBinaryName",
+        "component": "webappgen.js.NewBinaryName",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "NewBinaryFile",
+        "component": "webappgen.js.NewBinaryFile",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "NewBinaryConfirm",
+        "component": "webappgen.js.NewBinaryConfirm",
+        "size": "l12",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.js.NewBinaryModal",
+    "isContainer": true,
+    "js": [{
+      "env": "",
+      "value": "$(NewBinaryConfirm).click(()=>{\n    const name = $(NewBinaryName).val();\n    const formData = new FormData();\n    formData.append(\"data\",self.NewBinaryFile.files[0]);\n    formData.append(\"name\",$(self.NewBinaryName).val());\n    $.ajax({\n        url: `/resources/binaries/new`, \n        method: \"POST\",\n        data: formData,\n        processData: false,\n        contentType: false,\n        success: (status)=>{\n            if (status.success){\n               addAutocompleteValue(workingEnv.PackageName,status.package)\n               addAutocompleteValue(workingEnv.BinaryName,name);\n               addAutocompleteValue(workingEnv.ContentType,status.contentType);\n               workingEnv.renderBinary();\n               PageContent.showModal(\"Upload\", \"New binary uploaded successfully.\");\n            }else {\n                \n                PageContent.showModal(\"Cannot create binary\"+JSON.stringify(status.error))\n            }\n            \n        }\n    });\n\n    /*$.post(`/resources/binaries`,{\n        \"name\":name,\n        \"contentType\":\"application/octet-stream\",\n        \"title\":\"New binary\",\n        \"role\":\"Admin\"\n    },(status)=>{\n       if (status.success){\n           PageContent.closeModal(self);\n           addAutocompleteValue(workingEnv.PackageName,status.package)\n           addAutocompleteValue(workingEnv.BinaryName,name);\n           workingEnv.renderBinary();\n       } else {\n           PageContent.showModal(\"Cannot create binary\"+JSON.stringify(status.error))\n       }\n    });*/\n});"
+    }]
+  },
+  {
+    "layout": "horizontal",
+    "components": [
+      {
+        "innerId": "LeftPanel",
+        "component": "webappgen.js.LeftPanel",
+        "size": "l2",
+        "env": ""
+      },
+      {
+        "innerId": "RightPanel",
+        "component": "webappgen.js.RightPanel",
+        "size": "l10",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.js.BinaryBody",
+    "isContainer": true,
+    "js": [
+      {
+        "env": "",
+        "value": "$(LeftPanel.BinariesPackage).change(()=>{\n    clearAutocomplete(LeftPanel.BinaryName);\n    \n    const packageName = $(LeftPanel.BinariesPackage).val();\n    if (packageName !== \"\"){\n        $.get(`/resources/packages/binaries/${packageName}`,(binariesPerPackage)=>{\n            binariesPerPackage.forEach((binaryName)=>{\n                addAutocompleteValue(LeftPanel.BinaryName,binaryName)\n            });\n            self.LeftPanel.MenuPanel.SaveBinary.markSaved();\n            $(LeftPanel.BinaryName).val(\"\");\n            $(self.RightPanel.BinaryContent).val(\"\");\n            $(self.RightPanel.DetailsPanel.Owner).val(\"\");\n            $(self.RightPanel.DetailsPanel.RoleType).val(\"\").formSelect();\n        });\n    }\n});"
+      },
+      {
+        "env": "",
+        "value": "$(self.RightPanel.Upload).click(()=>{\n    const formData = new FormData();\n    formData.append(\"data\",self.RightPanel.UploadFile.files[0]);\n    formData.append(\"name\",workingEnv.binaryName);\n    $.ajax({\n        url: `/resources/binaries/upload`, \n        method: \"POST\",\n        data: formData,\n        processData: false,\n        contentType: false,\n        success: (binary)=>{\n            PageContent.showModal(\"Upload\", \"New binary uploaded successfully.\");\n        }\n    });\n});"
+      },
+      {
+        "env": "",
+        "value": "workingEnv.currPage = 0;\nworkingEnv.BinaryBody = self;\n\n\nworkingEnv.renderBinary = ()=> {\n    var downloadFromUrl=(url, filename) =>{\n        const a = document.createElement('a');\n        a.href = url;\n        a.download = filename || '';\n        a.style.display = 'none';\n        document.body.appendChild(a);\n        a.click();\n        document.body.removeChild(a);\n    }\n\n\n    workingEnv.binaryName = $(LeftPanel.BinaryName).val();\n    if (workingEnv.binaryName !== \"\"){\n        $.get(`/resources/binaries/${workingEnv.binaryName}`,(binary)=>{\n            workingEnv.updatedBinary = binary;\n            $(self.RightPanel.DetailsPanel.Owner).val(binary.owner);\n            $(self.RightPanel.DetailsPanel.ContentType).val(binary.contentType);\n            if (binary.contentType === \"application/png\" || binary.contentType === \"application/jpeg\"|| binary.contentType === \"image/jpeg\"){\n                $(self.RightPanel.ImgContainer).parent().show();\n                self.RightPanel.ImgContainer.Img.src = `/resources/binary/${workingEnv.binaryName}`;\n            }else{\n                $(self.RightPanel.ImgContainer).parent().hide();\n            }\n            $(self.RightPanel.DetailsPanel.RoleType).val(binary.role).formSelect();\n            M.updateTextFields() ;\n            $(self.RightPanel.DetailsPanel.Download).click(()=>{\n                downloadFromUrl(`/resources/binary/${workingEnv.binaryName}`,workingEnv.binaryName.substring(workingEnv.binaryName.lastIndexOf(\"/\")+1));\n            });\n        });\n    }\n}\n$(self.RightPanel.ImgContainer).parent().hide();\n$(LeftPanel.BinaryName).change(workingEnv.renderBinary);"
+      },
+      {
+        "env": "",
+        "value": "self.markChanged=()=>{\n    self.LeftPanel.MenuPanel.SaveBinary.markChanged();\n}\n\n\n$(self.RightPanel.DetailsPanel.Owner).on('input',()=>{\n    workingEnv.updatedBinary.owner = $(self.RightPanel.DetailsPanel.Owner).val(); \n    self.markChanged();\n});\n \n$(self.RightPanel.DetailsPanel.ContentType).on('input',()=>{\n    workingEnv.updatedBinary.contentType = $(self.RightPanel.DetailsPanel.ContentType).val(); \n    self.markChanged();\n});\n \n$(self.RightPanel.DetailsPanel.RoleType).change(()=>{\n    workingEnv.updatedBinary.role = $(self.RightPanel.DetailsPanel.RoleType).val(); \n    self.markChanged();\n});"
+      }
+    ]
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "src": "",
+        "values": [],
+        "title": "Binary Name"
+      }
+    }],
+    "name": "webappgen.js.BinaryName",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "workingEnv.BinaryName = self;"
+    }],
+    "type": "autocomplete"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "label": "Binary owner",
+        "title": "Owner",
+        "content": ""
+      }
+    }],
+    "name": "webappgen.js.Owner",
+    "isContainer": false,
+    "js": [],
+    "type": "textfield"
+  },
+  {
+    "layout": "horizontal",
+    "components": [{
+      "innerId": "Img",
+      "component": "webappgen.js.Img",
+      "size": "l6",
+      "env": ""
+    }],
+    "name": "webappgen.js.ImgContainer",
+    "isContainer": true,
+    "js": []
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "title": "Upload file",
+        "content": "Select file for upload"
+      }
+    }],
+    "name": "webappgen.js.UploadFile",
+    "isContainer": false,
+    "js": [],
+    "type": "file"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "Upload"}
+    }],
+    "name": "webappgen.js.Upload",
+    "isContainer": false,
+    "js": [],
+    "type": "button"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "New Binary"}
+    }],
+    "name": "webappgen.js.ProcessAddBinary",
+    "isContainer": false,
+    "js": [],
+    "type": "button"
+  },
+  {
+    "layout": "horizontal",
+    "components": [
+      {
+        "innerId": "ContentType",
+        "component": "webappgen.js.ContentType",
+        "size": "l6",
+        "env": ""
+      },
+      {
+        "innerId": "Owner",
+        "component": "webappgen.js.Owner",
+        "size": "l4",
+        "env": ""
+      },
+      {
+        "innerId": "RoleType",
+        "component": "webappgen.components.RoleType",
+        "size": "l2",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.js.DetailsPanel",
+    "isContainer": true,
+    "js": []
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "src": "/resources/packages/binaries",
+        "values": [],
+        "title": "Binaries Package"
+      }
+    }],
+    "name": "webappgen.js.BinariesPackage",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "workingEnv.PackageName=self;"
+    }],
+    "type": "autocomplete"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "cancel": "Cancel",
+        "ok": "Delete",
+        "title": "Confirm Delete",
+        "content": "Are you sure to delete this binary?"
+      }
+    }],
+    "name": "webappgen.js.ConfirmDeleteBinary",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "$(self.ok).click(()=>{\n    $.ajax({\n        url: `/resources/binaries/${workingEnv.binaryName}`, // the resource to delete\n        type: 'DELETE',\n        success: (result)=> {\n            if (result.success){\n                location.reload();    \n            }else {\n                PageContent.showModal(\"Cannot delete binary \"+JSON.stringify(result.error));\n            }\n            \n        }\n});\n});"
+    }],
+    "type": "okCancelModal"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "Save Binary"}
+    }],
+    "name": "webappgen.js.SaveBinary",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "workingEnv.SaveBinary=self;\nself.markChanged=()=>{\n    $(self).addClass(PageContent.global.themeUpdated);\n}\n\nself.markSaved=()=>{\n    $(self).removeClass(PageContent.global.themeUpdated);\n}"
+    }],
+    "type": "button"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "cancel": "Cancel",
+        "ok": "Ok",
+        "title": "Delete Binary Entry",
+        "content": "Do you want to delete this entry?"
+      }
+    }],
+    "name": "webappgen.js.DeletePopup",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "workingEnv.DeletePopup = self;\n\n$(self.ok).click(()=>{\n    const responseFx = (status)=>{\n            if (status.success){\n                PageContent.closeModal(workingEnv.DeletePopup);\n                workingEnv.renderBinary();\n            } else {\n                PageContent.showModal(`Cannot delete ${self.key}. ${JSON.stringify(status.error)}`)\n            }\n        };\n    \n    $.ajax({\n        \"type\": 'DELETE',\n        \"url\":`/resources/binary/${workingEnv.binaryName}/entries/${self.key}`,\n        \"success\":responseFx\n    });\n});\n\nself.setKey=(key)=>{\n    self.key = key;\n}"
+    }],
+    "type": "okCancelModal"
+  },
+  {
+    "layout": "vertical",
+    "components": [
+      {
+        "innerId": "BinariesPackage",
+        "component": "webappgen.js.BinariesPackage",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "BinaryName",
+        "component": "webappgen.js.BinaryName",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "MenuPanel",
+        "component": "webappgen.js.MenuPanel",
+        "size": "l12",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.js.LeftPanel",
+    "isContainer": true,
+    "js": []
+  },
+  {
+    "layout": "vertical",
+    "components": [
+      {
+        "innerId": "header",
+        "component": "webappgen.home.header",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "modelContainer",
+        "component": "webappgen.js.BinaryBody",
+        "size": "",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.js.MainBinaryComponent",
+    "isContainer": true,
+    "js": []
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "Clone Binary"}
+    }],
+    "name": "webappgen.js.CloneBinary",
+    "isContainer": false,
+    "js": [],
+    "type": "button"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "src": "/resources/binaryContentTypes",
+        "values": [],
+        "title": "Content Types"
+      }
+    }],
+    "name": "webappgen.js.ContentType",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "workingEnv.ContentType = self;"
+    }],
+    "type": "autocomplete"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "Create New Binary"}
+    }],
+    "name": "webappgen.js.NewBinaryConfirm",
+    "isContainer": false,
+    "js": [],
+    "type": "button"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "Delete Binary"}
+    }],
+    "name": "webappgen.js.DeleteBinary",
+    "isContainer": false,
+    "js": [],
+    "type": "button"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "title": "The file",
+        "content": "Upload"
+      }
+    }],
+    "name": "webappgen.js.NewBinaryFile",
+    "isContainer": false,
+    "js": [],
+    "type": "file"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "label": "New binary name",
+        "title": "Binary name",
+        "content": ""
+      }
+    }],
+    "name": "webappgen.js.NewBinaryName",
+    "isContainer": false,
+    "js": [],
+    "type": "textfield"
+  },
+  {
+    "layout": "container",
+    "components": [
+      {
+        "innerId": "SaveBinary",
+        "component": "webappgen.js.SaveBinary",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "NewBinary",
+        "component": "webappgen.js.NewBinary",
+        "size": "",
+        "env": ""
+      },
+      {
+        "innerId": "CloneBinary",
+        "component": "webappgen.js.CloneBinary",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "DeleteBinary",
+        "component": "webappgen.js.DeleteBinary",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "ConfirmDeleteBinary",
+        "component": "webappgen.js.ConfirmDeleteBinary",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "DeletePopup",
+        "component": "webappgen.js.DeletePopup",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "SaveBinaryConfirm",
+        "component": "webappgen.js.SaveBinaryConfirm",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "NewBinaryModal",
+        "component": "webappgen.js.NewBinaryModal",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "CloneBinaryModal",
+        "component": "webappgen.js.CloneBinaryModal",
+        "size": "l12",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.js.MenuPanel",
+    "isContainer": true,
+    "js": [
+      {
+        "env": "",
+        "value": "$(SaveBinary).click(()=>{\n    PageContent.openModal(SaveBinaryConfirm);\n});"
+      },
+      {
+        "env": "",
+        "value": "$(NewBinary).click(()=>{\n    PageContent.openModal(NewBinaryModal);\n});"
+      },
+      {
+        "env": "",
+        "value": "$(CloneBinary).click(()=>{\n    PageContent.openModal(CloneBinaryModal);\n});"
+      },
+      {
+        "env": "",
+        "value": "$(DeleteBinary).click(()=>{\n    PageContent.openModal(ConfirmDeleteBinary);\n})"
+      }
+    ]
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"src": ""}
+    }],
+    "name": "webappgen.js.Img",
+    "isContainer": false,
+    "js": [],
+    "type": "img"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "cancel": "Cancel",
+        "ok": "Save",
+        "title": "Save Binary Values",
+        "content": "Are you sure you want to save binary values?"
+      }
+    }],
+    "name": "webappgen.js.SaveBinaryConfirm",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "$(self.ok).click(()=>{\n    const values = Object.entries(workingEnv.updatedBinary).map(([key, value]) => ({ key, value }));\n\n   $.post(`/resources/binaries`,{\n       \"resource\" : JSON.stringify(workingEnv.updatedBinary) \n    },(status)=>{\n        if (status.success){\n            PageContent.closeModal(self);\n            workingEnv.renderBinary();\n            workingEnv.SaveBinary.markSaved();\n        }else {\n            PageContent.showModal(\"Cannot save values \"+JSON.stringify(status.error));\n        }\n    }); \n});"
+    }],
+    "type": "okCancelModal"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "Download"}
+    }],
+    "name": "webappgen.js.Download",
+    "isContainer": false,
+    "js": [],
+    "type": "button"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "label": "Cloned binary name",
+        "title": "Cloned binary name",
+        "content": ""
+      }
+    }],
+    "name": "webappgen.js.CloneBinaryName",
+    "isContainer": false,
+    "js": [],
+    "type": "textfield"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "New Binary"}
+    }],
+    "name": "webappgen.js.NewBinary",
+    "isContainer": false,
+    "js": [],
+    "type": "button"
+  },
+  {
+    "layout": "vertical",
+    "components": [
+      {
+        "innerId": "DetailsPanel",
+        "component": "webappgen.js.DetailsPanel",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "Download",
+        "component": "webappgen.js.Download",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "UploadFile",
+        "component": "webappgen.js.UploadFile",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "Upload",
+        "component": "webappgen.js.Upload",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "ImgContainer",
+        "component": "webappgen.js.ImgContainer",
+        "size": "l6",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.js.RightPanel",
+    "isContainer": true,
+    "js": []
+  }
+]

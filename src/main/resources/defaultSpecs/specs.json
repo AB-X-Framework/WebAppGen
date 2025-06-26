@@ -4,6 +4,7 @@
     "webappgen.arrays",
     "webappgen.base",
     "webappgen.binaries",
+    "webappgen.js",
     "webappgen.components",
     "webappgen.components.basic",
     "webappgen.components.clone",
