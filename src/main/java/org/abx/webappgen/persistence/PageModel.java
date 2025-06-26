@@ -214,8 +214,11 @@ public class PageModel {
         List<String> packageList = pageRepository.findDistinctPackageNames();
         Collections.sort(packageList);
         if (Boolean.parseBoolean(mapEntryRepository.findByMapEntryId(hideDefaultsId).mapValue)) {
-            for (String pagePackage : packageList) {
-                packages.put(pagePackage);
+            for (String p : packageList) {
+                if (p.startsWith(defaultPackage)) {
+                    continue;
+                }
+                packages.put(p);
             }
         } else {
             packages.putAll(packageList);
