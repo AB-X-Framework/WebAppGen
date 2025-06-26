@@ -171,6 +171,27 @@
       "value": "/resources/binary/webappgen/materialize.icons.css"
     }],
     "role": "Admin",
+    "name": "webappgen.JS",
+    "title": "Binaries",
+    "scripts": [
+      {
+        "env": "",
+        "value": "/resources/binary/webappgen/utils.js"
+      },
+      {
+        "env": "",
+        "value": "/resources/binary/webappgen/maps.js"
+      }
+    ],
+    "matches": "JS"
+  },
+  {
+    "component": "webappgen.binaries.MainBinaryComponent",
+    "css": [{
+      "env": "",
+      "value": "/resources/binary/webappgen/materialize.icons.css"
+    }],
+    "role": "Admin",
     "name": "webappgen.Binaries",
     "title": "Binaries",
     "scripts": [

@@ -400,6 +400,19 @@
     "type": "okCancelModal"
   },
   {
+    "specs": [{
+      "env": "",
+      "value": {"title": "JS"}
+    }],
+    "name": "webappgen.home.ItemJS",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "$(self).click(()=>{\n   document.location= \"/page/JS\"; \n});"
+    }],
+    "type": "menuItem"
+  },
+  {
     "specs": [
       {
         "env": "",
@@ -523,6 +536,12 @@
       {
         "innerId": "Language",
         "component": "webappgen.home.Language",
+        "size": "right",
+        "env": ""
+      },
+      {
+        "innerId": "JS",
+        "component": "webappgen.home.ItemJS",
         "size": "right",
         "env": ""
       },
