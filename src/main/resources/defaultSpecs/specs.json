@@ -48,6 +48,9 @@
     "map": [{
       "package": "app",
       "name": "app.Env"
+    },{
+      "package": "app",
+      "name": "app.Theme"
     }]
   },
   "users": "users.json"

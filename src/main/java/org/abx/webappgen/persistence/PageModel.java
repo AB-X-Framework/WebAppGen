@@ -31,7 +31,7 @@ public class PageModel {
     public static final String Package = "package";
     public static final String IsContainer = "isContainer";
     public static final String Component = "component";
-    public static final String Theme = "theme";
+    public static final String ThemeBase = "themeBase";
     public static final String ThemeOk = "themeOk";
     public static final String ThemeText = "themeText";
     public static final String ThemeTitle = "themeTitle";
@@ -42,7 +42,7 @@ public class PageModel {
     private final long envId;
     private final long hideDefaultsId;
     private final long defaultEnv;
-    private final long defaultTheme;
+    private final long defaultThemeBase;
     private final long defaultThemeOk;
     private final long defaultThemeText;
     private final long defaultThemeUpdated;
@@ -95,12 +95,13 @@ public class PageModel {
         envId = mapHashCode("app.Env", "home");
         hideDefaultsId = mapHashCode("app.Env", "hideDefaults");
         defaultEnv = mapHashCode("app.Env", "defaultEnv");
-        defaultTheme = mapHashCode("app.Env", "theme");
-        defaultThemeOk = mapHashCode("app.Env", "theme.ok");
-        defaultThemeText = mapHashCode("app.Env", "theme.text");
-        defaultThemeUpdated = mapHashCode("app.Env", "theme.updated");
-        defaultThemeCancel = mapHashCode("app.Env", "theme.cancel");
-        defaultThemeTitle = mapHashCode("app.Env", "theme.title");
+
+        defaultThemeBase = mapHashCode("app.Theme", "theme.base");
+        defaultThemeOk = mapHashCode("app.Theme", "theme.ok");
+        defaultThemeText = mapHashCode("app.Theme", "theme.text");
+        defaultThemeUpdated = mapHashCode("app.Theme", "theme.updated");
+        defaultThemeCancel = mapHashCode("app.Theme", "theme.cancel");
+        defaultThemeTitle = mapHashCode("app.Theme", "theme.title");
     }
 
     @Transactional
@@ -316,7 +317,7 @@ public class PageModel {
             }
         }
         JSONObject global = new JSONObject();
-        global.put(Theme, mapEntryRepository.findByMapEntryId(defaultTheme).mapValue);
+        global.put(ThemeBase, mapEntryRepository.findByMapEntryId(defaultThemeBase).mapValue);
         global.put(ThemeOk, mapEntryRepository.findByMapEntryId(defaultThemeOk).mapValue);
         global.put(ThemeCancel, mapEntryRepository.findByMapEntryId(defaultThemeCancel).mapValue);
         global.put(ThemeUpdated, mapEntryRepository.findByMapEntryId(defaultThemeUpdated).mapValue);
