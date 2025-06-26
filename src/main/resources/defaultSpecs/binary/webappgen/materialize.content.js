@@ -308,7 +308,7 @@ class PageContent {
 
     static renderButton(output, js, specs) {
         var results =
-            `<button id="${specs.id}" class="btn waves-effect waves-light ${PageContent.global.theme} "> ${specs.title} 
+            `<button id="${specs.id}" class="btn waves-effect waves-light ${PageContent.global.themeBase} "> ${specs.title} 
              </button>`
         output.push(results);
     }
@@ -639,7 +639,7 @@ class PageContent {
         output.push(` 
         <!-- Dropdown Structure -->
         <nav id="${specs.id}" >
-          <div class="nav-wrapper ${PageContent.global.theme}">`);
+          <div class="nav-wrapper ${PageContent.global.themeBase}">`);
         for (var component of specs.children) {
             PageContent.renderComponent(output, js, component);
         }
@@ -662,7 +662,7 @@ class PageContent {
           <p>${content}</p>
         </div>
         <div class="modal-footer">
-          <a  href="#!" class="${PageContent.global.theme} modal-close waves-effect btn">Ok</a>
+          <a  href="#!" class="${PageContent.global.themeBase} modal-close waves-effect btn">Ok</a>
         </div>
       `;
 
