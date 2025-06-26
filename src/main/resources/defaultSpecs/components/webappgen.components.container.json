@@ -85,7 +85,7 @@
       },
       {
         "innerId": "InnerComponentEnv",
-        "component": "webappgen.components.env.Env",
+        "component": "webappgen.components.env.InnerEnv",
         "size": "l2",
         "env": ""
       }
@@ -95,7 +95,7 @@
     "js": [
       {
         "env": "",
-        "value": "workingEnv.InnerComponentEnv=InnerComponentEnv"
+        "value": "workingEnv.InnerComponentEnv=InnerComponentEnv;"
       },
       {
         "env": "",
