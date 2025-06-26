@@ -384,11 +384,13 @@ class PageContent {
         } else {
             content = specs.content;
         }
-        var results =
-            `<div class="input-field">
+        var results = `<div class="input-field">
             <textarea placeholder="${specs.label}" id="${specs.id}"  type="text" class="materialize-textarea">${content}</textarea>
-          <label   for="${specs.id}">${specs.title}</label></div>`;
+        <label   for="${specs.id}">${specs.title}</label></div>`;
         output.push(results);
+        if (typeof specs.src !== "undefined" && specs.src !== "") {
+            js.push(`$.get('${specs.src}',(res)=>{$(${specs.id}).val(res)})`);
+        }
     }
 
     static processText(text) {
