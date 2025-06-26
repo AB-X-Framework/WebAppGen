@@ -789,6 +789,7 @@ function processElement() {
             $(workingEnv.SpecsContent).val(specs.content);
             break;
         case "section":
+            $(workingEnv.SpecsSource).val(specs.src);
             $(workingEnv.SpecsSize).val(specs.size);
             $(workingEnv.SpecsTitle).val(specs.title);
             $(workingEnv.SpecsContentArea).val(specs.content);
