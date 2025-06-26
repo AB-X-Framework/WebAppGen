@@ -94,6 +94,10 @@
           {
             "text": "Menu",
             "value": "menu"
+          },
+          {
+            "text": "Footer",
+            "value": "footer"
           }
         ],
         "title": "Layout"

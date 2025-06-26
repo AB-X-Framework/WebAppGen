@@ -144,6 +144,8 @@ class PageContent {
                 PageContent.renderPopup(output, js, componentSpecs);
             } else if (componentSpecs.layout === "menu") {
                 PageContent.renderMenu(output, js, componentSpecs);
+            } else if (componentSpecs.layout === "footer") {
+                PageContent.renderMenu(output, js, componentSpecs);
             } else {
                 PageContent.renderTopLayout(output, js, componentSpecs);
             }
@@ -161,9 +163,6 @@ class PageContent {
                     break;
                 case "menuItems":
                     PageContent.renderMenuItems(output, js, componentSpecs);
-                    break;
-                case "footer":
-                    PageContent.renderFooter(output, js, componentSpecs.specs);
                     break;
                 case "img":
                     PageContent.renderImg(output, js, componentSpecs.specs);
