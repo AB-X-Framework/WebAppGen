@@ -145,7 +145,7 @@ class PageContent {
             } else if (componentSpecs.layout === "menu") {
                 PageContent.renderMenu(output, js, componentSpecs);
             } else if (componentSpecs.layout === "footer") {
-                PageContent.renderMenu(output, js, componentSpecs);
+                PageContent.renderFooter(output, js, componentSpecs);
             } else {
                 PageContent.renderTopLayout(output, js, componentSpecs);
             }
