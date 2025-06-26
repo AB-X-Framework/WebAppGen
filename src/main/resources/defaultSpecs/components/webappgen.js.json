@@ -10,6 +10,43 @@
     "type": "button"
   },
   {
+    "layout": "horizontal",
+    "components": [
+      {
+        "innerId": "LeftPanel",
+        "component": "webappgen.js.LeftPanel",
+        "size": "l2",
+        "env": ""
+      },
+      {
+        "innerId": "RightPanel",
+        "component": "webappgen.js.RightPanel",
+        "size": "l10",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.js.JSBody",
+    "isContainer": true,
+    "js": [
+      {
+        "env": "",
+        "value": "$(LeftPanel.BinariesPackage).change(()=>{\n    clearAutocomplete(LeftPanel.JSName);\n    \n    const packageName = $(LeftPanel.JSPackage).val();\n    if (packageName !== \"\"){\n        $.get(`/resources/packages/js/${packageName}`,(binariesPerPackage)=>{\n            binariesPerPackage.forEach((binaryName)=>{\n                addAutocompleteValue(LeftPanel.BinaryName,binaryName)\n            });\n            self.LeftPanel.MenuPanel.SaveBinary.markSaved();\n            $(LeftPanel.BinaryName).val(\"\");\n            $(self.RightPanel.BinaryContent).val(\"\");\n            $(self.RightPanel.DetailsPanel.Owner).val(\"\");\n            $(self.RightPanel.DetailsPanel.RoleType).val(\"\").formSelect();\n        });\n    }\n});"
+      },
+      {
+        "env": "",
+        "value": "$(self.RightPanel.Upload).click(()=>{\n    const formData = new FormData();\n    formData.append(\"data\",self.RightPanel.UploadFile.files[0]);\n    formData.append(\"name\",workingEnv.binaryName);\n    $.ajax({\n        url: `/resources/binaries/upload`, \n        method: \"POST\",\n        data: formData,\n        processData: false,\n        contentType: false,\n        success: (binary)=>{\n            PageContent.showModal(\"Upload\", \"New binary uploaded successfully.\");\n        }\n    });\n});"
+      },
+      {
+        "env": "",
+        "value": "workingEnv.currPage = 0;\nworkingEnv.BinaryBody = self;\n\n\nworkingEnv.renderBinary = ()=> {\n    var downloadFromUrl=(url, filename) =>{\n        const a = document.createElement('a');\n        a.href = url;\n        a.download = filename || '';\n        a.style.display = 'none';\n        document.body.appendChild(a);\n        a.click();\n        document.body.removeChild(a);\n    }\n\n\n    workingEnv.binaryName = $(LeftPanel.BinaryName).val();\n    if (workingEnv.binaryName !== \"\"){\n        $.get(`/resources/binaries/${workingEnv.binaryName}`,(binary)=>{\n            workingEnv.updatedBinary = binary;\n            $(self.RightPanel.DetailsPanel.Owner).val(binary.owner);\n            $(self.RightPanel.DetailsPanel.ContentType).val(binary.contentType);\n            if (binary.contentType === \"application/png\" || binary.contentType === \"application/jpeg\"|| binary.contentType === \"image/jpeg\"){\n                $(self.RightPanel.ImgContainer).parent().show();\n                self.RightPanel.ImgContainer.Img.src = `/resources/binary/${workingEnv.binaryName}`;\n            }else{\n                $(self.RightPanel.ImgContainer).parent().hide();\n            }\n            $(self.RightPanel.DetailsPanel.RoleType).val(binary.role).formSelect();\n            M.updateTextFields() ;\n            $(self.RightPanel.DetailsPanel.Download).click(()=>{\n                downloadFromUrl(`/resources/binary/${workingEnv.binaryName}`,workingEnv.binaryName.substring(workingEnv.binaryName.lastIndexOf(\"/\")+1));\n            });\n        });\n    }\n}\n$(self.RightPanel.ImgContainer).parent().hide();\n$(LeftPanel.BinaryName).change(workingEnv.renderBinary);"
+      },
+      {
+        "env": "",
+        "value": "self.markChanged=()=>{\n    self.LeftPanel.MenuPanel.SaveBinary.markChanged();\n}\n\n\n$(self.RightPanel.DetailsPanel.Owner).on('input',()=>{\n    workingEnv.updatedBinary.owner = $(self.RightPanel.DetailsPanel.Owner).val(); \n    self.markChanged();\n});\n \n$(self.RightPanel.DetailsPanel.ContentType).on('input',()=>{\n    workingEnv.updatedBinary.contentType = $(self.RightPanel.DetailsPanel.ContentType).val(); \n    self.markChanged();\n});\n \n$(self.RightPanel.DetailsPanel.RoleType).change(()=>{\n    workingEnv.updatedBinary.role = $(self.RightPanel.DetailsPanel.RoleType).val(); \n    self.markChanged();\n});"
+      }
+    ]
+  },
+  {
     "specs": [{
       "env": "",
       "value": {
@@ -195,7 +232,7 @@
       },
       {
         "innerId": "modelContainer",
-        "component": "webappgen.js.BinaryBody",
+        "component": "webappgen.js.JSBody",
         "size": "",
         "env": ""
       }
@@ -213,23 +250,6 @@
     "isContainer": false,
     "js": [],
     "type": "button"
-  },
-  {
-    "specs": [{
-      "env": "",
-      "value": {
-        "src": "/resources/packages/binaries",
-        "values": [],
-        "title": "JS Package"
-      }
-    }],
-    "name": "webappgen.js.BinariesPackage",
-    "isContainer": false,
-    "js": [{
-      "env": "",
-      "value": "workingEnv.PackageName=self;"
-    }],
-    "type": "autocomplete"
   },
   {
     "layout": "vertical",
@@ -290,43 +310,6 @@
     "type": "button"
   },
   {
-    "layout": "horizontal",
-    "components": [
-      {
-        "innerId": "LeftPanel",
-        "component": "webappgen.js.LeftPanel",
-        "size": "l2",
-        "env": ""
-      },
-      {
-        "innerId": "RightPanel",
-        "component": "webappgen.js.RightPanel",
-        "size": "l10",
-        "env": ""
-      }
-    ],
-    "name": "webappgen.js.BinaryBody",
-    "isContainer": true,
-    "js": [
-      {
-        "env": "",
-        "value": "$(LeftPanel.BinariesPackage).change(()=>{\n    clearAutocomplete(LeftPanel.BinaryName);\n    \n    const packageName = $(LeftPanel.BinariesPackage).val();\n    if (packageName !== \"\"){\n        $.get(`/resources/packages/binaries/${packageName}`,(binariesPerPackage)=>{\n            binariesPerPackage.forEach((binaryName)=>{\n                addAutocompleteValue(LeftPanel.BinaryName,binaryName)\n            });\n            self.LeftPanel.MenuPanel.SaveBinary.markSaved();\n            $(LeftPanel.BinaryName).val(\"\");\n            $(self.RightPanel.BinaryContent).val(\"\");\n            $(self.RightPanel.DetailsPanel.Owner).val(\"\");\n            $(self.RightPanel.DetailsPanel.RoleType).val(\"\").formSelect();\n        });\n    }\n});"
-      },
-      {
-        "env": "",
-        "value": "$(self.RightPanel.Upload).click(()=>{\n    const formData = new FormData();\n    formData.append(\"data\",self.RightPanel.UploadFile.files[0]);\n    formData.append(\"name\",workingEnv.binaryName);\n    $.ajax({\n        url: `/resources/binaries/upload`, \n        method: \"POST\",\n        data: formData,\n        processData: false,\n        contentType: false,\n        success: (binary)=>{\n            PageContent.showModal(\"Upload\", \"New binary uploaded successfully.\");\n        }\n    });\n});"
-      },
-      {
-        "env": "",
-        "value": "workingEnv.currPage = 0;\nworkingEnv.BinaryBody = self;\n\n\nworkingEnv.renderBinary = ()=> {\n    var downloadFromUrl=(url, filename) =>{\n        const a = document.createElement('a');\n        a.href = url;\n        a.download = filename || '';\n        a.style.display = 'none';\n        document.body.appendChild(a);\n        a.click();\n        document.body.removeChild(a);\n    }\n\n\n    workingEnv.binaryName = $(LeftPanel.BinaryName).val();\n    if (workingEnv.binaryName !== \"\"){\n        $.get(`/resources/binaries/${workingEnv.binaryName}`,(binary)=>{\n            workingEnv.updatedBinary = binary;\n            $(self.RightPanel.DetailsPanel.Owner).val(binary.owner);\n            $(self.RightPanel.DetailsPanel.ContentType).val(binary.contentType);\n            if (binary.contentType === \"application/png\" || binary.contentType === \"application/jpeg\"|| binary.contentType === \"image/jpeg\"){\n                $(self.RightPanel.ImgContainer).parent().show();\n                self.RightPanel.ImgContainer.Img.src = `/resources/binary/${workingEnv.binaryName}`;\n            }else{\n                $(self.RightPanel.ImgContainer).parent().hide();\n            }\n            $(self.RightPanel.DetailsPanel.RoleType).val(binary.role).formSelect();\n            M.updateTextFields() ;\n            $(self.RightPanel.DetailsPanel.Download).click(()=>{\n                downloadFromUrl(`/resources/binary/${workingEnv.binaryName}`,workingEnv.binaryName.substring(workingEnv.binaryName.lastIndexOf(\"/\")+1));\n            });\n        });\n    }\n}\n$(self.RightPanel.ImgContainer).parent().hide();\n$(LeftPanel.BinaryName).change(workingEnv.renderBinary);"
-      },
-      {
-        "env": "",
-        "value": "self.markChanged=()=>{\n    self.LeftPanel.MenuPanel.SaveBinary.markChanged();\n}\n\n\n$(self.RightPanel.DetailsPanel.Owner).on('input',()=>{\n    workingEnv.updatedBinary.owner = $(self.RightPanel.DetailsPanel.Owner).val(); \n    self.markChanged();\n});\n \n$(self.RightPanel.DetailsPanel.ContentType).on('input',()=>{\n    workingEnv.updatedBinary.contentType = $(self.RightPanel.DetailsPanel.ContentType).val(); \n    self.markChanged();\n});\n \n$(self.RightPanel.DetailsPanel.RoleType).change(()=>{\n    workingEnv.updatedBinary.role = $(self.RightPanel.DetailsPanel.RoleType).val(); \n    self.markChanged();\n});"
-      }
-    ]
-  },
-  {
     "specs": [{
       "env": "",
       "value": {
@@ -373,6 +356,23 @@
       "value": "workingEnv.DeletePopup = self;\n\n$(self.ok).click(()=>{\n    const responseFx = (status)=>{\n            if (status.success){\n                PageContent.closeModal(workingEnv.DeletePopup);\n                workingEnv.renderBinary();\n            } else {\n                PageContent.showModal(`Cannot delete ${self.key}. ${JSON.stringify(status.error)}`)\n            }\n        };\n    \n    $.ajax({\n        \"type\": 'DELETE',\n        \"url\":`/resources/binary/${workingEnv.binaryName}/entries/${self.key}`,\n        \"success\":responseFx\n    });\n});\n\nself.setKey=(key)=>{\n    self.key = key;\n}"
     }],
     "type": "okCancelModal"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "src": "/resources/packages/binaries",
+        "values": [],
+        "title": "JS Package"
+      }
+    }],
+    "name": "webappgen.js.JSPackage",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "workingEnv.PackageName=self;"
+    }],
+    "type": "autocomplete"
   },
   {
     "layout": "popup",
@@ -498,13 +498,13 @@
     "layout": "vertical",
     "components": [
       {
-        "innerId": "BinariesPackage",
-        "component": "webappgen.js.BinariesPackage",
+        "innerId": "JSPackage",
+        "component": "webappgen.js.JSPackage",
         "size": "l12",
         "env": ""
       },
       {
-        "innerId": "BinaryName",
+        "innerId": "JSName",
         "component": "webappgen.js.BinaryName",
         "size": "l12",
         "env": ""
