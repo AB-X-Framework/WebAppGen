@@ -1,8 +1,1 @@
-{
-  "theme.updated": "orange darken-3",
-  "theme.text": "blue-text text-lighten-1",
-  "theme.ok": "blue lighten-1",
-  "theme.base": "blue lighten-2",
-  "theme.title": "blue-text text-darken-2",
-  "theme.cancel": "red"
-}
+{"theme.updated":"orange darken-3","theme.base":"blue lighten-2","theme.text":"blue-text text-lighten-1","theme.ok":"blue lighten-1","theme.cancel":"red","theme.title":"blue-text text-darken-2"}
