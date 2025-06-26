@@ -109,6 +109,19 @@
   {
     "specs": [{
       "env": "",
+      "value": {
+        "content": "//Your JS Here",
+        "height": "100px"
+      }
+    }],
+    "name": "webappgen.js.JSContainer",
+    "isContainer": false,
+    "js": [],
+    "type": "jsEditor"
+  },
+  {
+    "specs": [{
+      "env": "",
       "value": {"title": "Upload"}
     }],
     "name": "webappgen.js.Upload",
@@ -247,7 +260,7 @@
       },
       {
         "innerId": "ImgContainer",
-        "component": "webappgen.js.ImgContainer",
+        "component": "webappgen.js.JSContainer",
         "size": "l6",
         "env": ""
       }
@@ -387,16 +400,6 @@
   {
     "specs": [{
       "env": "",
-      "value": {"src": ""}
-    }],
-    "name": "webappgen.js.Img",
-    "isContainer": false,
-    "js": [],
-    "type": "img"
-  },
-  {
-    "specs": [{
-      "env": "",
       "value": {
         "label": "Binary owner",
         "title": "Owner",
@@ -514,18 +517,6 @@
       }
     ],
     "name": "webappgen.js.LeftPanel",
-    "isContainer": true,
-    "js": []
-  },
-  {
-    "layout": "horizontal",
-    "components": [{
-      "innerId": "Img",
-      "component": "webappgen.js.Img",
-      "size": "l6",
-      "env": ""
-    }],
-    "name": "webappgen.js.ImgContainer",
     "isContainer": true,
     "js": []
   },

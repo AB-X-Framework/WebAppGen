@@ -356,6 +356,13 @@ public class ResourceController extends RoleController {
     }
 
     @Secured("Admin")
+    @GetMapping(value = "/packages/js/{packageName}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String jsByPackage(@PathVariable String packageName) {
+        return resourceModel.getJSByPackageName(packageName).toString(2);
+    }
+
+
+    @Secured("Admin")
     @GetMapping(value = "/binaryContentTypes", produces = MediaType.APPLICATION_JSON_VALUE)
     public String binariesByPackage() {
         return resourceModel.getBinariesOutputTypes().toString(2);
