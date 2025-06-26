@@ -400,7 +400,7 @@ class PageContent {
     static renderSection(output, js, specs) {
         var results = `<div id="${specs.id}"  class="section white section-content">
             <div class="row ">
-                <${specs.size} id="${specs.id}_title" class="header">${specs.title}</${specs.size}>
+                <${specs.size} id="${specs.id}_title" class="header ${PageContent.global.themeTitle}">${specs.title}</${specs.size}>
                 <div id="${specs.id}_body">
                     ${PageContent.processText(specs.content)}
                 </div>
