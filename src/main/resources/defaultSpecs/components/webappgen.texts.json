@@ -193,7 +193,7 @@
       },
       {
         "innerId": "RoleType",
-        "component": "webappgen.components.RoleType",
+        "component": "webappgen.components.ResourceType",
         "size": "l1",
         "env": ""
       }

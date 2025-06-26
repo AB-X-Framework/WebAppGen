@@ -172,7 +172,7 @@
     }],
     "role": "Admin",
     "name": "webappgen.JS",
-    "title": "Binaries",
+    "title": "Javascripts",
     "scripts": [
       {
         "env": "",
