@@ -1,4 +1,4 @@
-    var maxLine = 73;
+var maxLine = 73;
 
 function hideElemContainer() {
     $(workingEnv.ElementType).closest('.input-field').parent().hide();
@@ -812,7 +812,7 @@ function renderCurrentComponent() {
             $(workingEnv.show).html(output.join(""));
             M.updateTextFields();
             const elems = document.querySelectorAll('.dropdown-trigger');
-            M.Dropdown.init(elems, { coverTrigger: false });
+            M.Dropdown.init(elems, {coverTrigger: false});
             $('select').formSelect();
             PageContent.applySelectClass($('select'));
         });
