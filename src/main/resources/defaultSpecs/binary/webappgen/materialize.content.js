@@ -617,7 +617,7 @@ class PageContent {
 
     static renderFooter(output, js, specs) {
         output.push(`
-        <footer  id="${innerSpecs.id}" class="page-footer ${PageContent.global.themeBase}">
+        <footer  id="${specs.id}" class="page-footer ${PageContent.global.themeBase}">
           <div class="container">
             <div class="row">
               <div class="col l6 s12">
