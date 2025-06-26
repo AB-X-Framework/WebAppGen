@@ -491,6 +491,21 @@
     "type": "menuImg"
   },
   {
+    "specs": [{
+      "env": "",
+      "value": {
+        "size": "h2",
+        "src": "/resources/texts/demo.loren",
+        "title": "The section",
+        "content": "Nice section"
+      }
+    }],
+    "name": "webappgen.home.Section",
+    "isContainer": false,
+    "js": [],
+    "type": "section"
+  },
+  {
     "layout": "menu",
     "components": [
       {

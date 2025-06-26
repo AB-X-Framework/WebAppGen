@@ -654,7 +654,7 @@ class PageContent {
           <p>${content}</p>
         </div>
         <div class="modal-footer">
-          <a href="#!" class="modal-close waves-effect waves-green btn-flat">OK</a>
+          <a  href="#!" class="${PageContent.global.theme} modal-close waves-effect btn">Ok</a>
         </div>
       `;
 

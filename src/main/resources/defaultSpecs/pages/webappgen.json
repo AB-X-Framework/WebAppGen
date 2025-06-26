@@ -51,6 +51,21 @@
     "matches": "Menu"
   },
   {
+    "component": "webappgen.home.Section",
+    "css": [{
+      "env": "",
+      "value": "/resources/binary/webappgen/materialize.icons.css"
+    }],
+    "role": "Anonymous",
+    "name": "webappgen.Section",
+    "title": "Home Page",
+    "scripts": [{
+      "env": "",
+      "value": "/resources/binary/webappgen/model.methods.js"
+    }],
+    "matches": "Section"
+  },
+  {
     "component": "webappgen.login.LoginPageComponent",
     "css": [{
       "env": "",

@@ -57,7 +57,7 @@
     "isContainer": false,
     "js": [{
       "env": "",
-      "value": "$(self).change(()=>{\n    workingEnv.page.component = $(self).val();\n})"
+      "value": "$(self).change(()=>{\n    workingEnv.page.component = $(self).val();\n    markChanged();\n})"
     }],
     "type": "select"
   },
