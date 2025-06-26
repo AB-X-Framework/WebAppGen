@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
@@ -30,7 +31,7 @@ public class ResourceController extends RoleController {
     private ResourceModel resourceModel;
 
     @GetMapping(value = "/texts/{resource}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @Secured("Admin")
+    @PreAuthorize("permitAll()")
     public String textResource(@PathVariable String resource) {
         Set<String> roles = getRoles();
         JSONObject data = resourceModel.getTextResource(roles, resource);
@@ -41,7 +42,7 @@ public class ResourceController extends RoleController {
     }
 
     @GetMapping(value = "/text/{resource}", produces = MediaType.TEXT_PLAIN_VALUE)
-    @Secured("Admin")
+    @PreAuthorize("permitAll()")
     public String getText(@PathVariable String resource) {
         Set<String> roles = getRoles();
         String data = resourceModel.getText(roles, resource);
@@ -411,6 +412,7 @@ public class ResourceController extends RoleController {
     }
 
 
+    @PreAuthorize("permitAll()")
     @GetMapping("/binary/**")
     public ResponseEntity<?> getBinary(HttpServletRequest request) {
         String path = (String) request.getAttribute(

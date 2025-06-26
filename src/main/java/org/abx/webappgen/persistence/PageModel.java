@@ -34,6 +34,7 @@ public class PageModel {
     public static final String Theme = "theme";
     public static final String ThemeOk = "themeOk";
     public static final String ThemeText = "themeText";
+    public static final String ThemeTitle = "themeTitle";
     public static final String ThemeUpdated = "themeUpdated";
     public static final String ThemeCancel = "themeCancel";
     public static final String Global = "global";
@@ -46,6 +47,7 @@ public class PageModel {
     private final long defaultThemeText;
     private final long defaultThemeUpdated;
     private final long defaultThemeCancel;
+    private final long defaultThemeTitle;
 
     @Autowired
     public PageRepository pageRepository;
@@ -98,6 +100,7 @@ public class PageModel {
         defaultThemeText = mapHashCode("app.Env", "theme.text");
         defaultThemeUpdated = mapHashCode("app.Env", "theme.updated");
         defaultThemeCancel = mapHashCode("app.Env", "theme.cancel");
+        defaultThemeTitle = mapHashCode("app.Env", "theme.title");
     }
 
     @Transactional
@@ -315,6 +318,7 @@ public class PageModel {
         global.put(ThemeCancel, mapEntryRepository.findByMapEntryId(defaultThemeCancel).mapValue);
         global.put(ThemeUpdated, mapEntryRepository.findByMapEntryId(defaultThemeUpdated).mapValue);
         global.put(ThemeText, mapEntryRepository.findByMapEntryId(defaultThemeText).mapValue);
+        global.put(ThemeTitle, mapEntryRepository.findByMapEntryId(defaultThemeTitle).mapValue);
         jsonPage.put(Global, global);
         jsonPage.put(Component, processTop("top", page.component, env));
         return jsonPage;

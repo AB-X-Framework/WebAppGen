@@ -391,20 +391,26 @@ class PageContent {
         output.push(results);
     }
 
+    static processText(text) {
+        return `<p class="${PageContent.global.themeText}">
+            ${text.replaceAll("\n", `</><p class=\"${PageContent.global.themeText}\">`)}
+        </p>`;
+    }
 
     static renderSection(output, js, specs) {
         var results = `<div id="${specs.id}"  class="section white section-content">
             <div class="row ">
                 <${specs.size} id="${specs.id}_title" class="header">${specs.title}</${specs.size}>
                 <div id="${specs.id}_body">
-                    <p class="${PageContent.global.themeText}">
-                        ${specs.content.replaceAll("\n", `</><p class=\"${PageContent.global.themeText}\">`)}
-                    </p>
+                    ${PageContent.processText(specs.content)}
                 </div>
             </div>
         </div>`;
         if (specs.src != null){
-
+            js.push(`$.get("${specs.src}",(result)=>{
+                $(${specs.id}_title).html(result.title);
+                $(${specs.id}_body).html(PageContent.processText(result.content));
+            });`);
         }
         output.push(results);
     }
