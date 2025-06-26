@@ -58,7 +58,7 @@
     "isContainer": false,
     "js": [{
       "env": "",
-      "value": "workingEnv.ChooseEnv = self;\n$(self).change(()=>{\n   renderCurrentComponent(); \n});"
+      "value": "workingEnv.ChooseEnv = self;\n$(self).change(()=>{\n   renderCurrentComponent(); \n});\nsetTimeout(()=>{\n    $(self).val($(self).find('option:not(:disabled)').first().val());\n    $(self).formSelect(); // Re-initialize Materialize select\n},100);"
     }],
     "type": "select"
   },
