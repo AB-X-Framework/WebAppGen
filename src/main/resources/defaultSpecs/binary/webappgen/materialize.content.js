@@ -356,10 +356,10 @@ class PageContent {
     }
 
     static renderPassword(output, js, specs) {
-        var results =
-            `<div  class="input-field">
+        var results =  `<div  class="input-field">
             <input placeholder="${specs.content}" id="${specs.id}"  type="password" class="validate">
-          <label  for="f_${specs.id}">${specs.title}</label></div>`;
+            <label  for="f_${specs.id}">${specs.title}</label>
+        </div>`;
         output.push(results);
     }
 
