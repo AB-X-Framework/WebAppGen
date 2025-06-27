@@ -502,7 +502,6 @@ public class ResourceController extends RoleController {
         JSONObject status = new JSONObject();
         try {
             byte[] bytes = data.getBytes();
-
             resourceModel.upload(name, bytes);
             status.put("success", true);
         } catch (Exception e) {

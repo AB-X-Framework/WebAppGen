@@ -1,5 +1,6 @@
 package org.abx.webappgen.controller;
 
+import jakarta.servlet.http.HttpSession;
 import org.abx.webappgen.persistence.PageModel;
 import org.abx.webappgen.utils.SpecsExporter;
 import org.abx.webappgen.utils.SpecsImporter;
@@ -8,7 +9,12 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Set;
+
+import static org.abx.webappgen.utils.ElementUtils.elementHashCode;
 
 @RestController
 @RequestMapping("/pages")
@@ -126,4 +132,11 @@ public class PagesController extends RoleController {
         return specsExporter.getPageDetails(pageName).toString(2);
     }
 
+    @GetMapping(value = "/specs/{pagename}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("permitAll()")
+    public String pageSpecs(@PathVariable String pagename, HttpSession session) {
+        Set<String> roles = getRoles();
+        return pageModel.getPageByPageMatchesId(roles, env(session),
+                elementHashCode(pagename)).toString(2);
+    }
 }

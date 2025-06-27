@@ -34,19 +34,11 @@ public class PageController extends RoleController {
     @Autowired
     private MapEntryRepository mapEntryRepository;
 
-
-    @Autowired
-    private SpecsExporter specsExporter;
-
-    @Autowired
-    private SpecsImporter specsImporter;
-
-
     public PageController() {
         pageTemplates = new HashMap<>();
     }
 
-    @GetMapping(value = "/{pagename}",produces =  MediaType.TEXT_HTML_VALUE)
+    @GetMapping(value = "/{pagename}", produces = MediaType.TEXT_HTML_VALUE)
     @PreAuthorize("permitAll()")
     public Object page(HttpSession session, @PathVariable String pagename) {
         if (!pageModel.validPage(getRoles(), elementHashCode(pagename))) {
@@ -65,25 +57,16 @@ public class PageController extends RoleController {
             pageTemplates.put(laf, createPageTemplate(laf));
 
         }
-        return  new ST(pageTemplates.get(laf));
+        return new ST(pageTemplates.get(laf));
     }
 
 
     @Transactional
     protected ST createPageTemplate(String laf) {
-        String value = mapEntryRepository.findByMapEntryId(mapHashCode("app.Env" ,"laf."+laf)).mapValue;
+        String value = mapEntryRepository.findByMapEntryId(mapHashCode("app.Env", "laf." + laf)).mapValue;
         long resourceId = elementHashCode(value);
         byte[] data = binaryResourceRepository.findByBinaryResourceId(resourceId).resourceValue;
         return new ST(new String(data), '{', '}');
-    }
-
-
-    @GetMapping(value = "/specs/{pagename}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @PreAuthorize("permitAll()")
-    public String pageSpecs(@PathVariable String pagename, HttpSession session) {
-        Set<String> roles = getRoles();
-        return pageModel.getPageByPageMatchesId(roles, env(session),
-                elementHashCode(pagename)).toString(2);
     }
 
 

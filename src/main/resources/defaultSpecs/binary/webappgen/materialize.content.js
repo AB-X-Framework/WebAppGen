@@ -65,7 +65,7 @@ class PageContent {
     }
 
     static renderPage(name) {
-        $.get(`/page/specs/${name}`, (specs) => {
+        $.get(`/pages/specs/${name}`, (specs) => {
             PageContent.processTile(specs);
             var output = [];
             var js = [];
