@@ -172,7 +172,7 @@
     }],
     "role": "Admin",
     "name": "webappgen.JS",
-    "title": "JS/CSS",
+    "title": "Javascripts",
     "scripts": [
       {
         "env": "",

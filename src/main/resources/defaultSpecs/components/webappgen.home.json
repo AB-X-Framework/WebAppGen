@@ -402,13 +402,13 @@
   {
     "specs": [{
       "env": "",
-      "value": {"title": "JS"}
+      "value": {"title": "JS/CSS"}
     }],
     "name": "webappgen.home.ItemJS",
     "isContainer": false,
     "js": [{
       "env": "",
-      "value": "$(self).click(()=>{\n   document.location= \"/page/JS\"; \n});"
+      "value": "$(self).click(()=>{\n   document.location= \"/page/JS/CSS\"; \n});"
     }],
     "type": "menuItem"
   },
@@ -598,7 +598,7 @@
     "isContainer": true,
     "js": [{
       "env": "",
-      "value": "let url = document.location.href ;\nlet lastSegment = url.substring(url.lastIndexOf(\"/\") + 1);\nPageContent.setActiveMenuItemText(self,lastSegment);"
+      "value": "let url = document.location.href ;\nlet lastSegment = url.substring(url.indexOf(\"/page/\") + 6);\n\nPageContent.setActiveMenuItemText(self,lastSegment);"
     }]
   },
   {
