@@ -350,8 +350,12 @@ public class ResourceController extends RoleController {
     }
 
     @Secured("Admin")
-    @GetMapping(value = "/packages/binaries/{packageName}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public String binariesByPackage(@PathVariable String packageName) {
+    @GetMapping(value = "/packages/binaries/**", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String binariesByPackage(HttpServletRequest request) {
+        String path = (String) request.getAttribute(
+                HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE
+        );
+        String packageName = path.replaceFirst("/resources/packages/binaries/", "");
         return resourceModel.getBinariesByPackageName(packageName).toString(2);
     }
 
