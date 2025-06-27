@@ -26,9 +26,9 @@ public class CustomErrorController implements ErrorController {
     public final long favicon = mapHashCode("app.Env", "favicon.ico");
     @GetMapping("/favicon.ico")
     public void redirectFavicon(HttpServletResponse response) throws IOException {
-
         response.sendRedirect(repository.findByMapEntryId(favicon).mapValue);
     }
+
     @RequestMapping("/error")
     public String handleError(HttpServletRequest request) {
         Object statusCode = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
