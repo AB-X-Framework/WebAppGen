@@ -14,6 +14,12 @@
   {
     "owner": "root@abxwebappgen.org",
     "role": "Anonymous",
+    "name": "ace/mode-css.js",
+    "contentType": "text/javascript"
+  },
+  {
+    "owner": "root@abxwebappgen.org",
+    "role": "Anonymous",
     "name": "ace/ace.js",
     "contentType": "text/javascript"
   },
