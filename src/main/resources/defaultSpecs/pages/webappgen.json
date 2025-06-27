@@ -165,7 +165,7 @@
     "matches": "Arrays"
   },
   {
-    "component": "webappgen.js.MainBinaryComponent",
+    "component": "webappgen.js.MainJSComponent",
     "css": [{
       "env": "",
       "value": "/resources/binary/webappgen/materialize.icons.css"
