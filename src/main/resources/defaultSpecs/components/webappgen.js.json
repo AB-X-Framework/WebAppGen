@@ -1,19 +1,5 @@
 [
   {
-    "specs": [{
-      "env": "",
-      "value": {
-        "label": "Cloned js name",
-        "title": "Cloned js name",
-        "content": ""
-      }
-    }],
-    "name": "webappgen.js.JSjsName",
-    "isContainer": false,
-    "js": [],
-    "type": "textfield"
-  },
-  {
     "layout": "horizontal",
     "components": [
       {
@@ -161,6 +147,20 @@
     "isContainer": false,
     "js": [],
     "type": "button"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "label": "Cloned js name",
+        "title": "Cloned js name",
+        "content": ""
+      }
+    }],
+    "name": "webappgen.js.ClonedJSName",
+    "isContainer": false,
+    "js": [],
+    "type": "textfield"
   },
   {
     "specs": [{
@@ -361,7 +361,7 @@
   {
     "specs": [{
       "env": "",
-      "value": {"title": "New JS"}
+      "value": {"title": "New File"}
     }],
     "name": "webappgen.js.NewJS",
     "isContainer": false,
@@ -470,7 +470,7 @@
     "components": [
       {
         "innerId": "JSjsName",
-        "component": "webappgen.js.JSjsName",
+        "component": "webappgen.js.ClonedJSName",
         "size": "l12",
         "env": ""
       },
