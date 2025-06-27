@@ -34,7 +34,7 @@
     "js": [
       {
         "env": "",
-        "value": "$(LeftPanel.JSPackage).change(()=>{\n    clearAutocomplete(LeftPanel.jsName);\n    \n    const packageName = $(LeftPanel.JSPackage).val();\n    if (packageName !== \"\"){\n        $.get(`/resources/packages/binaries/${packageName}`,(binariesPerPackage)=>{\n            binariesPerPackage.forEach((jsName)=>{\n                addAutocompleteValue(LeftPanel.jsName,jsName)\n            });\n            self.LeftPanel.MenuPanel.SaveJS.markSaved();\n            $(LeftPanel.jsName).val(\"\");\n            $(self.RightPanel.JSContent).val(\"\");\n            $(self.RightPanel.DetailsPanel.Owner).val(\"\");\n            $(self.RightPanel.DetailsPanel.RoleType).val(\"\").formSelect();\n        });\n    }\n});"
+        "value": "$(LeftPanel.JSPackage).change(()=>{\n    clearAutocomplete(LeftPanel.jsName);\n    \n    const packageName = $(LeftPanel.JSPackage).val();\n    if (packageName !== \"\"){\n        $.get(`/resources/packages/js/${packageName}`,(binariesPerPackage)=>{\n            binariesPerPackage.forEach((jsName)=>{\n                addAutocompleteValue(LeftPanel.jsName,jsName)\n            });\n            self.LeftPanel.MenuPanel.SaveJS.markSaved();\n            $(LeftPanel.jsName).val(\"\");\n            $(self.RightPanel.JSContent).val(\"\");\n            $(self.RightPanel.DetailsPanel.Owner).val(\"\");\n            $(self.RightPanel.DetailsPanel.RoleType).val(\"\").formSelect();\n        });\n    }\n});"
       },
       {
         "env": "",
