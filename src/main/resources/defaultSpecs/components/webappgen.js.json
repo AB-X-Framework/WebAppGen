@@ -34,7 +34,7 @@
     "js": [
       {
         "env": "",
-        "value": "$(LeftPanel.JSPackage).change(()=>{\n    clearAutocomplete(LeftPanel.jsName);\n    \n    const packageName = $(LeftPanel.JSPackage).val();\n    if (packageName !== \"\"){\n        $.get(`/resources/packages/js/${packageName}`,(binariesPerPackage)=>{\n            binariesPerPackage.forEach((jsName)=>{\n                addAutocompleteValue(LeftPanel.jsName,jsName)\n            });\n            self.LeftPanel.MenuPanel.SaveJS.markSaved();\n            $(LeftPanel.jsName).val(\"\");\n            $(self.RightPanel.JSContent).val(\"\");\n            $(self.RightPanel.DetailsPanel.Owner).val(\"\");\n            $(self.RightPanel.DetailsPanel.RoleType).val(\"\").formSelect();\n        });\n    }\n});"
+        "value": "$(LeftPanel.JSPackage).change(()=>{\n    clearAutocomplete(LeftPanel.jsName);\n    \n    const packageName = $(LeftPanel.JSPackage).val();\n    if (packageName !== \"\"){\n        $.get(`/resources/packages/js/${packageName}`,(binariesPerPackage)=>{\n            binariesPerPackage.forEach((jsName)=>{\n                addAutocompleteValue(LeftPanel.jsName,jsName)\n            });\n            self.LeftPanel.MenuPanel.SaveJS.markSaved();\n            $(LeftPanel.jsName).val(\"\");\n            $(self.LeftPanel.ContentType).val(\"\").formSelect();\n            $(self.LeftPanel.Owner).val(\"\");\n            $(self.LeftPanel.RoleType).val(\"\").formSelect();\n        });\n    }\n});"
       },
       {
         "env": "",
@@ -42,7 +42,7 @@
       },
       {
         "env": "",
-        "value": "workingEnv.currPage = 0;\nworkingEnv.JSBody = self;\n\n\nworkingEnv.renderJS = ()=> {\n    var downloadFromUrl=(url, filename) =>{\n        const a = document.createElement('a');\n        a.href = url;\n        a.download = filename || '';\n        a.style.display = 'none';\n        document.body.appendChild(a);\n        a.click();\n        document.body.removeChild(a);\n    }\n\n\n    workingEnv.jsName = $(LeftPanel.jsName).val();\n    if (workingEnv.jsName !== \"\"){\n        $.get(`/resources/binaries/${workingEnv.jsName}`,(js)=>{\n            workingEnv.updatedJS = js;\n            $(self.RightPanel.DetailsPanel.Owner).val(js.owner);\n            $(self.RightPanel.DetailsPanel.ContentType).val(js.contentType).formSelect();\n            if (js.contentType === \"application/png\" || js.contentType === \"application/jpeg\"|| js.contentType === \"image/jpeg\"){\n                $(self.RightPanel.ImgContainer).parent().show();\n                self.RightPanel.ImgContainer.Img.src = `/resources/binary/${workingEnv.jsName}`;\n            }else{\n                $(self.RightPanel.ImgContainer).parent().hide();\n            }\n            $(self.RightPanel.DetailsPanel.RoleType).val(js.role).formSelect();\n            M.updateTextFields() ;\n            $(self.RightPanel.DetailsPanel.Download).click(()=>{\n                downloadFromUrl(`/resources/binary/${workingEnv.jsName}`,workingEnv.jsName.substring(workingEnv.jsName.lastIndexOf(\"/\")+1));\n            });\n        });\n    }\n}\n$(self.RightPanel.ImgContainer).parent().hide();\n$(LeftPanel.jsName).change(workingEnv.renderJS);"
+        "value": "workingEnv.currPage = 0;\nworkingEnv.JSBody = self;\n\n\nworkingEnv.renderJS = ()=> {\n    var downloadFromUrl=(url, filename) =>{\n        const a = document.createElement('a');\n        a.href = url;\n        a.download = filename || '';\n        a.style.display = 'none';\n        document.body.appendChild(a);\n        a.click();\n        document.body.removeChild(a);\n    }\n\n\n    workingEnv.jsName = $(LeftPanel.jsName).val();\n    if (workingEnv.jsName !== \"\"){\n        $.get(`/resources/binaries/${workingEnv.jsName}`,(js)=>{\n            workingEnv.updatedJS = js;\n            $.get(`/resources/binary/${workingEnv.jsName}`,(result)=>{\n                ace.edit(self.RightPanel.FileContent).setValue(result);\n            });\n            $(self.LeftPanel.Owner).val(js.owner);\n            if (js.contentType === \"text/css\"){\n                ace.edit(self.RightPanel.FileContent).session.setMode(\"ace/mode/css\");\n            }\n            $(self.LeftPanel.ContentType).val(js.contentType).formSelect();\n            $(self.LeftPanel.RoleType).val(js.role).formSelect();\n            M.updateTextFields() ;\n            $(self.RightPanel.DetailsPanel.Download).click(()=>{\n                downloadFromUrl(`/resources/binary/${workingEnv.jsName}`,workingEnv.jsName.substring(workingEnv.jsName.lastIndexOf(\"/\")+1));\n            });\n        });\n    }\n}\n$(LeftPanel.jsName).change(workingEnv.renderJS);"
       },
       {
         "env": "",
@@ -132,7 +132,7 @@
   {
     "specs": [{
       "env": "",
-      "value": {"title": "New JS"}
+      "value": {"title": "New File"}
     }],
     "name": "webappgen.js.ProcessAddJS",
     "isContainer": false,
@@ -142,7 +142,7 @@
   {
     "specs": [{
       "env": "",
-      "value": {"title": "Save JS"}
+      "value": {"title": "Save File"}
     }],
     "name": "webappgen.js.SaveJS",
     "isContainer": false,
@@ -155,17 +155,7 @@
   {
     "specs": [{
       "env": "",
-      "value": {"title": "Upload"}
-    }],
-    "name": "webappgen.js.Upload",
-    "isContainer": false,
-    "js": [],
-    "type": "button"
-  },
-  {
-    "specs": [{
-      "env": "",
-      "value": {"title": "Clone JS"}
+      "value": {"title": "Clone File"}
     }],
     "name": "webappgen.js.CloneJS",
     "isContainer": false,
@@ -219,7 +209,7 @@
   {
     "specs": [{
       "env": "",
-      "value": {"title": "Delete JS"}
+      "value": {"title": "Delete File"}
     }],
     "name": "webappgen.js.DeleteJS",
     "isContainer": false,
@@ -257,38 +247,12 @@
   },
   {
     "layout": "vertical",
-    "components": [
-      {
-        "innerId": "DetailsPanel",
-        "component": "webappgen.js.DetailsPanel",
-        "size": "l12",
-        "env": ""
-      },
-      {
-        "innerId": "Download",
-        "component": "webappgen.js.Download",
-        "size": "l12",
-        "env": ""
-      },
-      {
-        "innerId": "UploadFile",
-        "component": "webappgen.js.UploadFile",
-        "size": "l12",
-        "env": ""
-      },
-      {
-        "innerId": "Upload",
-        "component": "webappgen.js.Upload",
-        "size": "l12",
-        "env": ""
-      },
-      {
-        "innerId": "ImgContainer",
-        "component": "webappgen.js.ImgContainer",
-        "size": "l6",
-        "env": ""
-      }
-    ],
+    "components": [{
+      "innerId": "FileContent",
+      "component": "webappgen.js.ImgContainer",
+      "size": "l6",
+      "env": ""
+    }],
     "name": "webappgen.js.RightPanel",
     "isContainer": true,
     "js": []
@@ -322,16 +286,6 @@
     "name": "webappgen.js.MainJSComponent",
     "isContainer": true,
     "js": []
-  },
-  {
-    "specs": [{
-      "env": "",
-      "value": {"title": "Download"}
-    }],
-    "name": "webappgen.js.Download",
-    "isContainer": false,
-    "js": [],
-    "type": "button"
   },
   {
     "specs": [{
@@ -373,19 +327,6 @@
     "specs": [{
       "env": "",
       "value": {
-        "title": "Upload file",
-        "content": "Select file for upload"
-      }
-    }],
-    "name": "webappgen.js.UploadFile",
-    "isContainer": false,
-    "js": [],
-    "type": "file"
-  },
-  {
-    "specs": [{
-      "env": "",
-      "value": {
         "cancel": "Cancel",
         "ok": "Ok",
         "title": "Delete JS Entry",
@@ -416,16 +357,6 @@
       "value": "workingEnv.PackageName=self;"
     }],
     "type": "autocomplete"
-  },
-  {
-    "specs": [{
-      "env": "",
-      "value": {"src": ""}
-    }],
-    "name": "webappgen.js.Img",
-    "isContainer": false,
-    "js": [],
-    "type": "img"
   },
   {
     "specs": [{
@@ -493,6 +424,24 @@
         "env": ""
       },
       {
+        "innerId": "ContentType",
+        "component": "webappgen.js.ContentType",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "Owner",
+        "component": "webappgen.js.Owner",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "RoleType",
+        "component": "webappgen.components.ResourceType",
+        "size": "l12",
+        "env": ""
+      },
+      {
         "innerId": "MenuPanel",
         "component": "webappgen.js.MenuPanel",
         "size": "l12",
@@ -504,16 +453,17 @@
     "js": []
   },
   {
-    "layout": "horizontal",
-    "components": [{
-      "innerId": "Img",
-      "component": "webappgen.js.Img",
-      "size": "l6",
-      "env": ""
+    "specs": [{
+      "env": "",
+      "value": {
+        "content": "//Your JS Here",
+        "height": "800px"
+      }
     }],
     "name": "webappgen.js.ImgContainer",
-    "isContainer": true,
-    "js": []
+    "isContainer": false,
+    "js": [],
+    "type": "jsEditor"
   },
   {
     "layout": "popup",
@@ -537,31 +487,5 @@
       "env": "",
       "value": "$(NewJSConfirm).click(()=>{\n    const newName = $(JSjsName).val();\n    $.post(`/resources/binaries/clone`,{\n        \"newName\":newName,\n        \"original\":workingEnv.jsName,\n        \"contentType\":workingEnv.updatedJS.contentType,\n        \"owner\":workingEnv.updatedJS.owner,\n        \"role\":workingEnv.updatedJS.role\n    },(status)=>{\n       if (status.success){\n           PageContent.closeModal(self);\n           addAutocompleteValue(workingEnv.PackageName,status.package)\n           addAutocompleteValue(workingEnv.jsName,newName);\n           workingEnv.renderJS();\n       } else {\n           PageContent.showModal(\"Cannot create js\"+JSON.stringify(status.error))\n       }\n    });\n});"
     }]
-  },
-  {
-    "layout": "horizontal",
-    "components": [
-      {
-        "innerId": "ContentType",
-        "component": "webappgen.js.ContentType",
-        "size": "l6",
-        "env": ""
-      },
-      {
-        "innerId": "Owner",
-        "component": "webappgen.js.Owner",
-        "size": "l4",
-        "env": ""
-      },
-      {
-        "innerId": "RoleType",
-        "component": "webappgen.components.ResourceType",
-        "size": "l2",
-        "env": ""
-      }
-    ],
-    "name": "webappgen.js.DetailsPanel",
-    "isContainer": true,
-    "js": []
   }
 ]
