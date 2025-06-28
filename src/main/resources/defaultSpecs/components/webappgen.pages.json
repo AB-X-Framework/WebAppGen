@@ -9,12 +9,6 @@
         "env": ""
       },
       {
-        "innerId": "Title",
-        "component": "webappgen.pages.Title",
-        "size": "l4",
-        "env": ""
-      },
-      {
         "innerId": "RoleType",
         "component": "webappgen.components.RoleType",
         "size": "l2",
@@ -299,6 +293,12 @@
         "env": ""
       },
       {
+        "innerId": "Title",
+        "component": "webappgen.pages.env.EnvContainer",
+        "size": "l12",
+        "env": ""
+      },
+      {
         "innerId": "CSS",
         "component": "webappgen.pages.env.EnvContainer",
         "size": "l12",
@@ -322,7 +322,7 @@
     "js": [
       {
         "env": "",
-        "value": "$(NameSection.PageName).change(()=>{\n    $.get(`/pages/details/${$(NameSection.PageName).val()}`,\n        (pageDetails)=>{\n            workingEnv.page = pageDetails;\n            ComponentSelector.selectPackage(pageDetails.componentPackage,pageDetails.component);\n            $(Details.Title).val(pageDetails.title);\n            $(Details.Matches).val(pageDetails.matches);\n            $(Details.RoleType).val(pageDetails.role);\n            $(Details.RoleType).formSelect();\n            \n            CSS.process(\"css\");\n            Scripts.process(\"scripts\");\n            markSaved();\n        }\n    )\n});\nCSS.setType(\"css\",\"CSS List\")\nScripts.setType(\"scripts\",\"Script List\")"
+        "value": "$(NameSection.PageName).change(()=>{\n    $.get(`/pages/details/${$(NameSection.PageName).val()}`,\n        (pageDetails)=>{\n            workingEnv.page = pageDetails;\n            ComponentSelector.selectPackage(pageDetails.componentPackage,pageDetails.component);\n            $(Details.Matches).val(pageDetails.matches);\n            $(Details.RoleType).val(pageDetails.role);\n            $(Details.RoleType).formSelect();\n            Title.process(\"title\");\n            CSS.process(\"css\");\n            Scripts.process(\"scripts\");\n            markSaved();\n        }\n    )\n});\nCSS.setType(\"css\",\"CSS List\")\nScripts.setType(\"scripts\",\"Script List\")\nTitle.setType(\"title\",\"Env Title\")"
       },
       {
         "env": "",
