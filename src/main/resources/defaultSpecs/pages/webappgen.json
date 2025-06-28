@@ -223,10 +223,16 @@
     }],
     "role": "Admin",
     "name": "webappgen.Binaries",
-    "title": [{
-      "env": "",
-      "value": "Binaries"
-    }],
+    "title": [
+      {
+        "env": "EN",
+        "value": "Binaries"
+      },
+      {
+        "env": "ES",
+        "value": "Binarios"
+      }
+    ],
     "scripts": [
       {
         "env": "",
