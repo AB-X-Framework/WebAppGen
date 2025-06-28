@@ -487,6 +487,7 @@ public class ResourceController extends RoleController {
             resourceModel.upload(name,content.getBytes());
             status.put("success", true);
             status.put("package", packageName);
+            status.put("owner", owner);
         } catch (Exception e) {
             status.put("success", false);
             status.put("message", e.getMessage());
