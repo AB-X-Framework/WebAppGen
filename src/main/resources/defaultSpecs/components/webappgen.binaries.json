@@ -479,7 +479,7 @@
     "isContainer": false,
     "js": [{
       "env": "",
-      "value": "$(self.ok).click(()=>{\n    const values = Object.entries(workingEnv.updatedBinary).map(([key, value]) => ({ key, value }));\n\n   $.post(`/resources/binaries`,{\n       \"resource\" : JSON.stringify(workingEnv.updatedBinary) \n    },(status)=>{\n        if (status.success){\n            PageContent.closeModal(self);\n            workingEnv.renderBinary();\n            workingEnv.SaveBinary.markSaved();\n        }else {\n            PageContent.showModal(\"Cannot save values \"+JSON.stringify(status.error));\n        }\n    }); \n});"
+      "value": "$(self.ok).click(()=>{\n    const values = Object.entries(workingEnv.updatedBinary).map(([key, value]) => ({ key, value }));\n\n   $.post(`/resources/binaries`,\n       workingEnv.updatedBinary\n    ,(status)=>{\n        if (status.success){\n            PageContent.closeModal(self);\n            workingEnv.renderBinary();\n            workingEnv.SaveBinary.markSaved();\n        }else {\n            PageContent.showModal(\"Cannot save values \"+JSON.stringify(status.error));\n        }\n    }); \n});"
     }],
     "type": "okCancelModal"
   },

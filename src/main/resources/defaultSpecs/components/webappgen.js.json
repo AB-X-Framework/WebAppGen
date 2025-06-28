@@ -20,15 +20,11 @@
     "js": [
       {
         "env": "",
-        "value": "$(LeftPanel.JSPackage).change(()=>{\n    clearAutocomplete(LeftPanel.jsName);\n    \n    const packageName = $(LeftPanel.JSPackage).val();\n    if (packageName !== \"\"){\n        $.get(`/resources/packages/js/${packageName}`,(binariesPerPackage)=>{\n            binariesPerPackage.forEach((jsName)=>{\n                addAutocompleteValue(LeftPanel.jsName,jsName)\n            });\n            self.LeftPanel.MenuPanel.SaveJS.markSaved();\n            $(LeftPanel.jsName).val(\"\");\n            $(self.LeftPanel.ContentType).val(\"\").formSelect();\n            $(self.LeftPanel.Owner).val(\"\");\n            $(self.LeftPanel.RoleType).val(\"\").formSelect();\n        });\n    }\n});"
+        "value": "$(LeftPanel.JSPackage).change(()=>{\n    clearAutocomplete(LeftPanel.jsName);\n    \n    const packageName = $(LeftPanel.JSPackage).val();\n    if (packageName !== \"\"){\n        $.get(`/resources/packages/js/${packageName}`,(binariesPerPackage)=>{\n            binariesPerPackage.forEach((jsName)=>{\n                addAutocompleteValue(LeftPanel.jsName,jsName)\n            });\n            self.markSaved();\n            $(LeftPanel.jsName).val(\"\");\n            $(self.LeftPanel.ContentType).val(\"\").formSelect();\n            $(self.LeftPanel.Owner).val(\"\");\n            $(self.LeftPanel.RoleType).val(\"\").formSelect();\n        });\n    }\n});"
       },
       {
         "env": "",
-        "value": "$(self.RightPanel.Upload).click(()=>{\n    const formData = new FormData();\n    formData.append(\"data\",self.RightPanel.UploadFile.files[0]);\n    formData.append(\"name\",workingEnv.jsName);\n    $.ajax({\n        url: `/resources/binaries/upload`, \n        method: \"POST\",\n        data: formData,\n        processData: false,\n        contentType: false,\n        success: (js)=>{\n            PageContent.showModal(\"Upload\", \"New js uploaded successfully.\");\n        }\n    });\n});"
-      },
-      {
-        "env": "",
-        "value": "workingEnv.currPage = 0;\nworkingEnv.JSBody = self;\n\nace.edit(self.RightPanel.FileContent).session.on('change', function(delta) {\n    self.markChanged();\n});\n\nworkingEnv.renderJS = ()=> {\n\n\n    workingEnv.jsName = $(LeftPanel.jsName).val();\n    if (workingEnv.jsName !== \"\"){\n        $.get(`/resources/binaries/${workingEnv.jsName}`,(js)=>{\n            workingEnv.updatedJS = js;\n            const editor = ace.edit(self.RightPanel.FileContent);\n            $.get(`/resources/binary/${workingEnv.jsName}`,(result)=>{\n                editor.setValue(result);\n                self.markSaved();\n            });\n            $(self.LeftPanel.Owner).val(js.owner);\n            if (js.contentType === \"text/css\"){\n                editor.session.setMode(\"ace/mode/css\");\n            }\n            $(self.LeftPanel.ContentType).val(js.contentType).formSelect();\n            $(self.LeftPanel.RoleType).val(js.role).formSelect();\n        });\n    }\n}\n$(LeftPanel.jsName).change(workingEnv.renderJS);"
+        "value": "workingEnv.currPage = 0;\nworkingEnv.JSBody = self;\nlet editor = ace.edit(self.RightPanel.FileContent);\n\neditor.session.on('change', function(delta) {\n    workingEnv.updatedJS.content = editor.getValue();\n    self.markChanged();\n});\n\nworkingEnv.renderJS = ()=> {\n    workingEnv.jsName = $(LeftPanel.jsName).val();\n    if (workingEnv.jsName !== \"\"){\n        $.get(`/resources/binaries/${workingEnv.jsName}`,(js)=>{\n            workingEnv.updatedJS = js;\n            $.get(`/resources/binary/${workingEnv.jsName}`,(jsResult)=>{\n                editor.setValue(jsResult);\n                self.markSaved();\n                workingEnv.updatedJS.content = jsResult;\n            },\"text\");\n            $(self.LeftPanel.Owner).val(js.owner);\n            if (js.contentType === \"text/css\"){\n                editor.session.setMode(\"ace/mode/css\");\n            }\n            $(self.LeftPanel.ContentType).val(js.contentType).formSelect();\n            $(self.LeftPanel.RoleType).val(js.role).formSelect();\n        });\n    }\n}\n$(LeftPanel.jsName).change(workingEnv.renderJS);"
       },
       {
         "env": "",
@@ -319,7 +315,7 @@
     "isContainer": false,
     "js": [{
       "env": "",
-      "value": "$(self.ok).click(()=>{\n    const values = Object.entries(workingEnv.updatedJS).map(([key, value]) => ({ key, value }));\n\n   $.post(`/resources/binaries`,{\n       \"resource\" : JSON.stringify(workingEnv.updatedJS) \n    },(status)=>{\n        if (status.success){\n            PageContent.closeModal(self);\n            workingEnv.renderJS();\n            workingEnv.SaveJS.markSaved();\n        }else {\n            PageContent.showModal(\"Cannot save values \"+JSON.stringify(status.error));\n        }\n    }); \n});"
+      "value": "$(self.ok).click(()=>{\n    const values = Object.entries(workingEnv.updatedJS).map(([key, value]) => ({ key, value }));\n   $.post(`/resources/js`,workingEnv.updatedJS\n    ,(status)=>{\n        if (status.success){\n            PageContent.closeModal(self);\n            workingEnv.renderJS();\n            workingEnv.SaveJS.markSaved();\n        }else {\n            PageContent.showModal(\"Cannot save values \"+JSON.stringify(status.error));\n        }\n    }); \n});"
     }],
     "type": "okCancelModal"
   },
