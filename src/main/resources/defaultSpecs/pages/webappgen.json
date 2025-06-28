@@ -7,7 +7,7 @@
     }],
     "role": "Admin",
     "name": "webappgen.Home",
-    "title": "Home Page",
+    "title": "Home",
     "scripts": [{
       "env": "",
       "value": "/resources/binary/webappgen/model.methods.js"
@@ -88,7 +88,7 @@
     }],
     "role": "Admin",
     "name": "webappgen.Pages",
-    "title": "Pages Page",
+    "title": "Pages",
     "scripts": [
       {
         "env": "",
@@ -130,7 +130,7 @@
     }],
     "role": "Admin",
     "name": "webappgen.Components",
-    "title": "Components Page",
+    "title": "Components",
     "scripts": [
       {
         "env": "",
