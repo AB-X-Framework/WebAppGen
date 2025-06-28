@@ -209,12 +209,6 @@
         "env": ""
       },
       {
-        "innerId": "ContentType",
-        "component": "webappgen.js.ContentType",
-        "size": "l12",
-        "env": ""
-      },
-      {
         "innerId": "NewJSConfirm",
         "component": "webappgen.js.NewJSConfirm",
         "size": "l12",
@@ -225,7 +219,7 @@
     "isContainer": true,
     "js": [{
       "env": "",
-      "value": "$(NewJSConfirm).click(()=>{\n    const name = $(NewJSName).val();\n    const contentType = $(ContentType).val();\n    \n    $.post(`/resources/js`,{\n            \"name\":name,\n            \"role\":\"user\",\n            \"contentType\":contentType,\n            \"content\":\"\"\n        } ,(status)=>{\n            PageContent.closeModal(self);\n            if (status.success){\n               addAutocompleteValue(workingEnv.PackageName,status.package)\n               addAutocompleteValue(workingEnv.jsName,name);\n               addAutocompleteValue(workingEnv.ContentType,contentType);\n               workingEnv.renderJS();\n               PageContent.showModal(\"Upload\", \"New js uploaded successfully.\");\n            } else {\n                PageContent.showModal(\"Cannot create js\"+JSON.stringify(status.error))\n            }\n            \n        }\n    ); \n    \n});"
+      "value": "$(NewJSConfirm).click(()=>{\n    const name = $(NewJSName).val();\n    const contentType = \"text/javascript\";\n    const roleType = \"user\";\n    $.post(`/resources/js`,{\n            \"name\":name,\n            \"role\":roleType,\n            \"contentType\":contentType,\n            \"content\":\"\"\n        } ,(status)=>{\n            PageContent.closeModal(self);\n            if (status.success){\n               addAutocompleteValue(workingEnv.PackageName,status.package)\n               addAutocompleteValue(workingEnv.jsName,name);\n               $(workingEnv.ContentType).val(contentType);\n               $(workingEnv.RoleType).val(roleType);\n               workingEnv.renderJS();\n            } else {\n                PageContent.showModal(\"Cannot create js\"+JSON.stringify(status.error))\n            }\n            \n        }\n    ); \n    \n});"
     }]
   },
   {
@@ -433,7 +427,10 @@
     ],
     "name": "webappgen.js.LeftPanel",
     "isContainer": true,
-    "js": []
+    "js": [{
+      "env": "",
+      "value": "workingEnv.RoleType = self.RoleType;"
+    }]
   },
   {
     "specs": [{
