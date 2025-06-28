@@ -469,6 +469,32 @@ public class ResourceController extends RoleController {
     }
 
     @Secured("Admin")
+    @PostMapping(value = "/js", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String updateJS(
+            HttpServletRequest request,
+            @RequestParam String name,
+            @RequestParam String role,
+            @RequestParam  String owner,
+            @RequestParam String contentType,
+            @RequestParam String content) {
+        String packageName = name.substring(0, name.lastIndexOf('/'));
+        JSONObject status = new JSONObject();
+        try {
+            if (owner == null) {
+                owner = request.getUserPrincipal().getName();
+            }
+            resourceModel.saveBinaryResource(name, packageName, owner, contentType, role);
+            resourceModel.upload(name,content.getBytes());
+            status.put("success", true);
+            status.put("package", packageName);
+        } catch (Exception e) {
+            status.put("success", false);
+            status.put("message", e.getMessage());
+        }
+        return status.toString();
+    }
+
+    @Secured("Admin")
     @PostMapping(value = "/binaries/new",
             consumes = "multipart/form-data", produces = MediaType.APPLICATION_JSON_VALUE)
     public String handleNew(
