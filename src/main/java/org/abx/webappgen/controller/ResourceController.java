@@ -474,7 +474,7 @@ public class ResourceController extends RoleController {
             HttpServletRequest request,
             @RequestParam String name,
             @RequestParam String role,
-            @RequestParam  String owner,
+            @RequestParam(required = false)  String owner,
             @RequestParam String contentType,
             @RequestParam String content) {
         String packageName = name.substring(0, name.lastIndexOf('/'));

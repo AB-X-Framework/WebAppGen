@@ -162,19 +162,6 @@
     "specs": [{
       "env": "",
       "value": {
-        "title": "The file",
-        "content": "Upload"
-      }
-    }],
-    "name": "webappgen.js.NewJSFile",
-    "isContainer": false,
-    "js": [],
-    "type": "file"
-  },
-  {
-    "specs": [{
-      "env": "",
-      "value": {
         "label": "New js name",
         "title": "JS name",
         "content": ""
@@ -222,8 +209,8 @@
         "env": ""
       },
       {
-        "innerId": "NewJSFile",
-        "component": "webappgen.js.NewJSFile",
+        "innerId": "ContentType",
+        "component": "webappgen.js.ContentType",
         "size": "l12",
         "env": ""
       },
@@ -238,7 +225,7 @@
     "isContainer": true,
     "js": [{
       "env": "",
-      "value": "$(NewJSConfirm).click(()=>{\n    const name = $(NewJSName).val();\n    const formData = new FormData();\n    formData.append(\"data\",self.NewJSFile.files[0]);\n    formData.append(\"name\",$(self.NewJSName).val());\n    $.ajax({\n        url: `/resources/binaries/new`, \n        method: \"POST\",\n        data: formData,\n        processData: false,\n        contentType: false,\n        success: (status)=>{\n            if (status.success){\n               addAutocompleteValue(workingEnv.PackageName,status.package)\n               addAutocompleteValue(workingEnv.jsName,name);\n               addAutocompleteValue(workingEnv.ContentType,status.contentType);\n               workingEnv.renderJS();\n               PageContent.showModal(\"Upload\", \"New js uploaded successfully.\");\n            }else {\n                \n                PageContent.showModal(\"Cannot create js\"+JSON.stringify(status.error))\n            }\n            \n        }\n    });\n\n    /*$.post(`/resources/binaries`,{\n        \"name\":name,\n        \"contentType\":\"application/octet-stream\",\n        \"title\":\"New js\",\n        \"role\":\"Admin\"\n    },(status)=>{\n       if (status.success){\n           PageContent.closeModal(self);\n           addAutocompleteValue(workingEnv.PackageName,status.package)\n           addAutocompleteValue(workingEnv.jsName,name);\n           workingEnv.renderJS();\n       } else {\n           PageContent.showModal(\"Cannot create js\"+JSON.stringify(status.error))\n       }\n    });*/\n});"
+      "value": "$(NewJSConfirm).click(()=>{\n    const name = $(NewJSName).val();\n    const contentType = $(ContentType).val();\n    \n    $.post(`/resources/js`,{\n            \"name\":name,\n            \"role\":\"user\",\n            \"contentType\":contentType,\n            \"content\":\"\"\n        } ,(status)=>{\n            if (status.success){\n               addAutocompleteValue(workingEnv.PackageName,status.package)\n               addAutocompleteValue(workingEnv.jsName,name);\n               addAutocompleteValue(workingEnv.ContentType,status.contentType);\n               workingEnv.renderJS();\n               PageContent.showModal(\"Upload\", \"New js uploaded successfully.\");\n            } else {\n                PageContent.showModal(\"Cannot create js\"+JSON.stringify(status.error))\n            }\n            \n        }\n    ); \n    \n});"
     }]
   },
   {
