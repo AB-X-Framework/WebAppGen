@@ -66,12 +66,6 @@
         "env": ""
       },
       {
-        "innerId": "DeletePopup",
-        "component": "webappgen.js.DeletePopup",
-        "size": "l12",
-        "env": ""
-      },
-      {
         "innerId": "SaveJSConfirm",
         "component": "webappgen.js.SaveJSConfirm",
         "size": "l12",
@@ -219,7 +213,7 @@
     "isContainer": true,
     "js": [{
       "env": "",
-      "value": "$(NewJSConfirm).click(()=>{\n    const name = $(NewJSName).val();\n    const contentType = \"text/javascript\";\n    const roleType = \"user\";\n    $.post(`/resources/js`,{\n            \"name\":name,\n            \"role\":roleType,\n            \"contentType\":contentType,\n            \"content\":\"\"\n        } ,(status)=>{\n            PageContent.closeModal(self);\n            if (status.success){\n               addAutocompleteValue(workingEnv.PackageName,status.package)\n               addAutocompleteValue(workingEnv.jsName,name);\n               $(workingEnv.ContentType).val(contentType);\n               $(workingEnv.RoleType).val(roleType);\n               workingEnv.renderJS();\n            } else {\n                PageContent.showModal(\"Cannot create js\"+JSON.stringify(status.error))\n            }\n            \n        }\n    ); \n    \n});"
+      "value": "$(NewJSConfirm).click(()=>{\n    const name = $(NewJSName).val();\n    const contentType = \"text/javascript\";\n    const roleType = \"User\";\n    $.post(`/resources/js`,{\n            \"name\":name,\n            \"role\":roleType,\n            \"contentType\":contentType,\n            \"content\":\"\"\n        } ,(status)=>{\n            PageContent.closeModal(self);\n            if (status.success){\n               addAutocompleteValue(workingEnv.PackageName,status.package)\n               addAutocompleteValue(workingEnv.jsName,name);\n               $(workingEnv.ContentType).val(contentType);\n               $(workingEnv.RoleType).val(roleType);\n               workingEnv.renderJS();\n            } else {\n                PageContent.showModal(\"Cannot create js\"+JSON.stringify(status.error))\n            }\n            \n        }\n    ); \n    \n});"
     }]
   },
   {
@@ -278,7 +272,7 @@
     "isContainer": false,
     "js": [{
       "env": "",
-      "value": "$(self.ok).click(()=>{\n    $.ajax({\n        url: `/resources/js/${workingEnv.jsName}`, // the resource to delete\n        type: 'DELETE',\n        success: (result)=> {\n            if (result.success){\n                location.reload();    \n            }else {\n                PageContent.showModal(\"Cannot delete js \"+JSON.stringify(result.error));\n            }\n            \n        }\n});\n});"
+      "value": "$(self.ok).click(()=>{\n    $.ajax({\n        url: `/resources/binaries/${workingEnv.jsName}`, // the resource to delete\n        type: 'DELETE',\n        success: (result)=> {\n            if (result.success){\n                location.reload();    \n            }else {\n                PageContent.showModal(\"Cannot delete js \"+JSON.stringify(result.error));\n            }\n            \n        }\n});\n});"
     }],
     "type": "okCancelModal"
   },
@@ -297,24 +291,6 @@
     "js": [{
       "env": "",
       "value": "$(self.ok).click(()=>{\n    const values = Object.entries(workingEnv.updatedJS).map(([key, value]) => ({ key, value }));\n   $.post(`/resources/js`,workingEnv.updatedJS\n    ,(status)=>{\n        if (status.success){\n            PageContent.closeModal(self);\n            workingEnv.renderJS();\n            workingEnv.SaveJS.markSaved();\n        }else {\n            PageContent.showModal(\"Cannot save values \"+JSON.stringify(status.error));\n        }\n    }); \n});"
-    }],
-    "type": "okCancelModal"
-  },
-  {
-    "specs": [{
-      "env": "",
-      "value": {
-        "cancel": "Cancel",
-        "ok": "Ok",
-        "title": "Delete JS Entry",
-        "content": "Do you want to delete this entry?"
-      }
-    }],
-    "name": "webappgen.js.DeletePopup",
-    "isContainer": false,
-    "js": [{
-      "env": "",
-      "value": "workingEnv.DeletePopup = self;\n\n$(self.ok).click(()=>{\n    const responseFx = (status)=>{\n            if (status.success){\n                PageContent.closeModal(workingEnv.DeletePopup);\n                workingEnv.renderJS();\n            } else {\n                PageContent.showModal(`Cannot delete ${self.key}. ${JSON.stringify(status.error)}`)\n            }\n        };\n    \n    $.ajax({\n        \"type\": 'DELETE',\n        \"url\":`/resources/binary/${workingEnv.jsName}/entries/${self.key}`,\n        \"success\":responseFx\n    });\n});\n\nself.setKey=(key)=>{\n    self.key = key;\n}"
     }],
     "type": "okCancelModal"
   },
