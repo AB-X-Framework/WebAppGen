@@ -186,7 +186,7 @@ public class SpecsImporter {
                 page.getString("name"),
                 packageName,
                 page.getString("matches"),
-                page.getString("title"),
+                page.getJSONArray("title"),
                 page.getString("role"),
                 page.getString("component"),
                 page.getJSONArray("css"),

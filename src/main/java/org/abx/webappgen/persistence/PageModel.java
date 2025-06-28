@@ -364,7 +364,7 @@ public class PageModel {
     @Transactional
     public long createPageWithPageName(String pageName, String packageName,
                                        String matches,
-                                       String pageTitle,
+                                       JSONArray pageTitle,
                                        String role, String componentName,
                                        JSONArray css, JSONArray scripts) {
         Page page = new Page();
@@ -374,7 +374,7 @@ public class PageModel {
         page.role = role;
         page.matches = matches;
         page.matchesId = elementHashCode(matches);
-        page.pageTitle = pageTitle;
+        page.pageTitle = createEnvValues(pageTitle);
         page.css = createEnvValues(css);
         page.scripts = createEnvValues(scripts);
         pageRepository.save(page);

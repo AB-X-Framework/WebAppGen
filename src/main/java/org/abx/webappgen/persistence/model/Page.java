@@ -28,13 +28,14 @@ public class Page {
     public String packageName;
 
     @Column(nullable = false)
-    public String pageTitle;
-
-    @Column(nullable = false)
     public String role;
 
     @ManyToOne
     public Component component;
+    @OneToMany
+    @JoinTable(name = "PageTitle", joinColumns = @JoinColumn(name = "pageId"),
+            inverseJoinColumns = @JoinColumn(name = "envValueId"))
+    public Collection<EnvValue> pageTitle;
 
     @OneToMany
     @JoinTable(name = "PageCSS", joinColumns = @JoinColumn(name = "pageId"),

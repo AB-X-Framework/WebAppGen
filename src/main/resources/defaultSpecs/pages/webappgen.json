@@ -1,28 +1,44 @@
 [
   {
     "component": "webappgen.home.WelcomePageComponent",
-    "css": [{
-      "env": "",
-      "value": "/resources/binary/webappgen/materialize.icons.css"
-    }],
+    "css": [
+      {
+        "env": "",
+        "value": "/resources/binary/webappgen/materialize.icons.css"
+      }
+    ],
     "role": "Admin",
     "name": "webappgen.Home",
-    "title": "Home",
-    "scripts": [{
-      "env": "",
-      "value": "/resources/binary/webappgen/model.methods.js"
-    }],
+    "title": [
+      {
+        "env": "",
+        "value": "Home"
+      }
+    ],
+    "scripts": [
+      {
+        "env": "",
+        "value": "/resources/binary/webappgen/model.methods.js"
+      }
+    ],
     "matches": "Home"
   },
   {
     "component": "webappgen.maps.MainMapComponent",
-    "css": [{
-      "env": "",
-      "value": "/resources/binary/webappgen/materialize.icons.css"
-    }],
+    "css": [
+      {
+        "env": "",
+        "value": "/resources/binary/webappgen/materialize.icons.css"
+      }
+    ],
     "role": "Admin",
     "name": "webappgen.Maps",
-    "title": "Maps",
+    "title": [
+      {
+        "env": "",
+        "value": "Maps"
+      }
+    ],
     "scripts": [
       {
         "env": "",
@@ -37,58 +53,93 @@
   },
   {
     "component": "webappgen.home.Menu",
-    "css": [{
-      "env": "",
-      "value": "/resources/binary/webappgen/materialize.icons.css"
-    }],
+    "css": [
+      {
+        "env": "",
+        "value": "/resources/binary/webappgen/materialize.icons.css"
+      }
+    ],
     "role": "Anonymous",
     "name": "webappgen.Menu",
-    "title": "Home Page",
-    "scripts": [{
-      "env": "",
-      "value": "/resources/binary/webappgen/model.methods.js"
-    }],
+    "title": [
+      {
+        "env": "",
+        "value": "Home"
+      }
+    ],
+
+    "scripts": [
+      {
+        "env": "",
+        "value": "/resources/binary/webappgen/model.methods.js"
+      }
+    ],
     "matches": "Menu"
   },
   {
     "component": "webappgen.home.Section",
-    "css": [{
-      "env": "",
-      "value": "/resources/binary/webappgen/materialize.icons.css"
-    }],
+    "css": [
+      {
+        "env": "",
+        "value": "/resources/binary/webappgen/materialize.icons.css"
+      }
+    ],
     "role": "Anonymous",
     "name": "webappgen.Section",
-    "title": "Home Page",
-    "scripts": [{
-      "env": "",
-      "value": "/resources/binary/webappgen/model.methods.js"
-    }],
+    "title": [
+      {
+        "env": "",
+        "value": "Home"
+      }
+    ],
+    "scripts": [
+      {
+        "env": "",
+        "value": "/resources/binary/webappgen/model.methods.js"
+      }
+    ],
     "matches": "Section"
   },
   {
     "component": "webappgen.login.LoginPageComponent",
-    "css": [{
-      "env": "",
-      "value": "/resources/binary/webappgen/materialize.icons.css"
-    }],
+    "css": [
+      {
+        "env": "",
+        "value": "/resources/binary/webappgen/materialize.icons.css"
+      }
+    ],
     "role": "Anonymous",
     "name": "webappgen.Login",
-    "title": "Login Page",
-    "scripts": [{
-      "env": "",
-      "value": "/resources/binary/webappgen/login.js"
-    }],
+    "title": [
+      {
+        "env": "",
+        "value": "Login"
+      }
+    ],
+    "scripts": [
+      {
+        "env": "",
+        "value": "/resources/binary/webappgen/login.js"
+      }
+    ],
     "matches": "main"
   },
   {
     "component": "webappgen.pages.MainPageComponent",
-    "css": [{
-      "env": "",
-      "value": "/resources/binary/webappgen/materialize.icons.css"
-    }],
+    "css": [
+      {
+        "env": "",
+        "value": "/resources/binary/webappgen/materialize.icons.css"
+      }
+    ],
     "role": "Admin",
     "name": "webappgen.Pages",
-    "title": "Pages",
+    "title": [
+      {
+        "env": "",
+        "value": "Pages"
+      }
+    ],
     "scripts": [
       {
         "env": "",
@@ -103,13 +154,20 @@
   },
   {
     "component": "webappgen.texts.MainTextComponent",
-    "css": [{
-      "env": "",
-      "value": "/resources/binary/webappgen/materialize.icons.css"
-    }],
+    "css": [
+      {
+        "env": "",
+        "value": "/resources/binary/webappgen/materialize.icons.css"
+      }
+    ],
     "role": "Admin",
     "name": "webappgen.Texts",
-    "title": "Texts",
+    "title": [
+      {
+        "env": "",
+        "value": "Texts"
+      }
+    ],
     "scripts": [
       {
         "env": "",
@@ -124,13 +182,20 @@
   },
   {
     "component": "webappgen.components.ComponentsPageComponent",
-    "css": [{
-      "env": "",
-      "value": "/resources/binary/webappgen/materialize.icons.css"
-    }],
+    "css": [
+      {
+        "env": "",
+        "value": "/resources/binary/webappgen/materialize.icons.css"
+      }
+    ],
     "role": "Admin",
     "name": "webappgen.Components",
-    "title": "Components",
+    "title": [
+      {
+        "env": "",
+        "value": "Components"
+      }
+    ],
     "scripts": [
       {
         "env": "",
@@ -145,13 +210,20 @@
   },
   {
     "component": "webappgen.arrays.MainMapComponent",
-    "css": [{
-      "env": "",
-      "value": "/resources/binary/webappgen/materialize.icons.css"
-    }],
+    "css": [
+      {
+        "env": "",
+        "value": "/resources/binary/webappgen/materialize.icons.css"
+      }
+    ],
     "role": "Admin",
     "name": "webappgen.Arrays",
-    "title": "Arrays",
+    "title": [
+      {
+        "env": "",
+        "value": "Arrays"
+      }
+    ],
     "scripts": [
       {
         "env": "",
@@ -166,13 +238,20 @@
   },
   {
     "component": "webappgen.js.MainJSComponent",
-    "css": [{
-      "env": "",
-      "value": "/resources/binary/webappgen/materialize.icons.css"
-    }],
+    "css": [
+      {
+        "env": "",
+        "value": "/resources/binary/webappgen/materialize.icons.css"
+      }
+    ],
     "role": "Admin",
     "name": "webappgen.JS",
-    "title": "JS/CSS",
+    "title": [
+      {
+        "env": "",
+        "value": "JS/CSS"
+      }
+    ],
     "scripts": [
       {
         "env": "",
@@ -187,13 +266,20 @@
   },
   {
     "component": "webappgen.binaries.MainBinaryComponent",
-    "css": [{
-      "env": "",
-      "value": "/resources/binary/webappgen/materialize.icons.css"
-    }],
+    "css": [
+      {
+        "env": "",
+        "value": "/resources/binary/webappgen/materialize.icons.css"
+      }
+    ],
     "role": "Admin",
     "name": "webappgen.Binaries",
-    "title": "Binaries",
+    "title": [
+      {
+        "env": "",
+        "value": "Binaries"
+      }
+    ],
     "scripts": [
       {
         "env": "",
@@ -208,13 +294,20 @@
   },
   {
     "component": "webappgen.methods.MainMethodComponent",
-    "css": [{
-      "env": "",
-      "value": "/resources/binary/webappgen/materialize.icons.css"
-    }],
+    "css": [
+      {
+        "env": "",
+        "value": "/resources/binary/webappgen/materialize.icons.css"
+      }
+    ],
     "role": "Admin",
     "name": "webappgen.Methods",
-    "title": "Methods",
+    "title": [
+      {
+        "env": "",
+        "value": "Methods"
+      }
+    ],
     "scripts": [
       {
         "env": "",
