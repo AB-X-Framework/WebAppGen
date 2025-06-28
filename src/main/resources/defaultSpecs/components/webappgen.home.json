@@ -337,6 +337,19 @@
     "type": "menuItem"
   },
   {
+    "specs": [{
+      "env": "",
+      "value": {"title": "Users"}
+    }],
+    "name": "webappgen.home.ItemUsers",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "$(self).click(()=>{\n   document.location= \"/page/Arrays\"; \n});"
+    }],
+    "type": "menuItem"
+  },
+  {
     "specs": [
       {
         "env": "",
@@ -542,6 +555,12 @@
       {
         "innerId": "Methods",
         "component": "webappgen.home.ItemMethods",
+        "size": "right",
+        "env": ""
+      },
+      {
+        "innerId": "elem4",
+        "component": "webappgen.home.ItemUsers",
         "size": "right",
         "env": ""
       },
