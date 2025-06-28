@@ -239,24 +239,6 @@
     "type": "button"
   },
   {
-    "specs": [{
-      "env": "",
-      "value": {
-        "cancel": "Cancel",
-        "ok": "Ok",
-        "title": "Delete Binary Entry",
-        "content": "Do you want to delete this entry?"
-      }
-    }],
-    "name": "webappgen.binaries.DeletePopup",
-    "isContainer": false,
-    "js": [{
-      "env": "",
-      "value": "workingEnv.DeletePopup = self;\n\n$(self.ok).click(()=>{\n    const responseFx = (status)=>{\n            if (status.success){\n                PageContent.closeModal(workingEnv.DeletePopup);\n                workingEnv.renderBinary();\n            } else {\n                PageContent.showModal(`Cannot delete ${self.key}. ${JSON.stringify(status.error)}`)\n            }\n        };\n    \n    $.ajax({\n        \"type\": 'DELETE',\n        \"url\":`/resources/binary/${workingEnv.binaryName}/entries/${self.key}`,\n        \"success\":responseFx\n    });\n});\n\nself.setKey=(key)=>{\n    self.key = key;\n}"
-    }],
-    "type": "okCancelModal"
-  },
-  {
     "layout": "vertical",
     "components": [
       {
@@ -406,12 +388,6 @@
       {
         "innerId": "ConfirmDeleteBinary",
         "component": "webappgen.binaries.ConfirmDeleteBinary",
-        "size": "l12",
-        "env": ""
-      },
-      {
-        "innerId": "DeletePopup",
-        "component": "webappgen.binaries.DeletePopup",
         "size": "l12",
         "env": ""
       },
