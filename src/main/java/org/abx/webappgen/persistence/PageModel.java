@@ -300,8 +300,17 @@ public class PageModel {
                 return jsonPage;
             }
         }
-
-        jsonPage.put(Title, page.pageTitle);
+        boolean found = false;
+        for (EnvValue titleValue : page.pageTitle) {
+            if (matchesEnv(titleValue.env, env)) {
+                jsonPage.put(Title,titleValue.envValue);
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            jsonPage.put(Title, page.pageTitle.stream().findFirst().get());
+        }
         JSONArray scripts = new JSONArray();
         jsonPage.put(Scripts, scripts);
         for (EnvValue scriptValue : page.scripts) {
