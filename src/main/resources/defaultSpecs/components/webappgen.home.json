@@ -224,7 +224,7 @@
     "isContainer": false,
     "js": [{
       "env": "",
-      "value": "$(self).click(()=>{\n   document.location= \"/page/Arrays\"; \n});"
+      "value": "$(self).click(()=>{\n   document.location= \"/page/Users\"; \n});"
     }],
     "type": "menuItem"
   },
