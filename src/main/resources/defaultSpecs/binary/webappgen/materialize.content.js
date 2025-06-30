@@ -258,7 +258,7 @@ class PageContent {
     }
 
     static renderVertical(output, js, componentSpecs) {
-        output.push(`<div  id="${componentSpecs.id}">`);
+        output.push(`<div  id="${componentSpecs.id}" class="col l12">`);
         for (var component of componentSpecs.children) {
             output.push(`<div class="row ${component.size}">`);
             PageContent.renderComponent(output, js, component)
@@ -282,15 +282,9 @@ class PageContent {
     }
 
     static renderTopLayout(output, js, componentSpecs) {
-        output.push(`<div  id="${componentSpecs.id}">`);
-        let first = false;
+        output.push(`<div  id="${componentSpecs.id}" >`);
         for (var component of componentSpecs.children) {
-            if (first) {
-                first = true;
-                output.push(`<div class="row ${component.size}">`);
-            } else {
-                output.push(`<div class=" ${component.size}">`);
-            }
+            output.push(`<div class="row ${component.size}">`);
             PageContent.renderComponent(output, js, component)
             output.push('</div>');
         }

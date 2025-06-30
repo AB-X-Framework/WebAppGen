@@ -232,6 +232,131 @@
     ]
   },
   {
+    "layout": "horizontal",
+    "components": [
+      {
+        "innerId": "ComponentType",
+        "component": "webappgen.components.ComponentType",
+        "size": "l1",
+        "env": ""
+      },
+      {
+        "innerId": "ElementType",
+        "component": "webappgen.components.ElementType",
+        "size": "l1",
+        "env": ""
+      },
+      {
+        "innerId": "ContainerLayout",
+        "component": "webappgen.components.ContainerLayout",
+        "size": "l1",
+        "env": ""
+      },
+      {
+        "innerId": "EditingDetailType",
+        "component": "webappgen.components.EditingDetailType",
+        "size": "l1",
+        "env": ""
+      },
+      {
+        "innerId": "ComponentEnv",
+        "component": "webappgen.components.env.ComponentEnv",
+        "size": "l5",
+        "env": ""
+      },
+      {
+        "innerId": "ConfirmRemoveModal",
+        "component": "webappgen.components.env.ConfirmRemoveModal",
+        "size": "",
+        "env": ""
+      },
+      {
+        "innerId": "RemoveEnv",
+        "component": "webappgen.components.basic.RemoveBtn",
+        "size": "",
+        "env": ""
+      },
+      {
+        "innerId": "AddEnv",
+        "component": "webappgen.components.basic.AddBtn",
+        "size": "",
+        "env": ""
+      },
+      {
+        "innerId": "MoveDown",
+        "component": "webappgen.components.env.MoveDown",
+        "size": "",
+        "env": ""
+      },
+      {
+        "innerId": "MoveUp",
+        "component": "webappgen.components.env.MoveUp",
+        "size": "",
+        "env": ""
+      },
+      {
+        "innerId": "elem10",
+        "component": "webappgen.components.env.Clone",
+        "size": "",
+        "env": ""
+      },
+      {
+        "innerId": "AddPopUpEnv",
+        "component": "webappgen.components.env.AddPopUpEnv",
+        "size": "",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.components.ContainerAndComponent",
+    "isContainer": true,
+    "js": [
+      {
+        "env": "",
+        "value": "workingEnv.ElementType=ElementType; workingEnv.ContainerLayout=ContainerLayout;"
+      },
+      {
+        "env": "",
+        "value": "workingEnv.AddPopUpEnv=AddPopUpEnv;"
+      },
+      {
+        "env": "",
+        "value": "hideElemContainer();"
+      },
+      {
+        "env": "",
+        "value": "workingEnv.shouldUpdateDetailType=EditingDetailType;workingEnv.ComponentEnv=ComponentEnv;"
+      },
+      {
+        "env": "",
+        "value": "$(AddEnv).click( ()=>M.Modal.init(AddPopUpEnv).open());"
+      },
+      {
+        "env": "",
+        "value": "$(ElementType).change(updateElementType);"
+      },
+      {
+        "env": "",
+        "value": "workingEnv.ComponentType=ComponentType;"
+      },
+      {
+        "env": "",
+        "value": "workingEnv.EditingDetailType=EditingDetailType;"
+      },
+      {
+        "env": "",
+        "value": "workingEnv.ContainerLayout = ContainerLayout;"
+      },
+      {
+        "env": "",
+        "value": "$(ContainerLayout).change(updateContainerLayout);"
+      },
+      {
+        "env": "",
+        "value": "$(RemoveEnv).click(()=>{ M.Modal.init(ConfirmRemoveModal).open();});"
+      }
+    ]
+  },
+  {
     "specs": [{
       "env": "",
       "value": {
@@ -286,7 +411,7 @@
     "type": "select"
   },
   {
-    "layout": "vertical",
+    "layout": "topLayout",
     "components": [
       {
         "innerId": "header",
@@ -316,7 +441,7 @@
       },
       {
         "innerId": "containerAndComponent",
-        "component": "webappgen.components.containerAndComponent",
+        "component": "webappgen.components.ContainerAndComponent",
         "size": "",
         "env": ""
       },
@@ -622,131 +747,6 @@
       "value": ""
     }],
     "type": "select"
-  },
-  {
-    "layout": "horizontal",
-    "components": [
-      {
-        "innerId": "ComponentType",
-        "component": "webappgen.components.ComponentType",
-        "size": "l1",
-        "env": ""
-      },
-      {
-        "innerId": "ElementType",
-        "component": "webappgen.components.ElementType",
-        "size": "l1",
-        "env": ""
-      },
-      {
-        "innerId": "ContainerLayout",
-        "component": "webappgen.components.ContainerLayout",
-        "size": "l1",
-        "env": ""
-      },
-      {
-        "innerId": "EditingDetailType",
-        "component": "webappgen.components.EditingDetailType",
-        "size": "l1",
-        "env": ""
-      },
-      {
-        "innerId": "ComponentEnv",
-        "component": "webappgen.components.env.ComponentEnv",
-        "size": "l5",
-        "env": ""
-      },
-      {
-        "innerId": "ConfirmRemoveModal",
-        "component": "webappgen.components.env.ConfirmRemoveModal",
-        "size": "",
-        "env": ""
-      },
-      {
-        "innerId": "RemoveEnv",
-        "component": "webappgen.components.basic.RemoveBtn",
-        "size": "",
-        "env": ""
-      },
-      {
-        "innerId": "AddEnv",
-        "component": "webappgen.components.basic.AddBtn",
-        "size": "",
-        "env": ""
-      },
-      {
-        "innerId": "MoveDown",
-        "component": "webappgen.components.env.MoveDown",
-        "size": "",
-        "env": ""
-      },
-      {
-        "innerId": "MoveUp",
-        "component": "webappgen.components.env.MoveUp",
-        "size": "",
-        "env": ""
-      },
-      {
-        "innerId": "elem10",
-        "component": "webappgen.components.env.Clone",
-        "size": "",
-        "env": ""
-      },
-      {
-        "innerId": "AddPopUpEnv",
-        "component": "webappgen.components.env.AddPopUpEnv",
-        "size": "",
-        "env": ""
-      }
-    ],
-    "name": "webappgen.components.containerAndComponent",
-    "isContainer": true,
-    "js": [
-      {
-        "env": "",
-        "value": "workingEnv.ElementType=ElementType; workingEnv.ContainerLayout=ContainerLayout;"
-      },
-      {
-        "env": "",
-        "value": "workingEnv.AddPopUpEnv=AddPopUpEnv;"
-      },
-      {
-        "env": "",
-        "value": "hideElemContainer();"
-      },
-      {
-        "env": "",
-        "value": "workingEnv.shouldUpdateDetailType=EditingDetailType;workingEnv.ComponentEnv=ComponentEnv;"
-      },
-      {
-        "env": "",
-        "value": "$(AddEnv).click( ()=>M.Modal.init(AddPopUpEnv).open());"
-      },
-      {
-        "env": "",
-        "value": "$(ElementType).change(updateElementType);"
-      },
-      {
-        "env": "",
-        "value": "workingEnv.ComponentType=ComponentType;"
-      },
-      {
-        "env": "",
-        "value": "workingEnv.EditingDetailType=EditingDetailType;"
-      },
-      {
-        "env": "",
-        "value": "workingEnv.ContainerLayout = ContainerLayout;"
-      },
-      {
-        "env": "",
-        "value": "$(ContainerLayout).change(updateContainerLayout);"
-      },
-      {
-        "env": "",
-        "value": "$(RemoveEnv).click(()=>{ M.Modal.init(ConfirmRemoveModal).open();});"
-      }
-    ]
   },
   {
     "layout": "horizontal",

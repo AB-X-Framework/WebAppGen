@@ -15,21 +15,7 @@
     "type": "switch"
   },
   {
-    "specs": [{
-      "env": "",
-      "value": {
-        "src": "/resources/maps/app.Env/entries/modelPath",
-        "title": "Project path",
-        "content": ""
-      }
-    }],
-    "name": "webappgen.home.model",
-    "isContainer": false,
-    "js": [],
-    "type": "textfield"
-  },
-  {
-    "layout": "vertical",
+    "layout": "topLayout",
     "components": [
       {
         "innerId": "header",
@@ -44,6 +30,27 @@
         "env": ""
       }
     ],
+    "name": "webappgen.home.MainHomeComponent",
+    "isContainer": true,
+    "js": []
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "src": "/resources/maps/app.Env/entries/modelPath",
+        "title": "Project path",
+        "content": ""
+      }
+    }],
+    "name": "webappgen.home.model",
+    "isContainer": false,
+    "js": [],
+    "type": "textfield"
+  },
+  {
+    "layout": "topLayout",
+    "components": [],
     "name": "webappgen.home.WelcomePageComponent",
     "isContainer": true,
     "js": []

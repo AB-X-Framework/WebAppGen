@@ -1,6 +1,6 @@
 [
   {
-    "component": "webappgen.home.WelcomePageComponent",
+    "component": "webappgen.home.MainHomeComponent",
     "css": [{
       "env": "",
       "value": "/resources/binary/webappgen/materialize.icons.css"
