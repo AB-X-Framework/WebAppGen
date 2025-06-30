@@ -5,18 +5,27 @@ import java.util.Map;
 
 public class SessionEnv {
 
-    private Map<String, String> asMap;
-    private String asText;
+    private final Map<String, String> asMap;
+    private String[] asText;
 
-    public SessionEnv(String defaultEnv){
-        asText = defaultEnv;
+    public SessionEnv(String defaultEnv) {
         asMap = new HashMap<>();
-        for (String keyPair : asText.split("\\|")){
+        for (String keyPair : defaultEnv.split("\\|")) {
             if (keyPair.isBlank()) {
                 continue;
             }
             String[] pair = keyPair.split("=");
             asMap.put(pair[0], pair[1]);
+        }
+        asText();
+    }
+
+    private void asText() {
+        asText = new String[asMap.size() + 1];
+        int i = 0;
+        asText[0] = "";
+        for (Map.Entry<String, String> entry : asMap.entrySet()) {
+            asText[++i] = entry.getKey() + "=" + entry.getValue();
         }
     }
 
@@ -24,16 +33,17 @@ public class SessionEnv {
         return asMap.get(key);
     }
 
-    public boolean matches(String env){
-        return asText.contains(env);
+    public boolean matches(String env) {
+        for (String key : asText) {
+            if (key.equals(env)) {
+                return true;
+            }
+        }
+        return false;
     }
 
-    public void set(String key, String value){
+    public void set(String key, String value) {
         asMap.put(key, value);
-        StringBuilder sb= new StringBuilder();
-        for (Map.Entry<String,String> keyPair : asMap.entrySet()) {
-            sb.append(keyPair.getKey()).append("=").append(keyPair.getValue()).append("|");
-        }
-        asText = sb.toString();
+        asText();
     }
 }
