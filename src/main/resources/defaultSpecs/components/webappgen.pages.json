@@ -272,7 +272,7 @@
     ]
   },
   {
-    "layout": "vertical",
+    "layout": "horizontal",
     "components": [
       {
         "innerId": "NameSection",

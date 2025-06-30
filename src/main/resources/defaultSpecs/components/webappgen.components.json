@@ -306,7 +306,7 @@
     "js": []
   },
   {
-    "layout": "vertical",
+    "layout": "horizontal",
     "components": [
       {
         "innerId": "ComponentNameContainer",

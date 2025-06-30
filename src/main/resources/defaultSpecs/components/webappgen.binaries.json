@@ -494,7 +494,7 @@
     "type": "button"
   },
   {
-    "layout": "vertical",
+    "layout": "horizontal",
     "components": [
       {
         "innerId": "DetailsPanel",
