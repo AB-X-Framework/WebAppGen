@@ -415,7 +415,7 @@
     "components": [
       {
         "innerId": "header",
-        "component": "webappgen.home.header",
+        "component": "webappgen.home.Header",
         "size": "l2",
         "env": ""
       },

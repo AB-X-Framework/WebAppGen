@@ -1,31 +1,16 @@
 [
   {
-    "specs": [{
-      "env": "",
-      "value": {
-        "cancel": "Don't remove",
-        "src": "/resources/maps/app.Env/entries/hideDefaults",
-        "ok": "Remove",
-        "title": "Remove defaults"
-      }
-    }],
-    "name": "webappgen.home.defaults",
-    "isContainer": false,
-    "js": [],
-    "type": "switch"
-  },
-  {
     "layout": "topLayout",
     "components": [
       {
         "innerId": "header",
-        "component": "webappgen.home.header",
+        "component": "webappgen.home.Header",
         "size": "l12",
         "env": ""
       },
       {
         "innerId": "modelContainer",
-        "component": "webappgen.home.container",
+        "component": "webappgen.home.ContainerMenu",
         "size": "",
         "env": ""
       }
@@ -33,20 +18,6 @@
     "name": "webappgen.home.MainHomeComponent",
     "isContainer": true,
     "js": []
-  },
-  {
-    "specs": [{
-      "env": "",
-      "value": {
-        "src": "/resources/maps/app.Env/entries/modelPath",
-        "title": "Project path",
-        "content": ""
-      }
-    }],
-    "name": "webappgen.home.model",
-    "isContainer": false,
-    "js": [],
-    "type": "textfield"
   },
   {
     "specs": [{
@@ -79,7 +50,7 @@
       "env": "",
       "value": {"title": "Download Model"}
     }],
-    "name": "webappgen.home.download",
+    "name": "webappgen.home.Download",
     "isContainer": false,
     "js": [{
       "env": "",
@@ -119,83 +90,17 @@
     "type": "button"
   },
   {
-    "layout": "container",
-    "components": [
-      {
-        "innerId": "modelPath",
-        "component": "webappgen.home.model",
-        "size": "l6",
-        "env": ""
-      },
-      {
-        "innerId": "removeDefaults",
-        "component": "webappgen.home.defaults",
-        "size": "l6",
-        "env": ""
-      },
-      {
-        "innerId": "load",
-        "component": "webappgen.home.load",
-        "size": "",
-        "env": ""
-      },
-      {
-        "innerId": "save",
-        "component": "webappgen.home.save",
-        "size": "",
-        "env": ""
-      },
-      {
-        "innerId": "download",
-        "component": "webappgen.home.download",
-        "size": "l3",
-        "env": ""
-      },
-      {
-        "innerId": "Upload",
-        "component": "webappgen.home.Upload",
-        "size": "l12",
-        "env": ""
-      },
-      {
-        "innerId": "UploadBtn",
-        "component": "webappgen.home.UploadBtn",
-        "size": "l12",
-        "env": ""
-      },
-      {
-        "innerId": "ConfirmLoadModal",
-        "component": "webappgen.home.ConfirmLoadModal",
-        "size": "l12",
-        "env": ""
-      },
-      {
-        "innerId": "ConfirmSaveModal",
-        "component": "webappgen.home.ConfirmSaveModal",
-        "size": "l12",
-        "env": ""
-      }
-    ],
-    "name": "webappgen.home.container",
-    "isContainer": true,
-    "js": [
-      {
-        "env": "",
-        "value": "$(load).click(()=>{M.Modal.init(ConfirmLoadModal).open();})"
-      },
-      {
-        "env": "",
-        "value": "$(download).click(()=>{\n    downloadModel(removeDefaults.checked);\n}) ;"
-      },
-      {
-        "env": "",
-        "value": "$(UploadBtn).click(()=>{\n   uploadModel(Upload.files[0]); \n});"
-      },
-      {
-        "env": "",
-        "value": "$(save).click(()=>{M.Modal.init(ConfirmSaveModal).open();})"
-      }
-    ]
+    "specs": [{
+      "env": "",
+      "value": {"title": "Load Model"}
+    }],
+    "name": "webappgen.home.Load",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": ""
+    }],
+    "type": "button"
   },
   {
     "layout": "menu",
@@ -274,32 +179,6 @@
   {
     "specs": [{
       "env": "",
-      "value": {"title": "Load Model"}
-    }],
-    "name": "webappgen.home.load",
-    "isContainer": false,
-    "js": [{
-      "env": "",
-      "value": ""
-    }],
-    "type": "button"
-  },
-  {
-    "specs": [{
-      "env": "",
-      "value": {"title": "Save Model"}
-    }],
-    "name": "webappgen.home.save",
-    "isContainer": false,
-    "js": [{
-      "env": "",
-      "value": ""
-    }],
-    "type": "button"
-  },
-  {
-    "specs": [{
-      "env": "",
       "value": {"title": "Methods"}
     }],
     "name": "webappgen.home.ItemMethods",
@@ -350,6 +229,21 @@
     "type": "menuItem"
   },
   {
+    "specs": [{
+      "env": "",
+      "value": {
+        "cancel": "Don't remove",
+        "src": "/resources/maps/app.Env/entries/hideDefaults",
+        "ok": "Remove",
+        "title": "Remove defaults"
+      }
+    }],
+    "name": "webappgen.home.HideDefaults",
+    "isContainer": false,
+    "js": [],
+    "type": "switch"
+  },
+  {
     "specs": [
       {
         "env": "",
@@ -393,6 +287,109 @@
       "value": "for (let elem of self.items){\n    $(elem).click(()=>{\n        $.get(`/session/setLang?lang=${elem.key}`,()=>{location.reload();});\n    });\n}"
     }],
     "type": "menuItems"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "src": "/resources/maps/app.Env/entries/modelPath",
+        "title": "Project path",
+        "content": ""
+      }
+    }],
+    "name": "webappgen.home.ModelPath",
+    "isContainer": false,
+    "js": [],
+    "type": "textfield"
+  },
+  {
+    "layout": "menu",
+    "components": [
+      {
+        "innerId": "Logo",
+        "component": "webappgen.home.ImgItem",
+        "size": "left",
+        "env": ""
+      },
+      {
+        "innerId": "elem1",
+        "component": "webappgen.home.LogOut",
+        "size": "right",
+        "env": ""
+      },
+      {
+        "innerId": "Language",
+        "component": "webappgen.home.Language",
+        "size": "right",
+        "env": ""
+      },
+      {
+        "innerId": "Methods",
+        "component": "webappgen.home.ItemMethods",
+        "size": "right",
+        "env": ""
+      },
+      {
+        "innerId": "elem4",
+        "component": "webappgen.home.ItemUsers",
+        "size": "right",
+        "env": ""
+      },
+      {
+        "innerId": "JS",
+        "component": "webappgen.home.ItemJS",
+        "size": "right",
+        "env": ""
+      },
+      {
+        "innerId": "Binaries",
+        "component": "webappgen.home.ItemBinaries",
+        "size": "right",
+        "env": ""
+      },
+      {
+        "innerId": "Text",
+        "component": "webappgen.home.ItemTexts",
+        "size": "right",
+        "env": ""
+      },
+      {
+        "innerId": "Arrays",
+        "component": "webappgen.home.ItemArrays",
+        "size": "right",
+        "env": ""
+      },
+      {
+        "innerId": "Maps",
+        "component": "webappgen.home.ItemMaps",
+        "size": "right",
+        "env": ""
+      },
+      {
+        "innerId": "Pages",
+        "component": "webappgen.home.ItemPages",
+        "size": "right",
+        "env": ""
+      },
+      {
+        "innerId": "Components",
+        "component": "webappgen.home.ItemComponents",
+        "size": "right",
+        "env": ""
+      },
+      {
+        "innerId": "Home",
+        "component": "webappgen.home.ItemHome",
+        "size": "right",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.home.Header",
+    "isContainer": true,
+    "js": [{
+      "env": "",
+      "value": "let url = document.location.href ;\nlet lastSegment = url.substring(url.indexOf(\"/page/\") + 6);\n\nPageContent.setActiveMenuItemText(self,lastSegment);"
+    }]
   },
   {
     "specs": [{
@@ -509,6 +506,98 @@
   {
     "specs": [{
       "env": "",
+      "value": {"title": "Save Model"}
+    }],
+    "name": "webappgen.home.SaveBtn",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": ""
+    }],
+    "type": "button"
+  },
+  {
+    "layout": "container",
+    "components": [
+      {
+        "innerId": "modelPath",
+        "component": "webappgen.home.ModelPath",
+        "size": "l6",
+        "env": ""
+      },
+      {
+        "innerId": "removeDefaults",
+        "component": "webappgen.home.HideDefaults",
+        "size": "l6",
+        "env": ""
+      },
+      {
+        "innerId": "load",
+        "component": "webappgen.home.Load",
+        "size": "",
+        "env": ""
+      },
+      {
+        "innerId": "save",
+        "component": "webappgen.home.SaveBtn",
+        "size": "",
+        "env": ""
+      },
+      {
+        "innerId": "download",
+        "component": "webappgen.home.Download",
+        "size": "l3",
+        "env": ""
+      },
+      {
+        "innerId": "Upload",
+        "component": "webappgen.home.Upload",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "UploadBtn",
+        "component": "webappgen.home.UploadBtn",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "ConfirmLoadModal",
+        "component": "webappgen.home.ConfirmLoadModal",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "ConfirmSaveModal",
+        "component": "webappgen.home.ConfirmSaveModal",
+        "size": "l12",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.home.ContainerMenu",
+    "isContainer": true,
+    "js": [
+      {
+        "env": "",
+        "value": "$(load).click(()=>{M.Modal.init(ConfirmLoadModal).open();})"
+      },
+      {
+        "env": "",
+        "value": "$(download).click(()=>{\n    downloadModel(removeDefaults.checked);\n}) ;"
+      },
+      {
+        "env": "",
+        "value": "$(UploadBtn).click(()=>{\n   uploadModel(Upload.files[0]); \n});"
+      },
+      {
+        "env": "",
+        "value": "$(save).click(()=>{M.Modal.init(ConfirmSaveModal).open();})"
+      }
+    ]
+  },
+  {
+    "specs": [{
+      "env": "",
       "value": {"src": "/resources/binary/webappgen/abx.png"}
     }],
     "name": "webappgen.home.ImgItem",
@@ -530,95 +619,6 @@
     "isContainer": false,
     "js": [],
     "type": "section"
-  },
-  {
-    "layout": "menu",
-    "components": [
-      {
-        "innerId": "Logo",
-        "component": "webappgen.home.ImgItem",
-        "size": "left",
-        "env": ""
-      },
-      {
-        "innerId": "elem1",
-        "component": "webappgen.home.LogOut",
-        "size": "right",
-        "env": ""
-      },
-      {
-        "innerId": "Language",
-        "component": "webappgen.home.Language",
-        "size": "right",
-        "env": ""
-      },
-      {
-        "innerId": "Methods",
-        "component": "webappgen.home.ItemMethods",
-        "size": "right",
-        "env": ""
-      },
-      {
-        "innerId": "elem4",
-        "component": "webappgen.home.ItemUsers",
-        "size": "right",
-        "env": ""
-      },
-      {
-        "innerId": "JS",
-        "component": "webappgen.home.ItemJS",
-        "size": "right",
-        "env": ""
-      },
-      {
-        "innerId": "Binaries",
-        "component": "webappgen.home.ItemBinaries",
-        "size": "right",
-        "env": ""
-      },
-      {
-        "innerId": "Text",
-        "component": "webappgen.home.ItemTexts",
-        "size": "right",
-        "env": ""
-      },
-      {
-        "innerId": "Arrays",
-        "component": "webappgen.home.ItemArrays",
-        "size": "right",
-        "env": ""
-      },
-      {
-        "innerId": "Maps",
-        "component": "webappgen.home.ItemMaps",
-        "size": "right",
-        "env": ""
-      },
-      {
-        "innerId": "Pages",
-        "component": "webappgen.home.ItemPages",
-        "size": "right",
-        "env": ""
-      },
-      {
-        "innerId": "Components",
-        "component": "webappgen.home.ItemComponents",
-        "size": "right",
-        "env": ""
-      },
-      {
-        "innerId": "Home",
-        "component": "webappgen.home.ItemHome",
-        "size": "right",
-        "env": ""
-      }
-    ],
-    "name": "webappgen.home.header",
-    "isContainer": true,
-    "js": [{
-      "env": "",
-      "value": "let url = document.location.href ;\nlet lastSegment = url.substring(url.indexOf(\"/page/\") + 6);\n\nPageContent.setActiveMenuItemText(self,lastSegment);"
-    }]
   },
   {
     "specs": [{

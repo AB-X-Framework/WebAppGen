@@ -34,7 +34,7 @@
     "components": [
       {
         "innerId": "elem0",
-        "component": "webappgen.home.header",
+        "component": "webappgen.home.Header",
         "size": "l12",
         "env": ""
       },

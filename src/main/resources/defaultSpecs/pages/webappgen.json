@@ -144,6 +144,30 @@
     "matches": "Texts"
   },
   {
+    "component": "webappgen.methods.MainMethodComponent",
+    "css": [{
+      "env": "",
+      "value": "/resources/binary/webappgen/materialize.icons.css"
+    }],
+    "role": "Admin",
+    "name": "webappgen.Users",
+    "title": [{
+      "env": "",
+      "value": "Methods"
+    }],
+    "scripts": [
+      {
+        "env": "",
+        "value": "/resources/binary/webappgen/utils.js"
+      },
+      {
+        "env": "",
+        "value": "/resources/binary/webappgen/maps.js"
+      }
+    ],
+    "matches": "Users"
+  },
+  {
     "component": "webappgen.components.MainComponent",
     "css": [{
       "env": "",
