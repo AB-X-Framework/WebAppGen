@@ -54,5 +54,12 @@
     "name": "webappgen.loadModel",
     "description": "Load model",
     "type": "json"
+  },
+  {
+    "outputName": "arrayValues",
+    "role": "Admin",
+    "name": "webappgen.userList",
+    "description": "Map values",
+    "type": "json"
   }
 ]
