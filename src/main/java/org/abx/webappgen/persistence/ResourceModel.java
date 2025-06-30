@@ -93,6 +93,24 @@ public class ResourceModel {
         return jsonArray;
     }
 
+    @Transactional
+    public JSONArray getUsers( int page, int size) {
+        // Assuming elementHashCode returns the ID of the resource
+        // Get the MapResource or throw if not found
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.by("username").ascending());
+        // Use the custom query
+        org.springframework.data.domain.Page<User> pageResult =
+                userRepository.findAll(pageRequest);
+        JSONArray jsonArray = new JSONArray();
+        for (User entry : pageResult.getContent()) {
+            JSONObject jsonObject = new JSONObject();
+            jsonArray.put(jsonObject);
+            jsonObject.put("name", entry.username);
+            jsonObject.put("role", entry.role);
+        }
+        return jsonArray;
+    }
+
     /**
      * Return title + content + owner
      *
