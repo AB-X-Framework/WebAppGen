@@ -1,0 +1,71 @@
+[
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "New User"}
+    }],
+    "name": "webappgen.users.NewUser",
+    "isContainer": false,
+    "js": [],
+    "type": "button"
+  },
+  {
+    "layout": "horizontal",
+    "components": [
+      {
+        "innerId": "elem0",
+        "component": "webappgen.users.LeftPanel",
+        "size": "l2",
+        "env": ""
+      },
+      {
+        "innerId": "elem1",
+        "component": "webappgen.users.RightPanel",
+        "size": "l10",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.users.Body",
+    "isContainer": true,
+    "js": []
+  },
+  {
+    "layout": "topLayout",
+    "components": [
+      {
+        "innerId": "elem0",
+        "component": "webappgen.home.header",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "elem1",
+        "component": "webappgen.users.Body",
+        "size": "l12",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.users.MainComponent",
+    "isContainer": true,
+    "js": []
+  },
+  {
+    "layout": "vertical",
+    "components": [{
+      "innerId": "elem0",
+      "component": "webappgen.users.NewUser",
+      "size": "",
+      "env": ""
+    }],
+    "name": "webappgen.users.LeftPanel",
+    "isContainer": true,
+    "js": []
+  },
+  {
+    "layout": "vertical",
+    "components": [],
+    "name": "webappgen.users.RightPanel",
+    "isContainer": true,
+    "js": []
+  }
+]

@@ -24,7 +24,8 @@
     "webappgen.pages.env",
     "webappgen.pages.new",
     "webappgen.pages.rename",
-    "webappgen.texts"
+    "webappgen.texts",
+    "webappgen.users"
   ],
   "pages": ["webappgen"],
   "methods": ["webappgen"],
