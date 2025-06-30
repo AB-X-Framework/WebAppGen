@@ -426,7 +426,7 @@
         "env": ""
       }
     ],
-    "name": "webappgen.components.ComponentsPageComponent",
+    "name": "webappgen.components.MainComponent",
     "isContainer": true,
     "js": []
   },

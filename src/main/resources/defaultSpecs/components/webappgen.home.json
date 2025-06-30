@@ -49,13 +49,6 @@
     "type": "textfield"
   },
   {
-    "layout": "topLayout",
-    "components": [],
-    "name": "webappgen.home.WelcomePageComponent",
-    "isContainer": true,
-    "js": []
-  },
-  {
     "specs": [{
       "env": "",
       "value": {"title": "Home"}

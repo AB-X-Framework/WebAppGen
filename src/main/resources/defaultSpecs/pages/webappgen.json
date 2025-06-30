@@ -144,7 +144,7 @@
     "matches": "Texts"
   },
   {
-    "component": "webappgen.components.ComponentsPageComponent",
+    "component": "webappgen.components.MainComponent",
     "css": [{
       "env": "",
       "value": "/resources/binary/webappgen/materialize.icons.css"
