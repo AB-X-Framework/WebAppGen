@@ -306,114 +306,114 @@
     "js": []
   },
   {
-    "layout": "horizontal",
+    "layout": "vertical",
     "components": [
       {
         "innerId": "ComponentNameContainer",
         "component": "webappgen.components.ComponentNameContainer",
-        "size": "l12",
+        "size": "",
         "env": ""
       },
       {
         "innerId": "containerAndComponent",
         "component": "webappgen.components.containerAndComponent",
-        "size": "l12",
+        "size": "",
         "env": ""
       },
       {
         "innerId": "SpecsEnv",
         "component": "webappgen.components.env.Env",
-        "size": "l1",
+        "size": "",
         "env": ""
       },
       {
         "innerId": "SpecsSource",
         "component": "webappgen.components.specs.SpecsSource",
-        "size": "l2",
+        "size": "",
         "env": ""
       },
       {
         "innerId": "SpecsLabel",
         "component": "webappgen.components.specs.SpecsLabel",
-        "size": "l12",
+        "size": "",
         "env": ""
       },
       {
         "innerId": "SpecsTitle",
         "component": "webappgen.components.specs.SpecsTitle",
-        "size": "l2",
+        "size": "",
         "env": ""
       },
       {
         "innerId": "SpecsContent",
         "component": "webappgen.components.specs.SpecsContent",
-        "size": "l2",
+        "size": "",
         "env": ""
       },
       {
         "innerId": "SpecsHeight",
         "component": "webappgen.components.specs.SpecsHeight",
-        "size": "l2",
+        "size": "",
         "env": ""
       },
       {
         "innerId": "SpecsContentArea",
         "component": "webappgen.components.specs.SpecsContentArea",
-        "size": "l12",
+        "size": "",
         "env": ""
       },
       {
         "innerId": "SpecsSize",
         "component": "webappgen.components.specs.SpecsSize",
-        "size": "l2",
+        "size": "",
         "env": ""
       },
       {
         "innerId": "SelectContainer",
         "component": "webappgen.components.select.Container",
-        "size": "l2",
+        "size": "",
         "env": ""
       },
       {
         "innerId": "SpecsJSContainer",
         "component": "webappgen.components.specs.SpecsJSContainer",
-        "size": "l11",
+        "size": "",
         "env": ""
       },
       {
         "innerId": "ChildrenComponentClass",
         "component": "webappgen.components.container.ChildrenComponentClass",
-        "size": "l4",
+        "size": "",
         "env": ""
       },
       {
         "innerId": "ChildrenEditingDetailType",
         "component": "webappgen.components.container.ChildrenEditingDetailType",
-        "size": "l4",
+        "size": "",
         "env": ""
       },
       {
         "innerId": "SpecsOkCancelContainer",
         "component": "webappgen.components.SpecsOkCancelContainer",
-        "size": "l4",
+        "size": "",
         "env": ""
       },
       {
         "innerId": "ChooseEnv",
         "component": "webappgen.components.ChooseEnv",
-        "size": "l12",
+        "size": "",
         "env": ""
       },
       {
         "innerId": "divider2",
         "component": "webappgen.base.divider",
-        "size": "l12",
+        "size": "",
         "env": ""
       },
       {
         "innerId": "componentShow",
         "component": "webappgen.base.div",
-        "size": "l12",
+        "size": "",
         "env": ""
       }
     ],
