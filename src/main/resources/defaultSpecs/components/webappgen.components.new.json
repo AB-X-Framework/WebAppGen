@@ -16,15 +16,14 @@
     "specs": [{
       "env": "",
       "value": {
-        "size": "div",
-        "title": "",
+        "src": "",
         "content": "Please set the new component name"
       }
     }],
     "name": "webappgen.components.new.NewComponentText",
     "isContainer": false,
     "js": [],
-    "type": "section"
+    "type": "label"
   },
   {
     "layout": "popup",

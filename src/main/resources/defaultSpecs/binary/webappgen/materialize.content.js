@@ -416,10 +416,9 @@ class PageContent {
     }
 
     static renderLabel(output, js, specs) {
-        var results =
-            `<p id="${specs.id}" class="grey-text text-darken-3">
-             ${specs.content.replaceAll("\n", "</><p class=\"grey-text text-darken-3\">")}
-             </p>`;
+        var results =  `<p id="${specs.id}"  class="${PageContent.global.themeText}">
+            ${specs.content.replaceAll("\n", `</><p class=\"${PageContent.global.themeText}\">`)}
+        </p>`;
         output.push(results);
     }
 
