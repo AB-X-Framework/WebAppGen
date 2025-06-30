@@ -22,7 +22,7 @@
   {
     "specs": [
       {
-        "env": "ES",
+        "env": "lang=ES",
         "value": {
           "title": "Su contraseña",
           "content": "Contraseña"
@@ -152,7 +152,7 @@
   {
     "specs": [
       {
-        "env": "ES",
+        "env": "lang=ES",
         "value": {
           "label": "Usuario",
           "title": "Su nombre de usuario"
