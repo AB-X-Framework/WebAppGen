@@ -117,6 +117,26 @@
     "type": "textarea"
   },
   {
+    "layout": "topLayout",
+    "components": [
+      {
+        "innerId": "header",
+        "component": "webappgen.home.header",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "modelContainer",
+        "component": "webappgen.arrays.ArrayBody",
+        "size": "",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.arrays.MainArrayComponent",
+    "isContainer": true,
+    "js": []
+  },
+  {
     "specs": [{
       "env": "",
       "value": {
@@ -194,26 +214,6 @@
       "value": "workingEnv.DeletePopup = self;\n\n$(self.ok).click(()=>{\n    const responseFx = (status)=>{\n            if (status.success){\n                PageContent.closeModal(workingEnv.DeletePopup);\n                workingEnv.renderArray();\n            } else {\n                PageContent.showModal(`Cannot delete ${self.key}. ${JSON.stringify(status.error)}`)\n            }\n        };\n    \n    $.ajax({\n        \"type\": 'DELETE',\n        \"url\":`/resources/arrays/${workingEnv.arrayName}/entries/${self.key}`,\n        \"success\":responseFx\n    });\n});\n\nself.setKey=(key)=>{\n    self.key = key;\n}"
     }],
     "type": "okCancelModal"
-  },
-  {
-    "layout": "vertical",
-    "components": [
-      {
-        "innerId": "header",
-        "component": "webappgen.home.header",
-        "size": "l12",
-        "env": ""
-      },
-      {
-        "innerId": "modelContainer",
-        "component": "webappgen.arrays.ArrayBody",
-        "size": "",
-        "env": ""
-      }
-    ],
-    "name": "webappgen.arrays.MainMapComponent",
-    "isContainer": true,
-    "js": []
   },
   {
     "layout": "vertical",

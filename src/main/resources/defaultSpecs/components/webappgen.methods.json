@@ -294,7 +294,7 @@
     "js": []
   },
   {
-    "layout": "vertical",
+    "layout": "topLayout",
     "components": [
       {
         "innerId": "header",

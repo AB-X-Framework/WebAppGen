@@ -168,7 +168,7 @@
     "matches": "Components"
   },
   {
-    "component": "webappgen.arrays.MainMapComponent",
+    "component": "webappgen.arrays.MainArrayComponent",
     "css": [{
       "env": "",
       "value": "/resources/binary/webappgen/materialize.icons.css"
