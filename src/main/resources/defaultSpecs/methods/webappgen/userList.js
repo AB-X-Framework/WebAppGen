@@ -1,8 +1,7 @@
-var array;
 var page;
 var size;
 
-function arrayValues() {
+function userList() {
     function createChild(curr, key, value, id) {
 
         const delId= `d_${id}`;
@@ -33,13 +32,13 @@ function arrayValues() {
     }
 
     const children = [];
-    const entries = resourceModel.getArrayEntries(array, page, size);
+    const entries = resourceModel.getUsers(page, size);
     const len = entries.length();
     let curr = page*size+1;
     for (let i = 0; i < len; ++i) {
         const elem = entries.get(i);
-        const key = elem.get("key");
-        const value = elem.get("value");
+        const key = elem.get("name");
+        const value = elem.get("role");
         const id = `array_${parseInt(Math.random() * 1000000)}`;
         children.push(createChild(curr,key, value, id));
         ++curr;

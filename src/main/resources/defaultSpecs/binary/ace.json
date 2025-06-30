@@ -26,6 +26,12 @@
   {
     "owner": "root@abxwebappgen.org",
     "role": "Anonymous",
+    "name": "ace/ext-searchbox.js",
+    "contentType": "text/javascript"
+  },
+  {
+    "owner": "root@abxwebappgen.org",
+    "role": "Anonymous",
     "name": "ace/ace.js",
     "contentType": "text/javascript"
   },
@@ -33,12 +39,6 @@
     "owner": "root@abxwebappgen.org",
     "role": "Anonymous",
     "name": "ace/worker-javascript.js",
-    "contentType": "text/javascript"
-  },
-  {
-    "owner": "root@abxwebappgen.org",
-    "role": "Anonymous",
-    "name": "ace/ext-searchbox.js",
     "contentType": "text/javascript"
   }
 ]

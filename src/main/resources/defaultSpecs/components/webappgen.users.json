@@ -1,5 +1,25 @@
 [
   {
+    "layout": "horizontal",
+    "components": [
+      {
+        "innerId": "elem1",
+        "component": "webappgen.users.Prev",
+        "size": "",
+        "env": ""
+      },
+      {
+        "innerId": "elem0",
+        "component": "webappgen.users.Next",
+        "size": "",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.users.PrevNext",
+    "isContainer": true,
+    "js": []
+  },
+  {
     "specs": [{
       "env": "",
       "value": {"title": "New User"}
@@ -10,16 +30,29 @@
     "type": "button"
   },
   {
+    "specs": [{
+      "env": "",
+      "value": {
+        "src": "",
+        "content": "Status"
+      }
+    }],
+    "name": "webappgen.users.Label",
+    "isContainer": false,
+    "js": [],
+    "type": "label"
+  },
+  {
     "layout": "horizontal",
     "components": [
       {
-        "innerId": "elem0",
+        "innerId": "LeftPanel",
         "component": "webappgen.users.LeftPanel",
         "size": "l2",
         "env": ""
       },
       {
-        "innerId": "elem1",
+        "innerId": "RightPanel",
         "component": "webappgen.users.RightPanel",
         "size": "l10",
         "env": ""
@@ -27,7 +60,36 @@
     ],
     "name": "webappgen.users.Body",
     "isContainer": true,
-    "js": []
+    "js": [{
+      "env": "",
+      "value": "workingEnv={};\nworkingEnv.currPage=0;\nworkingEnv.entriesPerPage=10;\nApp.process(\"webappgen.userList\",{\n        \"page\":workingEnv.currPage,\n        \"size\":workingEnv.entriesPerPage\n    },(componentSpecs)=>{\n        const init = (workingEnv.currPage*workingEnv.entriesPerPage)+1;\n        let end = ((workingEnv.currPage+1)*workingEnv.entriesPerPage);\n        end = Math.min(workingEnv.entryCount,end);\n        $(LeftPanel.Label).text(`Entries ${init} - ${end} of ${workingEnv.entryCount}`);\n        workingEnv.updatedArray = {};\n        componentSpecs.js = \"\";\n        const output = [];\n        const js =[];\n        PageContent.renderComponent(output, js, componentSpecs);\n        $(RightPanel).html(output.join(\"\"));\n        M.updateTextFields();\n        PageContent.processJS(js);\n    });"
+    }]
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": ">"}
+    }],
+    "name": "webappgen.users.Next",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "$(self).click(()=>{\n    workingEnv.currPage+=1;\n    workingEnv.renderNextValues();\n});"
+    }],
+    "type": "button"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "<"}
+    }],
+    "name": "webappgen.users.Prev",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "$(self).click(()=>{\n    workingEnv.currPage=Math.max(0,workingEnv.currPage-1);\n    workingEnv.renderNextValues();\n});"
+    }],
+    "type": "button"
   },
   {
     "layout": "topLayout",
@@ -51,12 +113,26 @@
   },
   {
     "layout": "vertical",
-    "components": [{
-      "innerId": "elem0",
-      "component": "webappgen.users.NewUser",
-      "size": "",
-      "env": ""
-    }],
+    "components": [
+      {
+        "innerId": "elem0",
+        "component": "webappgen.users.NewUser",
+        "size": "",
+        "env": ""
+      },
+      {
+        "innerId": "Label",
+        "component": "webappgen.users.Label",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "elem2",
+        "component": "webappgen.users.PrevNext",
+        "size": "l12",
+        "env": ""
+      }
+    ],
     "name": "webappgen.users.LeftPanel",
     "isContainer": true,
     "js": []
