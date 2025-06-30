@@ -126,7 +126,8 @@ class PageContent {
 
     static renderScripts(output, jsList) {
         for (var js of jsList) {
-            output.push(`<script src="${js}"></script>`)
+            $.getScript(js)
+            //output.push(`<script src="${js}"></script>`)
         }
     }
 
