@@ -273,7 +273,6 @@ class PageContent {
         let finalIndex = componentSpecs.children.length - 1;
         for (var i = 0; i < finalIndex; ++i) {
             componentSpecs.children[i].size +=" modal-content";
-            console.log(JSON.stringify(componentSpecs.children[i]))
             PageContent.renderComponent(output, js, componentSpecs.children[i]);
         }
         output.push('</div> <div class="modal-footer">');
@@ -520,21 +519,21 @@ class PageContent {
     }
 
     static renderJsEditor(output, js, specs) {
-        var result = `
-    <script src="/resources/binary/ace/ace.js"></script>
-    <div id="${specs.id}" style="height: ${specs.height}; width: 100%">${specs.content}</div>
-    <script>
-       { const editor = ace.edit("${specs.id}");
-        editor.setTheme("ace/theme/monokai"); // Change theme if desired
-        editor.session.setMode("ace/mode/javascript"); // JS highlighting
-        editor.setOptions({
-            fontSize: "14px",
-            showPrintMargin: false,
-            wrap: true,
-            useWorker: true // Enables JS syntax checking
-        });
-        }
-    </script>`;
+        var result = `<script src="/resources/binary/ace/ace.js"></script>
+        <script src="/resources/binary/ace/ext-searchbox.js"></script>
+        <div id="${specs.id}" style="height: ${specs.height}; width: 100%">${specs.content}</div>
+        <script> { 
+            const editor = ace.edit("${specs.id}");
+            editor.setTheme("ace/theme/monokai"); // Change theme if desired
+            editor.session.setMode("ace/mode/javascript"); // JS highlighting
+            editor.setOptions({
+                fontSize: "14px",
+                showPrintMargin: false,
+                wrap: true,
+                useWorker: true // Enables JS syntax checking
+            });
+            const searchBox = ace.require("ace/ext/searchbox");
+        } </script>`;
         output.push(result);
     }
 
