@@ -48,14 +48,13 @@
     "specs": [{
       "env": "",
       "value": {
-        "size": "div",
-        "title": "",
+        "src": "",
         "content": "Please set new page name"
       }
     }],
     "name": "webappgen.pages.rename.RenamePageText",
     "isContainer": false,
     "js": [],
-    "type": "section"
+    "type": "label"
   }
 ]

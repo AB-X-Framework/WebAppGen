@@ -45,15 +45,14 @@
     "specs": [{
       "env": "",
       "value": {
-        "size": "div",
-        "title": "",
+        "src": "",
         "content": "Please set the new page name"
       }
     }],
     "name": "webappgen.pages.new.NewPageText",
     "isContainer": false,
     "js": [],
-    "type": "section"
+    "type": "label"
   },
   {
     "specs": [{

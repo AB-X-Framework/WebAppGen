@@ -48,14 +48,13 @@
     "specs": [{
       "env": "",
       "value": {
-        "size": "div",
-        "title": "",
+        "src": "",
         "content": "Please set new component name"
       }
     }],
     "name": "webappgen.components.rename.RenameComponentText",
     "isContainer": false,
     "js": [],
-    "type": "section"
+    "type": "label"
   }
 ]
