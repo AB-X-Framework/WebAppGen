@@ -645,11 +645,15 @@ class PageContent {
             `);
     }
     
-    static processItems(elemId,src){
-        let elem = eval(elemId);
+    static processItems(mainId,dropoboxId,src){
+        let main = eval(mainId);
+        let dropobox = eval(dropoboxId);
         $.get(src,(result)=>{
             for (let entry of result){
-                $(elem).append(`<li><a class="${PageContent.global.themeText}" id="${elemId}_${entry}" href="#">${entry}</a></li>`);
+                $(dropobox).append(`<li><a class="${PageContent.global.themeText}" id="${mainId}_${entry}" href="#">${entry}</a></li>`);
+                main[entry]= entry;
+                main.items.push(`${mainId}_${entry}`);
+                eval(`${mainId}_${entry}.key="${entry}"`);
             }
         });
     }
@@ -667,7 +671,7 @@ class PageContent {
                 js.push(`${innerSpecs.id}_${entry.value}.key="${entry.value}"`)
             }
         }else {
-           js.push(`PageContent.processItems(${dropdownData},"${innerSpecs.src}")`)
+           js.push(`PageContent.processItems("${innerSpecs.id}","${dropdownData}","${innerSpecs.src}")`)
         }
         output.push(`</ul>`);
         output.push(`<ul class="${specs.size}">
