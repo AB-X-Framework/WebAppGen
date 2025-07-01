@@ -32,6 +32,10 @@
   "resources": {
     "array": [
       {
+        "package": "webappgen",
+        "name": "webappgen.language"
+      },
+      {
         "package": "app",
         "name": "app.Envs"
       },

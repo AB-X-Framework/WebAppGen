@@ -59,6 +59,42 @@
     "type": "button"
   },
   {
+    "specs": [
+      {
+        "env": "",
+        "value": {
+          "src": "/resources/array/webappgen.language",
+          "values": [],
+          "title": "Language"
+        }
+      },
+      {
+        "env": "ES",
+        "value": {
+          "src": "",
+          "values": [
+            {
+              "text": "ES",
+              "value": "ES"
+            },
+            {
+              "text": "EN",
+              "value": "en"
+            }
+          ],
+          "title": "Idioma"
+        }
+      }
+    ],
+    "name": "webappgen.home.Language_2",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "for (let elem of self.items){\n    $(elem).click(()=>{\n        $.get(`/session/setLang?lang=${elem.key}`,()=>{location.reload();});\n    });\n}"
+    }],
+    "type": "menuItems"
+  },
+  {
     "specs": [{
       "env": "",
       "value": {
@@ -124,8 +160,8 @@
         "env": ""
       },
       {
-        "innerId": "Methods",
-        "component": "webappgen.home.ItemMethods",
+        "innerId": "L2",
+        "component": "webappgen.home.Language_2",
         "size": "right",
         "env": ""
       },
@@ -138,36 +174,6 @@
       {
         "innerId": "Text",
         "component": "webappgen.home.ItemTexts",
-        "size": "right",
-        "env": ""
-      },
-      {
-        "innerId": "Arrays",
-        "component": "webappgen.home.ItemArrays",
-        "size": "right",
-        "env": ""
-      },
-      {
-        "innerId": "Maps",
-        "component": "webappgen.home.ItemMaps",
-        "size": "right",
-        "env": ""
-      },
-      {
-        "innerId": "Pages",
-        "component": "webappgen.home.ItemPages",
-        "size": "right",
-        "env": ""
-      },
-      {
-        "innerId": "Components",
-        "component": "webappgen.home.ItemComponents",
-        "size": "right",
-        "env": ""
-      },
-      {
-        "innerId": "Home",
-        "component": "webappgen.home.ItemHome",
         "size": "right",
         "env": ""
       }
