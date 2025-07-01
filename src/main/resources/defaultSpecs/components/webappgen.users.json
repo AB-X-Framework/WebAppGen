@@ -34,6 +34,30 @@
       "env": "",
       "value": {
         "src": "",
+        "values": [
+          {
+            "text": "User",
+            "value": "User"
+          },
+          {
+            "text": "Admin",
+            "value": "Admin"
+          }
+        ],
+        "title": "User Role",
+        "content": ""
+      }
+    }],
+    "name": "webappgen.users.UserRole",
+    "isContainer": false,
+    "js": [],
+    "type": "select"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "src": "",
         "content": "Status"
       }
     }],
@@ -46,19 +70,25 @@
     "layout": "popup",
     "components": [
       {
-        "innerId": "elem0",
+        "innerId": "Username",
         "component": "webappgen.users.NewUserText",
         "size": "l12",
         "env": ""
       },
       {
-        "innerId": "elem1",
+        "innerId": "UserPassword",
         "component": "webappgen.users.NewUserPassword",
         "size": "l12",
         "env": ""
       },
       {
-        "innerId": "elem1",
+        "innerId": "UserRole",
+        "component": "webappgen.users.UserRole",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "ConfirmUser",
         "component": "webappgen.users.NewUserConfirmBtn",
         "size": "l12",
         "env": ""
@@ -66,7 +96,10 @@
     ],
     "name": "webappgen.users.NewUserModal",
     "isContainer": true,
-    "js": []
+    "js": [{
+      "env": "",
+      "value": "$(self.ConfirmUser).click(()=>{\n    $.post(\"/resources/users\",\n    {\n        \"name\":$(self.Username).val(),\n        \"password\":$(self.UserPassword).val(),\n        \"role\":$(self.UserRole).val()\n    },(status)=>{\n        if (status.success){\n            PageContent.closeModal(self);\n        }else {\n            PagenContent.showModal(JSON.stringify(status.error));\n        }\n    })\n})"
+    }]
   },
   {
     "layout": "horizontal",
