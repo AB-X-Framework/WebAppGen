@@ -3,6 +3,8 @@ package org.abx.webappgen.controller;
 import jakarta.servlet.http.HttpServletRequest;
 import org.abx.util.Pair;
 import org.abx.webappgen.persistence.ResourceModel;
+import org.abx.webappgen.persistence.UserModel;
+import org.abx.webappgen.persistence.dao.UserRepository;
 import org.apache.tika.Tika;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -29,6 +31,10 @@ public class ResourceController extends RoleController {
     private static final Tika tika = new Tika();
     @Autowired
     private ResourceModel resourceModel;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private UserModel userModel;
 
     @GetMapping(value = "/texts/{resource}", produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("permitAll()")
@@ -426,6 +432,22 @@ public class ResourceController extends RoleController {
     @GetMapping(value = "/users/count", produces = MediaType.APPLICATION_JSON_VALUE)
     public long getUsersCount() {
         return resourceModel.userCount();
+    }
+
+    @Secured("Admin")
+    @PostMapping(value = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String createUser(
+            @RequestParam String name,
+            @RequestParam String password,
+            @RequestParam String role) {
+        JSONObject status = new JSONObject();
+        try {
+            userModel.createUserIfNotFound(name, password, role);
+            status.put("success", true);
+        } catch (Exception e) {
+            status.put("success", false);
+        }
+        return status.toString();
     }
 
 
