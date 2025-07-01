@@ -240,6 +240,30 @@
     "matches": "JS"
   },
   {
+    "component": "webappgen.arrays.MainArrayComponent",
+    "css": [{
+      "env": "",
+      "value": "/resources/binary/webappgen/materialize.icons.css"
+    }],
+    "role": "Admin",
+    "name": "webappgen.ArraysPairs",
+    "title": [{
+      "env": "",
+      "value": "Arrays"
+    }],
+    "scripts": [
+      {
+        "env": "",
+        "value": "/resources/binary/webappgen/utils.js"
+      },
+      {
+        "env": "",
+        "value": "/resources/binary/webappgen/maps.js"
+      }
+    ],
+    "matches": "ArrayPairs"
+  },
+  {
     "component": "webappgen.binaries.MainBinaryComponent",
     "css": [{
       "env": "",

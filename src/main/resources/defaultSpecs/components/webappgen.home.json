@@ -128,6 +128,19 @@
   {
     "specs": [{
       "env": "",
+      "value": {"title": "ArrayPairs"}
+    }],
+    "name": "webappgen.home.ItemArrayPair",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "$(self).click(()=>{\n   document.location= \"/page/ArrayPairs\"; \n});"
+    }],
+    "type": "menuItem"
+  },
+  {
+    "specs": [{
+      "env": "",
       "value": {"title": "Load Model"}
     }],
     "name": "webappgen.home.Load",
@@ -356,6 +369,12 @@
       {
         "innerId": "Text",
         "component": "webappgen.home.ItemTexts",
+        "size": "right",
+        "env": ""
+      },
+      {
+        "innerId": "ArrayPairs",
+        "component": "webappgen.home.ItemArrayPair",
         "size": "right",
         "env": ""
       },
