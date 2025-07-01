@@ -2,15 +2,17 @@ var page;
 var size;
 
 function userList() {
-    function createChild(curr, key, value, id) {
+    function createChild(curr, username, value, id) {
 
         const delId= `d_${id}`;
-        const escapedKey = JSON.stringify(key);
+        const escapedKey = JSON.stringify(username);
         const textfield= {
-            "specs": {"title": `${curr}`, "content": value},
+            "specs": {"title": `${username}`, "content": value, "values":[
+                {"value":"User","text":"User"},
+                {"value":"Admin","text":"Admin"}]},
             js: `$(${id}).on('input',()=>{workingEnv.SaveArray.markChanged();workingEnv.updatedArray[(${escapedKey})]=$(${id}).val()})`,
             "isContainer": false,
-            "type": "textarea",
+            "type": "select",
             "size": "l11",
             "id": id
         }

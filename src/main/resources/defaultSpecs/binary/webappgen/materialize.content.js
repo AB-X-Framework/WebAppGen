@@ -436,7 +436,6 @@ class PageContent {
     }
 
     static renderAutocomplete(output, js, specs) {
-        //PageContent.renderSelect(output,js,specs);
         output.push(` <div class="input-field" >
             <input type="text" id="${specs.id}" class="autocomplete">
           <label  for="${specs.id}">${specs.title}</label></div>`);
@@ -492,9 +491,16 @@ class PageContent {
             }
         } else {
             let optionsHtml;
+            let blankSelected = "selected";
             if (typeof specs.values !== "undefined") {
-                optionsHtml = specs.values.map(item =>
-                    `<option  value="${item.value}">${item.text}</option>`
+                optionsHtml = specs.values.map(item =>{
+                        if ( specs.content === item.value){
+                            blankSelected = "";
+                            return `<option  value="${item.value}" selected>${item.text}</option>`;
+                        }else {
+                            return `<option  value="${item.value}">${item.text}</option>`;
+                        }
+                    }
                 ).join('');
             } else {
                 optionsHtml = "";
