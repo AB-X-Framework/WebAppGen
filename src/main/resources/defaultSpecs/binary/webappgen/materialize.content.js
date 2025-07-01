@@ -644,17 +644,30 @@ class PageContent {
         </footer>
             `);
     }
+    
+    static processItems(elemId,src){
+        let elem = eval(elemId);
+        $.get(src,(result)=>{
+            for (let entry of result){
+                $(elem).append(`<li><a class="${PageContent.global.themeText}" id="${elemId}_${entry}" href="#">${entry}</a></li>`);
+            }
+        });
+    }
 
     static renderMenuItems(output, js, specs) {
         let innerSpecs = specs.specs;
         const dropdownData = `dropdown_${innerSpecs.id}`
         output.push(`<ul id="${dropdownData}" class="dropdown-content">`);
         js.push(`${innerSpecs.id}.items=[]`);
-        for (let entry of innerSpecs.values) {
-            output.push(` <li><a class="${PageContent.global.themeText}" id="${innerSpecs.id}_${entry.value}" href="#!">${entry.text}</a></li>`);
-            js.push(`${innerSpecs.id}.${entry.value}=${innerSpecs.id}_${entry.value}`);
-            js.push(`${innerSpecs.id}.items.push(${innerSpecs.id}_${entry.value})`);
-            js.push(`${innerSpecs.id}_${entry.value}.key="${entry.value}"`)
+        if (innerSpecs.src == null || innerSpecs.src == ""){
+            for (let entry of innerSpecs.values) {
+                output.push(` <li><a class="${PageContent.global.themeText}" id="${innerSpecs.id}_${entry.value}" href="#">${entry.text}</a></li>`);
+                js.push(`${innerSpecs.id}.${entry.value}=${innerSpecs.id}_${entry.value}`);
+                js.push(`${innerSpecs.id}.items.push(${innerSpecs.id}_${entry.value})`);
+                js.push(`${innerSpecs.id}_${entry.value}.key="${entry.value}"`)
+            }
+        }else {
+           js.push(`PageContent.processItems(${dropdownData},"${innerSpecs.src}")`)
         }
         output.push(`</ul>`);
         output.push(`<ul class="${specs.size}">

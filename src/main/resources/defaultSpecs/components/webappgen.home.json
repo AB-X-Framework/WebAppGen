@@ -63,7 +63,7 @@
       {
         "env": "",
         "value": {
-          "src": "/resources/array/webappgen.language",
+          "src": "/resources/arrays/webappgen.language",
           "values": [],
           "title": "Language"
         }
