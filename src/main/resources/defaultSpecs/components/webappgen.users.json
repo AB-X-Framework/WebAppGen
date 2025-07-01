@@ -43,6 +43,32 @@
     "type": "label"
   },
   {
+    "layout": "popup",
+    "components": [
+      {
+        "innerId": "elem0",
+        "component": "webappgen.users.NewUserText",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "elem1",
+        "component": "webappgen.users.NewUserPassword",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "elem1",
+        "component": "webappgen.users.NewUserConfirmBtn",
+        "size": "l12",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.users.NewUserModal",
+    "isContainer": true,
+    "js": []
+  },
+  {
     "layout": "horizontal",
     "components": [
       {
@@ -62,7 +88,7 @@
     "isContainer": true,
     "js": [{
       "env": "",
-      "value": "workingEnv={};\nworkingEnv.currPage=0;\nworkingEnv.entriesPerPage=10;\nApp.process(\"webappgen.userList\",{\n        \"page\":workingEnv.currPage,\n        \"size\":workingEnv.entriesPerPage\n    },(componentSpecs)=>{\n        const init = (workingEnv.currPage*workingEnv.entriesPerPage)+1;\n        let end = ((workingEnv.currPage+1)*workingEnv.entriesPerPage);\n        end = Math.min(workingEnv.entryCount,end);\n        $(LeftPanel.Label).text(`Entries ${init} - ${end} of ${workingEnv.entryCount}`);\n        workingEnv.updatedArray = {};\n        componentSpecs.js = \"\";\n        const output = [];\n        const js =[];\n        PageContent.renderComponent(output, js, componentSpecs);\n        $(RightPanel).html(output.join(\"\"));\n        M.updateTextFields();\n        PageContent.processJS(js);\n    });"
+      "value": "workingEnv={};\nworkingEnv.currPage=0;\nworkingEnv.entriesPerPage=10;\n\nworkingEnv.processBatch=()=>{\nApp.process(\"webappgen.userList\",{\n        \"page\":workingEnv.currPage,\n        \"size\":workingEnv.entriesPerPage\n    },(componentSpecs)=>{\n        const init = (workingEnv.currPage*workingEnv.entriesPerPage)+1;\n        let end = ((workingEnv.currPage+1)*workingEnv.entriesPerPage);\n        end = Math.min(workingEnv.entryCount,end);\n        $(LeftPanel.Label).text(`Entries ${init} - ${end} of ${workingEnv.entryCount}`);\n        workingEnv.updatedArray = {};\n        componentSpecs.js = \"\";\n        const output = [];\n        const js =[];\n        PageContent.renderComponent(output, js, componentSpecs);\n        $(RightPanel).html(output.join(\"\"));\n        M.updateTextFields();\n        PageContent.processJS(js);\n    });\n}\n$.get(\"/resources/users/count\",(count)=>{\n     workingEnv.entryCount = count;\n     workingEnv.processBatch();\n});"
     }]
   },
   {
@@ -115,7 +141,7 @@
     "layout": "vertical",
     "components": [
       {
-        "innerId": "elem0",
+        "innerId": "NewUser",
         "component": "webappgen.users.NewUser",
         "size": "",
         "env": ""
@@ -127,15 +153,51 @@
         "env": ""
       },
       {
-        "innerId": "elem2",
+        "innerId": "PrevNext",
         "component": "webappgen.users.PrevNext",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "NewUserModal",
+        "component": "webappgen.users.NewUserModal",
         "size": "l12",
         "env": ""
       }
     ],
     "name": "webappgen.users.LeftPanel",
     "isContainer": true,
-    "js": []
+    "js": [{
+      "env": "",
+      "value": "$(self.NewUser).click(()=>{\n    PageContent.openModal(self.NewUserModal);\n})"
+    }]
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "label": "Please type new username",
+        "title": "Username",
+        "content": ""
+      }
+    }],
+    "name": "webappgen.users.NewUserText",
+    "isContainer": false,
+    "js": [],
+    "type": "textfield"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "title": "New user password",
+        "content": "Please type your password"
+      }
+    }],
+    "name": "webappgen.users.NewUserPassword",
+    "isContainer": false,
+    "js": [],
+    "type": "password"
   },
   {
     "layout": "vertical",
@@ -143,5 +205,15 @@
     "name": "webappgen.users.RightPanel",
     "isContainer": true,
     "js": []
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {"title": "Create new user"}
+    }],
+    "name": "webappgen.users.NewUserConfirmBtn",
+    "isContainer": false,
+    "js": [],
+    "type": "button"
   }
 ]

@@ -111,6 +111,11 @@ public class ResourceModel {
         return jsonArray;
     }
 
+    @Transactional
+    public long userCount() {
+        return userRepository.count();
+    }
+
     /**
      * Return title + content + owner
      *

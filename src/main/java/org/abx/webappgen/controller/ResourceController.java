@@ -422,6 +422,12 @@ public class ResourceController extends RoleController {
         return status.toString();
     }
 
+    @Secured("Admin")
+    @GetMapping(value = "/users/count", produces = MediaType.APPLICATION_JSON_VALUE)
+    public long getUsersCount() {
+        return resourceModel.userCount();
+    }
+
 
     @PreAuthorize("permitAll()")
     @GetMapping("/binary/**")
@@ -474,7 +480,7 @@ public class ResourceController extends RoleController {
             HttpServletRequest request,
             @RequestParam String name,
             @RequestParam String role,
-            @RequestParam(required = false)  String owner,
+            @RequestParam(required = false) String owner,
             @RequestParam String contentType,
             @RequestParam String content) {
         String packageName = name.substring(0, name.lastIndexOf('/'));
@@ -484,7 +490,7 @@ public class ResourceController extends RoleController {
                 owner = request.getUserPrincipal().getName();
             }
             resourceModel.saveBinaryResource(name, packageName, owner, contentType, role);
-            resourceModel.upload(name,content.getBytes());
+            resourceModel.upload(name, content.getBytes());
             status.put("success", true);
             status.put("package", packageName);
             status.put("owner", owner);

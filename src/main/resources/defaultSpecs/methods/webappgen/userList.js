@@ -6,7 +6,7 @@ function userList() {
 
         const delId= `d_${id}`;
         const escapedKey = JSON.stringify(username);
-        const textfield= {
+        const userfield= {
             "specs": {"title": `${username}`, "content": value, "values":[
                 {"value":"User","text":"User"},
                 {"value":"Admin","text":"Admin"}]},
@@ -29,7 +29,7 @@ function userList() {
             "js": "",
             "id": "__array",
             "layout": "horizontal",
-            "children": [textfield,deleteBtn]
+            "children": [userfield,deleteBtn]
         }
     }
 
