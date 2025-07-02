@@ -240,7 +240,7 @@
     "matches": "JS"
   },
   {
-    "component": "webappgen.arrays.MainArrayComponent",
+    "component": "webappgen.arraypair.MainArrayPairComponent",
     "css": [{
       "env": "",
       "value": "/resources/binary/webappgen/materialize.icons.css"
