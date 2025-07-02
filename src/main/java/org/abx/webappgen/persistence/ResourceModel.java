@@ -628,7 +628,21 @@ public class ResourceModel {
             return false;
         }
         arrayEntryRepository.delete(entry);
-        mapEntryRepository.flush();
+        arrayEntryRepository.flush();
+        return true;
+    }
+
+    @Transactional
+    public boolean deleteArrayPairIndex(String arrayName, long key) {
+        ArrayPairEntry entry = arrayPairEntryRepository.findByArrayPairEntryId(key);
+        if (entry == null) {
+            return false;
+        }
+        if (entry.arrayPairResourceId != elementHashCode(arrayName)) {
+            return false;
+        }
+        arrayPairEntryRepository.delete(entry);
+        arrayPairEntryRepository.flush();
         return true;
     }
 
@@ -650,6 +664,30 @@ public class ResourceModel {
             entry.arrayValue = value;
             entry.arrayResourceId = id;
             arrayEntryRepository.save(entry);
+        }
+        arrayEntryRepository.flush();
+    }
+
+
+    @Transactional
+    public void updateArrayPairEntries(String arrayMap, JSONArray values) throws Exception {
+        long id = elementHashCode(arrayMap);
+        for (int i = 0; i < values.length(); i++) {
+            JSONObject object = (JSONObject) values.get(i);
+            long key = object.getLong("key");
+
+            JSONObject pair = object.getJSONObject("pair");
+            ArrayPairEntry entry = arrayPairEntryRepository.findByArrayPairEntryId(key);
+            if (entry == null) {
+                throw new Exception("Entry not found");
+            }
+            if (entry.arrayPairResourceId != id) {
+                throw new Exception("Values does not belong to resource");
+            }
+            entry.arrayPairKey = pair.getString("key");
+            entry.arrayPairValue = pair.getString("value");
+            entry.arrayPairResourceId = id;
+            arrayPairEntryRepository.save(entry);
         }
         arrayEntryRepository.flush();
     }
