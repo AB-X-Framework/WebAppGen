@@ -3,21 +3,32 @@ var page;
 var size;
 
 function arrayPairValues() {
-    function createChild(curr, key, value, id) {
+    function createChild(curr, id, key, value) {
 
         const delId= `d_${id}`;
+        const keyId= `k_${id}`;
+        const valueId= `v_${id}`;
         const escapedKey = JSON.stringify(key);
-        const textfield= {
-            "specs": {"title": `${curr}`, "content": value},
-            js: `$(${id}).on('input',()=>{workingEnv.SaveArrayPair.markChanged();workingEnv.updatedArrayPair[(${escapedKey})]=$(${id}).val()})`,
+        const escapedV = JSON.stringify(key);
+        const keyfield= {
+            "specs": {"title": `${curr} Key`, "content": key},
+            js: `$(self).on('input',()=>{workingEnv.SaveArrayPair.markChanged();workingEnv.updatedArrayPair[(${escapedKey})].key=$(${id}).val()})`,
+            "isContainer": false,
+            "type": "textfield",
+            "size": "l4",
+            "id": keyId
+        }
+        const valuefield= {
+            "specs": {"title": `Value`, "content": value},
+            js: `$(self).on('input',()=>{workingEnv.SaveArrayPair.markChanged();workingEnv.updatedArrayPair[(${escapedKey})].value=$(${id}).val()})`,
             "isContainer": false,
             "type": "textarea",
-            "size": "l11",
-            "id": id
+            "size": "l5",
+            "id": valueId
         }
         const deleteBtn={
             "specs": {"title": "delete"},
-            js: `$(${delId}).click(()=>{handleDelete(${escapedKey})})`,
+            js: `$(self).click(()=>{handleDelete(${escapedKey})})`,
             "isContainer": false,
             "type": "button",
             "size": "l1",
@@ -28,7 +39,7 @@ function arrayPairValues() {
             "js": "",
             "id": "__arrayPair",
             "layout": "horizontal",
-            "children": [textfield,deleteBtn]
+            "children": [keyfield,valuefield,deleteBtn]
         }
     }
 
@@ -38,10 +49,10 @@ function arrayPairValues() {
     let curr = page*size+1;
     for (let i = 0; i < len; ++i) {
         const elem = entries.get(i);
+        const id = elem.get("id");
         const key = elem.get("key");
         const value = elem.get("value");
-        const id = `arrayPair_${parseInt(Math.random() * 1000000)}`;
-        children.push(createChild(curr,key, value, id));
+        children.push(createChild(curr,id,key, value));
         ++curr;
     }
     return JSON.stringify({
