@@ -91,6 +91,12 @@ public class PageModel {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private ArrayPairResourceRepository arrayPairRepository;
+
+    @Autowired
+    private ArrayPairEntryRepository arrayPairEntryRepository;
+
     public PageModel() {
         envId = mapHashCode("app.Env", "home");
         hideDefaultsId = mapHashCode("app.Env", "hideDefaults");
@@ -120,6 +126,8 @@ public class PageModel {
         containerRepository.deleteAll();
         componentRepository.deleteAll();
         pageRepository.deleteAll();
+        arrayPairRepository.deleteAll();
+        arrayPairEntryRepository.deleteAll();
     }
 
     @Transactional
@@ -142,8 +150,7 @@ public class PageModel {
     @Transactional
     public void delete(String component) {
         long componentId = elementHashCode(component);
-        Component toDelete =
-                componentRepository.findByComponentId(componentId);
+        Component toDelete = componentRepository.findByComponentId(componentId);
         List<Page> x = pageRepository.findAllByComponent(toDelete);
         if (!x.isEmpty()) {
             throw new RuntimeException("Component is used in a page");
@@ -189,10 +196,8 @@ public class PageModel {
     @Transactional
     public void rename(String oldName, String newName) {
         long newComponentId = elementHashCode(newName);
-        Component oldCo =
-                componentRepository.findByComponentId(elementHashCode(oldName));
-        Component newCo =
-                componentRepository.findByComponentId(newComponentId);
+        Component oldCo = componentRepository.findByComponentId(elementHashCode(oldName));
+        Component newCo = componentRepository.findByComponentId(newComponentId);
         List<InnerComponent> inner = innerComponentRepository.findAllByChild(oldCo);
         for (InnerComponent c : inner) {
             c.child = newCo;
@@ -303,7 +308,7 @@ public class PageModel {
         boolean found = false;
         for (EnvValue titleValue : page.pageTitle) {
             if (matchesEnv(titleValue.env, env)) {
-                jsonPage.put(Title,titleValue.envValue);
+                jsonPage.put(Title, titleValue.envValue);
                 found = true;
                 break;
             }
@@ -371,11 +376,7 @@ public class PageModel {
 
 
     @Transactional
-    public long createPageWithPageName(String pageName, String packageName,
-                                       String matches,
-                                       JSONArray pageTitle,
-                                       String role, String componentName,
-                                       JSONArray css, JSONArray scripts) {
+    public long createPageWithPageName(String pageName, String packageName, String matches, JSONArray pageTitle, String role, String componentName, JSONArray css, JSONArray scripts) {
         Page page = new Page();
         page.pageName = pageName;
         page.packageName = packageName;
@@ -468,14 +469,12 @@ public class PageModel {
                 continue;
             }
             String childName = childComponent.getString(Component);
-            Component child =
-                    componentRepository.findByComponentId(elementHashCode(childName));
+            Component child = componentRepository.findByComponentId(elementHashCode(childName));
             ComponentSpecs componentSpecs = new ComponentSpecs("", env);
             Map<String, String> childrenInnerIds = new HashMap<>();
             componentSpecs.component = child;
             componentSpecs.siblings = childrenInnerIds;
-            JSONObject innerComponent =
-                    getComponentSpecsByComponent(componentSpecs);
+            JSONObject innerComponent = getComponentSpecsByComponent(componentSpecs);
             jsonChildren.put(innerComponent);
             innerComponent.put(Size, childComponent.getString(Size));
         }
@@ -497,8 +496,7 @@ public class PageModel {
             componentSpecs.siblings = childrenInnerIds;
             componentSpecs.component = inner.child;
             componentSpecs.siblings.put("self", innerId);
-            JSONObject innerComponent =
-                    getComponentSpecsByComponent(componentSpecs);
+            JSONObject innerComponent = getComponentSpecsByComponent(componentSpecs);
             jsonChildren.put(innerComponent);
             innerComponent.put(Id, innerId);
             innerComponent.put(Size, inner.size);
