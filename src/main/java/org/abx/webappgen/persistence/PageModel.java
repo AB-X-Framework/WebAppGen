@@ -510,10 +510,10 @@ public class PageModel {
         boolean found = false;
         String emptyEnv = null;
         for (EnvValue envValue : element.specs) {
-            if (matchesEnv(envValue.env, specs.env)) {
-                if (envValue.env.isEmpty()) {
-                    emptyEnv = envValue.envValue;
-                } else {
+            if (envValue.env.isEmpty()) {
+                emptyEnv = envValue.envValue;
+            } else {
+                if (matchesEnv(envValue.env, specs.env)) {
                     jsonComponent.put(Specs, new JSONObject(envValue.envValue));
                     found = true;
                     break;
