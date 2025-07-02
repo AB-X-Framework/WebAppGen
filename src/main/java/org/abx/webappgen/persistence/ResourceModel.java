@@ -42,7 +42,7 @@ public class ResourceModel {
     private MethodSpecRepository methodSpecRepository;
 
     @Autowired
-    private ArrayPairEntryRepository arrayPairEntryResourceRepository;
+    private ArrayPairEntryRepository arrayPairEntryRepository;
 
     @Autowired
     private ArrayPairResourceRepository arrayPairResourceRepository;
@@ -99,7 +99,7 @@ public class ResourceModel {
     }
 
     @Transactional
-    public JSONArray getUsers( int page, int size) {
+    public JSONArray getUsers(int page, int size) {
         // Assuming elementHashCode returns the ID of the resource
         // Get the MapResource or throw if not found
         PageRequest pageRequest = PageRequest.of(page, size, Sort.by("username").ascending());
@@ -494,12 +494,13 @@ public class ResourceModel {
         JSONArray array = new JSONArray();
         binaryResourceRepository.findAllByPackageName(packageName).forEach((mapResource) -> {
             if ("text/javascript".equals(mapResource.contentType)
-            || "text/css".equals(mapResource.contentType)) {
+                    || "text/css".equals(mapResource.contentType)) {
                 array.put(mapResource.resourceName);
             }
         });
         return array;
     }
+
     public JSONArray getBinariesOutputTypes() {
         JSONArray array = new JSONArray();
         binaryResourceRepository.findDistinctContentTypes().forEach(array::put);
@@ -548,7 +549,6 @@ public class ResourceModel {
     }
 
 
-
     @Transactional
     public void createArrayPair(String packageName, String arrayName) throws Exception {
         long id = elementHashCode(arrayName);
@@ -581,13 +581,24 @@ public class ResourceModel {
         long id = elementHashCode(arrayName);
         ArrayResource arrayResource = arrayResourceRepository.findByArrayResourceId(id);
         if (arrayResource == null) {
-            throw new Exception("Map not found");
+            throw new Exception("Array not found");
         }
         arrayEntryRepository.deleteAll(arrayEntryRepository.findAllByArrayResourceId(id));
         arrayEntryRepository.flush();
         arrayResourceRepository.delete(arrayResource);
     }
 
+    @Transactional
+    public void deleteArrayPair(String arrayPairName) throws Exception {
+        long id = elementHashCode(arrayPairName);
+        ArrayPairResource arrayPairResource = arrayPairResourceRepository.findByArrayPairResourceId(id);
+        if (arrayPairResource == null) {
+            throw new Exception("ArrayPair not found");
+        }
+        arrayPairEntryRepository.deleteAll(arrayPairEntryRepository.findAllByArrayPairResourceId(id));
+        arrayPairEntryRepository.flush();
+        arrayPairResourceRepository.delete(arrayPairResource);
+    }
 
     public String getMapResource(String mapName, String key) {
         return mapEntryRepository.findByMapEntryId(
