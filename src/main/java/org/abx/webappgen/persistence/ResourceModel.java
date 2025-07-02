@@ -419,13 +419,17 @@ public class ResourceModel {
         return array;
     }
 
-
     public JSONArray getArrayPackages() {
         JSONArray array = new JSONArray();
         array.putAll(arrayResourceRepository.findDistinctPackageNames());
         return array;
     }
 
+    public JSONArray getArrayPairPackages() {
+        JSONArray array = new JSONArray();
+        array.putAll(arrayPairResourceRepository.findDistinctPackageNames());
+        return array;
+    }
 
     public JSONArray getTextPackages() {
         JSONArray array = new JSONArray();
@@ -454,10 +458,17 @@ public class ResourceModel {
         return array;
     }
 
-
     public JSONArray getArraysByPackageName(String packageName) {
         JSONArray array = new JSONArray();
         arrayResourceRepository.findAllByPackageName(packageName).forEach((mapResource) -> {
+            array.put(mapResource.resourceName);
+        });
+        return array;
+    }
+
+    public JSONArray getArrayPairsByPackageName(String packageName) {
+        JSONArray array = new JSONArray();
+        arrayPairResourceRepository.findAllByPackageName(packageName).forEach((mapResource) -> {
             array.put(mapResource.resourceName);
         });
         return array;
@@ -516,6 +527,11 @@ public class ResourceModel {
 
     public long getArrayEntriesCount(String arrayName) {
         return arrayEntryRepository.countByArrayResourceId(elementHashCode(arrayName));
+    }
+
+
+    public long getArrayPairEntriesCount(String arrayPairName) {
+        return arrayPairEntryRepository.countByArrayPairResourceId(elementHashCode(arrayPairName));
     }
 
 
