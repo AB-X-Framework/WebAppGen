@@ -719,6 +719,17 @@ public class ResourceModel {
     }
 
     @Transactional
+    public void addArrayPairEntry(String arrayMap,String key, String value) {
+        long id = elementHashCode(arrayMap);
+        ArrayPairEntry entry = new ArrayPairEntry();
+        entry.arrayPairKey = key;
+        entry.arrayPairValue = value;
+        entry.arrayPairResourceId = id;
+        arrayPairEntryRepository.save(entry);
+        arrayPairEntryRepository.flush();
+    }
+
+    @Transactional
     public void saveMapEntries(String mapName, JSONArray values) {
         long id = elementHashCode(mapName);
         MapResource mapResource = mapResourceRepository.findByMapResourceId(id);

@@ -177,6 +177,7 @@ public class ResourceController extends RoleController {
         }
         return result.toString();
     }
+
     @Secured("Admin")
     @PostMapping(value = "/arrayParis/{arrayName}", produces = MediaType.APPLICATION_JSON_VALUE)
     public String createArrayPair(
@@ -227,6 +228,21 @@ public class ResourceController extends RoleController {
 
 
     @Secured("Admin")
+    @DeleteMapping(value = "/arrayPairs/{arrayName}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String deleteArrayPair(
+            @PathVariable String arrayPairName) {
+        JSONObject result = new JSONObject();
+        try {
+            resourceModel.deleteArrayPair(arrayPairName);
+            result.put("success", true);
+        } catch (Exception e) {
+            result.put("success", false);
+            result.put("error", e.getMessage());
+        }
+        return result.toString();
+    }
+
+    @Secured("Admin")
     @GetMapping(value = "/maps/{mapName}/entries/{key}")
     public String downloadMapValue(
             @PathVariable String mapName,
@@ -257,6 +273,21 @@ public class ResourceController extends RoleController {
         JSONObject status = new JSONObject();
         try {
             status.put("success", resourceModel.deleteArrayIndex(arrayName, key));
+        } catch (Exception e) {
+            status.put("success", false);
+            status.put("error", e.getMessage());
+        }
+        return status.toString();
+    }
+
+    @Secured("Admin")
+    @DeleteMapping(value = "/arrayPairs/{arrayName}/entries/{key}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String deleteArrayPairIndex(
+            @PathVariable String arrayPairName,
+            @PathVariable long key) {
+        JSONObject status = new JSONObject();
+        try {
+            status.put("success", resourceModel.deleteArrayIndex(arrayPairName, key));
         } catch (Exception e) {
             status.put("success", false);
             status.put("error", e.getMessage());
@@ -297,6 +328,21 @@ public class ResourceController extends RoleController {
         return status.toString();
     }
 
+    @Secured("Admin")
+    @PostMapping(value = "/arrayPairs/{arrayPairName}/entries", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String updateArrayPairEntries(
+            @PathVariable String arrayPairName,
+            @RequestParam String values) {
+        JSONObject status = new JSONObject();
+        try {
+            resourceModel.updateArrayPairEntries(arrayPairName, new JSONArray(values));
+            status.put("success", true);
+        } catch (Exception e) {
+            status.put("success", false);
+            status.put("message", "Failed to updates array entries " + e.getMessage());
+        }
+        return status.toString();
+    }
 
     @Secured("Admin")
     @PostMapping(value = "/arrays/{arrayName}/add", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -315,6 +361,23 @@ public class ResourceController extends RoleController {
     }
 
     @Secured("Admin")
+    @PostMapping(value = "/arrayPairs/{arrayPairName}/add", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String addArrayPairEntries(
+            @PathVariable String arrayPairName,
+            @RequestParam String key,
+            @RequestParam String value) {
+        JSONObject status = new JSONObject();
+        try {
+            resourceModel.addArrayPairEntry(arrayPairName, key, value);
+            status.put("success", true);
+        } catch (Exception e) {
+            status.put("success", false);
+            status.put("message", "Failed to add array entry " + e.getMessage());
+        }
+        return status.toString();
+    }
+
+    @Secured("Admin")
     @GetMapping(value = "/packages/maps", produces = MediaType.APPLICATION_JSON_VALUE)
     public String mapPackages() {
         return resourceModel.getMapPackages().toString();
@@ -324,6 +387,12 @@ public class ResourceController extends RoleController {
     @GetMapping(value = "/packages/arrays", produces = MediaType.APPLICATION_JSON_VALUE)
     public String arrayPackages() {
         return resourceModel.getArrayPackages().toString();
+    }
+
+    @Secured("Admin")
+    @GetMapping(value = "/packages/arrayPairs", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String arrayPairPackages() {
+        return resourceModel.getArrayPairPackages().toString();
     }
 
     @Secured("Admin")
