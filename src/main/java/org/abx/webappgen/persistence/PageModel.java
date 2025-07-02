@@ -509,7 +509,11 @@ public class PageModel {
         Element element = specs.component.element;
         boolean found = false;
         String emptyEnv = null;
+        String first = null;
         for (EnvValue envValue : element.specs) {
+            if (first == null) {
+                first = envValue.envValue;
+            }
             if (envValue.env.isEmpty()) {
                 emptyEnv = envValue.envValue;
             } else {
@@ -521,7 +525,11 @@ public class PageModel {
             }
         }
         if (!found) {
-            jsonComponent.put(Specs, new JSONObject(emptyEnv));
+            if (emptyEnv == null) {
+                jsonComponent.put(Specs, new JSONObject(first));
+            } else {
+                jsonComponent.put(Specs, new JSONObject(emptyEnv));
+            }
         }
         jsonComponent.put(Type, element.type);
 
