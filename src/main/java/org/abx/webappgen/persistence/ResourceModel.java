@@ -99,6 +99,26 @@ public class ResourceModel {
     }
 
     @Transactional
+    public JSONArray getArrayPairEntries(String arrayResourceName, int page, int size) {
+        // Assuming elementHashCode returns the ID of the resource
+        long resourceId = elementHashCode(arrayResourceName);
+        // Get the MapResource or throw if not found
+        ArrayPairResource arrayResource = arrayPairResourceRepository.findByArrayPairResourceId(resourceId);
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.by("arrayEntryId").ascending());
+        // Use the custom query
+        org.springframework.data.domain.Page<ArrayPairEntry> pageResult =
+                arrayPairEntryRepository.findByArrayPairResourceId(resourceId, pageRequest);
+        JSONArray jsonArray = new JSONArray();
+        for (ArrayPairEntry entry : pageResult.getContent()) {
+            JSONObject jsonObject = new JSONObject();
+            jsonArray.put(jsonObject);
+            jsonObject.put("id", entry.arrayPairEntryId);
+            jsonObject.put("key", entry.arrayPairKey);
+            jsonObject.put("value", entry.arrayPairValue);
+        }
+        return jsonArray;
+    }
+    @Transactional
     public JSONArray getUsers(int page, int size) {
         // Assuming elementHashCode returns the ID of the resource
         // Get the MapResource or throw if not found

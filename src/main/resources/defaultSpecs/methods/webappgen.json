@@ -58,6 +58,13 @@
   {
     "outputName": "arrayValues",
     "role": "Admin",
+    "name": "webappgen.arrayPairValues",
+    "description": "Map values",
+    "type": "json"
+  },
+  {
+    "outputName": "arrayValues",
+    "role": "Admin",
     "name": "webappgen.userList",
     "description": "Map values",
     "type": "json"
