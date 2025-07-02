@@ -389,7 +389,7 @@
     "specs": [{
       "env": "",
       "value": {
-        "src": "/resources/packages/arrays",
+        "src": "/resources/packages/arrayPairs",
         "values": [],
         "title": "ArrayPairs Package"
       }
