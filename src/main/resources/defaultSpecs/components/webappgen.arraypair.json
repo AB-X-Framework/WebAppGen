@@ -1,5 +1,22 @@
 [
   {
+    "specs": [{
+      "env": "",
+      "value": {
+        "src": "/resources/packages/arrayPairs",
+        "values": [],
+        "title": "ArrayPairs Package"
+      }
+    }],
+    "name": "webappgen.arraypair.ArrayPairsPackage",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": "workingEnv.PackageName=self;"
+    }],
+    "type": "autocomplete"
+  },
+  {
     "layout": "horizontal",
     "components": [
       {
@@ -133,6 +150,20 @@
     "type": "button"
   },
   {
+    "specs": [{
+      "env": "",
+      "value": {
+        "label": "ArrayPair key",
+        "title": "New key",
+        "content": ""
+      }
+    }],
+    "name": "webappgen.arraypair.NewEntryKey",
+    "isContainer": false,
+    "js": [],
+    "type": "textarea"
+  },
+  {
     "layout": "container",
     "components": [
       {
@@ -236,6 +267,12 @@
   {
     "layout": "popup",
     "components": [
+      {
+        "innerId": "NewEntryKey",
+        "component": "webappgen.arraypair.NewEntryKey",
+        "size": "l12",
+        "env": ""
+      },
       {
         "innerId": "NewEntryValue",
         "component": "webappgen.arraypair.NewEntryValue",
@@ -384,23 +421,6 @@
     "isContainer": false,
     "js": [],
     "type": "label"
-  },
-  {
-    "specs": [{
-      "env": "",
-      "value": {
-        "src": "/resources/packages/arrayPairs",
-        "values": [],
-        "title": "ArrayPairs Package"
-      }
-    }],
-    "name": "webappgen.arraypair.ArrayPairsPackage",
-    "isContainer": false,
-    "js": [{
-      "env": "",
-      "value": "workingEnv.PackageName=self;"
-    }],
-    "type": "autocomplete"
   },
   {
     "specs": [{
