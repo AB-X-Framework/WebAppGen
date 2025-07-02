@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 
 public interface ArrayPairEntryRepository extends JpaRepository<ArrayPairEntry, Long> {
-    ArrayPairEntry findByArrayPairEntryId(long arrayEntryId);
+    ArrayPairEntry findByArrayPairEntryId(long arrayPairEntryId);
 
     @Override
     void delete(ArrayPairEntry arrayPairEntry);
