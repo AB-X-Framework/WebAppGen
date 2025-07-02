@@ -177,6 +177,22 @@ public class ResourceController extends RoleController {
         }
         return result.toString();
     }
+    @Secured("Admin")
+    @PostMapping(value = "/arrayParis/{arrayName}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String createArrayPair(
+            @PathVariable String arrayPairName) {
+        String packageName = arrayPairName.substring(0, arrayPairName.lastIndexOf('.'));
+        JSONObject result = new JSONObject();
+        try {
+            resourceModel.createArrayPair(packageName, arrayPairName);
+            result.put("success", true);
+            result.put("package", packageName);
+        } catch (Exception e) {
+            result.put("success", false);
+            result.put("error", e.getMessage());
+        }
+        return result.toString();
+    }
 
     @Secured("Admin")
     @DeleteMapping(value = "/maps/{mapName}", produces = MediaType.APPLICATION_JSON_VALUE)

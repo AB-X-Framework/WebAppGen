@@ -41,6 +41,11 @@ public class ResourceModel {
     @Autowired
     private MethodSpecRepository methodSpecRepository;
 
+    @Autowired
+    private ArrayPairEntryRepository arrayPairEntryResourceRepository;
+
+    @Autowired
+    private ArrayPairResourceRepository arrayPairResourceRepository;
 
     @Transactional
     public JSONArray getMapEntries(String mapResourceName, int page, int size) {
@@ -540,6 +545,23 @@ public class ResourceModel {
         arrayResource.arrayResourceId = id;
         arrayResource.resourceName = arrayName;
         arrayResourceRepository.save(arrayResource);
+    }
+
+
+
+    @Transactional
+    public void createArrayPair(String packageName, String arrayName) throws Exception {
+        long id = elementHashCode(arrayName);
+        ArrayPairResource arrayResource = arrayPairResourceRepository.findByArrayPairResourceId(
+                elementHashCode(arrayName));
+        if (arrayResource != null) {
+            throw new Exception("Duplicate map entry");
+        }
+        arrayResource = new ArrayPairResource();
+        arrayResource.packageName = packageName;
+        arrayResource.arrayPairResourceId = id;
+        arrayResource.resourceName = arrayName;
+        arrayPairResourceRepository.save(arrayResource);
     }
 
     @Transactional
