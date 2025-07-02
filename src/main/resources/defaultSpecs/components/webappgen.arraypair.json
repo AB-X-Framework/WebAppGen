@@ -118,7 +118,7 @@
     "isContainer": false,
     "js": [{
       "env": "",
-      "value": "workingEnv.DeletePopup = self;\n\n$(self.ok).click(()=>{\n    const responseFx = (status)=>{\n            if (status.success){\n                PageContent.closeModal(workingEnv.DeletePopup);\n                workingEnv.renderArrayPair();\n            } else {\n                PageContent.showModal(`Cannot delete ${self.key}. ${JSON.stringify(status.error)}`)\n            }\n        };\n    \n    $.ajax({\n        \"type\": 'DELETE',\n        \"url\":`/resources/arrayPairs/${workingEnv.arrayName}/entries/${self.key}`,\n        \"success\":responseFx\n    });\n});\n\nself.setKey=(key)=>{\n    self.key = key;\n}"
+      "value": "workingEnv.DeletePopup = self;\n\n$(self.ok).click(()=>{\n    const responseFx = (status)=>{\n            if (status.success){\n                PageContent.closeModal(workingEnv.DeletePopup);\n                workingEnv.renderArrayPair();\n            } else {\n                PageContent.showModal(`Cannot delete ${self.key}. ${JSON.stringify(status.error)}`)\n            }\n        };\n    \n    $.ajax({\n        \"type\": 'DELETE',\n        \"url\":`/resources/arrayPairs/${workingEnv.arrayPairName}/entries/${self.key}`,\n        \"success\":responseFx\n    });\n});\n\nself.setKey=(key)=>{\n    self.key = key;\n}"
     }],
     "type": "okCancelModal"
   },
@@ -253,7 +253,7 @@
     "isContainer": true,
     "js": [{
       "env": "",
-      "value": "$(NewEntryConfrim).click(()=>{\n    const value = $(NewEntryValue).val();\n    $.post(`/resources/arrayPairs/${workingEnv.arrayName}/add`,{\n       value :value\n    },(status)=>{\n        if (status.success){\n            PageContent.closeModal(self);\n            workingEnv.renderArrayPair();\n        }else {\n            PageContent.showModal(\"Cannot add value \"+JSON.stringify(status.error));\n        }\n    });\n});"
+      "value": "$(NewEntryConfrim).click(()=>{\n    const value = $(NewEntryValue).val();\n    $.post(`/resources/arrayPairs/${workingEnv.arrayPairName}/add`,{\n       value :value\n    },(status)=>{\n        if (status.success){\n            PageContent.closeModal(self);\n            workingEnv.renderArrayPair();\n        }else {\n            PageContent.showModal(\"Cannot add value \"+JSON.stringify(status.error));\n        }\n    });\n});"
     }]
   },
   {
@@ -333,11 +333,11 @@
     "js": [
       {
         "env": "",
-        "value": "$(LeftPanel.ArrayPairsPackage).change(()=>{\n    clearAutocomplete(LeftPanel.ArrayPairName);\n    \n    const packageName = $(LeftPanel.ArrayPairsPackage).val();\n    if (packageName !== \"\"){\n        $.get(`/resources/packages/arrayPairs/${packageName}`,(arraysPerPackage)=>{\n            arraysPerPackage.forEach((arrayName)=>{\n                addAutocompleteValue(LeftPanel.ArrayPairName,arrayName)\n            });\n             $(LeftPanel.ArrayPairName).val(\"\");\n        });\n    }\n});"
+        "value": "$(LeftPanel.ArrayPairsPackage).change(()=>{\n    clearAutocomplete(LeftPanel.ArrayPairName);\n    \n    const packageName = $(LeftPanel.ArrayPairsPackage).val();\n    if (packageName !== \"\"){\n        $.get(`/resources/packages/arrayPairs/${packageName}`,(arraysPerPackage)=>{\n            arraysPerPackage.forEach((arrayPairName)=>{\n                addAutocompleteValue(LeftPanel.ArrayPairName,arrayPairName)\n            });\n             $(LeftPanel.ArrayPairName).val(\"\");\n        });\n    }\n});"
       },
       {
         "env": "",
-        "value": "workingEnv.currPage = 0;\nworkingEnv.ArrayPairBody = self;\nworkingEnv.updatedArrayPair = {};\nworkingEnv.entriesPerPage = 10;\nworkingEnv.entryCount=0;\nworkingEnv.renderNextValues = ()=>{\n    if (workingEnv.arrayName === \"\"){\n        return;\n    }\n    App.process(\"webappgen.arrayValues\",{\n        \"array\":workingEnv.arrayName,\n        \"page\":workingEnv.currPage,\n        \"size\":workingEnv.entriesPerPage\n    },(componentSpecs)=>{\n        workingEnv.SaveArrayPair.markSaved();\n        const init = (workingEnv.currPage*workingEnv.entriesPerPage)+1;\n        let end = ((workingEnv.currPage+1)*workingEnv.entriesPerPage);\n        end = Math.min(workingEnv.entryCount,end);\n        $(LeftPanel.MenuPanel.Label).text(`Entries ${init} - ${end} of ${workingEnv.entryCount}`);\n        workingEnv.updatedArrayPair = {};\n        componentSpecs.js = \"\";\n        const output = [];\n        const js =[];\n        PageContent.renderComponent(output, js, componentSpecs);\n        $(RightPanel.DetailsPanel.DetailsContainer).html(output.join(\"\"));\n        M.updateTextFields();\n        PageContent.processJS(js);\n    });\n};\nworkingEnv.renderArrayPair = ()=> {\n    workingEnv.arrayName = $(LeftPanel.ArrayPairName).val();\n    if (workingEnv.arrayName !== \"\"){\n        $.get(`/resources/arrayPairs/${workingEnv.arrayName}/count`,(total)=>{\n            workingEnv.entryCount = total;\n        });\n        workingEnv.currPage = 0;\n        workingEnv.renderNextValues();\n    }\n}\n$(LeftPanel.ArrayPairName).change(workingEnv.renderArrayPair);"
+        "value": "workingEnv.currPage = 0;\nworkingEnv.ArrayPairBody = self;\nworkingEnv.updatedArrayPair = {};\nworkingEnv.entriesPerPage = 10;\nworkingEnv.entryCount=0;\nworkingEnv.renderNextValues = ()=>{\n    if (workingEnv.arrayPairName === \"\"){\n        return;\n    }\n    App.process(\"webappgen.arrayValues\",{\n        \"array\":workingEnv.arrayPairName,\n        \"page\":workingEnv.currPage,\n        \"size\":workingEnv.entriesPerPage\n    },(componentSpecs)=>{\n        workingEnv.SaveArrayPair.markSaved();\n        const init = (workingEnv.currPage*workingEnv.entriesPerPage)+1;\n        let end = ((workingEnv.currPage+1)*workingEnv.entriesPerPage);\n        end = Math.min(workingEnv.entryCount,end);\n        $(LeftPanel.MenuPanel.Label).text(`Entries ${init} - ${end} of ${workingEnv.entryCount}`);\n        workingEnv.updatedArrayPair = {};\n        componentSpecs.js = \"\";\n        const output = [];\n        const js =[];\n        PageContent.renderComponent(output, js, componentSpecs);\n        $(RightPanel.DetailsPanel.DetailsContainer).html(output.join(\"\"));\n        M.updateTextFields();\n        PageContent.processJS(js);\n    });\n};\nworkingEnv.renderArrayPair = ()=> {\n    workingEnv.arrayPairName = $(LeftPanel.ArrayPairName).val();\n    if (workingEnv.arrayPairName !== \"\"){\n        $.get(`/resources/arrayPairs/${workingEnv.arrayPairName}/count`,(total)=>{\n            workingEnv.entryCount = total;\n        });\n        workingEnv.currPage = 0;\n        workingEnv.renderNextValues();\n    }\n}\n$(LeftPanel.ArrayPairName).change(workingEnv.renderArrayPair);"
       }
     ]
   },
@@ -426,7 +426,7 @@
     "isContainer": false,
     "js": [{
       "env": "",
-      "value": "$(self.ok).click(()=>{\n    const values = Object.entries(workingEnv.updatedArrayPair).map(([key, value]) => ({ key, value }));\n\n   $.post(`/resources/arrayPairs/${workingEnv.arrayName}/entries`,{\n       \"values\" : JSON.stringify(values) \n    },(status)=>{\n        if (status.success){\n            PageContent.closeModal(self);\n            workingEnv.renderArrayPair();\n            workingEnv.SaveArrayPair.markSaved();\n        }else {\n            PageContent.showModal(\"Cannot save values \"+JSON.stringify(status.error));\n        }\n    }); \n});"
+      "value": "$(self.ok).click(()=>{\n    const values = Object.entries(workingEnv.updatedArrayPair).map(([key, value]) => ({ key, value }));\n\n   $.post(`/resources/arrayPairs/${workingEnv.arrayPairName}/entries`,{\n       \"values\" : JSON.stringify(values) \n    },(status)=>{\n        if (status.success){\n            PageContent.closeModal(self);\n            workingEnv.renderArrayPair();\n            workingEnv.SaveArrayPair.markSaved();\n        }else {\n            PageContent.showModal(\"Cannot save values \"+JSON.stringify(status.error));\n        }\n    }); \n});"
     }],
     "type": "okCancelModal"
   },
@@ -466,7 +466,7 @@
     "isContainer": false,
     "js": [{
       "env": "",
-      "value": "$(self.ok).click(()=>{\n    $.ajax({\n        url: `/resources/arrayPairs/${workingEnv.arrayName}`, // the resource to delete\n        type: 'DELETE',\n        success: (result)=> {\n            if (result.success){\n                location.reload();    \n            }else {\n                PageContent.showModal(\"Cannot delete array \"+JSON.stringify(result.error));\n            }\n            \n        }\n});\n});"
+      "value": "$(self.ok).click(()=>{\n    $.ajax({\n        url: `/resources/arrayPairs/${workingEnv.arrayPairName}`, // the resource to delete\n        type: 'DELETE',\n        success: (result)=> {\n            if (result.success){\n                location.reload();    \n            }else {\n                PageContent.showModal(\"Cannot delete array \"+JSON.stringify(result.error));\n            }\n            \n        }\n});\n});"
     }],
     "type": "okCancelModal"
   },
