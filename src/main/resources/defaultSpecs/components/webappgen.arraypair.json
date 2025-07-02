@@ -23,8 +23,8 @@
     "layout": "vertical",
     "components": [
       {
-        "innerId": "ArrayPairPairsPackage",
-        "component": "webappgen.arraypair.ArrayPairPairsPackage",
+        "innerId": "ArrayPairsPackage",
+        "component": "webappgen.arraypair.ArrayPairsPackage",
         "size": "l12",
         "env": ""
       },
@@ -333,7 +333,7 @@
     "js": [
       {
         "env": "",
-        "value": "$(LeftPanel.ArrayPairPairsPackage).change(()=>{\n    clearAutocomplete(LeftPanel.ArrayPairName);\n    \n    const packageName = $(LeftPanel.ArrayPairPairsPackage).val();\n    if (packageName !== \"\"){\n        $.get(`/resources/packages/arrayPairs/${packageName}`,(arraysPerPackage)=>{\n            arraysPerPackage.forEach((arrayName)=>{\n                addAutocompleteValue(LeftPanel.ArrayPairName,arrayName)\n            });\n             $(LeftPanel.ArrayPairName).val(\"\");\n        });\n    }\n});"
+        "value": "$(LeftPanel.ArrayPairsPackage).change(()=>{\n    clearAutocomplete(LeftPanel.ArrayPairName);\n    \n    const packageName = $(LeftPanel.ArrayPairsPackage).val();\n    if (packageName !== \"\"){\n        $.get(`/resources/packages/arrayPairs/${packageName}`,(arraysPerPackage)=>{\n            arraysPerPackage.forEach((arrayName)=>{\n                addAutocompleteValue(LeftPanel.ArrayPairName,arrayName)\n            });\n             $(LeftPanel.ArrayPairName).val(\"\");\n        });\n    }\n});"
       },
       {
         "env": "",
@@ -391,10 +391,10 @@
       "value": {
         "src": "/resources/packages/arrays",
         "values": [],
-        "title": "ArrayPairPairs Package"
+        "title": "ArrayPairs Package"
       }
     }],
-    "name": "webappgen.arraypair.ArrayPairPairsPackage",
+    "name": "webappgen.arraypair.ArrayPairsPackage",
     "isContainer": false,
     "js": [{
       "env": "",
