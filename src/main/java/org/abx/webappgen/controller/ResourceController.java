@@ -426,6 +426,12 @@ public class ResourceController extends RoleController {
         return resourceModel.getArraysByPackageName(packageName).toString(2);
     }
 
+    @Secured("Admin")
+    @GetMapping(value = "/packages/arrayPairs/{packageName}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String arrayPairsByPackage(@PathVariable String packageName) {
+        return resourceModel.getArrayPairsByPackageName(packageName).toString(2);
+    }
+
 
     @Secured("Admin")
     @GetMapping(value = "/packages/texts/{packageName}", produces = MediaType.APPLICATION_JSON_VALUE)
