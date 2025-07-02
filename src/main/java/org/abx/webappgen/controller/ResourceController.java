@@ -179,7 +179,7 @@ public class ResourceController extends RoleController {
     }
 
     @Secured("Admin")
-    @PostMapping(value = "/arrayParis/{arrayName}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/arrayPairs/{arrayPairName}", produces = MediaType.APPLICATION_JSON_VALUE)
     public String createArrayPair(
             @PathVariable String arrayPairName) {
         String packageName = arrayPairName.substring(0, arrayPairName.lastIndexOf('.'));
