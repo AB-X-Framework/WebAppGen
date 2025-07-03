@@ -281,13 +281,13 @@ public class ResourceController extends RoleController {
     }
 
     @Secured("Admin")
-    @DeleteMapping(value = "/arrayPairs/{arrayName}/entries/{key}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = "/arrayPairs/{arrayPairName}/entries/{key}", produces = MediaType.APPLICATION_JSON_VALUE)
     public String deleteArrayPairIndex(
             @PathVariable String arrayPairName,
             @PathVariable long key) {
         JSONObject status = new JSONObject();
         try {
-            status.put("success", resourceModel.deleteArrayIndex(arrayPairName, key));
+            status.put("success", resourceModel.deleteArrayPairIndex(arrayPairName, key));
         } catch (Exception e) {
             status.put("success", false);
             status.put("error", e.getMessage());
