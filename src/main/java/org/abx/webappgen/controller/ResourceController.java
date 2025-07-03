@@ -216,9 +216,7 @@ public class ResourceController extends RoleController {
             username=request.getUserPrincipal().getName();
         }
         try {
-            resourceModel.createArrayPair(packageName, arrayPairName);
-            result.put("success", true);
-            result.put("package", packageName);
+            resourceModel.getArrayPair(arrayPairName,keyLabel,valueLabel,username,roles);
         } catch (Exception e) {
             result.put("success", false);
             result.put("error", e.getMessage());

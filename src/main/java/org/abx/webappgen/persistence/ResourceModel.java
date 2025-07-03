@@ -3,6 +3,7 @@ package org.abx.webappgen.persistence;
 import org.abx.util.Pair;
 import org.abx.webappgen.persistence.dao.*;
 import org.abx.webappgen.persistence.model.*;
+import org.abx.webappgen.utils.ElementUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Set;
 
-import static org.abx.webappgen.utils.ElementUtils.elementHashCode;
+import static org.abx.webappgen.utils.ElementUtils.*;
 
 @Component
 public class ResourceModel {
@@ -160,9 +161,9 @@ public class ResourceModel {
         if (text == null) {
             return null;
         }
-        String requiredRole = text.role;
-        if (!requiredRole.equals("Anonymous")) {
-            if (!roles.contains(requiredRole)) {
+        String requiredAccess = text.access;
+        if (!requiredAccess.equals(Anonymous)) {
+            if (!roles.contains(requiredAccess)) {
                 return null;
             }
         }
@@ -172,7 +173,7 @@ public class ResourceModel {
         jsonText.put("package", text.packageName);
         jsonText.put("content", text.resourceValue);
         jsonText.put("owner", userRepository.findByUserId(text.owner).username);
-        jsonText.put("role", text.role);
+        jsonText.put("access", text.access);
         return jsonText;
     }
 
@@ -184,9 +185,9 @@ public class ResourceModel {
         if (text == null) {
             return null;
         }
-        String requiredRole = text.role;
-        if (!requiredRole.equals("Anonymous")) {
-            if (!roles.contains(requiredRole)) {
+        String requiredAccess = text.access;
+        if (!requiredAccess.equals("Anonymous")) {
+            if (!roles.contains(requiredAccess)) {
                 return null;
             }
         }
@@ -222,7 +223,7 @@ public class ResourceModel {
             return null;
         }
         JSONObject jsonText = new JSONObject();
-        jsonText.put("role", binaryResource.role);
+        jsonText.put("access", binaryResource.access);
         jsonText.put("name", binaryResource.resourceName);
         jsonText.put("package", binaryResource.packageName);
         jsonText.put("owner", userRepository.findByUserId(binaryResource.owner).username);
@@ -253,7 +254,7 @@ public class ResourceModel {
         text.packageName = content.getString("package");
         text.resourceValue = content.getString("content");
         text.owner = elementHashCode(content.getString("owner"));
-        text.role = content.getString("role");
+        text.access = content.getString("access");
         textResourceRepository.save(text);
     }
 
@@ -372,9 +373,9 @@ public class ResourceModel {
         if (binaryResource == null) {
             return null;
         }
-        String requiredRole = binaryResource.role;
-        if (!requiredRole.equals("Anonymous")) {
-            if (!roles.contains(requiredRole)) {
+        String access = binaryResource.access;
+        if (!access.equals(Anonymous)) {
+            if (!roles.contains(access)) {
                 return null;
             }
         }
@@ -383,7 +384,7 @@ public class ResourceModel {
 
     @Transactional
     public void cloneBinary(String original, String resourceName, String packageName, String owner,
-                            String contentType, String role) {
+                            String contentType, String access) {
         long originalId = elementHashCode(original);
         long id = elementHashCode(resourceName);
         BinaryResource originalData = binaryResourceRepository.findByBinaryResourceId(originalId);
@@ -397,8 +398,8 @@ public class ResourceModel {
         }
         binaryResource.resourceValue = originalData.resourceValue;
         binaryResource.owner = elementHashCode(owner);
-        if (role != null) {
-            binaryResource.role = role;
+        if (access != null) {
+            binaryResource.access = access;
         }
         binaryResource.packageName = packageName;
         binaryResource.resourceName = resourceName;
@@ -407,7 +408,7 @@ public class ResourceModel {
 
     @Transactional
     public long saveBinaryResource(String resourceName, String packageName, String owner,
-                                   String contentType, String role) {
+                                   String contentType, String access) {
         long id = elementHashCode(resourceName);
         BinaryResource binaryResource = binaryResourceRepository.findByBinaryResourceId(id);
         if (binaryResource == null) {
@@ -417,7 +418,7 @@ public class ResourceModel {
         }
         binaryResource.contentType = contentType;
         binaryResource.owner = elementHashCode(owner);
-        binaryResource.role = role;
+        binaryResource.access = access;
         binaryResource.packageName = packageName;
         binaryResource.resourceName = resourceName;
         binaryResourceRepository.save(binaryResource);
@@ -612,14 +613,27 @@ public class ResourceModel {
 
     @Transactional
     public JSONArray getArrayPair(String arrayPairName, String keyLabel, String valueLabel, String username,
-                             ArrayList<String> roles) throws Exception {
+                             Set<String> roles) {
         long id = elementHashCode(arrayPairName);
         ArrayPairResource arrayResource = arrayPairResourceRepository.findByArrayPairResourceId(id);
-        JSONArray jsonArrayPair = new JSONArray();
         if (arrayResource == null) {
             return null;
         }
-        if (arrayResource.
+        if (arrayResource.access.equals(ElementUtils.User)){
+            if (!username.equals(userRepository.findByUserId(arrayResource.owner).username)) {
+                if (!roles.contains(Admin)){
+                    return null;
+                }
+            }
+        }
+        JSONArray jsonArrayPair = new JSONArray();
+        for(ArrayPairEntry entry: arrayPairEntryRepository.findAllByArrayPairResourceId(id)){
+            JSONObject jsonEntry = new JSONObject();
+            jsonArrayPair.put(jsonEntry);
+            jsonEntry.put(keyLabel, entry.arrayPairKey);
+            jsonEntry.put(valueLabel, entry.arrayPairValue);
+        }
+        return jsonArrayPair;
     }
 
     @Transactional
@@ -852,12 +866,13 @@ public class ResourceModel {
         }
     }
 
-    public void saveTextResource(String resourceName, String owner, String title, String packageName, String data, String role) {
+    public void saveTextResource(String resourceName, String owner,
+                                 String title, String packageName, String data, String access) {
         long id = elementHashCode(resourceName);
         TextResource textResource = new TextResource();
         textResource.textResourceId = id;
         textResource.resourceValue = data;
-        textResource.role = role;
+        textResource.access = access;
         textResource.title = title;
         textResource.owner = elementHashCode(owner);
         textResource.packageName = packageName;

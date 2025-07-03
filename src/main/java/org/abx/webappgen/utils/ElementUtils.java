@@ -2,6 +2,11 @@ package org.abx.webappgen.utils;
 
 public class ElementUtils {
 
+    public static final String Anonymous = "Anonymous";
+
+    public static final String User = "User";
+
+    public static final String Admin = "Admin";
 
     public static final String defaultPackage = "webappgen";
 

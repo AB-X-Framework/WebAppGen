@@ -311,7 +311,7 @@ public class SpecsExporter {
                 packageResources.put(jsonBinaryResource);
                 jsonBinaryResource.put("name", binaryResource.resourceName);
                 jsonBinaryResource.put("contentType", binaryResource.contentType);
-                jsonBinaryResource.put("role", binaryResource.role);
+                jsonBinaryResource.put("access", binaryResource.access);
                 jsonBinaryResource.put("owner",userRepository.findByUserId(binaryResource.owner).username);
                 new File(specsFolder+"/binary/" + packageName.replace(".","/")).mkdirs();
                 new FileOutputStream(specsFolder + "/binary/" + binaryResource.resourceName).
@@ -338,7 +338,7 @@ public class SpecsExporter {
                 packageResources.put(jsonTextResource);
                 jsonTextResource.put("name", textResource.resourceName);
                 jsonTextResource.put("package", packageName);
-                jsonTextResource.put("role", textResource.role);
+                jsonTextResource.put("access", textResource.access);
                 jsonTextResource.put("title", textResource.title);
                 jsonTextResource.put("owner", userRepository.findByUserId(textResource.owner).username);
                 new File(specsFolder+"/text/" + packageName.replace(".","/")).mkdirs();
@@ -393,7 +393,7 @@ public class SpecsExporter {
             jsonArrayResource.put("name", name);
             jsonArrayResource.put("package", arrayResource.packageName);
             jsonArrayResource.put("owner", arrayResource.owner);
-            jsonArrayResource.put("role", arrayResource.role);
+            jsonArrayResource.put("access", arrayResource.access);
             JSONArray values = new JSONArray();
             for (ArrayEntry entry : arrayEntryRepository.findAllByArrayResourceId(id)) {
                 values.put(entry.arrayValue);
