@@ -622,6 +622,84 @@ public class ResourceModel {
         arrayPairResourceRepository.delete(arrayPairResource);
     }
 
+    @Transactional
+    public JSONObject getMap(String mapName) {
+        long id = elementHashCode(mapName);
+        MapResource mapResource = mapResourceRepository.findByMapResourceId(id);
+        if (mapResource == null) {
+            return null;
+        }
+        JSONObject mapJson = new JSONObject();
+        mapJson.put("count", getMapEntriesCount(mapName));
+        mapJson.put("owner", userRepository.findByUserId(mapResource.owner).username);
+        mapJson.put("access", mapResource.access);
+        return mapJson;
+    }
+
+
+    @Transactional
+    public JSONObject getArray(String arrayName) {
+        long id = elementHashCode(arrayName);
+        ArrayResource arrayResource = arrayResourceRepository.findByArrayResourceId(id);
+        if (arrayResource == null) {
+            return null;
+        }
+        JSONObject arrayJson = new JSONObject();
+        arrayJson.put("count", getArrayEntriesCount(arrayName));
+        arrayJson.put("owner", userRepository.findByUserId(arrayResource.owner).username);
+        arrayJson.put("access", arrayResource.access);
+        return arrayJson;
+    }
+
+    @Transactional
+    public JSONObject getArrayPair(String arrayPairName) {
+        long id = elementHashCode(arrayPairName);
+        ArrayPairResource arrayPairResource = arrayPairResourceRepository.findByArrayPairResourceId(id);
+        if (arrayPairResource == null) {
+            return null;
+        }
+        JSONObject arrayPairJson = new JSONObject();
+        arrayPairJson.put("count", getArrayPairEntriesCount(arrayPairName));
+        arrayPairJson.put("owner", userRepository.findByUserId(arrayPairResource.owner).username);
+        arrayPairJson.put("access", arrayPairResource.access);
+        return arrayPairJson;
+    }
+
+    @Transactional
+    public JSONObject getMapData(String mapName, String username, Set<String> roles) {
+        long id = elementHashCode(mapName);
+        MapResource mapResource = mapResourceRepository.findByMapResourceId(id);
+        if (mapResource == null) {
+            return null;
+        }
+        if (!validAccess(mapResource.access, mapResource.owner, username, roles)) {
+            return null;
+        }
+        JSONObject mapJson = new JSONObject();
+        for (MapEntry entry : mapEntryRepository.findAllByMapResource(mapResource)) {
+            mapJson.put(entry.entryName, entry.mapValue);
+        }
+        return mapJson;
+    }
+
+
+    @Transactional
+    public JSONArray getArrayData(String arrayName, String username, Set<String> roles) {
+        long id = elementHashCode(arrayName);
+        ArrayResource arrayResource = arrayResourceRepository.findByArrayResourceId(id);
+        if (arrayResource == null) {
+            return null;
+        }
+        if (!validAccess(arrayResource.access, arrayResource.owner, username, roles)) {
+            return null;
+        }
+        JSONArray jsonArray = new JSONArray();
+        for (ArrayEntry entry : arrayEntryRepository.findAllByArrayResourceId(id)) {
+            jsonArray.put(entry.arrayValue);
+        }
+        return jsonArray;
+    }
+
     public String getMapResource(String mapName, String key) {
         return mapEntryRepository.findByMapEntryId(
                 elementHashCode(mapName + "." + key)).mapValue;

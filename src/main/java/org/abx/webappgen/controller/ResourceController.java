@@ -277,6 +277,52 @@ public class ResourceController extends RoleController {
     }
 
     @Secured("Admin")
+    @GetMapping(value = "/maps/{mapName}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String getMapValue(
+            @PathVariable String mapName) {
+        return resourceModel.getMap(mapName).toString();
+    }
+
+    @Secured("Admin")
+    @GetMapping(value = "/arrays/{arrayName}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String getArrayValue(
+            @PathVariable String arrayName) {
+        return resourceModel.getArray(arrayName).toString();
+    }
+
+    @Secured("Admin")
+    @GetMapping(value = "/arrayPairs/{arrayPairName}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String getArrayPairValue(
+            @PathVariable String arrayPairName) {
+        return resourceModel.getArrayPair(arrayPairName).toString();
+    }
+
+    @PreAuthorize("permitAll()")
+    @GetMapping(value = "/array/{arrayName}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String getArrayData(
+            HttpServletRequest request,
+            @PathVariable String arrayName) {
+        String username = null;
+        if (request.getUserPrincipal() != null) {
+            username = request.getUserPrincipal().getName();
+        }
+        return resourceModel.getArrayData(arrayName, username, getRoles()).toString();
+    }
+
+
+    @PreAuthorize("permitAll()")
+    @GetMapping(value = "/map/{mapName}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String getMapData(
+            HttpServletRequest request,
+            @PathVariable String mapName) {
+        String username = null;
+        if (request.getUserPrincipal() != null) {
+            username = request.getUserPrincipal().getName();
+        }
+        return resourceModel.getMapData(mapName, username, getRoles()).toString();
+    }
+
+    @Secured("Admin")
     @GetMapping(value = "/maps/{mapName}/entries/{key}")
     public String downloadMapValue(
             @PathVariable String mapName,
@@ -596,7 +642,7 @@ public class ResourceController extends RoleController {
         // Remove the prefix "/binaries/"
         String resource = path.replaceFirst("/resources/binary/", "");
         Set<String> roles = getRoles();
-        Pair<String, byte[]> fileContent = resourceModel.getBinaryResource(resource,username,roles);
+        Pair<String, byte[]> fileContent = resourceModel.getBinaryResource(resource, username, roles);
         if (fileContent == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
