@@ -11,6 +11,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Set;
 
 import static org.abx.webappgen.utils.ElementUtils.elementHashCode;
@@ -460,7 +462,9 @@ public class ResourceModel {
 
     public JSONArray getMethodPackages() {
         JSONArray array = new JSONArray();
-        array.putAll(methodSpecRepository.findDistinctPackageNames());
+        ArrayList<String> packages = new  ArrayList<>(methodSpecRepository.findDistinctPackageNames());
+        Collections.sort(packages);
+        array.putAll(packages);
         return array;
     }
 
@@ -504,10 +508,13 @@ public class ResourceModel {
 
 
     public JSONArray getMethodsByPackageName(String packageName) {
-        JSONArray array = new JSONArray();
+        ArrayList<String> methodByPackage =new ArrayList<>();
         methodSpecRepository.findAllByPackageName(packageName).forEach((mapResource) -> {
-            array.put(mapResource.methodName);
+            methodByPackage.add(mapResource.methodName);
         });
+        Collections.sort(methodByPackage);
+        JSONArray array = new JSONArray();
+        array.putAll(methodByPackage);
         return array;
     }
 
