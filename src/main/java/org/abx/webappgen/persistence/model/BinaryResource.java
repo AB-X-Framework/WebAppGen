@@ -21,9 +21,6 @@ public class BinaryResource {
     public String contentType;
 
     @Column(nullable = false)
-    public long owner;
-
-    @Column(nullable = false)
     public String access;
 
     @Column(columnDefinition = "MEDIUMBLOB", nullable = false)
