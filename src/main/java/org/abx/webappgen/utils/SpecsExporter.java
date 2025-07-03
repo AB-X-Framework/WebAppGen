@@ -44,6 +44,9 @@ public class SpecsExporter {
     public ArrayResourceRepository arrayResourceRepository;
 
     @Autowired
+    public ArrayPairResourceRepository arrayPairResourceRepository;
+
+    @Autowired
     public MapResourceRepository mapResourceRepository;
 
     @Autowired
@@ -51,6 +54,9 @@ public class SpecsExporter {
 
     @Autowired
     private ArrayEntryRepository arrayEntryRepository;
+
+    @Autowired
+    private ArrayPairEntryRepository arrayPairEntryRepository;
 
 
     /**
@@ -284,6 +290,7 @@ public class SpecsExporter {
         object.put("binary", createBinaryResources(specsFolder, removeDefaults));
         object.put("text", createTextResources(specsFolder, removeDefaults));
         object.put("array", createArrayResources(specsFolder, removeDefaults));
+        object.put("arrayPair", createArrayPairResources(specsFolder, removeDefaults));
         object.put("map", createMapResources(specsFolder, removeDefaults));
         return object;
     }
@@ -346,6 +353,34 @@ public class SpecsExporter {
         return textResources;
     }
 
+
+
+
+    public JSONArray createArrayPairResources(String specsFolder, boolean removeDefaults) throws IOException {
+        new File(specsFolder + "/arrayPair").mkdirs();
+        JSONArray arrayPairResources = new JSONArray();
+        for (ArrayPairResource arrayPairResource : arrayPairResourceRepository.findAll()) {
+            if (removeDefaults && arrayPairResource.packageName.startsWith(defaultPackage)) {
+                continue;
+            }
+            JSONObject jsonArrayPairResource = new JSONObject();
+            arrayPairResources.put(jsonArrayPairResource);
+            String name = arrayPairResource.resourceName;
+            long id = elementHashCode(name);
+            jsonArrayPairResource.put("name", name);
+            jsonArrayPairResource.put("package", arrayPairResource.packageName);
+            JSONArray values = new JSONArray();
+            for (ArrayPairEntry entry : arrayPairEntryRepository.findAllByArrayPairResourceId(id)) {
+                JSONObject jsonEntry = new JSONObject();
+                jsonEntry.put("key",entry.arrayPairKey);
+                jsonEntry.put("value",entry.arrayPairValue);
+                values.put(jsonEntry);
+            }
+            new FileOutputStream(specsFolder + "/arrayPair/" + name + ".json").
+                    write(values.toString().getBytes());
+        }
+        return arrayPairResources;
+    }
 
     public JSONArray createArrayResources(String specsFolder, boolean removeDefaults) throws IOException {
         new File(specsFolder + "/array").mkdirs();
