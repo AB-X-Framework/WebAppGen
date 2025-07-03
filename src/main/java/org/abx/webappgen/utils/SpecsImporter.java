@@ -234,7 +234,7 @@ public class SpecsImporter {
         for (int i = 0; i < arrayResources.length(); i++) {
             JSONObject arrayResource = arrayResources.getJSONObject(i);
             String arrayName = arrayResource.getString("name");
-            String arrayData = getData(specsPath + "/array/" + arrayName + ".json", fs);
+            String arrayData = getData(specsPath + "/arrayPair/" + arrayName + ".json", fs);
 
             resourceModel.saveArrayPairResource(arrayName, arrayResource.getString("package"),
                     new JSONArray(arrayData));

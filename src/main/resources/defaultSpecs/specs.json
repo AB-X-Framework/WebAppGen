@@ -31,8 +31,6 @@
   "pages": ["webappgen"],
   "methods": ["webappgen"],
   "resources": {
-    "arrayPair": [
-    ],
     "array": [
       {
         "package": "webappgen",
@@ -53,6 +51,7 @@
       "webappgen"
     ],
     "text": ["demo"],
+    "arrayPair": [],
     "map": [
       {
         "package": "app",

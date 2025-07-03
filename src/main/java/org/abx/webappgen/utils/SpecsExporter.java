@@ -353,9 +353,6 @@ public class SpecsExporter {
         return textResources;
     }
 
-
-
-
     public JSONArray createArrayPairResources(String specsFolder, boolean removeDefaults) throws IOException {
         new File(specsFolder + "/arrayPair").mkdirs();
         JSONArray arrayPairResources = new JSONArray();
