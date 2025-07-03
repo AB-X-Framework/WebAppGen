@@ -120,6 +120,7 @@ public class ResourceModel {
         }
         return jsonArray;
     }
+
     @Transactional
     public JSONArray getUsers(int page, int size) {
         // Assuming elementHashCode returns the ID of the resource
@@ -436,113 +437,115 @@ public class ResourceModel {
     }
 
     public JSONArray getMapPackages() {
-        JSONArray array = new JSONArray();
-        array.putAll(mapResourceRepository.findDistinctPackageNames());
-        return array;
+        ArrayList<String> packages = new ArrayList<>(mapResourceRepository.findDistinctPackageNames());
+        Collections.sort(packages);
+        return new JSONArray(packages);
     }
 
     public JSONArray getArrayPackages() {
-        JSONArray array = new JSONArray();
-        array.putAll(arrayResourceRepository.findDistinctPackageNames());
-        return array;
+        ArrayList<String> packages = new ArrayList<>(arrayResourceRepository.findDistinctPackageNames());
+        Collections.sort(packages);
+        return new JSONArray(packages);
     }
 
     public JSONArray getArrayPairPackages() {
-        JSONArray array = new JSONArray();
-        array.putAll(arrayPairResourceRepository.findDistinctPackageNames());
-        return array;
+        ArrayList<String> packages = new ArrayList<>(arrayPairResourceRepository.findDistinctPackageNames());
+        Collections.sort(packages);
+        return new JSONArray(packages);
     }
 
     public JSONArray getTextPackages() {
-        JSONArray array = new JSONArray();
-        array.putAll(textResourceRepository.findDistinctPackageNames());
-        return array;
+        ArrayList<String> packages = new ArrayList<>(textResourceRepository.findDistinctPackageNames());
+        Collections.sort(packages);
+        return new JSONArray(packages);
     }
 
 
     public JSONArray getMethodPackages() {
-        JSONArray array = new JSONArray();
-        ArrayList<String> packages = new  ArrayList<>(methodSpecRepository.findDistinctPackageNames());
+        ArrayList<String> packages = new ArrayList<>(methodSpecRepository.findDistinctPackageNames());
         Collections.sort(packages);
-        array.putAll(packages);
-        return array;
+        return new JSONArray(packages);
     }
 
     public JSONArray getBinaryPackages() {
-        JSONArray array = new JSONArray();
-        array.putAll(binaryResourceRepository.findDistinctPackageNames());
-        return array;
+        ArrayList<String> binaryPackages = new ArrayList<>(binaryResourceRepository.findDistinctPackageNames());
+        Collections.sort(binaryPackages);
+        return new JSONArray(binaryPackages);
     }
 
     public JSONArray getMapsByPackageName(String packageName) {
-        JSONArray array = new JSONArray();
+        ArrayList<String> maps = new ArrayList<>();
         mapResourceRepository.findAllByPackageName(packageName).forEach((mapResource) -> {
-            array.put(mapResource.resourceName);
+            maps.add(mapResource.resourceName);
         });
-        return array;
+        Collections.sort(maps);
+        return new JSONArray(maps);
     }
 
     public JSONArray getArraysByPackageName(String packageName) {
-        JSONArray array = new JSONArray();
+        ArrayList<String> arrays = new ArrayList<>();
         arrayResourceRepository.findAllByPackageName(packageName).forEach((mapResource) -> {
-            array.put(mapResource.resourceName);
+            arrays.add(mapResource.resourceName);
         });
-        return array;
+        Collections.sort(arrays);
+        return new JSONArray(arrays);
     }
 
     public JSONArray getArrayPairsByPackageName(String packageName) {
-        JSONArray array = new JSONArray();
+        ArrayList<String> arrayPairs = new ArrayList<>();
         arrayPairResourceRepository.findAllByPackageName(packageName).forEach((mapResource) -> {
-            array.put(mapResource.resourceName);
+            arrayPairs.add(mapResource.resourceName);
         });
-        return array;
+        Collections.sort(arrayPairs);
+        return new JSONArray(arrayPairs);
     }
 
     public JSONArray getTextsByPackageName(String packageName) {
-        JSONArray array = new JSONArray();
+        ArrayList<String> texts = new ArrayList<>();
         textResourceRepository.findAllByPackageName(packageName).forEach((mapResource) -> {
-            array.put(mapResource.resourceName);
+            texts.add(mapResource.resourceName);
         });
-        return array;
+        Collections.sort(texts);
+        return new JSONArray(texts);
     }
 
 
     public JSONArray getMethodsByPackageName(String packageName) {
-        ArrayList<String> methodByPackage =new ArrayList<>();
+        ArrayList<String> methodByPackage = new ArrayList<>();
         methodSpecRepository.findAllByPackageName(packageName).forEach((mapResource) -> {
             methodByPackage.add(mapResource.methodName);
         });
         Collections.sort(methodByPackage);
-        JSONArray array = new JSONArray();
-        array.putAll(methodByPackage);
-        return array;
+        return new JSONArray(methodByPackage);
     }
 
 
     public JSONArray getBinariesByPackageName(String packageName) {
-        JSONArray array = new JSONArray();
+        ArrayList<String> binaries = new ArrayList<>();
         binaryResourceRepository.findAllByPackageName(packageName).forEach((mapResource) -> {
-            array.put(mapResource.resourceName);
+            binaries.add(mapResource.resourceName);
         });
-        return array;
+        Collections.sort(binaries);
+        return new JSONArray(binaries);
     }
 
 
     public JSONArray getJSByPackageName(String packageName) {
-        JSONArray array = new JSONArray();
+        ArrayList<String> js = new ArrayList<>();
         binaryResourceRepository.findAllByPackageName(packageName).forEach((mapResource) -> {
             if ("text/javascript".equals(mapResource.contentType)
                     || "text/css".equals(mapResource.contentType)) {
-                array.put(mapResource.resourceName);
+                js.add(mapResource.resourceName);
             }
         });
-        return array;
+        Collections.sort(js);
+        return new JSONArray(js);
     }
 
     public JSONArray getBinariesOutputTypes() {
-        JSONArray array = new JSONArray();
-        binaryResourceRepository.findDistinctContentTypes().forEach(array::put);
-        return array;
+        ArrayList<String> array = new ArrayList<>(binaryResourceRepository.findDistinctContentTypes());
+        Collections.sort(array);
+        return new JSONArray(array);
     }
 
 
@@ -746,7 +749,7 @@ public class ResourceModel {
     }
 
     @Transactional
-    public void addArrayPairEntry(String arrayMap,String key, String value) {
+    public void addArrayPairEntry(String arrayMap, String key, String value) {
         long id = elementHashCode(arrayMap);
         ArrayPairEntry entry = new ArrayPairEntry();
         entry.arrayPairKey = key;
