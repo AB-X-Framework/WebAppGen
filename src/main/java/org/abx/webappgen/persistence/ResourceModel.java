@@ -613,21 +613,21 @@ public class ResourceModel {
 
     @Transactional
     public JSONArray getArrayPair(String arrayPairName, String keyLabel, String valueLabel, String username,
-                             Set<String> roles) {
+                                  Set<String> roles) {
         long id = elementHashCode(arrayPairName);
         ArrayPairResource arrayResource = arrayPairResourceRepository.findByArrayPairResourceId(id);
         if (arrayResource == null) {
             return null;
         }
-        if (arrayResource.access.equals(ElementUtils.User)){
+        if (arrayResource.access.equals(ElementUtils.User)) {
             if (!username.equals(userRepository.findByUserId(arrayResource.owner).username)) {
-                if (!roles.contains(Admin)){
+                if (!roles.contains(Admin)) {
                     return null;
                 }
             }
         }
         JSONArray jsonArrayPair = new JSONArray();
-        for(ArrayPairEntry entry: arrayPairEntryRepository.findAllByArrayPairResourceId(id)){
+        for (ArrayPairEntry entry : arrayPairEntryRepository.findAllByArrayPairResourceId(id)) {
             JSONObject jsonEntry = new JSONObject();
             jsonArrayPair.put(jsonEntry);
             jsonEntry.put(keyLabel, entry.arrayPairKey);
@@ -804,12 +804,15 @@ public class ResourceModel {
     }
 
 
-    public void saveMapResource(String mapName, String packageName, JSONObject data) {
+    public void saveMapResource(String mapName, String packageName, JSONObject data,
+                                String owner, String access) {
         long id = elementHashCode(mapName);
         MapResource mapResource = new MapResource();
         mapResource.mapResourceId = id;
         mapResource.resourceName = mapName;
         mapResource.packageName = packageName;
+        mapResource.owner = elementHashCode(owner);
+        mapResource.access = access;
         mapResourceRepository.save(mapResource);
         for (String key : data.keySet()) {
             MapEntry entry = new MapEntry();
@@ -822,7 +825,7 @@ public class ResourceModel {
     }
 
     public void saveArrayResource(String resourceName, String packageName, JSONArray data,
-                                  String owner,String access) {
+                                  String owner, String access) {
         long id = elementHashCode(resourceName);
         ArrayResource previous = arrayResourceRepository.findByArrayResourceId(id);
         if (previous != null) {
@@ -834,8 +837,8 @@ public class ResourceModel {
         arrayResource.arrayResourceId = id;
         arrayResource.resourceName = resourceName;
         arrayResource.packageName = packageName;
-        arrayResource.owner=elementHashCode(owner);
-        arrayResource.access=access;
+        arrayResource.owner = elementHashCode(owner);
+        arrayResource.access = access;
         arrayResourceRepository.save(arrayResource);
         for (int i = 0; i < data.length(); i++) {
             String value = data.getString(i);
@@ -847,7 +850,7 @@ public class ResourceModel {
     }
 
     public void saveArrayPairResource(String resourceName, String packageName,
-                                      JSONArray data,String owner,String access) {
+                                      JSONArray data, String owner, String access) {
         long id = elementHashCode(resourceName);
         ArrayPairResource previous = arrayPairResourceRepository.findByArrayPairResourceId(id);
         if (previous != null) {

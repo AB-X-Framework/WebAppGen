@@ -23,8 +23,8 @@ public class MapResource {
     public List<MapEntry> resourceEntries;
 
     @Column(nullable = false)
-    public long access;
+    public String access;
 
     @Column(nullable = false)
-    public String role;
+    public long owner;
 }
