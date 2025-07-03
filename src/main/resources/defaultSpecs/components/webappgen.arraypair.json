@@ -92,7 +92,7 @@
     "isContainer": true,
     "js": [{
       "env": "",
-      "value": "$(NewArrayPairConfirm).click(()=>{\n    const name = $(NewArrayPairName).val();\n    $.post(`/resources/arrayPairs/${name}`,(status)=>{\n       if (status.success){\n           PageContent.closeModal(self);\n           addAutocompleteValue(workingEnv.PackageName,status.package)\n           addAutocompleteValue(workingEnv.ArrayPairName,name);\n       } else {\n           PageContent.showModal(\"Cannot create array\"+JSON.stringify(status.error))\n       }\n    });\n});"
+      "value": "$(NewArrayPairConfirm).click(()=>{\n    const name = $(NewArrayPairName).val();\n    $.post(`/resources/arrayPairs/${name}`,(status)=>{\n       if (status.success){\n           workingEnv.arrayPairName = name;\n           PageContent.closeModal(self);\n           addAutocompleteValue(workingEnv.PackageName,status.package)\n           addAutocompleteValue(workingEnv.ArrayPairName,name);\n       } else {\n           PageContent.showModal(\"Cannot create array\"+JSON.stringify(status.error))\n       }\n    });\n});"
     }]
   },
   {

@@ -12,7 +12,7 @@ function arrayPairValues() {
         const escapedV = JSON.stringify(key);
         const keyfield= {
             "specs": {"title": `${curr} Key`, "content": key},
-            js: `$(self).on('input',()=>{workingEnv.SaveArrayPair.markChanged();workingEnv.updatedArrayPair[(${escapedKey})].key=$(${id}).val()})`,
+            js: `$(${keyId}).on('input',()=>{workingEnv.SaveArrayPair.markChanged();workingEnv.updatedArrayPair[(${escapedKey})].key=$(${id}).val()})`,
             "isContainer": false,
             "type": "textfield",
             "size": "l4",
@@ -20,7 +20,7 @@ function arrayPairValues() {
         }
         const valuefield= {
             "specs": {"title": `Value`, "content": value},
-            js: `$(self).on('input',()=>{workingEnv.SaveArrayPair.markChanged();workingEnv.updatedArrayPair[(${escapedKey})].value=$(${id}).val()})`,
+            js: `$(${valueId}).on('input',()=>{workingEnv.SaveArrayPair.markChanged();workingEnv.updatedArrayPair[(${escapedKey})].value=$(${id}).val()})`,
             "isContainer": false,
             "type": "textarea",
             "size": "l5",
@@ -28,7 +28,7 @@ function arrayPairValues() {
         }
         const deleteBtn={
             "specs": {"title": "delete"},
-            js: `$(self).click(()=>{handleDelete(${escapedKey})})`,
+            js: `$(${delId}).click(()=>{handleDelete(${escapedKey})})`,
             "isContainer": false,
             "type": "button",
             "size": "l1",
