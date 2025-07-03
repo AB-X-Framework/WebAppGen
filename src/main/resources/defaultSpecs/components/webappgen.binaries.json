@@ -106,20 +106,6 @@
     "type": "autocomplete"
   },
   {
-    "specs": [{
-      "env": "",
-      "value": {
-        "label": "Binary owner",
-        "title": "Owner",
-        "content": ""
-      }
-    }],
-    "name": "webappgen.binaries.Owner",
-    "isContainer": false,
-    "js": [],
-    "type": "textfield"
-  },
-  {
     "layout": "horizontal",
     "components": [{
       "innerId": "Img",
@@ -175,13 +161,13 @@
       },
       {
         "innerId": "Owner",
-        "component": "webappgen.binaries.Owner",
+        "component": "webappgen.resources.Owner",
         "size": "l4",
         "env": ""
       },
       {
         "innerId": "RoleType",
-        "component": "webappgen.components.AccessType",
+        "component": "webappgen.resources.AccessType",
         "size": "l2",
         "env": ""
       }

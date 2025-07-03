@@ -390,7 +390,7 @@
       },
       {
         "innerId": "RoleType",
-        "component": "webappgen.components.AccessType",
+        "component": "webappgen.resources.AccessType",
         "size": "l12",
         "env": ""
       },

@@ -1,0 +1,41 @@
+[
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "values": [
+          {
+            "text": "User",
+            "value": "User"
+          },
+          {
+            "text": "Anonymous",
+            "value": "Anonymous"
+          }
+        ],
+        "title": "Access Type"
+      }
+    }],
+    "name": "webappgen.resources.AccessType",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": ""
+    }],
+    "type": "select"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "label": "Resource owner",
+        "title": "Owner",
+        "content": ""
+      }
+    }],
+    "name": "webappgen.resources.Owner",
+    "isContainer": false,
+    "js": [],
+    "type": "textfield"
+  }
+]

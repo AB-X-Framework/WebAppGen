@@ -628,31 +628,6 @@
       "value": {
         "values": [
           {
-            "text": "User",
-            "value": "User"
-          },
-          {
-            "text": "Anonymous",
-            "value": "Anonymous"
-          }
-        ],
-        "title": "Access Type"
-      }
-    }],
-    "name": "webappgen.components.AccessType",
-    "isContainer": false,
-    "js": [{
-      "env": "",
-      "value": ""
-    }],
-    "type": "select"
-  },
-  {
-    "specs": [{
-      "env": "",
-      "value": {
-        "values": [
-          {
             "text": "Button",
             "value": "button"
           },
