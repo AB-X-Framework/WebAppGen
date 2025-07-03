@@ -1,6 +1,5 @@
 package org.abx.webappgen.utils;
 
-import org.springframework.core.io.ResourceLoader;
 import jakarta.annotation.PostConstruct;
 import jakarta.transaction.Transactional;
 import org.abx.util.StreamUtils;
@@ -17,6 +16,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -102,7 +102,7 @@ public class SpecsImporter {
             File resourceFile = new File(resource);
             inputStream = new FileInputStream(resourceFile);
         } else {
-            inputStream = resourceLoader.getResource("classpath:"+resource).getInputStream();
+            inputStream = resourceLoader.getResource("classpath:" + resource).getInputStream();
         }
         return StreamUtils.readStream(inputStream);
     }
@@ -125,8 +125,9 @@ public class SpecsImporter {
         for (org.abx.webappgen.persistence.model.Component component : componentRepository.findAll()) {
             savedComponents.add(component.componentName);
         }
-         loadSpecs(specsPath,fs,savedComponents);
+        loadSpecs(specsPath, fs, savedComponents);
     }
+
     /**
      * Uploads spe
      *
@@ -226,7 +227,8 @@ public class SpecsImporter {
             String arrayData = getData(specsPath + "/array/" + arrayName + ".json", fs);
 
             resourceModel.saveArrayResource(arrayName, arrayResource.getString("package"),
-                    new JSONArray(arrayData),arrayResource.getString("owner"),arrayResource.getString("access"));
+                    new JSONArray(arrayData), arrayResource.getString("owner"),
+                    arrayResource.getString("access"));
         }
     }
 
@@ -238,7 +240,8 @@ public class SpecsImporter {
             String arrayData = getData(specsPath + "/arrayPair/" + arrayName + ".json", fs);
 
             resourceModel.saveArrayPairResource(arrayName, arrayResource.getString("package"),
-                    new JSONArray(arrayData), arrayResource.getString("owner"),arrayResource.getString("access") );
+                    new JSONArray(arrayData), arrayResource.getString("owner"),
+                    arrayResource.getString("access"));
         }
     }
 
@@ -247,7 +250,9 @@ public class SpecsImporter {
             JSONObject mapResource = mapResources.getJSONObject(i);
             String mapName = mapResource.getString("name");
             String arrayData = getData(specsPath + "/map/" + mapName + ".json", fs);
-            resourceModel.saveMapResource(mapName, mapResource.getString("package"), new JSONObject(arrayData));
+            resourceModel.saveMapResource(mapName, mapResource.getString("package"),
+                    new JSONObject(arrayData), mapResource.getString("owner"),
+                    mapResource.getString("access"));
         }
     }
 
@@ -262,9 +267,10 @@ public class SpecsImporter {
                 String owner = jsonResource.getString("owner");
                 String file = specsPath + "/binary/" + name;
                 byte[] data = getBinaryData(file, fs);
-                resourceModel.saveBinaryResource(name, packageName,owner,
-                        jsonResource.getString("contentType"), jsonResource.getString("access"));
-                resourceModel.upload(name,data);
+                resourceModel.saveBinaryResource(name, packageName, owner,
+                        jsonResource.getString("contentType"),
+                        jsonResource.getString("access"));
+                resourceModel.upload(name, data);
             }
         }
 
@@ -280,7 +286,7 @@ public class SpecsImporter {
                 String name = jsonResource.getString("name");
                 String owner = jsonResource.getString("owner");
                 String title = jsonResource.getString("title");
-                String file = specsPath + "/text/"  + name.replace('.', '/') + ".txt";
+                String file = specsPath + "/text/" + name.replace('.', '/') + ".txt";
                 String data = getData(file, fs);
                 resourceModel.saveTextResource(name, owner, title, packageName,
                         data, jsonResource.getString("access"));
@@ -328,8 +334,8 @@ public class SpecsImporter {
     }
 
     @Transactional
-    public boolean matchesExists(String match){
-        return pageRepository.findByMatchesId(elementHashCode(match))!= null;
+    public boolean matchesExists(String match) {
+        return pageRepository.findByMatchesId(elementHashCode(match)) != null;
     }
 
     @Transactional
