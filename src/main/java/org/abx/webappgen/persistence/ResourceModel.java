@@ -817,6 +817,28 @@ public class ResourceModel {
         }
     }
 
+    public void saveArrayPairResource(String resourceName, String packageName, JSONArray data) {
+        long id = elementHashCode(resourceName);
+        ArrayPairResource previous = arrayPairResourceRepository.findByArrayPairResourceId(id);
+        if (previous != null) {
+            arrayPairResourceRepository.delete(previous);
+            arrayPairResourceRepository.flush();
+            arrayPairEntryRepository.deleteAll(arrayPairEntryRepository.findAllByArrayPairResourceId(id));
+        }
+        ArrayPairResource arrayPairResource = new ArrayPairResource();
+        arrayPairResource.arrayPairResourceId = id;
+        arrayPairResource.resourceName = resourceName;
+        arrayPairResource.packageName = packageName;
+        arrayPairResourceRepository.save(arrayPairResource);
+        for (int i = 0; i < data.length(); i++) {
+            JSONObject value = data.getJSONObject(i);
+            ArrayPairEntry entry = new ArrayPairEntry();
+            entry.arrayPairKey = value.getString("key");
+            entry.arrayPairValue = value.getString("value");
+            entry.arrayPairResourceId = id;
+            arrayPairEntryRepository.save(entry);
+        }
+    }
     public void saveTextResource(String resourceName, String owner, String title, String packageName, String data, String role) {
         long id = elementHashCode(resourceName);
         TextResource textResource = new TextResource();
