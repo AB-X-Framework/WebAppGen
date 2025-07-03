@@ -54,7 +54,8 @@
     "binary": [
       "ace",
       "jquery",
-      "webappgen"
+      "webappgen",
+      "materialize"
     ],
     "text": ["demo"],
     "arrayPair": [{

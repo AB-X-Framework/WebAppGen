@@ -1,21 +1,10 @@
 [
-  {
-    "owner": "root@abxwebappgen.org",
-    "access": "Anonymous",
-    "name": "webappgen/materialize.min.css",
-    "contentType": "text/css"
-  },
+
   {
     "owner": "root@abxwebappgen.org",
     "access": "Anonymous",
     "name": "webappgen/materialize.icons.css",
     "contentType": "text/css"
-  },
-  {
-    "owner": "root@abxwebappgen.org",
-    "access": "Anonymous",
-    "name": "webappgen/materialize.min.js",
-    "contentType": "text/javascript"
   },
   {
     "owner": "root@abxwebappgen.org",
@@ -49,7 +38,7 @@
   },
   {
     "owner": "root@abxwebappgen.org",
-    "access": "User",
+    "access": "Anonymous",
     "name": "webappgen/materialize.content.js",
     "contentType": "text/javascript"
   },
@@ -61,7 +50,7 @@
   },
   {
     "owner": "root@abxwebappgen.org",
-    "access": "User",
+    "access": "Anonymous",
     "name": "webappgen/components.js",
     "contentType": "text/javascript"
   },
@@ -85,7 +74,7 @@
   },
   {
     "owner": "root@abxwebappgen.org",
-    "access": "User",
+    "access": "Anonymous",
     "name": "webappgen/maps.js",
     "contentType": "text/javascript"
   }

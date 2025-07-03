@@ -1,0 +1,14 @@
+[
+  {
+    "owner": "root@abxwebappgen.org",
+    "access": "Anonymous",
+    "name": "materialize/min.css",
+    "contentType": "text/css"
+  },
+  {
+    "owner": "root@abxwebappgen.org",
+    "access": "Anonymous",
+    "name": "materialize/min.js",
+    "contentType": "text/javascript"
+  }
+]
