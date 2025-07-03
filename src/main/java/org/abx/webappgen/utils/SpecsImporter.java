@@ -238,7 +238,7 @@ public class SpecsImporter {
             String arrayData = getData(specsPath + "/arrayPair/" + arrayName + ".json", fs);
 
             resourceModel.saveArrayPairResource(arrayName, arrayResource.getString("package"),
-                    new JSONArray(arrayData));
+                    new JSONArray(arrayData), arrayResource.getString("owner"),arrayResource.getString("access") );
         }
     }
 
