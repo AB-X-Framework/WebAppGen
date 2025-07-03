@@ -249,7 +249,7 @@
     "name": "webappgen.ArraysPairs",
     "title": [{
       "env": "",
-      "value": "Arrays"
+      "value": "Array Pairs"
     }],
     "scripts": [
       {

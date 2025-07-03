@@ -51,7 +51,10 @@
       "webappgen"
     ],
     "text": ["demo"],
-    "arrayPair": [],
+    "arrayPair": [{
+      "package": "webappgen",
+      "name": "webappgen.demo"
+    }],
     "map": [
       {
         "package": "app",

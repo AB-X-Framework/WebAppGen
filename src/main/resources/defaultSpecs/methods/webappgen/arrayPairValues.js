@@ -9,10 +9,11 @@ function arrayPairValues() {
         const keyId= `k_${id}`;
         const valueId= `v_${id}`;
         const escapedKey = JSON.stringify(key);
-        const escapedV = JSON.stringify(key);
+        const escapedValue = JSON.stringify(value);
         const keyfield= {
             "specs": {"title": `${curr} Key`, "content": key},
-            js: `$(${keyId}).on('input',()=>{workingEnv.SaveArrayPair.markChanged();workingEnv.updatedArrayPair[(${escapedKey})].key=$(${id}).val()})`,
+            "js": `workingEnv.updatedArrayPair[${id}] = {"key":(${escapedKey}),"value":(${escapedValue})};
+                $(${keyId}).on('input',()=>{workingEnv.SaveArrayPair.markChanged();workingEnv.updatedArrayPair[${id}].key=$(${keyId}).val()})`,
             "isContainer": false,
             "type": "textfield",
             "size": "l4",
@@ -20,7 +21,7 @@ function arrayPairValues() {
         }
         const valuefield= {
             "specs": {"title": `Value`, "content": value},
-            js: `$(${valueId}).on('input',()=>{workingEnv.SaveArrayPair.markChanged();workingEnv.updatedArrayPair[(${escapedKey})].value=$(${id}).val()})`,
+            "js": `$(${valueId}).on('input',()=>{workingEnv.SaveArrayPair.markChanged();workingEnv.updatedArrayPair[${id}].value=$(${valueId}).val()})`,
             "isContainer": false,
             "type": "textarea",
             "size": "l5",
@@ -28,7 +29,7 @@ function arrayPairValues() {
         }
         const deleteBtn={
             "specs": {"title": "delete"},
-            js: `$(${delId}).click(()=>{handleDelete(${escapedKey})})`,
+            js: `$(${delId}).click(()=>{handleDelete(${id})})`,
             "isContainer": false,
             "type": "button",
             "size": "l1",
