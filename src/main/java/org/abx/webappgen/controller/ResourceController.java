@@ -228,7 +228,7 @@ public class ResourceController extends RoleController {
 
 
     @Secured("Admin")
-    @DeleteMapping(value = "/arrayPairs/{arrayName}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = "/arrayPairs/{arrayPairName}", produces = MediaType.APPLICATION_JSON_VALUE)
     public String deleteArrayPair(
             @PathVariable String arrayPairName) {
         JSONObject result = new JSONObject();
