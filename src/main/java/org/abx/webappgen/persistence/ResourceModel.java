@@ -3,7 +3,6 @@ package org.abx.webappgen.persistence;
 import org.abx.util.Pair;
 import org.abx.webappgen.persistence.dao.*;
 import org.abx.webappgen.persistence.model.*;
-import org.abx.webappgen.utils.ElementUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -178,14 +177,14 @@ public class ResourceModel {
     }
 
     @Transactional
-    public String getText( String resourceName,String username,Set<String> roles) {
+    public String getText(String resourceName, String username, Set<String> roles) {
         TextResource text = textResourceRepository.findByTextResourceId(
                 elementHashCode(resourceName)
         );
         if (text == null) {
             return null;
         }
-        if (!validAccess(text.access,text.owner,roles,username)) {
+        if (!validAccess(text.access, text.owner, username, roles)) {
             return null;
         }
         return text.resourceValue;
@@ -311,12 +310,12 @@ public class ResourceModel {
     }
 
 
-    private boolean validAccess(String accesss,long owner, Set<String> roles,String username){
+    private boolean validAccess(String accesss, long owner, String username, Set<String> roles) {
         if (Anonymous.equals(accesss)) {
             return true;
         }
         long userId = elementHashCode(username);
-        if (userId == owner){
+        if (userId == owner) {
             return true;
         }
         if (roles.contains(Admin)) {
@@ -325,13 +324,13 @@ public class ResourceModel {
         return false;
     }
 
-    public Pair<String, byte[]> getBinaryResource(String resourceName,String username,Set<String> roles) {
+    public Pair<String, byte[]> getBinaryResource(String resourceName, String username, Set<String> roles) {
         BinaryResource binaryResource = binaryResourceRepository.findByBinaryResourceId(
                 elementHashCode(resourceName));
         if (binaryResource == null) {
             return null;
         }
-        if (!validAccess(binaryResource.access, binaryResource.owner, roles, username)){
+        if (!validAccess(binaryResource.access, binaryResource.owner, username, roles)) {
             return null;
         }
         return new Pair<>(binaryResource.contentType, binaryResource.resourceValue);
@@ -574,12 +573,8 @@ public class ResourceModel {
         if (arrayResource == null) {
             return null;
         }
-        if (arrayResource.access.equals(ElementUtils.User)) {
-            if (!username.equals(userRepository.findByUserId(arrayResource.owner).username)) {
-                if (!roles.contains(Admin)) {
-                    return null;
-                }
-            }
+        if (!validAccess(arrayResource.access, arrayResource.owner, username, roles)) {
+            return null;
         }
         JSONArray jsonArrayPair = new JSONArray();
         for (ArrayPairEntry entry : arrayPairEntryRepository.findAllByArrayPairResourceId(id)) {
