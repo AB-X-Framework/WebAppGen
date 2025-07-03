@@ -366,6 +366,8 @@ public class SpecsExporter {
             long id = elementHashCode(name);
             jsonArrayPairResource.put("name", name);
             jsonArrayPairResource.put("package", arrayPairResource.packageName);
+            jsonArrayPairResource.put("owner", userRepository.findByUserId(arrayPairResource.owner).username);
+            jsonArrayPairResource.put("access", arrayPairResource.access);
             JSONArray values = new JSONArray();
             for (ArrayPairEntry entry : arrayPairEntryRepository.findAllByArrayPairResourceId(id)) {
                 JSONObject jsonEntry = new JSONObject();
@@ -392,7 +394,7 @@ public class SpecsExporter {
             long id = elementHashCode(name);
             jsonArrayResource.put("name", name);
             jsonArrayResource.put("package", arrayResource.packageName);
-            jsonArrayResource.put("owner", arrayResource.owner);
+            jsonArrayResource.put("owner", userRepository.findByUserId(arrayResource.owner).username);
             jsonArrayResource.put("access", arrayResource.access);
             JSONArray values = new JSONArray();
             for (ArrayEntry entry : arrayEntryRepository.findAllByArrayResourceId(id)) {
@@ -416,6 +418,8 @@ public class SpecsExporter {
             String name = mapResource.resourceName;
             jsonMapResource.put("name", name);
             jsonMapResource.put("package", mapResource.packageName);
+            jsonMapResource.put("owner", userRepository.findByUserId(mapResource.owner).username);
+            jsonMapResource.put("access", mapResource.access);
             JSONObject values = new JSONObject();
             for (MapEntry entry : mapResource.resourceEntries) {
                 values.put(entry.entryName, entry.mapValue);
