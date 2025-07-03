@@ -636,7 +636,7 @@
             "value": "Anonymous"
           }
         ],
-        "title": "Role Type"
+        "title": "Access Type"
       }
     }],
     "name": "webappgen.components.AccessType",

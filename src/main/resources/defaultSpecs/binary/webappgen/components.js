@@ -756,7 +756,7 @@ function processElement() {
                 $(workingEnv.SpecsSource).val(specs.src);
             }
             $(workingEnv.SpecsTitle).val(specs.title);
-            $(workingEnv.SpecsTitle).val(specs.content);
+            $(workingEnv.SpecsContent).val(specs.content);
             break;
         case "modal":
             $(workingEnv.SpecsTitle).val(specs.title);
