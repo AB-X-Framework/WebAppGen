@@ -167,6 +167,18 @@
     "layout": "container",
     "components": [
       {
+        "innerId": "Owner",
+        "component": "webappgen.resources.Owner",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "Access",
+        "component": "webappgen.resources.AccessType",
+        "size": "l12",
+        "env": ""
+      },
+      {
         "innerId": "SaveArrayPair",
         "component": "webappgen.arraypair.SaveArrayPair",
         "size": "l12",

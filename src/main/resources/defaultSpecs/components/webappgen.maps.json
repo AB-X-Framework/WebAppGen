@@ -78,6 +78,18 @@
     "layout": "container",
     "components": [
       {
+        "innerId": "Onwer",
+        "component": "webappgen.resources.Owner",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "Access",
+        "component": "webappgen.resources.AccessType",
+        "size": "l12",
+        "env": ""
+      },
+      {
         "innerId": "SaveMap",
         "component": "webappgen.maps.SaveMap",
         "size": "l12",
