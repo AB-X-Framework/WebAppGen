@@ -36,19 +36,19 @@
         "package": "webappgen",
         "name": "webappgen.language",
         "owner": "root@abxwebappgen.org",
-        "role": "User"
+        "access": "User"
       },
       {
         "package": "app",
         "name": "app.Envs",
         "owner": "root@abxwebappgen.org",
-        "role": "User"
+        "access": "User"
       },
       {
         "package": "webappgen",
         "name": "webappgen.basicarray",
         "owner": "root@abxwebappgen.org",
-        "role": "User"
+        "access": "User"
       }
     ],
     "binary": [
@@ -61,20 +61,20 @@
       "package": "webappgen",
       "name": "webappgen.demo",
       "owner": "root@abxwebappgen.org",
-      "role": "User"
+      "access": "User"
     }],
     "map": [
       {
         "package": "app",
         "name": "app.Env",
         "owner": "root@abxwebappgen.org",
-        "role": "User"
+        "access": "User"
       },
       {
         "package": "app",
         "name": "app.Theme",
         "owner": "root@abxwebappgen.org",
-        "role": "User"
+        "access": "User"
       }
     ]
   },
