@@ -200,7 +200,7 @@ public class ResourceController extends RoleController {
     }
 
     @PreAuthorize("permitAll()")
-    @GetMapping(value = "/arrayPairs/{arrayPairName}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/arrayPair/{arrayPairName}", produces = MediaType.APPLICATION_JSON_VALUE)
     public String getArrayPair(
             HttpServletRequest request,
             @PathVariable String arrayPairName,
@@ -566,12 +566,6 @@ public class ResourceController extends RoleController {
     @GetMapping(value = "/arrayPairs/{arrayPairName}/count", produces = MediaType.APPLICATION_JSON_VALUE)
     public long getArrayPairEntriesCount(@PathVariable String arrayPairName) {
         return resourceModel.getArrayPairEntriesCount(arrayPairName);
-    }
-
-    @Secured("Admin")
-    @GetMapping(value = "/arrays/{arrayName}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public String getEntireArrayEntries(@PathVariable String arrayName) {
-        return resourceModel.getEntireArrayEntries(arrayName).toString();
     }
 
     @Secured("Admin")
