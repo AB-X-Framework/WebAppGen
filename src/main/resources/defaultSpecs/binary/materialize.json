@@ -10,5 +10,17 @@
     "access": "Anonymous",
     "name": "materialize/min.js",
     "contentType": "text/javascript"
+  },
+  {
+    "owner": "root@abxwebappgen.org",
+    "access": "Anonymous",
+    "name": "materialize/icons.css",
+    "contentType": "text/css"
+  },
+  {
+    "owner": "root@abxwebappgen.org",
+    "access": "Anonymous",
+    "name": "materialize/icons.woff2",
+    "contentType": "font/woff2"
   }
 ]

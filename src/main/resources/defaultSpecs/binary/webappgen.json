@@ -2,20 +2,8 @@
   {
     "owner": "root@abxwebappgen.org",
     "access": "Anonymous",
-    "name": "webappgen/materialize.icons.css",
-    "contentType": "text/css"
-  },
-  {
-    "owner": "root@abxwebappgen.org",
-    "access": "Anonymous",
     "name": "webappgen/model.methods.js",
     "contentType": "text/javascript"
-  },
-  {
-    "owner": "root@abxwebappgen.org",
-    "access": "Anonymous",
-    "name": "webappgen/materialize.icons.woff2",
-    "contentType": "font/woff2"
   },
   {
     "owner": "root@abxwebappgen.org",
