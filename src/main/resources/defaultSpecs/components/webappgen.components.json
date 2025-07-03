@@ -362,31 +362,6 @@
       "value": {
         "values": [
           {
-            "text": "User",
-            "value": "User"
-          },
-          {
-            "text": "Anonymous",
-            "value": "Anonymous"
-          }
-        ],
-        "title": "Role Type"
-      }
-    }],
-    "name": "webappgen.components.ResourceType",
-    "isContainer": false,
-    "js": [{
-      "env": "",
-      "value": ""
-    }],
-    "type": "select"
-  },
-  {
-    "specs": [{
-      "env": "",
-      "value": {
-        "values": [
-          {
             "text": "Admin",
             "value": "Admin"
           },
@@ -645,6 +620,31 @@
     "name": "webappgen.components.EditingDetailType",
     "isContainer": false,
     "js": [],
+    "type": "select"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "values": [
+          {
+            "text": "User",
+            "value": "User"
+          },
+          {
+            "text": "Anonymous",
+            "value": "Anonymous"
+          }
+        ],
+        "title": "Role Type"
+      }
+    }],
+    "name": "webappgen.components.AccessType",
+    "isContainer": false,
+    "js": [{
+      "env": "",
+      "value": ""
+    }],
     "type": "select"
   },
   {
