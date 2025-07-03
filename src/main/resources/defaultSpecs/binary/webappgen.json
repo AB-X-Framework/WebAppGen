@@ -38,12 +38,6 @@
   {
     "owner": "root@abxwebappgen.org",
     "access": "Anonymous",
-    "name": "webappgen/icons.css",
-    "contentType": "text/css"
-  },
-  {
-    "owner": "root@abxwebappgen.org",
-    "access": "Anonymous",
     "name": "webappgen/login.js",
     "contentType": "text/javascript"
   },

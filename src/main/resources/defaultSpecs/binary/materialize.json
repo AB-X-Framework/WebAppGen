@@ -28,5 +28,11 @@
     "access": "Anonymous",
     "name": "materialize/icons.css",
     "contentType": "text/css"
+  },
+  {
+    "owner": "root@abxwebappgen.org",
+    "access": "Anonymous",
+    "name": "materialize/icon.css",
+    "contentType": "text/css"
   }
 ]
