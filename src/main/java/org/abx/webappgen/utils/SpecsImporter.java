@@ -282,7 +282,7 @@ public class SpecsImporter {
                 String file = specsPath + "/text/"  + name.replace('.', '/') + ".txt";
                 String data = getData(file, fs);
                 resourceModel.saveTextResource(name, owner, title, packageName,
-                        data, jsonResource.getString("role"));
+                        data, jsonResource.getString("access"));
 
             }
         }
