@@ -22,4 +22,9 @@ public class MapResource {
     @OneToMany(mappedBy = "mapResource", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     public List<MapEntry> resourceEntries;
 
+    @Column(nullable = false)
+    public long access;
+
+    @Column(nullable = false)
+    public String role;
 }

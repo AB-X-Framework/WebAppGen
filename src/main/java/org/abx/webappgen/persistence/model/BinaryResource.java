@@ -24,7 +24,7 @@ public class BinaryResource {
     public long owner;
 
     @Column(nullable = false)
-    public String role;
+    public String access;
 
     @Column(columnDefinition = "MEDIUMBLOB", nullable = false)
     public byte[] resourceValue;

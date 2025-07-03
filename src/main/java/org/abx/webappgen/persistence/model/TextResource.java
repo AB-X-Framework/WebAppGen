@@ -24,7 +24,7 @@ public class TextResource {
     public long owner;
 
     @Column(nullable = false)
-    public String role;
+    public String access;
 
     @Column(columnDefinition = "MEDIUMTEXT", nullable = false)
     public String resourceValue;

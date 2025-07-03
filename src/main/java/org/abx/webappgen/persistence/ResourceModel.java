@@ -596,18 +596,30 @@ public class ResourceModel {
 
 
     @Transactional
-    public void createArrayPair(String packageName, String arrayName) throws Exception {
-        long id = elementHashCode(arrayName);
+    public void createArrayPair(String packageName, String arrayPairName) throws Exception {
+        long id = elementHashCode(arrayPairName);
         ArrayPairResource arrayResource = arrayPairResourceRepository.findByArrayPairResourceId(
-                elementHashCode(arrayName));
+                elementHashCode(arrayPairName));
         if (arrayResource != null) {
             throw new Exception("Duplicate map entry");
         }
         arrayResource = new ArrayPairResource();
         arrayResource.packageName = packageName;
         arrayResource.arrayPairResourceId = id;
-        arrayResource.resourceName = arrayName;
+        arrayResource.resourceName = arrayPairName;
         arrayPairResourceRepository.save(arrayResource);
+    }
+
+    @Transactional
+    public JSONArray getArrayPair(String arrayPairName, String keyLabel, String valueLabel, String username,
+                             ArrayList<String> roles) throws Exception {
+        long id = elementHashCode(arrayPairName);
+        ArrayPairResource arrayResource = arrayPairResourceRepository.findByArrayPairResourceId(id);
+        JSONArray jsonArrayPair = new JSONArray();
+        if (arrayResource == null) {
+            return null;
+        }
+        if (arrayResource.
     }
 
     @Transactional
@@ -839,6 +851,7 @@ public class ResourceModel {
             arrayPairEntryRepository.save(entry);
         }
     }
+
     public void saveTextResource(String resourceName, String owner, String title, String packageName, String data, String role) {
         long id = elementHashCode(resourceName);
         TextResource textResource = new TextResource();

@@ -19,5 +19,9 @@ public class ArrayResource {
     @Column(nullable = false)
     public String resourceName;
 
+    @Column(nullable = false)
+    public long owner;
 
+    @Column(nullable = false)
+    public String access;
 }

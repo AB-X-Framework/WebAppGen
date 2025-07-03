@@ -194,6 +194,37 @@ public class ResourceController extends RoleController {
         }
         return result.toString();
     }
+    @PreAuthorize("permitAll()")
+    @GetMapping(value = "/arrayPairs/{arrayPairName}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String getArrayPair(
+            HttpServletRequest request,
+            @PathVariable String arrayPairName,
+            @RequestParam(required = false) String keyLabel,
+            @RequestParam(required = false) String valueLabel) {
+        if (keyLabel == null){
+            keyLabel = "key";
+        }
+        if (valueLabel == null){
+            valueLabel = "value";
+        }
+
+        JSONObject result = new JSONObject();
+        Set<String> roles = getRoles();
+
+        String username = null;
+        if (request.getUserPrincipal()!=null){
+            username=request.getUserPrincipal().getName();
+        }
+        try {
+            resourceModel.createArrayPair(packageName, arrayPairName);
+            result.put("success", true);
+            result.put("package", packageName);
+        } catch (Exception e) {
+            result.put("success", false);
+            result.put("error", e.getMessage());
+        }
+        return result.toString();
+    }
 
     @Secured("Admin")
     @DeleteMapping(value = "/maps/{mapName}", produces = MediaType.APPLICATION_JSON_VALUE)

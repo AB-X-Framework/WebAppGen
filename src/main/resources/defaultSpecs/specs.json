@@ -34,15 +34,21 @@
     "array": [
       {
         "package": "webappgen",
-        "name": "webappgen.language"
+        "name": "webappgen.language",
+        "owner": "root@abxwebappgen.org",
+        "role": "User"
       },
       {
         "package": "app",
-        "name": "app.Envs"
+        "name": "app.Envs",
+        "owner": "root@abxwebappgen.org",
+        "role": "User"
       },
       {
         "package": "webappgen",
-        "name": "webappgen.basicarray"
+        "name": "webappgen.basicarray",
+        "owner": "root@abxwebappgen.org",
+        "role": "User"
       }
     ],
     "binary": [
@@ -53,16 +59,22 @@
     "text": ["demo"],
     "arrayPair": [{
       "package": "webappgen",
-      "name": "webappgen.demo"
+      "name": "webappgen.demo",
+      "owner": "root@abxwebappgen.org",
+      "role": "User"
     }],
     "map": [
       {
         "package": "app",
-        "name": "app.Env"
+        "name": "app.Env",
+        "owner": "root@abxwebappgen.org",
+        "role": "User"
       },
       {
         "package": "app",
-        "name": "app.Theme"
+        "name": "app.Theme",
+        "owner": "root@abxwebappgen.org",
+        "role": "User"
       }
     ]
   },

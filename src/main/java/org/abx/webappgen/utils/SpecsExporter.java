@@ -392,6 +392,8 @@ public class SpecsExporter {
             long id = elementHashCode(name);
             jsonArrayResource.put("name", name);
             jsonArrayResource.put("package", arrayResource.packageName);
+            jsonArrayResource.put("owner", arrayResource.owner);
+            jsonArrayResource.put("role", arrayResource.role);
             JSONArray values = new JSONArray();
             for (ArrayEntry entry : arrayEntryRepository.findAllByArrayResourceId(id)) {
                 values.put(entry.arrayValue);
