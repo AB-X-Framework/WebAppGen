@@ -393,6 +393,22 @@ public class ResourceController extends RoleController {
     }
 
     @Secured("Admin")
+    @PostMapping(value = "/arrays/{arrayName}/meta", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String updateArrayMeta(
+            @PathVariable String arrayName,
+            @RequestParam String data) {
+        JSONObject status = new JSONObject();
+        try {
+            JSONObject jsonData = new JSONObject(data);
+            status.put("success", true);
+        } catch (Exception e) {
+            status.put("success", false);
+            status.put("error", "Failed to updates array entries " + e.getMessage());
+        }
+        return status.toString();
+    }
+
+    @Secured("Admin")
     @PostMapping(value = "/arrays/{arrayName}/entries", produces = MediaType.APPLICATION_JSON_VALUE)
     public String updateArrayEntries(
             @PathVariable String arrayName,
