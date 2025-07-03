@@ -178,18 +178,15 @@ public class ResourceModel {
     }
 
     @Transactional
-    public String getText(Set<String> roles, String resourceName) {
+    public String getText( String resourceName,String username,Set<String> roles) {
         TextResource text = textResourceRepository.findByTextResourceId(
                 elementHashCode(resourceName)
         );
         if (text == null) {
             return null;
         }
-        String requiredAccess = text.access;
-        if (!requiredAccess.equals("Anonymous")) {
-            if (!roles.contains(requiredAccess)) {
-                return null;
-            }
+        if (!validAccess(text.access,text.owner,roles,username)) {
+            return null;
         }
         return text.resourceValue;
     }
@@ -313,71 +310,29 @@ public class ResourceModel {
         return result;
     }
 
-    /**
-     * Delete if resource
-     *
-     * @param owner
-     * @param resourceName
-     * @return
-     */
-    @Transactional
-    public JSONObject deleteTextIfOwner(long owner, String resourceName) {
-        JSONObject result = new JSONObject();
-        TextResource text = textResourceRepository.findByTextResourceId(
-                elementHashCode(resourceName)
-        );
 
-        if (text == null) {
-            result.put("success", false);
-            result.put("message", "Resource not found");
-            return result;
+    private boolean validAccess(String accesss,long owner, Set<String> roles,String username){
+        if (Anonymous.equals(accesss)) {
+            return true;
         }
-        if (owner != text.owner) {
-            result.put("success", false);
-            result.put("message", "Resource not owned");
-            return result;
+        long userId = elementHashCode(username);
+        if (userId == owner){
+            return true;
         }
-        textResourceRepository.delete(text);
-        result.put("success", true);
-        return result;
+        if (roles.contains(Admin)) {
+            return true;
+        }
+        return false;
     }
 
-    /**
-     * Return content plus title
-     *
-     * @param owner        The resource owner
-     * @param resourceName the resource name
-     * @return The text
-     */
-    public JSONObject getTextIfOwner(long owner, String resourceName) {
-        TextResource text = textResourceRepository.findByTextResourceId(
-                elementHashCode(resourceName)
-        );
-
-        if (text == null) {
-            return null;
-        }
-        if (owner != text.owner) {
-            return null;
-        }
-        JSONObject jsonText = new JSONObject();
-        jsonText.put("title", text.title);
-        jsonText.put("content", text.resourceValue);
-        return jsonText;
-    }
-
-
-    public Pair<String, byte[]> getBinaryResource(Set<String> roles, String resourceName) {
+    public Pair<String, byte[]> getBinaryResource(String resourceName,String username,Set<String> roles) {
         BinaryResource binaryResource = binaryResourceRepository.findByBinaryResourceId(
                 elementHashCode(resourceName));
         if (binaryResource == null) {
             return null;
         }
-        String access = binaryResource.access;
-        if (!access.equals(Anonymous)) {
-            if (!roles.contains(access)) {
-                return null;
-            }
+        if (!validAccess(binaryResource.access, binaryResource.owner, roles, username)){
+            return null;
         }
         return new Pair<>(binaryResource.contentType, binaryResource.resourceValue);
     }

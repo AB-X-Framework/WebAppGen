@@ -49,9 +49,13 @@ public class ResourceController extends RoleController {
 
     @GetMapping(value = "/text/{resource}", produces = MediaType.TEXT_PLAIN_VALUE)
     @PreAuthorize("permitAll()")
-    public String getText(@PathVariable String resource) {
+    public String getText(HttpServletRequest request, @PathVariable String resource) {
+        String username = null;
+        if (request.getUserPrincipal() != null) {
+            username = request.getUserPrincipal().getName();
+        }
         Set<String> roles = getRoles();
-        String data = resourceModel.getText(roles, resource);
+        String data = resourceModel.getText(resource, username, roles);
         if (data == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Resource not found: " + resource);
         }
@@ -194,6 +198,7 @@ public class ResourceController extends RoleController {
         }
         return result.toString();
     }
+
     @PreAuthorize("permitAll()")
     @GetMapping(value = "/arrayPairs/{arrayPairName}", produces = MediaType.APPLICATION_JSON_VALUE)
     public String getArrayPair(
@@ -201,10 +206,10 @@ public class ResourceController extends RoleController {
             @PathVariable String arrayPairName,
             @RequestParam(required = false) String keyLabel,
             @RequestParam(required = false) String valueLabel) {
-        if (keyLabel == null){
+        if (keyLabel == null) {
             keyLabel = "key";
         }
-        if (valueLabel == null){
+        if (valueLabel == null) {
             valueLabel = "value";
         }
 
@@ -212,11 +217,11 @@ public class ResourceController extends RoleController {
         Set<String> roles = getRoles();
 
         String username = null;
-        if (request.getUserPrincipal()!=null){
-            username=request.getUserPrincipal().getName();
+        if (request.getUserPrincipal() != null) {
+            username = request.getUserPrincipal().getName();
         }
         try {
-            resourceModel.getArrayPair(arrayPairName,keyLabel,valueLabel,username,roles);
+            resourceModel.getArrayPair(arrayPairName, keyLabel, valueLabel, username, roles);
         } catch (Exception e) {
             result.put("success", false);
             result.put("error", e.getMessage());
@@ -406,6 +411,7 @@ public class ResourceController extends RoleController {
         return status.toString();
     }
 
+
     @Secured("Admin")
     @GetMapping(value = "/packages/maps", produces = MediaType.APPLICATION_JSON_VALUE)
     public String mapPackages() {
@@ -583,11 +589,14 @@ public class ResourceController extends RoleController {
         String path = (String) request.getAttribute(
                 HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE
         );
-
+        String username = null;
+        if (request.getUserPrincipal() != null) {
+            username = request.getUserPrincipal().getName();
+        }
         // Remove the prefix "/binaries/"
         String resource = path.replaceFirst("/resources/binary/", "");
         Set<String> roles = getRoles();
-        Pair<String, byte[]> fileContent = resourceModel.getBinaryResource(roles, resource);
+        Pair<String, byte[]> fileContent = resourceModel.getBinaryResource(resource,username,roles);
         if (fileContent == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
