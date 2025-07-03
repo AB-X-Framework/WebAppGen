@@ -821,7 +821,8 @@ public class ResourceModel {
         }
     }
 
-    public void saveArrayResource(String resourceName, String packageName, JSONArray data) {
+    public void saveArrayResource(String resourceName, String packageName, JSONArray data,
+                                  String owner,String access) {
         long id = elementHashCode(resourceName);
         ArrayResource previous = arrayResourceRepository.findByArrayResourceId(id);
         if (previous != null) {
@@ -833,6 +834,8 @@ public class ResourceModel {
         arrayResource.arrayResourceId = id;
         arrayResource.resourceName = resourceName;
         arrayResource.packageName = packageName;
+        arrayResource.owner=elementHashCode(owner);
+        arrayResource.access=access;
         arrayResourceRepository.save(arrayResource);
         for (int i = 0; i < data.length(); i++) {
             String value = data.getString(i);
