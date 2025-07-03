@@ -2,6 +2,18 @@
   {
     "owner": "root@abxwebappgen.org",
     "access": "Anonymous",
+    "name": "materialize/page.html",
+    "contentType": "text/html"
+  },
+  {
+    "owner": "root@abxwebappgen.org",
+    "access": "Anonymous",
+    "name": "materialize/icons.woff2",
+    "contentType": "font/woff2"
+  },
+  {
+    "owner": "root@abxwebappgen.org",
+    "access": "Anonymous",
     "name": "materialize/min.css",
     "contentType": "text/css"
   },
@@ -16,17 +28,5 @@
     "access": "Anonymous",
     "name": "materialize/icons.css",
     "contentType": "text/css"
-  },
-  {
-    "owner": "root@abxwebappgen.org",
-    "access": "Anonymous",
-    "name": "materialize/page.html",
-    "contentType": "text/html"
-  },
-  {
-    "owner": "root@abxwebappgen.org",
-    "access": "Anonymous",
-    "name": "materialize/icons.woff2",
-    "contentType": "font/woff2"
   }
 ]
