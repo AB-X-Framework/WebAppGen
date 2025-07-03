@@ -1,43 +1,43 @@
 [
   {
     "owner": "root@abxwebappgen.org",
-    "role": "Anonymous",
+    "access": "Anonymous",
     "name": "ace/mode-javascript.js",
     "contentType": "text/javascript"
   },
   {
     "owner": "root@abxwebappgen.org",
-    "role": "Anonymous",
+    "access": "Anonymous",
     "name": "ace/theme-monokai.js",
     "contentType": "text/javascript"
   },
   {
     "owner": "root@abxwebappgen.org",
-    "role": "Anonymous",
+    "access": "Anonymous",
     "name": "ace/worker-css.js",
     "contentType": "text/javascript"
   },
   {
     "owner": "root@abxwebappgen.org",
-    "role": "Anonymous",
+    "access": "Anonymous",
     "name": "ace/mode-css.js",
     "contentType": "text/javascript"
   },
   {
     "owner": "root@abxwebappgen.org",
-    "role": "Anonymous",
+    "access": "Anonymous",
     "name": "ace/ext-searchbox.js",
     "contentType": "text/javascript"
   },
   {
     "owner": "root@abxwebappgen.org",
-    "role": "Anonymous",
+    "access": "Anonymous",
     "name": "ace/ace.js",
     "contentType": "text/javascript"
   },
   {
     "owner": "root@abxwebappgen.org",
-    "role": "Anonymous",
+    "access": "Anonymous",
     "name": "ace/worker-javascript.js",
     "contentType": "text/javascript"
   }

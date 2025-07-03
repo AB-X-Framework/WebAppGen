@@ -1,91 +1,91 @@
 [
   {
     "owner": "root@abxwebappgen.org",
-    "role": "Anonymous",
+    "access": "Anonymous",
     "name": "webappgen/materialize.min.css",
     "contentType": "text/css"
   },
   {
     "owner": "root@abxwebappgen.org",
-    "role": "Anonymous",
+    "access": "Anonymous",
     "name": "webappgen/materialize.icons.css",
     "contentType": "text/css"
   },
   {
     "owner": "root@abxwebappgen.org",
-    "role": "Anonymous",
+    "access": "Anonymous",
     "name": "webappgen/materialize.min.js",
     "contentType": "text/javascript"
   },
   {
     "owner": "root@abxwebappgen.org",
-    "role": "Anonymous",
+    "access": "Anonymous",
     "name": "webappgen/model.methods.js",
     "contentType": "text/javascript"
   },
   {
     "owner": "root@abxwebappgen.org",
-    "role": "Anonymous",
+    "access": "Anonymous",
     "name": "webappgen/materialize.icons.woff2",
     "contentType": "font/woff2"
   },
   {
     "owner": "root@abxwebappgen.org",
-    "role": "Admin",
+    "access": "User",
     "name": "webappgen/utils.js",
     "contentType": "text/javascript"
   },
   {
     "owner": "root@abxwebappgen.org",
-    "role": "Anonymous",
+    "access": "Anonymous",
     "name": "webappgen/abx.png",
     "contentType": "application/png"
   },
   {
     "owner": "root@abxwebappgen.org",
-    "role": "Admin",
+    "access": "User",
     "name": "webappgen/pages.js",
     "contentType": "text/javascript"
   },
   {
     "owner": "root@abxwebappgen.org",
-    "role": "Anonymous",
+    "access": "User",
     "name": "webappgen/materialize.content.js",
     "contentType": "text/javascript"
   },
   {
     "owner": "root@abxwebappgen.org",
-    "role": "Admin",
+    "access": "User",
     "name": "webappgen/defaultEnv.properties",
     "contentType": "text/plain"
   },
   {
     "owner": "root@abxwebappgen.org",
-    "role": "Admin",
+    "access": "User",
     "name": "webappgen/components.js",
     "contentType": "text/javascript"
   },
   {
     "owner": "root@abxwebappgen.org",
-    "role": "Anonymous",
+    "access": "Anonymous",
     "name": "webappgen/materialize.page.html",
     "contentType": "text/html"
   },
   {
     "owner": "root@abxwebappgen.org",
-    "role": "Anonymous",
+    "access": "Anonymous",
     "name": "webappgen/icons.css",
     "contentType": "text/css"
   },
   {
     "owner": "root@abxwebappgen.org",
-    "role": "Anonymous",
+    "access": "Anonymous",
     "name": "webappgen/login.js",
     "contentType": "text/javascript"
   },
   {
     "owner": "root@abxwebappgen.org",
-    "role": "Admin",
+    "access": "User",
     "name": "webappgen/maps.js",
     "contentType": "text/javascript"
   }
