@@ -187,7 +187,7 @@
       },
       {
         "innerId": "Owner",
-        "component": "webappgen.texts.Owner",
+        "component": "webappgen.resources.Owner",
         "size": "l5",
         "env": ""
       },
@@ -300,20 +300,6 @@
     "isContainer": false,
     "js": [],
     "type": "button"
-  },
-  {
-    "specs": [{
-      "env": "",
-      "value": {
-        "label": "Text owner",
-        "title": "Owner",
-        "content": ""
-      }
-    }],
-    "name": "webappgen.texts.Owner",
-    "isContainer": false,
-    "js": [],
-    "type": "textfield"
   },
   {
     "specs": [{
