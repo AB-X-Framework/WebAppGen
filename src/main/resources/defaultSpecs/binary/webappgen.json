@@ -31,21 +31,9 @@
   },
   {
     "owner": "root@abxwebappgen.org",
-    "access": "User",
-    "name": "webappgen/defaultEnv.properties",
-    "contentType": "text/plain"
-  },
-  {
-    "owner": "root@abxwebappgen.org",
     "access": "Anonymous",
     "name": "webappgen/components.js",
     "contentType": "text/javascript"
-  },
-  {
-    "owner": "root@abxwebappgen.org",
-    "access": "Anonymous",
-    "name": "webappgen/materialize.page.html",
-    "contentType": "text/html"
   },
   {
     "owner": "root@abxwebappgen.org",
