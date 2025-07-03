@@ -722,7 +722,7 @@ public class ResourceModel {
             JSONObject object = (JSONObject) values.get(i);
             long key = object.getLong("key");
 
-            JSONObject pair = object.getJSONObject("pair");
+            JSONObject pair = object.getJSONObject("value");
             ArrayPairEntry entry = arrayPairEntryRepository.findByArrayPairEntryId(key);
             if (entry == null) {
                 throw new Exception("Entry not found");

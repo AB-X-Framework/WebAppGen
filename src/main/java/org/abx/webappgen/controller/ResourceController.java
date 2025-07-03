@@ -307,7 +307,7 @@ public class ResourceController extends RoleController {
             status.put("success", true);
         } catch (Exception e) {
             status.put("success", false);
-            status.put("message", "Failed to save map entry " + e.getMessage());
+            status.put("error", "Failed to save map entry " + e.getMessage());
         }
         return status.toString();
     }
@@ -323,7 +323,7 @@ public class ResourceController extends RoleController {
             status.put("success", true);
         } catch (Exception e) {
             status.put("success", false);
-            status.put("message", "Failed to updates array entries " + e.getMessage());
+            status.put("error", "Failed to updates array entries " + e.getMessage());
         }
         return status.toString();
     }
@@ -339,7 +339,7 @@ public class ResourceController extends RoleController {
             status.put("success", true);
         } catch (Exception e) {
             status.put("success", false);
-            status.put("message", "Failed to updates array entries " + e.getMessage());
+            status.put("error", "Failed to updates array entries " + e.getMessage());
         }
         return status.toString();
     }
@@ -355,7 +355,7 @@ public class ResourceController extends RoleController {
             status.put("success", true);
         } catch (Exception e) {
             status.put("success", false);
-            status.put("message", "Failed to add array entry " + e.getMessage());
+            status.put("error", "Failed to add array entry " + e.getMessage());
         }
         return status.toString();
     }
@@ -372,7 +372,7 @@ public class ResourceController extends RoleController {
             status.put("success", true);
         } catch (Exception e) {
             status.put("success", false);
-            status.put("message", "Failed to add array entry " + e.getMessage());
+            status.put("error", "Failed to add array entry " + e.getMessage());
         }
         return status.toString();
     }
@@ -520,7 +520,7 @@ public class ResourceController extends RoleController {
             status.put("success", true);
         } catch (Exception e) {
             status.put("success", false);
-            status.put("message", e.getMessage());
+            status.put("error", e.getMessage());
         }
         return status.toString();
     }
@@ -588,7 +588,7 @@ public class ResourceController extends RoleController {
             status.put("package", packageName);
         } catch (Exception e) {
             status.put("success", false);
-            status.put("message", e.getMessage());
+            status.put("error", e.getMessage());
         }
         return status.toString();
     }
@@ -615,7 +615,7 @@ public class ResourceController extends RoleController {
             status.put("owner", owner);
         } catch (Exception e) {
             status.put("success", false);
-            status.put("message", e.getMessage());
+            status.put("error", e.getMessage());
         }
         return status.toString();
     }
@@ -643,7 +643,7 @@ public class ResourceController extends RoleController {
             status.put("success", true);
         } catch (Exception e) {
             status.put("success", false);
-            status.put("message", e.getMessage());
+            status.put("error", e.getMessage());
         }
         return status.toString();
     }
@@ -662,7 +662,7 @@ public class ResourceController extends RoleController {
             status.put("success", true);
         } catch (Exception e) {
             status.put("success", false);
-            status.put("message", e.getMessage());
+            status.put("error", e.getMessage());
         }
         return status.toString();
     }
@@ -683,7 +683,7 @@ public class ResourceController extends RoleController {
             status.put("package", packageName);
         } catch (Exception e) {
             status.put("success", false);
-            status.put("message", e.getMessage());
+            status.put("error", e.getMessage());
         }
         return status.toString();
     }
