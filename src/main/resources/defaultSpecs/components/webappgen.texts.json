@@ -147,15 +147,15 @@
     "js": [
       {
         "env": "",
-        "value": "$(LeftPanel.TextsPackage).change(()=>{\n    clearAutocomplete(LeftPanel.TextName);\n    \n    const packageName = $(LeftPanel.TextsPackage).val();\n    if (packageName !== \"\"){\n        $.get(`/resources/packages/texts/${packageName}`,(textsPerPackage)=>{\n            textsPerPackage.forEach((textName)=>{\n                addAutocompleteValue(LeftPanel.TextName,textName)\n            });\n            $(LeftPanel.TextName).val(\"\");\n            $(self.RightPanel.TextContent).val(\"\");\n            $(self.RightPanel.DetailsPanel.Owner).val(\"\");\n            $(self.RightPanel.DetailsPanel.Title).val(\"\");\n            $(self.RightPanel.DetailsPanel.RoleType).val(\"\").formSelect();\n        });\n    }\n});"
+        "value": "$(LeftPanel.TextsPackage).change(()=>{\n    clearAutocomplete(LeftPanel.TextName);\n    \n    const packageName = $(LeftPanel.TextsPackage).val();\n    if (packageName !== \"\"){\n        $.get(`/resources/packages/texts/${packageName}`,(textsPerPackage)=>{\n            textsPerPackage.forEach((textName)=>{\n                addAutocompleteValue(LeftPanel.TextName,textName)\n            });\n            $(LeftPanel.TextName).val(\"\");\n            $(self.RightPanel.TextContent).val(\"\");\n            $(self.RightPanel.DetailsPanel.Owner).val(\"\");\n            $(self.RightPanel.DetailsPanel.Title).val(\"\");\n            $(self.RightPanel.DetailsPanel.AccessType).val(\"\").formSelect();\n        });\n    }\n});"
       },
       {
         "env": "",
-        "value": "workingEnv.currPage = 0;\nworkingEnv.TextBody = self;\n\nworkingEnv.renderText = ()=> {\n    workingEnv.textName = $(LeftPanel.TextName).val();\n    if (workingEnv.textName !== \"\"){\n        $.get(`/resources/texts/${workingEnv.textName}`,(text)=>{\n            workingEnv.updatedText = text;\n            $(self.RightPanel.TextContent).val(text.content);\n            M.textareaAutoResize(self.RightPanel.TextContent);\n            $(self.RightPanel.DetailsPanel.Owner).val(text.owner);\n            $(self.RightPanel.DetailsPanel.Title).val(text.title);\n            $(self.RightPanel.DetailsPanel.RoleType).val(text.role).formSelect();\n        });\n    }\n}\n$(LeftPanel.TextName).change(workingEnv.renderText);"
+        "value": "workingEnv.currPage = 0;\nworkingEnv.TextBody = self;\n\nworkingEnv.renderText = ()=> {\n    workingEnv.textName = $(LeftPanel.TextName).val();\n    if (workingEnv.textName !== \"\"){\n        $.get(`/resources/texts/${workingEnv.textName}`,(text)=>{\n            workingEnv.updatedText = text;\n            $(self.RightPanel.TextContent).val(text.content);\n            M.textareaAutoResize(self.RightPanel.TextContent);\n            $(self.RightPanel.DetailsPanel.Owner).val(text.owner);\n            $(self.RightPanel.DetailsPanel.Title).val(text.title);\n            $(self.RightPanel.DetailsPanel.AccessType).val(text.access).formSelect();\n        });\n    }\n}\n$(LeftPanel.TextName).change(workingEnv.renderText);"
       },
       {
         "env": "",
-        "value": "self.markChanged=()=>{\n    self.LeftPanel.MenuPanel.SaveText.markChanged();\n}\n\n\n$(self.RightPanel.TextContent).on('input',()=>{\n    workingEnv.updatedText.content = $(self.RightPanel.TextContent).val(); \n    self.markChanged();\n});\n \n$(self.RightPanel.DetailsPanel.Owner).on('input',()=>{\n    workingEnv.updatedText.owner = $(self.RightPanel.DetailsPanel.Owner).val(); \n    self.markChanged();\n});\n \n$(self.RightPanel.DetailsPanel.Title).on('input',()=>{\n    workingEnv.updatedText.title = $(self.RightPanel.DetailsPanel.Title).val(); \n    self.markChanged();\n});\n \n$(self.RightPanel.DetailsPanel.RoleType).change(()=>{\n    workingEnv.updatedText.role = $(self.RightPanel.DetailsPanel.RoleType).val(); \n    self.markChanged();\n});"
+        "value": "self.markChanged=()=>{\n    self.LeftPanel.MenuPanel.SaveText.markChanged();\n}\n\n\n$(self.RightPanel.TextContent).on('input',()=>{\n    workingEnv.updatedText.content = $(self.RightPanel.TextContent).val(); \n    self.markChanged();\n});\n \n$(self.RightPanel.DetailsPanel.Owner).on('input',()=>{\n    workingEnv.updatedText.owner = $(self.RightPanel.DetailsPanel.Owner).val(); \n    self.markChanged();\n});\n \n$(self.RightPanel.DetailsPanel.Title).on('input',()=>{\n    workingEnv.updatedText.title = $(self.RightPanel.DetailsPanel.Title).val(); \n    self.markChanged();\n});\n \n$(self.RightPanel.DetailsPanel.AccessType).change(()=>{\n    workingEnv.updatedText.role = $(self.RightPanel.DetailsPanel.AccessType).val(); \n    self.markChanged();\n});"
       }
     ]
   },
@@ -192,7 +192,7 @@
         "env": ""
       },
       {
-        "innerId": "RoleType",
+        "innerId": "AccessType",
         "component": "webappgen.resources.AccessType",
         "size": "l1",
         "env": ""
@@ -287,7 +287,7 @@
     "isContainer": false,
     "js": [{
       "env": "",
-      "value": "$(self.ok).click(()=>{\n    const values = Object.entries(workingEnv.updatedText).map(([key, value]) => ({ key, value }));\n\n   $.post(`/resources/texts`,{\n       \"resource\" : JSON.stringify(workingEnv.updatedText) \n    },(status)=>{\n        if (status.success){\n            PageContent.closeModal(self);\n            workingEnv.renderText();\n            workingEnv.SaveText.markSaved();\n        }else {\n            PageContent.showModal(\"Cannot save values \"+JSON.stringify(status.error));\n        }\n    }); \n});"
+      "value": "$(self.ok).click(()=>{\n\n   $.post(`/resources/texts`,{\n       \"resource\" : JSON.stringify(workingEnv.updatedText),\n    },(status)=>{\n        if (status.success){\n            PageContent.closeModal(self);\n            workingEnv.renderText();\n            workingEnv.SaveText.markSaved();\n        }else {\n            PageContent.showModal(\"Cannot save values \"+JSON.stringify(status.error));\n        }\n    }); \n});"
     }],
     "type": "okCancelModal"
   },
