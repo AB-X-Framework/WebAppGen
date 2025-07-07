@@ -747,8 +747,19 @@ public class ResourceModel {
     }
 
     @Transactional
-    public void updateArrayEntries(String arrayMap, JSONArray values) throws Exception {
+    public void updateArrayEntries(String arrayMap, JSONArray values, JSONObject meta) throws Exception {
         long id = elementHashCode(arrayMap);
+        ArrayResource arrayResource = arrayResourceRepository.findByArrayResourceId(id);
+        if (arrayResource == null) {
+            throw new Exception("Array resource not found");
+        }
+        User user = userRepository.findByUsername(meta.getString("owner"));
+        if (user == null) {
+            throw new Exception("User not found");
+        }
+        arrayResource.access = meta.getString("access");
+        arrayResource.owner = user.userId;
+        userRepository.saveAndFlush(user);
         for (int i = 0; i < values.length(); i++) {
             JSONObject object = (JSONObject) values.get(i);
             long key = object.getLong("key");
@@ -827,6 +838,7 @@ public class ResourceModel {
         }
         mapResource.access = meta.getString("access");
         mapResource.owner = user.userId;
+        userRepository.saveAndFlush(user);
         for (int i = 0; i < values.length(); i++) {
             JSONObject object = (JSONObject) values.get(i);
             String key = object.getString("key");
