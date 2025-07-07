@@ -380,10 +380,11 @@ public class ResourceController extends RoleController {
     @PostMapping(value = "/maps/{mapName}/entries", produces = MediaType.APPLICATION_JSON_VALUE)
     public String saveMapEntries(
             @PathVariable String mapName,
+            @RequestParam String meta,
             @RequestParam String values) {
         JSONObject status = new JSONObject();
         try {
-            resourceModel.saveMapEntries(mapName, new JSONArray(values));
+            resourceModel.saveMapEntries(mapName, new JSONArray(values),new JSONObject(meta));
             status.put("success", true);
         } catch (Exception e) {
             status.put("success", false);

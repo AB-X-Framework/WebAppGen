@@ -814,9 +814,19 @@ public class ResourceModel {
     }
 
     @Transactional
-    public void saveMapEntries(String mapName, JSONArray values) {
+    public void saveMapEntries(String mapName, JSONArray values, JSONObject meta)
+            throws Exception {
         long id = elementHashCode(mapName);
         MapResource mapResource = mapResourceRepository.findByMapResourceId(id);
+        if (mapResource == null) {
+            throw new Exception("Map not found");
+        }
+        User user = userRepository.findByUsername(meta.getString("owner"));
+        if (user == null) {
+            throw new Exception("User not found");
+        }
+        mapResource.access = meta.getString("access");
+        mapResource.owner = user.userId;
         for (int i = 0; i < values.length(); i++) {
             JSONObject object = (JSONObject) values.get(i);
             String key = object.getString("key");
