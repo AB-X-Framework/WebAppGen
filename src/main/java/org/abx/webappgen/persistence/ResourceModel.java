@@ -759,7 +759,7 @@ public class ResourceModel {
         }
         arrayResource.access = meta.getString("access");
         arrayResource.owner = user.userId;
-        userRepository.saveAndFlush(user);
+        arrayResourceRepository.save(arrayResource);
         for (int i = 0; i < values.length(); i++) {
             JSONObject object = (JSONObject) values.get(i);
             long key = object.getLong("key");
@@ -781,8 +781,19 @@ public class ResourceModel {
 
 
     @Transactional
-    public void updateArrayPairEntries(String arrayMap, JSONArray values) throws Exception {
+    public void updateArrayPairEntries(String arrayMap, JSONArray values,JSONObject meta) throws Exception {
         long id = elementHashCode(arrayMap);
+        ArrayPairResource arrayPairResource = arrayPairResourceRepository.findByArrayPairResourceId(id);
+        if (arrayPairResource == null) {
+            throw new Exception("ArrayPair resource not found");
+        }
+        User user = userRepository.findByUsername(meta.getString("owner"));
+        if (user == null) {
+            throw new Exception("User not found");
+        }
+        arrayPairResource.access = meta.getString("access");
+        arrayPairResource.owner = user.userId;
+        arrayPairResourceRepository.save(arrayPairResource);
         for (int i = 0; i < values.length(); i++) {
             JSONObject object = (JSONObject) values.get(i);
             long key = object.getLong("key");
@@ -838,7 +849,7 @@ public class ResourceModel {
         }
         mapResource.access = meta.getString("access");
         mapResource.owner = user.userId;
-        userRepository.saveAndFlush(user);
+        mapResourceRepository.saveAndFlush(mapResource);
         for (int i = 0; i < values.length(); i++) {
             JSONObject object = (JSONObject) values.get(i);
             String key = object.getString("key");

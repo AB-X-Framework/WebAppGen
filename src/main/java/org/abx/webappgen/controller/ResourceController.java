@@ -414,10 +414,11 @@ public class ResourceController extends RoleController {
     @PostMapping(value = "/arrayPairs/{arrayPairName}/entries", produces = MediaType.APPLICATION_JSON_VALUE)
     public String updateArrayPairEntries(
             @PathVariable String arrayPairName,
+            @RequestParam String meta,
             @RequestParam String values) {
         JSONObject status = new JSONObject();
         try {
-            resourceModel.updateArrayPairEntries(arrayPairName, new JSONArray(values));
+            resourceModel.updateArrayPairEntries(arrayPairName, new JSONArray(values),new JSONObject(meta));
             status.put("success", true);
         } catch (Exception e) {
             status.put("success", false);
