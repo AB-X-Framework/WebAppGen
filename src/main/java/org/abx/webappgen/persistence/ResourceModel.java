@@ -413,23 +413,28 @@ public class ResourceModel {
         return hideDefaults(packages);
     }
 
+
+    @Transactional
     public JSONArray getArrayPairPackages() {
         ArrayList<String> packages = new ArrayList<>(arrayPairResourceRepository.findDistinctPackageNames());
         return hideDefaults(packages);
     }
+
+    @Transactional
 
     public JSONArray getTextPackages() {
         ArrayList<String> packages = new ArrayList<>(textResourceRepository.findDistinctPackageNames());
         return hideDefaults(packages);
     }
 
-
+    @Transactional
     public JSONArray getMethodPackages() {
         ArrayList<String> packages = new ArrayList<>(methodSpecRepository.findDistinctPackageNames());
         Collections.sort(packages);
         return new JSONArray(packages);
     }
 
+    @Transactional
     public JSONArray getBinaryPackages() {
         ArrayList<String> binaryPackages = new ArrayList<>(binaryResourceRepository.findDistinctPackageNames());
         Collections.sort(binaryPackages);
