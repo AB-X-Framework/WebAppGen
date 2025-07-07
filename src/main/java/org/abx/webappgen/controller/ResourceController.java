@@ -655,7 +655,7 @@ public class ResourceController extends RoleController {
     public String updateBinary(
             HttpServletRequest request,
             @RequestParam String name,
-            @RequestParam String role,
+            @RequestParam String access,
             @RequestParam(required = false) String owner,
             @RequestParam String contentType) {
         String packageName = name.substring(0, name.lastIndexOf('/'));
@@ -664,7 +664,7 @@ public class ResourceController extends RoleController {
             if (owner == null) {
                 owner = request.getUserPrincipal().getName();
             }
-            resourceModel.saveBinaryResource(name, packageName, owner, contentType, role);
+            resourceModel.saveBinaryResource(name, packageName, owner, contentType, access);
             status.put("success", true);
             status.put("package", packageName);
         } catch (Exception e) {
