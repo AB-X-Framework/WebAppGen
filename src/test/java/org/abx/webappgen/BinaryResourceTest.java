@@ -36,7 +36,7 @@ class BinaryResourceTest {
         System.out.println("STATUS " + servicesClient.process(req).asString());
         req = servicesClient.post("app", "/resources/binaries").
                 addPart("contentType", "application/octet-stream").
-                addPart("role", "Admin").
+                addPart("access", "Admin").
                 addPart("name", filename);
         ServiceResponse res = servicesClient.process(req);
         System.out.println(res.asString());
