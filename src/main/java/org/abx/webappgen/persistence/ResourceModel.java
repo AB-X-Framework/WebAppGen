@@ -13,7 +13,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static org.abx.webappgen.utils.ElementUtils.*;
 
@@ -391,28 +393,34 @@ public class ResourceModel {
         binaryResourceRepository.save(binaryResource);
     }
 
-    public JSONArray getMapPackages() {
-        ArrayList<String> packages = new ArrayList<>(mapResourceRepository.findDistinctPackageNames());
+    private JSONArray hideDefaults(List<String> packages) {
+        if (Boolean.parseBoolean(mapEntryRepository.findByMapEntryId(hideDefaultsId).mapValue)) {
+            packages = packages.stream().filter(p -> !p.startsWith(defaultPackage)).collect(Collectors.toList());
+        }
         Collections.sort(packages);
         return new JSONArray(packages);
     }
 
+    @Transactional
+    public JSONArray getMapPackages() {
+        ArrayList<String> packages = new ArrayList<>(mapResourceRepository.findDistinctPackageNames());
+        return hideDefaults(packages);
+    }
+
+    @Transactional
     public JSONArray getArrayPackages() {
-        ArrayList<String> packages = new ArrayList<>(arrayResourceRepository.findDistinctPackageNames());
-        Collections.sort(packages);
-        return new JSONArray(packages);
+        List<String> packages = new ArrayList<>(arrayResourceRepository.findDistinctPackageNames());
+        return hideDefaults(packages);
     }
 
     public JSONArray getArrayPairPackages() {
         ArrayList<String> packages = new ArrayList<>(arrayPairResourceRepository.findDistinctPackageNames());
-        Collections.sort(packages);
-        return new JSONArray(packages);
+        return hideDefaults(packages);
     }
 
     public JSONArray getTextPackages() {
         ArrayList<String> packages = new ArrayList<>(textResourceRepository.findDistinctPackageNames());
-        Collections.sort(packages);
-        return new JSONArray(packages);
+        return hideDefaults(packages);
     }
 
 
@@ -781,7 +789,7 @@ public class ResourceModel {
 
 
     @Transactional
-    public void updateArrayPairEntries(String arrayMap, JSONArray values,JSONObject meta) throws Exception {
+    public void updateArrayPairEntries(String arrayMap, JSONArray values, JSONObject meta) throws Exception {
         long id = elementHashCode(arrayMap);
         ArrayPairResource arrayPairResource = arrayPairResourceRepository.findByArrayPairResourceId(id);
         if (arrayPairResource == null) {

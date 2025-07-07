@@ -10,6 +10,7 @@ public class ElementUtils {
 
     public static final String defaultPackage = "webappgen";
 
+    public static final long hideDefaultsId;
     public static long elementHashCode(String element) {
         return element.hashCode();
     }
@@ -18,4 +19,7 @@ public class ElementUtils {
         return elementHashCode(map + "." + key);
     }
 
+    static {
+        hideDefaultsId = mapHashCode("app.Env", "hideDefaults");
+    }
 }

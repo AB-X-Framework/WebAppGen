@@ -40,7 +40,6 @@ public class PageModel {
     public static final String Global = "global";
 
     private final long envId;
-    private final long hideDefaultsId;
     private final long defaultEnv;
     private final long defaultThemeBase;
     private final long defaultThemeOk;
@@ -99,9 +98,7 @@ public class PageModel {
 
     public PageModel() {
         envId = mapHashCode("app.Env", "home");
-        hideDefaultsId = mapHashCode("app.Env", "hideDefaults");
         defaultEnv = mapHashCode("app.Env", "defaultEnv");
-
         defaultThemeBase = mapHashCode("app.Theme", "theme.base");
         defaultThemeOk = mapHashCode("app.Theme", "theme.ok");
         defaultThemeText = mapHashCode("app.Theme", "theme.text");
