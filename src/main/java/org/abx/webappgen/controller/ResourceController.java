@@ -112,6 +112,9 @@ public class ResourceController extends RoleController {
         if (jsonResource.isNull("owner")) {
             jsonResource.put("owner", request.getUserPrincipal().getName());
         }
+        if (jsonResource.isNull("access")) {
+            jsonResource.put("access", "User");
+        }
         try {
             String name = jsonResource.getString("name");
             String packageName = name.substring(0, name.lastIndexOf('.'));
