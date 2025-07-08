@@ -255,6 +255,20 @@
   {
     "specs": [{
       "env": "",
+      "value": {
+        "size": "",
+        "src": "Seleciona una fecha",
+        "content": "{\n    format: 'yyyy-mm-dd',\n    autoClose: true,\n    i18n: {\n      cancel: 'Cancelar',\n      clear: 'Limpiar',\n      done: 'Ok',\n      months: [\n        'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',\n        'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'\n      ],\n      monthsShort: [\n        'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun',\n        'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'\n      ],\n      weekdays: [\n        'Domingo', 'Lunes', 'Martes', 'Miércoles',\n        'Jueves', 'Viernes', 'Sábado'\n      ],\n      weekdaysShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'],\n      weekdaysAbbrev: ['D', 'L', 'M', 'M', 'J', 'V', 'S']\n    }\n  }"
+      }
+    }],
+    "name": "webappgen.home.Date",
+    "isContainer": false,
+    "js": [],
+    "type": "date"
+  },
+  {
+    "specs": [{
+      "env": "",
       "value": {"title": "Load Model"}
     }],
     "name": "webappgen.home.Load",
@@ -777,6 +791,12 @@
       {
         "innerId": "elem0",
         "component": "webappgen.home.Menu",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "elem1",
+        "component": "webappgen.home.Date",
         "size": "l12",
         "env": ""
       },

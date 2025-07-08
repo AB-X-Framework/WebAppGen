@@ -159,6 +159,9 @@ class PageContent {
                 case "button":
                     PageContent.renderButton(output, js, componentSpecs.specs);
                     break;
+                case "date":
+                    PageContent.renderDate(output, js, componentSpecs.specs);
+                    break;
                 case "menuImg":
                     PageContent.renderMenuImg(output, js, componentSpecs);
                     break;
@@ -646,6 +649,42 @@ class PageContent {
         output.push(result);
     }
 
+    static applyClass ($target, classList) {
+        if (!$target || !classList) return;
+        // Create a hidden dummy element with the given classes
+        var $dummy = $('<div>')
+            .addClass(classList)
+            .css({ position: 'absolute', visibility: 'hidden', left: '-9999px' })
+            .appendTo('body');
+        // Get computed styles
+        var computed = window.getComputedStyle($dummy[0]);
+        // Apply all computed styles to the target
+        Array.from(computed).forEach(function(prop) {
+            $target.css(prop, computed.getPropertyValue(prop));
+        });
+        // Remove dummy
+        $dummy.remove();
+    };
+
+
+    static renderDate(output, js, specs) {
+        output.push(`<div class="input-field">
+            <input type="text" class="datepicker " id="${specs.id}">
+            <label for="${specs.id}">${specs.src}</label>
+        </div>`);
+        js.push(`$(${specs.id}).datepicker(${specs.content});`)
+        js.push(`$(${specs.id}).datepicker({
+            onOpen: function() {
+                $('.datepicker-date-display').attr("class",$('.datepicker-date-display').attr("class")+" ${PageContent.global.themeBase}");
+                $('.datepicker-container').attr("class",$('.datepicker-container').attr("class")+" ${PageContent.global.themeText}");
+                setTimeout(()=>{
+                    $('.datepicker-container').find("abbr, input").attr("class",PageContent.global.themeText);
+                    $('.datepicker-container').find("button").find("svg").attr("class",PageContent.global.themeBase);
+                })
+                  
+            }
+        });`);
+    }
 
     static renderMenuImg(output, js, specs) {
         let innerSpecs = specs.specs;

@@ -96,6 +96,7 @@ function defaultSpecs(elementType) {
         case "img":
             newDefSpecs.src = "";
             break
+        case "date":
         case "tag":
         case "link":
         case "plainText":
@@ -116,6 +117,7 @@ function defaultSpecs(elementType) {
             newDefSpecs.title = "Text field"
             newDefSpecs.label = "Please type";
             newDefSpecs.content = "";
+
             break;
         case "autocomplete":
             newDefSpecs.src = "";
@@ -648,6 +650,11 @@ function processSpecs() {
         case "img":
             $(workingEnv.SpecsSource).closest('.input-field').parent().show();
             break;
+        case "date":
+            $(workingEnv.SpecsSource).closest('.input-field').parent().show();
+            $(workingEnv.SpecsSize).closest('.input-field').parent().show();
+            $(workingEnv.SpecsContentArea).closest('.input-field').parent().show();
+            break;
         case "tag":
         case "link":
         case "plainText":
@@ -743,6 +750,12 @@ function processElement() {
             $(workingEnv.SpecsTitle).val(specs.title);
             $(workingEnv.SpecsContent).val(specs.content);
             break;
+        case "date":
+            $(workingEnv.SpecsSource).val(specs.src);
+            $(workingEnv.SpecsContentArea).val(specs.content);
+            M.textareaAutoResize(workingEnv.SpecsContentArea);
+            $(workingEnv.SpecsSize).val(specs.size);
+            break;
         case "tag":
         case "link":
         case "plainText":
@@ -782,6 +795,7 @@ function processElement() {
         case "modal":
             $(workingEnv.SpecsTitle).val(specs.title);
             $(workingEnv.SpecsContentArea).val(specs.content);
+            M.textareaAutoResize(workingEnv.SpecsContentArea);
             $(workingEnv.SpecsOk).val(specs.ok);
             break;
         case "okCancelModal":
@@ -805,6 +819,7 @@ function processElement() {
             $(workingEnv.SpecsSource).val(specs.src);
             $(workingEnv.SpecsTitle).val(specs.title);
             $(workingEnv.SpecsContentArea).val(specs.content);
+            M.textareaAutoResize(workingEnv.SpecsContentArea);
             break;
         case "textfield":
             $(workingEnv.SpecsLabel).val(specs.label);

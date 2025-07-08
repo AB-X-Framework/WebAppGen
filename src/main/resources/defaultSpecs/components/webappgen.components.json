@@ -644,6 +644,10 @@
             "value": "canvas"
           },
           {
+            "text": "Date",
+            "value": "date"
+          },
+          {
             "text": "Div",
             "value": "div"
           },
