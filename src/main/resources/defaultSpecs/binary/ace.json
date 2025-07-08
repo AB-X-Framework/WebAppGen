@@ -2,6 +2,18 @@
   {
     "owner": "root@abxwebappgen.org",
     "access": "Anonymous",
+    "name": "ace/worker-json.js",
+    "contentType": "text/javascript"
+  },
+  {
+    "owner": "root@abxwebappgen.org",
+    "access": "Anonymous",
+    "name": "ace/mode-json.js",
+    "contentType": "text/javascript"
+  },
+  {
+    "owner": "root@abxwebappgen.org",
+    "access": "Anonymous",
     "name": "ace/mode-javascript.js",
     "contentType": "text/javascript"
   },
@@ -21,12 +33,6 @@
     "owner": "root@abxwebappgen.org",
     "access": "Anonymous",
     "name": "ace/mode-css.js",
-    "contentType": "text/javascript"
-  },
-  {
-    "owner": "root@abxwebappgen.org",
-    "access": "Anonymous",
-    "name": "ace/mode-json.js",
     "contentType": "text/javascript"
   },
   {
