@@ -185,6 +185,9 @@ class PageContent {
                 case "label":
                     PageContent.renderLabel(output, js, componentSpecs.specs);
                     break;
+                case "plainText":
+                    PageContent.renderPlainText(output, js, componentSpecs.specs);
+                    break;
                 case "autocomplete":
                     PageContent.renderAutocomplete(output, js, componentSpecs.specs);
                     break;
@@ -421,6 +424,12 @@ class PageContent {
         output.push(results);
     }
 
+    static renderPlainText(output, js, specs) {
+        var results =  `<p id="${specs.id}" 
+            ${specs.content.replaceAll("\n", `</><p>`)}
+        </p>`;
+        output.push(results);
+    }
     static renderFile(output, specs) {
         var results =
             `<div class="input-field">
