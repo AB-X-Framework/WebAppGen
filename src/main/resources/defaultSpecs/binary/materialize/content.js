@@ -692,7 +692,7 @@ class PageContent {
             <input type="text" class="datepicker " id="${specs.id}">
             <label for="${specs.id}">${specs.title}</label>
         </div>`);
-        if ( $.trim(specs.url) === '') {
+        if ( $.trim(specs.src) === '') {
             let content = specs.content;
             if ($.trim(content) === '') {
                 content = "{}";
@@ -706,7 +706,8 @@ class PageContent {
             }`);
         }else {
             js.push(`{
-                $.get(${specs.url},(opts1)=>{
+                $.get("${specs.src}",(content)=>{
+                    const opts1 = eval(content);
                     const opts2= {
                         onOpen: PageContent.setDateTheme
                     };

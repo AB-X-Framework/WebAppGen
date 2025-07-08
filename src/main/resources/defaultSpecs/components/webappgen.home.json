@@ -50,7 +50,7 @@
       "env": "",
       "value": {
         "size": "",
-        "src": "/resources/binaries/materialize/date.ES.js",
+        "src": "/resources/binary/materialize/date.ES.js",
         "title": "Seleciona una fecha",
         "content": ""
       }
