@@ -155,7 +155,7 @@
       },
       {
         "env": "",
-        "value": "self.markChanged=()=>{\n    self.LeftPanel.MenuPanel.SaveText.markChanged();\n}\n\n\n$(self.RightPanel.TextContent).on('input',()=>{\n    workingEnv.updatedText.content = $(self.RightPanel.TextContent).val(); \n    self.markChanged();\n});\n \n$(self.RightPanel.DetailsPanel.Owner).on('input',()=>{\n    workingEnv.updatedText.owner = $(self.RightPanel.DetailsPanel.Owner).val(); \n    self.markChanged();\n});\n \n$(self.RightPanel.DetailsPanel.Title).on('input',()=>{\n    workingEnv.updatedText.title = $(self.RightPanel.DetailsPanel.Title).val(); \n    self.markChanged();\n});\n \n$(self.RightPanel.DetailsPanel.AccessType).change(()=>{\n    workingEnv.updatedText.role = $(self.RightPanel.DetailsPanel.AccessType).val(); \n    self.markChanged();\n});"
+        "value": "self.markChanged=()=>{\n    self.LeftPanel.MenuPanel.SaveText.markChanged();\n}\n\n\n$(self.RightPanel.TextContent).on('input',()=>{\n    workingEnv.updatedText.content = $(self.RightPanel.TextContent).val(); \n    self.markChanged();\n});\n \n$(self.RightPanel.DetailsPanel.Owner).on('input',()=>{\n    workingEnv.updatedText.owner = $(self.RightPanel.DetailsPanel.Owner).val(); \n    self.markChanged();\n});\n \n$(self.RightPanel.DetailsPanel.Title).on('input',()=>{\n    workingEnv.updatedText.title = $(self.RightPanel.DetailsPanel.Title).val(); \n    self.markChanged();\n});\n \n$(self.RightPanel.DetailsPanel.AccessType).change(()=>{\n    workingEnv.updatedText.access = $(self.RightPanel.DetailsPanel.AccessType).val(); \n    self.markChanged();\n});"
       }
     ]
   },
