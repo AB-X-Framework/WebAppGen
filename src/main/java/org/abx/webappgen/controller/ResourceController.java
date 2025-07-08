@@ -151,11 +151,13 @@ public class ResourceController extends RoleController {
     @Secured("Admin")
     @PostMapping(value = "/maps/{mapName}", produces = MediaType.APPLICATION_JSON_VALUE)
     public String createMap(
+            HttpServletRequest request,
             @PathVariable String mapName) {
         String packageName = mapName.substring(0, mapName.lastIndexOf('.'));
         JSONObject result = new JSONObject();
         try {
-            resourceModel.createMap(packageName, mapName);
+            String owner = request.getUserPrincipal().getName();
+            resourceModel.createMap(packageName, mapName, owner);
             result.put("success", true);
             result.put("package", packageName);
         } catch (Exception e) {
@@ -168,11 +170,13 @@ public class ResourceController extends RoleController {
     @Secured("Admin")
     @PostMapping(value = "/arrays/{arrayName}", produces = MediaType.APPLICATION_JSON_VALUE)
     public String createArray(
+            HttpServletRequest request,
             @PathVariable String arrayName) {
         String packageName = arrayName.substring(0, arrayName.lastIndexOf('.'));
         JSONObject result = new JSONObject();
         try {
-            resourceModel.createArray(packageName, arrayName);
+            String owner = request.getUserPrincipal().getName();
+            resourceModel.createArray(packageName, arrayName,owner);
             result.put("success", true);
             result.put("package", packageName);
         } catch (Exception e) {
@@ -185,11 +189,13 @@ public class ResourceController extends RoleController {
     @Secured("Admin")
     @PostMapping(value = "/arrayPairs/{arrayPairName}", produces = MediaType.APPLICATION_JSON_VALUE)
     public String createArrayPair(
+            HttpServletRequest request,
             @PathVariable String arrayPairName) {
         String packageName = arrayPairName.substring(0, arrayPairName.lastIndexOf('.'));
         JSONObject result = new JSONObject();
         try {
-            resourceModel.createArrayPair(packageName, arrayPairName);
+            String owner = request.getUserPrincipal().getName();
+            resourceModel.createArrayPair(packageName, arrayPairName, owner);
             result.put("success", true);
             result.put("package", packageName);
         } catch (Exception e) {
@@ -384,7 +390,7 @@ public class ResourceController extends RoleController {
             @RequestParam String values) {
         JSONObject status = new JSONObject();
         try {
-            resourceModel.saveMapEntries(mapName, new JSONArray(values),new JSONObject(meta));
+            resourceModel.saveMapEntries(mapName, new JSONArray(values), new JSONObject(meta));
             status.put("success", true);
         } catch (Exception e) {
             status.put("success", false);
@@ -401,7 +407,7 @@ public class ResourceController extends RoleController {
             @RequestParam String values) {
         JSONObject status = new JSONObject();
         try {
-            resourceModel.updateArrayEntries(arrayName, new JSONArray(values),new JSONObject(meta));
+            resourceModel.updateArrayEntries(arrayName, new JSONArray(values), new JSONObject(meta));
             status.put("success", true);
         } catch (Exception e) {
             status.put("success", false);
@@ -418,7 +424,7 @@ public class ResourceController extends RoleController {
             @RequestParam String values) {
         JSONObject status = new JSONObject();
         try {
-            resourceModel.updateArrayPairEntries(arrayPairName, new JSONArray(values),new JSONObject(meta));
+            resourceModel.updateArrayPairEntries(arrayPairName, new JSONArray(values), new JSONObject(meta));
             status.put("success", true);
         } catch (Exception e) {
             status.put("success", false);

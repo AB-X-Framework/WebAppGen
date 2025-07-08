@@ -534,13 +534,15 @@ public class ResourceModel {
 
 
     @Transactional
-    public void createMap(String packageName, String mapName) throws Exception {
+    public void createMap(String packageName, String mapName,String owner) throws Exception {
         long id = elementHashCode(mapName);
         MapResource mapResource = mapResourceRepository.findByMapResourceId(elementHashCode(mapName));
         if (mapResource != null) {
             throw new Exception("Duplicate map entry");
         }
         mapResource = new MapResource();
+        mapResource.owner = userRepository.findByUsername(owner).userId;
+        mapResource.access = "User";
         mapResource.packageName = packageName;
         mapResource.mapResourceId = id;
         mapResource.resourceName = mapName;
@@ -549,13 +551,15 @@ public class ResourceModel {
 
 
     @Transactional
-    public void createArray(String packageName, String arrayName) throws Exception {
+    public void createArray(String packageName, String arrayName,String owner) throws Exception {
         long id = elementHashCode(arrayName);
         ArrayResource arrayResource = arrayResourceRepository.findByArrayResourceId(elementHashCode(arrayName));
         if (arrayResource != null) {
             throw new Exception("Duplicate map entry");
         }
         arrayResource = new ArrayResource();
+        arrayResource.owner =  userRepository.findByUsername(owner).userId;
+        arrayResource.access = "User";
         arrayResource.packageName = packageName;
         arrayResource.arrayResourceId = id;
         arrayResource.resourceName = arrayName;
@@ -564,7 +568,7 @@ public class ResourceModel {
 
 
     @Transactional
-    public void createArrayPair(String packageName, String arrayPairName) throws Exception {
+    public void createArrayPair(String packageName, String arrayPairName,String owner) throws Exception {
         long id = elementHashCode(arrayPairName);
         ArrayPairResource arrayResource = arrayPairResourceRepository.findByArrayPairResourceId(
                 elementHashCode(arrayPairName));
@@ -572,6 +576,8 @@ public class ResourceModel {
             throw new Exception("Duplicate map entry");
         }
         arrayResource = new ArrayPairResource();
+        arrayResource.owner = userRepository.findByUsername(owner).userId;
+        arrayResource.access = "User";
         arrayResource.packageName = packageName;
         arrayResource.arrayPairResourceId = id;
         arrayResource.resourceName = arrayPairName;
