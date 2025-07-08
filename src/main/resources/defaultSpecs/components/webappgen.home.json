@@ -141,15 +141,14 @@
     "specs": [{
       "env": "",
       "value": {
-        "size": "h2",
-        "title": "The section",
-        "content": "Nice section"
+        "src": "",
+        "content": "Hello world"
       }
     }],
     "name": "webappgen.home.MenuFooterChildA",
     "isContainer": false,
     "js": [],
-    "type": "section"
+    "type": "plainText"
   },
   {
     "specs": [{

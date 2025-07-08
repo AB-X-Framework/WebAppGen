@@ -425,8 +425,7 @@ class PageContent {
     }
 
     static renderPlainText(output, js, specs) {
-        var results =  `<p id="${specs.id}" 
-            ${specs.content.replaceAll("\n", `</><p>`)}
+        var results =  `<p id="${specs.id}" >${specs.content.replaceAll("\n", `</><p>`)}
         </p>`;
         output.push(results);
     }
