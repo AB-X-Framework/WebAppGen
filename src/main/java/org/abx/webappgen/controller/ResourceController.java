@@ -222,7 +222,6 @@ public class ResourceController extends RoleController {
             valueLabel = "value";
         }
 
-        JSONObject result = new JSONObject();
         Set<String> roles = getRoles();
 
         String username = null;
@@ -230,12 +229,13 @@ public class ResourceController extends RoleController {
             username = request.getUserPrincipal().getName();
         }
         try {
-            resourceModel.getArrayPair(arrayPairName, keyLabel, valueLabel, username, roles);
+            return resourceModel.getArrayPair(arrayPairName, keyLabel, valueLabel, username, roles).toString();
         } catch (Exception e) {
+            JSONObject result = new JSONObject();
             result.put("success", false);
             result.put("error", e.getMessage());
+            return result.toString();
         }
-        return result.toString();
     }
 
     @Secured("Admin")
