@@ -654,7 +654,7 @@ class PageContent {
                 const elem = eval(`${mainId}_${entry.value}`);
                 main[entry.value]= elem;
                 main.items.push(elem);
-                eval(`${mainId}_${entry}.key="${entry.value}"`);
+                eval(`${mainId}_${entry.value}.key="${entry.value}"`);
             }
         });
     }
