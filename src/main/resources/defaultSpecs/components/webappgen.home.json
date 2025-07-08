@@ -23,7 +23,7 @@
     "layout": "footer",
     "components": [{
       "innerId": "elem0",
-      "component": "webappgen.home.Menu",
+      "component": "webappgen.home.MenuFooterChild",
       "size": "l12",
       "env": ""
     }],
@@ -75,7 +75,7 @@
       {
         "env": "",
         "value": {
-          "src": "/resources/arrays/webappgen.language",
+          "src": "/resources/array/webappgen.language",
           "values": [],
           "title": "Language"
         }
@@ -136,6 +136,20 @@
       "value": ""
     }],
     "type": "button"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "size": "h2",
+        "title": "The section",
+        "content": "Nice section"
+      }
+    }],
+    "name": "webappgen.home.MenuFooterChildA",
+    "isContainer": false,
+    "js": [],
+    "type": "section"
   },
   {
     "specs": [{
@@ -219,6 +233,18 @@
       "value": "$(self).click(()=>{\n   document.location= \"/page/Methods\"; \n});"
     }],
     "type": "menuItem"
+  },
+  {
+    "layout": "container",
+    "components": [{
+      "innerId": "elem0",
+      "component": "webappgen.home.MenuFooterChildA",
+      "size": "l12",
+      "env": ""
+    }],
+    "name": "webappgen.home.MenuFooterChild",
+    "isContainer": true,
+    "js": []
   },
   {
     "specs": [{

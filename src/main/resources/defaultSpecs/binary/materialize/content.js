@@ -615,34 +615,17 @@ class PageContent {
         output.push(`  <ul class="${specs.size}"><li><a   id="${innerSpecs.id}" >${innerSpecs.title}</a></li></ul>`);
     }
 
-    static renderFooter(output, js, specs) {
-        output.push(`
-        <footer  id="${specs.id}" class="page-footer ${PageContent.global.themeBase}">
-          <div class="container">
-            <div class="row">
-              <div class="col l6 s12">
-                <h5 class="white-text">Footer Content</h5>
-                <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
-              </div>
-              <div class="col l4 offset-l2 s12">
-                <h5 class="white-text">Links</h5>
-                <ul>
-                  <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
-                  <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
-                  <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
-                  <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="footer-copyright">
-            <div class="container">
-            © 2014 Copyright Text
-            <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
-            </div>
-          </div>
-        </footer>
-            `);
+    static renderFooter(output, js, componentSpecs) {
+        output.push(`   <footer  id="${componentSpecs.id}" class="page-footer ${PageContent.global.themeBase}">`);
+        if (typeof componentSpecs.children[0]!=="undefined"){
+            PageContent.renderComponent(output, js, componentSpecs.children[0])
+        }
+        if (typeof componentSpecs.children[1]!=="undefined"){
+            output.push(`<div class="footer-copyright">`);
+            PageContent.renderComponent(output, js, componentSpecs.children[1])
+            output.push("</div>");
+        }
+        output.push("</footer>");
     }
     
     static processItems(mainId,dropoboxId,src){
