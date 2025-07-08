@@ -20,6 +20,18 @@
     "js": []
   },
   {
+    "layout": "footer",
+    "components": [{
+      "innerId": "elem0",
+      "component": "webappgen.home.Menu",
+      "size": "l12",
+      "env": ""
+    }],
+    "name": "webappgen.home.MenuFooter",
+    "isContainer": true,
+    "js": []
+  },
+  {
     "specs": [{
       "env": "",
       "value": {"title": "Home"}
@@ -644,6 +656,26 @@
     "isContainer": false,
     "js": [],
     "type": "section"
+  },
+  {
+    "layout": "topLayout",
+    "components": [
+      {
+        "innerId": "elem0",
+        "component": "webappgen.home.Menu",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "elem1",
+        "component": "webappgen.home.MenuFooter",
+        "size": "l12",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.home.MenuMain",
+    "isContainer": true,
+    "js": []
   },
   {
     "specs": [{

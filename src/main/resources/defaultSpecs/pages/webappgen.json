@@ -42,7 +42,7 @@
     "matches": "Maps"
   },
   {
-    "component": "webappgen.home.Menu",
+    "component": "webappgen.home.MenuMain",
     "css": [{
       "env": "",
       "value": "/resources/binary/materialize/icon.css"
