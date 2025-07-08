@@ -666,24 +666,43 @@ class PageContent {
         $dummy.remove();
     };
 
+    static setDateHeaderTheme(){
+        const $container= $('.datepicker-container');
+        $container.addClass(PageContent.global.themeText);
+        $container.find("abbr, input").addClass(PageContent.global.themeText);
+        $container.find("button").find("svg").addClass(PageContent.global.themeBase);
+        $container.find("button").click(()=>{
+            setTimeout(()=> {
+                PageContent.setDateHeaderTheme();
+            });
+        });
+    }
+
+    static setDateTheme(){
+        $('.datepicker-date-display').addClass(PageContent.global.themeBase);
+        $('.datepicker-footer').find("button").addClass(PageContent.global.themeText)
+        setTimeout(()=>{
+            PageContent.setDateHeaderTheme();
+            $(".datepicker-table").find(".is-selected").find("button").addClass(PageContent.global.themeBase);
+        });
+    }
 
     static renderDate(output, js, specs) {
         output.push(`<div class="input-field">
             <input type="text" class="datepicker " id="${specs.id}">
             <label for="${specs.id}">${specs.src}</label>
         </div>`);
-        js.push(`$(${specs.id}).datepicker(${specs.content});`)
-        js.push(`$(${specs.id}).datepicker({
-            onOpen: function() {
-                $('.datepicker-date-display').attr("class",$('.datepicker-date-display').attr("class")+" ${PageContent.global.themeBase}");
-                $('.datepicker-container').attr("class",$('.datepicker-container').attr("class")+" ${PageContent.global.themeText}");
-                setTimeout(()=>{
-                    $('.datepicker-container').find("abbr, input").attr("class",PageContent.global.themeText);
-                    $('.datepicker-container').find("button").find("svg").attr("class",PageContent.global.themeBase);
-                })
-                  
-            }
-        });`);
+        let content = specs.content;
+        if ( $.trim(content) === ''){
+            content = "{}";
+        }
+        js.push(`{
+            const opts1 = ${content};
+            const opts2= {
+                onOpen: PageContent.setDateTheme
+            };
+            $(${specs.id}).datepicker({ ...opts1, ...opts2 });
+        }`);
     }
 
     static renderMenuImg(output, js, specs) {
