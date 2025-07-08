@@ -261,7 +261,7 @@
     "isContainer": true,
     "js": [{
       "env": "",
-      "value": "$(NewArrayConfirm).click(()=>{\n    const name = $(NewArrayName).val();\n    $.post(`/resources/arrays/${name}`,(status)=>{\n       if (status.success){\n           PageContent.closeModal(self);\n           addAutocompleteValue(workingEnv.PackageName,status.package)\n           addAutocompleteValue(workingEnv.ArrayName,name);\n       } else {\n           PageContent.showModal(\"Cannot create array\"+JSON.stringify(status.error))\n       }\n    });\n});"
+      "value": "$(NewArrayConfirm).click(()=>{\n    const name = $(NewArrayName).val();\n    $.post(`/resources/arrays/${name}`,(status)=>{\n       if (status.success){\n           PageContent.closeModal(self);\n           addAutocompleteValue(workingEnv.PackageName,status.package)\n           addAutocompleteValue(workingEnv.ArrayName,name);\n\n           $(workingEnv.ArrayName).change();\n       } else {\n           PageContent.showModal(\"Cannot create array\"+JSON.stringify(status.error))\n       }\n    });\n});"
     }]
   },
   {
