@@ -1,213 +1,175 @@
 [
   {
-    "specs": [
-      {
-        "env": "",
-        "value": {
-          "title": "Save"
-        }
-      }
-    ],
+    "specs": [{
+      "env": "",
+      "value": {"title": "Save"}
+    }],
     "name": "webappgen.components.SaveComponent",
     "isContainer": false,
-    "js": [
-      {
-        "env": "",
-        "value": "self.markChanged=()=>{\n    $(self).addClass(PageContent.global.themeUpdated);\n}\n\nself.markSaved=()=>{\n    $(self).removeClass(PageContent.global.themeUpdated);\n}"
-      }
-    ],
+    "js": [{
+      "env": "",
+      "value": "self.markChanged=()=>{\n    $(self).addClass(PageContent.global.themeUpdated);\n}\n\nself.markSaved=()=>{\n    $(self).removeClass(PageContent.global.themeUpdated);\n}"
+    }],
     "type": "button"
   },
   {
-    "specs": [
-      {
-        "env": "",
-        "value": {
-          "cancel": "Do not discard",
-          "title": "Discard Changes",
-          "ok": "Discard",
-          "content": "Are you sure you want to discard changes?"
-        }
+    "specs": [{
+      "env": "",
+      "value": {
+        "cancel": "Do not discard",
+        "title": "Discard Changes",
+        "ok": "Discard",
+        "content": "Are you sure you want to discard changes?"
       }
-    ],
+    }],
     "name": "webappgen.components.DiscardChangesModal",
     "isContainer": false,
-    "js": [
-      {
-        "env": "",
-        "value": "$(self.ok).click(discardSpecs)"
-      }
-    ],
+    "js": [{
+      "env": "",
+      "value": "$(self.ok).click(discardSpecs)"
+    }],
     "type": "okCancelModal"
   },
   {
-    "specs": [
-      {
-        "env": "",
-        "value": {
-          "cancel": "Cancel",
-          "ok": "Save changes",
-          "title": "Save Changes",
-          "content": "Do you want to save changes?"
-        }
+    "specs": [{
+      "env": "",
+      "value": {
+        "cancel": "Cancel",
+        "ok": "Save changes",
+        "title": "Save Changes",
+        "content": "Do you want to save changes?"
       }
-    ],
+    }],
     "name": "webappgen.components.ConfirmChangesModal",
     "isContainer": false,
     "js": [],
     "type": "okCancelModal"
   },
   {
-    "specs": [
-      {
-        "env": "",
-        "value": {
-          "src": "/resources/array/app.Envs",
-          "values": [],
-          "title": "The Env"
-        }
+    "specs": [{
+      "env": "",
+      "value": {
+        "src": "/resources/array/app.Envs",
+        "values": [],
+        "title": "The Env"
       }
-    ],
+    }],
     "name": "webappgen.components.ChooseEnv",
     "isContainer": false,
-    "js": [
-      {
-        "env": "",
-        "value": "workingEnv.ChooseEnv = self;\n$(self).change(()=>{\n   renderCurrentComponent(); \n});\nsetTimeout(()=>{\n    $(self).val($(self).find('option:not(:disabled)').first().val());\n    $(self).formSelect(); // Re-initialize Materialize select\n},100);"
-      }
-    ],
+    "js": [{
+      "env": "",
+      "value": "workingEnv.ChooseEnv = self;\n$(self).change(()=>{\n   renderCurrentComponent(); \n});\nsetTimeout(()=>{\n    $(self).val($(self).find('option:not(:disabled)').first().val());\n    $(self).formSelect(); // Re-initialize Materialize select\n},100);"
+    }],
     "type": "select"
   },
   {
-    "specs": [
-      {
-        "env": "",
-        "value": {
-          "values": [
-            {
-              "text": "Horizontal",
-              "value": "horizontal"
-            },
-            {
-              "text": "Vertical",
-              "value": "vertical"
-            },
-            {
-              "text": "Top Layout",
-              "value": "topLayout"
-            },
-            {
-              "text": "Container",
-              "value": "container"
-            },
-            {
-              "text": "Popup",
-              "value": "popup"
-            },
-            {
-              "text": "Nav",
-              "value": "nav"
-            },
-            {
-              "text": "Menu",
-              "value": "menu"
-            },
-            {
-              "text": "Footer",
-              "value": "footer"
-            }
-          ],
-          "title": "Layout"
-        }
+    "specs": [{
+      "env": "",
+      "value": {
+        "values": [
+          {
+            "text": "Horizontal",
+            "value": "horizontal"
+          },
+          {
+            "text": "Vertical",
+            "value": "vertical"
+          },
+          {
+            "text": "Top Layout",
+            "value": "topLayout"
+          },
+          {
+            "text": "Container",
+            "value": "container"
+          },
+          {
+            "text": "Popup",
+            "value": "popup"
+          },
+          {
+            "text": "Nav",
+            "value": "nav"
+          },
+          {
+            "text": "Menu",
+            "value": "menu"
+          },
+          {
+            "text": "Footer",
+            "value": "footer"
+          }
+        ],
+        "title": "Layout"
       }
-    ],
+    }],
     "name": "webappgen.components.ContainerLayout",
     "isContainer": false,
     "js": [],
     "type": "select"
   },
   {
-    "specs": [
-      {
-        "env": "",
-        "value": {
-          "items": [
-            {
-              "name": "File"
-            },
-            {
-              "name": "Edit"
-            }
-          ]
-        }
-      }
-    ],
+    "specs": [{
+      "env": "",
+      "value": {"items": [
+        {"name": "File"},
+        {"name": "Edit"}
+      ]}
+    }],
     "name": "webappgen.components.ComponentMenu",
     "isContainer": false,
     "js": [],
     "type": "menu"
   },
   {
-    "specs": [
-      {
-        "env": "",
-        "value": {
-          "values": [],
-          "title": "Component Name"
-        }
+    "specs": [{
+      "env": "",
+      "value": {
+        "values": [],
+        "title": "Component Name"
       }
-    ],
+    }],
     "name": "webappgen.components.ComponentName",
     "isContainer": false,
     "js": [],
     "type": "select"
   },
   {
-    "specs": [
-      {
-        "env": "",
-        "value": {
-          "values": [
-            {
-              "text": "Container",
-              "value": "Container"
-            },
-            {
-              "text": "Element",
-              "value": "Element"
-            }
-          ],
-          "title": "Component Type"
-        }
+    "specs": [{
+      "env": "",
+      "value": {
+        "values": [
+          {
+            "text": "Container",
+            "value": "Container"
+          },
+          {
+            "text": "Element",
+            "value": "Element"
+          }
+        ],
+        "title": "Component Type"
       }
-    ],
+    }],
     "name": "webappgen.components.ComponentType",
     "isContainer": false,
-    "js": [
-      {
-        "env": "",
-        "value": "$(self).change(updateComponentType)"
-      }
-    ],
+    "js": [{
+      "env": "",
+      "value": "$(self).change(updateComponentType)"
+    }],
     "type": "select"
   },
   {
-    "specs": [
-      {
-        "env": "",
-        "value": {
-          "title": "Discard Changes"
-        }
-      }
-    ],
+    "specs": [{
+      "env": "",
+      "value": {"title": "Discard Changes"}
+    }],
     "name": "webappgen.components.DiscardChanges",
     "isContainer": false,
-    "js": [
-      {
-        "env": "",
-        "value": ""
-      }
-    ],
+    "js": [{
+      "env": "",
+      "value": ""
+    }],
     "type": "button"
   },
   {
@@ -395,36 +357,32 @@
     ]
   },
   {
-    "specs": [
-      {
-        "env": "",
-        "value": {
-          "values": [
-            {
-              "text": "Admin",
-              "value": "Admin"
-            },
-            {
-              "text": "User",
-              "value": "User"
-            },
-            {
-              "text": "Anonymous",
-              "value": "Anonymous"
-            }
-          ],
-          "title": "Role Type"
-        }
+    "specs": [{
+      "env": "",
+      "value": {
+        "values": [
+          {
+            "text": "Admin",
+            "value": "Admin"
+          },
+          {
+            "text": "User",
+            "value": "User"
+          },
+          {
+            "text": "Anonymous",
+            "value": "Anonymous"
+          }
+        ],
+        "title": "Role Type"
       }
-    ],
+    }],
     "name": "webappgen.components.RoleType",
     "isContainer": false,
-    "js": [
-      {
-        "env": "",
-        "value": ""
-      }
-    ],
+    "js": [{
+      "env": "",
+      "value": ""
+    }],
     "type": "select"
   },
   {
@@ -652,127 +610,129 @@
     ]
   },
   {
-    "specs": [
-      {
-        "env": "",
-        "value": {
-          "values": [],
-          "title": "Details"
-        }
+    "specs": [{
+      "env": "",
+      "value": {
+        "values": [],
+        "title": "Details"
       }
-    ],
+    }],
     "name": "webappgen.components.EditingDetailType",
     "isContainer": false,
     "js": [],
     "type": "select"
   },
   {
-    "specs": [
-      {
-        "env": "",
-        "value": {
-          "values": [
-            {
-              "text": "Autocomplete",
-              "value": "autocomplete"
-            },
-            {
-              "text": "Button",
-              "value": "button"
-            },
-            {
-              "text": "Canvas",
-              "value": "canvas"
-            },
-            {
-              "text": "Div",
-              "value": "div"
-            },
-            {
-              "text": "Divider",
-              "value": "divider"
-            },
-            {
-              "text": "File",
-              "value": "file"
-            },
-            {
-              "text": "Header",
-              "value": "header"
-            },
-            {
-              "text": "Img",
-              "value": "img"
-            },
-            {
-              "text": "JS Editor",
-              "value": "jsEditor"
-            },
-            {
-              "text": "Label",
-              "value": "label"
-            },
-            {
-              "text": "Menu Img",
-              "value": "menuImg"
-            },
-            {
-              "text": "Menu Item",
-              "value": "menuItem"
-            },
-            {
-              "text": "Menu Items",
-              "value": "menuItems"
-            },
-            {
-              "text": "Modal",
-              "value": "modal"
-            },
-            {
-              "text": "Ok/Cancel",
-              "value": "okCancelModal"
-            },
-            {
-              "text": "Password",
-              "value": "password"
-            },
-            {
-              "text": "Plain Text",
-              "value": "plainText"
-            },
-            {
-              "text": "Section",
-              "value": "section"
-            },
-            {
-              "text": "Select",
-              "value": "select"
-            },
-            {
-              "text": "Switch",
-              "value": "switch"
-            },
-            {
-              "text": "Textarea",
-              "value": "textarea"
-            },
-            {
-              "text": "Textfield",
-              "value": "textfield"
-            }
-          ],
-          "title": "Element Type"
-        }
+    "specs": [{
+      "env": "",
+      "value": {
+        "values": [
+          {
+            "text": "Autocomplete",
+            "value": "autocomplete"
+          },
+          {
+            "text": "Button",
+            "value": "button"
+          },
+          {
+            "text": "Canvas",
+            "value": "canvas"
+          },
+          {
+            "text": "Div",
+            "value": "div"
+          },
+          {
+            "text": "Divider",
+            "value": "divider"
+          },
+          {
+            "text": "File",
+            "value": "file"
+          },
+          {
+            "text": "Header",
+            "value": "header"
+          },
+          {
+            "text": "Img",
+            "value": "img"
+          },
+          {
+            "text": "JS Editor",
+            "value": "jsEditor"
+          },
+          {
+            "text": "Label",
+            "value": "label"
+          },
+          {
+            "text": "Link",
+            "value": "link"
+          },
+          {
+            "text": "Menu Img",
+            "value": "menuImg"
+          },
+          {
+            "text": "Menu Item",
+            "value": "menuItem"
+          },
+          {
+            "text": "Menu Items",
+            "value": "menuItems"
+          },
+          {
+            "text": "Modal",
+            "value": "modal"
+          },
+          {
+            "text": "Ok/Cancel",
+            "value": "okCancelModal"
+          },
+          {
+            "text": "Password",
+            "value": "password"
+          },
+          {
+            "text": "Plain Text",
+            "value": "plainText"
+          },
+          {
+            "text": "Section",
+            "value": "section"
+          },
+          {
+            "text": "Select",
+            "value": "select"
+          },
+          {
+            "text": "Switch",
+            "value": "switch"
+          },
+          {
+            "text": "Tag",
+            "value": "tag"
+          },
+          {
+            "text": "Textarea",
+            "value": "textarea"
+          },
+          {
+            "text": "Textfield",
+            "value": "textfield"
+          }
+        ],
+        "title": "Element Type"
       }
-    ],
+    }],
     "name": "webappgen.components.ElementType",
     "isContainer": false,
-    "js": [
-      {
-        "env": "",
-        "value": ""
-      }
-    ],
+    "js": [{
+      "env": "",
+      "value": ""
+    }],
     "type": "select"
   },
   {
@@ -793,11 +753,9 @@
     ],
     "name": "webappgen.components.NavPanel",
     "isContainer": true,
-    "js": [
-      {
-        "env": "",
-        "value": ""
-      }
-    ]
+    "js": [{
+      "env": "",
+      "value": ""
+    }]
   }
 ]

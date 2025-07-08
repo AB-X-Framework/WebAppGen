@@ -95,7 +95,9 @@ function defaultSpecs(elementType) {
         case "menuImg":
         case "img":
             newDefSpecs.src = "";
-            break;
+            break
+        case "tag":
+        case "link":
         case "plainText":
         case "label":
             newDefSpecs.src = "";
@@ -642,6 +644,8 @@ function processSpecs() {
         case "img":
             $(workingEnv.SpecsSource).closest('.input-field').parent().show();
             break;
+        case "tag":
+        case "link":
         case "plainText":
         case "label":
             $(workingEnv.SpecsContent).closest('.input-field').parent().show();
@@ -731,6 +735,8 @@ function processElement() {
             $(workingEnv.SpecsTitle).val(specs.title);
             $(workingEnv.SpecsContent).val(specs.content);
             break;
+        case "tag":
+        case "link":
         case "plainText":
         case "label":
             $(workingEnv.SpecsSource).val(specs.src);

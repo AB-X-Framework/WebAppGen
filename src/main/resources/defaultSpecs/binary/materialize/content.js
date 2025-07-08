@@ -185,7 +185,13 @@ class PageContent {
                 case "label":
                     PageContent.renderLabel(output, js, componentSpecs.specs);
                     break;
+                case "tag":
+                    PageContent.renderTag(output, js, componentSpecs.specs);
+                    break;
                 case "plainText":
+                    PageContent.renderPlainText(output, js, componentSpecs.specs);
+                    break;
+                case "link":
                     PageContent.renderPlainText(output, js, componentSpecs.specs);
                     break;
                 case "autocomplete":
@@ -424,11 +430,27 @@ class PageContent {
         output.push(results);
     }
 
+    static renderLink(output, js, specs) {
+        var results =  `<a id="${specs.id}" href="${specs.src}">
+            ${specs.content}
+        </a>`;
+        output.push(results);
+    }
+
+
+    static renderTag(output, js, specs) {
+        var results =  `<${specs.src} id="${specs.id}" >
+            ${specs.content}
+        </${specs.src}>`;
+        output.push(results);
+    }
     static renderPlainText(output, js, specs) {
-        var results =  `<p id="${specs.id}" >${specs.content.replaceAll("\n", `</><p>`)}
+        var results =  `<p id="${specs.id}" >
+            ${specs.content.replaceAll("\n", `</><p>`)}
         </p>`;
         output.push(results);
     }
+
     static renderFile(output, specs) {
         var results =
             `<div class="input-field">

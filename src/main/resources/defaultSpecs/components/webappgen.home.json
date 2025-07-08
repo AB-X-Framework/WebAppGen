@@ -1,5 +1,25 @@
 [
   {
+    "layout": "horizontal",
+    "components": [
+      {
+        "innerId": "elem0",
+        "component": "webappgen.home.MenuFooterChildA",
+        "size": "l6",
+        "env": ""
+      },
+      {
+        "innerId": "elem0",
+        "component": "webappgen.home.MenuFooterChildA",
+        "size": "l6",
+        "env": ""
+      }
+    ],
+    "name": "webappgen.home.MenuFooterHorizontal",
+    "isContainer": true,
+    "js": []
+  },
+  {
     "layout": "topLayout",
     "components": [
       {
@@ -236,9 +256,9 @@
   {
     "layout": "container",
     "components": [{
-      "innerId": "elem0",
-      "component": "webappgen.home.MenuFooterChildA",
-      "size": "l12",
+      "innerId": "elem1",
+      "component": "webappgen.home.MenuFooterHorizontal",
+      "size": "l6",
       "env": ""
     }],
     "name": "webappgen.home.MenuFooterChild",
