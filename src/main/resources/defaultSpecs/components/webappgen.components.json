@@ -49,7 +49,7 @@
     "specs": [{
       "env": "",
       "value": {
-        "src": "/resources/arrays/app.Envs",
+        "src": "/resources/array/app.Envs",
         "values": [],
         "title": "The Env"
       }
