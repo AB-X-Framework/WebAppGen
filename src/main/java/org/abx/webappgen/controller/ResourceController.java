@@ -47,7 +47,7 @@ public class ResourceController extends RoleController {
         return data.toString();
     }
 
-    @GetMapping(value = "/text/{resource}", produces = MediaType.TEXT_PLAIN_VALUE)
+    @GetMapping(value = "/text/{resource}", produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("permitAll()")
     public String getText(HttpServletRequest request, @PathVariable String resource) {
         String username = null;
@@ -55,7 +55,22 @@ public class ResourceController extends RoleController {
             username = request.getUserPrincipal().getName();
         }
         Set<String> roles = getRoles();
-        String data = resourceModel.getText(resource, username, roles);
+        JSONObject data = resourceModel.getText(resource, username, roles);
+        if (data == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Resource not found: " + resource);
+        }
+        return data.toString();
+    }
+
+    @GetMapping(value = "/plain/{resource}", produces = MediaType.TEXT_PLAIN_VALUE)
+    @PreAuthorize("permitAll()")
+    public String getPlainText(HttpServletRequest request, @PathVariable String resource) {
+        String username = null;
+        if (request.getUserPrincipal() != null) {
+            username = request.getUserPrincipal().getName();
+        }
+        Set<String> roles = getRoles();
+        String data = resourceModel.getPlainText(resource, username, roles);
         if (data == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Resource not found: " + resource);
         }
@@ -179,7 +194,7 @@ public class ResourceController extends RoleController {
         JSONObject result = new JSONObject();
         try {
             String owner = request.getUserPrincipal().getName();
-            resourceModel.createArray(packageName, arrayName,owner);
+            resourceModel.createArray(packageName, arrayName, owner);
             result.put("success", true);
             result.put("package", packageName);
         } catch (Exception e) {

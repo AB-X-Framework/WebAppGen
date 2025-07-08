@@ -179,7 +179,24 @@ public class ResourceModel {
     }
 
     @Transactional
-    public String getText(String resourceName, String username, Set<String> roles) {
+    public JSONObject getText(String resourceName, String username, Set<String> roles) {
+        TextResource text = textResourceRepository.findByTextResourceId(
+                elementHashCode(resourceName)
+        );
+        if (text == null) {
+            return null;
+        }
+        if (!validAccess(text.access, text.owner, username, roles)) {
+            return null;
+        }
+        JSONObject jsonText = new JSONObject();
+        jsonText.put("content", text.resourceValue);
+        jsonText.put("title", text.title);
+        return jsonText;
+    }
+
+    @Transactional
+    public String getPlainText(String resourceName, String username, Set<String> roles) {
         TextResource text = textResourceRepository.findByTextResourceId(
                 elementHashCode(resourceName)
         );
@@ -191,7 +208,6 @@ public class ResourceModel {
         }
         return text.resourceValue;
     }
-
     @Transactional
     public JSONObject getMethodResource(String resourceName) {
         MethodSpec methodSpec = methodSpecRepository.findByMethodSpecId(
