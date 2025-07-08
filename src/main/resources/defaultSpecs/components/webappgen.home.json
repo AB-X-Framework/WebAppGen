@@ -5,13 +5,19 @@
       {
         "innerId": "elem0",
         "component": "webappgen.home.MenuFooterChildA",
-        "size": "l6",
+        "size": "l4",
         "env": ""
       },
       {
         "innerId": "elem0",
-        "component": "webappgen.home.MenuFooterChildA",
-        "size": "l6",
+        "component": "webappgen.home.MenuFooterChildB",
+        "size": "l4",
+        "env": ""
+      },
+      {
+        "innerId": "elem0",
+        "component": "webappgen.home.MenuFooterChildC",
+        "size": "l4",
         "env": ""
       }
     ],
@@ -161,14 +167,42 @@
     "specs": [{
       "env": "",
       "value": {
-        "src": "",
+        "size": "",
+        "src": "h4",
         "content": "Hello world"
       }
     }],
     "name": "webappgen.home.MenuFooterChildA",
     "isContainer": false,
     "js": [],
+    "type": "tag"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "src": "",
+        "content": "Hello world"
+      }
+    }],
+    "name": "webappgen.home.MenuFooterChildB",
+    "isContainer": false,
+    "js": [],
     "type": "plainText"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "size": "white-text",
+        "src": "/page/Components",
+        "content": "Hello world"
+      }
+    }],
+    "name": "webappgen.home.MenuFooterChildC",
+    "isContainer": false,
+    "js": [],
+    "type": "link"
   },
   {
     "specs": [{
