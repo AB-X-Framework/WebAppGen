@@ -688,7 +688,7 @@ public class ResourceController extends RoleController {
     public String updateJS(
             HttpServletRequest request,
             @RequestParam String name,
-            @RequestParam String role,
+            @RequestParam String access,
             @RequestParam(required = false) String owner,
             @RequestParam String contentType,
             @RequestParam String content) {
@@ -698,7 +698,7 @@ public class ResourceController extends RoleController {
             if (owner == null) {
                 owner = request.getUserPrincipal().getName();
             }
-            resourceModel.saveBinaryResource(name, packageName, owner, contentType, role);
+            resourceModel.saveBinaryResource(name, packageName, owner, contentType, access);
             resourceModel.upload(name, content.getBytes());
             status.put("success", true);
             status.put("package", packageName);
