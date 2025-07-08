@@ -96,6 +96,7 @@ function defaultSpecs(elementType) {
         case "img":
             newDefSpecs.src = "";
             break;
+        case "plainText":
         case "label":
             newDefSpecs.src = "";
             newDefSpecs.content = "Hello world";
@@ -641,6 +642,7 @@ function processSpecs() {
         case "img":
             $(workingEnv.SpecsSource).closest('.input-field').parent().show();
             break;
+        case "plainText":
         case "label":
             $(workingEnv.SpecsContent).closest('.input-field').parent().show();
             $(workingEnv.SpecsSource).closest('.input-field').parent().show();
@@ -729,6 +731,7 @@ function processElement() {
             $(workingEnv.SpecsTitle).val(specs.title);
             $(workingEnv.SpecsContent).val(specs.content);
             break;
+        case "plainText":
         case "label":
             $(workingEnv.SpecsSource).val(specs.src);
             $(workingEnv.SpecsContent).val(specs.content);
