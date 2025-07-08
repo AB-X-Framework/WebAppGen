@@ -68,36 +68,40 @@
       "value": {
         "values": [
           {
-            "text": "Horizontal",
-            "value": "horizontal"
-          },
-          {
-            "text": "Vertical",
-            "value": "vertical"
-          },
-          {
-            "text": "Top Layout",
-            "value": "topLayout"
-          },
-          {
             "text": "Container",
             "value": "container"
           },
           {
-            "text": "Popup",
-            "value": "popup"
+            "text": "Footer",
+            "value": "footer"
           },
           {
-            "text": "Nav",
-            "value": "nav"
+            "text": "Horizontal",
+            "value": "horizontal"
+          },
+          {
+            "text": "List",
+            "value": "list"
           },
           {
             "text": "Menu",
             "value": "menu"
           },
           {
-            "text": "Footer",
-            "value": "footer"
+            "text": "Nav",
+            "value": "nav"
+          },
+          {
+            "text": "Popup",
+            "value": "popup"
+          },
+          {
+            "text": "Top Layout",
+            "value": "topLayout"
+          },
+          {
+            "text": "Vertical",
+            "value": "vertical"
           }
         ],
         "title": "Layout"

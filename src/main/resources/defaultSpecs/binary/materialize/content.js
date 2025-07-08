@@ -20,7 +20,7 @@ class PageContent {
             }
         });
     }
- 
+
     static setActiveMenuItemHref(containerElement, textToMatch) {
         // Find all <li> elements that have <a> inside
         $(containerElement).find('li').each(function () {
@@ -87,7 +87,7 @@ class PageContent {
                 // Step 1: Get the actual color from the class (e.g., blue-text)
                 const $temp = $('<span>')
                     .addClass(PageContent.global.themeText)
-                    .css({ display: 'none' })
+                    .css({display: 'none'})
                     .appendTo('body');
 
                 const color = $temp.css('color');
@@ -106,11 +106,13 @@ class PageContent {
                     });
                 });
             }
+
             applyUnderlineFromTextClassToAll('.input-field input, .input-field textarea');
 
             function colorAutocompleteItems(colorClass) {
                 $('.autocomplete-content li span').addClass(colorClass);
             }
+
             $('input.autocomplete').on('click', function () {
                 setTimeout(() => colorAutocompleteItems(PageContent.global.themeText));
             });
@@ -140,6 +142,8 @@ class PageContent {
                 PageContent.renderContainer(output, js, componentSpecs);
             } else if (componentSpecs.layout === "vertical") {
                 PageContent.renderVertical(output, js, componentSpecs);
+            } else if (componentSpecs.layout === "list") {
+                PageContent.renderList(output, js, componentSpecs);
             } else if (componentSpecs.layout === "popup") {
                 PageContent.renderPopup(output, js, componentSpecs);
             } else if (componentSpecs.layout === "menu") {
@@ -276,12 +280,22 @@ class PageContent {
         output.push('</div>');
     }
 
+    static renderList(output, js, componentSpecs) {
+        output.push(`<ul  id="${componentSpecs.id}" >`);
+        for (var component of componentSpecs.children) {
+            output.push(`<li class="${component.size}">`);
+            PageContent.renderComponent(output, js, component)
+            output.push('</li>');
+        }
+        output.push('</ul>');
+    }
+
     static renderPopup(output, js, componentSpecs) {
         output.push(`<div  id="${componentSpecs.id}" class="modal">
             <div class="modal-content">`);
         let finalIndex = componentSpecs.children.length - 1;
         for (var i = 0; i < finalIndex; ++i) {
-            componentSpecs.children[i].size +=" modal-content";
+            componentSpecs.children[i].size += " modal-content";
             PageContent.renderComponent(output, js, componentSpecs.children[i]);
         }
         output.push('</div> <div class="modal-footer">');
@@ -362,7 +376,7 @@ class PageContent {
     }
 
     static renderPassword(output, js, specs) {
-        var results =  `<div  class="input-field">
+        var results = `<div  class="input-field">
             <input placeholder="${specs.content}" id="${specs.id}"  type="password" class="validate">
             <label  for="f_${specs.id}">${specs.title}</label>
         </div>`;
@@ -414,7 +428,7 @@ class PageContent {
                 </div>
             </div>
         </div>`;
-        if (specs.src != null){
+        if (specs.src != null) {
             js.push(`$.get("${specs.src}",(result)=>{
                 $(${specs.id}_title).html(result.title);
                 $(${specs.id}_body).html(PageContent.processText(result.content));
@@ -424,14 +438,14 @@ class PageContent {
     }
 
     static renderLabel(output, js, specs) {
-        var results =  `<p id="${specs.id}"  class="${PageContent.global.themeText}">
+        var results = `<p id="${specs.id}"  class="${PageContent.global.themeText}">
             ${specs.content.replaceAll("\n", `</><p class=\"${PageContent.global.themeText}\">`)}
         </p>`;
         output.push(results);
     }
 
     static renderLink(output, js, specs) {
-        var results =  `<a id="${specs.id}" class="${specs.size}" href="${specs.src}">
+        var results = `<a id="${specs.id}" class="${specs.size}" href="${specs.src}">
             ${specs.content}
         </a>`;
         output.push(results);
@@ -439,13 +453,14 @@ class PageContent {
 
 
     static renderTag(output, js, specs) {
-        var results =  `<${specs.src} id="${specs.id}" class="${specs.size}" >
+        var results = `<${specs.src} id="${specs.id}" class="${specs.size}" >
             ${specs.content}
         </${specs.src}>`;
         output.push(results);
     }
+
     static renderPlainText(output, js, specs) {
-        var results =  `<p id="${specs.id}" class="${specs.size}" >
+        var results = `<p id="${specs.id}" class="${specs.size}" >
             ${specs.content.replaceAll("\n", `</><p>`)}
         </p>`;
         output.push(results);
@@ -523,11 +538,11 @@ class PageContent {
             let optionsHtml;
             let blankSelected = "selected";
             if (typeof specs.values !== "undefined") {
-                optionsHtml = specs.values.map(item =>{
-                        if ( specs.content === item.value){
+                optionsHtml = specs.values.map(item => {
+                        if (specs.content === item.value) {
                             blankSelected = "";
                             return `<option  value="${item.value}" selected>${item.text}</option>`;
-                        }else {
+                        } else {
                             return `<option  value="${item.value}">${item.text}</option>`;
                         }
                     }
@@ -647,27 +662,27 @@ class PageContent {
 
     static renderFooter(output, js, componentSpecs) {
         output.push(`   <footer  id="${componentSpecs.id}" class="page-footer ${PageContent.global.themeBase}">`);
-        if (typeof componentSpecs.children[0]!=="undefined"){
+        if (typeof componentSpecs.children[0] !== "undefined") {
             PageContent.renderComponent(output, js, componentSpecs.children[0])
         }
-        if (typeof componentSpecs.children[1]!=="undefined"){
+        if (typeof componentSpecs.children[1] !== "undefined") {
             output.push(`<div class="footer-copyright">`);
             PageContent.renderComponent(output, js, componentSpecs.children[1])
             output.push("</div>");
         }
         output.push("</footer>");
     }
-    
-    static processItems(mainId,dropoboxId,src){
+
+    static processItems(mainId, dropoboxId, src) {
         let main = eval(mainId);
         let dropobox = eval(dropoboxId);
-        $.get(src,(result)=>{
-            for (let entry of result){
+        $.get(src, (result) => {
+            for (let entry of result) {
                 $(dropobox).append(`<li><a class="${PageContent.global.themeText}" id="${mainId}_${entry.value}" href="#">${entry.text}</a></li>`);
                 const elem = eval(`${mainId}_${entry.value}`);
-                main[entry.value]= elem;
+                main[entry.value] = elem;
                 main.items.push(elem);
-                eval(`${mainId}_${entry.value}.key="${entry.value}"`);
+                eval(`${mainId}_${entry.value}.key = "${entry.value}"`);
             }
         });
     }
@@ -677,15 +692,15 @@ class PageContent {
         const dropdownData = `dropdown_${innerSpecs.id}`
         output.push(`<ul id="${dropdownData}" class="dropdown-content">`);
         js.push(`${innerSpecs.id}.items=[]`);
-        if (innerSpecs.src == null || innerSpecs.src == ""){
+        if (innerSpecs.src == null || innerSpecs.src == "") {
             for (let entry of innerSpecs.values) {
                 output.push(` <li><a class="${PageContent.global.themeText}" id="${innerSpecs.id}_${entry.value}" href="#">${entry.text}</a></li>`);
                 js.push(`${innerSpecs.id}.${entry.value}=${innerSpecs.id}_${entry.value}`);
                 js.push(`${innerSpecs.id}.items.push(${innerSpecs.id}_${entry.value})`);
                 js.push(`${innerSpecs.id}_${entry.value}.key="${entry.value}"`)
             }
-        }else {
-           js.push(`PageContent.processItems("${innerSpecs.id}","${dropdownData}","${innerSpecs.src}")`)
+        } else {
+            js.push(`PageContent.processItems("${innerSpecs.id}","${dropdownData}","${innerSpecs.src}")`)
         }
         output.push(`</ul>`);
         output.push(`<ul class="${specs.size}">

@@ -60,6 +60,34 @@
   {
     "specs": [{
       "env": "",
+      "value": {
+        "size": "",
+        "src": "",
+        "content": "Hello world 1"
+      }
+    }],
+    "name": "webappgen.home.MenuFooterChildB_1",
+    "isContainer": false,
+    "js": [],
+    "type": "plainText"
+  },
+  {
+    "specs": [{
+      "env": "",
+      "value": {
+        "size": "",
+        "src": "",
+        "content": "Hello world 2"
+      }
+    }],
+    "name": "webappgen.home.MenuFooterChildB_2",
+    "isContainer": false,
+    "js": [],
+    "type": "plainText"
+  },
+  {
+    "specs": [{
+      "env": "",
       "value": {"title": "Home"}
     }],
     "name": "webappgen.home.ItemHome",
@@ -178,17 +206,24 @@
     "type": "tag"
   },
   {
-    "specs": [{
-      "env": "",
-      "value": {
-        "src": "",
-        "content": "Hello world"
+    "layout": "list",
+    "components": [
+      {
+        "innerId": "elem0",
+        "component": "webappgen.home.MenuFooterChildB_1",
+        "size": "l12",
+        "env": ""
+      },
+      {
+        "innerId": "elem0",
+        "component": "webappgen.home.MenuFooterChildB_2",
+        "size": "l12",
+        "env": ""
       }
-    }],
+    ],
     "name": "webappgen.home.MenuFooterChildB",
-    "isContainer": false,
-    "js": [],
-    "type": "plainText"
+    "isContainer": true,
+    "js": []
   },
   {
     "specs": [{
