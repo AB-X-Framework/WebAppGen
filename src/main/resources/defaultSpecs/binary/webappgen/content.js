@@ -437,6 +437,10 @@ class PageContent {
                 $(${specs.id}_body).html(PageContent.processText(result.content));
             });`);
         }
+        js.push(`
+            ${specs.id}.sectionTitle=${specs.id}_title;
+            ${specs.id}.body=${specs.id}_body;
+        `)
         output.push(results);
     }
 
