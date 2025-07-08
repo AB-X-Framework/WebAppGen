@@ -690,19 +690,31 @@ class PageContent {
     static renderDate(output, js, specs) {
         output.push(`<div class="input-field">
             <input type="text" class="datepicker " id="${specs.id}">
-            <label for="${specs.id}">${specs.src}</label>
+            <label for="${specs.id}">${specs.title}</label>
         </div>`);
-        let content = specs.content;
-        if ( $.trim(content) === ''){
-            content = "{}";
+        if ( $.trim(specs.url) === '') {
+            let content = specs.content;
+            if ($.trim(content) === '') {
+                content = "{}";
+            }
+            js.push(`{
+                const opts1 = ${content};
+                const opts2= {
+                    onOpen: PageContent.setDateTheme
+                };
+                $(${specs.id}).datepicker({ ...opts1, ...opts2 });
+            }`);
+        }else {
+            js.push(`{
+                $.get(${specs.url},(opts1)=>{
+                    const opts2= {
+                        onOpen: PageContent.setDateTheme
+                    };
+                    $(${specs.id}).datepicker({ ...opts1, ...opts2 });
+                });
+            }`);
+
         }
-        js.push(`{
-            const opts1 = ${content};
-            const opts2= {
-                onOpen: PageContent.setDateTheme
-            };
-            $(${specs.id}).datepicker({ ...opts1, ...opts2 });
-        }`);
     }
 
     static renderMenuImg(output, js, specs) {

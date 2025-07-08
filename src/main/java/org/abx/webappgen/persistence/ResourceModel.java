@@ -340,7 +340,7 @@ public class ResourceModel {
 
     @Transactional
     public void cloneBinary(String original, String resourceName, String packageName, String owner,
-                            String contentType, String access) {
+                            String contentType) {
         long originalId = elementHashCode(original);
         long id = elementHashCode(resourceName);
         BinaryResource originalData = binaryResourceRepository.findByBinaryResourceId(originalId);
@@ -354,9 +354,7 @@ public class ResourceModel {
         }
         binaryResource.resourceValue = originalData.resourceValue;
         binaryResource.owner = elementHashCode(owner);
-        if (access != null) {
-            binaryResource.access = access;
-        }
+        binaryResource.access = originalData.access;
         binaryResource.packageName = packageName;
         binaryResource.resourceName = resourceName;
         binaryResourceRepository.save(binaryResource);
@@ -534,7 +532,7 @@ public class ResourceModel {
 
 
     @Transactional
-    public void createMap(String packageName, String mapName,String owner) throws Exception {
+    public void createMap(String packageName, String mapName, String owner) throws Exception {
         long id = elementHashCode(mapName);
         MapResource mapResource = mapResourceRepository.findByMapResourceId(elementHashCode(mapName));
         if (mapResource != null) {
@@ -551,14 +549,14 @@ public class ResourceModel {
 
 
     @Transactional
-    public void createArray(String packageName, String arrayName,String owner) throws Exception {
+    public void createArray(String packageName, String arrayName, String owner) throws Exception {
         long id = elementHashCode(arrayName);
         ArrayResource arrayResource = arrayResourceRepository.findByArrayResourceId(elementHashCode(arrayName));
         if (arrayResource != null) {
             throw new Exception("Duplicate map entry");
         }
         arrayResource = new ArrayResource();
-        arrayResource.owner =  userRepository.findByUsername(owner).userId;
+        arrayResource.owner = userRepository.findByUsername(owner).userId;
         arrayResource.access = "User";
         arrayResource.packageName = packageName;
         arrayResource.arrayResourceId = id;
@@ -568,7 +566,7 @@ public class ResourceModel {
 
 
     @Transactional
-    public void createArrayPair(String packageName, String arrayPairName,String owner) throws Exception {
+    public void createArrayPair(String packageName, String arrayPairName, String owner) throws Exception {
         long id = elementHashCode(arrayPairName);
         ArrayPairResource arrayResource = arrayPairResourceRepository.findByArrayPairResourceId(
                 elementHashCode(arrayPairName));

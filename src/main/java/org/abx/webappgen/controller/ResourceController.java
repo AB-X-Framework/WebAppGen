@@ -762,13 +762,12 @@ public class ResourceController extends RoleController {
     public String clone(
             @RequestParam String original,
             @RequestParam String newName,
-            @RequestParam String role,
             @RequestParam String owner,
             @RequestParam String contentType) throws IOException {
         String packageName = newName.substring(0, newName.lastIndexOf('/'));
         JSONObject status = new JSONObject();
         try {
-            resourceModel.cloneBinary(original, newName, packageName, owner, contentType, role);
+            resourceModel.cloneBinary(original, newName, packageName, owner, contentType);
             status.put("success", true);
             status.put("package", packageName);
         } catch (Exception e) {

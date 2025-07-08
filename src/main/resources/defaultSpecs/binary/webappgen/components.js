@@ -97,6 +97,11 @@ function defaultSpecs(elementType) {
             newDefSpecs.src = "";
             break
         case "date":
+            newDefSpecs.title = "";
+            newDefSpecs.size = "";
+            newDefSpecs.src = "";
+            newDefSpecs.content = "Hello world";
+            break;
         case "tag":
         case "link":
         case "plainText":
@@ -651,6 +656,7 @@ function processSpecs() {
             $(workingEnv.SpecsSource).closest('.input-field').parent().show();
             break;
         case "date":
+            $(workingEnv.SpecsTitle).closest('.input-field').parent().show();
             $(workingEnv.SpecsSource).closest('.input-field').parent().show();
             $(workingEnv.SpecsSize).closest('.input-field').parent().show();
             $(workingEnv.SpecsContentArea).closest('.input-field').parent().show();
@@ -751,6 +757,7 @@ function processElement() {
             $(workingEnv.SpecsContent).val(specs.content);
             break;
         case "date":
+            $(workingEnv.SpecsTitle).val(specs.title);
             $(workingEnv.SpecsSource).val(specs.src);
             $(workingEnv.SpecsContentArea).val(specs.content);
             M.textareaAutoResize(workingEnv.SpecsContentArea);
