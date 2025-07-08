@@ -456,9 +456,9 @@ class PageContent {
 
 
     static renderTag(output, js, specs) {
-        var results = `<${specs.src} id="${specs.id}" class="${specs.size}" >
+        var results = `<${specs.title} id="${specs.id}" class="${specs.size}" >
             ${specs.content}
-        </${specs.src}>`;
+        </${specs.title}>`;
         output.push(results);
     }
 
