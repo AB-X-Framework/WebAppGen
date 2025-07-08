@@ -19,6 +19,18 @@
   },
   {
     "owner": "root@abxwebappgen.org",
+    "access": "Anonymous",
+    "name": "webappgen/content.js",
+    "contentType": "text/javascript"
+  },
+  {
+    "owner": "root@abxwebappgen.org",
+    "access": "Anonymous",
+    "name": "webappgen/page.html",
+    "contentType": "text/html"
+  },
+  {
+    "owner": "root@abxwebappgen.org",
     "access": "User",
     "name": "webappgen/pages.js",
     "contentType": "text/javascript"

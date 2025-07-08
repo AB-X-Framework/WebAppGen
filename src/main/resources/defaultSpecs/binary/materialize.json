@@ -8,18 +8,6 @@
   {
     "owner": "root@abxwebappgen.org",
     "access": "Anonymous",
-    "name": "materialize/content.js",
-    "contentType": "text/javascript"
-  },
-  {
-    "owner": "root@abxwebappgen.org",
-    "access": "Anonymous",
-    "name": "materialize/page.html",
-    "contentType": "text/html"
-  },
-  {
-    "owner": "root@abxwebappgen.org",
-    "access": "Anonymous",
     "name": "materialize/icons.woff2",
     "contentType": "font/woff2"
   },
