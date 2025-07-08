@@ -456,7 +456,11 @@ class PageContent {
 
 
     static renderTag(output, js, specs) {
-        var results = `<${specs.title} id="${specs.id}" class="${specs.size}" >
+        let size = specs.size;
+        if ( $.trim(size) !== ''){
+            size = eval(size);
+        }
+        var results = `<${specs.title} id="${specs.id}" class="${size}" >
             ${specs.content}
         </${specs.title}>`;
         output.push(results);
