@@ -322,7 +322,7 @@ class PageContent {
     static renderContainer(output, js, componentSpecs) {
         output.push(`<div class=" container ${componentSpecs.size}" id="${componentSpecs.id}">`);
         for (var component of componentSpecs.children) {
-            output.push(`<div class="row ${component.size}">`);
+            output.push(`<div class="${component.size}">`);
             PageContent.renderComponent(output, js, component)
             output.push('</div>');
         }
