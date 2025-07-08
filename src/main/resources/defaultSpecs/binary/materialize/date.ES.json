@@ -1,4 +1,4 @@
-({
+{
     format: 'yyyy-mm-dd',
     autoClose: true,
     i18n: {
@@ -20,4 +20,4 @@
       weekdaysShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'],
       weekdaysAbbrev: ['D', 'L', 'M', 'M', 'J', 'V', 'S']
     }
-})
+}

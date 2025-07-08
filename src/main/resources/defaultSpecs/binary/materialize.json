@@ -2,8 +2,8 @@
   {
     "owner": "root@abxwebappgen.org",
     "access": "Anonymous",
-    "name": "materialize/date.ES.js",
-    "contentType": "text/javascript"
+    "name": "materialize/date.ES.json",
+    "contentType": "application/json"
   },
   {
     "owner": "root@abxwebappgen.org",
