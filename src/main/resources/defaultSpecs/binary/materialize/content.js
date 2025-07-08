@@ -706,8 +706,7 @@ class PageContent {
             }`);
         }else {
             js.push(`{
-                $.get("${specs.src}",(content)=>{
-                    const opts1 = eval(content);
+                $.getJSON("${specs.src}",(opts1)=>{
                     const opts2= {
                         onOpen: PageContent.setDateTheme
                     };

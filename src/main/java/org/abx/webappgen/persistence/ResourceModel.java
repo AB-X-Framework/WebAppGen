@@ -499,7 +499,8 @@ public class ResourceModel {
     public JSONArray getJSByPackageName(String packageName) {
         ArrayList<String> js = new ArrayList<>();
         binaryResourceRepository.findAllByPackageName(packageName).forEach((mapResource) -> {
-            if ("text/javascript".equals(mapResource.contentType)
+            if ("text/javascript".equals(mapResource.contentType) ||
+                    "application/json".equals(mapResource.contentType)
                     || "text/css".equals(mapResource.contentType)) {
                 js.add(mapResource.resourceName);
             }
