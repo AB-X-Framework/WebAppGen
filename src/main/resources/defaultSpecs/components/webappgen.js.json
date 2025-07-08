@@ -28,7 +28,7 @@
       },
       {
         "env": "",
-        "value": "self.markChanged=()=>{\n    self.LeftPanel.MenuPanel.SaveJS.markChanged();\n}\n\nself.markSaved=()=>{\n    self.LeftPanel.MenuPanel.SaveJS.markSaved();\n}\n\n$(self.LeftPanel.Owner).on('input',()=>{\n    workingEnv.updatedJS.owner = $(self.RightPanel.DetailsPanel.Owner).val(); \n    self.markChanged();\n});\n \n$(self.LeftPanel.ContentType).change(()=>{\n    workingEnv.updatedJS.contentType = $(self.RightPanel.DetailsPanel.ContentType).val(); \n    self.markChanged();\n});\n \n$(self.LeftPanel.RoleType).change(()=>{\n    workingEnv.updatedJS.role = $(self.RightPanel.DetailsPanel.RoleType).val(); \n    self.markChanged();\n});"
+        "value": "self.markChanged=()=>{\n    self.LeftPanel.MenuPanel.SaveJS.markChanged();\n}\n\nself.markSaved=()=>{\n    self.LeftPanel.MenuPanel.SaveJS.markSaved();\n}\n\n$(self.LeftPanel.Owner).on('input',()=>{\n    workingEnv.updatedJS.owner = $(self.RightPanel.DetailsPanel.Owner).val(); \n    self.markChanged();\n});\n \n$(self.LeftPanel.ContentType).change(()=>{\n    workingEnv.updatedJS.contentType = $(self.RightPanel.DetailsPanel.ContentType).val(); \n    self.markChanged();\n});\n \n$(self.LeftPanel.AccessType).change(()=>{\n    workingEnv.updatedJS.access = $(self.LeftPanel.AccessType).val(); \n    self.markChanged();\n});"
       }
     ]
   },

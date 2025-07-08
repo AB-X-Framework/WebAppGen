@@ -20,7 +20,7 @@ class PageContent {
             }
         });
     }
-
+ 
     static setActiveMenuItemHref(containerElement, textToMatch) {
         // Find all <li> elements that have <a> inside
         $(containerElement).find('li').each(function () {
