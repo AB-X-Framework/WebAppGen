@@ -650,10 +650,11 @@ class PageContent {
         let dropobox = eval(dropoboxId);
         $.get(src,(result)=>{
             for (let entry of result){
-                $(dropobox).append(`<li><a class="${PageContent.global.themeText}" id="${mainId}_${entry}" href="#">${entry}</a></li>`);
-                main[entry]= entry;
-                main.items.push(`${mainId}_${entry}`);
-                eval(`${mainId}_${entry}.key="${entry}"`);
+                $(dropobox).append(`<li><a class="${PageContent.global.themeText}" id="${mainId}_${entry.value}" href="#">${entry.text}</a></li>`);
+                const elem = eval(`${mainId}_${entry.value}`);
+                main[entry.value]= elem;
+                main.items.push(elem);
+                eval(`${mainId}_${entry}.key="${entry.value}"`);
             }
         });
     }
