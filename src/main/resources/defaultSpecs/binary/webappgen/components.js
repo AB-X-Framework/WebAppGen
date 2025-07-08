@@ -99,6 +99,10 @@ function defaultSpecs(elementType) {
         case "tag":
         case "link":
         case "plainText":
+            newDefSpecs.size = "";
+            newDefSpecs.src = "";
+            newDefSpecs.content = "Hello world";
+            break;
         case "label":
             newDefSpecs.src = "";
             newDefSpecs.content = "Hello world";
@@ -647,6 +651,10 @@ function processSpecs() {
         case "tag":
         case "link":
         case "plainText":
+            $(workingEnv.SpecsSize).closest('.input-field').parent().show();
+            $(workingEnv.SpecsContent).closest('.input-field').parent().show();
+            $(workingEnv.SpecsSource).closest('.input-field').parent().show();
+            break;
         case "label":
             $(workingEnv.SpecsContent).closest('.input-field').parent().show();
             $(workingEnv.SpecsSource).closest('.input-field').parent().show();
@@ -738,6 +746,10 @@ function processElement() {
         case "tag":
         case "link":
         case "plainText":
+            $(workingEnv.SpecsSource).val(specs.src);
+            $(workingEnv.SpecsContent).val(specs.content);
+            $(workingEnv.SpecsSize).val(specs.size);
+            break;
         case "label":
             $(workingEnv.SpecsSource).val(specs.src);
             $(workingEnv.SpecsContent).val(specs.content);

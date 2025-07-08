@@ -192,7 +192,7 @@ class PageContent {
                     PageContent.renderPlainText(output, js, componentSpecs.specs);
                     break;
                 case "link":
-                    PageContent.renderPlainText(output, js, componentSpecs.specs);
+                    PageContent.renderLink(output, js, componentSpecs.specs);
                     break;
                 case "autocomplete":
                     PageContent.renderAutocomplete(output, js, componentSpecs.specs);
@@ -431,7 +431,7 @@ class PageContent {
     }
 
     static renderLink(output, js, specs) {
-        var results =  `<a id="${specs.id}" href="${specs.src}">
+        var results =  `<a id="${specs.id}" class="${specs.size}" href="${specs.src}">
             ${specs.content}
         </a>`;
         output.push(results);
@@ -439,13 +439,13 @@ class PageContent {
 
 
     static renderTag(output, js, specs) {
-        var results =  `<${specs.src} id="${specs.id}" >
+        var results =  `<${specs.src} id="${specs.id}" class="${specs.size}" >
             ${specs.content}
         </${specs.src}>`;
         output.push(results);
     }
     static renderPlainText(output, js, specs) {
-        var results =  `<p id="${specs.id}" >
+        var results =  `<p id="${specs.id}" class="${specs.size}" >
             ${specs.content.replaceAll("\n", `</><p>`)}
         </p>`;
         output.push(results);
