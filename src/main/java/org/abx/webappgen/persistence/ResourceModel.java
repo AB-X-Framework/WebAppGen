@@ -1,6 +1,6 @@
 package org.abx.webappgen.persistence;
 
-import org.abx.util.Pair;
+import org.abx.webappgen.persistence.cache.BinaryCache;
 import org.abx.webappgen.persistence.dao.*;
 import org.abx.webappgen.persistence.model.*;
 import org.json.JSONArray;
@@ -51,6 +51,11 @@ public class ResourceModel {
 
     @Autowired
     private ArrayPairResourceRepository arrayPairResourceRepository;
+
+    @Autowired
+    private BinaryCache cache;
+    @Autowired
+    private BinaryCache binaryCache;
 
     @Transactional
     public JSONArray getMapEntries(String mapResourceName, int page, int size) {
@@ -399,7 +404,7 @@ public class ResourceModel {
     }
 
     @Transactional
-    public long saveBinaryResource(String resourceName, String packageName, String owner,
+    public void saveBinaryResource(String resourceName, String packageName, String owner,
                                    String contentType, String access) {
         long id = elementHashCode(resourceName);
         BinaryResource binaryResource = binaryResourceRepository.findByBinaryResourceId(id);
@@ -415,7 +420,6 @@ public class ResourceModel {
         binaryResource.packageName = packageName;
         binaryResource.resourceName = resourceName;
         binaryResourceRepository.save(binaryResource);
-        return id;
     }
 
     public static long hashToLong(byte[] data) {
@@ -440,7 +444,10 @@ public class ResourceModel {
         if (binaryResource == null) {
             throw new Exception("Binary not found");
         }
-        binaryResource.hashcode = hashToLong(data);
+        binaryCache.remove(binaryResource.hashcode);
+        long hash = hashToLong(data);
+        binaryResource.hashcode =hash;
+        binaryCache.add(data,hash);
         binaryResource.resourceValue = data;
         binaryResourceRepository.save(binaryResource);
     }
