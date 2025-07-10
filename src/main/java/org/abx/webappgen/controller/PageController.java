@@ -2,6 +2,7 @@ package org.abx.webappgen.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import org.abx.webappgen.persistence.PageModel;
 import org.abx.webappgen.persistence.dao.BinaryResourceRepository;
 import org.abx.webappgen.persistence.dao.MapEntryRepository;
 import org.abx.webappgen.utils.SpecsExporter;
@@ -27,6 +28,9 @@ import static org.abx.webappgen.utils.ElementUtils.mapHashCode;
 @RestController
 @RequestMapping("/page")
 public class PageController extends RoleController {
+
+    @Autowired
+    public PageModel pageModel;
 
     private HashMap<String, ST> pageTemplates;
 
@@ -57,8 +61,11 @@ public class PageController extends RoleController {
             String home = pageModel.getHome();
             return new RedirectView("/page/" + home);
         }
+        Set<String> roles = getRoles();
         ST st1 = getPageTemplate(session);
-        return st1.add("pagename", pagename).render();
+        String model= pageModel.getPageByPageMatchesId(roles, env(session),
+                elementHashCode(pagename)).toString(2);
+        return st1.add("pagespecs", model).render();
     }
 
 

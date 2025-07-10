@@ -64,58 +64,56 @@ class PageContent {
         }
     }
 
-    static renderPage(name) {
-        $.get(`/pages/specs/${name}`, (specs) => {
-            PageContent.processTile(specs);
-            var output = [];
-            var js = [];
-            PageContent.renderCSS(output, specs.css);
-            PageContent.renderScripts(output, specs.scripts);
-            PageContent.global = specs.global
-            PageContent.renderComponent(output, js, specs.component);
-            $("#body-content").html(output.join(""));
-            M.updateTextFields();
-            PageContent.processJS(js);
+    static renderPage(specs) {
+        PageContent.processTile(specs);
+        var output = [];
+        var js = [];
+        PageContent.renderCSS(output, specs.css);
+        PageContent.renderScripts(output, specs.scripts);
+        PageContent.global = specs.global
+        PageContent.renderComponent(output, js, specs.component);
+        $("#body-content").html(output.join(""));
+        M.updateTextFields();
+        PageContent.processJS(js);
 
-            $('.input-field input, .input-field textarea').on('focus', function () {
-                $(this).next('label').addClass(PageContent.global.themeText);
-            }).on('blur', function () {
-                $(this).next('label').removeClass(PageContent.global.themeText);
-            });
+        $('.input-field input, .input-field textarea').on('focus', function () {
+            $(this).next('label').addClass(PageContent.global.themeText);
+        }).on('blur', function () {
+            $(this).next('label').removeClass(PageContent.global.themeText);
+        });
 
-            function applyUnderlineFromTextClassToAll(selector) {
-                // Step 1: Get the actual color from the class (e.g., blue-text)
-                const $temp = $('<span>')
-                    .addClass(PageContent.global.themeText)
-                    .css({display: 'none'})
-                    .appendTo('body');
+        function applyUnderlineFromTextClassToAll(selector) {
+            // Step 1: Get the actual color from the class (e.g., blue-text)
+            const $temp = $('<span>')
+                .addClass(PageContent.global.themeText)
+                .css({display: 'none'})
+                .appendTo('body');
 
-                const color = $temp.css('color');
-                $temp.remove(); // Clean up
-                // Step 2: Apply handlers to all inputs and textareas in .input-field
-                $(selector).on('focus', function () {
-                    $(this).css({
-                        'border-bottom': `1px solid ${color}`,
-                        'box-shadow': `0 1px 0 0 ${color}`
-                    });
-                }).on('blur', function () {
-                    $(this).removeClass('valid')
-                    $(this).css({
-                        'border-bottom': '',
-                        'box-shadow': ''
-                    });
+            const color = $temp.css('color');
+            $temp.remove(); // Clean up
+            // Step 2: Apply handlers to all inputs and textareas in .input-field
+            $(selector).on('focus', function () {
+                $(this).css({
+                    'border-bottom': `1px solid ${color}`,
+                    'box-shadow': `0 1px 0 0 ${color}`
                 });
-            }
-
-            applyUnderlineFromTextClassToAll('.input-field input, .input-field textarea');
-
-            function colorAutocompleteItems(colorClass) {
-                $('.autocomplete-content li span').addClass(colorClass);
-            }
-
-            $('input.autocomplete').on('click', function () {
-                setTimeout(() => colorAutocompleteItems(PageContent.global.themeText));
+            }).on('blur', function () {
+                $(this).removeClass('valid')
+                $(this).css({
+                    'border-bottom': '',
+                    'box-shadow': ''
+                });
             });
+        }
+
+        applyUnderlineFromTextClassToAll('.input-field input, .input-field textarea');
+
+        function colorAutocompleteItems(colorClass) {
+            $('.autocomplete-content li span').addClass(colorClass);
+        }
+
+        $('input.autocomplete').on('click', function () {
+            setTimeout(() => colorAutocompleteItems(PageContent.global.themeText));
         });
 
     }
@@ -461,7 +459,7 @@ class PageContent {
 
     static renderTag(output, js, specs) {
         let size = specs.size;
-        if ( $.trim(size) !== ''){
+        if ($.trim(size) !== '') {
             size = eval(size);
         }
         var results = `<${specs.title} id="${specs.id}" class="${size}" >
@@ -657,39 +655,39 @@ class PageContent {
         output.push(result);
     }
 
-    static applyClass ($target, classList) {
+    static applyClass($target, classList) {
         if (!$target || !classList) return;
         // Create a hidden dummy element with the given classes
         var $dummy = $('<div>')
             .addClass(classList)
-            .css({ position: 'absolute', visibility: 'hidden', left: '-9999px' })
+            .css({position: 'absolute', visibility: 'hidden', left: '-9999px'})
             .appendTo('body');
         // Get computed styles
         var computed = window.getComputedStyle($dummy[0]);
         // Apply all computed styles to the target
-        Array.from(computed).forEach(function(prop) {
+        Array.from(computed).forEach(function (prop) {
             $target.css(prop, computed.getPropertyValue(prop));
         });
         // Remove dummy
         $dummy.remove();
     };
 
-    static setDateHeaderTheme(){
-        const $container= $('.datepicker-container');
+    static setDateHeaderTheme() {
+        const $container = $('.datepicker-container');
         $container.addClass(PageContent.global.themeText);
         $container.find("abbr, input").addClass(PageContent.global.themeText);
         $container.find("button").find("svg").addClass(PageContent.global.themeBase);
-        $container.find("button").click(()=>{
-            setTimeout(()=> {
+        $container.find("button").click(() => {
+            setTimeout(() => {
                 PageContent.setDateHeaderTheme();
             });
         });
     }
 
-    static setDateTheme(){
+    static setDateTheme() {
         $('.datepicker-date-display').addClass(PageContent.global.themeBase);
         $('.datepicker-footer').find("button").addClass(PageContent.global.themeText)
-        setTimeout(()=>{
+        setTimeout(() => {
             PageContent.setDateHeaderTheme();
             $(".datepicker-table").find(".is-selected").find("button").addClass(PageContent.global.themeBase);
         });
@@ -700,7 +698,7 @@ class PageContent {
             <input type="text" class="datepicker " id="${specs.id}">
             <label for="${specs.id}">${specs.title}</label>
         </div>`);
-        if ( $.trim(specs.src) === '') {
+        if ($.trim(specs.src) === '') {
             let content = specs.content;
             if ($.trim(content) === '') {
                 content = "{}";
@@ -712,7 +710,7 @@ class PageContent {
                 };
                 $(${specs.id}).datepicker({ ...opts1, ...opts2 });
             }`);
-        }else {
+        } else {
             js.push(`{
                 $.getJSON("${specs.src}",(opts1)=>{
                     const opts2= {
