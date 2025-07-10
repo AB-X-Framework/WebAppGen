@@ -26,6 +26,10 @@ public class BinaryResource {
     @Column(nullable = false)
     public String access;
 
+
+    @Column(nullable = false)
+    public long hashcode;
+
     @Column(columnDefinition = "MEDIUMBLOB", nullable = false)
     public byte[] resourceValue;
 

@@ -5,14 +5,13 @@ import org.abx.util.Pair;
 import org.abx.webappgen.persistence.ResourceModel;
 import org.abx.webappgen.persistence.UserModel;
 import org.abx.webappgen.persistence.dao.UserRepository;
+import org.abx.webappgen.persistence.model.BinaryResource;
+import org.abx.webappgen.persistence.model.ResourceData;
 import org.apache.tika.Tika;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +21,7 @@ import org.springframework.web.servlet.HandlerMapping;
 
 import java.io.IOException;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 @RestController
 
@@ -656,6 +656,7 @@ public class ResourceController extends RoleController {
         String path = (String) request.getAttribute(
                 HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE
         );
+
         String username = null;
         if (request.getUserPrincipal() != null) {
             username = request.getUserPrincipal().getName();
@@ -663,15 +664,24 @@ public class ResourceController extends RoleController {
         // Remove the prefix "/binaries/"
         String resource = path.replaceFirst("/resources/binary/", "");
         Set<String> roles = getRoles();
-        Pair<String, byte[]> fileContent = resourceModel.getBinaryResource(resource, username, roles);
+        ResourceData fileContent = resourceModel.getBinaryResource(resource, username, roles);
         if (fileContent == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.valueOf(fileContent.first)); // Or your custom type
+        headers.setContentType(MediaType.valueOf(fileContent.contentType)); // Or your custom type
         headers.setContentDispositionFormData("attachment", resource);
-        headers.setContentLength(fileContent.second.length);
-        return new ResponseEntity<>(fileContent.second, headers, HttpStatus.OK);
+        headers.setContentLength(fileContent.data.length);
+        String hcParam = request.getParameter("hc");
+        if (hcParam != null) {
+            long hc = Long.parseLong(hcParam);
+            if (fileContent.hashcode == hc) {
+                headers.setCacheControl(CacheControl.maxAge(365, TimeUnit.DAYS)
+                        .cachePublic().immutable());
+            }
+
+        }
+        return new ResponseEntity<>(fileContent.data, headers, HttpStatus.OK);
     }
 
     @Secured("Admin")

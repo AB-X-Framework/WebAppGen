@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -208,6 +209,7 @@ public class ResourceModel {
         }
         return text.resourceValue;
     }
+
     @Transactional
     public JSONObject getMethodResource(String resourceName) {
         MethodSpec methodSpec = methodSpecRepository.findByMethodSpecId(
@@ -342,7 +344,26 @@ public class ResourceModel {
         return false;
     }
 
-    public Pair<String, byte[]> getBinaryResource(String resourceName, String username, Set<String> roles) {
+
+    @Transactional
+    public String cacheResource(String resourceName) {
+        if (!resourceName.startsWith("::")){
+            return resourceName;
+        }
+        resourceName = resourceName.substring(2);
+        int index = resourceName.indexOf(':');
+        String resourceType = resourceName.substring(0, index);
+        resourceName = resourceName.substring(index + 1);
+        if (resourceType.equals("binary")) {
+            BinaryResource binaryResource = binaryResourceRepository.findByBinaryResourceId(
+                    elementHashCode(resourceName));
+            return "/resources/binary/"+binaryResource.resourceName+"?hc="+binaryResource.hashcode;
+        }
+        throw new IllegalArgumentException("Invalid resource name: " + resourceName);
+    }
+
+    @Transactional
+    public ResourceData getBinaryResource(String resourceName, String username, Set<String> roles) {
         BinaryResource binaryResource = binaryResourceRepository.findByBinaryResourceId(
                 elementHashCode(resourceName));
         if (binaryResource == null) {
@@ -351,7 +372,8 @@ public class ResourceModel {
         if (!validAccess(binaryResource.access, binaryResource.owner, username, roles)) {
             return null;
         }
-        return new Pair<>(binaryResource.contentType, binaryResource.resourceValue);
+        return new ResourceData(binaryResource.contentType,
+                binaryResource.resourceValue, binaryResource.hashcode);
     }
 
     @Transactional
@@ -386,6 +408,7 @@ public class ResourceModel {
             binaryResource.binaryResourceId = id;
             binaryResource.resourceValue = new byte[0];
         }
+        binaryResource.hashcode = 0;
         binaryResource.contentType = contentType;
         binaryResource.owner = elementHashCode(owner);
         binaryResource.access = access;
@@ -395,6 +418,20 @@ public class ResourceModel {
         return id;
     }
 
+    public static long hashToLong(byte[] data) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] digest = md.digest(data);
+            // take the first 8 bytes of the MD5 and convert to long
+            long hash = 0;
+            for (int i = 0; i < 8; i++) {
+                hash = (hash << 8) | (digest[i] & 0xff);
+            }
+            return hash;
+        } catch (Exception e) {
+            throw new RuntimeException("Unable to compute hash", e);
+        }
+    }
 
     @Transactional
     public void upload(String resourceName, byte[] data) throws Exception {
@@ -403,6 +440,7 @@ public class ResourceModel {
         if (binaryResource == null) {
             throw new Exception("Binary not found");
         }
+        binaryResource.hashcode = hashToLong(data);
         binaryResource.resourceValue = data;
         binaryResourceRepository.save(binaryResource);
     }

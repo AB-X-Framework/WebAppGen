@@ -22,6 +22,7 @@ import org.springframework.stereotype.Component;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.security.MessageDigest;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -255,6 +256,8 @@ public class SpecsImporter {
                     mapResource.getString("access"));
         }
     }
+
+
 
     private void processBinaryResource(String specsPath, JSONArray packageNames, boolean fs) throws Exception {
         for (int packageNameIndex = 0; packageNameIndex < packageNames.length(); packageNameIndex++) {
