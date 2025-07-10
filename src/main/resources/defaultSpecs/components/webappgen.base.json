@@ -12,7 +12,7 @@
   {
     "specs": [{
       "env": "",
-      "value": {"src": "/resources/binary/webappgen/abx.png"}
+      "value": {"src": "::resources:binary/webappgen/abx.png"}
     }],
     "name": "webappgen.base.abxImg",
     "isContainer": false,

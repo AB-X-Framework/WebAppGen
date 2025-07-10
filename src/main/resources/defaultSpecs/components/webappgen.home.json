@@ -50,7 +50,7 @@
       "env": "",
       "value": {
         "size": "",
-        "src": "/resources/binary/materialize/date.ES.json",
+        "src": "::resources:binary/materialize/date.ES.json",
         "title": "Seleciona una fecha",
         "content": ""
       }
@@ -779,7 +779,7 @@
   {
     "specs": [{
       "env": "",
-      "value": {"src": "/resources/binary/webappgen/abx.png"}
+      "value": {"src": "::resources:binary/webappgen/abx.png"}
     }],
     "name": "webappgen.home.ImgItem",
     "isContainer": false,

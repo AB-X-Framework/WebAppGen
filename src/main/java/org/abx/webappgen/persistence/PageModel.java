@@ -96,6 +96,9 @@ public class PageModel {
     @Autowired
     private ArrayPairEntryRepository arrayPairEntryRepository;
 
+    @Autowired
+    private ResourceModel resourceModel;
+
     public PageModel() {
         envId = mapHashCode("app.Env", "home");
         defaultEnv = mapHashCode("app.Env", "defaultEnv");
@@ -501,6 +504,12 @@ public class PageModel {
         return childrenInnerIds;
     }
 
+    private JSONObject reviewSrc(JSONObject jsonObject) {
+        if (jsonObject.has("src")) {
+            jsonObject.put("src", resourceModel.cacheResource(jsonObject.getString("src")));
+        }
+        return jsonObject;
+    }
 
     private void addElement(ComponentSpecs specs, JSONObject jsonComponent) {
         Element element = specs.component.element;
@@ -515,7 +524,7 @@ public class PageModel {
                 emptyEnv = envValue.envValue;
             } else {
                 if (matchesEnv(envValue.env, specs.env)) {
-                    jsonComponent.put(Specs, new JSONObject(envValue.envValue));
+                    jsonComponent.put(Specs, reviewSrc(new JSONObject(envValue.envValue)));
                     found = true;
                     break;
                 }
@@ -523,9 +532,9 @@ public class PageModel {
         }
         if (!found) {
             if (emptyEnv == null) {
-                jsonComponent.put(Specs, new JSONObject(first));
+                jsonComponent.put(Specs, reviewSrc(new JSONObject(first)));
             } else {
-                jsonComponent.put(Specs, new JSONObject(emptyEnv));
+                jsonComponent.put(Specs, reviewSrc(new JSONObject(emptyEnv)));
             }
         }
         jsonComponent.put(Type, element.type);

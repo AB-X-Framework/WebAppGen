@@ -347,11 +347,11 @@ public class ResourceModel {
 
     @Transactional
     public String cacheResource(String resourceName) {
-        if (!resourceName.startsWith("::")){
+        if (!resourceName.startsWith("::resources:")){
             return resourceName;
         }
-        resourceName = resourceName.substring(2);
-        int index = resourceName.indexOf(':');
+        resourceName = resourceName.substring(12);
+        int index = resourceName.indexOf('/');
         String resourceType = resourceName.substring(0, index);
         resourceName = resourceName.substring(index + 1);
         if (resourceType.equals("binary")) {
