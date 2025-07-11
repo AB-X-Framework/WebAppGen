@@ -22,9 +22,13 @@ import org.springframework.web.servlet.view.RedirectView;
 import org.stringtemplate.v4.ST;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static org.abx.webappgen.persistence.ResourceModel.AppEnv;
+import static org.abx.webappgen.persistence.ResourceModel.BinaryResources;
 import static org.abx.webappgen.utils.ElementUtils.elementHashCode;
 import static org.abx.webappgen.utils.ElementUtils.mapHashCode;
 
@@ -96,6 +100,23 @@ public class PageController extends RoleController implements EnvListener {
         resourceModel.addResourceListener(resourceId,this);
         byte[] data = binaryResourceRepository.findByBinaryResourceId(resourceId).resourceValue;
         return new ST(new String(data), '{', '}');
+    }
+
+    private String encode(String template) {
+        Pattern p = Pattern.compile("(?<!\\\\)\\{([^}]+)\\}");
+        Matcher m = p.matcher(template);
+
+        Set<String> attrs = new HashSet<>();
+        while (m.find()) {
+            attrs.add(m.group(1).trim());
+        }
+        for (String attr : attrs) {
+            if (attr.startsWith(BinaryResources)){
+                String resource = attr.substring(BinaryResources.length());
+                long id = elementHashCode(resource);
+                resourceModel.addResourceListener(id,this);
+            }
+        }
     }
 
 

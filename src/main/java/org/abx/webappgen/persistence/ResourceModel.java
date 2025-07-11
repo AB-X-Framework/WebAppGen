@@ -24,10 +24,11 @@ import static org.abx.webappgen.utils.ElementUtils.*;
 @Component
 public class ResourceModel {
 
+    public static final String BinaryResources = "::resources:binaries/";
     public static final String AppEnv = "app.Env";
     public static final String AppTheme = "app.Theme";
     private final Set<EnvListener> listeners;
-    private final Map<Long, List<EnvListener>> resourceListener;
+    private final Map<Long, Set<EnvListener>> resourceListener;
     private final Set<String> envValues;
     @Autowired
     TextResourceRepository textResourceRepository;
@@ -71,7 +72,7 @@ public class ResourceModel {
 
     public void addResourceListener(long id, EnvListener listener) {
         if (!resourceListener.containsKey(id)) {
-            resourceListener.put(id, new ArrayList<>());
+            resourceListener.put(id, new HashSet<>());
         }
         resourceListener.get(id).add(listener);
     }
@@ -492,7 +493,7 @@ public class ResourceModel {
     }
 
     private void resourceChanged(long id){
-        List<EnvListener> list = resourceListener.get(id);
+        Set<EnvListener> list = resourceListener.get(id);
         if (list != null) {
             for (EnvListener listener : list) {
                 listener.envChanged();
