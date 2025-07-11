@@ -1,10 +1,7 @@
 [
   {
     "component": "webappgen.home.MainHomeComponent",
-    "css": [{
-      "env": "",
-      "value": "/resources/binary/materialize/icon.css"
-    }],
+    "css": [],
     "role": "Admin",
     "name": "webappgen.Home",
     "title": [{
@@ -13,16 +10,13 @@
     }],
     "scripts": [{
       "env": "",
-      "value": "/resources/binary/webappgen/model.methods.js"
+      "value": "::resources:binary/webappgen/model.methods.js"
     }],
     "matches": "Home"
   },
   {
     "component": "webappgen.maps.MainMapComponent",
-    "css": [{
-      "env": "",
-      "value": "/resources/binary/materialize/icon.css"
-    }],
+    "css": [],
     "role": "Admin",
     "name": "webappgen.Maps",
     "title": [{
@@ -32,21 +26,18 @@
     "scripts": [
       {
         "env": "",
-        "value": "/resources/binary/webappgen/utils.js"
+        "value": "::resources:binary/webappgen/utils.js"
       },
       {
         "env": "",
-        "value": "/resources/binary/webappgen/maps.js"
+        "value": "::resources:binary/webappgen/maps.js"
       }
     ],
     "matches": "Maps"
   },
   {
     "component": "webappgen.home.MenuMain",
-    "css": [{
-      "env": "",
-      "value": "/resources/binary/materialize/icon.css"
-    }],
+    "css": [],
     "role": "Anonymous",
     "name": "webappgen.Menu",
     "title": [{
@@ -55,16 +46,13 @@
     }],
     "scripts": [{
       "env": "",
-      "value": "/resources/binary/webappgen/model.methods.js"
+      "value": "::resources:binary/webappgen/model.methods.js"
     }],
     "matches": "Menu"
   },
   {
     "component": "webappgen.home.Section",
-    "css": [{
-      "env": "",
-      "value": "/resources/binary/materialize/icon.css"
-    }],
+    "css": [],
     "role": "Anonymous",
     "name": "webappgen.Section",
     "title": [{
@@ -73,16 +61,13 @@
     }],
     "scripts": [{
       "env": "",
-      "value": "/resources/binary/webappgen/model.methods.js"
+      "value": "::resources:binary/webappgen/model.methods.js"
     }],
     "matches": "Section"
   },
   {
     "component": "webappgen.login.LoginPageComponent",
-    "css": [{
-      "env": "",
-      "value": "/resources/binary/materialize/icon.css"
-    }],
+    "css": [],
     "role": "Anonymous",
     "name": "webappgen.Login",
     "title": [{
@@ -91,16 +76,13 @@
     }],
     "scripts": [{
       "env": "",
-      "value": "/resources/binary/webappgen/login.js"
+      "value": "::resources:binary/webappgen/login.js"
     }],
     "matches": "main"
   },
   {
     "component": "webappgen.pages.MainPageComponent",
-    "css": [{
-      "env": "",
-      "value": "/resources/binary/materialize/icon.css"
-    }],
+    "css": [],
     "role": "Admin",
     "name": "webappgen.Pages",
     "title": [{
@@ -110,21 +92,18 @@
     "scripts": [
       {
         "env": "",
-        "value": "/resources/binary/webappgen/utils.js"
+        "value": "::resources:binary/webappgen/utils.js"
       },
       {
         "env": "",
-        "value": "/resources/binary/webappgen/pages.js"
+        "value": "::resources:binary/webappgen/pages.js"
       }
     ],
     "matches": "Pages"
   },
   {
     "component": "webappgen.texts.MainTextComponent",
-    "css": [{
-      "env": "",
-      "value": "/resources/binary/materialize/icon.css"
-    }],
+    "css": [],
     "role": "Admin",
     "name": "webappgen.Texts",
     "title": [{
@@ -134,21 +113,18 @@
     "scripts": [
       {
         "env": "",
-        "value": "/resources/binary/webappgen/utils.js"
+        "value": "::resources:binary/webappgen/utils.js"
       },
       {
         "env": "",
-        "value": "/resources/binary/webappgen/maps.js"
+        "value": "::resources:binary/webappgen/maps.js"
       }
     ],
     "matches": "Texts"
   },
   {
     "component": "webappgen.users.MainComponent",
-    "css": [{
-      "env": "",
-      "value": "/resources/binary/materialize/icon.css"
-    }],
+    "css": [],
     "role": "Admin",
     "name": "webappgen.Users",
     "title": [{
@@ -158,21 +134,18 @@
     "scripts": [
       {
         "env": "",
-        "value": "/resources/binary/webappgen/utils.js"
+        "value": "::resources:binary/webappgen/utils.js"
       },
       {
         "env": "",
-        "value": "/resources/binary/webappgen/maps.js"
+        "value": "::resources:binary/webappgen/maps.js"
       }
     ],
     "matches": "Users"
   },
   {
     "component": "webappgen.components.MainComponent",
-    "css": [{
-      "env": "",
-      "value": "/resources/binary/materialize/icon.css"
-    }],
+    "css": [],
     "role": "Admin",
     "name": "webappgen.Components",
     "title": [{
@@ -182,21 +155,18 @@
     "scripts": [
       {
         "env": "",
-        "value": "/resources/binary/webappgen/utils.js"
+        "value": "::resources:binary/webappgen/utils.js"
       },
       {
         "env": "",
-        "value": "/resources/binary/webappgen/components.js"
+        "value": "::resources:binary/webappgen/components.js"
       }
     ],
     "matches": "Components"
   },
   {
     "component": "webappgen.arrays.MainArrayComponent",
-    "css": [{
-      "env": "",
-      "value": "/resources/binary/materialize/icon.css"
-    }],
+    "css": [],
     "role": "Admin",
     "name": "webappgen.Arrays",
     "title": [{
@@ -206,21 +176,18 @@
     "scripts": [
       {
         "env": "",
-        "value": "/resources/binary/webappgen/utils.js"
+        "value": "::resources:binary/webappgen/utils.js"
       },
       {
         "env": "",
-        "value": "/resources/binary/webappgen/maps.js"
+        "value": "::resources:binary/webappgen/maps.js"
       }
     ],
     "matches": "Arrays"
   },
   {
     "component": "webappgen.js.MainJSComponent",
-    "css": [{
-      "env": "",
-      "value": "/resources/binary/materialize/icon.css"
-    }],
+    "css": [],
     "role": "Admin",
     "name": "webappgen.JS",
     "title": [{
@@ -230,21 +197,18 @@
     "scripts": [
       {
         "env": "",
-        "value": "/resources/binary/webappgen/utils.js"
+        "value": "::resources:binary/webappgen/utils.js"
       },
       {
         "env": "",
-        "value": "/resources/binary/webappgen/maps.js"
+        "value": "::resources:binary/webappgen/maps.js"
       }
     ],
     "matches": "JS"
   },
   {
     "component": "webappgen.arraypair.MainArrayPairComponent",
-    "css": [{
-      "env": "",
-      "value": "/resources/binary/materialize/icon.css"
-    }],
+    "css": [],
     "role": "Admin",
     "name": "webappgen.ArraysPairs",
     "title": [{
@@ -254,21 +218,18 @@
     "scripts": [
       {
         "env": "",
-        "value": "/resources/binary/webappgen/utils.js"
+        "value": "::resources:binary/webappgen/utils.js"
       },
       {
         "env": "",
-        "value": "/resources/binary/webappgen/maps.js"
+        "value": "::resources:binary/webappgen/maps.js"
       }
     ],
     "matches": "ArrayPairs"
   },
   {
     "component": "webappgen.binaries.MainBinaryComponent",
-    "css": [{
-      "env": "",
-      "value": "/resources/binary/materialize/icon.css"
-    }],
+    "css": [],
     "role": "Admin",
     "name": "webappgen.Binaries",
     "title": [
@@ -284,21 +245,18 @@
     "scripts": [
       {
         "env": "",
-        "value": "/resources/binary/webappgen/utils.js"
+        "value": "::resources:binary/webappgen/utils.js"
       },
       {
         "env": "",
-        "value": "/resources/binary/webappgen/maps.js"
+        "value": "::resources:binary/webappgen/maps.js"
       }
     ],
     "matches": "Binaries"
   },
   {
     "component": "webappgen.methods.MainMethodComponent",
-    "css": [{
-      "env": "",
-      "value": "/resources/binary/materialize/icon.css"
-    }],
+    "css": [],
     "role": "Admin",
     "name": "webappgen.Methods",
     "title": [{
@@ -308,11 +266,11 @@
     "scripts": [
       {
         "env": "",
-        "value": "/resources/binary/webappgen/utils.js"
+        "value": "::resources:binary/webappgen/utils.js"
       },
       {
         "env": "",
-        "value": "/resources/binary/webappgen/maps.js"
+        "value": "::resources:binary/webappgen/maps.js"
       }
     ],
     "matches": "Methods"
