@@ -7,17 +7,14 @@ import org.abx.webappgen.persistence.model.ResourceData;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Set;
 
 import static org.abx.webappgen.persistence.ResourceModel.validAccess;
 import static org.abx.webappgen.utils.ElementUtils.elementHashCode;
 
 @Component
-public class CachedResourceModel {
+public class BinaryResourceModel {
 
     @Autowired
     private BinaryCache binaryCache;
@@ -25,7 +22,7 @@ public class CachedResourceModel {
     @Autowired
     ResourceModel resourceModel;
 
-    public CachedResourceModel() {
+    public BinaryResourceModel() {
     }
 
 
@@ -45,7 +42,7 @@ public class CachedResourceModel {
     }
 
     private JSONObject getBinaryResourceAux(long resourceId) {
-        BinaryMeta meta = resourceModel.getBinaryResource(resourceId).first;
+        BinaryMeta meta = resourceModel._getBinaryResource(resourceId).first;
         if (meta == null) {
             return null;
         }
@@ -64,11 +61,17 @@ public class CachedResourceModel {
         return jsonText;
     }
 
+    public void deleteBinaryResource(String resourceName) {
+        long resourceId = elementHashCode(resourceName);
+        binaryCache.remove(resourceId);
+        resourceModel._deleteBinaryResource(resourceId);
+    }
+
     public ResourceData getBinaryResource(String resourceName, String username, Set<String> roles) {
         long resourceId = elementHashCode(resourceName);
         Pair<BinaryMeta, byte[]> cached = binaryCache.getBinary(resourceId);
         if (cached == null) {
-            Pair<BinaryMeta, byte[]> binaryResource = resourceModel.getBinaryResource(resourceId);
+            Pair<BinaryMeta, byte[]> binaryResource = resourceModel._getBinaryResource(resourceId);
             if (binaryResource != null) {
                 binaryCache.add(resourceId, binaryResource.first);
             }
@@ -86,7 +89,7 @@ public class CachedResourceModel {
 
     public void saveBinaryResource(String resourceName, String packageName, String owner,
                                    String contentType, String access) {
-        BinaryMeta meta = resourceModel.saveBinaryResource(resourceName, packageName, owner,
+        BinaryMeta meta = resourceModel._saveBinaryResource(resourceName, packageName, owner,
                 contentType, access);
         long resourceId = elementHashCode(resourceName);
         binaryCache.add(resourceId, meta);

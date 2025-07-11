@@ -257,19 +257,6 @@ public class ResourceModel {
         return jsonText;
     }
 
-    @Transactional
-    public Pair<BinaryMeta, byte[]> getBinaryResource(long resourceId) {
-        BinaryResource binaryResource = binaryResourceRepository.findByBinaryResourceId(resourceId);
-        return new Pair<>(toBinaryMeta(binaryResource), binaryResource.resourceValue);
-    }
-
-
-    @Transactional
-    public void deleteBinaryResource(String resourceName) {
-        BinaryResource binaryResource = binaryResourceRepository.findByBinaryResourceId(elementHashCode(resourceName));
-        binaryResourceRepository.delete(binaryResource);
-        binaryResourceRepository.flush();
-    }
 
     @Transactional
     public void addTextResource(JSONObject content) {
@@ -367,26 +354,6 @@ public class ResourceModel {
         throw new IllegalArgumentException("Invalid resource name: " + resourceName);
     }
 
-    private BinaryMeta toBinaryMeta(BinaryResource binaryResource) {
-        BinaryMeta binaryMeta = new BinaryMeta();
-        binaryMeta.contentType = binaryResource.contentType;
-        binaryMeta.hashcode = binaryResource.hashcode;
-        binaryMeta.access = binaryResource.access;
-        binaryMeta.resourceName = binaryResource.resourceName;
-        binaryMeta.owner = binaryResource.owner;
-        binaryMeta.packageName = binaryResource.packageName;
-        try {
-            File f = File.createTempFile("binary", ".tmp");
-            f.deleteOnExit();
-            FileOutputStream fos = new FileOutputStream(f);
-            fos.write(binaryResource.resourceValue);
-            fos.close();
-            binaryMeta.file = f;
-        } catch (Exception e) {
-            return null;
-        }
-        return binaryMeta;
-    }
 
     @Transactional
     public void cloneBinary(String original, String resourceName, String packageName, String owner, String contentType) {
@@ -409,41 +376,6 @@ public class ResourceModel {
         binaryResourceRepository.save(binaryResource);
     }
 
-    @Transactional
-    public BinaryMeta saveBinaryResource(String resourceName, String packageName, String owner, String contentType, String access) {
-        long id = elementHashCode(resourceName);
-        byte[] data = new byte[0];
-        BinaryResource binaryResource = binaryResourceRepository.findByBinaryResourceId(id);
-        if (binaryResource == null) {
-            binaryResource = new BinaryResource();
-            binaryResource.binaryResourceId = id;
-            binaryResource.resourceValue = data;
-        }
-        binaryResource.hashcode = 0;
-        binaryResource.contentType = contentType;
-        binaryResource.owner = owner;
-        binaryResource.access = access;
-        binaryResource.packageName = packageName;
-        binaryResource.resourceName = resourceName;
-        binaryResourceRepository.save(binaryResource);
-        resourceChanged(id);
-        return toBinaryMeta(binaryResource);
-    }
-
-    public static long hashToLong(byte[] data) {
-        try {
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            byte[] digest = md.digest(data);
-            // take the first 8 bytes of the MD5 and convert to long
-            long hash = 0;
-            for (int i = 0; i < 8; i++) {
-                hash = (hash << 8) | (digest[i] & 0xff);
-            }
-            return hash;
-        } catch (Exception e) {
-            throw new RuntimeException("Unable to compute hash", e);
-        }
-    }
 
     @Transactional
     public BinaryMeta upload(long id, byte[] data) throws Exception {
@@ -1038,6 +970,84 @@ public class ResourceModel {
         textResource.packageName = packageName;
         textResource.resourceName = resourceName;
         textResourceRepository.save(textResource);
+    }
 
+    /**
+     * Should be called by the cache
+     *
+     * @param resourceId
+     */
+
+    @Transactional
+    public void _deleteBinaryResource(long resourceId) {
+        BinaryResource binaryResource = binaryResourceRepository.findByBinaryResourceId(resourceId);
+        binaryResourceRepository.delete(binaryResource);
+        binaryResourceRepository.flush();
+    }
+
+
+    @Transactional
+    public Pair<BinaryMeta, byte[]> _getBinaryResource(long resourceId) {
+        BinaryResource binaryResource = binaryResourceRepository.findByBinaryResourceId(resourceId);
+        return new Pair<>(toBinaryMeta(binaryResource), binaryResource.resourceValue);
+    }
+
+    @Transactional
+    public BinaryMeta _saveBinaryResource(String resourceName, String packageName, String owner, String contentType, String access) {
+        long id = elementHashCode(resourceName);
+        byte[] data = new byte[0];
+        BinaryResource binaryResource = binaryResourceRepository.findByBinaryResourceId(id);
+        if (binaryResource == null) {
+            binaryResource = new BinaryResource();
+            binaryResource.binaryResourceId = id;
+            binaryResource.resourceValue = data;
+        }
+        binaryResource.hashcode = hashToLong(data);
+        binaryResource.contentType = contentType;
+        binaryResource.owner = owner;
+        binaryResource.access = access;
+        binaryResource.packageName = packageName;
+        binaryResource.resourceName = resourceName;
+        binaryResourceRepository.save(binaryResource);
+        resourceChanged(id);
+        return toBinaryMeta(binaryResource);
+    }
+
+
+    private BinaryMeta toBinaryMeta(BinaryResource binaryResource) {
+        BinaryMeta binaryMeta = new BinaryMeta();
+        binaryMeta.contentType = binaryResource.contentType;
+        binaryMeta.hashcode = binaryResource.hashcode;
+        binaryMeta.access = binaryResource.access;
+        binaryMeta.resourceName = binaryResource.resourceName;
+        binaryMeta.owner = binaryResource.owner;
+        binaryMeta.packageName = binaryResource.packageName;
+        try {
+            File f = File.createTempFile("binary", ".tmp");
+            f.deleteOnExit();
+            FileOutputStream fos = new FileOutputStream(f);
+            fos.write(binaryResource.resourceValue);
+            fos.close();
+            binaryMeta.file = f;
+        } catch (Exception e) {
+            return null;
+        }
+        return binaryMeta;
+    }
+
+
+    private long hashToLong(byte[] data) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] digest = md.digest(data);
+            // take the first 8 bytes of the MD5 and convert to long
+            long hash = 0;
+            for (int i = 0; i < 8; i++) {
+                hash = (hash << 8) | (digest[i] & 0xff);
+            }
+            return hash;
+        } catch (Exception e) {
+            throw new RuntimeException("Unable to compute hash", e);
+        }
     }
 }

@@ -3,19 +3,17 @@ package org.abx.webappgen.controller;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import org.abx.webappgen.persistence.BinaryResourceModel;
 import org.abx.webappgen.persistence.EnvListener;
 import org.abx.webappgen.persistence.PageModel;
 import org.abx.webappgen.persistence.ResourceModel;
 import org.abx.webappgen.persistence.dao.BinaryResourceRepository;
 import org.abx.webappgen.persistence.dao.MapEntryRepository;
-import org.abx.webappgen.utils.SpecsExporter;
-import org.abx.webappgen.utils.SpecsImporter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.HandlerMapping;
@@ -42,7 +40,8 @@ public class PageController extends RoleController implements EnvListener {
 
     @Autowired
     public ResourceModel resourceModel;
-    private HashMap<String, ST> pageTemplates;
+    @Autowired
+    public BinaryResourceModel cachedResourceModel;
 
     @Autowired
     private BinaryResourceRepository binaryResourceRepository;
@@ -50,6 +49,7 @@ public class PageController extends RoleController implements EnvListener {
     @Autowired
     private MapEntryRepository mapEntryRepository;
 
+    private HashMap<String, ST> pageTemplates;
     public PageController() {
         pageTemplates = new HashMap<>();
     }
