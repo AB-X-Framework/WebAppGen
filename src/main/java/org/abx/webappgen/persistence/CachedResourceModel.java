@@ -145,4 +145,12 @@ public class CachedResourceModel {
         }
         throw new IllegalArgumentException("Invalid resource name: " + resourceName);
     }
+
+
+    public void cloneBinary(String original, String resourceName, String packageName, String owner, String contentType) {
+        long originalId = elementHashCode(original);
+        BinaryMeta meta = resourceModel._cloneBinary(originalId, resourceName, packageName, owner, contentType);
+        binaryCache.add(originalId, meta);
+
+    }
 }

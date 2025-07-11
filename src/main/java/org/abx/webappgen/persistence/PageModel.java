@@ -102,6 +102,9 @@ public class PageModel {
     @Autowired
     private ResourceModel resourceModel;
 
+    @Autowired
+    private CachedResourceModel cachedResourceModel;
+
     public PageModel() {
         envId = mapHashCode(AppEnv, "home");
         defaultEnv = mapHashCode(AppEnv, "defaultEnv");
@@ -325,7 +328,7 @@ public class PageModel {
             if (matchesEnv(scriptValue.env, env)) {
                 String value = scriptValue.envValue;
                 if (value.startsWith(CachedResource)) {
-                    scripts.put(resourceModel.cacheResource(value));
+                    scripts.put(cachedResourceModel.cacheResource(value));
                 }
             }
         }
@@ -335,7 +338,7 @@ public class PageModel {
             if (matchesEnv(cssValue.env, env)) {
                 String value = cssValue.envValue;
                 if (value.startsWith(CachedResource)) {
-                    scripts.put(resourceModel.cacheResource(value));
+                    scripts.put(cachedResourceModel.cacheResource(value));
                 }
             }
         }
@@ -515,7 +518,7 @@ public class PageModel {
 
     private JSONObject reviewSrc(JSONObject jsonObject) {
         if (jsonObject.has("src")) {
-            jsonObject.put("src", resourceModel.cacheResource(jsonObject.getString("src")));
+            jsonObject.put("src", cachedResourceModel.cacheResource(jsonObject.getString("src")));
         }
         return jsonObject;
     }

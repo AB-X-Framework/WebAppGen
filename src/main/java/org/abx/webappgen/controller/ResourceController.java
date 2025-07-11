@@ -796,7 +796,7 @@ public class ResourceController extends RoleController {
         String packageName = newName.substring(0, newName.lastIndexOf('/'));
         JSONObject status = new JSONObject();
         try {
-            resourceModel.cloneBinary(original, newName, packageName, owner, contentType);
+            cachedResourceModel.cloneBinary(original, newName, packageName, owner, contentType);
             status.put("success", true);
             status.put("package", packageName);
         } catch (Exception e) {

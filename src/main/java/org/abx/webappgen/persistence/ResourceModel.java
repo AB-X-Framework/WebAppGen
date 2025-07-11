@@ -997,8 +997,7 @@ public class ResourceModel {
 
 
     @Transactional
-    public BinaryMeta _cloneBinary(String original, String resourceName, String packageName, String owner, String contentType) {
-        long originalId = elementHashCode(original);
+    public BinaryMeta _cloneBinary(long originalId, String resourceName, String packageName, String owner, String contentType) {
         long id = elementHashCode(resourceName);
         BinaryResource originalData = binaryResourceRepository.findByBinaryResourceId(originalId);
         BinaryResource binaryResource = binaryResourceRepository.findByBinaryResourceId(id);
