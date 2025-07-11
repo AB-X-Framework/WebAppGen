@@ -7,6 +7,7 @@ import org.abx.webappgen.persistence.model.ResourceData;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -57,7 +58,6 @@ public class CachedResourceModel {
         resourceChanged(id);
     }
 
-
     public JSONObject getBinaryResource(String resourceName) {
         return getBinaryResource(elementHashCode(resourceName));
     }
@@ -65,18 +65,21 @@ public class CachedResourceModel {
     public JSONObject getBinaryResource(long resourceId) {
         BinaryMeta meta = binaryCache.get(resourceId);
         if (meta == null) {
-            return getBinaryResourceAux(resourceId);
+            meta = getBinaryMeta(resourceId);
+        }
+        if (meta == null) {
+            return null;
         }
         return getJsonObject(meta);
     }
 
-    private JSONObject getBinaryResourceAux(long resourceId) {
+    private BinaryMeta getBinaryMeta(long resourceId) {
         BinaryMeta meta = resourceModel._getBinaryResource(resourceId).first;
         if (meta == null) {
             return null;
         }
         binaryCache.add(resourceId, meta);
-        return getJsonObject(meta);
+        return meta;
     }
 
     private JSONObject getJsonObject(BinaryMeta meta) {
@@ -124,5 +127,22 @@ public class CachedResourceModel {
         long resourceId = elementHashCode(resourceName);
         binaryCache.add(resourceId, meta);
         resourceChanged(resourceId);
+    }
+
+
+    @Transactional
+    public String cacheResource(String resourceName) {
+        if (!resourceName.startsWith(CachedResource)) {
+            return resourceName;
+        }
+        resourceName = resourceName.substring(CachedResource.length());
+        int index = resourceName.indexOf('/');
+        String resourceType = resourceName.substring(0, index);
+        resourceName = resourceName.substring(index + 1);
+        if (resourceType.equals("binary")) {
+            BinaryMeta meta = getBinaryMeta(elementHashCode(resourceName));
+            return "/resources/binary/" + meta.resourceName + "?hc=" + meta.hashcode;
+        }
+        throw new IllegalArgumentException("Invalid resource name: " + resourceName);
     }
 }

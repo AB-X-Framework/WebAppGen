@@ -320,44 +320,6 @@ public class ResourceModel {
     }
 
 
-    @Transactional
-    public String cacheResource(String resourceName) {
-        if (!resourceName.startsWith(CachedResource)) {
-            return resourceName;
-        }
-        resourceName = resourceName.substring(CachedResource.length());
-        int index = resourceName.indexOf('/');
-        String resourceType = resourceName.substring(0, index);
-        resourceName = resourceName.substring(index + 1);
-        if (resourceType.equals("binary")) {
-            BinaryResource binaryResource = binaryResourceRepository.findByBinaryResourceId(elementHashCode(resourceName));
-            return "/resources/binary/" + binaryResource.resourceName + "?hc=" + binaryResource.hashcode;
-        }
-        throw new IllegalArgumentException("Invalid resource name: " + resourceName);
-    }
-
-
-    @Transactional
-    public void cloneBinary(String original, String resourceName, String packageName, String owner, String contentType) {
-        long originalId = elementHashCode(original);
-        long id = elementHashCode(resourceName);
-        BinaryResource originalData = binaryResourceRepository.findByBinaryResourceId(originalId);
-        BinaryResource binaryResource = binaryResourceRepository.findByBinaryResourceId(id);
-        if (binaryResource == null) {
-            binaryResource = new BinaryResource();
-            binaryResource.binaryResourceId = id;
-        }
-        if (contentType != null) {
-            binaryResource.contentType = contentType;
-        }
-        binaryResource.resourceValue = originalData.resourceValue;
-        binaryResource.owner = owner;
-        binaryResource.access = originalData.access;
-        binaryResource.packageName = packageName;
-        binaryResource.resourceName = resourceName;
-        binaryResourceRepository.save(binaryResource);
-    }
-
 
 
     private JSONArray hideDefaults(List<String> packages) {
@@ -1029,4 +991,31 @@ public class ResourceModel {
             throw new RuntimeException("Unable to compute hash", e);
         }
     }
+
+
+
+
+
+    @Transactional
+    public BinaryMeta _cloneBinary(String original, String resourceName, String packageName, String owner, String contentType) {
+        long originalId = elementHashCode(original);
+        long id = elementHashCode(resourceName);
+        BinaryResource originalData = binaryResourceRepository.findByBinaryResourceId(originalId);
+        BinaryResource binaryResource = binaryResourceRepository.findByBinaryResourceId(id);
+        if (binaryResource == null) {
+            binaryResource = new BinaryResource();
+            binaryResource.binaryResourceId = id;
+        }
+        if (contentType != null) {
+            binaryResource.contentType = contentType;
+        }
+        binaryResource.resourceValue = originalData.resourceValue;
+        binaryResource.owner = owner;
+        binaryResource.access = originalData.access;
+        binaryResource.packageName = packageName;
+        binaryResource.resourceName = resourceName;
+        binaryResourceRepository.save(binaryResource);
+        return toBinaryMeta(binaryResource);
+    }
+
 }
