@@ -20,7 +20,6 @@ import static org.abx.webappgen.utils.ElementUtils.elementHashCode;
 public class CachedResourceModel {
 
     public static final String CachedResource = "::resources:";
-    public static final String BinaryResources = "::resources:binary/";
 
     private final Map<Long, Set<EnvListener>> resourceListener;
 
