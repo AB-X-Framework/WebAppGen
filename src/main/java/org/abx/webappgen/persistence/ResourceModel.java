@@ -30,6 +30,7 @@ public class ResourceModel {
     private final Set<EnvListener> listeners;
     private final Map<Long, Set<EnvListener>> resourceListener;
     private final Set<String> envValues;
+
     @Autowired
     TextResourceRepository textResourceRepository;
 
@@ -60,8 +61,6 @@ public class ResourceModel {
     @Autowired
     private ArrayPairResourceRepository arrayPairResourceRepository;
 
-    @Autowired
-    private BinaryCache binaryCache;
 
     public ResourceModel() {
         envValues = new HashSet<>();
@@ -79,6 +78,15 @@ public class ResourceModel {
 
     public void addEnvListener(EnvListener listener) {
         listeners.add(listener);
+    }
+
+    private void resourceChanged(long id) {
+        Set<EnvListener> list = resourceListener.get(id);
+        if (list != null) {
+            for (EnvListener listener : list) {
+                listener.envChanged();
+            }
+        }
     }
 
     @Transactional
@@ -249,40 +257,10 @@ public class ResourceModel {
         return jsonText;
     }
 
-    public JSONObject getBinaryResource(String resourceName) {
-        return getBinaryResource(elementHashCode(resourceName));
-    }
-
-    public JSONObject getBinaryResource(long resourceId) {
-        BinaryMeta meta = binaryCache.get(resourceId);
-        if (meta == null) {
-            return getBinaryResourceAux(resourceId);
-        }
-        JSONObject jsonText = new JSONObject();
-        jsonText.put("access", meta.access);
-        jsonText.put("name", meta.resourceName);
-        jsonText.put("package", meta.packageName);
-        jsonText.put("hashcode", meta.hashcode);
-        jsonText.put("owner", meta.owner);
-        jsonText.put("contentType", meta.contentType);
-        return jsonText;
-    }
-
     @Transactional
-    public JSONObject getBinaryResourceAux(long resourceId) {
+    public Pair<BinaryMeta, byte[]> getBinaryResource(long resourceId) {
         BinaryResource binaryResource = binaryResourceRepository.findByBinaryResourceId(resourceId);
-        if (binaryResource == null) {
-            return null;
-        }
-        binaryCache.add(resourceId, toBinaryMeta(binaryResource));
-        JSONObject jsonText = new JSONObject();
-        jsonText.put("access", binaryResource.access);
-        jsonText.put("name", binaryResource.resourceName);
-        jsonText.put("package", binaryResource.packageName);
-        jsonText.put("owner", binaryResource.owner);
-        jsonText.put("contentType", binaryResource.contentType);
-        jsonText.put("hashcode", binaryResource.hashcode);
-        return jsonText;
+        return new Pair<>(toBinaryMeta(binaryResource), binaryResource.resourceValue);
     }
 
 
@@ -362,17 +340,14 @@ public class ResourceModel {
     }
 
 
-    private boolean validAccess(String accesss, String owner, String username, Set<String> roles) {
+    public static boolean validAccess(String accesss, String owner, String username, Set<String> roles) {
         if (Anonymous.equals(accesss)) {
             return true;
         }
         if (username.equals(owner)) {
             return true;
         }
-        if (roles.contains(Admin)) {
-            return true;
-        }
-        return false;
+        return roles.contains(Admin);
     }
 
 
@@ -392,19 +367,6 @@ public class ResourceModel {
         throw new IllegalArgumentException("Invalid resource name: " + resourceName);
     }
 
-
-    public ResourceData getBinaryResource(String resourceName, String username, Set<String> roles) {
-        long resourceId = elementHashCode(resourceName);
-        Pair<BinaryMeta, byte[]> cached = binaryCache.getBinary(resourceId);
-        if (cached == null) {
-            return getBinaryResourceAux(resourceName, username, roles);
-        }
-        BinaryMeta binaryMeta = cached.first;
-        if (!validAccess(binaryMeta.access, binaryMeta.owner, username, roles)) {
-            return null;
-        }
-        return new ResourceData(binaryMeta.contentType, cached.second, binaryMeta.hashcode);
-    }
 
     @Transactional
     public ResourceData getBinaryResourceAux(String resourceName, String username, Set<String> roles) {
@@ -502,8 +464,7 @@ public class ResourceModel {
     }
 
     @Transactional
-    public void upload(String resourceName, byte[] data) throws Exception {
-        long id = elementHashCode(resourceName);
+    public void upload(long id, byte[] data) throws Exception {
         BinaryResource binaryResource = binaryResourceRepository.findByBinaryResourceId(id);
         if (binaryResource == null) {
             throw new Exception("Binary not found");
@@ -511,18 +472,9 @@ public class ResourceModel {
         binaryResource.hashcode = hashToLong(data);
         binaryResource.resourceValue = data;
         binaryResourceRepository.save(binaryResource);
-        binaryCache.add(id, toBinaryMeta(binaryResource));
         resourceChanged(id);
     }
 
-    private void resourceChanged(long id) {
-        Set<EnvListener> list = resourceListener.get(id);
-        if (list != null) {
-            for (EnvListener listener : list) {
-                listener.envChanged();
-            }
-        }
-    }
 
     private JSONArray hideDefaults(List<String> packages) {
         if (Boolean.parseBoolean(mapEntryRepository.findByMapEntryId(hideDefaultsId).mapValue)) {

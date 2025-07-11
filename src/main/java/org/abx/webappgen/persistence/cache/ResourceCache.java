@@ -10,7 +10,7 @@ public class ResourceCache<V> {
         int timestamp;
         V value;
 
-        CacheEntry(V value,int timestamp) {
+        CacheEntry(V value, int timestamp) {
             this.timestamp = timestamp;
             this.value = value;
         }
@@ -25,15 +25,27 @@ public class ResourceCache<V> {
         this.maxElements = maxElements;
     }
 
-    /** Synchronized add */
+    /**
+     * Synchronized add
+     */
     public synchronized void add(long id, V value) {
-        cache.put(id, new CacheEntry<>(value,++ts));
+        remove(id);
+        cache.put(id, new CacheEntry<>(value, ++ts));
         if (cache.size() > maxElements) {
             trimCache();
         }
     }
 
-    /** Synchronized get */
+    public synchronized void remove(long id) {
+        CacheEntry<V> entry = cache.remove(id);
+        if (entry != null) {
+            dispose(entry.value);
+        }
+    }
+
+    /**
+     * Synchronized get
+     */
     public synchronized V get(long key) {
         CacheEntry<V> entry = cache.get(key);
         if (entry != null) {
@@ -43,7 +55,9 @@ public class ResourceCache<V> {
         return null;
     }
 
-    /** Removes half of the entries with smallest timestamp (oldest) */
+    /**
+     * Removes half of the entries with smallest timestamp (oldest)
+     */
     private void trimCache() {
         // Create a list of entries and sort them by timestamp ascending
         List<Map.Entry<Long, CacheEntry<V>>> entries = new ArrayList<>(cache.entrySet());
