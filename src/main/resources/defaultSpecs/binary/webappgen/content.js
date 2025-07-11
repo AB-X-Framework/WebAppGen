@@ -579,8 +579,7 @@ class PageContent {
     }
 
     static renderJsEditor(output, js, specs) {
-        var result = `<script src="/resources/binary/ace/ace.js"></script>
-        <script src="/resources/binary/ace/ext-searchbox.js"></script>
+        var result = `
         <div id="${specs.id}" style="height: ${specs.height}; width: 100%">${specs.content}</div>
         <script> { 
             const editor = ace.edit("${specs.id}");
