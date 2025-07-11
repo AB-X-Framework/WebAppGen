@@ -1,6 +1,7 @@
 package org.abx.webappgen.persistence;
 
 import org.abx.webappgen.controller.SessionEnv;
+import org.abx.webappgen.persistence.cache.ComponentsCache;
 import org.abx.webappgen.persistence.dao.*;
 import org.abx.webappgen.persistence.model.*;
 import org.json.JSONArray;
@@ -10,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
+import static org.abx.webappgen.persistence.CachedResourceModel.CachedResource;
 import static org.abx.webappgen.persistence.ResourceModel.AppEnv;
 import static org.abx.webappgen.persistence.ResourceModel.AppTheme;
 import static org.abx.webappgen.utils.ElementUtils.*;
@@ -104,6 +106,8 @@ public class PageModel {
     @Autowired
     private CachedResourceModel cachedResourceModel;
 
+    @Autowired
+    private ComponentsCache componentsCache;
     public PageModel() {
         envId = mapHashCode(AppEnv, "home");
         defaultEnv = mapHashCode(AppEnv, "defaultEnv");
@@ -326,7 +330,7 @@ public class PageModel {
         for (EnvValue scriptValue : page.scripts) {
             if (matchesEnv(scriptValue.env, env)) {
                 String value = scriptValue.envValue;
-                scripts.put( cachedResourceModel.cachedResource(value));
+                scripts.put(cachedResourceModel.cachedResource(value));
             }
         }
         JSONArray css = new JSONArray();
@@ -365,7 +369,8 @@ public class PageModel {
         topSpecs.siblings = new HashMap<>();
         topSpecs.siblings.put("self", name);
         topSpecs.component = component;
-        JSONObject componentSpecs = getComponentSpecsByComponent(topSpecs);
+        Set<String> resources = new HashSet<>();
+        JSONObject componentSpecs = getComponentSpecsByComponent(topSpecs, resources);
         componentSpecs.put(Id, name);
         componentSpecs.put(Size, "");
         return componentSpecs;
@@ -441,7 +446,7 @@ public class PageModel {
         return jsonComponent;
     }
 
-    private JSONObject getComponentSpecsByComponent(ComponentSpecs specs) {
+    private JSONObject getComponentSpecsByComponent(ComponentSpecs specs, Set<String> resources) {
         Component component = specs.component;
         JSONObject jsonComponent = new JSONObject();
         StringBuilder sb = new StringBuilder();
@@ -455,12 +460,12 @@ public class PageModel {
         jsonComponent.put(Package, component.packageName);
 
         if (isContainer) {
-            Map<String, String> children = addContainer(specs, jsonComponent);
+            Map<String, String> children = addContainer(specs, jsonComponent, resources);
             children.putAll(specs.siblings);
             jsonComponent.put(JS, addTempVariables(sb.toString(), children));
         } else {
             jsonComponent.put(JS, addTempVariables(sb.toString(), specs.siblings));
-            addElement(specs, jsonComponent);
+            addElement(specs, jsonComponent, resources);
         }
         return jsonComponent;
     }
@@ -481,13 +486,13 @@ public class PageModel {
             Map<String, String> childrenInnerIds = new HashMap<>();
             componentSpecs.component = child;
             componentSpecs.siblings = childrenInnerIds;
-            JSONObject innerComponent = getComponentSpecsByComponent(componentSpecs);
+            JSONObject innerComponent = getComponentSpecsByComponent(componentSpecs, new HashSet<>());
             jsonChildren.put(innerComponent);
             innerComponent.put(Size, childComponent.getString(Size));
         }
     }
 
-    private Map<String, String> addContainer(ComponentSpecs specs, JSONObject jsonComponent) {
+    private Map<String, String> addContainer(ComponentSpecs specs, JSONObject jsonComponent, Set<String> resources) {
         Component component = specs.component;
         Container container = component.container;
         jsonComponent.put(Layout, container.layout);
@@ -503,7 +508,7 @@ public class PageModel {
             componentSpecs.siblings = childrenInnerIds;
             componentSpecs.component = inner.child;
             componentSpecs.siblings.put("self", innerId);
-            JSONObject innerComponent = getComponentSpecsByComponent(componentSpecs);
+            JSONObject innerComponent = getComponentSpecsByComponent(componentSpecs, resources);
             jsonChildren.put(innerComponent);
             innerComponent.put(Id, innerId);
             innerComponent.put(Size, inner.size);
@@ -511,14 +516,20 @@ public class PageModel {
         return childrenInnerIds;
     }
 
-    private JSONObject reviewSrc(JSONObject jsonObject) {
+    private JSONObject reviewSrc(JSONObject jsonObject,Set<String> resources) {
         if (jsonObject.has("src")) {
-            jsonObject.put("src", cachedResourceModel.cachedResource(jsonObject.getString("src")));
+            String src = jsonObject.getString("src");
+            if (src.startsWith(CachedResource)) {
+                String name = src.substring(src.indexOf(":",CachedResource.length()));
+                resources.add(name);
+                jsonObject.put("src", cachedResourceModel.cachedResource(src));
+            }
         }
+
         return jsonObject;
     }
 
-    private void addElement(ComponentSpecs specs, JSONObject jsonComponent) {
+    private void addElement(ComponentSpecs specs, JSONObject jsonComponent, Set<String> resources) {
         Element element = specs.component.element;
         boolean found = false;
         String emptyEnv = null;
@@ -531,7 +542,7 @@ public class PageModel {
                 emptyEnv = envValue.envValue;
             } else {
                 if (matchesEnv(envValue.env, specs.env)) {
-                    jsonComponent.put(Specs, reviewSrc(new JSONObject(envValue.envValue)));
+                    jsonComponent.put(Specs, reviewSrc(new JSONObject(envValue.envValue),resources));
                     found = true;
                     break;
                 }
@@ -539,9 +550,9 @@ public class PageModel {
         }
         if (!found) {
             if (emptyEnv == null) {
-                jsonComponent.put(Specs, reviewSrc(new JSONObject(first)));
+                jsonComponent.put(Specs, reviewSrc(new JSONObject(first),resources));
             } else {
-                jsonComponent.put(Specs, reviewSrc(new JSONObject(emptyEnv)));
+                jsonComponent.put(Specs, reviewSrc(new JSONObject(emptyEnv),resources));
             }
         }
         jsonComponent.put(Type, element.type);

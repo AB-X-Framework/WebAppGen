@@ -1,5 +1,6 @@
 package org.abx.webappgen.controller;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -7,6 +8,7 @@ public class SessionEnv {
 
     private final Map<String, String> asMap;
     private String[] asText;
+    private long id;
 
     public SessionEnv(String defaultEnv) {
         asMap = new HashMap<>();
@@ -27,6 +29,12 @@ public class SessionEnv {
         for (Map.Entry<String, String> entry : asMap.entrySet()) {
             asText[++i] = entry.getKey() + "=" + entry.getValue();
         }
+        Arrays.sort(asText);
+        id = String.join("", asText).hashCode();
+    }
+
+    private long id() {
+        return id;
     }
 
     public String get(String key) {
