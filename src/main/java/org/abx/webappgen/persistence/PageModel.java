@@ -1,6 +1,7 @@
 package org.abx.webappgen.persistence;
 
 import org.abx.webappgen.controller.SessionEnv;
+import org.abx.webappgen.persistence.cache.ComponentCacheEntry;
 import org.abx.webappgen.persistence.cache.ComponentsCache;
 import org.abx.webappgen.persistence.dao.*;
 import org.abx.webappgen.persistence.model.*;
@@ -108,6 +109,7 @@ public class PageModel {
 
     @Autowired
     private ComponentsCache componentsCache;
+
     public PageModel() {
         envId = mapHashCode(AppEnv, "home");
         defaultEnv = mapHashCode(AppEnv, "defaultEnv");
@@ -365,14 +367,23 @@ public class PageModel {
     }
 
     private JSONObject processTop(String name, Component component, SessionEnv env) {
+        long id = component.componentId + env.id();
+        ComponentCacheEntry entry = componentsCache.get(id);
+        if (entry != null) {
+            return entry.component;
+        }
         ComponentSpecs topSpecs = new ComponentSpecs(name, env);
         topSpecs.siblings = new HashMap<>();
         topSpecs.siblings.put("self", name);
         topSpecs.component = component;
-        Set<String> resources = new HashSet<>();
+        Set<Long> resources = new HashSet<>();
         JSONObject componentSpecs = getComponentSpecsByComponent(topSpecs, resources);
         componentSpecs.put(Id, name);
         componentSpecs.put(Size, "");
+        ComponentCacheEntry cacheEntry = componentsCache.add(id,componentSpecs);
+        for (long resourceId : resources) {
+            cachedResourceModel.addResourceListener(resourceId, cacheEntry);
+        }
         return componentSpecs;
     }
 
@@ -446,7 +457,7 @@ public class PageModel {
         return jsonComponent;
     }
 
-    private JSONObject getComponentSpecsByComponent(ComponentSpecs specs, Set<String> resources) {
+    private JSONObject getComponentSpecsByComponent(ComponentSpecs specs, Set<Long> resources) {
         Component component = specs.component;
         JSONObject jsonComponent = new JSONObject();
         StringBuilder sb = new StringBuilder();
@@ -492,7 +503,7 @@ public class PageModel {
         }
     }
 
-    private Map<String, String> addContainer(ComponentSpecs specs, JSONObject jsonComponent, Set<String> resources) {
+    private Map<String, String> addContainer(ComponentSpecs specs, JSONObject jsonComponent, Set<Long> resources) {
         Component component = specs.component;
         Container container = component.container;
         jsonComponent.put(Layout, container.layout);
@@ -516,12 +527,12 @@ public class PageModel {
         return childrenInnerIds;
     }
 
-    private JSONObject reviewSrc(JSONObject jsonObject,Set<String> resources) {
+    private JSONObject reviewSrc(JSONObject jsonObject, Set<Long> resources) {
         if (jsonObject.has("src")) {
             String src = jsonObject.getString("src");
             if (src.startsWith(CachedResource)) {
-                String name = src.substring(src.indexOf(":",CachedResource.length()));
-                resources.add(name);
+                String name = src.substring(src.indexOf(":", CachedResource.length()));
+                resources.add(elementHashCode(name));
                 jsonObject.put("src", cachedResourceModel.cachedResource(src));
             }
         }
@@ -529,7 +540,7 @@ public class PageModel {
         return jsonObject;
     }
 
-    private void addElement(ComponentSpecs specs, JSONObject jsonComponent, Set<String> resources) {
+    private void addElement(ComponentSpecs specs, JSONObject jsonComponent, Set<Long> resources) {
         Element element = specs.component.element;
         boolean found = false;
         String emptyEnv = null;
@@ -542,7 +553,7 @@ public class PageModel {
                 emptyEnv = envValue.envValue;
             } else {
                 if (matchesEnv(envValue.env, specs.env)) {
-                    jsonComponent.put(Specs, reviewSrc(new JSONObject(envValue.envValue),resources));
+                    jsonComponent.put(Specs, reviewSrc(new JSONObject(envValue.envValue), resources));
                     found = true;
                     break;
                 }
@@ -550,9 +561,9 @@ public class PageModel {
         }
         if (!found) {
             if (emptyEnv == null) {
-                jsonComponent.put(Specs, reviewSrc(new JSONObject(first),resources));
+                jsonComponent.put(Specs, reviewSrc(new JSONObject(first), resources));
             } else {
-                jsonComponent.put(Specs, reviewSrc(new JSONObject(emptyEnv),resources));
+                jsonComponent.put(Specs, reviewSrc(new JSONObject(emptyEnv), resources));
             }
         }
         jsonComponent.put(Type, element.type);

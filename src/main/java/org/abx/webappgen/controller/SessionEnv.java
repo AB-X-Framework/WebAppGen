@@ -33,7 +33,7 @@ public class SessionEnv {
         id = String.join("", asText).hashCode();
     }
 
-    private long id() {
+    public long id() {
         return id;
     }
 
