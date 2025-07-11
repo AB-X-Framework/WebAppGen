@@ -35,6 +35,8 @@ public class PageController extends RoleController implements EnvListener {
     @Autowired
     public PageModel pageModel;
 
+    @Autowired
+    public ResourceModel resourceModel;
     private HashMap<String, ST> pageTemplates;
 
     @Autowired
@@ -91,6 +93,7 @@ public class PageController extends RoleController implements EnvListener {
     protected ST createPageTemplate(String laf) {
         String value = mapEntryRepository.findByMapEntryId(mapHashCode(AppEnv, "laf." + laf)).mapValue;
         long resourceId = elementHashCode(value);
+        resourceModel.addResourceListener(resourceId,this);
         byte[] data = binaryResourceRepository.findByBinaryResourceId(resourceId).resourceValue;
         return new ST(new String(data), '{', '}');
     }

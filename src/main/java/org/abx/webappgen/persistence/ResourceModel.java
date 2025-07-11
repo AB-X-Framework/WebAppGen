@@ -69,7 +69,7 @@ public class ResourceModel {
         resourceListener = new HashMap<>();
     }
 
-    public void add(long id, EnvListener listener) {
+    public void addResourceListener(long id, EnvListener listener) {
         if (!resourceListener.containsKey(id)) {
             resourceListener.put(id, new ArrayList<>());
         }
