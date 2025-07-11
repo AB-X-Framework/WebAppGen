@@ -377,19 +377,6 @@ public class ResourceModel {
     }
 
 
-    @Transactional
-    public BinaryMeta upload(long id, byte[] data) throws Exception {
-        BinaryResource binaryResource = binaryResourceRepository.findByBinaryResourceId(id);
-        if (binaryResource == null) {
-            throw new Exception("Binary not found");
-        }
-        binaryResource.hashcode = hashToLong(data);
-        binaryResource.resourceValue = data;
-        binaryResourceRepository.save(binaryResource);
-        resourceChanged(id);
-        return toBinaryMeta(binaryResource);
-    }
-
 
     private JSONArray hideDefaults(List<String> packages) {
         if (Boolean.parseBoolean(mapEntryRepository.findByMapEntryId(hideDefaultsId).mapValue)) {
@@ -1014,6 +1001,18 @@ public class ResourceModel {
     }
 
 
+    @Transactional
+    public BinaryMeta _upload(long id, byte[] data) throws Exception {
+        BinaryResource binaryResource = binaryResourceRepository.findByBinaryResourceId(id);
+        if (binaryResource == null) {
+            throw new Exception("Binary not found");
+        }
+        binaryResource.hashcode = hashToLong(data);
+        binaryResource.resourceValue = data;
+        binaryResourceRepository.save(binaryResource);
+        resourceChanged(id);
+        return toBinaryMeta(binaryResource);
+    }
     private BinaryMeta toBinaryMeta(BinaryResource binaryResource) {
         BinaryMeta binaryMeta = new BinaryMeta();
         binaryMeta.contentType = binaryResource.contentType;

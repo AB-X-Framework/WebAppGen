@@ -28,7 +28,7 @@ public class BinaryResourceModel {
 
     public void upload(String resourceName, byte[] data) throws Exception {
         long id = elementHashCode(resourceName);
-        BinaryMeta meta = resourceModel.upload(id, data);
+        BinaryMeta meta = resourceModel._upload(id, data);
         binaryCache.add(id, meta);
     }
 
