@@ -58,7 +58,6 @@ public class ResourceModel {
     @Autowired
     private ArrayPairResourceRepository arrayPairResourceRepository;
 
-
     @Autowired
     private BinaryCache binaryCache;
 
