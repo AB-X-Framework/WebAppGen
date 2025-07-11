@@ -6,6 +6,6 @@ public class BinaryMeta {
     public long hashcode;
     public File file;
     public String access;
-    public String username;
+    public String owner;
     public String contentType;
 }

@@ -1,5 +1,6 @@
 package org.abx.webappgen.persistence;
 
+import org.abx.util.Pair;
 import org.abx.webappgen.persistence.cache.BinaryCache;
 import org.abx.webappgen.persistence.cache.BinaryMeta;
 import org.abx.webappgen.persistence.dao.*;
@@ -368,7 +369,17 @@ public class ResourceModel {
 
 
     public ResourceData getBinaryResource(String resourceName, String username, Set<String> roles) {
-       throw new RuntimeException("");// if (binaryCache.)
+        long resourceId = elementHashCode(resourceName);
+        Pair<BinaryMeta, byte[]> cached = binaryCache.getBinary(resourceId);
+        if (cached == null) {
+            return getBinaryResource(resourceName, username, roles);
+        }
+        BinaryMeta binaryMeta = cached.first;
+        if (!validAccess(binaryMeta.access, binaryMeta.owner, username, roles)) {
+            return null;
+        }
+        return new ResourceData(binaryMeta.contentType,
+                cached.second, binaryMeta.hashcode);
     }
 
     @Transactional
@@ -411,7 +422,7 @@ public class ResourceModel {
     public void saveBinaryResource(String resourceName, String packageName, String owner,
                                    String contentType, String access) {
         long id = elementHashCode(resourceName);
-        byte [] data = new byte[0];
+        byte[] data = new byte[0];
         BinaryResource binaryResource = binaryResourceRepository.findByBinaryResourceId(id);
         if (binaryResource == null) {
             binaryResource = new BinaryResource();
@@ -423,7 +434,7 @@ public class ResourceModel {
                 binaryResource.access, data);*/
         binaryResource.hashcode = 0;
         binaryResource.contentType = contentType;
-        binaryResource.owner =owner;
+        binaryResource.owner = owner;
         binaryResource.access = access;
         binaryResource.packageName = packageName;
         binaryResource.resourceName = resourceName;
@@ -933,7 +944,7 @@ public class ResourceModel {
         if (mapResource == null) {
             throw new Exception("Map not found");
         }
-        String username =  meta.getString("owner");
+        String username = meta.getString("owner");
         User user = userRepository.findByUsername(username);
         if (user == null) {
             throw new Exception("User not found");
@@ -963,7 +974,7 @@ public class ResourceModel {
         mapResource.mapResourceId = id;
         mapResource.resourceName = mapName;
         mapResource.packageName = packageName;
-        mapResource.owner =owner;
+        mapResource.owner = owner;
         mapResource.access = access;
         mapResourceRepository.save(mapResource);
         for (String key : data.keySet()) {
