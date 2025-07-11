@@ -943,8 +943,17 @@ public class ResourceModel {
         arrayPairEntryRepository.flush();
     }
 
+    private void envUpdate(){
+        for (EnvListener listener: listeners) {
+            listener.envChanged();
+        }
+    }
+
     @Transactional
     public void saveMapEntries(String mapName, JSONArray values, JSONObject meta) throws Exception {
+        if (envValues.contains(mapName)) {
+            envUpdate();
+        }
         long id = elementHashCode(mapName);
         MapResource mapResource = mapResourceRepository.findByMapResourceId(id);
         if (mapResource == null) {
@@ -974,6 +983,9 @@ public class ResourceModel {
 
 
     public void saveMapResource(String mapName, String packageName, JSONObject data, String owner, String access) {
+        if (envValues.contains(mapName)) {
+            envUpdate();
+        }
         long id = elementHashCode(mapName);
         MapResource mapResource = new MapResource();
         mapResource.mapResourceId = id;
