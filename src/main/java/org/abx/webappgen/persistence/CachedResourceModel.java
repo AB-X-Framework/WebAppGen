@@ -129,8 +129,6 @@ public class CachedResourceModel {
         resourceChanged(resourceId);
     }
 
-
-    @Transactional
     public String cacheResource(String resourceName) {
         if (!resourceName.startsWith(CachedResource)) {
             return resourceName;

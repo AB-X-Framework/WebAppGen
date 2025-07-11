@@ -327,9 +327,7 @@ public class PageModel {
         for (EnvValue scriptValue : page.scripts) {
             if (matchesEnv(scriptValue.env, env)) {
                 String value = scriptValue.envValue;
-                if (value.startsWith(CachedResource)) {
-                    scripts.put(cachedResourceModel.cacheResource(value));
-                }
+                scripts.put( cachedResourceModel.cacheResource(value));
             }
         }
         JSONArray css = new JSONArray();
@@ -337,9 +335,7 @@ public class PageModel {
         for (EnvValue cssValue : page.css) {
             if (matchesEnv(cssValue.env, env)) {
                 String value = cssValue.envValue;
-                if (value.startsWith(CachedResource)) {
-                    scripts.put(cachedResourceModel.cacheResource(value));
-                }
+                css.put(cachedResourceModel.cacheResource(value));
             }
         }
         JSONObject global = new JSONObject();
