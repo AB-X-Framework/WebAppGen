@@ -33,6 +33,11 @@ public class BinaryResourceModel {
     }
 
 
+
+    public JSONObject getBinaryResource(String resourceName) {
+        return getBinaryResource(elementHashCode(resourceName));
+    }
+
     public JSONObject getBinaryResource(long resourceId) {
         BinaryMeta meta = binaryCache.get(resourceId);
         if (meta == null) {

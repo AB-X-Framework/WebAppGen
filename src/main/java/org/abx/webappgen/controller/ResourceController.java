@@ -2,8 +2,10 @@ package org.abx.webappgen.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.abx.util.Pair;
+import org.abx.webappgen.persistence.BinaryResourceModel;
 import org.abx.webappgen.persistence.ResourceModel;
 import org.abx.webappgen.persistence.UserModel;
+import org.abx.webappgen.persistence.dao.BinaryResourceRepository;
 import org.abx.webappgen.persistence.dao.UserRepository;
 import org.abx.webappgen.persistence.model.BinaryResource;
 import org.abx.webappgen.persistence.model.ResourceData;
@@ -31,8 +33,13 @@ public class ResourceController extends RoleController {
     private static final Tika tika = new Tika();
     @Autowired
     private ResourceModel resourceModel;
+
+    @Autowired
+    private BinaryResourceModel binaryResourceModel;
+
     @Autowired
     private UserRepository userRepository;
+
     @Autowired
     private UserModel userModel;
 
@@ -604,7 +611,7 @@ public class ResourceController extends RoleController {
 
         // Remove the prefix "/binaries/"
         String resource = path.replaceFirst("/resources/binaries/", "");
-        return resourceModel.getBinaryResource(resource).toString();
+        return binaryResourceModel.getBinaryResource(resource).toString();
     }
 
     @Secured("Admin")
@@ -618,7 +625,7 @@ public class ResourceController extends RoleController {
         String resource = path.replaceFirst("/resources/binaries/", "");
         JSONObject status = new JSONObject();
         try {
-            resourceModel.deleteBinaryResource(resource);
+            binaryResourceModel.deleteBinaryResource(resource);
             status.put("success", true);
         } catch (Exception e) {
             status.put("success", false);
@@ -664,7 +671,7 @@ public class ResourceController extends RoleController {
         // Remove the prefix "/binaries/"
         String resource = path.replaceFirst("/resources/binary/", "");
         Set<String> roles = getRoles();
-        ResourceData fileContent = resourceModel.getBinaryResource(resource, username, roles);
+        ResourceData fileContent = binaryResourceModel.getBinaryResource(resource, username, roles);
         if (fileContent == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -698,7 +705,7 @@ public class ResourceController extends RoleController {
             if (owner == null) {
                 owner = request.getUserPrincipal().getName();
             }
-            resourceModel.saveBinaryResource(name, packageName, owner, contentType, access);
+            binaryResourceModel.saveBinaryResource(name, packageName, owner, contentType, access);
             status.put("success", true);
             status.put("package", packageName);
         } catch (Exception e) {
@@ -723,8 +730,8 @@ public class ResourceController extends RoleController {
             if (owner == null) {
                 owner = request.getUserPrincipal().getName();
             }
-            resourceModel.saveBinaryResource(name, packageName, owner, contentType, access);
-            resourceModel.upload(name, content.getBytes());
+            binaryResourceModel.saveBinaryResource(name, packageName, owner, contentType, access);
+            binaryResourceModel.upload(name, content.getBytes());
             status.put("success", true);
             status.put("package", packageName);
             status.put("owner", owner);
@@ -749,8 +756,8 @@ public class ResourceController extends RoleController {
             byte[] bytes = data.getBytes();
             String role = "Anonymous";
             String contentType = tika.detect(bytes);
-            resourceModel.saveBinaryResource(name, packageName, owner, contentType, role);
-            resourceModel.upload(name, bytes);
+            binaryResourceModel.saveBinaryResource(name, packageName, owner, contentType, role);
+            binaryResourceModel.upload(name, bytes);
             status.put("package", packageName);
             status.put("owner", owner);
             status.put("contentType", contentType);
@@ -773,7 +780,7 @@ public class ResourceController extends RoleController {
         JSONObject status = new JSONObject();
         try {
             byte[] bytes = data.getBytes();
-            resourceModel.upload(name, bytes);
+            binaryResourceModel.upload(name, bytes);
             status.put("success", true);
         } catch (Exception e) {
             status.put("success", false);
