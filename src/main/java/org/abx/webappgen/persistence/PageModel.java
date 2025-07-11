@@ -3,6 +3,7 @@ package org.abx.webappgen.persistence;
 import org.abx.webappgen.controller.SessionEnv;
 import org.abx.webappgen.persistence.dao.*;
 import org.abx.webappgen.persistence.model.*;
+import org.hibernate.engine.jdbc.BinaryStream;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
+import static org.abx.webappgen.persistence.BinaryResourceModel.BinaryResources;
 import static org.abx.webappgen.persistence.ResourceModel.AppEnv;
 import static org.abx.webappgen.persistence.ResourceModel.AppTheme;
 import static org.abx.webappgen.utils.ElementUtils.*;
@@ -322,7 +324,10 @@ public class PageModel {
         jsonPage.put(Scripts, scripts);
         for (EnvValue scriptValue : page.scripts) {
             if (matchesEnv(scriptValue.env, env)) {
-                scripts.put(scriptValue.envValue);
+                String value = scriptValue.envValue;
+                if (value.startsWith(BinaryResources)) {
+                    scripts.put(scriptValue.envValue);
+                }
             }
         }
         JSONArray css = new JSONArray();

@@ -18,6 +18,7 @@ import java.security.MessageDigest;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static org.abx.webappgen.persistence.cache.ResourceCache.CachedResource;
 import static org.abx.webappgen.utils.ElementUtils.*;
 
 @Component
@@ -321,10 +322,10 @@ public class ResourceModel {
 
     @Transactional
     public String cacheResource(String resourceName) {
-        if (!resourceName.startsWith("::resources:")) {
+        if (!resourceName.startsWith(CachedResource)) {
             return resourceName;
         }
-        resourceName = resourceName.substring(12);
+        resourceName = resourceName.substring(CachedResource.length());
         int index = resourceName.indexOf('/');
         String resourceType = resourceName.substring(0, index);
         resourceName = resourceName.substring(index + 1);
