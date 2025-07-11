@@ -7,5 +7,7 @@ public class BinaryMeta {
     public File file;
     public String access;
     public String owner;
+    public String resourceName;
+    public String packageName;
     public String contentType;
 }

@@ -249,18 +249,39 @@ public class ResourceModel {
         return jsonText;
     }
 
-    @Transactional
     public JSONObject getBinaryResource(String resourceName) {
-        BinaryResource binaryResource = binaryResourceRepository.findByBinaryResourceId(elementHashCode(resourceName));
+        return getBinaryResource(elementHashCode(resourceName));
+    }
+
+    public JSONObject getBinaryResource(long resourceId) {
+        BinaryMeta meta = binaryCache.get(resourceId);
+        if (meta == null) {
+            return getBinaryResourceAux(resourceId);
+        }
+        JSONObject jsonText = new JSONObject();
+        jsonText.put("access", meta.access);
+        jsonText.put("name", meta.resourceName);
+        jsonText.put("package", meta.packageName);
+        jsonText.put("hashcode", meta.hashcode);
+        jsonText.put("owner", meta.owner);
+        jsonText.put("contentType", meta.contentType);
+        return jsonText;
+    }
+
+    @Transactional
+    public JSONObject getBinaryResourceAux(long resourceId) {
+        BinaryResource binaryResource = binaryResourceRepository.findByBinaryResourceId(resourceId);
         if (binaryResource == null) {
             return null;
         }
+        binaryCache.add(resourceId, toBinaryMeta(binaryResource));
         JSONObject jsonText = new JSONObject();
         jsonText.put("access", binaryResource.access);
         jsonText.put("name", binaryResource.resourceName);
         jsonText.put("package", binaryResource.packageName);
         jsonText.put("owner", binaryResource.owner);
         jsonText.put("contentType", binaryResource.contentType);
+        jsonText.put("hashcode", binaryResource.hashcode);
         return jsonText;
     }
 
@@ -407,7 +428,9 @@ public class ResourceModel {
         binaryMeta.contentType = binaryResource.contentType;
         binaryMeta.hashcode = binaryResource.hashcode;
         binaryMeta.access = binaryResource.access;
+        binaryMeta.resourceName = binaryResource.resourceName;
         binaryMeta.owner = binaryResource.owner;
+        binaryMeta.packageName = binaryResource.packageName;
         try {
             File f = File.createTempFile("binary", ".tmp");
             f.deleteOnExit();
@@ -459,7 +482,7 @@ public class ResourceModel {
         binaryResource.packageName = packageName;
         binaryResource.resourceName = resourceName;
         binaryResourceRepository.save(binaryResource);
-        binaryCache.add(id,toBinaryMeta(binaryResource));
+        binaryCache.add(id, toBinaryMeta(binaryResource));
         resourceChanged(id);
     }
 
@@ -488,11 +511,11 @@ public class ResourceModel {
         binaryResource.hashcode = hashToLong(data);
         binaryResource.resourceValue = data;
         binaryResourceRepository.save(binaryResource);
-        binaryCache.add(id,toBinaryMeta(binaryResource));
+        binaryCache.add(id, toBinaryMeta(binaryResource));
         resourceChanged(id);
     }
 
-    private void resourceChanged(long id){
+    private void resourceChanged(long id) {
         Set<EnvListener> list = resourceListener.get(id);
         if (list != null) {
             for (EnvListener listener : list) {

@@ -1,5 +1,6 @@
 package org.abx.webappgen.controller;
 
+import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.abx.webappgen.persistence.EnvListener;
@@ -53,6 +54,11 @@ public class PageController extends RoleController implements EnvListener {
         pageTemplates = new HashMap<>();
     }
 
+    @PostConstruct
+    public void post() {
+        resourceModel.addEnvListener(this);
+    }
+
     @GetMapping(value = "/**", produces = MediaType.TEXT_HTML_VALUE)
     @PreAuthorize("permitAll()")
     public Object page(HttpSession session, HttpServletRequest request) {
@@ -97,12 +103,12 @@ public class PageController extends RoleController implements EnvListener {
     protected ST createPageTemplate(String laf) {
         String value = mapEntryRepository.findByMapEntryId(mapHashCode(AppEnv, "laf." + laf)).mapValue;
         long resourceId = elementHashCode(value);
-        resourceModel.addResourceListener(resourceId,this);
+        resourceModel.addResourceListener(resourceId, this);
         byte[] data = binaryResourceRepository.findByBinaryResourceId(resourceId).resourceValue;
-        return new ST(new String(data), '{', '}');
+        return encode(new String(data));
     }
 
-    private String encode(String template) {
+    private ST encode(String template) {
         Pattern p = Pattern.compile("(?<!\\\\)\\{([^}]+)\\}");
         Matcher m = p.matcher(template);
 
@@ -110,13 +116,17 @@ public class PageController extends RoleController implements EnvListener {
         while (m.find()) {
             attrs.add(m.group(1).trim());
         }
+        ST st = new ST(new String(template), '{', '}');
         for (String attr : attrs) {
-            if (attr.startsWith(BinaryResources)){
+            if (attr.startsWith(BinaryResources)) {
                 String resource = attr.substring(BinaryResources.length());
                 long id = elementHashCode(resource);
-                resourceModel.addResourceListener(id,this);
+                resourceModel.addResourceListener(id, this);
+                long hash = resourceModel.getBinaryResource(resource).getLong("hashcode");
+                st.add(attr, "/resources/binary/" + resource + "?hc=" + hash);
             }
         }
+        return st;
     }
 
 
