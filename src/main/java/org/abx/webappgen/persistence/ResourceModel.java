@@ -18,7 +18,7 @@ import java.security.MessageDigest;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static org.abx.webappgen.persistence.cache.ResourceCache.CachedResource;
+import static org.abx.webappgen.persistence.CachedResourceModel.CachedResource;
 import static org.abx.webappgen.utils.ElementUtils.*;
 
 @Component

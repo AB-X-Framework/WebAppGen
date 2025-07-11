@@ -3,7 +3,7 @@ package org.abx.webappgen.controller;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import org.abx.webappgen.persistence.BinaryResourceModel;
+import org.abx.webappgen.persistence.CachedResourceModel;
 import org.abx.webappgen.persistence.EnvListener;
 import org.abx.webappgen.persistence.PageModel;
 import org.abx.webappgen.persistence.ResourceModel;
@@ -25,7 +25,7 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static org.abx.webappgen.persistence.BinaryResourceModel.BinaryResources;
+import static org.abx.webappgen.persistence.CachedResourceModel.BinaryResources;
 import static org.abx.webappgen.persistence.ResourceModel.AppEnv;
 import static org.abx.webappgen.utils.ElementUtils.elementHashCode;
 import static org.abx.webappgen.utils.ElementUtils.mapHashCode;
@@ -41,7 +41,7 @@ public class PageController extends RoleController implements EnvListener {
     public ResourceModel resourceModel;
 
     @Autowired
-    public BinaryResourceModel binaryResourceModel;
+    public CachedResourceModel cachedResourceModel;
 
     @Autowired
     private BinaryResourceRepository binaryResourceRepository;
@@ -103,7 +103,7 @@ public class PageController extends RoleController implements EnvListener {
     protected ST createPageTemplate(String laf) {
         String value = mapEntryRepository.findByMapEntryId(mapHashCode(AppEnv, "laf." + laf)).mapValue;
         long resourceId = elementHashCode(value);
-        binaryResourceModel.addResourceListener(resourceId, this);
+        cachedResourceModel.addResourceListener(resourceId, this);
         byte[] data = binaryResourceRepository.findByBinaryResourceId(resourceId).resourceValue;
         return encode(new String(data));
     }
@@ -117,8 +117,8 @@ public class PageController extends RoleController implements EnvListener {
             if (attr.startsWith(BinaryResources)) {
                 String resource = attr.substring(BinaryResources.length());
                 long id = elementHashCode(resource);
-                binaryResourceModel.addResourceListener(id, this);
-                long hash = binaryResourceModel.getBinaryResource(id).getLong("hashcode");
+                cachedResourceModel.addResourceListener(id, this);
+                long hash = cachedResourceModel.getBinaryResource(id).getLong("hashcode");
                 template = template.replace("{"+attr+"}", "/resources/binary/" + resource + "?hc=" + hash);
             }
         }

@@ -4,7 +4,6 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class ResourceCache<V> {
-    public static final String CachedResource = "::resources:";
 
     private static class CacheEntry<V> {
         int timestamp;

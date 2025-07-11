@@ -17,8 +17,9 @@ import static org.abx.webappgen.persistence.ResourceModel.validAccess;
 import static org.abx.webappgen.utils.ElementUtils.elementHashCode;
 
 @Component
-public class BinaryResourceModel {
+public class CachedResourceModel {
 
+    public static final String CachedResource = "::resources:";
     public static final String BinaryResources = "::resources:binary/";
 
     private final Map<Long, Set<EnvListener>> resourceListener;
@@ -29,7 +30,7 @@ public class BinaryResourceModel {
     @Autowired
     ResourceModel resourceModel;
 
-    public BinaryResourceModel() {
+    public CachedResourceModel() {
         resourceListener = new HashMap<>();
     }
 

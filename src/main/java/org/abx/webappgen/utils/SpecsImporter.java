@@ -3,7 +3,7 @@ package org.abx.webappgen.utils;
 import jakarta.annotation.PostConstruct;
 import jakarta.transaction.Transactional;
 import org.abx.util.StreamUtils;
-import org.abx.webappgen.persistence.BinaryResourceModel;
+import org.abx.webappgen.persistence.CachedResourceModel;
 import org.abx.webappgen.persistence.PageModel;
 import org.abx.webappgen.persistence.ResourceModel;
 import org.abx.webappgen.persistence.dao.ComponentRepository;
@@ -23,7 +23,6 @@ import org.springframework.stereotype.Component;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.security.MessageDigest;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -68,7 +67,7 @@ public class SpecsImporter {
     private ComponentRepository componentRepository;
 
     @Autowired
-    private BinaryResourceModel binaryResourceModel;
+    private CachedResourceModel cachedResourceModel;
 
     @PostConstruct
     public void init() throws Exception {
@@ -275,10 +274,10 @@ public class SpecsImporter {
                 String owner = jsonResource.getString("owner");
                 String file = specsPath + "/binary/" + name;
                 byte[] data = getBinaryData(file, fs);
-                binaryResourceModel.saveBinaryResource(name, packageName, owner,
+                cachedResourceModel.saveBinaryResource(name, packageName, owner,
                         jsonResource.getString("contentType"),
                         jsonResource.getString("access"));
-                binaryResourceModel.upload(name, data);
+                cachedResourceModel.upload(name, data);
             }
         }
 

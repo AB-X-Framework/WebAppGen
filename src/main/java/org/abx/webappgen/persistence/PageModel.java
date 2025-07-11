@@ -3,7 +3,6 @@ package org.abx.webappgen.persistence;
 import org.abx.webappgen.controller.SessionEnv;
 import org.abx.webappgen.persistence.dao.*;
 import org.abx.webappgen.persistence.model.*;
-import org.hibernate.engine.jdbc.BinaryStream;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
-import static org.abx.webappgen.persistence.BinaryResourceModel.BinaryResources;
+import static org.abx.webappgen.persistence.CachedResourceModel.BinaryResources;
 import static org.abx.webappgen.persistence.ResourceModel.AppEnv;
 import static org.abx.webappgen.persistence.ResourceModel.AppTheme;
 import static org.abx.webappgen.utils.ElementUtils.*;
@@ -326,7 +325,7 @@ public class PageModel {
             if (matchesEnv(scriptValue.env, env)) {
                 String value = scriptValue.envValue;
                 if (value.startsWith(BinaryResources)) {
-                    scripts.put(scriptValue.envValue);
+                    scripts.put(resourceModel.cacheResource(scriptValue.envValue));
                 }
             }
         }
