@@ -24,8 +24,8 @@ import static org.abx.webappgen.utils.ElementUtils.*;
 @Component
 public class ResourceModel {
 
-    public static final String AppEnv ="app.Env";
-    public static final String AppTheme ="app.Theme";
+    public static final String AppEnv = "app.Env";
+    public static final String AppTheme = "app.Theme";
     private final Set<EnvListener> listeners;
     private final Set<String> envValues;
     @Autowired
