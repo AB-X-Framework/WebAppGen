@@ -813,7 +813,7 @@ public class ResourceController extends RoleController {
                 HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE
         );
         // Remove the prefix "/binaries/"
-        String resource = path.replaceFirst("/resources/binary/", "");
-        return cachedResourceModel.cachedResource(resource);
+        String resource = path.replaceFirst("/resources/cached/", "");
+        return cachedResourceModel.cachedResource(CachedResourceModel.CachedResource+resource);
     }
 }
