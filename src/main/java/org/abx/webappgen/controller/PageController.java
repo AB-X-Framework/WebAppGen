@@ -25,7 +25,7 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static org.abx.webappgen.persistence.CachedResourceModel.BinaryResources;
+import static org.abx.webappgen.persistence.CachedResourceModel.CachedResource;
 import static org.abx.webappgen.persistence.ResourceModel.AppEnv;
 import static org.abx.webappgen.utils.ElementUtils.elementHashCode;
 import static org.abx.webappgen.utils.ElementUtils.mapHashCode;
@@ -114,12 +114,8 @@ public class PageController extends RoleController implements EnvListener {
 
         while (m.find()) {
             String attr = m.group(1);
-            if (attr.startsWith(BinaryResources)) {
-                String resource = attr.substring(BinaryResources.length());
-                long id = elementHashCode(resource);
-                cachedResourceModel.addResourceListener(id, this);
-                long hash = cachedResourceModel.getBinaryResource(id).getLong("hashcode");
-                template = template.replace("{"+attr+"}", "/resources/binary/" + resource + "?hc=" + hash);
+            if (attr.startsWith(CachedResource)) {
+                template = template.replace("{"+attr+"}",  cachedResourceModel.cachedResource(attr));
             }
         }
         return new ST(template, '{', '}');
