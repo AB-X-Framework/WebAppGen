@@ -113,21 +113,17 @@ public class PageController extends RoleController implements EnvListener {
         Pattern p = Pattern.compile("(?<!\\\\)\\{([^}]+)\\}");
         Matcher m = p.matcher(template);
 
-        Set<String> attrs = new HashSet<>();
         while (m.find()) {
-            attrs.add(m.group(1).trim());
-        }
-        ST st = new ST(new String(template), '{', '}');
-        for (String attr : attrs) {
+            String attr = m.group(1);
             if (attr.startsWith(BinaryResources)) {
                 String resource = attr.substring(BinaryResources.length());
                 long id = elementHashCode(resource);
                 binaryResourceModel.addResourceListener(id, this);
                 long hash = binaryResourceModel.getBinaryResource(id).getLong("hashcode");
-                st.add(attr, "/resources/binary/" + resource + "?hc=" + hash);
+                template = template.replace("{"+attr+"}", "/resources/binary/" + resource + "?hc=" + hash);
             }
         }
-        return st;
+        return new ST(template, '{', '}');
     }
 
 
