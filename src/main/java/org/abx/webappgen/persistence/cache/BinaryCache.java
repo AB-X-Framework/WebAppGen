@@ -8,53 +8,24 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 @Component
-public class BinaryCache {
-    private final Map<Long, BinaryMeta> currentCache;
+public class BinaryCache extends ResourceCache<BinaryMeta> {
 
     public BinaryCache() {
-        currentCache = new HashMap<>();
+        super(1000);
     }
 
-    public void add(long id, String contentType, String owner, String access,
-                    byte[] data,long hashcode) {
+
+    public Pair<BinaryMeta, byte[]> getBinary(long id) {
+        BinaryMeta binaryMeta = get(id);
+        if (binaryMeta == null) {
+            return null;
+        }
         try {
-            File f = File.createTempFile("data", ".tmp");
-            f.deleteOnExit();
-            FileOutputStream stream = new FileOutputStream(f);
-            stream.write(data);
-            BinaryMeta meta = new BinaryMeta();
-            meta.hashcode = hashcode;
-            meta.file = f;
-            meta.contentType = contentType;
-            meta.access = access;
-            meta.username = owner;
-            currentCache.put(id, meta);
-            stream.close();
-        } catch (Exception e) {
-            //Will not add the cache
-        }
-    }
-
-    public void remove(long id) {
-        if (currentCache.containsKey(id)) {
-            currentCache.remove(id).file.delete();
-        }
-    }
-
-    public Pair<BinaryMeta, byte[]> get(long id) {
-        if (currentCache.containsKey(id)) {
-            BinaryMeta meta = currentCache.get(id);
-            try {
-                return new Pair(meta,
-                        StreamUtils.readByteArrayStream(new FileInputStream(meta.file)));
-            } catch (IOException e) {
-                return null;
-            }
-        } else {
+            byte[] data = StreamUtils.readByteArrayStream(new FileInputStream(binaryMeta.file));
+            return new Pair<>(binaryMeta, data);
+        } catch (IOException e) {
             return null;
         }
     }
