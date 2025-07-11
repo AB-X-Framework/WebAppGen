@@ -27,6 +27,7 @@ public class ResourceModel {
     public static final String AppEnv = "app.Env";
     public static final String AppTheme = "app.Theme";
     private final Set<EnvListener> listeners;
+    private final Map<Long, List<EnvListener>> resourceListener;
     private final Set<String> envValues;
     @Autowired
     TextResourceRepository textResourceRepository;
@@ -64,7 +65,15 @@ public class ResourceModel {
     public ResourceModel() {
         envValues = new HashSet<>();
         envValues.add(AppTheme);
-        listeners = new HashSet<EnvListener>();
+        listeners = new HashSet<>();
+        resourceListener = new HashMap<>();
+    }
+
+    public void add(long id, EnvListener listener) {
+        if (!resourceListener.containsKey(id)) {
+            resourceListener.put(id, new ArrayList<>());
+        }
+        resourceListener.get(id).add(listener);
     }
 
     public void addEnvListener(EnvListener listener) {
@@ -442,9 +451,6 @@ public class ResourceModel {
             binaryResource.binaryResourceId = id;
             binaryResource.resourceValue = data;
         }
-        /*binaryCache.add(hashToLong(data), binaryResource.contentType,
-                userRepository.findByUserId(binaryResource.owner).username,
-                binaryResource.access, data);*/
         binaryResource.hashcode = 0;
         binaryResource.contentType = contentType;
         binaryResource.owner = owner;
@@ -452,6 +458,8 @@ public class ResourceModel {
         binaryResource.packageName = packageName;
         binaryResource.resourceName = resourceName;
         binaryResourceRepository.save(binaryResource);
+        binaryCache.add(id,toBinaryMeta(binaryResource));
+        resourceChanged(id);
     }
 
     public static long hashToLong(byte[] data) {
@@ -476,13 +484,20 @@ public class ResourceModel {
         if (binaryResource == null) {
             throw new Exception("Binary not found");
         }
-        long hash = hashToLong(data);
-        binaryResource.hashcode = hash;
-        /*binaryCache.add(hash, binaryResource.contentType,
-                userRepository.findByUserId(binaryResource.owner).username,
-                binaryResource.access, data);*/
+        binaryResource.hashcode = hashToLong(data);
         binaryResource.resourceValue = data;
         binaryResourceRepository.save(binaryResource);
+        binaryCache.add(id,toBinaryMeta(binaryResource));
+        resourceChanged(id);
+    }
+
+    private void resourceChanged(long id){
+        List<EnvListener> list = resourceListener.get(id);
+        if (list != null) {
+            for (EnvListener listener : list) {
+                listener.envChanged();
+            }
+        }
     }
 
     private JSONArray hideDefaults(List<String> packages) {
@@ -943,8 +958,8 @@ public class ResourceModel {
         arrayPairEntryRepository.flush();
     }
 
-    private void envUpdate(){
-        for (EnvListener listener: listeners) {
+    private void envUpdate() {
+        for (EnvListener listener : listeners) {
             listener.envChanged();
         }
     }
