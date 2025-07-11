@@ -13,26 +13,29 @@ import java.util.Map;
 
 @Component
 public class BinaryCache {
-    private Map<Long, BinaryMeta> currentCache;
+    private final Map<Long, BinaryMeta> currentCache;
 
     public BinaryCache() {
         currentCache = new HashMap<>();
     }
 
-    public void add(long hashcode,String contentType,String owner,String access,
-                    byte[] data) throws IOException {
-        File f = File.createTempFile("data", ".tmp");
-        f.deleteOnExit();
-        try (FileOutputStream stream = new FileOutputStream(f)) {
+    public void add(long id, String contentType, String owner, String access,
+                    byte[] data,long hashcode) {
+        try {
+            File f = File.createTempFile("data", ".tmp");
+            f.deleteOnExit();
+            FileOutputStream stream = new FileOutputStream(f);
             stream.write(data);
             BinaryMeta meta = new BinaryMeta();
+            meta.hashcode = hashcode;
             meta.file = f;
             meta.contentType = contentType;
             meta.access = access;
             meta.username = owner;
-            currentCache.put(hashcode, meta);
-        } catch (IOException e){
-            //Will not add the caceh
+            currentCache.put(id, meta);
+            stream.close();
+        } catch (Exception e) {
+            //Will not add the cache
         }
     }
 
@@ -42,16 +45,16 @@ public class BinaryCache {
         }
     }
 
-    public Pair<BinaryMeta,byte[]> get(long id) {
+    public Pair<BinaryMeta, byte[]> get(long id) {
         if (currentCache.containsKey(id)) {
             BinaryMeta meta = currentCache.get(id);
             try {
                 return new Pair(meta,
                         StreamUtils.readByteArrayStream(new FileInputStream(meta.file)));
-            }catch (IOException e){
+            } catch (IOException e) {
                 return null;
             }
-        }else {
+        } else {
             return null;
         }
     }

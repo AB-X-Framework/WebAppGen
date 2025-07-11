@@ -3,6 +3,7 @@ import java.io.File;
 
 
 public class BinaryMeta {
+    public long hashcode;
     public File file;
     public String access;
     public String username;

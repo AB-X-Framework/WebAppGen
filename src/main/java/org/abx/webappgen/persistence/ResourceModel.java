@@ -1,6 +1,7 @@
 package org.abx.webappgen.persistence;
 
 import org.abx.webappgen.persistence.cache.BinaryCache;
+import org.abx.webappgen.persistence.cache.BinaryMeta;
 import org.abx.webappgen.persistence.dao.*;
 import org.abx.webappgen.persistence.model.*;
 import org.json.JSONArray;
@@ -52,8 +53,7 @@ public class ResourceModel {
     @Autowired
     private ArrayPairResourceRepository arrayPairResourceRepository;
 
-    @Autowired
-    private BinaryCache cache;
+
     @Autowired
     private BinaryCache binaryCache;
 
@@ -352,7 +352,7 @@ public class ResourceModel {
 
     @Transactional
     public String cacheResource(String resourceName) {
-        if (!resourceName.startsWith("::resources:")){
+        if (!resourceName.startsWith("::resources:")) {
             return resourceName;
         }
         resourceName = resourceName.substring(12);
@@ -362,13 +362,18 @@ public class ResourceModel {
         if (resourceType.equals("binary")) {
             BinaryResource binaryResource = binaryResourceRepository.findByBinaryResourceId(
                     elementHashCode(resourceName));
-            return "/resources/binary/"+binaryResource.resourceName+"?hc="+binaryResource.hashcode;
+            return "/resources/binary/" + binaryResource.resourceName + "?hc=" + binaryResource.hashcode;
         }
         throw new IllegalArgumentException("Invalid resource name: " + resourceName);
     }
 
-    @Transactional
+
     public ResourceData getBinaryResource(String resourceName, String username, Set<String> roles) {
+       throw new RuntimeException("");// if (binaryCache.)
+    }
+
+    @Transactional
+    public ResourceData getBinaryResourceAux(String resourceName, String username, Set<String> roles) {
         BinaryResource binaryResource = binaryResourceRepository.findByBinaryResourceId(
                 elementHashCode(resourceName));
         if (binaryResource == null) {
@@ -407,12 +412,16 @@ public class ResourceModel {
     public void saveBinaryResource(String resourceName, String packageName, String owner,
                                    String contentType, String access) {
         long id = elementHashCode(resourceName);
+        byte [] data = new byte[0];
         BinaryResource binaryResource = binaryResourceRepository.findByBinaryResourceId(id);
         if (binaryResource == null) {
             binaryResource = new BinaryResource();
             binaryResource.binaryResourceId = id;
-            binaryResource.resourceValue = new byte[0];
+            binaryResource.resourceValue = data;
         }
+        /*binaryCache.add(hashToLong(data), binaryResource.contentType,
+                userRepository.findByUserId(binaryResource.owner).username,
+                binaryResource.access, data);*/
         binaryResource.hashcode = 0;
         binaryResource.contentType = contentType;
         binaryResource.owner = elementHashCode(owner);
@@ -446,8 +455,10 @@ public class ResourceModel {
         }
         binaryCache.remove(binaryResource.hashcode);
         long hash = hashToLong(data);
-        binaryResource.hashcode =hash;
-        binaryCache.add(data,hash);
+        binaryResource.hashcode = hash;
+        /*binaryCache.add(hash, binaryResource.contentType,
+                userRepository.findByUserId(binaryResource.owner).username,
+                binaryResource.access, data);*/
         binaryResource.resourceValue = data;
         binaryResourceRepository.save(binaryResource);
     }
