@@ -26,8 +26,8 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static org.abx.webappgen.persistence.BinaryResourceModel.BinaryResources;
 import static org.abx.webappgen.persistence.ResourceModel.AppEnv;
-import static org.abx.webappgen.persistence.ResourceModel.BinaryResources;
 import static org.abx.webappgen.utils.ElementUtils.elementHashCode;
 import static org.abx.webappgen.utils.ElementUtils.mapHashCode;
 
@@ -104,7 +104,7 @@ public class PageController extends RoleController implements EnvListener {
     protected ST createPageTemplate(String laf) {
         String value = mapEntryRepository.findByMapEntryId(mapHashCode(AppEnv, "laf." + laf)).mapValue;
         long resourceId = elementHashCode(value);
-        resourceModel.addResourceListener(resourceId, this);
+        binaryResourceModel.addResourceListener(resourceId, this);
         byte[] data = binaryResourceRepository.findByBinaryResourceId(resourceId).resourceValue;
         return encode(new String(data));
     }
@@ -122,7 +122,7 @@ public class PageController extends RoleController implements EnvListener {
             if (attr.startsWith(BinaryResources)) {
                 String resource = attr.substring(BinaryResources.length());
                 long id = elementHashCode(resource);
-                resourceModel.addResourceListener(id, this);
+                binaryResourceModel.addResourceListener(id, this);
                 long hash = binaryResourceModel.getBinaryResource(id).getLong("hashcode");
                 st.add(attr, "/resources/binary/" + resource + "?hc=" + hash);
             }
