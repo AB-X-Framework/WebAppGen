@@ -7,6 +7,7 @@ import org.abx.webappgen.persistence.model.ResourceData;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -30,7 +31,8 @@ public class CachedResourceModel {
 
     public void upload(String resourceName, byte[] data) throws Exception {
         long id = elementHashCode(resourceName);
-        resourceModel.upload(id, data);
+        BinaryMeta meta = resourceModel.upload(id, data);
+        binaryCache.add(id, meta);
     }
 
 
@@ -39,6 +41,19 @@ public class CachedResourceModel {
         if (meta == null) {
             return getBinaryResourceAux(resourceId);
         }
+        return getJsonObject(meta);
+    }
+
+    private JSONObject getBinaryResourceAux(long resourceId) {
+        BinaryMeta meta = resourceModel.getBinaryResource(resourceId).first;
+        if (meta == null) {
+            return null;
+        }
+        binaryCache.add(resourceId, meta);
+        return getJsonObject(meta);
+    }
+
+    private JSONObject getJsonObject(BinaryMeta meta) {
         JSONObject jsonText = new JSONObject();
         jsonText.put("access", meta.access);
         jsonText.put("name", meta.resourceName);
@@ -46,22 +61,6 @@ public class CachedResourceModel {
         jsonText.put("hashcode", meta.hashcode);
         jsonText.put("owner", meta.owner);
         jsonText.put("contentType", meta.contentType);
-        return jsonText;
-    }
-
-    private JSONObject getBinaryResourceAux(long resourceId) {
-        BinaryMeta binaryResource = resourceModel.getBinaryResource(resourceId).first;
-        if (binaryResource == null) {
-            return null;
-        }
-        binaryCache.add(resourceId, binaryResource);
-        JSONObject jsonText = new JSONObject();
-        jsonText.put("access", binaryResource.access);
-        jsonText.put("name", binaryResource.resourceName);
-        jsonText.put("package", binaryResource.packageName);
-        jsonText.put("owner", binaryResource.owner);
-        jsonText.put("contentType", binaryResource.contentType);
-        jsonText.put("hashcode", binaryResource.hashcode);
         return jsonText;
     }
 
@@ -82,5 +81,14 @@ public class CachedResourceModel {
             return null;
         }
         return new ResourceData(binaryMeta.contentType, cached.second, binaryMeta.hashcode);
+    }
+
+
+    public void saveBinaryResource(String resourceName, String packageName, String owner,
+                                   String contentType, String access) {
+        BinaryMeta meta = resourceModel.saveBinaryResource(resourceName, packageName, owner,
+                contentType, access);
+        long resourceId = elementHashCode(resourceName);
+        binaryCache.add(resourceId, meta);
     }
 }

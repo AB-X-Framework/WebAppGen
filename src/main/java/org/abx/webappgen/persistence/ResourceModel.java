@@ -367,24 +367,6 @@ public class ResourceModel {
         throw new IllegalArgumentException("Invalid resource name: " + resourceName);
     }
 
-
-    @Transactional
-    public ResourceData getBinaryResourceAux(String resourceName, String username, Set<String> roles) {
-        long id = elementHashCode(resourceName);
-        BinaryResource binaryResource = binaryResourceRepository.findByBinaryResourceId(id);
-        if (binaryResource == null) {
-            return null;
-        }
-        BinaryMeta binaryMeta = toBinaryMeta(binaryResource);
-        if (binaryMeta != null) {
-            binaryCache.add(id, binaryMeta);
-        }
-        if (!validAccess(binaryResource.access, binaryResource.owner, username, roles)) {
-            return null;
-        }
-        return new ResourceData(binaryResource.contentType, binaryResource.resourceValue, binaryResource.hashcode);
-    }
-
     private BinaryMeta toBinaryMeta(BinaryResource binaryResource) {
         BinaryMeta binaryMeta = new BinaryMeta();
         binaryMeta.contentType = binaryResource.contentType;
@@ -428,7 +410,7 @@ public class ResourceModel {
     }
 
     @Transactional
-    public void saveBinaryResource(String resourceName, String packageName, String owner, String contentType, String access) {
+    public BinaryMeta saveBinaryResource(String resourceName, String packageName, String owner, String contentType, String access) {
         long id = elementHashCode(resourceName);
         byte[] data = new byte[0];
         BinaryResource binaryResource = binaryResourceRepository.findByBinaryResourceId(id);
@@ -444,8 +426,8 @@ public class ResourceModel {
         binaryResource.packageName = packageName;
         binaryResource.resourceName = resourceName;
         binaryResourceRepository.save(binaryResource);
-        binaryCache.add(id, toBinaryMeta(binaryResource));
         resourceChanged(id);
+        return toBinaryMeta(binaryResource);
     }
 
     public static long hashToLong(byte[] data) {
@@ -464,7 +446,7 @@ public class ResourceModel {
     }
 
     @Transactional
-    public void upload(long id, byte[] data) throws Exception {
+    public BinaryMeta upload(long id, byte[] data) throws Exception {
         BinaryResource binaryResource = binaryResourceRepository.findByBinaryResourceId(id);
         if (binaryResource == null) {
             throw new Exception("Binary not found");
@@ -473,6 +455,7 @@ public class ResourceModel {
         binaryResource.resourceValue = data;
         binaryResourceRepository.save(binaryResource);
         resourceChanged(id);
+        return toBinaryMeta(binaryResource);
     }
 
 
