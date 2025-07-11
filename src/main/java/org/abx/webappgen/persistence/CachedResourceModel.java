@@ -128,7 +128,7 @@ public class CachedResourceModel {
         resourceChanged(resourceId);
     }
 
-    public String cacheResource(String resourceName) {
+    public String cachedResource(String resourceName) {
         if (!resourceName.startsWith(CachedResource)) {
             return resourceName;
         }

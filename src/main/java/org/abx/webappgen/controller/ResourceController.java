@@ -806,4 +806,14 @@ public class ResourceController extends RoleController {
         return status.toString();
     }
 
+    @PreAuthorize("permitAll()")
+    @GetMapping("/cached/**")
+    public String cachedResource(HttpServletRequest request) {
+        String path = (String) request.getAttribute(
+                HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE
+        );
+        // Remove the prefix "/binaries/"
+        String resource = path.replaceFirst("/resources/binary/", "");
+        return cachedResourceModel.cachedResource(resource);
+    }
 }
