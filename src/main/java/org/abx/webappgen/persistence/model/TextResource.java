@@ -21,7 +21,7 @@ public class TextResource {
     public String title;
 
     @Column(nullable = false)
-    public long owner;
+    public String owner;
 
     @Column(nullable = false)
     public String access;

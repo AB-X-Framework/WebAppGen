@@ -21,7 +21,7 @@ public class BinaryResource {
     public String contentType;
 
     @Column(nullable = false)
-    public long owner;
+    public String owner;
 
     @Column(nullable = false)
     public String access;

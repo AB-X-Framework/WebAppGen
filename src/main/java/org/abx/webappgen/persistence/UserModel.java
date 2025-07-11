@@ -32,7 +32,6 @@ public class UserModel {
             user.password=passwordEncoder.encode(password);
             user.enabled=true;
         }
-        user.userId = elementHashCode(username);
         user.role=role;
         userRepository.save(user);
     }

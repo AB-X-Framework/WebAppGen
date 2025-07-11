@@ -159,7 +159,6 @@ public class SpecsImporter {
             JSONObject jsonUser = jsonUsers.getJSONObject(i);
             User user = new User();
             user.username = jsonUser.getString("username");
-            user.userId = elementHashCode(user.username);
             user.password = jsonUser.getString("password");
             user.enabled = jsonUser.getBoolean("enabled");
             user.role = jsonUser.getString("role");

@@ -20,7 +20,7 @@ public class ArrayResource {
     public String resourceName;
 
     @Column(nullable = false)
-    public long owner;
+    public String owner;
 
     @Column(nullable = false)
     public String access;

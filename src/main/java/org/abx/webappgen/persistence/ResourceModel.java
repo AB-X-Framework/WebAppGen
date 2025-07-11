@@ -179,7 +179,7 @@ public class ResourceModel {
         jsonText.put("name", text.resourceName);
         jsonText.put("package", text.packageName);
         jsonText.put("content", text.resourceValue);
-        jsonText.put("owner", userRepository.findByUserId(text.owner).username);
+        jsonText.put("owner", text.owner);
         jsonText.put("access", text.access);
         return jsonText;
     }
@@ -247,7 +247,7 @@ public class ResourceModel {
         jsonText.put("access", binaryResource.access);
         jsonText.put("name", binaryResource.resourceName);
         jsonText.put("package", binaryResource.packageName);
-        jsonText.put("owner", userRepository.findByUserId(binaryResource.owner).username);
+        jsonText.put("owner", binaryResource.owner);
         jsonText.put("contentType", binaryResource.contentType);
         return jsonText;
     }
@@ -274,7 +274,7 @@ public class ResourceModel {
         text.title = content.getString("title");
         text.packageName = content.getString("package");
         text.resourceValue = content.getString("content");
-        text.owner = elementHashCode(content.getString("owner"));
+        text.owner = content.getString("owner");
         text.access = content.getString("access");
         textResourceRepository.save(text);
     }
@@ -335,12 +335,11 @@ public class ResourceModel {
     }
 
 
-    private boolean validAccess(String accesss, long owner, String username, Set<String> roles) {
+    private boolean validAccess(String accesss, String owner, String username, Set<String> roles) {
         if (Anonymous.equals(accesss)) {
             return true;
         }
-        long userId = elementHashCode(username);
-        if (userId == owner) {
+        if (username.equals(owner)) {
             return true;
         }
         if (roles.contains(Admin)) {
@@ -401,7 +400,7 @@ public class ResourceModel {
             binaryResource.contentType = contentType;
         }
         binaryResource.resourceValue = originalData.resourceValue;
-        binaryResource.owner = elementHashCode(owner);
+        binaryResource.owner = owner;
         binaryResource.access = originalData.access;
         binaryResource.packageName = packageName;
         binaryResource.resourceName = resourceName;
@@ -424,7 +423,7 @@ public class ResourceModel {
                 binaryResource.access, data);*/
         binaryResource.hashcode = 0;
         binaryResource.contentType = contentType;
-        binaryResource.owner = elementHashCode(owner);
+        binaryResource.owner =owner;
         binaryResource.access = access;
         binaryResource.packageName = packageName;
         binaryResource.resourceName = resourceName;
@@ -453,7 +452,6 @@ public class ResourceModel {
         if (binaryResource == null) {
             throw new Exception("Binary not found");
         }
-        binaryCache.remove(binaryResource.hashcode);
         long hash = hashToLong(data);
         binaryResource.hashcode = hash;
         /*binaryCache.add(hash, binaryResource.contentType,
@@ -612,7 +610,7 @@ public class ResourceModel {
             throw new Exception("Duplicate map entry");
         }
         mapResource = new MapResource();
-        mapResource.owner = userRepository.findByUsername(owner).userId;
+        mapResource.owner = owner;
         mapResource.access = "User";
         mapResource.packageName = packageName;
         mapResource.mapResourceId = id;
@@ -629,7 +627,7 @@ public class ResourceModel {
             throw new Exception("Duplicate map entry");
         }
         arrayResource = new ArrayResource();
-        arrayResource.owner = userRepository.findByUsername(owner).userId;
+        arrayResource.owner = owner;
         arrayResource.access = "User";
         arrayResource.packageName = packageName;
         arrayResource.arrayResourceId = id;
@@ -647,7 +645,7 @@ public class ResourceModel {
             throw new Exception("Duplicate map entry");
         }
         arrayResource = new ArrayPairResource();
-        arrayResource.owner = userRepository.findByUsername(owner).userId;
+        arrayResource.owner = owner;
         arrayResource.access = "User";
         arrayResource.packageName = packageName;
         arrayResource.arrayPairResourceId = id;
@@ -721,7 +719,7 @@ public class ResourceModel {
         }
         JSONObject mapJson = new JSONObject();
         mapJson.put("count", getMapEntriesCount(mapName));
-        mapJson.put("owner", userRepository.findByUserId(mapResource.owner).username);
+        mapJson.put("owner", mapResource.owner);
         mapJson.put("access", mapResource.access);
         return mapJson;
     }
@@ -736,7 +734,7 @@ public class ResourceModel {
         }
         JSONObject arrayJson = new JSONObject();
         arrayJson.put("count", getArrayEntriesCount(arrayName));
-        arrayJson.put("owner", userRepository.findByUserId(arrayResource.owner).username);
+        arrayJson.put("owner", arrayResource.owner);
         arrayJson.put("access", arrayResource.access);
         return arrayJson;
     }
@@ -750,7 +748,7 @@ public class ResourceModel {
         }
         JSONObject arrayPairJson = new JSONObject();
         arrayPairJson.put("count", getArrayPairEntriesCount(arrayPairName));
-        arrayPairJson.put("owner", userRepository.findByUserId(arrayPairResource.owner).username);
+        arrayPairJson.put("owner", arrayPairResource.owner);
         arrayPairJson.put("access", arrayPairResource.access);
         return arrayPairJson;
     }
@@ -843,12 +841,13 @@ public class ResourceModel {
         if (arrayResource == null) {
             throw new Exception("Array resource not found");
         }
-        User user = userRepository.findByUsername(meta.getString("owner"));
+        String username = meta.getString("owner");
+        User user = userRepository.findByUsername(username);
         if (user == null) {
             throw new Exception("User not found");
         }
         arrayResource.access = meta.getString("access");
-        arrayResource.owner = user.userId;
+        arrayResource.owner = user.username;
         arrayResourceRepository.save(arrayResource);
         for (int i = 0; i < values.length(); i++) {
             JSONObject object = (JSONObject) values.get(i);
@@ -877,12 +876,13 @@ public class ResourceModel {
         if (arrayPairResource == null) {
             throw new Exception("ArrayPair resource not found");
         }
-        User user = userRepository.findByUsername(meta.getString("owner"));
+        String username = meta.getString("owner");
+        User user = userRepository.findByUsername(username);
         if (user == null) {
             throw new Exception("User not found");
         }
         arrayPairResource.access = meta.getString("access");
-        arrayPairResource.owner = user.userId;
+        arrayPairResource.owner = username;
         arrayPairResourceRepository.save(arrayPairResource);
         for (int i = 0; i < values.length(); i++) {
             JSONObject object = (JSONObject) values.get(i);
@@ -933,12 +933,13 @@ public class ResourceModel {
         if (mapResource == null) {
             throw new Exception("Map not found");
         }
-        User user = userRepository.findByUsername(meta.getString("owner"));
+        String username =  meta.getString("owner");
+        User user = userRepository.findByUsername(username);
         if (user == null) {
             throw new Exception("User not found");
         }
         mapResource.access = meta.getString("access");
-        mapResource.owner = user.userId;
+        mapResource.owner = username;
         mapResourceRepository.saveAndFlush(mapResource);
         for (int i = 0; i < values.length(); i++) {
             JSONObject object = (JSONObject) values.get(i);
@@ -962,7 +963,7 @@ public class ResourceModel {
         mapResource.mapResourceId = id;
         mapResource.resourceName = mapName;
         mapResource.packageName = packageName;
-        mapResource.owner = elementHashCode(owner);
+        mapResource.owner =owner;
         mapResource.access = access;
         mapResourceRepository.save(mapResource);
         for (String key : data.keySet()) {
@@ -988,7 +989,7 @@ public class ResourceModel {
         arrayResource.arrayResourceId = id;
         arrayResource.resourceName = resourceName;
         arrayResource.packageName = packageName;
-        arrayResource.owner = elementHashCode(owner);
+        arrayResource.owner = owner;
         arrayResource.access = access;
         arrayResourceRepository.save(arrayResource);
         for (int i = 0; i < data.length(); i++) {
@@ -1013,7 +1014,7 @@ public class ResourceModel {
         arrayPairResource.arrayPairResourceId = id;
         arrayPairResource.resourceName = resourceName;
         arrayPairResource.packageName = packageName;
-        arrayPairResource.owner = elementHashCode(owner);
+        arrayPairResource.owner = owner;
         arrayPairResource.access = access;
         arrayPairResourceRepository.save(arrayPairResource);
         for (int i = 0; i < data.length(); i++) {
@@ -1034,7 +1035,7 @@ public class ResourceModel {
         textResource.resourceValue = data;
         textResource.access = access;
         textResource.title = title;
-        textResource.owner = elementHashCode(owner);
+        textResource.owner = owner;
         textResource.packageName = packageName;
         textResource.resourceName = resourceName;
         textResourceRepository.save(textResource);

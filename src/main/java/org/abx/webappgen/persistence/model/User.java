@@ -3,15 +3,10 @@ package org.abx.webappgen.persistence.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "UserAccount", indexes = {
-        @Index(name = "idx_username", columnList = "username") // Index for better query performance
-})
+@Table(name = "UserAccount")
 public class User {
 
     @Id
-    @Column(unique = true, nullable = false)
-    public Long userId;
-
     @Column(nullable = false)
     public String username;
 
@@ -55,7 +50,6 @@ public class User {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append("User [id=")
-                .append(userId)
                 .append(", username=").append(username)
                 .append(", role=").append(role)
                 .append("]");

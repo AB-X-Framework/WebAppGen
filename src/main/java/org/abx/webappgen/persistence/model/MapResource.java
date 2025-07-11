@@ -26,5 +26,5 @@ public class MapResource {
     public String access;
 
     @Column(nullable = false)
-    public long owner;
+    public String owner;
 }
