@@ -40,8 +40,9 @@ public class PageController extends RoleController implements EnvListener {
 
     @Autowired
     public ResourceModel resourceModel;
+
     @Autowired
-    public BinaryResourceModel cachedResourceModel;
+    public BinaryResourceModel binaryResourceModel;
 
     @Autowired
     private BinaryResourceRepository binaryResourceRepository;
@@ -122,7 +123,7 @@ public class PageController extends RoleController implements EnvListener {
                 String resource = attr.substring(BinaryResources.length());
                 long id = elementHashCode(resource);
                 resourceModel.addResourceListener(id, this);
-                long hash = resourceModel.getBinaryResource(resource).getLong("hashcode");
+                long hash = binaryResourceModel.getBinaryResource(id).getLong("hashcode");
                 st.add(attr, "/resources/binary/" + resource + "?hc=" + hash);
             }
         }
