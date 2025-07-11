@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
-import static org.abx.webappgen.persistence.CachedResourceModel.BinaryResources;
+import static org.abx.webappgen.persistence.CachedResourceModel.CachedResource;
 import static org.abx.webappgen.persistence.ResourceModel.AppEnv;
 import static org.abx.webappgen.persistence.ResourceModel.AppTheme;
 import static org.abx.webappgen.utils.ElementUtils.*;
@@ -324,8 +324,8 @@ public class PageModel {
         for (EnvValue scriptValue : page.scripts) {
             if (matchesEnv(scriptValue.env, env)) {
                 String value = scriptValue.envValue;
-                if (value.startsWith(BinaryResources)) {
-                    scripts.put(resourceModel.cacheResource(scriptValue.envValue));
+                if (value.startsWith(CachedResource)) {
+                    scripts.put(resourceModel.cacheResource(value));
                 }
             }
         }
@@ -333,7 +333,10 @@ public class PageModel {
         jsonPage.put(CSS, css);
         for (EnvValue cssValue : page.css) {
             if (matchesEnv(cssValue.env, env)) {
-                css.put(cssValue.envValue);
+                String value = cssValue.envValue;
+                if (value.startsWith(CachedResource)) {
+                    scripts.put(resourceModel.cacheResource(value));
+                }
             }
         }
         JSONObject global = new JSONObject();
