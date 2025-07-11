@@ -8,6 +8,9 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import static org.abx.webappgen.persistence.ResourceModel.validAccess;
@@ -16,6 +19,10 @@ import static org.abx.webappgen.utils.ElementUtils.elementHashCode;
 @Component
 public class BinaryResourceModel {
 
+    public static final String BinaryResources = "::resources:binaries/";
+
+    private final Map<Long, Set<EnvListener>> resourceListener;
+
     @Autowired
     private BinaryCache binaryCache;
 
@@ -23,15 +30,31 @@ public class BinaryResourceModel {
     ResourceModel resourceModel;
 
     public BinaryResourceModel() {
+        resourceListener = new HashMap<>();
     }
 
+    public void addResourceListener(long id, EnvListener listener) {
+        if (!resourceListener.containsKey(id)) {
+            resourceListener.put(id, new HashSet<>());
+        }
+        resourceListener.get(id).add(listener);
+    }
+
+    private void resourceChanged(long id) {
+        Set<EnvListener> list = resourceListener.get(id);
+        if (list != null) {
+            for (EnvListener listener : list) {
+                listener.envChanged();
+            }
+        }
+    }
 
     public void upload(String resourceName, byte[] data) throws Exception {
         long id = elementHashCode(resourceName);
         BinaryMeta meta = resourceModel._upload(id, data);
         binaryCache.add(id, meta);
+        resourceChanged(id);
     }
-
 
 
     public JSONObject getBinaryResource(String resourceName) {
@@ -70,6 +93,7 @@ public class BinaryResourceModel {
         long resourceId = elementHashCode(resourceName);
         binaryCache.remove(resourceId);
         resourceModel._deleteBinaryResource(resourceId);
+        resourceChanged(resourceId);
     }
 
     public ResourceData getBinaryResource(String resourceName, String username, Set<String> roles) {
@@ -98,5 +122,6 @@ public class BinaryResourceModel {
                 contentType, access);
         long resourceId = elementHashCode(resourceName);
         binaryCache.add(resourceId, meta);
+        resourceChanged(resourceId);
     }
 }

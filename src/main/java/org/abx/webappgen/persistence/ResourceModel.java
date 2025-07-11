@@ -1,7 +1,6 @@
 package org.abx.webappgen.persistence;
 
 import org.abx.util.Pair;
-import org.abx.webappgen.persistence.cache.BinaryCache;
 import org.abx.webappgen.persistence.cache.BinaryMeta;
 import org.abx.webappgen.persistence.dao.*;
 import org.abx.webappgen.persistence.model.*;
@@ -24,11 +23,9 @@ import static org.abx.webappgen.utils.ElementUtils.*;
 @Component
 public class ResourceModel {
 
-    public static final String BinaryResources = "::resources:binaries/";
     public static final String AppEnv = "app.Env";
     public static final String AppTheme = "app.Theme";
     private final Set<EnvListener> listeners;
-    private final Map<Long, Set<EnvListener>> resourceListener;
     private final Set<String> envValues;
 
     @Autowired
@@ -66,28 +63,12 @@ public class ResourceModel {
         envValues = new HashSet<>();
         envValues.add(AppTheme);
         listeners = new HashSet<>();
-        resourceListener = new HashMap<>();
-    }
-
-    public void addResourceListener(long id, EnvListener listener) {
-        if (!resourceListener.containsKey(id)) {
-            resourceListener.put(id, new HashSet<>());
-        }
-        resourceListener.get(id).add(listener);
     }
 
     public void addEnvListener(EnvListener listener) {
         listeners.add(listener);
     }
 
-    private void resourceChanged(long id) {
-        Set<EnvListener> list = resourceListener.get(id);
-        if (list != null) {
-            for (EnvListener listener : list) {
-                listener.envChanged();
-            }
-        }
-    }
 
     @Transactional
     public JSONArray getMapEntries(String mapResourceName, int page, int size) {
@@ -996,7 +977,6 @@ public class ResourceModel {
         binaryResource.packageName = packageName;
         binaryResource.resourceName = resourceName;
         binaryResourceRepository.save(binaryResource);
-        resourceChanged(id);
         return toBinaryMeta(binaryResource);
     }
 
@@ -1010,7 +990,6 @@ public class ResourceModel {
         binaryResource.hashcode = hashToLong(data);
         binaryResource.resourceValue = data;
         binaryResourceRepository.save(binaryResource);
-        resourceChanged(id);
         return toBinaryMeta(binaryResource);
     }
     private BinaryMeta toBinaryMeta(BinaryResource binaryResource) {
