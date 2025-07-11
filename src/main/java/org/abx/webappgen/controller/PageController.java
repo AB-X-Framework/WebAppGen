@@ -2,7 +2,9 @@ package org.abx.webappgen.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import org.abx.webappgen.persistence.EnvListener;
 import org.abx.webappgen.persistence.PageModel;
+import org.abx.webappgen.persistence.ResourceModel;
 import org.abx.webappgen.persistence.dao.BinaryResourceRepository;
 import org.abx.webappgen.persistence.dao.MapEntryRepository;
 import org.abx.webappgen.utils.SpecsExporter;
@@ -22,12 +24,13 @@ import org.stringtemplate.v4.ST;
 import java.util.HashMap;
 import java.util.Set;
 
+import static org.abx.webappgen.persistence.ResourceModel.AppEnv;
 import static org.abx.webappgen.utils.ElementUtils.elementHashCode;
 import static org.abx.webappgen.utils.ElementUtils.mapHashCode;
 
 @RestController
 @RequestMapping("/page")
-public class PageController extends RoleController {
+public class PageController extends RoleController implements EnvListener {
 
     @Autowired
     public PageModel pageModel;
@@ -63,7 +66,7 @@ public class PageController extends RoleController {
         }
         Set<String> roles = getRoles();
         ST st1 = getPageTemplate(session);
-        String model= pageModel.getPageByPageMatchesId(roles, env(session),
+        String model = pageModel.getPageByPageMatchesId(roles, env(session),
                 elementHashCode(pagename)).toString(2);
         return st1.add("pagespecs", model).render();
     }
@@ -79,10 +82,14 @@ public class PageController extends RoleController {
         return new ST(pageTemplates.get(laf));
     }
 
+    @Override
+    public void envChanged() {
+        pageTemplates.clear();
+    }
 
     @Transactional
     protected ST createPageTemplate(String laf) {
-        String value = mapEntryRepository.findByMapEntryId(mapHashCode("app.Env", "laf." + laf)).mapValue;
+        String value = mapEntryRepository.findByMapEntryId(mapHashCode(AppEnv, "laf." + laf)).mapValue;
         long resourceId = elementHashCode(value);
         byte[] data = binaryResourceRepository.findByBinaryResourceId(resourceId).resourceValue;
         return new ST(new String(data), '{', '}');
