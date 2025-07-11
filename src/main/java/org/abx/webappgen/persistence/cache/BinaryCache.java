@@ -4,9 +4,7 @@ import org.abx.util.Pair;
 import org.abx.util.StreamUtils;
 import org.springframework.stereotype.Component;
 
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 
 @Component
@@ -28,5 +26,10 @@ public class BinaryCache extends ResourceCache<BinaryMeta> {
         } catch (IOException e) {
             return null;
         }
+    }
+
+    @Override
+    public void dispose(BinaryMeta binaryMeta) {
+        binaryMeta.file.delete();
     }
 }

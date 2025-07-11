@@ -13,6 +13,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -117,8 +119,7 @@ public class ResourceModel {
         ArrayPairResource arrayResource = arrayPairResourceRepository.findByArrayPairResourceId(resourceId);
         PageRequest pageRequest = PageRequest.of(page, size, Sort.by("arrayPairEntryId").ascending());
         // Use the custom query
-        org.springframework.data.domain.Page<ArrayPairEntry> pageResult =
-                arrayPairEntryRepository.findByArrayPairResourceId(resourceId, pageRequest);
+        org.springframework.data.domain.Page<ArrayPairEntry> pageResult = arrayPairEntryRepository.findByArrayPairResourceId(resourceId, pageRequest);
         JSONArray jsonArray = new JSONArray();
         for (ArrayPairEntry entry : pageResult.getContent()) {
             JSONObject jsonObject = new JSONObject();
@@ -136,8 +137,7 @@ public class ResourceModel {
         // Get the MapResource or throw if not found
         PageRequest pageRequest = PageRequest.of(page, size, Sort.by("username").ascending());
         // Use the custom query
-        org.springframework.data.domain.Page<User> pageResult =
-                userRepository.findAll(pageRequest);
+        org.springframework.data.domain.Page<User> pageResult = userRepository.findAll(pageRequest);
         JSONArray jsonArray = new JSONArray();
         for (User entry : pageResult.getContent()) {
             JSONObject jsonObject = new JSONObject();
@@ -162,9 +162,7 @@ public class ResourceModel {
      */
     @Transactional
     public JSONObject getTextResource(Set<String> roles, String resourceName) {
-        TextResource text = textResourceRepository.findByTextResourceId(
-                elementHashCode(resourceName)
-        );
+        TextResource text = textResourceRepository.findByTextResourceId(elementHashCode(resourceName));
 
         if (text == null) {
             return null;
@@ -187,9 +185,7 @@ public class ResourceModel {
 
     @Transactional
     public JSONObject getText(String resourceName, String username, Set<String> roles) {
-        TextResource text = textResourceRepository.findByTextResourceId(
-                elementHashCode(resourceName)
-        );
+        TextResource text = textResourceRepository.findByTextResourceId(elementHashCode(resourceName));
         if (text == null) {
             return null;
         }
@@ -204,9 +200,7 @@ public class ResourceModel {
 
     @Transactional
     public String getPlainText(String resourceName, String username, Set<String> roles) {
-        TextResource text = textResourceRepository.findByTextResourceId(
-                elementHashCode(resourceName)
-        );
+        TextResource text = textResourceRepository.findByTextResourceId(elementHashCode(resourceName));
         if (text == null) {
             return null;
         }
@@ -218,9 +212,7 @@ public class ResourceModel {
 
     @Transactional
     public JSONObject getMethodResource(String resourceName) {
-        MethodSpec methodSpec = methodSpecRepository.findByMethodSpecId(
-                elementHashCode(resourceName)
-        );
+        MethodSpec methodSpec = methodSpecRepository.findByMethodSpecId(elementHashCode(resourceName));
 
         if (methodSpec == null) {
             return null;
@@ -238,9 +230,7 @@ public class ResourceModel {
 
     @Transactional
     public JSONObject getBinaryResource(String resourceName) {
-        BinaryResource binaryResource = binaryResourceRepository.findByBinaryResourceId(
-                elementHashCode(resourceName)
-        );
+        BinaryResource binaryResource = binaryResourceRepository.findByBinaryResourceId(elementHashCode(resourceName));
         if (binaryResource == null) {
             return null;
         }
@@ -256,9 +246,7 @@ public class ResourceModel {
 
     @Transactional
     public void deleteBinaryResource(String resourceName) {
-        BinaryResource binaryResource = binaryResourceRepository.findByBinaryResourceId(
-                elementHashCode(resourceName)
-        );
+        BinaryResource binaryResource = binaryResourceRepository.findByBinaryResourceId(elementHashCode(resourceName));
         binaryResourceRepository.delete(binaryResource);
         binaryResourceRepository.flush();
     }
@@ -306,9 +294,7 @@ public class ResourceModel {
     @Transactional
     public JSONObject deleteText(String resourceName) {
         JSONObject result = new JSONObject();
-        TextResource text = textResourceRepository.findByTextResourceId(
-                elementHashCode(resourceName)
-        );
+        TextResource text = textResourceRepository.findByTextResourceId(elementHashCode(resourceName));
         if (text == null) {
             result.put("success", false);
             result.put("message", "Resource not found");
@@ -322,9 +308,7 @@ public class ResourceModel {
     @Transactional
     public JSONObject deleteMethod(String resourceName) {
         JSONObject result = new JSONObject();
-        MethodSpec method = methodSpecRepository.findByMethodSpecId(
-                elementHashCode(resourceName)
-        );
+        MethodSpec method = methodSpecRepository.findByMethodSpecId(elementHashCode(resourceName));
         if (method == null) {
             result.put("success", false);
             result.put("message", "Resource not found");
@@ -360,8 +344,7 @@ public class ResourceModel {
         String resourceType = resourceName.substring(0, index);
         resourceName = resourceName.substring(index + 1);
         if (resourceType.equals("binary")) {
-            BinaryResource binaryResource = binaryResourceRepository.findByBinaryResourceId(
-                    elementHashCode(resourceName));
+            BinaryResource binaryResource = binaryResourceRepository.findByBinaryResourceId(elementHashCode(resourceName));
             return "/resources/binary/" + binaryResource.resourceName + "?hc=" + binaryResource.hashcode;
         }
         throw new IllegalArgumentException("Invalid resource name: " + resourceName);
@@ -372,33 +355,53 @@ public class ResourceModel {
         long resourceId = elementHashCode(resourceName);
         Pair<BinaryMeta, byte[]> cached = binaryCache.getBinary(resourceId);
         if (cached == null) {
-            return getBinaryResource(resourceName, username, roles);
+            return getBinaryResourceAux(resourceName, username, roles);
         }
         BinaryMeta binaryMeta = cached.first;
         if (!validAccess(binaryMeta.access, binaryMeta.owner, username, roles)) {
             return null;
         }
-        return new ResourceData(binaryMeta.contentType,
-                cached.second, binaryMeta.hashcode);
+        return new ResourceData(binaryMeta.contentType, cached.second, binaryMeta.hashcode);
     }
 
     @Transactional
     public ResourceData getBinaryResourceAux(String resourceName, String username, Set<String> roles) {
-        BinaryResource binaryResource = binaryResourceRepository.findByBinaryResourceId(
-                elementHashCode(resourceName));
+        long id = elementHashCode(resourceName);
+        BinaryResource binaryResource = binaryResourceRepository.findByBinaryResourceId(id);
         if (binaryResource == null) {
             return null;
+        }
+        BinaryMeta binaryMeta = toBinaryMeta(binaryResource);
+        if (binaryMeta != null) {
+            binaryCache.add(id, binaryMeta);
         }
         if (!validAccess(binaryResource.access, binaryResource.owner, username, roles)) {
             return null;
         }
-        return new ResourceData(binaryResource.contentType,
-                binaryResource.resourceValue, binaryResource.hashcode);
+        return new ResourceData(binaryResource.contentType, binaryResource.resourceValue, binaryResource.hashcode);
+    }
+
+    private BinaryMeta toBinaryMeta(BinaryResource binaryResource) {
+        BinaryMeta binaryMeta = new BinaryMeta();
+        binaryMeta.contentType = binaryResource.contentType;
+        binaryMeta.hashcode = binaryResource.hashcode;
+        binaryMeta.access = binaryResource.access;
+        binaryMeta.owner = binaryResource.owner;
+        try {
+            File f = File.createTempFile("binary", ".tmp");
+            f.deleteOnExit();
+            FileOutputStream fos = new FileOutputStream(f);
+            fos.write(binaryResource.resourceValue);
+            fos.close();
+            binaryMeta.file = f;
+        } catch (Exception e) {
+            return null;
+        }
+        return binaryMeta;
     }
 
     @Transactional
-    public void cloneBinary(String original, String resourceName, String packageName, String owner,
-                            String contentType) {
+    public void cloneBinary(String original, String resourceName, String packageName, String owner, String contentType) {
         long originalId = elementHashCode(original);
         long id = elementHashCode(resourceName);
         BinaryResource originalData = binaryResourceRepository.findByBinaryResourceId(originalId);
@@ -419,8 +422,7 @@ public class ResourceModel {
     }
 
     @Transactional
-    public void saveBinaryResource(String resourceName, String packageName, String owner,
-                                   String contentType, String access) {
+    public void saveBinaryResource(String resourceName, String packageName, String owner, String contentType, String access) {
         long id = elementHashCode(resourceName);
         byte[] data = new byte[0];
         BinaryResource binaryResource = binaryResourceRepository.findByBinaryResourceId(id);
@@ -580,9 +582,7 @@ public class ResourceModel {
     public JSONArray getJSByPackageName(String packageName) {
         ArrayList<String> js = new ArrayList<>();
         binaryResourceRepository.findAllByPackageName(packageName).forEach((mapResource) -> {
-            if ("text/javascript".equals(mapResource.contentType) ||
-                    "application/json".equals(mapResource.contentType)
-                    || "text/css".equals(mapResource.contentType)) {
+            if ("text/javascript".equals(mapResource.contentType) || "application/json".equals(mapResource.contentType) || "text/css".equals(mapResource.contentType)) {
                 js.add(mapResource.resourceName);
             }
         });
@@ -650,8 +650,7 @@ public class ResourceModel {
     @Transactional
     public void createArrayPair(String packageName, String arrayPairName, String owner) throws Exception {
         long id = elementHashCode(arrayPairName);
-        ArrayPairResource arrayResource = arrayPairResourceRepository.findByArrayPairResourceId(
-                elementHashCode(arrayPairName));
+        ArrayPairResource arrayResource = arrayPairResourceRepository.findByArrayPairResourceId(elementHashCode(arrayPairName));
         if (arrayResource != null) {
             throw new Exception("Duplicate map entry");
         }
@@ -665,8 +664,7 @@ public class ResourceModel {
     }
 
     @Transactional
-    public JSONArray getArrayPair(String arrayPairName, String keyLabel, String valueLabel, String username,
-                                  Set<String> roles) {
+    public JSONArray getArrayPair(String arrayPairName, String keyLabel, String valueLabel, String username, Set<String> roles) {
         long id = elementHashCode(arrayPairName);
         ArrayPairResource arrayResource = arrayPairResourceRepository.findByArrayPairResourceId(id);
         if (arrayResource == null) {
@@ -800,15 +798,13 @@ public class ResourceModel {
     }
 
     public String getMapResource(String mapName, String key) {
-        return mapEntryRepository.findByMapEntryId(
-                elementHashCode(mapName + "." + key)).mapValue;
+        return mapEntryRepository.findByMapEntryId(elementHashCode(mapName + "." + key)).mapValue;
     }
 
 
     @Transactional
     public boolean deleteMapEntry(String mapName, String key) {
-        MapEntry entry = mapEntryRepository.findByMapEntryId(
-                elementHashCode(mapName + "." + key));
+        MapEntry entry = mapEntryRepository.findByMapEntryId(elementHashCode(mapName + "." + key));
         if (entry == null) {
             return false;
         }
@@ -937,8 +933,7 @@ public class ResourceModel {
     }
 
     @Transactional
-    public void saveMapEntries(String mapName, JSONArray values, JSONObject meta)
-            throws Exception {
+    public void saveMapEntries(String mapName, JSONArray values, JSONObject meta) throws Exception {
         long id = elementHashCode(mapName);
         MapResource mapResource = mapResourceRepository.findByMapResourceId(id);
         if (mapResource == null) {
@@ -967,8 +962,7 @@ public class ResourceModel {
     }
 
 
-    public void saveMapResource(String mapName, String packageName, JSONObject data,
-                                String owner, String access) {
+    public void saveMapResource(String mapName, String packageName, JSONObject data, String owner, String access) {
         long id = elementHashCode(mapName);
         MapResource mapResource = new MapResource();
         mapResource.mapResourceId = id;
@@ -987,8 +981,7 @@ public class ResourceModel {
         }
     }
 
-    public void saveArrayResource(String resourceName, String packageName, JSONArray data,
-                                  String owner, String access) {
+    public void saveArrayResource(String resourceName, String packageName, JSONArray data, String owner, String access) {
         long id = elementHashCode(resourceName);
         ArrayResource previous = arrayResourceRepository.findByArrayResourceId(id);
         if (previous != null) {
@@ -1012,8 +1005,7 @@ public class ResourceModel {
         }
     }
 
-    public void saveArrayPairResource(String resourceName, String packageName,
-                                      JSONArray data, String owner, String access) {
+    public void saveArrayPairResource(String resourceName, String packageName, JSONArray data, String owner, String access) {
         long id = elementHashCode(resourceName);
         ArrayPairResource previous = arrayPairResourceRepository.findByArrayPairResourceId(id);
         if (previous != null) {
@@ -1038,8 +1030,7 @@ public class ResourceModel {
         }
     }
 
-    public void saveTextResource(String resourceName, String owner,
-                                 String title, String packageName, String data, String access) {
+    public void saveTextResource(String resourceName, String owner, String title, String packageName, String data, String access) {
         long id = elementHashCode(resourceName);
         TextResource textResource = new TextResource();
         textResource.textResourceId = id;

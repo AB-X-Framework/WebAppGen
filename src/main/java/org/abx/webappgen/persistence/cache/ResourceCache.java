@@ -51,7 +51,11 @@ public class ResourceCache<V> {
 
         int half = Math.max(entries.size() / 2, 1); // At least remove one if over capacity
         for (int i = 0; i < half; i++) {
-            cache.remove(entries.get(i).getKey());
+            dispose(cache.remove(entries.get(i).getKey()).value);
         }
+    }
+
+    public void dispose(V value) {
+
     }
 }
