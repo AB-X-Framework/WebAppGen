@@ -10,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
+import static org.abx.webappgen.persistence.ResourceModel.AppEnv;
+import static org.abx.webappgen.persistence.ResourceModel.AppTheme;
 import static org.abx.webappgen.utils.ElementUtils.*;
 
 @org.springframework.stereotype.Component
@@ -100,14 +102,14 @@ public class PageModel {
     private ResourceModel resourceModel;
 
     public PageModel() {
-        envId = mapHashCode("app.Env", "home");
-        defaultEnv = mapHashCode("app.Env", "defaultEnv");
-        defaultThemeBase = mapHashCode("app.Theme", "theme.base");
-        defaultThemeOk = mapHashCode("app.Theme", "theme.ok");
-        defaultThemeText = mapHashCode("app.Theme", "theme.text");
-        defaultThemeUpdated = mapHashCode("app.Theme", "theme.updated");
-        defaultThemeCancel = mapHashCode("app.Theme", "theme.cancel");
-        defaultThemeTitle = mapHashCode("app.Theme", "theme.title");
+        envId = mapHashCode(AppEnv, "home");
+        defaultEnv = mapHashCode(AppEnv, "defaultEnv");
+        defaultThemeBase = mapHashCode(AppTheme, "theme.base");
+        defaultThemeOk = mapHashCode(AppTheme, "theme.ok");
+        defaultThemeText = mapHashCode(AppTheme, "theme.text");
+        defaultThemeUpdated = mapHashCode(AppTheme, "theme.updated");
+        defaultThemeCancel = mapHashCode(AppTheme, "theme.cancel");
+        defaultThemeTitle = mapHashCode(AppTheme, "theme.title");
     }
 
     @Transactional

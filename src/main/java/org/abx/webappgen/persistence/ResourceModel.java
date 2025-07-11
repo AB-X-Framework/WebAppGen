@@ -16,16 +16,18 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.security.MessageDigest;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static org.abx.webappgen.utils.ElementUtils.*;
 
 @Component
 public class ResourceModel {
+
+    public static final String AppEnv ="app.Env";
+    public static final String AppTheme ="app.Theme";
+    private final Set<EnvListener> listeners;
+    private final Set<String> envValues;
     @Autowired
     TextResourceRepository textResourceRepository;
 
@@ -59,6 +61,16 @@ public class ResourceModel {
 
     @Autowired
     private BinaryCache binaryCache;
+
+    public ResourceModel() {
+        envValues = new HashSet<>();
+        envValues.add(AppTheme);
+        listeners = new HashSet<EnvListener>();
+    }
+
+    public void addEnvListener(EnvListener listener) {
+        listeners.add(listener);
+    }
 
     @Transactional
     public JSONArray getMapEntries(String mapResourceName, int page, int size) {
